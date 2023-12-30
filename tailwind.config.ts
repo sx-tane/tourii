@@ -1,12 +1,20 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      colors:{
+        charcoal:'#21211b',
+        red: '#ae3111',
+        warmGrey: '#e3e3dc',
+        warmGrey2: '#d6d6cc',
+        warmGrey3: '#bfbfac',
+        mustard: '#b6ad33',
+      },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['Montserrat', 'sans-serif'],
+        secondary: ['LibertinusSans', 'sans-serif'],
       },
     },
   },
