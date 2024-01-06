@@ -1,4 +1,3 @@
-import { FC } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -12,7 +11,7 @@ type DropdownProps = {
   items: DropdownItem[];
 };
 
-const Dropdown: FC<DropdownProps> = ({ isOpen, items }) => (
+const Dropdown: React.FC<DropdownProps> = ({ isOpen, items }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
