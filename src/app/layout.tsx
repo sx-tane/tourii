@@ -8,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <link
           rel="apple-touch-icon"
@@ -41,7 +41,9 @@ export default function RootLayout({
         />{" "}
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <Suspense fallback={<Loading />}>{children}</Suspense>
+      <body>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </body>
     </html>
   );
 }

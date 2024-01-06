@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { FC, useState } from "react";
 
@@ -19,14 +20,15 @@ const navigation: NavItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
-  // { href: "/model-route", label: "MODEL ROUTE" },
-  { href: "https://twitter.com/TouriiJP", label: "X" },
-  { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
-  // {
-  //   href: "/social",
-  //   label: "SOCIAL MEDIA",
-  //   dropdown: [],
-  // },
+  { href: "/model-route", label: "MODEL ROUTE" },
+  {
+    href: "/social",
+    label: "SOCIAL MEDIA",
+    dropdown: [
+      { href: "https://twitter.com/TouriiJP", label: "X" },
+      { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+    ],
+  },
   { href: "/connect", label: "CONNECT" },
 ];
 
@@ -43,7 +45,7 @@ const Header: FC = () => {
   };
 
   return (
-    <header className="w-full px-5">
+    <div className="w-full px-5">
       <div className="w-full px-4 sm:px-6">
         <div className="flex items-center justify-between py-4">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -60,8 +62,8 @@ const Header: FC = () => {
             {navigation.map((item) =>
               item.dropdown ? (
                 <div key={item.href} className="relative">
-                  <button
-                    className={`relative text-sm font-semibold tracking-widest text-black ${
+                  <motion.button
+                    className={`relative text-sm font-semibold tracking-widest text-black  ${
                       pathname === item.href ? "active" : ""
                     }`}
                     onClick={() => toggleDropdown(item.href)}
@@ -72,21 +74,27 @@ const Header: FC = () => {
                         pathname === item.href ? "active" : ""
                       }`}
                     />
-                  </button>
+                  </motion.button>
                   {dropdownOpen === item.href && (
-                    <div className="absolute z-10 mt-2 w-full rounded-md bg-charcoal p-2">
-                      {item.dropdown.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.href}
-                          href={dropdownItem.href}
-                          passHref
-                        >
-                          <div className="block px-2 py-2 text-xs font-semibold tracking-widest text-white hover:text-white">
-                            {dropdownItem.label}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <div className="absolute z-10 mt-2 w-full rounded-md bg-charcoal p-2">
+                        {item.dropdown.map((dropdownItem) => (
+                          <Link
+                            key={dropdownItem.href}
+                            href={dropdownItem.href}
+                            passHref
+                          >
+                            <div className="block px-2  py-2 text-xs font-medium tracking-widest text-white">
+                              {dropdownItem.label}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
                   )}
                 </div>
               ) : (
@@ -111,7 +119,7 @@ const Header: FC = () => {
           </nav>
         </div>
       </div>
-    </header>
+    </div>
   );
 };
 
