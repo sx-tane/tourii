@@ -15,3 +15,23 @@
   body {
     @apply bg-warmGrey;
   }
+
+.header-nav a:hover, .header-nav button:hover,
+.header-nav a.active, .header-nav button.active {
+  color: #AE3111;
+}
+  
+.header-nav a .upperline, .header-nav button .upperline {
+  position: absolute;
+  top: -5px;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s, width 0.3s ease-in-out;
+  width: 0;
+}
+
+.header-nav a:hover .upperline, .header-nav button:hover .upperline,
+.header-nav a.active .upperline, .header-nav button.active .upperline {
+  width: 100%;
+  background-color: #AE3111;
+}

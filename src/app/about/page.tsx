@@ -1,6 +1,10 @@
+import Header from "~/components/Header";
+
 const About = () => {
   return (
-    <div className="text font-secondary font-extrabold text-red">7777</div>
+    <div>
+      <Header />
+    </div>
   );
 };
 
