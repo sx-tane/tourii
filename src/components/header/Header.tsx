@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 
 type NavItem = {
@@ -45,6 +45,24 @@ const Header: FC = () => {
     }
   };
 
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="w-full px-5">
       <div className="w-full px-4 sm:px-6">
@@ -59,7 +77,7 @@ const Header: FC = () => {
               />
             </Link>
           </div>
-          <nav className="header-nav space-x-10 md:flex">
+          <nav className="header-nav space-x-10 md:flex" ref={dropdownRef}>
             {navigation.map((item) =>
               item.dropdown ? (
                 <div key={item.href} className="relative">

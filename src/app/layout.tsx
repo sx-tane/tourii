@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import "~/styles/globals.css";
+import "@/styles/globals.css";
 import Loading from "./loading";
 import Header from "@/components/header/Header";
 
