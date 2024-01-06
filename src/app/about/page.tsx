@@ -1,6 +1,17 @@
+import Dropdown from "~/components/Dropdown";
+import Header from "~/components/Header";
+
 const About = () => {
   return (
-    <div className="text font-secondary font-extrabold text-red">7777</div>
+    <div>
+      <Header />
+      <Dropdown
+        items={[
+          { href: "/link1", label: "Link 1" },
+          { href: "/link2", label: "Link 2" },
+        ]}
+      />
+    </div>
   );
 };
 
