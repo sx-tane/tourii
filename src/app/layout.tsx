@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import "~/styles/globals.css";
 import Loading from "./loading";
+import Header from "@/components/header/Header";
 
 export default function RootLayout({
   children,
@@ -42,7 +43,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <Suspense fallback={<Loading />}>
+          <Header />
+          {children}
+        </Suspense>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { FC, useState } from "react";
+import Dropdown from "./Dropdown";
 
 type NavItem = {
   href: string;
@@ -75,27 +76,10 @@ const Header: FC = () => {
                       }`}
                     />
                   </motion.button>
-                  {dropdownOpen === item.href && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                    >
-                      <div className="absolute z-10 mt-2 w-full rounded-md bg-charcoal p-2">
-                        {item.dropdown.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.href}
-                            href={dropdownItem.href}
-                            passHref
-                          >
-                            <div className="block px-2  py-2 text-xs font-medium tracking-widest text-white">
-                              {dropdownItem.label}
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
+                  <Dropdown
+                    isOpen={dropdownOpen === item.href}
+                    items={item.dropdown}
+                  />
                 </div>
               ) : (
                 <div key={item.href} className="relative">

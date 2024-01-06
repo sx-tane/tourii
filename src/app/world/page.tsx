@@ -1,11 +1,5 @@
-import Header from "~/components/Header";
-
 const World = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default World;
