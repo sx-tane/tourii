@@ -1,5 +1,5 @@
-const loading = () => {
-  return <div>Enter</div>;
+export const Loading = () => {
+  return <div>LoadingPage</div>;
 };
 
-export default loading;
+export default Loading;
