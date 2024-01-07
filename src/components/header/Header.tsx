@@ -65,63 +65,59 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full px-5">
-      <div className="w-full px-4 sm:px-6">
-        <div className="flex items-center justify-between py-4">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/">
-              <Image
-                src="/image/header/logo.svg"
-                alt="Logo"
-                width={50}
-                height={50}
-              />
-            </Link>
-          </div>
-          <nav className="header-nav space-x-10 md:flex" ref={dropdownRef}>
-            {navigation.map((item) =>
-              item.dropdown ? (
-                <div key={item.href} className="relative">
-                  <motion.button
-                    className={`relative text-sm font-semibold tracking-widest text-black  ${
-                      pathname === item.href ? "active" : ""
-                    }`}
-                    onClick={() => toggleDropdown(item.href)}
-                  >
-                    {item.label}
-                    <div
-                      className={`upperline ${
-                        pathname === item.href ? "active" : ""
-                      }`}
-                    />
-                  </motion.button>
-                  <Dropdown
-                    isOpen={dropdownOpen === item.href}
-                    items={item.dropdown}
-                  />
-                </div>
-              ) : (
-                <div key={item.href} className="relative">
-                  <Link
-                    href={item.href}
-                    passHref
-                    className={`text-sm font-semibold tracking-widest text-black ${
-                      pathname === item.href ? "active" : ""
-                    }`}
-                  >
-                    {item.label}
-                    <div
-                      className={`upperline ${
-                        pathname === item.href ? "active" : ""
-                      }`}
-                    />
-                  </Link>
-                </div>
-              ),
-            )}
-          </nav>
-        </div>
+    <div className="flex w-full items-center justify-between py-4">
+      <div className="flex justify-start lg:w-0 lg:flex-1">
+        <Link href="/">
+          <Image
+            src="/image/header/logo.svg"
+            alt="Logo"
+            width={50}
+            height={50}
+          />
+        </Link>
       </div>
+      <nav className="header-nav space-x-10 md:flex" ref={dropdownRef}>
+        {navigation.map((item) =>
+          item.dropdown ? (
+            <div key={item.href} className="relative">
+              <motion.button
+                className={`relative text-sm font-semibold tracking-widest text-black  ${
+                  pathname === item.href ? "active" : ""
+                }`}
+                onClick={() => toggleDropdown(item.href)}
+              >
+                {item.label}
+                <div
+                  className={`upperline ${
+                    pathname === item.href ? "active" : ""
+                  }`}
+                />
+              </motion.button>
+              <Dropdown
+                isOpen={dropdownOpen === item.href}
+                items={item.dropdown}
+              />
+            </div>
+          ) : (
+            <div key={item.href} className="relative">
+              <Link
+                href={item.href}
+                passHref
+                className={`text-sm font-semibold tracking-widest text-black ${
+                  pathname === item.href ? "active" : ""
+                }`}
+              >
+                {item.label}
+                <div
+                  className={`upperline ${
+                    pathname === item.href ? "active" : ""
+                  }`}
+                />
+              </Link>
+            </div>
+          ),
+        )}
+      </nav>
     </div>
   );
 };

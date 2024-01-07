@@ -1,9 +1,15 @@
-"use client";
-
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
-import { motion } from "framer-motion";
+import { Metadata } from "next";
+import Header from "@/components/header/Header";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Tourii",
+    template: "%s | Tourii",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -46,13 +52,10 @@ export default function RootLayout({
       </head>
       <body>
         <Suspense fallback={<Loading />}>
-          <motion.div
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="animate-fadeIn mx-5 min-h-screen overflow-hidden">
+            <Header />
             {children}
-          </motion.div>
+          </div>
         </Suspense>
       </body>
     </html>

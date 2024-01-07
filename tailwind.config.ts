@@ -23,7 +23,16 @@ export default {
         '130': '1.3',
         '140': '1.4',
         '150': '1.5',
-      }
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.2s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
     },
   },
 } satisfies Config;
