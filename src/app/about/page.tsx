@@ -1,11 +1,12 @@
-import AboutCoin from "@/components/about/AboutCoin";
 import AboutImage from "@/components/about/AboutImage";
 import Description from "@/components/about/Description";
 import JourneyAndNft from "@/components/about/JourneyAndNft";
-import Line from "@/components/about/Line";
+
+import AboutCoin from "@/components/about/about-menu/AboutCoin";
 import { descriptionData } from "@/components/about/descriptionData";
+import Divider from "@/components/about/divider-line/Divider";
+import Line from "@/components/about/divider-line/Line";
 import { Metadata } from "next";
-import React from "react";
 
 export const metadata: Metadata = {
   title: "About",
@@ -33,6 +34,9 @@ const About: React.FC = () => {
           <AboutImage />
         </div>
         <JourneyAndNft />
+        <div className="mb-16 mt-10">
+          <Divider />
+        </div>
       </div>
     </div>
   );
