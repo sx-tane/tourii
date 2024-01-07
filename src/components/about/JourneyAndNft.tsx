@@ -18,7 +18,7 @@ const JourneyAndNft: React.FC = () => {
           <Description {...descriptionData[3]} />
           <BenefitButton />
         </div>
-        <div className="w-9/12">
+        <div className="mt-5 w-9/12">
           <Line />
         </div>
       </div>

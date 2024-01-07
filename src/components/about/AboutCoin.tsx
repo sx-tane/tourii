@@ -12,16 +12,16 @@ const AboutCoin: React.FC = () => {
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative h-8 w-8"
+      className="relative h-14 w-14"
     >
       <AnimatePresence>
         {isHovered ? (
           <motion.div
             key="aboutMenu"
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, rotateY: 90 }}
+            animate={{ opacity: 1, rotateY: 0 }}
+            exit={{ opacity: 0, rotateY: -90 }}
+            transition={{ duration: 0.1, ease: "easeOut" }}
             className="absolute right-0 w-52"
           >
             <AboutMenu onClose={() => setIsHovered(false)} />
@@ -29,17 +29,17 @@ const AboutCoin: React.FC = () => {
         ) : (
           <motion.div
             key="coin"
-            initial={{ opacity: 0, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
+            initial={{ opacity: 1, rotateY: 0 }}
+            animate={{ opacity: 1, rotateY: 0 }}
+            exit={{ opacity: 0, rotateY: 90 }}
+            transition={{ duration: 0.1, ease: "easeInOut" }}
             className="absolute"
           >
             <Image
               src="/image/about/coin.svg"
               alt="Coin"
-              width={30}
-              height={30}
+              width={100}
+              height={100}
             />
           </motion.div>
         )}
