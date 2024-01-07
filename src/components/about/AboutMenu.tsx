@@ -7,6 +7,11 @@ interface AboutMenuProps {
 }
 
 const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
+  const handleClick = (id: string) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div onMouseLeave={onClose} className="flex items-center justify-center">
       <Image
@@ -16,10 +21,18 @@ const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
         height={1000}
       />
       <div className="absolute z-10 flex flex-col items-center justify-center space-y-11 text-center text-[10px] font-semibold leading-4 tracking-widest text-white">
-        <Link href={"/"} className="uppercase transition-all hover:text-black">
+        <Link
+          href={"#who-is-tourii"}
+          onClick={handleClick("who-is-tourii")}
+          className="uppercase transition-all hover:text-black"
+        >
           Who is Tourii
         </Link>
-        <Link href={"/"} className="uppercase transition-all hover:text-black">
+        <Link
+          href={"#our-objectives"}
+          onClick={handleClick("our-objectives")}
+          className="uppercase transition-all hover:text-black"
+        >
           Our Objectives
         </Link>
         <Link href={"/"} className="uppercase transition-all hover:text-black">
