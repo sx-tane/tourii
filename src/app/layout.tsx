@@ -1,7 +1,9 @@
+"use client";
+
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
-import Header from "@/components/header/Header";
+import { motion } from "framer-motion";
 
 export default function RootLayout({
   children,
@@ -34,18 +36,23 @@ export default function RootLayout({
           href="/favicons/safari-pinned-tab.svg"
           color="#000000"
         />
-        <link rel="shortcut icon" href="/favicons/favicon.ico" />{" "}
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta
           name="msapplication-config"
           content="/favicons/browserconfig.xml"
-        />{" "}
+        />
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
         <Suspense fallback={<Loading />}>
-          <Header />
-          {children}
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {children}
+          </motion.div>
         </Suspense>
       </body>
     </html>

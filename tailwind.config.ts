@@ -17,6 +17,13 @@ export default {
         sans: ['Montserrat', 'sans-serif'],
         secondary: ['LibertinusSans', 'sans-serif'],
       },
+      scale: {
+        '110': '1.1',
+        '120': '1.2',
+        '130': '1.3',
+        '140': '1.4',
+        '150': '1.5',
+      }
     },
   },
 } satisfies Config;

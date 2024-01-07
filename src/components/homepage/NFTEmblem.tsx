@@ -3,15 +3,14 @@ import Image from "next/image";
 
 const NFTEmblem: React.FC = () => {
   return (
-    <div className="relative flex h-64 w-64 items-center justify-center">
+    <div className="flex items-center justify-center">
       <Image
         src="/image/homepage/emblem.svg"
         alt="Emblem"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
+        width={270}
+        height={342}
       />
-      <div className="z-10 flex flex-col items-center justify-center text-center text-black">
+      <div className="absolute z-10 flex flex-col items-center justify-center text-center text-black">
         <hr className="mx-auto mb-3 w-9 border-t-[1.4px] border-black" />
         <div className="font-secondary text-[55px] leading-10 -tracking-widest">
           7777
