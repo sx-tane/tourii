@@ -3,7 +3,7 @@ import { BenefitCircleProps } from "./benefitData";
 
 const BenefitCircle: React.FC<BenefitCircleProps> = ({ number, title }) => {
   return (
-    <div className="hover:bg-circleHover flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey duration-200">
+    <div className="flex h-48 w-48  flex-col items-center justify-center rounded-full border-[1px] border-warmGrey">
       <span className="font-tertiary text-3xl italic text-warmGrey3 ">
         {number}
       </span>

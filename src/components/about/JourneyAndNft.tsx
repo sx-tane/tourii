@@ -14,7 +14,7 @@ const JourneyAndNft: React.FC = () => {
         <div id="your-journey" className="-mt-5 flex flex-col items-center">
           <Description {...descriptionData[2]} />
         </div>
-        <div id="about-tourii-nft" className=" mt-5 flex flex-col items-center">
+        <div id="about-tourii-nft" className=" flex flex-col items-center">
           <Description {...descriptionData[3]} />
           <BenefitButton />
         </div>

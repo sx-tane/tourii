@@ -1,7 +1,7 @@
 export type BenefitCircleProps = {
   number: number;
   title: string;
-  description: string;
+  description?: string;
 };
 
 export const virtualInteractionData: BenefitCircleProps[] = [
