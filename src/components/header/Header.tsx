@@ -1,9 +1,10 @@
 "use client";
+
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 
 type NavItem = {
@@ -33,7 +34,7 @@ const navigation: NavItem[] = [
   { href: "/connect", label: "CONNECT" },
 ];
 
-const Header: FC = () => {
+const Header: React.FC = () => {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 
