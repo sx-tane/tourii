@@ -35,3 +35,8 @@
   width: 100%;
   background-color: #AE3111;
 }
+
+::selection {
+  background: #AE3111; /* background color of the highlighted text */
+  color: white; /* color of the highlighted text */
+}
