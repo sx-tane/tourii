@@ -3,6 +3,7 @@ import Description from "@/components/about/Description";
 import JourneyAndNft from "@/components/about/JourneyAndNft";
 
 import AboutCoin from "@/components/about/about-menu/AboutCoin";
+import CrewInfo from "@/components/about/crew/CrewInfo";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
@@ -37,6 +38,7 @@ const About: React.FC = () => {
         <div className="mb-16 mt-10">
           <Divider />
         </div>
+        <CrewInfo />
       </div>
     </div>
   );
