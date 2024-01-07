@@ -1,3 +1,4 @@
+import AboutCoin from "@/components/about/AboutCoin";
 import { Metadata } from "next";
 import React from "react";
 
@@ -8,8 +9,9 @@ export const metadata: Metadata = {
 const About: React.FC = () => {
   return (
     <div>
-      <h1>About Page</h1>
-      <p>Welcome to the About page!</p>
+      <div className="flex justify-end">
+        <AboutCoin />
+      </div>
     </div>
   );
 };
