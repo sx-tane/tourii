@@ -35,10 +35,19 @@ const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
         >
           Our Objectives
         </Link>
-        <Link href={"/"} className="uppercase transition-all hover:text-black">
+        <Link
+          href={"#your-journey"}
+          onClick={handleClick("your-journey")}
+          className="uppercase transition-all hover:text-black"
+        >
           Your Journey
         </Link>
-        <Link href={"/"} className="uppercase transition-all hover:text-black">
+        <Link
+          href={"#about-tourii-nft"}
+          onClick={handleClick("about-tourii-nft")}
+          className="uppercase transition-all hover:text-black"
+        >
+          {" "}
           About Tourii NFT
         </Link>
         <Link href={"/"} className="uppercase transition-all hover:text-black">

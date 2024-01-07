@@ -1,6 +1,7 @@
 import AboutCoin from "@/components/about/AboutCoin";
 import AboutImage from "@/components/about/AboutImage";
 import Description from "@/components/about/Description";
+import JourneyAndNft from "@/components/about/JourneyAndNft";
 import Line from "@/components/about/Line";
 import { descriptionData } from "@/components/about/descriptionData";
 import { Metadata } from "next";
@@ -26,9 +27,10 @@ const About: React.FC = () => {
             <Description {...descriptionData[1]} />
           </div>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex w-10/12 flex-col items-center">
           <AboutImage />
         </div>
+        <JourneyAndNft />
       </div>
     </div>
   );
