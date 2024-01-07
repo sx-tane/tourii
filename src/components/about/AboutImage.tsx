@@ -7,9 +7,8 @@ const AboutImage: React.FC = () => {
       <Image
         src="/image/about/about-image.png"
         alt="main art"
-        layout="responsive"
-        width={1000}
-        height={1000}
+        width={1200}
+        height={1200}
       />
     </div>
   );

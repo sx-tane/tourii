@@ -8,7 +8,9 @@ const JourneyAndNft: React.FC = () => {
   return (
     <div className="my-10 flex h-full w-9/12 flex-col items-center bg-warmGrey3">
       <div className="my-5 flex flex-col items-center">
-        <Line />
+        <div className="w-9/12">
+          <Line />
+        </div>
         <div id="your-journey" className="-mt-5 flex flex-col items-center">
           <Description {...descriptionData[2]} />
         </div>
@@ -16,7 +18,9 @@ const JourneyAndNft: React.FC = () => {
           <Description {...descriptionData[3]} />
           <BenefitButton />
         </div>
-        <Line />
+        <div className="w-9/12">
+          <Line />
+        </div>
       </div>
     </div>
   );

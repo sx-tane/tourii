@@ -18,11 +18,13 @@ const About: React.FC = () => {
         <AboutCoin />
       </div>
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <div className="mx-60 mt-10 flex flex-col items-center">
+        <div className=" mt-10 flex flex-col items-center">
           <div id="who-is-tourii" className="flex flex-col items-center">
             <Description {...descriptionData[0]} />
           </div>
-          <Line />
+          <div className="w-7/12">
+            <Line />
+          </div>
           <div id="our-objectives" className="flex flex-col items-center">
             <Description {...descriptionData[1]} />
           </div>

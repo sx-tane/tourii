@@ -7,7 +7,7 @@ const Description: React.FC<DescriptionProps> = ({
   content,
 }) => {
   return (
-    <div className=" my-10 items-center  text-center text-red sm:w-10/12 md:w-8/12">
+    <div className=" my-10 w-7/12 items-center text-center text-red ">
       <div className="font-bold uppercase">
         <h3 className="text-base tracking-wide">{smallTitle}</h3>
         <h2 className="whitespace-break-spaces break-all text-6xl tracking-widest">
