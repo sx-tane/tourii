@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       colors:{
+        black: '#1E1E29',
         charcoal:'#21211b',
         red: '#ae3111',
         warmGrey: '#e3e3dc',
@@ -15,6 +16,22 @@ export default {
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
         secondary: ['LibertinusSans', 'sans-serif'],
+      },
+      scale: {
+        '110': '1.1',
+        '120': '1.2',
+        '130': '1.3',
+        '140': '1.4',
+        '150': '1.5',
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.2s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
     },
   },

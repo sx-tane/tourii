@@ -1,7 +1,15 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
+import { Metadata } from "next";
 import Header from "@/components/header/Header";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Tourii",
+    template: "%s | Tourii",
+  },
+};
 
 export default function RootLayout({
   children,
@@ -34,18 +42,20 @@ export default function RootLayout({
           href="/favicons/safari-pinned-tab.svg"
           color="#000000"
         />
-        <link rel="shortcut icon" href="/favicons/favicon.ico" />{" "}
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta
           name="msapplication-config"
           content="/favicons/browserconfig.xml"
-        />{" "}
+        />
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
         <Suspense fallback={<Loading />}>
-          <Header />
-          {children}
+          <div className="animate-fadeIn mx-6 min-h-screen overflow-hidden">
+            <Header />
+            {children}
+          </div>
         </Suspense>
       </body>
     </html>
