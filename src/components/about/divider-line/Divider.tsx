@@ -11,7 +11,7 @@ const Divider: React.FC = () => {
             alt="divider"
             width={3000}
             height={3000}
-            className="absolute z-10"
+            className="z-70 absolute"
           />
         </div>
       }

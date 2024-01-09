@@ -35,7 +35,7 @@ const About: React.FC = () => {
           <AboutImage />
         </div>
         <JourneyAndNft />
-        <div className="mb-16 mt-10">
+        <div className=" mb-16 mt-10">
           <Divider />
         </div>
         <CrewInfo />

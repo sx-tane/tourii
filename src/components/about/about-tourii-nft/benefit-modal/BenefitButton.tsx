@@ -15,7 +15,7 @@ const BenefitButton = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className="mt-5 flex justify-center space-x-5 text-sm font-bold text-red sm:w-10/12 md:w-8/12">
+    <div className="mt-5 flex justify-center space-x-5 text-sm font-bold text-red sm:w-10/12 md:flex md:w-8/12 ">
       <button
         className="rounded-full border-[1px] border-red  bg-transparent px-24 py-4 uppercase tracking-widest transition-all hover:bg-red hover:text-white"
         onClick={() => openModal("Virtual Interaction")}
