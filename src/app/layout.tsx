@@ -59,7 +59,7 @@ export default function RootLayout({
       </head>
       <body>
         <Suspense fallback={<Loading />}>
-          <div className="mx-6 min-h-screen animate-fadeIn overflow-hidden">
+          <div className="mx-6 mb-6 min-h-screen animate-fadeIn overflow-hidden">
             <Header />
             {children}
           </div>
