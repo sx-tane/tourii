@@ -5,14 +5,14 @@ import MainImage from "@/components/homepage/MainImage";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="relative flex items-end justify-between">
-      <div className="bottom-0 left-0">
+    <div className="flex h-screen overflow-hidden">
+      <div className="fixed bottom-8 left-8 z-10 ">
         <Headline />
       </div>
-      <div className="mr-24">
+      <div className="mb-auto ml-auto mr-16">
         <MainImage />
       </div>
-      <div className="absolute -bottom-14 -right-6 z-10 flex">
+      <div className="fixed -bottom-10 -right-3 z-10 ">
         <NFTEmblem />
       </div>
     </div>

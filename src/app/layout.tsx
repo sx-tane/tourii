@@ -58,12 +58,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
-        <Suspense fallback={<Loading />}>
-          <div className="mx-6 mb-6 min-h-screen animate-fadeIn overflow-hidden">
-            <Header />
-            {children}
-          </div>
-        </Suspense>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </body>
     </html>
   );
