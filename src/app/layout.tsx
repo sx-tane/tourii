@@ -2,7 +2,14 @@ import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
 import { Metadata } from "next";
+import { Montserrat } from "next/font/google";
+
 import Header from "@/components/header/Header";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={montserrat.className}>
       <head>
         <link
           rel="apple-touch-icon"
@@ -52,7 +59,7 @@ export default function RootLayout({
       </head>
       <body>
         <Suspense fallback={<Loading />}>
-          <div className="animate-fadeIn mx-6 min-h-screen overflow-hidden">
+          <div className="mx-6 min-h-screen animate-fadeIn overflow-hidden">
             <Header />
             {children}
           </div>
