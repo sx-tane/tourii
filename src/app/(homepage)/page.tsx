@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
       <div className="fixed bottom-8 left-8 z-10 ">
         <Headline />
       </div>
-      <div className="z-70">
+      <div className="mb-auto ml-auto mr-16">
         <MainImage />
       </div>
       <div className="fixed -bottom-10 -right-3 z-10 ">

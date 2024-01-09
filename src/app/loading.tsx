@@ -7,7 +7,7 @@ import Header from "@/components/header/Header";
 
 const Loading: React.FC = () => {
   return (
-    <div className="mx-6 max-h-screen animate-fadeIn overflow-hidden">
+    <div className="mx-6 max-h-screen overflow-hidden">
       <Header />
       <div
         className="mx-96 flex items-center justify-center sm:mx-10 md:mx-4"
