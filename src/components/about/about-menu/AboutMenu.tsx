@@ -50,7 +50,11 @@ const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
           {" "}
           About Tourii NFT
         </Link>
-        <Link href={"/"} className="uppercase transition-all hover:text-black">
+        <Link
+          href={"#meet-our-crew"}
+          onClick={handleClick("meet-our-crew")}
+          className="uppercase transition-all hover:text-black"
+        >
           Meet Our Crew
         </Link>
       </div>
