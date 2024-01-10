@@ -6,7 +6,10 @@ const Error: React.FC = () => {
   return (
     <div className="mx-6 max-h-screen animate-fadeIn overflow-hidden">
       <Header />
-      <div>
+      <div
+        className="mx-96 flex items-center justify-center sm:mx-10 md:mx-4"
+        style={{ height: "calc(100vh - 77px)" }}
+      >
         <div className="text-left">
           <h1 className="py-5 text-6xl font-extrabold tracking-widest text-red">
             404 ERROR

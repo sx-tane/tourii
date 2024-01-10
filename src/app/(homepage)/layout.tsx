@@ -7,7 +7,7 @@ import Header from "@/components/header/Header";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<Loading />}>
-      <div className="mx-6 h-screen animate-fadeIn overflow-hidden">
+      <div className="mx-6 h-full animate-fadeIn ">
         <Header />
         {children}
       </div>
