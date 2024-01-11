@@ -53,6 +53,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       onRequestClose={handleClose}
       ariaHideApp={false}
       overlayClassName="fixed inset-0 z-20 bg-black bg-opacity-50 flex items-center justify-center"
+      // TODO: Fix the width and height of the modal so that it is always the same size
       className="h-50vh w-50vw absolute animate-fadeIn rounded-lg bg-charcoal"
     >
       <h1 className="text-2vw top-0 mt-6 text-center font-bold uppercase tracking-widest text-warmGrey3">
@@ -61,7 +62,8 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       {selectedBenefitId ? (
         <BenefitDetail number={selectedBenefitId} data={benefitType} />
       ) : (
-        <div className="flex w-[1000px] justify-center space-x-10 p-10">
+        // TODO: Fix the absolute positioning of the close button and the text, so that they are always in the same place
+        <div className=" grid w-[1000px] grid-cols-4 justify-center gap-3 space-x-10 p-10 ">
           {benefitType.map((data) => (
             <div
               key={data.number}

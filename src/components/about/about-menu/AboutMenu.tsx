@@ -14,14 +14,13 @@ const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // TODO: when the user is on the about page, the link should be black
   const linkClass = (href: string) => {
     const fragment = href;
     const pathnameWithSlash = pathname.endsWith("/")
       ? pathname
       : pathname + "/";
-    const newHref = fragment ? pathnameWithSlash + fragment.slice(1) : pathname;
-    console.log(newHref);
-    console.log(pathnameWithSlash);
+    const newHref = fragment ? pathnameWithSlash + fragment : pathname;
     return `uppercase transition-all hover:text-black ${
       pathnameWithSlash === newHref ? "text-black" : "text-white"
     }`;
