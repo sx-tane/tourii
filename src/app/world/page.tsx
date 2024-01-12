@@ -1,3 +1,4 @@
+import BigSection from "@/components/world/place/big-section";
 import { Metadata } from "next";
 import React from "react";
 
@@ -9,7 +10,7 @@ const World: React.FC = () => {
   return (
     <div>
       <h1>World </h1>
-      {/* Add your content here */}
+      <BigSection />
     </div>
   );
 };
