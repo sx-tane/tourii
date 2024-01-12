@@ -1,0 +1,30 @@
+import React from "react";
+import Description from "./Description";
+import Line from "./divider-line/Line";
+import { descriptionData } from "./descriptionData";
+import BenefitButton from "./about-tourii-nft/benefit-modal/BenefitButton";
+
+const JourneyAndNft: React.FC = () => {
+  return (
+    <div className="my-10 flex h-full w-11/12 flex-col items-center bg-warmGrey3">
+      <div className="w-9/12">
+        <Line />
+      </div>
+      <div id="your-journey" className="-mt-5 flex items-center justify-center">
+        <Description {...descriptionData[2]} />
+      </div>
+      <div
+        id="about-tourii-nft"
+        className="flex flex-col items-center justify-center"
+      >
+        <Description {...descriptionData[3]} />
+        <BenefitButton />
+      </div>
+      <div className="mt-5 w-9/12">
+        <Line />
+      </div>
+    </div>
+  );
+};
+
+export default JourneyAndNft;

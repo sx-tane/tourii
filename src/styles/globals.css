@@ -5,12 +5,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @font-face {
-    font-family: 'LibertinusSans';
+    font-family: 'LibertinusSans-bold';
     src: url('/fonts/LibertinusSans-Bold.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-  }
+}
+
+@font-face {
+  font-family: 'LibertinusSans';
+  src: url('/fonts/LibertinusSans-Regular.otf') format('opentype');
+  font-weight: 200;
+  font-display: swap;
+}
 
   body {
     @apply bg-warmGrey;
@@ -39,4 +46,15 @@
 ::selection {
   background: #AE3111; /* background color of the highlighted text */
   color: white; /* color of the highlighted text */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

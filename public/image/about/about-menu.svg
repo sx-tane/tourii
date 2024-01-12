@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 144 285">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: .75px;
+      }
+
+      .cls-1, .cls-3 {
+        stroke: #d6d6cc;
+      }
+
+      .cls-2 {
+        stroke: #e3e3dc;
+      }
+
+      .cls-3 {
+        filter: url(#drop-shadow-2);
+      }
+
+      .cls-4 {
+        fill: #eeeeea;
+        font-family: MontserratRoman-Medium, Montserrat;
+        font-size: 8px;
+        font-variation-settings: 'wght' 500;
+        font-weight: 500;
+      }
+
+      .cls-5 {
+        fill: #b6ad33;
+        filter: url(#drop-shadow-1);
+        stroke-width: 0px;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx=".75" dy="1.5"/>
+      <feGaussianBlur result="blur" stdDeviation=".75"/>
+      <feFlood flood-color="#000" flood-opacity=".25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
+      <feOffset dx="2.82" dy="4.93"/>
+      <feGaussianBlur result="blur-2" stdDeviation="3.52"/>
+      <feFlood flood-color="#000" flood-opacity=".25"/>
+      <feComposite in2="blur-2" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <g>
+      <rect class="cls-5" x="1.6" y="1.54" width="138.01" height="278.44" rx="69" ry="69"/>
+      <rect class="cls-3" x="7.08" y="6.45" width="127.77" height="268.63" rx="63.88" ry="63.88"/>
+      <text class="cls-4" transform="translate(54.85 24.06) rotate(-15.5)"><tspan x="0" y="0">A</tspan></text>
+      <text class="cls-4" transform="translate(61.25 22.33) rotate(-7.69)"><tspan x="0" y="0">B</tspan></text>
+      <text class="cls-4" transform="translate(68 21.45) rotate(.46)"><tspan x="0" y="0">O</tspan></text>
+      <text class="cls-4" transform="translate(75.47 21.57) rotate(8.78)"><tspan x="0" y="0">U</tspan></text>
+      <text class="cls-4" transform="translate(82.4 22.74) rotate(15.99)"><tspan x="0" y="0">T</tspan></text>
+      <g>
+        <line class="cls-2" x1="70.61" y1="69.69" x2="70.61" y2="91.99"/>
+        <line class="cls-1" x1="70.61" y1="111.59" x2="70.61" y2="133.89"/>
+        <line class="cls-1" x1="70.61" y1="153.99" x2="70.61" y2="176.29"/>
+        <line class="cls-1" x1="70.61" y1="195.21" x2="70.61" y2="217.52"/>
+        <line class="cls-1" x1="70.61" y1="69.72" x2="70.61" y2="92.03"/>
+      </g>
+    </g>
+  </g>
+</svg>

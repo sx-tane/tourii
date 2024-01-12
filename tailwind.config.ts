@@ -5,6 +5,7 @@ export default {
   theme: {
     extend: {
       colors:{
+        white: '#EEEEFA',
         black: '#1E1E29',
         charcoal:'#21211b',
         red: '#ae3111',
@@ -12,10 +13,12 @@ export default {
         warmGrey2: '#d6d6cc',
         warmGrey3: '#bfbfac',
         mustard: '#b6ad33',
+        circleHover: 'rgba(49, 49, 42, 0.93)',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
-        secondary: ['LibertinusSans', 'sans-serif'],
+        secondary: ['LibertinusSans-bold', 'sans-serif'],
+        tertiary: ['LibertinusSans', 'sans-serif'],
       },
       scale: {
         '110': '1.1',
