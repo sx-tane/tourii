@@ -1,4 +1,4 @@
-import Header from "@/components/header/Header";
+import Header from "@/components/header-white/Header";
 import React from "react";
 
 const NotFound: React.FC = () => {

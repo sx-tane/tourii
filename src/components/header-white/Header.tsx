@@ -7,6 +7,10 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Dropdown from "./Dropdown";
 
+type HeaderProps = {
+  color?: string;
+};
+
 type NavItem = {
   href: string;
   label: string;
