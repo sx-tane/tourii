@@ -30,7 +30,7 @@ const About: React.FC = () => {
             <Description {...descriptionData[1]} />
           </div>
         </div>
-        <div className="flex w-10/12 flex-col items-center">
+        <div className="flex  flex-col items-center">
           <AboutImage />
         </div>
         <JourneyAndNft />
