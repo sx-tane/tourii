@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { BenefitCircleProps } from "./benefit-circle/benefitData";
+import { type BenefitCircleProps } from "./benefit-circle/benefitData";
 import BenefitCircle from "./benefit-circle/BenefitCircle";
 import Image from "next/image";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { BenefitCircleProps } from "./benefitData";
+import { type BenefitCircleProps } from "./benefitData";
 
 const BenefitCircle: React.FC<BenefitCircleProps> = ({ number, title }) => {
   return (
