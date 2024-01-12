@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import Dropdown from "./Dropdown";
+import Dropdown from "../header-white/Dropdown";
 
 type NavItem = {
   href: string;
@@ -34,7 +34,7 @@ const navigation: NavItem[] = [
   { href: "/connect", label: "CONNECT" },
 ];
 
-const Header: React.FC = () => {
+const HeaderBlack: React.FC = () => {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 
@@ -76,12 +76,12 @@ const Header: React.FC = () => {
           />
         </Link>
       </div>
-      <nav className="header-nav space-x-10 md:flex" ref={dropdownRef}>
+      <nav className="header-nav-black space-x-10 md:flex" ref={dropdownRef}>
         {navigation.map((item) =>
           item.dropdown ? (
             <div key={item.href} className="relative">
               <motion.button
-                className={`relative text-sm font-semibold tracking-widest text-black  ${
+                className={`relative text-sm font-semibold tracking-widest text-warmGrey3  ${
                   pathname === item.href ? "active" : ""
                 }`}
                 onClick={() => toggleDropdown(item.href)}
@@ -103,7 +103,7 @@ const Header: React.FC = () => {
               <Link
                 href={item.href}
                 passHref
-                className={`text-sm font-semibold tracking-widest text-black ${
+                className={`text-sm font-semibold tracking-widest text-warmGrey3 ${
                   pathname === item.href ? "active" : ""
                 }`}
               >
@@ -122,4 +122,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default HeaderBlack;
