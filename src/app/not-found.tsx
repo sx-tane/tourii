@@ -12,7 +12,7 @@ const NotFound: React.FC = () => {
         <div>
           <div className="text-left">
             <h1 className="py-5 text-6xl font-extrabold tracking-widest text-red">
-              404 ERROR
+              NOT FOUND
             </h1>
             <h2 className="text-lg font-bold uppercase tracking-wider text-charcoal">
               Ninigi got lost in the middle of nowhere. <br />
