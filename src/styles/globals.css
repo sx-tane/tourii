@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@font-face {
+    font-family: 'LibertinusSans-bold';
+    src: url('/fonts/LibertinusSans-Bold.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+  font-family: 'LibertinusSans';
+  src: url('/fonts/LibertinusSans-Regular.otf') format('opentype');
+  font-weight: 200;
+  font-display: swap;
+}
+
+  body {
+    @apply bg-warmGrey;
+  }
+
+.header-nav a:hover, .header-nav button:hover,
+.header-nav a.active, .header-nav button.active {
+  color: #AE3111;
+}
+  
+.header-nav a .upperline, .header-nav button .upperline {
+  position: absolute;
+  top: -5px;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s, width 0.3s ease-in-out;
+  width: 0;
+}
+
+.header-nav a:hover .upperline, .header-nav button:hover .upperline,
+.header-nav a.active .upperline, .header-nav button.active .upperline {
+  width: 100%;
+  background-color: #AE3111;
+}
+
+::selection {
+  background: #AE3111; /* background color of the highlighted text */
+  color: white; /* color of the highlighted text */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
