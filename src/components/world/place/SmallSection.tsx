@@ -19,7 +19,7 @@ const SmallSection: React.FC<PlaceProps> = ({ title, smallTitle, image }) => {
             </p>
             <Image
               src={image ?? ""}
-              alt={title || ""}
+              alt={title ?? ""}
               quality={100}
               className="h-full w-full object-cover"
               fill={true}
