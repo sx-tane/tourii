@@ -1,4 +1,4 @@
-import BigSection from "@/components/world/place/big-section";
+import Section from "@/components/world/place/Section";
 import { Metadata } from "next";
 import React from "react";
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const World: React.FC = () => {
   return (
     <div>
-      <BigSection />
+      <Section />
     </div>
   );
 };
