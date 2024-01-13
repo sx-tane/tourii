@@ -4,8 +4,8 @@ import Image from "next/image";
 const BigSection: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center p-20 text-warmGrey">
-      <h2 className="mb-3 text-center text-2xl font-bold tracking-widest">
-        ASHIHARA NO NAKATSUKUNI
+      <h2 className="mb-3 text-center text-2xl font-bold uppercase tracking-widest">
+        ashihara no nakatsukuni
       </h2>
       <div className="relative h-[380px] w-10/12">
         <div

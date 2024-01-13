@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 const World: React.FC = () => {
   return (
     <div>
-      <h1>World </h1>
       <BigSection />
     </div>
   );
