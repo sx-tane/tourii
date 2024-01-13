@@ -1,14 +1,31 @@
 const DescriptionWorld = () => {
   return (
-    <div className="mt-8 whitespace-pre-line text-center text-base font-semibold text-warmGrey2">
+    <div className="my-24 whitespace-pre-line px-10 text-center text-base font-medium tracking-normal text-warmGrey3">
       Embark on a journey to the Touriiverse, where timeless myths and today's
       Japan converge in a tapestry of fantasy. Explore three enchanted realms:
-      the exalted Takagamahara above, the serene Ashihara no Nakatsukuni below,
-      and the mysterious Yomitsukuni, where spirits linger. Venture across the
-      divine Ame No Ukihashi or tread along the shadowed Yomotsu Hirasaka,
-      pathways to worlds unknown. In this land, Amatsukami, Kunitsukami, Bonjin,
-      Yomitsukami, and Yokai coexist, weaving stories of old into the fabric of
-      the present.
+      the exalted{" "}
+      <strong>
+        <em>Takagamahara</em>
+      </strong>{" "}
+      above, the serene{" "}
+      <strong>
+        <em>Ashihara no Nakatsukuni</em>
+      </strong>{" "}
+      below, and the mysterious{" "}
+      <strong>
+        <em>Yomitsukuni</em>
+      </strong>
+      , where spirits linger. Venture across the divine{" "}
+      <strong>
+        <em>Ame No Ukihashi</em>
+      </strong>{" "}
+      or tread along the shadowed{" "}
+      <strong>
+        <em>Yomotsu Hirasaka</em>
+      </strong>
+      , pathways to worlds unknown. In this land, Amatsukami, Kunitsukami,
+      Bonjin, Yomitsukami and Yokai coexist, weaving stories of old into the
+      fabric of the present.
     </div>
   );
 };

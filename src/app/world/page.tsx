@@ -1,3 +1,4 @@
+import WhiteLine from "@/components/world/Line";
 import Section from "@/components/world/place/Section";
 import DescriptionWorld from "@/components/world/text/Description";
 import Title from "@/components/world/text/Title";
@@ -15,6 +16,7 @@ const World: React.FC = () => {
       <div className="w-9/12">
         <Section />
         <DescriptionWorld />
+        <WhiteLine />
       </div>
     </div>
   );

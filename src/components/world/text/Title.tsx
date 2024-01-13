@@ -2,7 +2,7 @@ import React from "react";
 
 const Title: React.FC = () => {
   return (
-    <div className="my-10 items-center pt-10 text-center text-warmGrey2 ">
+    <div className="my-10 items-center pt-10 text-center text-warmGrey3 ">
       <div className=" font-bold uppercase">
         <h3 className="mb-20 text-base tracking-widest">
           AN INTRO TO THE WORLD OF TOURII
