@@ -1,7 +1,10 @@
+import DividerWhite from "@/components/world/Divider";
 import WhiteLine from "@/components/world/Line";
 import Section from "@/components/world/place/Section";
 import DescriptionWorld from "@/components/world/text/Description";
+import Goal from "@/components/world/text/Goal";
 import Title from "@/components/world/text/Title";
+import { titleData } from "@/components/world/worldData";
 import { Metadata } from "next";
 import React from "react";
 
@@ -12,12 +15,27 @@ export const metadata: Metadata = {
 const World: React.FC = () => {
   return (
     <div className="mx-auto flex w-9/12 flex-col items-center justify-center">
-      <Title />
+      <Title
+        smallTitle={titleData[0]?.smallTitle}
+        title={titleData[0]?.title}
+      />
       <div className="w-9/12">
         <Section />
         <DescriptionWorld />
         <div className="mb-20">
           <WhiteLine />
+        </div>
+        <Title
+          smallTitle={titleData[1]?.smallTitle}
+          title={titleData[1]?.title}
+        />
+        <div className=" w-7/11">
+          <div className="align-middle">
+            <Goal />
+          </div>
+          <div className="my-20">
+            <DividerWhite />
+          </div>
         </div>
       </div>
     </div>

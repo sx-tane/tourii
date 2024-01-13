@@ -32,3 +32,34 @@ export const bridgeData: BridgeProps[] = [
     englishTitle: "Wide Slope of Yomi",
   },
 ];
+
+export type TitleProps = {
+  smallTitle?: string;
+  title?: string;
+};
+
+export const titleData: TitleProps[] = [
+  {
+    smallTitle: "an intro to the world of tourii",
+    title: `the\ntouriiverse\ncosmology`,
+  },
+  { smallTitle: "unlocking heritage", title: "the\ntouriiverse\njourney" },
+];
+
+export type GoalProps = {
+  title?: string;
+  description?: string;
+};
+
+export const goalData: GoalProps[] = [
+  {
+    title: "cultural revival",
+    description:
+      "By delving into the yao yorozu no kamigami, the myriad of ancient gods hidden or dormant among the Bonjin, Touriiverse invites audiences to rediscover these ethereal beings. The narrative reintroduces these deities, once integral to Japan's mythological landscape but now largely forgotten, highlighting the rich tapestry of lore and legend that forms the backbone of Japan's cultural identity.",
+  },
+  {
+    title: "hidden gems unveiled",
+    description:
+      "In traversing the roads less traveled within Japan, Touriiverse uncovers the secrets and stories of remote regions. These explorations are in line with Tourii's vision to bring the unique cultural nuances of Japan's diverse heritage to a global audience, fostering a deeper international appreciation and understanding of the country's vast cultural mosaic.",
+  },
+];

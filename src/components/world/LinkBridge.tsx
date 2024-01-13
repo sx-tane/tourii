@@ -5,7 +5,7 @@ import Image from "next/image";
 const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
   return (
     <div className="relative flex justify-center align-middle">
-      <div className="absolute left-[65%] top-[50%] z-10 -translate-x-1/2 -translate-y-1/2 transform text-left">
+      <div className="absolute left-[65%] top-[50%] z-10 -translate-x-1/2 -translate-y-1/2 transform text-left sm:left-[70%]">
         <p className="text-[0.9vw] font-bold uppercase leading-loose tracking-widest text-[#64645F]">
           {japaneseTitle}
         </p>
