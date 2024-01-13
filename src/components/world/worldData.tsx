@@ -18,8 +18,8 @@ export const placeData: PlaceProps[] = [
 ];
 
 export type BridgeProps = {
-  japaneseTitle: string;
-  englishTitle: string;
+  japaneseTitle?: string;
+  englishTitle?: string;
 };
 
 export const bridgeData: BridgeProps[] = [
