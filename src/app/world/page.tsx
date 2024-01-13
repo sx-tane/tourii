@@ -16,7 +16,9 @@ const World: React.FC = () => {
       <div className="w-9/12">
         <Section />
         <DescriptionWorld />
-        <WhiteLine />
+        <div className="mb-20">
+          <WhiteLine />
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 const DescriptionWorld = () => {
   return (
-    <div className="my-24 whitespace-pre-line px-10 text-center text-base font-medium tracking-normal text-warmGrey3">
+    <div className="my-20 whitespace-pre-line px-10 text-center text-base font-medium tracking-normal text-warmGrey3">
       Embark on a journey to the Touriiverse, where timeless myths and today's
       Japan converge in a tapestry of fantasy. Explore three enchanted realms:
       the exalted{" "}
