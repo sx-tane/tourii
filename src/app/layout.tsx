@@ -4,18 +4,19 @@ import Loading from "./loading";
 import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 
-import Header from "@/components/header/Header";
-
 const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.tourii.xyz/"),
   title: {
     default: "Tourii",
     template: "%s | Tourii",
   },
+  description:
+    "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
 };
 
 export default function RootLayout({

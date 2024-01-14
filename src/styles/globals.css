@@ -43,6 +43,26 @@
   background-color: #AE3111;
 }
 
+.header-nav-black a:hover, .header-nav-black button:hover,
+.header-nav-black a.active, .header-nav-black button.active {
+  color: #E3E3DC;
+}
+  
+.header-nav-black a .upperline, .header-nav-black button .upperline {
+  position: absolute;
+  top: -5px;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s, width 0.3s ease-in-out;
+  width: 0;
+}
+
+.header-nav-black a:hover .upperline, .header-nav-black button:hover .upperline,
+.header-nav-black a.active .upperline, .header-nav-black button.active .upperline {
+  width: 100%;
+  background-color: #E3E3DC;
+}
+
 ::selection {
   background: #AE3111; /* background color of the highlighted text */
   color: white; /* color of the highlighted text */
