@@ -4,7 +4,7 @@ import Image from "next/image";
 const MainImage: React.FC = () => {
   return (
     <div className="right-18 fixed bottom-4">
-      <div className="relative h-auto sm:w-[47vw]  md:w-[47vw] lg:w-[47vw] xl:w-[47vw] 2xl:w-[48vw]">
+      <div className="relative h-auto sm:w-[45vw]  md:w-[45vw] lg:w-[45vw] xl:w-[45vw] 2xl:w-[45vw]">
         <div className="overflow-hidden rounded-full border-[1.5px] border-mustard p-[10px]">
           <Image
             src="/image/homepage/tourii_main.png"

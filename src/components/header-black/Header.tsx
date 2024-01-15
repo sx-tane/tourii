@@ -22,7 +22,7 @@ const navigation: NavItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
-  { href: "/model-route", label: "MODEL ROUTE" },
+  // { href: "/model-route", label: "MODEL ROUTE" },
   {
     href: "/social",
     label: "SOCIAL MEDIA",
@@ -31,7 +31,7 @@ const navigation: NavItem[] = [
       { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
     ],
   },
-  { href: "/connect", label: "CONNECT" },
+  // { href: "/connect", label: "CONNECT" },
 ];
 
 const HeaderBlack: React.FC = () => {
