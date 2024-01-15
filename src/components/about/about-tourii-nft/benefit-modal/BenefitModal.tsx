@@ -63,7 +63,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
         <BenefitDetail number={selectedBenefitId} data={benefitType} />
       ) : (
         // TODO: Fix the absolute positioning of the close button and the text, so that they are always in the same place
-        <div className=" grid w-[1000px] grid-cols-4 justify-center gap-3 space-x-10 p-10 ">
+        <div className=" grid w-[1000px] grid-cols-4 justify-center gap-3 p-10  align-middle ">
           {benefitType.map((data) => (
             <div
               key={data.number}
