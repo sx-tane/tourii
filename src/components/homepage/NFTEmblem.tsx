@@ -25,6 +25,7 @@ const NFTEmblem: React.FC = () => {
         width={280}
         height={300}
         className="h-24 w-full md:h-[200px] lg:h-[230px] xl:h-[280px] 2xl:h-[340px]"
+        priority
       />
     </div>
   );

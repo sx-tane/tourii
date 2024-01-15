@@ -73,6 +73,7 @@ const Header: React.FC = () => {
             alt="Logo"
             width={50}
             height={50}
+            priority
           />
         </Link>
       </div>

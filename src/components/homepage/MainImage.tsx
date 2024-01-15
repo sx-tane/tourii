@@ -14,6 +14,7 @@ const MainImage: React.FC = () => {
             height={700}
             quality={100}
             className="rounded-full object-cover"
+            priority
           />
         </div>
       </div>

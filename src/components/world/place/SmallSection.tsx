@@ -23,6 +23,7 @@ const SmallSection: React.FC<PlaceProps> = ({ title, smallTitle, image }) => {
               quality={100}
               className="h-full w-full object-cover"
               fill={true}
+              priority
             />
           </div>
         </div>

@@ -14,6 +14,7 @@ const Headline: React.FC = () => {
         width={700}
         height={700}
         className="mt-5 h-full w-full"
+        priority
       />
     </div>
   );
