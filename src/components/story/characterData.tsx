@@ -11,7 +11,7 @@ export const characters: CharacterProps[] = [
     description: "This is a description of Character One.",
   },
   {
-    name: "Ameno Uzume no Mikoto",
+    name: "Ame no Uzume no Mikoto",
     image: "/image/story/Uzume.png",
     description: "This is a description of Character Two.",
   },
