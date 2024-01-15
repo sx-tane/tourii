@@ -33,4 +33,18 @@ nft`,
     content:
       "Dive into a world where your Tourii NFT isn't just another royalty program; it's a gateway to actively engage with the captivating storylines of the Touriiverse, both in the virtual realm and at real-world tourism sites. Your digital asset is more than just a token but a dynamic key unlocking a universe of interaction and adventure! With Tourii NFT, your rewards and experiences come alive as you interact and explore.",
   },
+  {
+    smallTitle: "touriiverse",
+    title: `story
+prologue`,
+    content: `In Takamagahara's Sun Palace, Amaterasu, the revered sun goddess, summons Ninigi, her grandson, to journey to Ashihara no Nakatsukuni (Central Earth Japan), on his destiny to succeed Okuninushi as ruler. She has also gave Ninigi a team of Amatsukami to assist on his mission. One of the most important comrade is Ame-no-Uzume, goddess of dawn and mirth. 
+
+    However, As the party began their descent through the Ame-no-ukihashi, an unforeseen twist occurs. Raijin, the thunder kami, ambushes them, sending Ninigi's group to an unexpected time and place within Japan. He find himself in the year 2024, at a majestic waterfall before a white torii gate, greeted by a mysterious figure. He realised that his Amatsukami entourage are all gone, except for Uzume.
+    
+    This sudden shift in time and location alters the Touriiverse narrative significantly. Ninigi, now in an unfamiliar era, must overcome new challenges, understand his changed role, and strive to fulfill his destiny in this vastly different world.`,
+  },
+  {
+    smallTitle: "introducing",
+    title: "kami",
+  },
 ];

@@ -1,14 +1,16 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import Loading from "../loading";
-
 import Header from "@/components/header-white/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="item-center mx-6 mb-20 min-h-screen animate-fadeIn overflow-hidden">
-      <Header />
-      <Suspense fallback={<Loading />}>{children}</Suspense>
-    </div>
+    <Suspense>
+      <div className="item-center mb-20 h-full animate-fadeIn overflow-hidden">
+        <div className="mx-6">
+          <Header />
+          {children}
+        </div>
+      </div>
+    </Suspense>
   );
 }
