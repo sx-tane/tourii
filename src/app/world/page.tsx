@@ -29,7 +29,7 @@ const World: React.FC = () => {
           smallTitle={titleData[1]?.smallTitle}
           title={titleData[1]?.title}
         />
-        <div className=" w-7/11">
+        <div className="w-7/11">
           <div className="align-middle">
             <Goal />
           </div>
