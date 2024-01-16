@@ -1,5 +1,5 @@
 import React from "react";
-import { GoalProps, goalData } from "../worldData";
+import { type GoalProps, goalData } from "../worldData";
 
 const Goal: React.FC<GoalProps> = () => {
   return (

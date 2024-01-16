@@ -3,9 +3,9 @@ import { type CharacterProps, characters } from "./characterData";
 
 const ProtagonistsSection: React.FC<CharacterProps> = () => {
   return (
-    <div className="flex flex-wrap justify-center gap-8">
+    <div className="flex w-7/12 flex-wrap justify-center gap-8 bg-warmGrey3 p-4">
       {characters.map((char, index) => (
-        <div key={index} className="w-full md:w-9/12">
+        <div key={index} className="">
           <CharacterCard
             key={char.name}
             name={char.name}

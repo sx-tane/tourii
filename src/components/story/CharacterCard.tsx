@@ -7,21 +7,22 @@ const CharacterCard: React.FC<CharacterProps> = ({
   description,
 }) => {
   return (
-    <div className="flex flex-row items-start p-4 text-red">
-      <div className="mb-2 h-auto w-52 overflow-hidden rounded-full border-[1.5] border-mustard">
+    <div className="flex flex-row items-center justify-start p-8 text-red">
+      <div className="h-auto w-4/12 flex-none">
         <Image
           src={image ?? ""}
           alt={`Character ${name}`}
-          width={248}
-          height={248}
-          className="object-cover"
+          width={500}
+          height={500}
+          quality={100}
+          objectFit="contain"
         />
       </div>
-      <div className="ml-4 pt-10">
-        <h2 className="text-justify text-2xl font-bold uppercase tracking-wider">
+      <div className="ml-4 flex-1">
+        <h2 className="text-justify text-3xl font-bold uppercase tracking-wider">
           {name}
         </h2>
-        <p className="mt-4 text-justify text-base font-medium tracking-normal">
+        <p className="mt-4 text-justify text-lg font-medium tracking-normal">
           {description}
         </p>
       </div>

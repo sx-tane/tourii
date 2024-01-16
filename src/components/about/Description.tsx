@@ -14,7 +14,7 @@ const Description: React.FC<DescriptionProps> = ({
           {title}
         </h2>
       </div>
-      <p className="mt-8 whitespace-pre-line px-2 text-base font-semibold">
+      <p className="mt-8 whitespace-pre-line px-2 text-base font-medium">
         {content}
       </p>
     </div>

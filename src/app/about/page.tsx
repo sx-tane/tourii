@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const About: React.FC = () => {
   return (
     <div className="mx-auto w-9/12 flex-col items-center justify-center">
-      <div className="fixed right-6 z-10">
+      <div className="fixed right-6 top-36 z-10">
         <AboutCoin />
       </div>
       <div className="w-9/10 flex min-h-screen flex-col items-center justify-center">
