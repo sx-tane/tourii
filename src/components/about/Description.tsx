@@ -1,5 +1,6 @@
 import React from "react";
 import { type DescriptionProps } from "./descriptionData";
+import ReactMarkdown from "react-markdown";
 
 const Description: React.FC<DescriptionProps> = ({
   smallTitle,
@@ -15,7 +16,7 @@ const Description: React.FC<DescriptionProps> = ({
         </h2>
       </div>
       <p className="mt-8 whitespace-pre-line px-2 text-base font-medium">
-        {content}
+        <ReactMarkdown>{content}</ReactMarkdown>
       </p>
     </div>
   );

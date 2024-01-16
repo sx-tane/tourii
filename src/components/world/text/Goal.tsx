@@ -1,5 +1,6 @@
 import React from "react";
 import { type GoalProps, goalData } from "../worldData";
+import ReactMarkdown from "react-markdown";
 
 const Goal: React.FC<GoalProps> = () => {
   return (
@@ -10,7 +11,7 @@ const Goal: React.FC<GoalProps> = () => {
             {goal.title}
           </h2>
           <p className="mt-4 text-justify text-base font-medium tracking-normal">
-            {goal.description}
+            <ReactMarkdown>{goal.description}</ReactMarkdown>
           </p>
         </div>
       ))}
