@@ -1,5 +1,5 @@
 import React from "react";
-import { TitleProps } from "../worldData";
+import { type TitleProps } from "../worldData";
 
 const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
   return (

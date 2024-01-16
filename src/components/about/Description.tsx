@@ -1,5 +1,5 @@
 import React from "react";
-import { DescriptionProps } from "./descriptionData";
+import { type DescriptionProps } from "./descriptionData";
 
 const Description: React.FC<DescriptionProps> = ({
   smallTitle,

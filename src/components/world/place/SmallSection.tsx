@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { PlaceProps } from "../worldData";
+import { type PlaceProps } from "../worldData";
 
 const SmallSection: React.FC<PlaceProps> = ({ title, smallTitle, image }) => {
   return (

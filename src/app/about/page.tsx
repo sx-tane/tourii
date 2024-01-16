@@ -6,7 +6,7 @@ import CrewGrid from "@/components/about/crew/CrewGrid";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "About",

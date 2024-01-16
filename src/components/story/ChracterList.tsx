@@ -1,5 +1,5 @@
 import CharacterCard from "./CharacterCard";
-import { CharacterProps, characters } from "./characterData";
+import { type CharacterProps, characters } from "./characterData";
 
 const ProtagonistsSection: React.FC<CharacterProps> = () => {
   return (

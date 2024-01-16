@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CharacterProps } from "./characterData";
+import { type CharacterProps } from "./characterData";
 
 const CharacterCard: React.FC<CharacterProps> = ({
   name,

@@ -1,5 +1,5 @@
 import React from "react";
-import { CrewInfoProps, crewData } from "./crewData";
+import { type CrewInfoProps, crewData } from "./crewData";
 import CrewMemberCard from "./CrewMemberCard";
 
 const CrewGrid: React.FC = () => {

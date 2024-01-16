@@ -1,5 +1,5 @@
 import React from "react";
-import { BridgeProps } from "./worldData";
+import { type BridgeProps } from "./worldData";
 import Image from "next/image";
 
 const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
