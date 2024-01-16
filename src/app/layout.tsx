@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Loading from "./loading";
 import { type Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -59,7 +60,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <Suspense fallback={<Loading />}>
+          {children}
+          <SpeedInsights />
+        </Suspense>
       </body>
     </html>
   );
