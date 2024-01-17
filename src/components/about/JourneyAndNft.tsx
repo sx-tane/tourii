@@ -6,21 +6,18 @@ import BenefitButton from "./about-tourii-nft/benefit-modal/BenefitButton";
 
 const JourneyAndNft: React.FC = () => {
   return (
-    <div className="my-10 flex h-full  flex-col items-center bg-warmGrey3">
-      <div className="w-9/12">
+    <div className="items-center justify-center px-2 lg:px-24">
+      <div className="w-full">
         <Line />
       </div>
-      <div id="your-journey" className="-mt-5 flex items-center justify-center">
+      <div id="your-journey" className="-mt-5 ">
         <Description {...descriptionData[2]} />
       </div>
-      <div
-        id="about-tourii-nft"
-        className="flex flex-col items-center justify-center"
-      >
+      <div id="about-tourii-nft" className="">
         <Description {...descriptionData[3]} />
         <BenefitButton />
       </div>
-      <div className="mt-5 w-9/12">
+      <div className="mt-5 w-full">
         <Line />
       </div>
     </div>

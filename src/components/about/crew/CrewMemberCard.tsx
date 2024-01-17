@@ -21,7 +21,9 @@ const CrewMemberCard: React.FC<{ crewMember: CrewInfoProps }> = ({
       <div className="mb-2 mt-1 text-[10px] font-bold uppercase tracking-wider">
         {crewMember.title}
       </div>
-      <p className="text-prety text-sm font-medium">{crewMember.description}</p>
+      <p className="text-pretty text-sm font-medium">
+        {crewMember.description}
+      </p>
       <div className="font-bold">—</div>
       {crewMember.twitterLink && (
         <Link

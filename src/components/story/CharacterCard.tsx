@@ -23,9 +23,9 @@ const CharacterCard: React.FC<CharacterProps> = ({
         <h2 className="text-justify text-3xl font-bold uppercase tracking-wider">
           {name}
         </h2>
-        <p className="mt-4 text-justify text-base font-medium tracking-normal">
+        <div className="mt-4 text-justify text-base font-medium tracking-normal">
           <ReactMarkdown>{description ?? ""}</ReactMarkdown>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -14,9 +14,9 @@ const SmallSection: React.FC<PlaceProps> = ({ title, smallTitle, image }) => {
             className="relative overflow-hidden rounded-full border-2 border-warmGrey3"
             style={{ paddingBottom: "35%" }}
           >
-            <p className="absolute left-1/2 top-4 z-10 -translate-x-1/2 -translate-y-1/2 transform text-center text-[0.95vw] font-semibold italic tracking-wide text-black">
+            <div className="absolute left-1/2 top-4 z-10 -translate-x-1/2 -translate-y-1/2 transform text-center text-[0.95vw] font-semibold italic tracking-wide text-black">
               {smallTitle}
-            </p>
+            </div>
             <Image
               src={image ?? ""}
               alt={title ?? ""}

@@ -10,9 +10,9 @@ const Goal: React.FC<GoalProps> = () => {
           <h2 className="text-left text-2xl font-bold uppercase tracking-widest">
             {goal.title}
           </h2>
-          <p className="mt-4 text-justify text-base font-medium tracking-normal">
+          <div className="mt-4 text-justify text-base font-medium tracking-normal">
             <ReactMarkdown>{goal.description}</ReactMarkdown>
-          </p>
+          </div>
         </div>
       ))}
     </div>

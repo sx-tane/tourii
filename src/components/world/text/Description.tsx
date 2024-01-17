@@ -1,7 +1,7 @@
 const DescriptionWorld = () => {
   return (
     <div className="my-20 whitespace-pre-line px-10 text-center text-base font-medium tracking-normal text-warmGrey3">
-      <p>
+      <div>
         Embark on a journey to the Touriiverse, where timeless myths and today's
         Japan converge in a tapestry of fantasy. Explore three enchanted realms:
         the exalted{" "}
@@ -17,9 +17,9 @@ const DescriptionWorld = () => {
           <em>Yomitsukuni</em>
         </strong>
         , where spirits linger.
-      </p>
+      </div>
       <br />
-      <p>
+      <div>
         Venture across the divine{" "}
         <strong>
           <em>Ame No Ukihashi</em>
@@ -31,7 +31,7 @@ const DescriptionWorld = () => {
         , pathways to worlds unknown. In this land, Amatsukami, Kunitsukami,
         Bonjin, Yomitsukami and Yokai coexist, weaving stories of old into the
         fabric of the present.
-      </p>
+      </div>
     </div>
   );
 };

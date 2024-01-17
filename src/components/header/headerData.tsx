@@ -24,3 +24,11 @@ export const navigation: NavItem[] = [
   },
   // { href: "/connect", label: "CONNECT" },
 ];
+
+export const hamburgerNavigation: NavItem[] = [
+  { href: "/about", label: "ABOUT" },
+  { href: "/world", label: "WORLD" },
+  { href: "/story", label: "MODEL ROUTE" },
+  { href: "https://twitter.com/TouriiJP", label: "X" },
+  { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+];

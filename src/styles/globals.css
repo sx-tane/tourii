@@ -63,6 +63,48 @@
   background-color: #E3E3DC;
 }
 
+.header-hamburger-black a:hover, .header-hamburger-black button:hover,
+.header-hamburger-black a.active, .header-hamburger-black button.active {
+  color: #E3E3DC;
+}
+  
+.header-hamburger-black a .upperline, .header-hamburger-black button .upperline {
+  position: absolute;
+  top: -5px;
+  right:0;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s, width 0.3s ease-in-out;
+  width: 0;
+}
+
+.header-hamburger-black a:hover .upperline, .header-hamburger-black button:hover .upperline,
+.header-hamburger-black a.active .upperline, .header-hamburger-black button.active .upperline {
+  width: 100%;
+  background-color: #E3E3DC;
+}
+
+.header-hamburger-white a:hover, .header-hamburger-white button:hover,
+.header-hamburger-white a.active, .header-hamburger-white button.active {
+  color: #AE3111;
+}
+  
+.header-hamburger-white a .upperline, .header-hamburger-white button .upperline {
+  position: absolute;
+  top: -5px;
+  right:0;
+  height: 2px;
+  background-color: transparent;
+  transition: background-color 0.3s, width 0.3s ease-in-out;
+  width: 0;
+}
+
+.header-hamburger-white a:hover .upperline, .header-hamburger-white button:hover .upperline,
+.header-hamburger-white a.active .upperline, .header-hamburger-white button.active .upperline {
+  width: 100%;
+  background-color: #AE3111;
+}
+
 ::selection {
   background: #AE3111; /* background color of the highlighted text */
   color: white; /* color of the highlighted text */

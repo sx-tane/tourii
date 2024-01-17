@@ -14,26 +14,24 @@ export const metadata: Metadata = {
 
 const About: React.FC = () => {
   return (
-    <div className="mx-auto w-9/12 flex-col items-center justify-center">
-      <div className="fixed right-6 top-36 z-10">
+    <div className="">
+      <div className="fixed right-6 top-36 z-10 hidden lg:flex">
         <AboutCoin />
       </div>
-      <div className="w-9/10 flex min-h-screen flex-col items-center justify-center">
-        <div className=" mt-10 flex flex-col items-center">
-          <div id="who-is-tourii" className="flex flex-col items-center">
-            <Description {...descriptionData[0]} />
-          </div>
-          <div className="w-7/12">
-            <Line />
-          </div>
-          <div id="our-objectives" className="flex flex-col items-center">
-            <Description {...descriptionData[1]} />
-          </div>
+      <div className="mx-6 flex flex-col items-center justify-center lg:mx-80">
+        <div id="who-is-tourii" className=" ">
+          <Description {...descriptionData[0]} />
         </div>
-        <div className="flex  flex-col items-center">
-          <AboutImage />
+        <div className="w-full">
+          <Line />
         </div>
-        <JourneyAndNft />
+        <div id="our-objectives">
+          <Description {...descriptionData[1]} />
+        </div>
+        <AboutImage />
+        <div className="h-full items-center bg-warmGrey3">
+          <JourneyAndNft />
+        </div>
         <div className="mb-20 mt-5">
           <Divider />
         </div>
@@ -43,7 +41,6 @@ const About: React.FC = () => {
         >
           Meet our crew
         </h3>
-        <div className="w-10/12"></div>
         <CrewGrid />
       </div>
       <div className="mt-20">

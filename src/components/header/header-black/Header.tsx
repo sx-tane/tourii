@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import HeaderListBlack from "./HeaderList";
+import HamburgerBlack from "./Hamburger";
 
 const HeaderBlack: React.FC = () => {
   return (
@@ -18,7 +19,12 @@ const HeaderBlack: React.FC = () => {
           />
         </Link>
       </div>
-      <HeaderListBlack />
+      <div className="hidden md:flex">
+        <HeaderListBlack />
+      </div>
+      <div className="md:hidden">
+        <HamburgerBlack />
+      </div>
     </div>
   );
 };
