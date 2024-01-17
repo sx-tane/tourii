@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import Dropdown from "../header-white/Dropdown";
+import Dropdown from "../Dropdown";
 
 type NavItem = {
   href: string;

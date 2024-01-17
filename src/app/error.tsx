@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/header-white/Header";
+import Header from "@/components/header/header-white/Header";
 import React from "react";
 
 const Error: React.FC = () => {

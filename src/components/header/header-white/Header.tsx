@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import Dropdown from "./Dropdown";
+import Dropdown from "../Dropdown";
 
 type NavItem = {
   href: string;
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <div className="z-50 flex w-full items-center justify-between py-4">
+    <div className="z-10 flex w-full items-center justify-between py-4">
       <div className="flex justify-start lg:w-0 lg:flex-1">
         <Link href="/">
           <Image
