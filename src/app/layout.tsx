@@ -4,6 +4,7 @@ import Loading from "./loading";
 import { type Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
         <Suspense fallback={<Loading />}>
           {children}
           <SpeedInsights />
+          <Analytics />
         </Suspense>
       </body>
     </html>
