@@ -9,7 +9,7 @@ export const characters: CharacterProps[] = [
     name: "Ninigi no Mikoto",
     image: "/image/story/Ninigi.png",
     description:
-      "***Lead Protagonist, Grandson of the mighty Amaterasu***, tasked to descend to Central land and assume its rulership during the Tenson Kourin event.He is believed to be the great grandfather of Japan’s first legendary emperor. However with a twist in fate, he landed in a very different Ashihara no NakatsukuniAs he faces challenges and tests, he must prove himself as the rightful ruler and grow into a wise and worthy leader.",
+      "***Lead Protagonist, Grandson of the mighty Amaterasu***, tasked to descend to Central land and assume its rulership during the Tenson Kourin event. He is believed to be the great grandfather of Japan’s first legendary emperor. However with a twist in fate, he landed in a very different Ashihara no Nakatsukuni. As he faces challenges and tests, he must prove himself as the rightful ruler and grow into a wise and worthy leader.",
   },
   {
     name: "Ame no Uzume no Mikoto",

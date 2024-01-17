@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import HeaderBlack from "@/components/header-black/Header";
+import HeaderBlack from "@/components/header/header-black/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
