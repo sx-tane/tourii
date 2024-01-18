@@ -40,7 +40,7 @@ const AboutCoin: React.FC = () => {
               alt="Coin"
               width={100}
               height={100}
-              priority
+              priority={true}
             />
           </motion.div>
         )}

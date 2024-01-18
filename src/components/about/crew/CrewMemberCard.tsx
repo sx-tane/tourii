@@ -15,7 +15,7 @@ const CrewMemberCard: React.FC<{ crewMember: CrewInfoProps }> = ({
         width={140}
         height={140}
         className="mb-[50px] rounded-full"
-        priority
+        priority={true}
       />
       <h2 className="text-2xl font-bold tracking-wider">{crewMember.name}</h2>
       <div className="mb-2 mt-1 text-[10px] font-bold uppercase tracking-wider">

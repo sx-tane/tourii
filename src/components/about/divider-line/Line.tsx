@@ -11,7 +11,7 @@ const Line: React.FC = () => {
         layout="responsive"
         width={800}
         height={800}
-        priority
+        priority={true}
       />
     </div>
   );

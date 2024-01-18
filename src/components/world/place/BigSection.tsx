@@ -22,7 +22,7 @@ const BigSection: React.FC = () => {
             quality={100}
             className="h-full w-full object-cover"
             fill={true}
-            priority
+            priority={true}
           />
         </div>
       </div>

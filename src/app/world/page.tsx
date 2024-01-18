@@ -33,7 +33,7 @@ const World: React.FC = () => {
           <div className="align-middle">
             <Goal />
           </div>
-          <div className="my-20">
+          <div className="my-10">
             <DividerWhite />
           </div>
         </div>

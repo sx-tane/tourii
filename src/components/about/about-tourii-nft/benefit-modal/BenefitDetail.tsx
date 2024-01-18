@@ -62,7 +62,7 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
               alt="left"
               width={20}
               height={20}
-              priority
+              priority={true}
             />
           </button>
           <div className="mx-5">
@@ -77,7 +77,7 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
               alt="right"
               width={20}
               height={20}
-              priority
+              priority={true}
             />
           </button>
           <span className="ml-10 text-pretty text-base leading-relaxed tracking-wider text-warmGrey3">

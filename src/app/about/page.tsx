@@ -53,7 +53,7 @@ const About: React.FC = () => {
         </h3>
         <CrewGrid />
       </div>
-      <div className="-mx-6 mt-10 md:mx-0 md:pb-20">
+      <div className="-mx-6 mt-10 md:mx-0 md:pb-10">
         <Divider />
         <BackToTop />
       </div>

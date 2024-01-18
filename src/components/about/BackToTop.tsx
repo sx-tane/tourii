@@ -13,7 +13,7 @@ const BackToTop = () => {
     <div>
       <Link
         href="#top"
-        className="mb-5 flex flex-col items-center justify-center pt-5 text-center font-medium italic text-warmGrey3 md:hidden"
+        className="mb-5 flex flex-col items-center justify-center pt-6 text-center font-medium italic text-warmGrey3 md:hidden"
         onClick={handleClick("#top")}
       >
         <ArrowUpCircleIcon className="mb-1 h-6 w-6" />

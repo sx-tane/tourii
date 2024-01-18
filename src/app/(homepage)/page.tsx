@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
       <div className="h-full overflow-hidden lg:hidden">
         <div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
           <div className="mx-6 mb-5">
-            <div className="mb-6 pr-20 sm:pr-32">
+            <div className="mb-4 pr-20 sm:mb-10 sm:pr-64">
               <Headline />
             </div>
             <Image
@@ -31,16 +31,16 @@ const HomePage: React.FC = () => {
               alt="tourii"
               width={500}
               height={600}
-              className="w-full object-cover sm:w-8/12"
-              priority
+              className="relative w-[55%] object-cover sm:w-5/12"
+              priority={true}
             />
           </div>
           <Image
-            src="/image/homepage/tourii_main.png"
+            src="/image/about/about-image.png"
             width={1000}
             height={1000}
             alt="tourii_main"
-            className="h-5/6 object-cover sm:h-2/3"
+            className="h-[65vh] w-full object-cover  "
           />
         </div>
       </div>

@@ -17,12 +17,12 @@ const Headline: React.FC = () => {
           width={700}
           height={700}
           className="mt-5 h-full w-full"
-          priority
+          priority={true}
         />
       </div>
       {/*Tablet and Phone Size*/}
       <div className="flex flex-col lg:hidden">
-        <div className="text-left text-lg font-semibold leading-normal text-black sm:text-2xl">
+        <div className="text-left text-sm font-semibold leading-normal text-black sm:text-xl">
           Unveiling Japan's mystical realms through narrative storytelling & Web
           3.0 tourism.
         </div>
