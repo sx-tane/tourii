@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Line: React.FC = () => {
   return (
-    <div className="my-10 w-full">
+    <div className="my-8 w-full md:my-10">
       <Image
         className="object-contain"
         src="/image/about/line.svg"

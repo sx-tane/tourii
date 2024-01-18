@@ -22,10 +22,14 @@ const About: React.FC = () => {
       <div className=" flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
         <div id="who-is-tourii" className=" ">
           <div className="hidden md:flex">
-          <Description {...descriptionData[0]} />
+            <Description {...descriptionData[0]} />
           </div>
           <div className="md:hidden">
-          <Description {...descriptionData[0]} smallTitle="what" title="is tourii" />
+            <Description
+              {...descriptionData[0]}
+              smallTitle="what"
+              title="is tourii"
+            />
           </div>
         </div>
         <div className="w-full">
@@ -35,10 +39,10 @@ const About: React.FC = () => {
           <Description {...descriptionData[1]} />
         </div>
         <AboutImage />
-        <div className="mb-20 h-full items-center bg-warmGrey3">
+        <div className="-mx-6 mb-20 h-full items-center bg-warmGrey3 md:mx-0">
           <JourneyAndNft />
         </div>
-        <div className="mb-20 mt-5">
+        <div className="mb-20 md:mt-5">
           <Divider />
         </div>
         <h3
