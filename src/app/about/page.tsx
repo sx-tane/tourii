@@ -21,7 +21,12 @@ const About: React.FC = () => {
       </div>
       <div className=" flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
         <div id="who-is-tourii" className=" ">
+          <div className="hidden md:flex">
           <Description {...descriptionData[0]} />
+          </div>
+          <div className="md:hidden">
+          <Description {...descriptionData[0]} smallTitle="what" title="is tourii" />
+          </div>
         </div>
         <div className="w-full">
           <Line />

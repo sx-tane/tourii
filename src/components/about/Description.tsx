@@ -10,8 +10,8 @@ const Description: React.FC<DescriptionProps> = ({
   return (
     <div className=" my-10 items-center text-center text-red">
       <div className="font-bold uppercase">
-        <h3 className="text-base tracking-wide">{smallTitle}</h3>
-        <h2 className="whitespace-break-spaces break-all text-6xl tracking-widest">
+        <h3 className="text-5xl tracking-wide md:tracking-wide leading-normal md:text-base">{smallTitle}</h3>
+        <h2 className="whitespace-break-spaces break-all text-5xl tracking-wide md:tracking-widest md:text-6xl">
           {title}
         </h2>
       </div>
