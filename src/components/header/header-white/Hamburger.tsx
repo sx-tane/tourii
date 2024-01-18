@@ -4,7 +4,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import React, { Fragment } from "react";
-import { hamburgerNavigation } from "../../headerData";
+import { hamburgerNavigation } from "../headerData";
 import { usePathname } from "next/navigation";
 
 const Hamburger: React.FC = () => {
@@ -27,23 +27,23 @@ const Hamburger: React.FC = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="header-hamburger-black item-start absolute -right-7 z-10 mt-2 w-52 rounded-md bg-charcoal p-8 shadow-lg">
+        <Menu.Items className="item-start absolute -right-7 z-10 mt-2 w-52 rounded-md bg-charcoal p-8 shadow-lg">
           <div className=" mr-0 space-y-5 text-right">
             {hamburgerNavigation.map((item) => (
               <div key={item.href} className="relative">
                 <Link
                   href={item.href}
                   passHref
-                  className={`relative text-sm font-medium tracking-[0.15em] text-warmGrey3 ${
-                    pathname === item.href ? "active" : ""
+                  className={`relative text-sm  tracking-[0.15em]  ${
+                    pathname === item.href
+                      ? "font-bold text-warmGrey"
+                      : "font-medium text-warmGrey3"
                   }`}
                 >
                   {item.label}
                   <div className="">
                     <div
-                      className={`upperline ${
-                        pathname === item.href ? "active" : ""
-                      }`}
+                      className={`  ${pathname === item.href ? "active" : ""}`}
                     />
                   </div>
                 </Link>

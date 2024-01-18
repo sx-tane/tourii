@@ -28,7 +28,7 @@ export const navigation: NavItem[] = [
 export const hamburgerNavigation: NavItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/world", label: "WORLD" },
-  { href: "/story", label: "MODEL ROUTE" },
+  { href: "/story", label: "STORY" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
 ];

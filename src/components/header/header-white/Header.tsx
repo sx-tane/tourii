@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import HeaderList from "./HeaderList";
-import Hamburger from "./Hamburger/Hamburger";
+import Hamburger from "./Hamburger";
 
 const Header: React.FC = () => {
   return (

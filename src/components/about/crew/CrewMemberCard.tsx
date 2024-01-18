@@ -8,7 +8,7 @@ const CrewMemberCard: React.FC<{ crewMember: CrewInfoProps }> = ({
   crewMember,
 }) => {
   return (
-    <div className="rounded-lg border-[1.5px] border-red py-6 pl-6 pr-6 text-left text-red">
+    <div className="rounded-lg border-[1.5px] border-red px-6 py-6 text-left text-red">
       <Image
         src={crewMember.profileImage}
         alt={crewMember.name}

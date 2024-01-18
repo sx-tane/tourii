@@ -1,4 +1,5 @@
 import AboutImage from "@/components/about/AboutImage";
+import BackToTop from "@/components/about/BackToTop";
 import Description from "@/components/about/Description";
 import JourneyAndNft from "@/components/about/JourneyAndNft";
 import AboutCoin from "@/components/about/about-menu/AboutCoin";
@@ -14,11 +15,11 @@ export const metadata: Metadata = {
 
 const About: React.FC = () => {
   return (
-    <div className="">
-      <div className="fixed right-6 top-36 z-10 hidden lg:flex">
+    <div>
+      <div className="fixed right-6 top-36 z-10 hidden md:flex ">
         <AboutCoin />
       </div>
-      <div className="mx-6 flex flex-col items-center justify-center lg:mx-80">
+      <div className=" flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
         <div id="who-is-tourii" className=" ">
           <Description {...descriptionData[0]} />
         </div>
@@ -29,7 +30,7 @@ const About: React.FC = () => {
           <Description {...descriptionData[1]} />
         </div>
         <AboutImage />
-        <div className="h-full items-center bg-warmGrey3">
+        <div className="mb-20 h-full items-center bg-warmGrey3">
           <JourneyAndNft />
         </div>
         <div className="mb-20 mt-5">
@@ -37,7 +38,7 @@ const About: React.FC = () => {
         </div>
         <h3
           id="meet-our-crew"
-          className="mb-10 text-xl font-bold uppercase tracking-widest text-red"
+          className="mb-10 text-center text-xl font-bold uppercase tracking-widest text-red"
         >
           Meet our crew
         </h3>

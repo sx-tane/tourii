@@ -15,15 +15,15 @@ const BenefitButton = () => {
     setIsModalOpen(false);
   };
   return (
-    <div className="mt-5 justify-center text-sm font-bold text-red lg:flex lg:space-x-5 ">
+    <div className="mt-5 flex flex-col items-center justify-center space-y-5 align-middle text-sm font-bold text-red lg:flex-row lg:space-x-5 lg:space-y-0">
       <button
-        className="rounded-full border-[1px] border-red  bg-transparent px-24 py-4 uppercase tracking-widest transition-all hover:bg-red hover:text-white"
+        className="w-9/12 rounded-full border-[1px] border-red bg-transparent px-4 py-4 uppercase tracking-widest transition-all hover:bg-red hover:text-white lg:w-11/12"
         onClick={() => openModal("Virtual Interaction")}
       >
         Virtual Interaction
       </button>
       <button
-        className="rounded-full border-[1px] border-red  bg-transparent px-24 py-4 uppercase tracking-widest transition-all hover:bg-red hover:text-white"
+        className="w-9/12 rounded-full border-[1px] border-red bg-transparent px-4 py-4 uppercase tracking-widest transition-all hover:bg-red hover:text-white lg:w-11/12"
         onClick={() => openModal("Physical Exploration")}
       >
         Physical Exploration
