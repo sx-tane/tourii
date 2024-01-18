@@ -23,10 +23,10 @@ const JourneyAndNft: React.FC = () => {
             smallTitle="about"
             title="tourii nft"
           />
-        </div>{" "}
+        </div>
         <BenefitButton />
       </div>
-      <div className="mt-5 w-full">
+      <div className=" mt-5 w-full">
         <Line />
       </div>
     </div>

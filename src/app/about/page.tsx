@@ -32,17 +32,17 @@ const About: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-full">
+        <div className="-mx-6 w-full md:mx-0">
           <Line />
         </div>
         <div id="our-objectives">
           <Description {...descriptionData[1]} />
         </div>
         <AboutImage />
-        <div className="-mx-6 mb-20 h-full items-center bg-warmGrey3 md:mx-0">
+        <div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
           <JourneyAndNft />
         </div>
-        <div className="mb-20 md:mt-5">
+        <div className="-mx-6 mb-10 md:mx-0 md:mt-5">
           <Divider />
         </div>
         <h3
@@ -53,7 +53,7 @@ const About: React.FC = () => {
         </h3>
         <CrewGrid />
       </div>
-      <div className="mt-20 md:pb-20">
+      <div className="-mx-6 mt-10 md:mx-0 md:pb-20">
         <Divider />
         <BackToTop />
       </div>
