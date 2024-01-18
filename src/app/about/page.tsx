@@ -44,8 +44,9 @@ const About: React.FC = () => {
         </h3>
         <CrewGrid />
       </div>
-      <div className="mt-20">
+      <div className="mt-20 md:pb-20">
         <Divider />
+        <BackToTop />
       </div>
     </div>
   );
