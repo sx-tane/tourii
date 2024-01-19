@@ -19,7 +19,7 @@ const About: React.FC = () => {
       <div className="fixed right-6 top-36 z-10 hidden md:flex ">
         <AboutCoin />
       </div>
-      <div className=" flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
+      <div className="z-50 flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
         <div id="who-is-tourii" className=" ">
           <div className="hidden md:flex">
             <Description {...descriptionData[0]} />
@@ -42,7 +42,7 @@ const About: React.FC = () => {
         <div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
           <JourneyAndNft />
         </div>
-        <div className="-mx-6 mb-10 md:mx-0 md:mt-5">
+        <div className="-mx-6 pb-10 md:mx-0 md:mt-5">
           <Divider />
         </div>
         <h3

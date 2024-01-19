@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Loading: React.FC = () => {
   return (
     <div
-      className="mx-96 flex items-center justify-center sm:mx-10 md:mx-4"
+      className="mx-4 flex items-center justify-center sm:mx-10 lg:mx-96"
       style={{ height: "calc(100vh - 77px)" }}
     >
       <motion.div

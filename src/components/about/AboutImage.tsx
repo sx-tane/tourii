@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const AboutImage: React.FC = () => {
   return (
-    <div className="z-10 mb-10 md:overflow-hidden md:rounded-full">
+    <div className="z-80 mb-10 md:overflow-hidden md:rounded-full">
       <div className="-mx-6 md:mx-auto">
         <Image
           src="/image/about/about-image.png"
