@@ -2,6 +2,7 @@ import React from "react";
 import Headline from "@/components/homepage/Headline";
 import NFTEmblem from "@/components/homepage/NFTEmblem";
 import MainImage from "@/components/homepage/MainImage";
+import Image from "next/image";
 
 const HomePage: React.FC = () => {
   return (
@@ -19,7 +20,30 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       {/*Tablet and Phone Size*/}
-      <div className="w-full items-end overflow-hidden lg:hidden"></div>
+      <div className="h-full overflow-hidden lg:hidden">
+        <div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
+          <div className="mx-6 mb-5">
+            <div className="mb-6 pr-20 sm:pr-32">
+              <Headline />
+            </div>
+            <Image
+              src="/image/homepage/tourii.svg"
+              alt="tourii"
+              width={500}
+              height={600}
+              className="w-full object-cover sm:w-8/12"
+              priority
+            />
+          </div>
+          <Image
+            src="/image/homepage/tourii_main.png"
+            width={1000}
+            height={1000}
+            alt="tourii_main"
+            className="h-5/6 object-cover sm:h-2/3"
+          />
+        </div>
+      </div>
     </div>
   );
 };
