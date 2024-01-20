@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
             />
           </div>
           <Image
-            src="/image/about/about-image.png"
+            src="/image/about/tourii_main.png"
             width={1000}
             height={1000}
             alt="tourii_main"

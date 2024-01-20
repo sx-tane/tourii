@@ -27,16 +27,16 @@ const Hamburger: React.FC = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="item-start absolute -right-7 z-10 mt-2 w-52 rounded-md bg-charcoal p-8 shadow-lg">
-          <div className=" mr-0 space-y-5 text-right">
+        <Menu.Items className="absolute -right-7 z-10 mt-2 w-44 rounded-md bg-charcoal px-8 py-4 shadow-lg">
+          <div className=" mr-0 space-y-2 text-right">
             {hamburgerNavigation.map((item) => (
               <div key={item.href} className="relative">
                 <Link
                   href={item.href}
                   passHref
-                  className={`relative text-sm  tracking-[0.15em]  ${
+                  className={`relative text-xs tracking-[0.15em]  ${
                     pathname === item.href
-                      ? "font-bold text-warmGrey"
+                      ? "font-semibold text-warmGrey"
                       : "font-medium text-warmGrey3"
                   }`}
                 >

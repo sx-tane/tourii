@@ -5,24 +5,13 @@ const AboutImage: React.FC = () => {
   return (
     <div className="z-80 mb-10 md:overflow-hidden md:rounded-full">
       <div className="-mx-6 md:mx-auto">
-        <div className="hidden md:flex">
-          <Image
-            src="/image/about/about-image.png"
-            alt="main art"
-            width={1200}
-            height={1200}
-            priority={true}
-          />
-        </div>
-        <div className="md:hidden">
-          <Image
-            src="/image/about/tourii_main.png"
-            alt="main art"
-            width={1200}
-            height={1200}
-            priority={true}
-          />
-        </div>
+        <Image
+          src="/image/about/about-image.png"
+          alt="main art"
+          width={1200}
+          height={1200}
+          priority={true}
+        />
       </div>
     </div>
   );
