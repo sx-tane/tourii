@@ -53,7 +53,7 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
   };
 
   return (
-    <div className="w-[900px] items-center justify-center overflow-auto p-10 duration-200">
+    <div className="w-[900px] items-center justify-center overflow-auto p-10">
       {benefitData ? (
         <div className="flex items-center">
           <button onClick={handlePrevious} className="flex-shrink-0">

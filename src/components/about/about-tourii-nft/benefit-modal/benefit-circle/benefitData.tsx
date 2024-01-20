@@ -41,7 +41,7 @@ export const physicalExperienceData: BenefitCircleProps[] = [
     number: 2,
     title: "Mystery Boxes",
     description:
-      "Only NFT holders get to roll the Tourii gachapon game which holds real travel perks for them to use during their trips to the actual regions",
+      "Only NFT holders get to roll the Tourii gachapon game which holds real travel perks for them to use during their trips to the actual regions.",
   },
   {
     number: 3,
