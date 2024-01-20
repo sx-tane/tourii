@@ -14,29 +14,25 @@ export const metadata: Metadata = {
 
 const World: React.FC = () => {
   return (
-    <div className="mx-auto flex w-9/12 flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
       <Title
         smallTitle={titleData[0]?.smallTitle}
         title={titleData[0]?.title}
       />
-      <div className="w-9/12">
-        <Section />
-        <DescriptionWorld />
-        <div className="mb-20">
-          <WhiteLine />
-        </div>
-        <Title
-          smallTitle={titleData[1]?.smallTitle}
-          title={titleData[1]?.title}
-        />
-        <div className="w-7/11">
-          <div className="align-middle">
-            <Goal />
-          </div>
-          <div className="my-10">
-            <DividerWhite />
-          </div>
-        </div>
+      <Section />
+      <DescriptionWorld />
+      <div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
+        <WhiteLine />
+      </div>
+      <Title
+        smallTitle={titleData[1]?.smallTitle}
+        title={titleData[1]?.title}
+      />
+      <div className="-mt-10">
+        <Goal />
+      </div>
+      <div className="my-10">
+        <DividerWhite />
       </div>
     </div>
   );
