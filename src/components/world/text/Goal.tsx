@@ -21,7 +21,7 @@ const Goal: React.FC<GoalProps> = () => {
               <DrawerTrigger className="flex h-60 w-60 cursor-pointer items-center justify-center rounded-full border-[1px] border-warmGrey uppercase tracking-widest transition-all duration-200 hover:bg-warmGrey hover:text-charcoal sm:h-60 sm:w-60 sm:p-2 md:mb-0 xl:h-72 xl:w-72">
                 {goal.title}
               </DrawerTrigger>
-              <DrawerContent barColor="charcoal">
+              <DrawerContent className="border-warmGrey" barColor="charcoal">
                 <div className="mx-auto w-full max-w-sm">
                   <Image
                     src={goal.image ?? ""}
