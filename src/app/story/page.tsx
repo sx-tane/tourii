@@ -2,7 +2,7 @@ import Description from "@/components/about/Description";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
-import ProtagonistsSection from "@/components/story/ChracterList";
+import { CharacterCarousel } from "@/components/story/CharacterCarousel";
 import { type Metadata } from "next/types";
 import React from "react";
 
@@ -12,14 +12,17 @@ export const metadata: Metadata = {
 
 const Story: React.FC = () => {
   return (
-    <div className="mt-10 flex flex-col items-center justify-center">
-      <Description {...descriptionData[4]} />
-      <div className="w-7/12">
-        <Line />
+    <div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
+      <div className="mt-10">
+        <Description {...descriptionData[4]} />
       </div>
+      <Line />
       <Description {...descriptionData[5]} />
-      <ProtagonistsSection />
-      <div className="mt-20">
+      <CharacterCarousel />
+      <div className=" text-center text-base italic tracking-wider text-red">
+        Click for more information
+      </div>
+      <div className="mb-10 mt-5">
         <Divider />
       </div>
     </div>

@@ -12,6 +12,8 @@ const config = {
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
+    "@typescript-eslint/no-unsafe-argument": "off",
+
     // Feel free to reconfigure them to your own preference.
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",

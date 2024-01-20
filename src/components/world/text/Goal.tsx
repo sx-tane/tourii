@@ -1,6 +1,7 @@
 import React from "react";
 import { type GoalProps, goalData } from "../worldData";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 import {
   DrawerTrigger,
   DrawerContent,
@@ -8,8 +9,7 @@ import {
   DrawerTitle,
   DrawerDescription,
   Drawer,
-} from "@/lib/drawer";
-import Image from "next/image";
+} from "@/lib/ui/drawer";
 
 const Goal: React.FC<GoalProps> = () => {
   return (
@@ -21,7 +21,7 @@ const Goal: React.FC<GoalProps> = () => {
               <DrawerTrigger className="flex h-60 w-60 cursor-pointer items-center justify-center rounded-full border-[1px] border-warmGrey uppercase tracking-widest transition-all duration-200 hover:bg-warmGrey hover:text-charcoal sm:h-60 sm:w-60 sm:p-2 md:mb-0 xl:h-72 xl:w-72">
                 {goal.title}
               </DrawerTrigger>
-              <DrawerContent>
+              <DrawerContent barColor="charcoal">
                 <div className="mx-auto w-full max-w-sm">
                   <DrawerHeader>
                     <DrawerTitle>{goal.title}</DrawerTitle>

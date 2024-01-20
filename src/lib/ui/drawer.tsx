@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
-import { cn } from "./utils";
+import { cn } from "../utils";
 
 const Drawer = ({
   shouldScaleBackground = true,
@@ -31,12 +31,14 @@ const DrawerOverlay = React.forwardRef<
     {...props}
   />
 ));
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>(({ className, children, barColor, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
@@ -47,7 +49,9 @@ const DrawerContent = React.forwardRef<
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full  bg-charcoal" />
+      <div
+        className={`bg-${barColor} mx-auto mt-4 h-2 w-[100px]  rounded-full`}
+      />
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>

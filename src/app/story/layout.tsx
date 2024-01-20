@@ -5,7 +5,7 @@ import Header from "@/components/header/header-white/Header";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense>
-      <div className="item-center mb-20 h-full animate-fadeIn overflow-hidden">
+      <div className="item-center h-full animate-fadeIn overflow-hidden">
         <div className="mx-6">
           <Header />
           {children}
