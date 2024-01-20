@@ -46,6 +46,14 @@ export function CharacterCarousel() {
                     >
                       <div className="mx-auto w-full max-w-sm">
                         <DrawerHeader className="">
+                          <Image
+                            src={character.smallImage ?? ""}
+                            width={200}
+                            height={200}
+                            alt={character.name ?? ""}
+                            className="w-fit-content h-fit-content relative mx-auto"
+                            priority={true}
+                          />
                           <DrawerTitle className="text-warmGrey3">
                             {character.name}
                           </DrawerTitle>

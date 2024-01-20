@@ -1,24 +1,31 @@
 "use client";
+
 import Header from "@/components/header/header-white/Header";
 import React from "react";
+import Image from "next/image";
 
 const Error: React.FC = () => {
   return (
-    <div className="mx-6 max-h-screen animate-fadeIn overflow-hidden">
+    <div className="max-h-screen animate-fadeIn overflow-hidden px-6">
       <Header />
       <div
-        className="mx-4 flex items-center justify-center lg:mx-96"
+        className="mx-4 flex flex-col items-center justify-center text-center xl:mx-96"
         style={{ height: "calc(100vh - 77px)" }}
       >
-        <div className="text-left">
-          <h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
-            404 ERROR
-          </h1>
-          <h2 className="text-base font-bold uppercase tracking-wider text-charcoal md:text-lg">
-            Ninigi got lost in the middle of nowhere. <br />
-            The street sign suggests heading back where he came from.
-          </h2>
-        </div>
+        <Image
+          src={"/image/other/mirror.png"}
+          width={600}
+          height={600}
+          alt={"404"}
+          className="h-32 w-32 md:h-48 md:w-48 xl:h-60 xl:w-60"
+          priority={true}
+        />
+        <h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
+          404 ERROR
+        </h1>
+        <h2 className="text-center text-base font-bold uppercase tracking-wider text-charcoal md:text-lg">
+          Ninigi's mirror appears to have been left behind in this place.
+        </h2>
       </div>
     </div>
   );

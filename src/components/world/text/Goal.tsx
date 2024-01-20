@@ -23,8 +23,16 @@ const Goal: React.FC<GoalProps> = () => {
               </DrawerTrigger>
               <DrawerContent barColor="charcoal">
                 <div className="mx-auto w-full max-w-sm">
+                  <Image
+                    src={goal.image ?? ""}
+                    width={200}
+                    height={200}
+                    alt={goal.title ?? ""}
+                    className="w-fit-content h-fit-content relative mx-auto"
+                    priority={true}
+                  />
                   <DrawerHeader>
-                    <DrawerTitle>{goal.title}</DrawerTitle>
+                    <DrawerTitle className="-mt-2">{goal.title}</DrawerTitle>
                     <Image
                       className="object-contain"
                       src="/image/about/line-charcoal.svg"
