@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       {/*Desktop and Laptop Size*/}
-      <div className="hidden w-full items-end overflow-hidden lg:flex">
+      <div className="hidden w-full items-end overflow-hidden md:flex">
         <div className="fixed bottom-6 left-6 z-20 ">
           <Headline />
         </div>
@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       {/*Tablet and Phone Size*/}
-      <div className="h-full overflow-hidden lg:hidden">
+      <div className="h-full overflow-hidden md:hidden">
         <div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
           <div className="mx-6 mb-5">
             <div className="mb-4 pr-20 sm:mb-10 sm:pr-64">
@@ -40,8 +40,11 @@ const HomePage: React.FC = () => {
             width={1000}
             height={1000}
             alt="tourii_main"
-            className="h-[65vh] w-full object-cover  "
+            className="z-10 h-[65vh] w-full object-cover "
           />
+        </div>
+        <div className="z-20">
+          <NFTEmblem />
         </div>
       </div>
     </div>
