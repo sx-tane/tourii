@@ -6,7 +6,7 @@ const NFTEmblem: React.FC = () => {
     <div>
       {/* Desktop & Laptop */}
       <div className="hidden items-center justify-center md:flex">
-        <div className="absolute z-10 flex flex-col items-center justify-center bg-transparent text-center text-black">
+        <div className="absolute z-20 flex flex-col items-center justify-center bg-transparent text-center text-black">
           <hr className=" mb-3 w-9 border-t-[1.4px] border-black md:mb-1 md:w-5 xl:w-7 2xl:mb-3 2xl:w-9" />
           <div className="font-secondary text-xl leading-8 tracking-tighter md:text-3xl xl:text-4xl 2xl:text-5xl">
             7777
@@ -31,8 +31,8 @@ const NFTEmblem: React.FC = () => {
         />
       </div>
       {/* Tablet & Mobile */}
-      <div className=" md:hidden">
-        <div className="absolute bottom-9 right-[41px] z-40  flex flex-col items-center justify-center bg-transparent text-center text-black">
+      <div className="md:hidden">
+        <div className="fixed bottom-9 right-[42px] z-40  flex flex-col items-center justify-center bg-transparent text-center text-black">
           <div className="mb-1 w-4 border-t-[1.4px] border-black" />
           <div className="font-secondary text-2xl tracking-tighter">7777</div>
           <div className="text-[14px] font-semibold tracking-normal">NFT</div>
@@ -48,7 +48,7 @@ const NFTEmblem: React.FC = () => {
           alt="Emblem"
           width={800}
           height={300}
-          className="fixed -bottom-5 -right-4 z-30 w-40 "
+          className="fixed -bottom-5 -right-4 z-30 w-[162px] "
           priority={true}
         />
       </div>

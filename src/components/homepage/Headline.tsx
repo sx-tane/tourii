@@ -6,7 +6,7 @@ const Headline: React.FC = () => {
     <div>
       {/*Desktop and Laptop Size*/}
       <div className="hidden md:flex md:flex-col">
-        <div className=" mb-8 text-left text-xl  font-bold text-black xl:text-2xl 2xl:text-3xl 2xl:leading-normal">
+        <div className="mb-2 text-left font-bold  text-black md:text-base lg:text-lg xl:text-2xl 2xl:leading-normal">
           Unveiling Japan's mystical realms <br /> through narrative
           storytelling
           <br /> & Web 3.0 tourism.

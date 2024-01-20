@@ -12,10 +12,10 @@ const HomePage: React.FC = () => {
         <div className="fixed bottom-6 left-6 z-20 ">
           <Headline />
         </div>
-        <div className="h-10">
+        <div className="fixed bottom-5  overflow-hidden md:right-10 md:w-[65vh] lg:w-[85vh] xl:right-8 ">
           <MainImage />
         </div>
-        <div className="fixed z-30  md:-bottom-8 md:-right-6 lg:-bottom-8 lg:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
+        <div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
           <NFTEmblem />
         </div>
       </div>
@@ -43,7 +43,7 @@ const HomePage: React.FC = () => {
             className="z-10 h-[65vh] w-full object-cover "
           />
         </div>
-        <div className="z-20">
+        <div className="z-20 md:hidden">
           <NFTEmblem />
         </div>
       </div>
