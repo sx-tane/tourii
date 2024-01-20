@@ -57,6 +57,8 @@ const HeaderListBlack: React.FC = () => {
             <Dropdown
               isOpen={dropdownOpen === item.href}
               items={item.dropdown}
+              backgroundColor={"warmGrey"}
+              textColor={"charcoal"}
             />
           </div>
         ) : (

@@ -9,9 +9,16 @@ type DropdownItem = {
 type DropdownProps = {
   isOpen: boolean;
   items: DropdownItem[];
+  backgroundColor: string;
+  textColor: string;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({ isOpen, items }) => (
+const Dropdown: React.FC<DropdownProps> = ({
+  isOpen,
+  items,
+  backgroundColor,
+  textColor,
+}) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
@@ -20,7 +27,9 @@ const Dropdown: React.FC<DropdownProps> = ({ isOpen, items }) => (
         exit={{ opacity: 0, y: 0 }}
         transition={{ duration: 0.2 }}
       >
-        <div className="absolute z-10 mt-2 w-full rounded-md bg-charcoal p-2 shadow-xl">
+        <div
+          className={`bg-${backgroundColor} absolute z-10 mt-2 w-full rounded-md  p-2 shadow-xl`}
+        >
           {items.map((dropdownItem) => (
             <Link
               key={dropdownItem.href}
@@ -28,7 +37,9 @@ const Dropdown: React.FC<DropdownProps> = ({ isOpen, items }) => (
               passHref
               target="_blank"
             >
-              <div className="block p-2 text-xs font-medium tracking-widest text-white">
+              <div
+                className={`block p-2 text-xs font-medium tracking-widest text-${textColor}`}
+              >
                 {dropdownItem.label}
               </div>
             </Link>
