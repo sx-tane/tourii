@@ -1,8 +1,8 @@
 import AboutImage from "@/components/about/AboutImage";
 import BackToTop from "@/components/about/BackToTop";
 import Description from "@/components/about/Description";
-import JourneyAndNft from "@/components/about/JourneyAndNft";
 import AboutCoin from "@/components/about/about-menu/AboutCoin";
+import JourneyAndNft from "@/components/about/about-tourii-nft/JourneyAndNft";
 import CrewGrid from "@/components/about/crew/CrewGrid";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";

@@ -1,8 +1,8 @@
 import React from "react";
-import Description from "./Description";
-import Line from "./divider-line/Line";
-import { descriptionData } from "./descriptionData";
-import BenefitButton from "./about-tourii-nft/benefit-modal/BenefitButton";
+import Description from "../Description";
+import Line from "../divider-line/Line";
+import { descriptionData } from "../descriptionData";
+import BenefitButton from "./benefit-modal/BenefitButton";
 
 const JourneyAndNft: React.FC = () => {
   return (

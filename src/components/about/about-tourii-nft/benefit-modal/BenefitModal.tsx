@@ -53,8 +53,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       onRequestClose={handleClose}
       ariaHideApp={false}
       overlayClassName="fixed inset-0 z-20 bg-black bg-opacity-50 flex items-center justify-center"
-      // TODO: Fix the width and height of the modal so that it is always the same size
-      className="h-50vh w-50vw absolute animate-fadeIn rounded-lg bg-charcoal"
+      className="h-20vh w-25vw absolute animate-fadeIn rounded-lg bg-charcoal"
     >
       <h1 className="text-2vw top-0 mt-6 text-center font-bold uppercase tracking-widest text-warmGrey3">
         {data}
@@ -62,13 +61,12 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
       {selectedBenefitId ? (
         <BenefitDetail number={selectedBenefitId} data={benefitType} />
       ) : (
-        // TODO: Fix the absolute positioning of the close button and the text, so that they are always in the same place
-        <div className=" grid w-[1000px] grid-cols-4 justify-center gap-3 p-10  align-middle ">
+        <div className=" grid grid-cols-4 justify-center gap-10 p-10  align-middle ">
           {benefitType.map((data) => (
             <div
               key={data.number}
               onClick={() => handleCircleClick(data.number)}
-              className="flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey duration-200 hover:bg-circleHover"
+              className="flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey transition-all duration-200 hover:bg-circleHover"
             >
               <span className="font-tertiary text-3xl italic text-warmGrey3 ">
                 {data.number}
