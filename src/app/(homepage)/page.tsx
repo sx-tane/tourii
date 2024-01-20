@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
         <div className="fixed bottom-6 left-6 z-20 ">
           <Headline />
         </div>
-        <div className="fixed bottom-5  overflow-hidden md:right-10 md:w-[65vh] lg:w-[85vh] xl:right-8 ">
+        <div className="fixed bottom-5  overflow-hidden md:right-12 md:w-[75vh] lg:w-[85vh] xl:right-20 ">
           <MainImage />
         </div>
         <div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
