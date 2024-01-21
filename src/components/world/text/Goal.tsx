@@ -9,6 +9,7 @@ import {
   DrawerTitle,
   DrawerDescription,
   Drawer,
+  DrawerClose,
 } from "@/lib/ui/drawer";
 
 const Goal: React.FC<GoalProps> = () => {
@@ -22,7 +23,7 @@ const Goal: React.FC<GoalProps> = () => {
                 {goal.title}
               </DrawerTrigger>
               <DrawerContent className="border-warmGrey" barColor="charcoal">
-                <div className="mx-auto w-full max-w-sm">
+                <div className="mx-auto w-full max-w-sm md:max-w-lg">
                   <Image
                     src={goal.image ?? ""}
                     width={200}
@@ -43,8 +44,11 @@ const Goal: React.FC<GoalProps> = () => {
                       priority={true}
                     />
                     <DrawerDescription>
-                      <ReactMarkdown>{goal.description}</ReactMarkdown>{" "}
+                      <ReactMarkdown>{goal.description}</ReactMarkdown>
                     </DrawerDescription>
+                    <DrawerClose className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-charcoal px-8  py-2 font-medium uppercase tracking-widest transition hover:bg-charcoal hover:text-warmGrey">
+                      close
+                    </DrawerClose>
                   </DrawerHeader>
                 </div>
               </DrawerContent>

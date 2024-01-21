@@ -11,6 +11,7 @@ import Image from "next/image";
 import { characters } from "./legacy/characterData";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
@@ -44,7 +45,7 @@ export function CharacterCarousel() {
                       className="border-charcoal bg-charcoal px-2 sm:px-0"
                       barColor="warmGrey3"
                     >
-                      <div className="mx-auto w-full max-w-sm">
+                      <div className="mx-auto w-full max-w-sm md:max-w-lg">
                         <DrawerHeader className="">
                           <Image
                             src={character.smallImage ?? ""}
@@ -71,6 +72,9 @@ export function CharacterCarousel() {
                               {character.description}
                             </ReactMarkdown>
                           </DrawerDescription>
+                          <DrawerClose className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-warmGrey3 px-8 py-2  font-medium uppercase tracking-widest text-warmGrey3 transition hover:bg-warmGrey3 hover:text-charcoal">
+                            close
+                          </DrawerClose>
                         </DrawerHeader>
                       </div>
                     </DrawerContent>
