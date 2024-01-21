@@ -35,7 +35,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  //TODO: remove reusable code to a separate file go with headerlist black and white, and hamburger menu white and black.
   return (
     <nav
       className="header-nav md:flex md:space-x-5 lg:space-x-10"
