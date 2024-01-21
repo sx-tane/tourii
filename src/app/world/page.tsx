@@ -5,12 +5,7 @@ import DescriptionWorld from "@/components/world/text/Description";
 import Goal from "@/components/world/text/Goal";
 import Title from "@/components/world/text/Title";
 import { titleData, worldData } from "@/components/world/worldData";
-import { Metadata } from "next";
 import React from "react";
-
-export const metadata: Metadata = {
-  title: "World",
-};
 
 const World: React.FC = () => {
   return (

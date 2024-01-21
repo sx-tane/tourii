@@ -3,12 +3,7 @@ import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
 import { CharacterCarousel } from "@/components/story/CharacterCarousel";
-import { type Metadata } from "next/types";
 import React from "react";
-
-export const metadata: Metadata = {
-  title: "Story",
-};
 
 const Story: React.FC = () => {
   return (

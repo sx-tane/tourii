@@ -1,3 +1,5 @@
+"use client";
+
 import AboutImage from "@/components/about/AboutImage";
 import BackToTop from "@/components/about/BackToTop";
 import Description from "@/components/about/Description";
@@ -7,13 +9,42 @@ import CrewGrid from "@/components/about/crew/CrewGrid";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
-import { type Metadata } from "next";
+import { type Session } from "next-auth";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import Loading from "../loading";
+interface AboutProps {
+  session: Session | null;
+}
 
-export const metadata: Metadata = {
-  title: "About",
-};
+const About: React.FC<AboutProps> = () => {
+  const { data: session, status } = useSession();
 
-const About: React.FC = () => {
+  useEffect(() => {
+    if (!session) {
+      signIn()
+        .then(() => {
+          // Redirect to the previous page or default to a specific page
+          const redirectUrl =
+            typeof window !== "undefined" ? window.location.href : "/";
+          window.location.href = redirectUrl;
+        })
+        .catch((error) => {
+          // On error, redirect to the home page
+          console.error("Sign-in error:", error);
+          window.location.href = "/";
+        });
+    }
+  }, [session, status]);
+
+  // Optionally, you can render different content based on the session
+  if (status === "loading") {
+    return (
+      <p>
+        <Loading />
+      </p>
+    ); // or any loading component
+  }
   return (
     <div>
       <div className="fixed right-6 top-28 z-10 hidden md:flex ">
