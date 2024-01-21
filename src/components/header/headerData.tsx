@@ -9,11 +9,11 @@ type DropdownItem = {
   label: string;
 };
 
-export const navigation: NavItem[] = [
+export const navigationSignedOut: NavItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
-  // { href: "/model-route", label: "MODEL ROUTE" },
+  // { href: "/model-route", label: "MODEL ROUTE"},
   {
     href: "/social",
     label: "SOCIAL MEDIA",
@@ -22,13 +22,46 @@ export const navigation: NavItem[] = [
       { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
     ],
   },
-  // { href: "/connect", label: "CONNECT" },
+  // { href: "/login", label: "CONNECT"},
 ];
 
-export const hamburgerNavigation: NavItem[] = [
+export const navigationSignedIn: NavItem[] = [
+  { href: "/about", label: "ABOUT" },
+  { href: "/world", label: "WORLD" },
+  { href: "/story", label: "STORY" },
+  { href: "/model-route", label: "MODEL ROUTE" },
+  { href: "/marketplace", label: "MARKETPLACE" },
+  {
+    href: "/social",
+    label: "SOCIAL MEDIA",
+    dropdown: [
+      { href: "https://twitter.com/TouriiJP", label: "X" },
+      { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+    ],
+  },
+  // { href: "/login", label: "CONNECT" },
+];
+
+export const hamburgerNavigationSignedOut: NavItem[] = [
   { href: "/about", label: "ABOUT" },
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
-  { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+  {
+    href: "https://discord.com/invite/SAuAgYtCcr",
+    label: "DISCORD",
+  },
+];
+
+export const hamburgerNavigationSignedIn: NavItem[] = [
+  { href: "/about", label: "ABOUT" },
+  { href: "/world", label: "WORLD" },
+  { href: "/story", label: "STORY" },
+  { href: "/model-route", label: "MODEL ROUTE" },
+  { href: "/marketplace", label: "MARKETPLACE" },
+  { href: "https://twitter.com/TouriiJP", label: "X" },
+  {
+    href: "https://discord.com/invite/SAuAgYtCcr",
+    label: "DISCORD",
+  },
 ];

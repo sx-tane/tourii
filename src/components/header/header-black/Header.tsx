@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import HeaderListBlack from "./HeaderList";
 import HamburgerBlack from "./Hamburger";
+import HeaderList from "../header-white/HeaderList";
 
 const HeaderBlack: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const HeaderBlack: React.FC = () => {
         </Link>
       </div>
       <div className="hidden md:flex">
-        <HeaderListBlack />
+        <HeaderList textColor={"warmGrey3"} />
       </div>
       <div className="md:hidden">
         <HamburgerBlack />

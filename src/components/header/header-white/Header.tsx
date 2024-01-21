@@ -21,9 +21,9 @@ const Header: React.FC = () => {
         </Link>
       </div>
       <div className="hidden md:flex">
-        <HeaderList />
+        <HeaderList textColor={"charcoal"} />
       </div>
-      <div className="md:hidden">
+      <div className=" md:hidden">
         <Hamburger />
       </div>
     </div>
