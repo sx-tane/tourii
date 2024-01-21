@@ -29,17 +29,17 @@ export function CharacterCarousel() {
             <Card>
               <CardContent className="flex items-center justify-center p-6 text-center">
                 <div>
-                  <Image
-                    src={character.image ?? ""}
-                    alt={character.name ?? ""}
-                    width={400}
-                    height={400}
-                    className="mb-2"
-                    priority={true}
-                  />
                   <Drawer>
-                    <DrawerTrigger className="md:text-md transition-full rounded-full border-[1.5px] border-red bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-200 hover:bg-red hover:text-warmGrey ">
-                      {character.name}
+                    <DrawerTrigger className="md:text-md transition-full   bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-200 ">
+                      <Image
+                        src={character.image ?? ""}
+                        alt={character.name ?? ""}
+                        width={400}
+                        height={400}
+                        className="mb-2"
+                        priority={true}
+                      />{" "}
+                      {character.name}{" "}
                     </DrawerTrigger>
                     <DrawerContent
                       className="border-charcoal bg-charcoal px-2 sm:px-0"
