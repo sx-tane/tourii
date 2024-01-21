@@ -68,7 +68,10 @@ const HamburgerBlack: React.FC = () => {
         <Menu as="div" className="relative flex text-left">
           <div className="flex">
             <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md">
-              <Bars3Icon className="h-8 w-8 text-charcoal" aria-hidden="true" />
+              <Bars3Icon
+                className="h-8 w-8 text-warmGrey3"
+                aria-hidden="true"
+              />
             </Menu.Button>
           </div>
           <Transition
@@ -80,7 +83,7 @@ const HamburgerBlack: React.FC = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute -right-7 z-10 mt-10 w-44 rounded-md bg-charcoal px-8 py-4 shadow-lg">
+            <Menu.Items className="absolute -right-7 z-10 mt-10 w-44 rounded-md bg-warmGrey px-8 py-4 shadow-lg">
               <div className=" mr-0 space-y-2 text-right">
                 {hamburgerNavigationSignedOut.map((item) => (
                   <div key={item.href} className="relative">
@@ -89,8 +92,8 @@ const HamburgerBlack: React.FC = () => {
                       passHref
                       className={`relative text-xs tracking-[0.15em]  ${
                         pathname === item.href
-                          ? "font-semibold text-warmGrey"
-                          : "font-medium text-warmGrey3"
+                          ? "font-semibold text-red"
+                          : "font-medium text-charcoal"
                       }`}
                     >
                       {item.label}

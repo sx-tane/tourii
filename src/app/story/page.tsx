@@ -14,9 +14,6 @@ const Story: React.FC = () => {
       <Line />
       <Description {...descriptionData[5]} />
       <CharacterCarousel />
-      <div className=" text-center text-base italic tracking-wider text-red">
-        Click for more information
-      </div>
       <div className="mb-10 mt-5">
         <Divider />
       </div>

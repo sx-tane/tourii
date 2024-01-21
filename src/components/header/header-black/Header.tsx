@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import HamburgerBlack from "./Hamburger";
-import HeaderList from "../header-white/HeaderList";
+import HeaderListBlack from "./HeaderList";
 
 const HeaderBlack: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const HeaderBlack: React.FC = () => {
         </Link>
       </div>
       <div className="hidden md:flex">
-        <HeaderList textColor={"warmGrey3"} />
+        <HeaderListBlack />
       </div>
       <div className="md:hidden">
         <HamburgerBlack />

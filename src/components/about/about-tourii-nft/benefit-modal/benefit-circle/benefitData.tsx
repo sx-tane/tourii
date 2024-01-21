@@ -14,7 +14,7 @@ export const virtualInteractionData: BenefitCircleProps[] = [
     number: 2,
     title: "Creative Contents",
     description:
-      "Organize writing, art, or multimedia contests where NFT holders can contribute their own creations, with winners getting their work featured in the Touriiverse.",
+      "Organized writing, art, or multimedia contests where NFT holders can contribute their own creations, with winners getting their work featured in the Touriiverse.",
   },
   {
     number: 3,

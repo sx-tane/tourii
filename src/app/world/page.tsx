@@ -20,7 +20,7 @@ const World: React.FC = () => {
       </div>
       <div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
         <WhiteLine />
-      </div>{" "}
+      </div>
       <Title
         smallTitle={titleData[1]?.smallTitle}
         title={titleData[1]?.title}
@@ -29,9 +29,6 @@ const World: React.FC = () => {
         <DescriptionWorld data={worldData[1]?.description ?? ""} />
       </div>
       <Goal />
-      <div className="mb-5 text-center text-base italic tracking-wider text-[#858581]">
-        Click for more information
-      </div>
       <DividerWhite />
     </div>
   );

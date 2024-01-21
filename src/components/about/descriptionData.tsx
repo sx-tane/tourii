@@ -9,19 +9,19 @@ export const descriptionData: DescriptionProps[] = [
     smallTitle: "what is",
     title: "tourii",
     content:
-      "Tourii is a pioneering web 3.0 initiative, proudly collaborating with Japanese Government - ***Japan Tourism Association***. Our mission is to illuminate the richness of Japan's regions and prefectures using the magic of narrative storytelling.\n\nDrawing inspiration from the legendary ***Kojiki records***, we dive deep into the untold stories that fill the gaps of mythological events.",
+      "Tourii is a pioneering web 3.0 Tourism initiative, proudly collaborating with various ***Japan Tourism Association***. Our mission is to illuminate the richness of Japan's regions and prefectures using the magic of narrative storytelling.\n\nDrawing inspiration from the legendary ***Kojiki records***, we dive deep into the untold stories that fill the gaps of mythological events.",
   },
   {
     smallTitle: "our",
     title: "objectives",
     content:
-      "Tourii's primary goal is to introduce the world to Japan's intangible cultural treasures, the ***Yao Yorozu No Kamigami*** (8 million myriad ancient gods), and promote the tangible secrets of ***lesser explored regions***. \n\nWe accomplish this through collaborative efforts with local tourism associations, weaving captivating tales that bridge myth and reality.",
+      "Tourii's 2 primary goals are to introduce the world to Japan's intangible cultural treasures, the ***Yao Yorozu No Kamigami*** (8 million myriad ancient gods), and promote the tangible secrets of ***lesser explored regions***. \n\nWe accomplish this through collaborative efforts with local tourism associations, weaving captivating tales that bridge myth and reality.",
   },
   {
     smallTitle: "your",
     title: "journey",
     content:
-      "Embark on your Tourii adventure as a ***touriist***, guided by our engaging story protagonists - ***Ninigi-no-mikoto***. Dive into the uncharted corners of Japan, participate in quests, and stand a chance to win enticing travel rewards generously provided by our tourism partners.\n\nTourii welcomes both free-to-play enthusiasts and those seeking premium experiences, creating a unique fusion of Japan's allure and mythological heritage.",
+      "Embark on your Tourii adventure as a ***touriist***, guided by our engaging main story protagonists - ***Ninigi-no-mikoto***. Dive into the uncharted corners of Japan, participate in quests, and stand a chance to win enticing travel rewards generously provided by our tourism partners.\n\nTourii welcomes both free-to-play enthusiasts and those seeking premium experiences, creating a unique fusion of Japan's allure and mythological heritage.",
   },
   {
     smallTitle: "about",

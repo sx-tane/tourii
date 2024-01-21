@@ -16,10 +16,10 @@ const Goal: React.FC<GoalProps> = () => {
   return (
     <div className="mx-10 mb-10 items-start justify-center text-warmGrey3  ">
       <div>
-        <div className="flex flex-col items-center justify-center gap-10 text-center  text-xs font-semibold uppercase sm:flex-row sm:text-base">
+        <div className="flex flex-row items-center justify-center gap-10 text-center text-xs font-semibold uppercase sm:text-base">
           {goalData.map((goal) => (
             <Drawer>
-              <DrawerTrigger className="flex h-60 w-60 cursor-pointer items-center justify-center rounded-full border-[1px] border-warmGrey uppercase tracking-widest transition-all duration-200 hover:bg-warmGrey hover:text-charcoal sm:h-60 sm:w-60 sm:p-2 md:mb-0 xl:h-72 xl:w-72">
+              <DrawerTrigger className="flex h-36 w-36 cursor-pointer items-center justify-center rounded-full border-[1px] border-warmGrey p-3 uppercase tracking-widest transition-all duration-200 hover:bg-warmGrey hover:text-charcoal sm:h-60 sm:w-60 md:mb-0 xl:h-72 xl:w-72">
                 {goal.title}
               </DrawerTrigger>
               <DrawerContent className="border-warmGrey" barColor="charcoal">
@@ -43,10 +43,10 @@ const Goal: React.FC<GoalProps> = () => {
                       height={800}
                       priority={true}
                     />
-                    <DrawerDescription>
+                    <DrawerDescription className="text-center">
                       <ReactMarkdown>{goal.description}</ReactMarkdown>
                     </DrawerDescription>
-                    <DrawerClose className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-charcoal px-8  py-2 font-medium uppercase tracking-widest transition hover:bg-charcoal hover:text-warmGrey">
+                    <DrawerClose className="mx-auto hidden h-fit w-fit rounded-full border-[1.5px] border-charcoal px-8 py-2  font-medium uppercase tracking-widest transition hover:bg-charcoal hover:text-warmGrey sm:flex">
                       close
                     </DrawerClose>
                   </DrawerHeader>

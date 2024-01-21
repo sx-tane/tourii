@@ -38,7 +38,10 @@ const HeaderListBlack: React.FC = () => {
     };
   }, []);
   return (
-    <nav className="header-nav-black space-x-10 md:flex" ref={dropdownRef}>
+    <nav
+      className="header-nav md:flex md:space-x-5 lg:space-x-10"
+      ref={dropdownRef}
+    >
       <SignedOut>
         {navigationSignedOut.map((item, index) => {
           return item.dropdown ? (

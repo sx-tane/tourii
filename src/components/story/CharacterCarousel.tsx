@@ -30,7 +30,7 @@ export function CharacterCarousel() {
               <CardContent className="flex items-center justify-center p-6 text-center">
                 <div>
                   <Drawer>
-                    <DrawerTrigger className="md:text-md transition-full   bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-200 ">
+                    <DrawerTrigger className="md:text-md transition-full bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-200 ">
                       <Image
                         src={character.image ?? ""}
                         alt={character.name ?? ""}
@@ -38,8 +38,8 @@ export function CharacterCarousel() {
                         height={400}
                         className="mb-2"
                         priority={true}
-                      />{" "}
-                      {character.name}{" "}
+                      />
+                      {character.name}
                     </DrawerTrigger>
                     <DrawerContent
                       className="border-charcoal bg-charcoal px-2 sm:px-0"
@@ -67,12 +67,12 @@ export function CharacterCarousel() {
                             height={800}
                             priority={true}
                           />
-                          <DrawerDescription className=" text-warmGrey3">
+                          <DrawerDescription className=" text-center text-warmGrey3">
                             <ReactMarkdown>
                               {character.description}
                             </ReactMarkdown>
                           </DrawerDescription>
-                          <DrawerClose className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-warmGrey3 px-8 py-2  font-medium uppercase tracking-widest text-warmGrey3 transition hover:bg-warmGrey3 hover:text-charcoal">
+                          <DrawerClose className="mx-auto hidden h-fit w-fit rounded-full border-[1.5px] border-warmGrey3 px-8 py-2 font-medium  uppercase tracking-widest text-warmGrey3 transition hover:bg-warmGrey3 hover:text-charcoal sm:flex">
                             close
                           </DrawerClose>
                         </DrawerHeader>
