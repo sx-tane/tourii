@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -28,7 +29,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={montserrat.className}>
-      {/* <ClerkProvider> */}
       <head>
         <link
           rel="apple-touch-icon"
@@ -61,14 +61,15 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body>
-        <Suspense fallback={<Loading />}>
-          {children}
-          <SpeedInsights />
-          <Analytics />
-        </Suspense>
-      </body>
-      {/* </ClerkProvider> */}
+      <UserProvider>
+        <body>
+          <Suspense fallback={<Loading />}>
+            {children}
+            <SpeedInsights />
+            <Analytics />
+          </Suspense>
+        </body>
+      </UserProvider>
     </html>
   );
 }

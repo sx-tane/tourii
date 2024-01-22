@@ -23,6 +23,8 @@ const Header: React.FC = () => {
       <div className="hidden md:flex">
         <HeaderList textColor={"charcoal"} />
       </div>
+      <Link href="/api/auth/login">Login</Link>
+      <Link href="/api/auth/logout">Logout</Link>
       <div className=" md:hidden">
         <Hamburger />
       </div>
