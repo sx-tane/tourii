@@ -7,7 +7,6 @@ import CrewGrid from "@/components/about/crew/CrewGrid";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { type Metadata } from "next";
 import React from "react";
 
@@ -16,11 +15,8 @@ export const metadata: Metadata = {
 };
 
 const About: React.FC = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { user } = await getSession();
   return (
     <div>
-      {user.name}
       <div className="fixed right-6 top-28 z-10 hidden md:flex ">
         <AboutCoin />
       </div>
@@ -66,4 +62,4 @@ const About: React.FC = async () => {
   );
 };
 
-export default withPageAuthRequired(About);
+export default About;
