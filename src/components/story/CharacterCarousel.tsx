@@ -8,7 +8,7 @@ import {
 } from "@/lib/ui/carousel";
 import * as React from "react";
 import Image from "next/image";
-import { characters } from "./legacy/characterData";
+import { characters } from "./characterData";
 import {
   Drawer,
   DrawerClose,

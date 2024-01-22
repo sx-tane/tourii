@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { type CharacterProps } from "./characterData";
+import { type CharacterProps } from "../../components/story/characterData";
 import ReactMarkdown from "react-markdown";
 
 const CharacterCard: React.FC<CharacterProps> = ({
