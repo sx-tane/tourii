@@ -13,6 +13,9 @@ const config = {
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
     "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
 
     // Feel free to reconfigure them to your own preference.
     "@typescript-eslint/array-type": "off",

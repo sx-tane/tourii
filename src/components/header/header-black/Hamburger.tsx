@@ -53,7 +53,9 @@ const HamburgerBlack: React.FC = () => {
                       {item.label}
                       <div className="">
                         <div
-                          className={`  ${pathname === item.href ? "active" : ""}`}
+                          className={`  ${
+                            pathname === item.href ? "active" : ""
+                          }`}
                         />
                       </div>
                     </Link>
@@ -99,7 +101,9 @@ const HamburgerBlack: React.FC = () => {
                       {item.label}
                       <div className="">
                         <div
-                          className={`  ${pathname === item.href ? "active" : ""}`}
+                          className={`  ${
+                            pathname === item.href ? "active" : ""
+                          }`}
                         />
                       </div>
                     </Link>
