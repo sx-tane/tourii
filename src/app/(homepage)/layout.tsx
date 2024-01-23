@@ -5,11 +5,9 @@ import Header from "@/components/header/header-white/Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={<Loading />}>
-      <div className="mx-6 animate-fadeIn">
-        <Header />
-        {children}
-      </div>
-    </Suspense>
+    <div className="mx-6 animate-fadeIn">
+      <Header />
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </div>
   );
 }
