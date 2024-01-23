@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HeaderList from "./HeaderList";
 import Hamburger from "./Hamburger";
-import SignOut from "../SignOut";
+import Beta from "../Beta";
 
 const Header: React.FC = () => {
   return (
@@ -20,6 +20,9 @@ const Header: React.FC = () => {
               className="h-10 w-10 sm:h-12 sm:w-12"
             />
           </Link>
+          <div className="ml-3 mt-2">
+            <Beta textColor={"red"} />
+          </div>
         </div>
         <div className="hidden lg:flex">
           <HeaderList textColor={"charcoal"} />
