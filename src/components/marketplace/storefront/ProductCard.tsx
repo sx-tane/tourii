@@ -8,7 +8,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="w-fit min-w-fit cursor-pointer">
+    <div className="w-fit max-w-fit cursor-pointer">
       <div className="relative">
         <div
           className="absolute right-2 ml-2 mt-2 w-fit border-[1.5px] p-1 text-xs font-medium uppercase tracking-widest text-warmGrey"
