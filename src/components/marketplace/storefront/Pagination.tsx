@@ -10,19 +10,19 @@ const Pagination: React.FC<PaginationProps> = ({
   setPage,
 }) => {
   return (
-    <div className="flex items-center justify-center transition-all">
+    <div className="flex items-center justify-center font-bold text-warmGrey3">
       <button
         onClick={() => setPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="bg-gray-200 px-4 py-2"
+        className="py-2 text-sm font-bold uppercase tracking-widest"
       >
         Previous
       </button>
-      <span>{`Page ${currentPage} of ${totalPages}`}</span>
+      <span className="mx-2">|</span>
       <button
         onClick={() => setPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="bg-gray-200 px-4 py-2"
+        className="py-2 text-sm font-bold uppercase tracking-widest"
       >
         Next
       </button>

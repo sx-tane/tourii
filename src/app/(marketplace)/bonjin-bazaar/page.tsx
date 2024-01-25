@@ -1,9 +1,8 @@
 "use client";
 
-import FilterBar from "@/components/marketplace/storefront/FilterBar";
+import FilterDropdown from "@/components/marketplace/storefront/FilterBar";
 import Pagination from "@/components/marketplace/storefront/Pagination";
 import ProductGrid from "@/components/marketplace/storefront/ProductGrid";
-import SearchBar from "@/components/marketplace/storefront/SearchBar";
 import { productsData } from "@/lib/data/marketplace/productData";
 import { type NextPage } from "next";
 import { useState, useEffect } from "react";
@@ -23,9 +22,15 @@ const Market: NextPage = () => {
 
     // Filter logic
     if (filter !== "All") {
-      filteredProducts = filteredProducts.filter(
-        (product) => product.category.productType === filter,
-      );
+      if (filter !== "Experience" && filter !== "Merchandise") {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.category.bungoOnoArea === filter,
+        );
+      } else {
+        filteredProducts = filteredProducts.filter(
+          (product) => product.category.productType === filter,
+        );
+      }
     }
 
     // Reset to first page when filter changes
@@ -46,17 +51,21 @@ const Market: NextPage = () => {
   }, [filter, currentPage, allProducts]); // Ensure dependencies are correctly listed
 
   return (
-    <div className="m-10 transition-all duration-300">
-      <div className="flex justify-between">
-        <FilterBar setFilter={setFilter} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setPage={setCurrentPage}
-        />
+    <div className=" flex justify-center transition-all duration-500">
+      <div className="w-fit">
+        <div className="text-center text-2xl font-bold uppercase tracking-widest text-warmGrey3">
+          Bonjin Bazaar
+        </div>
+        <div className="mx-5 flex items-center justify-between">
+          <FilterDropdown setFilter={setFilter} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setPage={setCurrentPage}
+          />
+        </div>
+        <ProductGrid products={displayedProducts} currentPage={currentPage} />
       </div>
-
-      <ProductGrid products={displayedProducts} currentPage={currentPage} />
     </div>
   );
 };

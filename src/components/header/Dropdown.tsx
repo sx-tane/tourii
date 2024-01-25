@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
-type DropdownItem = {
-  href: string;
+export type DropdownItem = {
+  href?: string;
   label: string;
 };
 
@@ -33,7 +33,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           {items.map((dropdownItem) => (
             <Link
               key={dropdownItem.href}
-              href={dropdownItem.href}
+              href={dropdownItem.href ?? ""}
               passHref
               target="_blank"
             >

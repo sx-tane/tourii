@@ -8,10 +8,10 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="w-fit max-w-fit cursor-pointer">
-      <div className="relative">
+    <div className="m-5 w-fit max-w-fit ">
+      <div className="relative cursor-pointer">
         <div
-          className="absolute right-2 ml-2 mt-2 w-fit border-[1.5px] p-1 text-xs font-medium uppercase tracking-widest text-warmGrey"
+          className="absolute right-2 ml-2 mt-2 w-fit border-[1.5px] p-1 text-xs font-bold uppercase tracking-widest text-warmGrey"
           style={{
             borderColor: product.category.bungoOnoAreaColor,
             backgroundColor: product.category.bungoOnoAreaColor,
@@ -24,19 +24,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           alt={product.name}
           width={400}
           height={400}
-          className="z-30 h-72 w-60 object-cover"
+          className="z-30 h-64 w-52 object-cover"
         />
       </div>
       <div>
-        <div className="my-10 space-y-3 uppercase text-warmGrey">
-          <div className=" w-60 overflow-hidden text-sm font-bold leading-normal tracking-widest">
+        <div className="mt-8 space-y-3 uppercase text-warmGrey3">
+          <div className="w-52 overflow-hidden text-[12px] font-bold leading-normal tracking-widest">
             {product.name}
           </div>
-          <div className="relative flex  justify-between">
-            <div className="w-fit border-[1.5px] border-warmGrey bg-warmGrey p-1 text-[9px] font-bold tracking-widest text-charcoal  ">
+          <div className="relative flex items-center justify-between">
+            <div className="w-fit border-[1.5px] border-warmGrey3 bg-warmGrey3 p-1 text-[8px] font-bold tracking-widest text-charcoal  ">
               {product.category.productType}
             </div>
-            <p className="text-right text-sm font-medium tracking-wider text-warmGrey">{`${product.price} Yen`}</p>
+            <p className="text-right text-[12px] font-medium tracking-wider text-warmGrey3">{`${product.price} Yen`}</p>
           </div>
         </div>
       </div>
