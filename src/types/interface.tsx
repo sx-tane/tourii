@@ -15,6 +15,7 @@ export interface Product {
       | "Kiyokawa"
       | "Chitose"
       | undefined;
+    bungoOnoAreaColor: string;
   };
   price: number;
 }

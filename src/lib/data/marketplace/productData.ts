@@ -3,13 +3,14 @@ import { type Product } from "@/types/interface";
 export const productsData: Product[] = [
   {
     productId: "p1",
-    name: "Mountain Adventure",
+    name: "Shitake Hunting",
     description:
       "Experience the thrill of mountain hiking and breathtaking views.",
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Asaji",
+      bungoOnoAreaColor: "#C30E23",
     },
     price: 4000,
   },
@@ -21,6 +22,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Ono",
+      bungoOnoAreaColor: "#EA5414",
     },
     price: 30,
   },
@@ -32,6 +34,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Ono",
+      bungoOnoAreaColor: "#EA5414",
     },
     price: 50,
   },
@@ -43,6 +46,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Inukai",
+      bungoOnoAreaColor: "#F8B62C",
     },
     price: 200,
   },
@@ -54,6 +58,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Ogata",
+      bungoOnoAreaColor: "#920883",
     },
     price: 15,
   },
@@ -65,6 +70,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
+      bungoOnoAreaColor: "#07913A",
     },
     price: 180,
   },
@@ -76,6 +82,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Kiyokawa",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 8,
   },
@@ -87,6 +94,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Inukai",
+      bungoOnoAreaColor: "#F8B62C",
     },
     price: 250,
   },
@@ -98,6 +106,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Kiyokawa",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 20,
   },
@@ -109,6 +118,19 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Asaji",
+      bungoOnoAreaColor: "#C30E23",
+    },
+    price: 300,
+  },
+  {
+    productId: "p11",
+    name: "Hot Air Balloon Ride",
+    description: "Experience the beauty of a hot air balloon ride.",
+    image: "/image/about/tourii_main.png",
+    category: {
+      productType: "Experience",
+      bungoOnoArea: "Chitose",
+      bungoOnoAreaColor: "#8EC31F",
     },
     price: 300,
   },

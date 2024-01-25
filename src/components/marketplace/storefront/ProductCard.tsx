@@ -9,8 +9,14 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="w-fit min-w-fit cursor-pointer">
-      <div>
-        <div className="absolute ml-2 mt-2 w-fit border-[1.5px] border-red  bg-red p-1 text-xs font-medium uppercase tracking-widest text-warmGrey ">
+      <div className="relative">
+        <div
+          className="absolute right-2 ml-2 mt-2 w-fit border-[1.5px] p-1 text-xs font-medium uppercase tracking-widest text-warmGrey"
+          style={{
+            borderColor: product.category.bungoOnoAreaColor,
+            backgroundColor: product.category.bungoOnoAreaColor,
+          }}
+        >
           {product.category.bungoOnoArea}
         </div>
         <Image
@@ -22,15 +28,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
       </div>
       <div>
-        <div className="mt-12 space-y-3 uppercase text-warmGrey">
-          <div className="w-fit border-[1.5px] border-warmGrey p-1 text-[9px] font-bold tracking-widest  ">
-            {product.category.productType}
-          </div>
-          <div className="mt-2 text-sm font-bold tracking-widest">
+        <div className="my-10 space-y-3 uppercase text-warmGrey">
+          <div className=" w-60 overflow-hidden text-sm font-bold leading-normal tracking-widest">
             {product.name}
           </div>
+          <div className="relative flex  justify-between">
+            <div className="w-fit border-[1.5px] border-warmGrey bg-warmGrey p-1 text-[9px] font-bold tracking-widest text-charcoal  ">
+              {product.category.productType}
+            </div>
+            <p className="text-right text-sm font-medium tracking-wider text-warmGrey">{`${product.price} Yen`}</p>
+          </div>
         </div>
-        <p className=" mt-2 text-sm font-medium tracking-wider text-warmGrey">{`${product.price} Yen`}</p>{" "}
       </div>
     </div>
   );
