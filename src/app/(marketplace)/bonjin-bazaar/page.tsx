@@ -51,7 +51,7 @@ const Market: NextPage = () => {
   }, [filter, currentPage, allProducts]); // Ensure dependencies are correctly listed
 
   return (
-    <div className=" flex justify-center transition-all duration-500">
+    <div className="flex items-center justify-center transition-all duration-500 lg:mt-12">
       <div className="w-fit">
         <div className="text-center text-2xl font-bold uppercase tracking-widest text-warmGrey3">
           Bonjin Bazaar
