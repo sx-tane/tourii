@@ -5,9 +5,15 @@ import React from "react";
 
 interface ProductCardProps {
   product: Product;
+  textColor: string;
+  productTypeTextColor: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  textColor,
+  productTypeTextColor,
+}) => {
   const productNameForUrl = encodeURIComponent(product.productId);
 
   return (
@@ -33,15 +39,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </Link>
       </div>
       <div>
-        <div className="mt-6 space-y-3 uppercase text-warmGrey3">
+        <div className={`mt-6 space-y-3 uppercase text-${textColor}`}>
           <div className="w-52 overflow-hidden text-[11px] font-bold leading-normal tracking-widest">
             {product.name}
           </div>
           <div className="relative flex items-center justify-between">
-            <div className="w-fit border-[1.5px] border-warmGrey3 bg-warmGrey3 p-1 text-[8px] font-bold tracking-widest text-charcoal  ">
+            <div
+              className={`w-fit border-[1.5px] border-${textColor} bg-${textColor} p-1 text-[8px] font-bold tracking-widest text-${productTypeTextColor}`}
+            >
               {product.category.productType}
             </div>
-            <p className="text-right text-[12px] font-medium tracking-wider text-warmGrey3">{`${product.price} Yen`}</p>
+            <p
+              className={`text-right text-[12px] font-medium tracking-wider text-${textColor}`}
+            >{`${product.price} Yen`}</p>
           </div>
         </div>
       </div>

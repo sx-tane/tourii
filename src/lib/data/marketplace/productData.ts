@@ -60,7 +60,7 @@ export const productsData: Product[] = [
     name: "Lodge Kiyokawa Okudake Fishing",
     description:
       "River fishing experience using the handmade 'bamboo rod' made by locals.",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/experience/Lodge-Kiyokawa-Okudake-Fishing.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
@@ -73,7 +73,8 @@ export const productsData: Product[] = [
     name: "Lodge Kiyokawa Campfire Experience",
     description:
       "Fun companion for the night. You can experience a campfire. It's a set of homemade firewood and a brazier.",
-    image: "/image/about/tourii_main.png",
+    image:
+      "/image/bonjin-bazaar/experience/Lodge-Kiyokawa-Campfire-Experience.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
@@ -84,8 +85,10 @@ export const productsData: Product[] = [
   {
     productId: "p7",
     name: "Inazumi Underwater Cave Tent Sauna Experience",
-    description: "A personalized keychain for your keys.",
-    image: "/image/about/tourii_main.png",
+    description:
+      "After the sauna, soak in a unique stalactite cave water bath for a refreshing experience.",
+    image:
+      "/image/bonjin-bazaar/experience/Inazumi-Underwater-Cave-Tent-Sauna-Experience.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
@@ -97,7 +100,8 @@ export const productsData: Product[] = [
     productId: "p8",
     name: "Inazumi Underwater Cave Snorkeling",
     description: "Explore the underwater cave with a snorkel and fins set",
-    image: "/image/about/tourii_main.png",
+    image:
+      "/image/bonjin-bazaar/experience/Inazumi-Underwater-Cave-Snorkeling.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
@@ -251,8 +255,7 @@ export const productsData: Product[] = [
   {
     productId: "p20",
     name: "Clean Peach",
-    description:
-      "In Kiyokawa Town, they produce a 'miracle peach' known as the Clean Peach, which is incredibly sweet. Clean Peach is the trademarked brand name for peaches from Kiyokawa Town. Compared to regular peaches, Clean Peaches have a sugar content that is about 2 degrees higher, with the best ones having a sugar content of around 16-17 degrees. Due to their limited availability, even locals find it difficult to get their hands on them, and when they are placed on store shelves, they sell out in as little as 30 minutes, making them a 'miracle peach.' The peak season for Clean Peaches is from June to July. Processed products like peach ice cream, peach juice, peach jelly, and peach cream puffs are also popular. These processed products are available year-round.",
+    description: `In Kiyokawa Town, they produce a 'miracle peach' known as the *Clean Peach*, which is incredibly sweet. *Clean Peach* is the trademarked brand name for peaches from Kiyokawa Town. Compared to regular peaches, *Clean Peaches* have a sugar content that is about 2 degrees higher, with the best ones having a sugar content of around 16-17 degrees.`,
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Merchandise",
@@ -264,8 +267,7 @@ export const productsData: Product[] = [
   {
     productId: "p21",
     name: "Okazupiman",
-    description:
-      "Bungo-Ono City is one of the leading producers of summer and autumn bell peppers in Japan, and it's the largest region in western Japan for bell pepper production. - \"Okazupiman\" is a versatile sauce made by local mothers from Ogata Town by combining bell peppers with dried shiitake mushrooms and rice koji, carefully prepared. This sauce goes well with white rice, eggplant dishes, tofu, stick vegetables, stir-fried meat and vegetables, making it a versatile condiment suitable for various dishes. Its unique spicy kick is addictive. - You can purchase it at various Michi-no-Eki (roadside stations) and the Bungo-Ono Satoyama Tourism Association (Bungo-Ono Sato no Tabi Koshou). It's an excellent souvenir from Bungo-Ono and is also popular as a return gift for hometown tax donations. ",
+    description: `Bungo-Ono City is one of the leading producers of summer and autumn bell peppers in Japan, and it\'s the largest region in western Japan for bell pepper production. "Okazupiman" is a versatile sauce made by local mothers from Ogata Town by combining bell peppers with dried shiitake mushrooms and rice koji, carefully prepared.`,
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Merchandise",
@@ -296,19 +298,19 @@ export const productsData: Product[] = [
       bungoOnoArea: "Ono",
       bungoOnoAreaColor: "#EA5414",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p24",
     name: "Bungo Ono Miso",
-    description: `A no-additive miso made using only domestically sourced ingredients, including soybeans from Bungo-Ōno City. The ingredients consist of only three elements: "barley malt," "soybeans," and "salt." The one with wheat malt is sweet and highly nutritious, while the one with nigari is popular for its mildness. It is a safe and trustworthy miso used in school lunches in the city. - Miso-making experiences are also conducted in schools and the local community. - You can purchase it at the city's agricultural product direct sales outlets, various roadside stations, Tokiha Industry, and supermarkets.`,
+    description: `A no-additive miso made using only domestically sourced ingredients, including soybeans from Bungo-Ōno City. The ingredients consist of only three elements: "barley malt," "soybeans," and "salt." The one with wheat malt is sweet and highly nutritious, while the one with nigari is popular for its mildness. It is a safe and trustworthy miso used in school lunches in the city.`,
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Merchandise",
       bungoOnoArea: "Chitose",
       bungoOnoAreaColor: "#8FC320",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p25",
@@ -320,19 +322,19 @@ export const productsData: Product[] = [
       bungoOnoArea: "Inukai",
       bungoOnoAreaColor: "#F8B62C",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p26",
     name: "Oshokuji-dokoro Wakatake restaurant",
-    description: `Oshokuji-dokoro Wakatake is committed to the principles of local production for local consumption, ensuring the use of Oita's premium ingredients, such as Oita Crown Jidori (local chicken brand), A5-grade Oita Wagyu beef, fresh local vegetables, and Oita prefecture's homegrown rice. Their dishes are centered around Japanese cuisine, made without artificial coloring and with a focus on additive-free, lightly seasoned, and body-friendly ingredients, allowing the natural flavors of the materials to shine through. Here are some of the menu offerings: **Lunch Menu:** - Crown Jidori Hamburger Set: A hamburger made from 100% Oita Crown Jidori chicken - 1,430 yen - Salted Karaage (Japanese-style fried chicken) Set: A popular choice - 990 yen - Crown Jidori Set: Includes a Crown Jidori hamburger, Toriten (Japanese-style tempura), and Ryukyu (Okinawan) sweet potato - 1,650 yen - Crown Jidori Donburi: A steak rice bowl featuring Crown Jidori chicken - 1,650 yen - Crown Jidori Tempura Set: Known for its tender and addictive taste - 1,320 yen **Dinner Menu (Reservation Required):** - "Unkakure" Omakase Course: A chef's special course starting from 4,400 yen **Other Services (Reservation Required):** - Various Bento Boxes - Appetizers The Crown Jidori Hamburger and the Salted Karaage are especially popular, and they offer takeout options. The restaurant's concept is to provide safe, secure, and healthy food, embracing the new style of Japanese cuisine."`,
+    description: `Oshokuji-dokoro Wakatake is committed to the principles of local production for local consumption, ensuring the use of Oita's premium ingredients, such as Oita Crown Jidori (local chicken brand), A5-grade Oita Wagyu beef, fresh local vegetables, and Oita prefecture's homegrown rice.`,
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
       bungoOnoAreaColor: "#05913A",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p27",
@@ -345,7 +347,7 @@ export const productsData: Product[] = [
       bungoOnoArea: "Kiyokawa",
       bungoOnoAreaColor: "#0E6EB8",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p28",
@@ -358,7 +360,7 @@ export const productsData: Product[] = [
       bungoOnoArea: "Ogata",
       bungoOnoAreaColor: "#920883",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p29",
@@ -371,58 +373,58 @@ export const productsData: Product[] = [
       bungoOnoArea: "Ogata",
       bungoOnoAreaColor: "#920883",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p30",
     name: "Beef Bowl Restaurant",
     description:
-      "Here is the menu for the restaurant at Michi-no-Eki Asaji featuring Asaji Beef, a renowned local specialty: - **Asaji Beef Sirloin Specialty Bowl (Zesshin Asajin Don):** - Made with Asaji Beef sirloin. - Price: 2,900 yen without coffee, or 3,100 yen with coffee. - **Asaji Beef Yakiniku (Grilled Meat) Set (Asaji Gyukatsu Gozen):** - Includes dishes made with Asaji Beef. - Price: 2,250 yen without coffee, or 2,450 yen with coffee. These dishes offer a delightful opportunity to savor the high-quality, melt-in-your-mouth Asaji Beef, raised in the pristine natural surroundings of Asaji in Oguni, Kyushu, Oita Prefecture.",
+      "These dishes offer a delightful opportunity to savor the high-quality, melt-in-your-mouth Asaji Beef, raised in the pristine natural surroundings of Asaji in Oguni, Kyushu, Oita Prefecture.",
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Asaji",
       bungoOnoAreaColor: "#C30E23",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p31",
     name: "Soba Restaurant",
     description:
-      "Here is the menu for the quiet and hidden soba restaurant located in the mountains of northern Ono Town: - **Zaru Soba (Cold Soba Noodles) or Kake Soba (Hot Soba Noodles):** 800 yen - **Bukkake Oroshi Soba (Cold Soba with Grated Radish):** 1,000 yen - **Tempura Vegetables:** 500 yen - **Ebi Mayo (Shrimp Mayonnaise), Karaage (Fried Chicken), Toriten (Chicken Tempura):** 600 yen each - **Gobou Karaage (Fried Burdock), Renkon Karaage (Fried Lotus Root):** 500 yen each - **Torimeshi (Chicken Rice):** 200 yen This restaurant offers a tranquil setting surrounded by lush greenery, making it an ideal place to enjoy a peaceful and leisurely meal.",
+      "This restaurant offers a tranquil setting surrounded by lush greenery, making it an ideal place to enjoy a peaceful and leisurely meal.",
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Ono",
       bungoOnoAreaColor: "#EA5414",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p32",
     name: "Cafe Green Brown",
     description:
-      'This popular cafe with over 10,000 Instagram followers offers a charming setting surrounded by nature, featuring a lovely exterior and a bright interior with wooden counter seats and table settings, creating a relaxing atmosphere. Here are some highlights from the menu: - **Local Hamburger and Colorful Salad Plate (Lunchtime Only):** 1,200 yen - **Green Curry:** 1,100 yen - **Gratin:** 1,100 yen - **Peach Parfait:** 900 yen - **Various Parfaits:** 800 yen (Options include Chocolate Parfait, Fruit Parfait, Caramel Parfait, Pudding à la Mode, and more) - **Sandwich:** 400 yen For those ordering a meal, you can enjoy a Mini Parfait for an additional 500 yen. The cafe is committed to supporting local farmers in Chitose Town by using locally sourced and seasonal ingredients in their menu offerings. Additionally, their seasonal parfaits have garnered a dedicated following, and reservations are recommended throughout the year. Their sister shop, "Chitoseya Green Tea," is conveniently located nearby.',
+      'This popular cafe with over 10,000 Instagram followers offers a charming setting surrounded by nature, featuring a lovely exterior and a bright interior with wooden counter seats and table settings, creating a relaxing atmosphere. Their sister shop, "Chitoseya Green Tea," is conveniently located nearby.',
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Chitose",
       bungoOnoAreaColor: "#8FC320",
     },
-    price: 1,
+    price: 0,
   },
   {
     productId: "p33",
     name: "Washoku Onogawa",
     description:
-      "Washoku Onogawa, formerly known as Inoue-tei, is a traditional Japanese restaurant that specializes in dishes featuring salt-grilled ayu, a type of sweetfish, caught in the Ono River. With over a century of history, this establishment is well-known for offering a variety of ayu-based dishes. Here are some of the menu highlights: - **Salt-Grilled Ayu Set Meal:** Starting from 1,880 yen - **Salt-Grilled Ayu and Sweet Simmered Ayu Set Meal:** Starting from 2,740 yen - **Grilled Eel Set Meal (Unagi Kabayaki):** Starting from 2,680 yen - **Unagi Donburi (Grilled Eel on Rice):** Starting from 1,680 yen - **Ono River Delight (Salt-Grilled Ayu and Grilled Eel):** Starting from 3,560 yen - **Ayu Feast Set Meal (Seasonal Special):** Starting from 3,500 yen The restaurant takes pride in its longstanding tradition of preparing ayu dishes and provides a serene atmosphere for guests to savor these traditional flavors. You can also enjoy the picturesque view of the changing seasons along the Ono River from the restaurant's windows. The spacious interior is versatile and can accommodate individual diners, small groups, as well as large parties and special occasions, with a hall that can accommodate up to 100 people. Additionally, facilities such as wheelchair-accessible restrooms and ample parking are available.",
+      "Washoku Onogawa, formerly known as Inoue-tei, is a traditional Japanese restaurant that specializes in dishes featuring salt-grilled ayu, a type of sweetfish, caught in the Ono River. With over a century of history, this establishment is well-known for offering a variety of ayu-based dishes.",
     image: "/image/about/tourii_main.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Inukai",
       bungoOnoAreaColor: "#F8B62C",
     },
-    price: 1,
+    price: 0,
   },
 ];

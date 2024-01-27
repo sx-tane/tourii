@@ -10,6 +10,7 @@ import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import { ErrorComponent } from "@/app/error";
 import RelatedProducts from "@/components/marketplace/product/RelatedProduct";
+import Divider from "@/components/about/divider-line/Divider";
 
 type Props = {
   params: {
@@ -90,7 +91,7 @@ const ProductPage: NextPage<Props> = ({ params }) => {
   };
 
   return (
-    <div>
+    <div className="mx-10 flex flex-col items-center justify-center">
       <div className="flex items-center justify-center">
         <div className="w-1/2 p-24">
           <ProductImage
@@ -105,6 +106,9 @@ const ProductPage: NextPage<Props> = ({ params }) => {
       <RelatedProducts
         bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
       />
+      <div className="my-10">
+        <Divider />
+      </div>
     </div>
   );
 };

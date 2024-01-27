@@ -3,6 +3,7 @@
 import FilterDropdown from "@/components/marketplace/storefront/FilterBar";
 import Pagination from "@/components/marketplace/storefront/Pagination";
 import ProductGrid from "@/components/marketplace/storefront/ProductGrid";
+import DividerWhite from "@/components/world/Divider";
 import { productsData } from "@/lib/data/marketplace/productData";
 import { type NextPage } from "next";
 import { useState, useEffect } from "react";
@@ -48,14 +49,11 @@ const Market: NextPage = () => {
     );
 
     setDisplayedProducts(paginatedProducts);
-  }, [filter, currentPage, allProducts]); // Ensure dependencies are correctly listed
+  }, [filter, currentPage, allProducts]);
 
   return (
-    <div className="flex h-fit items-center justify-center transition-all duration-500">
+    <div className="flex flex-col items-center justify-center">
       <div className="w-fit">
-        <div className="text-center text-2xl font-bold uppercase tracking-widest text-warmGrey3">
-          Bonjin Bazaar
-        </div>
         <div className="mx-3 flex items-center justify-between">
           <FilterDropdown setFilter={setFilter} />
           <Pagination
@@ -65,6 +63,9 @@ const Market: NextPage = () => {
           />
         </div>
         <ProductGrid products={displayedProducts} currentPage={currentPage} />
+      </div>
+      <div className="my-10">
+        <DividerWhite />
       </div>
     </div>
   );

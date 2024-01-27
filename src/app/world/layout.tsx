@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense>
-      <div className="min-h-screen animate-fadeIn bg-charcoal pb-10">
+      <body className="h-full animate-fadeIn bg-charcoal pb-10">
         <div className="mx-6">
           <HeaderBlack />
           {children}
         </div>
-      </div>
+      </body>
     </Suspense>
   );
 }
