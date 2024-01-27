@@ -6,7 +6,7 @@ const Beta = ({ textColor }: { textColor: string }) => {
     <div>
       {user && (
         <div
-          className={`rounded-lg border-2 font-semibold border-${textColor} px-2 py-2 text-xs font-semibold uppercase text-${textColor} cursor-default tracking-wider`}
+          className={`rounded-lg border-[1.5px] font-semibold border-${textColor} p-2 text-[10px] font-semibold uppercase text-${textColor} cursor-default tracking-wider`}
         >
           Beta V0.0.1
         </div>

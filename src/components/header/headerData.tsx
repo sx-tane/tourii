@@ -30,7 +30,7 @@ export const navigationSignedIn: NavItem[] = [
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
   { href: "/model-route", label: "MODEL ROUTE" },
-  { href: "/marketplace", label: "MARKETPLACE" },
+  { href: "/bonjin-bazaar", label: "MARKETPLACE" },
   {
     href: "/social",
     label: "SOCIAL MEDIA",
@@ -58,7 +58,7 @@ export const hamburgerNavigationSignedIn: NavItem[] = [
   { href: "/world", label: "WORLD" },
   { href: "/story", label: "STORY" },
   { href: "/model-route", label: "MODEL ROUTE" },
-  { href: "/marketplace", label: "MARKETPLACE" },
+  { href: "/bonjin-bazaar", label: "MARKETPLACE" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   {
     href: "https://discord.com/invite/SAuAgYtCcr",

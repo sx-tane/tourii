@@ -14,7 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => setPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="py-2 text-sm font-bold uppercase tracking-widest"
+        className=" text-sm font-bold uppercase tracking-widest"
       >
         Previous
       </button>

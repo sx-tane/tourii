@@ -51,12 +51,12 @@ const Market: NextPage = () => {
   }, [filter, currentPage, allProducts]); // Ensure dependencies are correctly listed
 
   return (
-    <div className="flex items-center justify-center transition-all duration-500 lg:mt-12">
+    <div className="flex h-fit items-center justify-center transition-all duration-500">
       <div className="w-fit">
         <div className="text-center text-2xl font-bold uppercase tracking-widest text-warmGrey3">
           Bonjin Bazaar
         </div>
-        <div className="mx-5 flex items-center justify-between">
+        <div className="mx-3 flex items-center justify-between">
           <FilterDropdown setFilter={setFilter} />
           <Pagination
             currentPage={currentPage}
