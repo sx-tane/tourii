@@ -5,11 +5,17 @@ import Line from "@/components/about/divider-line/Line";
 
 interface RelatedProductsProps {
   bungoOnoArea: string;
+  productId: string;
 }
 
-const RelatedProducts: React.FC<RelatedProductsProps> = ({ bungoOnoArea }) => {
+const RelatedProducts: React.FC<RelatedProductsProps> = ({
+  bungoOnoArea,
+  productId,
+}) => {
   const filteredProducts = productsData.filter(
-    (product) => product.category.bungoOnoArea === bungoOnoArea,
+    (product) =>
+      product.category.bungoOnoArea === bungoOnoArea &&
+      product.productId !== productId,
   );
 
   const displayedProducts = filteredProducts.slice(0, 6);

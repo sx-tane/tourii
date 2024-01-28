@@ -108,6 +108,7 @@ const ProductPage: NextPage<Props> = withPageAuthRequired(
         </div>
         <RelatedProducts
           bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
+          productId={defaultProduct.productId}
         />
         <div className="my-10">
           <Divider />

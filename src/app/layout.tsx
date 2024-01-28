@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "Tourii - Unveiling Japan's Mystical Realms",
     description:
       "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "/homepage/tourii_main.png", // Replace with Open Graph image
+    image: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Open Graph image
     url: baseURL.toString(),
     locale: "ja_JP",
   },
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Tourii - Unveiling Japan's Mystical Realms",
     description:
       "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "/homepage/tourii_main.png", // Replace with Twitter card image
+    image: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Twitter card image
   },
   title: {
     default: "Tourii",
