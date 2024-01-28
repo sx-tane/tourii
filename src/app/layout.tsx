@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
-import { type Metadata } from "next";
+import { type Metadata as NextMetadata } from "next";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
@@ -9,13 +9,70 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { CartProvider } from "@/components/context/CartContext";
 import { Toaster } from "@/lib/ui/toast";
 
+const baseURL = new URL("https://www.tourii.xyz/");
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
 });
 
+type Metadata = NextMetadata & {
+  language: string;
+  category: string;
+  viewport: string;
+  og: {
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+    locale: string;
+  };
+  canonical: string;
+  twitter: {
+    card: string;
+    site: string;
+    title: string;
+    description: string;
+    image: string;
+  };
+  geo: {
+    region: string;
+    placename: string;
+  };
+  title: {
+    default: string;
+    template: string;
+  };
+  description: string;
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.tourii.xyz/"),
+  language: "en",
+  geo: {
+    region: "JP",
+    placename: "Tokyo",
+  },
+  category: "Travel",
+  viewport: "width=device-width, initial-scale=1.0",
+  og: {
+    title: "Tourii - Unveiling Japan's Mystical Realms",
+    description:
+      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+    image:
+      "https://www.tourii.xyz/_next/image?url=%2Fimage%2Fhomepage%2Ftourii_main.png&w=2048&q=100", // Replace with Open Graph image
+    url: baseURL.toString(),
+    locale: "ja_JP",
+  },
+  canonical: baseURL.toString(),
+  twitter: {
+    card: "summary_large_image",
+    site: "@Tourii",
+    title: "Tourii - Unveiling Japan's Mystical Realms",
+    description:
+      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+    image:
+      "https://www.tourii.xyz/_next/image?url=%2Fimage%2Fhomepage%2Ftourii_main.png&w=2048&q=100", // Replace with Twitter card image
+  },
   title: {
     default: "Tourii",
     template: "%s | Tourii",
