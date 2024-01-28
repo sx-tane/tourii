@@ -1,5 +1,5 @@
 import { getUserProfileData } from "@/services/profile.services";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { type NextPage } from "next";
 
 const BungoOno: NextPage = withPageAuthRequired(async () => {
