@@ -2,18 +2,34 @@ import { Button } from "@/lib/ui/button";
 import { Calendar } from "@/lib/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 import { cn } from "@/lib/utils";
+import { type ExperiencePurchase } from "@/types/interface";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const ExperienceForm = () => {
+interface ExperienceFormProps {
+  onDetailsChange: (details: ExperiencePurchase) => void;
+}
+
+const ExperienceForm: React.FC<ExperienceFormProps> = ({ onDetailsChange }) => {
   const [persons, setPersons] = useState("");
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   const handlePersonsChange = (value: number) => {
     const numericValue = Math.max(1, Math.min(Number(value), 10));
-    setPersons(numericValue.toString());
+    const formattedValue = numericValue.toString();
+    setPersons(formattedValue);
+    onDetailsChange({ participants: parseInt(formattedValue), date });
   };
+
+  useEffect(() => {
+    if (persons && date) {
+      onDetailsChange({
+        participants: parseInt(persons),
+        date: date,
+      });
+    }
+  }, [persons, date]);
 
   return (
     <div className="flex pt-2 uppercase">

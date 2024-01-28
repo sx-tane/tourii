@@ -1,17 +1,51 @@
-import { type Product } from "@/types/interface";
+import { useCart } from "@/components/context/CartContext";
+import { Button } from "@/lib/ui/button";
+import { type PurchaseData, type Product } from "@/types/interface";
 import Link from "next/link";
 import React from "react";
+import { toast } from "sonner";
 
 interface AddToCartButtonProps {
   product: Product;
+  purchaseData: PurchaseData;
 }
 
-const AddToCartButton: React.FC<AddToCartButtonProps> = ({ product }) => {
+const AddToCartButton: React.FC<AddToCartButtonProps> = ({
+  product,
+  purchaseData,
+}) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    const productWithDetails = {
+      product, // the product details
+      purchaseData, // the purchase-specific details
+    };
+    addToCart(productWithDetails);
+    toast("", {
+      description: `${product.name} has been entrusted to your Kinchaku.`,
+      style: {
+        backgroundColor: "#21211b",
+        color: "#e3e3dc",
+      },
+      action: {
+        label: "UNDO",
+        onClick: () => console.log("Removed the item from your Kinchaku."),
+      },
+    });
+
+    console.log("Product with details:", productWithDetails);
+  };
+
   return (
     <div className="flex space-x-2">
-      <button className="rounded-full border-[1.5px] border-red bg-transparent px-4 py-2 text-sm font-medium uppercase tracking-widest text-red transition-all duration-300 hover:bg-red hover:text-warmGrey">
-        Add to Cart
-      </button>
+      <Button
+        variant="outline"
+        onClick={handleAddToCart}
+        className="rounded-full border-[1.5px] border-red bg-transparent px-4 py-2 text-sm font-medium uppercase tracking-widest text-red transition-all duration-300 hover:bg-red hover:text-warmGrey"
+      >
+        Add to Kinchaku
+      </Button>
       <Link
         href={"/bonjin-bazaar"}
         className="rounded-full border-[1.5px] border-red bg-transparent px-4 py-2 text-sm font-medium uppercase tracking-widest text-red transition-all duration-300 hover:bg-red hover:text-warmGrey"

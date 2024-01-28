@@ -13,7 +13,7 @@ const Market: NextPage = () => {
   const [displayedProducts, setDisplayedProducts] = useState(productsData); // Products to display
   const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Adjust this as per your requirement
+  const itemsPerPage = 10; // Adjust this as per your requirement
   const [totalPages, setTotalPages] = useState(
     Math.ceil(productsData.length / itemsPerPage),
   );
@@ -53,17 +53,23 @@ const Market: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="w-fit">
-        <div className="mx-3 flex items-center justify-between">
-          <FilterDropdown setFilter={setFilter} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setPage={setCurrentPage}
-          />
+      <div className="flex w-full">
+        <div className="m-auto text-3xl font-bold uppercase tracking-widest text-warmGrey3">
+          Bonjin Bazaar
         </div>
-        <ProductGrid products={displayedProducts} currentPage={currentPage} />
+        <div className="w-3/4">
+          <div className="mx-3 flex items-center justify-between">
+            <FilterDropdown setFilter={setFilter} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setPage={setCurrentPage}
+            />
+          </div>
+          <ProductGrid products={displayedProducts} currentPage={currentPage} />
+        </div>
       </div>
+
       <div className="my-10">
         <DividerWhite />
       </div>

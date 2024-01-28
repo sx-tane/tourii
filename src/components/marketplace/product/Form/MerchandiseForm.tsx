@@ -2,11 +2,18 @@ import { Button } from "@/lib/ui/button";
 import { Calendar } from "@/lib/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 import { cn } from "@/lib/utils";
+import { type MerchandisePurchase } from "@/types/interface";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const MerchandiseForm: React.FC = () => {
+interface MerchandiseFormProps {
+  onDetailsChange: (details: MerchandisePurchase) => void;
+}
+
+const MerchandiseForm: React.FC<MerchandiseFormProps> = ({
+  onDetailsChange,
+}) => {
   const [pieces, setPieces] = useState("");
   const [deliveryDate, setDeliveryDate] = React.useState<Date | undefined>(
     new Date(),
@@ -14,8 +21,19 @@ const MerchandiseForm: React.FC = () => {
 
   const handlePiecesChange = (value: number) => {
     const numericValue = Math.max(1, Math.min(Number(value), 10));
-    setPieces(numericValue.toString());
+    const formattedValue = numericValue.toString();
+    setPieces(formattedValue);
+    onDetailsChange({ itemNumber: parseInt(formattedValue), deliveryDate });
   };
+
+  useEffect(() => {
+    if (deliveryDate && pieces) {
+      onDetailsChange({
+        itemNumber: parseInt(pieces), // Ensure pieces is converted to number
+        deliveryDate: deliveryDate,
+      });
+    }
+  }, [deliveryDate, pieces]);
 
   return (
     <div className="flex pt-2 uppercase">

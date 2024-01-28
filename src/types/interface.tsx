@@ -21,19 +21,19 @@ export interface Product {
 }
 
 // PurchaseData interface
-interface ExperiencePurchase {
-  date: Date;
-  person: string;
+export interface ExperiencePurchase {
+  participants: number;
+  date: Date | undefined;
 }
 
-interface MerchandisePurchase {
+export interface MerchandisePurchase {
   itemNumber: number;
-  deliveryDate: Date;
+  deliveryDate: Date | undefined;
 }
 
 export interface PurchaseData {
-  purchaseType: "Experience" | "Merchandise";
-  details: ExperiencePurchase | MerchandisePurchase;
+  purchaseType: "Experience" | "Merchandise" | undefined;
+  details: ExperiencePurchase | MerchandisePurchase | undefined;
   totalPurchase: number;
 }
 
@@ -43,4 +43,10 @@ export interface Customer {
   address: string;
   telephone: string;
   email: string;
+}
+
+// CartItem interface
+export interface CartItem {
+  product: Product;
+  purchaseData: PurchaseData;
 }

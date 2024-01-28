@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<Loading />}>
-      <body className="h-full animate-fadeIn bg-charcoal ">
+      <body className="h-screen animate-fadeIn overflow-hidden bg-charcoal ">
         <div className="mx-6">
           <HeaderBlack />
           {children}
