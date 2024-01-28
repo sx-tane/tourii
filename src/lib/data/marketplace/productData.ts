@@ -173,7 +173,8 @@ export const productsData: Product[] = [
     name: "Baby Leaf Harvesting Experience",
     description:
       "Experience harvesting baby leaves at a farm in the Bungo-Ono area. You can harvest and eat as much as you want. You can also take it home with you.",
-    image: "/image/about/tourii_main.png",
+    image:
+      "/image/bonjin-bazaar/experience/Baby-Leaf-Harvesting-Experience.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Ogata",

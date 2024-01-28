@@ -5,6 +5,7 @@ import Pagination from "@/components/marketplace/storefront/Pagination";
 import ProductGrid from "@/components/marketplace/storefront/ProductGrid";
 import DividerWhite from "@/components/world/Divider";
 import { productsData } from "@/lib/data/marketplace/productData";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type NextPage } from "next";
 import { useState, useEffect } from "react";
 
@@ -77,4 +78,4 @@ const Market: NextPage = () => {
   );
 };
 
-export default Market;
+export default withPageAuthRequired(Market);
