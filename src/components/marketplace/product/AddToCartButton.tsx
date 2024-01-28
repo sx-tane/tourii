@@ -6,7 +6,6 @@ import {
   type CartItem,
 } from "@/types/interface";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "sonner";
 
@@ -33,6 +32,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         backgroundColor: "#21211b",
         color: "#e3e3dc",
       },
+      // TODO: make this button sync to check out
       action: {
         label: "Kinchaku",
         onClick: () => {

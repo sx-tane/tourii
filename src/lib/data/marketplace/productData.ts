@@ -160,7 +160,7 @@ export const productsData: Product[] = [
     name: "Rice Cooking Experience with a Traditional Stove",
     description:
       "Experience cooking rice with a hearth in a brewery that is about 120 years old. Shochu tasting is also possible.",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/experience/Rice-Cooking-Experience.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Asaji",
