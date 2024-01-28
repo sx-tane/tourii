@@ -134,7 +134,7 @@ export const productsData: Product[] = [
     name: "Rental Bicycle",
     description:
       "Rental bicycle for sightseeing in the Bungo-Ono area at Hotel Masunoi.",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/experience/Rental-Bicycle.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
@@ -147,7 +147,7 @@ export const productsData: Product[] = [
     name: "Aji Meditation Experience",
     description:
       "Experience one of the Shingon sect's meditations, 'Ajikan', alongside the cliff Buddhas. Required time is about 1 and a half hours.",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/experience/Aji-Meditation-Experience.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Asaji",

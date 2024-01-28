@@ -28,10 +28,22 @@ export const useCart = (): CartContextType => {
 };
 
 export const CartProvider: React.FC<CartContextProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  // Initialize cartItems from local storage
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storedCartItems = localStorage.getItem("cartItems");
+    if (storedCartItems) {
+      return JSON.parse(storedCartItems) as CartItem[]; // Asserting the type to CartItem[]
+    }
+    return [];
+  });
 
-  const addToCart = (product: CartItem) => {
-    setCartItems((prevItems: CartItem[]) => [...prevItems, product]);
+  const addToCart = (item: CartItem) => {
+    setCartItems((prevItems: CartItem[]) => {
+      const newCartItems = [...prevItems, item];
+      console.log("New cart items after adding:", newCartItems); // Log the new cart items
+      localStorage.setItem("cartItems", JSON.stringify(newCartItems)); // Persist to localStorage
+      return newCartItems;
+    });
   };
 
   const value = {

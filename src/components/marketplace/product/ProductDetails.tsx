@@ -30,7 +30,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       details: details,
     });
   };
-
   return (
     <div className="pr-44">
       <div className="mb-5 w-fit border-[1.5px] border-red bg-red p-1 text-xs font-bold uppercase tracking-widest text-warmGrey  ">

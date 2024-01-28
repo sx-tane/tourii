@@ -1,7 +1,12 @@
 import { useCart } from "@/components/context/CartContext";
 import { Button } from "@/lib/ui/button";
-import { type PurchaseData, type Product } from "@/types/interface";
+import {
+  type PurchaseData,
+  type Product,
+  type CartItem,
+} from "@/types/interface";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "sonner";
 
@@ -17,7 +22,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    const productWithDetails = {
+    const productWithDetails: CartItem = {
       product, // the product details
       purchaseData, // the purchase-specific details
     };
@@ -29,8 +34,10 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         color: "#e3e3dc",
       },
       action: {
-        label: "UNDO",
-        onClick: () => console.log("Removed the item from your Kinchaku."),
+        label: "Kinchaku",
+        onClick: () => {
+          <Link href={"/bonjin-bazaar"}>bonjin bazaar</Link>;
+        },
       },
     });
 

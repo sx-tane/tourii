@@ -3,21 +3,20 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import React from "react";
 import Loading from "@/app/loading";
-import HeaderBlack from "@/components/header/header-black/Header";
+import Header from "@/components/header/header-white/Header";
+import { CartProvider } from "@/components/context/CartContext";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Kinchaku",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={<Loading />}>
-      <div className=" h-full animate-fadeIn bg-charcoal ">
-        <div className="mx-6">
-          <HeaderBlack />
-          {children}
-        </div>
+    <div className="item-center h-full animate-fadeIn overflow-hidden">
+      <div className="mx-6">
+        <Header />
+        <Suspense fallback={<Loading />}>{children}</Suspense>
       </div>
-    </Suspense>
+    </div>
   );
 }
