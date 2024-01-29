@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
-import { type Viewport, type Metadata as NextMetadata } from "next";
+import { type Viewport, type Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
@@ -16,36 +16,6 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-type Metadata = NextMetadata & {
-  language: string;
-  category: string;
-  viewport: string;
-  og: {
-    title: string;
-    description: string;
-    image: string;
-    url: string;
-    locale: string;
-  };
-  canonical: string;
-  twitter: {
-    card: string;
-    site: string;
-    title: string;
-    description: string;
-    image: string;
-  };
-  geo: {
-    region: string;
-    placename: string;
-  };
-  title: {
-    default: string;
-    template: string;
-  };
-  description: string;
-};
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1.0,
@@ -53,36 +23,29 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseURL.toString()),
-  language: "en",
-  geo: {
-    region: "JP",
-    placename: "Tokyo",
-  },
-  category: "Travel",
-  viewport: "width=device-width, initial-scale=1.0",
-  og: {
-    title: "Tourii - Unveiling Japan's Mystical Realms",
-    description:
-      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Open Graph image
-    url: baseURL.toString(),
-    locale: "ja_JP",
-  },
-  canonical: baseURL.toString(),
-  twitter: {
-    card: "summary_large_image",
-    site: "@Tourii",
-    title: "Tourii - Unveiling Japan's Mystical Realms",
-    description:
-      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Twitter card image
-  },
   title: {
     default: "Tourii",
     template: "%s | Tourii",
   },
   description:
     "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+  category: "Travel",
+  openGraph: {
+    title: "Tourii - Unveiling Japan's Mystical Realms",
+    description:
+      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+    images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Open Graph image
+    url: baseURL.toString(),
+    locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@Tourii",
+    title: "Tourii - Unveiling Japan's Mystical Realms",
+    description:
+      "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+    images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Twitter card image
+  },
 };
 
 export default function RootLayout({
