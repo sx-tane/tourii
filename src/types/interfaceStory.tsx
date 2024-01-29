@@ -1,0 +1,47 @@
+export interface Story {
+  storyId: string;
+  title: string;
+  image?: string;
+  description?: string;
+}
+
+export interface StorySelection {
+  title: string;
+  chapterNumber?: number;
+  selecedStoryId: string | undefined;
+  isSelected: boolean;
+  isPrologue: boolean;
+}
+
+export interface Chapter {
+  chapterId: string;
+  area: string;
+  chapter: string;
+  title: string;
+  description: string;
+  image: string;
+  vnLink?: string;
+  vnUnlocked?: boolean;
+}
+
+export interface ChapterSelection {
+  chapter: string;
+  title: string;
+  image: string;
+  selectedChapterId: string;
+  isSelected: boolean;
+  isIntro: boolean;
+}
+
+interface FutureUse {
+  lastUpdated: Date;
+  lastUpdatedBy: string;
+  availableLanguages: string[];
+  readingTime: number;
+  difficultyLevel: string;
+  userRating: number;
+  commentCount: number;
+  readStatus: string;
+  unlockConditions: string;
+  tags: string[];
+}

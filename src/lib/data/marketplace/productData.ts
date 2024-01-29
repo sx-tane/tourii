@@ -1,4 +1,5 @@
-import { type Product } from "@/types/interface";
+import { type Product } from "@/types/interfaceProduct";
+
 let number = 0;
 
 function generateProductId() {
