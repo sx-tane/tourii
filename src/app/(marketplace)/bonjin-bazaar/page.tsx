@@ -70,10 +70,6 @@ const Market: NextPage = () => {
           <ProductGrid products={displayedProducts} currentPage={currentPage} />
         </div>
       </div>
-
-      <div className="my-10">
-        <DividerWhite />
-      </div>
     </div>
   );
 };
