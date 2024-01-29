@@ -2,6 +2,8 @@ import { type StorySelection, type Story } from "@/types/interfaceStory";
 
 let number = 0;
 
+const defaultBackgroundImage = "/image/touriiverse/story-page.png";
+
 function generateStoryId() {
   number = number + 1;
   return `storyId${number}`;
@@ -11,21 +13,25 @@ export const storyData: Story[] = [
   {
     storyId: generateStoryId(),
     title: "Prologue",
+    backgroundImage: defaultBackgroundImage,
   },
   {
     storyId: generateStoryId(),
-    title: "Bungo Ono",
+    title: "Bungo\nOno",
+    backgroundImage: "/video/bungo-ono.mp4",
     description:
-      "In the realm of the Touriiverse, Bungo Ono emerges as a mystical land, cradled in the heart of Oita Prefecture, where ancient tales and natural splendor intertwine. This enchanting city, steeped in the lore of the Kojiki, whispers stories of legendary beings and ethereal spirits, inviting seekers and dreamers to wander its sacred grounds. Here, amidst the whispering bamboo groves and cascading waterfalls like the majestic Harajiri, the spirits of the past resonate through time. The land is blessed with nature's bounty, offering delicacies like the renowned Bungo beef, the tangy sweetness of Kabosu citrus, and the enchanting Sweet Potato Soft Serve Ice Cream, each a testament to the city's harmonious blend of the earthly and the divine. Bungo Ono, in the heart of the Touriiverse, is a portal to an era where myths come alive, beckoning travelers to delve into a tapestry of stories woven from the threads of ancient Japanese mythos and the unspoiled beauty of nature.",
+      "In the Touriiverse, Bungo Ono, steeped in Kojiki lore, whispers ancient tales. Here, amidst bamboo groves and Harajiri Falls, myth and nature intertwine, inviting explorers to a realm where legends thrive.",
     image: "/image/touriiverse/oita.svg",
   },
   {
     storyId: generateStoryId(),
     title: "Coming Soon",
+    backgroundImage: "/image/touriiverse/yokai.png",
   },
   {
     storyId: generateStoryId(),
     title: "Coming Soon",
+    backgroundImage: "/image/touriiverse/coming-soon.png",
   },
 ];
 
@@ -39,6 +45,7 @@ export const storySelectionData: StorySelection[] = [
   {
     title: "Bungo Ono",
     selecedStoryId: storyData[1]?.storyId,
+    chapterNumber: 10,
     isSelected: false,
     isPrologue: false,
   },

@@ -80,7 +80,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
               <div
                 key={data.number}
                 onClick={() => handleCircleClick(data.number)}
-                className="flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey transition-all duration-200 hover:bg-circleHover"
+                className="flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey transition-all duration-300 hover:bg-circleHover"
               >
                 <span className="font-tertiary text-3xl italic text-warmGrey3 ">
                   {data.number}

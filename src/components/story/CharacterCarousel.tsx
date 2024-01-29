@@ -30,7 +30,7 @@ export function CharacterCarousel() {
               <CardContent className="flex items-center justify-center p-6 text-center">
                 <div>
                   <Drawer>
-                    <DrawerTrigger className="md:text-md transition-full bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-200 ">
+                    <DrawerTrigger className="md:text-md transition-full bg-transparent p-4 text-xs font-semibold uppercase tracking-widest text-red duration-300 ">
                       <Image
                         src={character.image ?? ""}
                         alt={character.name ?? ""}

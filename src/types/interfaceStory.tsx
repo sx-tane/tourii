@@ -1,6 +1,7 @@
 export interface Story {
   storyId: string;
   title: string;
+  backgroundImage: string;
   image?: string;
   description?: string;
 }
