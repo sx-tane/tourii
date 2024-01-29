@@ -10,11 +10,9 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <Suspense fallback={<Loading />}>
-      <div id="#top" className="mx-6 h-full animate-fadeIn ">
-        <Header />
-        {children}
-      </div>
-    </Suspense>
+    <div id="#top" className="mx-6 h-full animate-fadeIn ">
+      <Header />
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </div>
   );
 }

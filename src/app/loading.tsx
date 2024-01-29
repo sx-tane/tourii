@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Loading: React.FC = () => {
   return (
-    <div className="fixed left-1/2 top-1/2">
+    <div className="flex h-screen items-center justify-center">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
