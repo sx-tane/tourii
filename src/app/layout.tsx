@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "./loading";
-import { type Metadata as NextMetadata } from "next";
+import { type Viewport, type Metadata as NextMetadata } from "next";
 import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
@@ -46,7 +46,13 @@ type Metadata = NextMetadata & {
   description: string;
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseURL.toString()),
   language: "en",
   geo: {
     region: "JP",
@@ -58,7 +64,7 @@ export const metadata: Metadata = {
     title: "Tourii - Unveiling Japan's Mystical Realms",
     description:
       "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "https://www.tourii.xyz/image/homepage/tourii_main.png", // Replace with Open Graph image
+    image: "/homepage/tourii_main.png", // Replace with Open Graph image
     url: baseURL.toString(),
     locale: "ja_JP",
   },
@@ -69,7 +75,7 @@ export const metadata: Metadata = {
     title: "Tourii - Unveiling Japan's Mystical Realms",
     description:
       "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-    image: "https://www.tourii.xyz/image/homepage/tourii_main.png", // Replace with Twitter card image
+    image: "/homepage/tourii_main.png", // Replace with Twitter card image
   },
   title: {
     default: "Tourii",
