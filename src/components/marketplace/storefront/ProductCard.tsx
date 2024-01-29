@@ -1,4 +1,4 @@
-import { type Product } from "@/types/interface";
+import { type Product } from "@/types/interfaceProduct";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -17,10 +17,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const productNameForUrl = encodeURIComponent(product.productId);
 
   return (
-    <div className="m-3 w-fit max-w-fit ">
+    <div className="m-3 w-fit max-w-fit">
       <div className="relative cursor-pointer">
         <div
-          className="absolute right-2 ml-2 mt-2 w-fit border-[1.5px] p-1 text-[10px] font-bold uppercase tracking-widest text-warmGrey"
+          className="absolute right-2 ml-2 mt-2 w-fit rounded-lg border-[1.5px] p-1 text-[10px] font-bold uppercase tracking-widest text-warmGrey"
           style={{
             borderColor: product.category.bungoOnoAreaColor,
             backgroundColor: product.category.bungoOnoAreaColor,
@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alt={product.name}
             width={400}
             height={400}
-            className="z-30 h-64 w-52 object-cover"
+            className="z-30 h-64 w-52 rounded-lg object-cover"
           />
         </Link>
       </div>
@@ -45,7 +45,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
           <div className="relative flex items-center justify-between">
             <div
-              className={`w-fit border-[1.5px] border-${textColor} bg-${textColor} p-1 text-[8px] font-bold tracking-widest text-${productTypeTextColor}`}
+              className={`w-fit border-[1.5px] border-${textColor} bg-${textColor} rounded-lg p-1 text-[8px] font-bold tracking-widest text-${productTypeTextColor}`}
             >
               {product.category.productType}
             </div>
