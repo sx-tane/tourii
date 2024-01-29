@@ -24,7 +24,7 @@ const StorySelectionButton: React.FC<StorySelectionButtonProps> = ({
         </div>
       )}
       {selection.chapterNumber ? (
-        <div className="absolute bottom-2 right-4 text-sm font-normal capitalize italic tracking-widest text-charcoal">
+        <div className="absolute bottom-4 right-6 text-sm font-normal capitalize italic tracking-widest text-charcoal">
           {selection.chapterNumber} Chapters
         </div>
       ) : null}
