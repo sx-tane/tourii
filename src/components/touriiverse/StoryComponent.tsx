@@ -31,6 +31,7 @@ const StoryComponent: React.FC<StoryComponentProps> = ({ story }) => {
               width={600}
               height={600}
               priority={true}
+              quality={100}
             />
           </div>
           <video

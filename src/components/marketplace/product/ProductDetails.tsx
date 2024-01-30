@@ -4,7 +4,7 @@ import {
   type Product,
   type ExperiencePurchase,
   type MerchandisePurchase,
-} from "@/types/interface";
+} from "@/types/interfaceProduct";
 import AddToCartButton from "./AddToCartButton";
 import MerchandiseForm from "./Form/MerchandiseForm";
 import ExperienceForm from "./Form/ExperienceForm";

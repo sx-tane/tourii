@@ -2,7 +2,7 @@ import { Button } from "@/lib/ui/button";
 import { Calendar } from "@/lib/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
 import { cn } from "@/lib/utils";
-import { type MerchandisePurchase } from "@/types/interface";
+import { type MerchandisePurchase } from "@/types/interfaceProduct";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
