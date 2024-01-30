@@ -4,6 +4,7 @@ export interface Story {
   backgroundImage: string;
   image?: string;
   description?: string;
+  chapter?: Chapter[];
 }
 
 export interface StorySelection {
@@ -15,9 +16,8 @@ export interface StorySelection {
 }
 
 export interface Chapter {
-  storyIdGroup: string;
   chapterId: string;
-  area: string;
+  area?: string;
   chapter: string;
   title: string;
   description: string;
@@ -28,9 +28,9 @@ export interface Chapter {
 
 export interface ChapterSelection {
   chapter: string;
+  selectedChapterId: string;
   title: string;
   image: string;
-  selectedChapterId: string;
   isSelected: boolean;
   isIntro: boolean;
 }

@@ -1,4 +1,5 @@
 import { type StorySelection, type Story } from "@/types/interfaceStory";
+import { prologueChatperData } from "./prologueChapterData";
 
 let number = 0;
 
@@ -14,6 +15,7 @@ export const storyData: Story[] = [
     storyId: generateStoryId(),
     title: "Prologue",
     backgroundImage: defaultBackgroundImage,
+    chapter: prologueChatperData,
   },
   {
     storyId: generateStoryId(),
