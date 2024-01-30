@@ -32,7 +32,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   };
   return (
     <div className="pr-44">
-      <div className="mb-5 w-fit border-[1.5px] border-red bg-red p-1 text-xs font-bold uppercase tracking-widest text-warmGrey  ">
+      <div className="mb-5 w-fit rounded-3xl border-[1.5px] border-red bg-red px-3 py-1 text-xs font-bold uppercase tracking-widest text-warmGrey  ">
         {product.category.productType}
       </div>
       <div className="text-base font-bold uppercase tracking-widest text-red lg:text-4xl">

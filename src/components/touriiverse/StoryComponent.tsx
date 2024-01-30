@@ -18,7 +18,7 @@ const StoryComponent: React.FC<StoryComponentProps> = ({ story }) => {
             {story?.title}
           </div>
           <div className="absolute bottom-10 left-10 z-50">
-            <StoryButton />
+            <StoryButton title={story?.url ?? ""} />
           </div>
           <div>
             <div className="absolute right-10 top-10 z-50 w-1/3 text-base">
@@ -51,7 +51,7 @@ const StoryComponent: React.FC<StoryComponentProps> = ({ story }) => {
           </div>
           {story?.title !== "Coming Soon" ? (
             <div className="absolute bottom-10 left-10 z-50">
-              <StoryButton />
+              <StoryButton title={story?.url ?? ""} />
             </div>
           ) : (
             ""

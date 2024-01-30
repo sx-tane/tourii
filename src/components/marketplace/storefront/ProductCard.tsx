@@ -45,12 +45,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
           <div className="relative flex items-center justify-between">
             <div
-              className={`w-fit border-[1.5px] border-${textColor} bg-${textColor} rounded-lg p-1 text-[8px] font-bold tracking-widest text-${productTypeTextColor}`}
+              className={`w-fit border-[1.5px] border-${textColor} bg-${textColor} rounded-3xl px-2 py-1 text-[8px] font-bold tracking-widest text-${productTypeTextColor}`}
             >
               {product.category.productType}
             </div>
             <p
-              className={`text-right text-[12px] font-medium tracking-wider text-${textColor}`}
+              className={`text-right align-bottom text-[12px] font-medium tracking-wider text-${textColor}`}
             >{`${product.price} Yen`}</p>
           </div>
         </div>
