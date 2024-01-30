@@ -1,10 +1,10 @@
 import { useCart } from "@/components/context/CartContext";
 import { Button } from "@/lib/ui/button";
 import {
-  type PurchaseData,
   type Product,
+  type PurchaseData,
   type CartItem,
-} from "@/types/interface";
+} from "@/types/interfaceProduct";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";

@@ -3,7 +3,6 @@
 import FilterDropdown from "@/components/marketplace/storefront/FilterBar";
 import Pagination from "@/components/marketplace/storefront/Pagination";
 import ProductGrid from "@/components/marketplace/storefront/ProductGrid";
-import DividerWhite from "@/components/world/Divider";
 import { productsData } from "@/lib/data/marketplace/productData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type NextPage } from "next";
@@ -53,7 +52,7 @@ const Market: NextPage = () => {
   }, [filter, currentPage, allProducts]);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex  flex-col items-center justify-center">
       <div className="flex w-full">
         <div className="m-auto text-3xl font-bold uppercase tracking-widest text-warmGrey3">
           Bonjin Bazaar
