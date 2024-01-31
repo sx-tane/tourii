@@ -94,24 +94,26 @@ const ProductPage: NextPage<Props> = withPageAuthRequired(
     };
 
     return (
-      <div className="mx-10 flex flex-col items-center justify-center">
-        <div className="flex items-center justify-center">
-          <div className="w-1/2 p-24">
-            <ProductImage
-              image={defaultProduct.image}
-              name={defaultProduct.name}
-            />
+      <div>
+        <div className="mx-10 flex flex-col items-center justify-center transition-all duration-300">
+          <div className="flex items-center justify-center">
+            <div className="w-1/2 p-24">
+              <ProductImage
+                image={defaultProduct.image}
+                name={defaultProduct.name}
+              />
+            </div>
+            <div className="w-1/2">
+              <ProductDetails product={defaultProduct} />
+            </div>
           </div>
-          <div className="w-1/2">
-            <ProductDetails product={defaultProduct} />
+          <RelatedProducts
+            bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
+            productId={defaultProduct.productId}
+          />
+          <div className="my-10">
+            <Divider />
           </div>
-        </div>
-        <RelatedProducts
-          bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
-          productId={defaultProduct.productId}
-        />
-        <div className="my-10">
-          <Divider />
         </div>
       </div>
     );
