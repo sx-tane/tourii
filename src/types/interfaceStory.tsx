@@ -25,6 +25,7 @@ export interface Chapter {
   title: string;
   content: string;
   image: string;
+  realImage: string;
   vnLink?: string;
   vnUnlocked?: boolean;
 }
