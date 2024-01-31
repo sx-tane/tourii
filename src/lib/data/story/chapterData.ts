@@ -45,7 +45,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Harajiri Falls",
     chapterNumber: "Chapter 1",
-    image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
+    image: "/image/touriiverse/bungo-ono/chapter1.png",
     realImage: "",
     title: "Harajiri Falls & Komatsu Fire Festival",
     content:
@@ -69,13 +69,13 @@ export const bungoOnoChapterData: Chapter[] = [
   },
   {
     chapterId: generateChapterId(),
-    placeName: "Miyazaki East and West Stone Carved Buddha Cliff",
+    placeName: "Ogatamiyasako East Stone Buddhas",
     part: 1,
     area: bungoOnoArea,
     chapterNumber: "Chapter 3",
     image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
     realImage: "",
-    title: "Miyazaki East and West Stone Carved Buddha",
+    title: "Miyazaki East and West Stone Craved Buddha Cliff",
     content:
       "At the East Cliff, Ninigi's group met with Daichi Nyorai's protectors, who revealed the existence of three temporal buddhas. The present buddha, healer Yakushi Nyorai, was away, while Shaka Nyorai, of the past, explained that Ninigi's unintended travel to 2024 saved him from certain death in Izumo. The future's Amida Nyorai foresaw Ninigi's return, but only after earning the trust of the deities in this timeline, which would alter his original era's fate.\r\rNinigi discovered his sacred mirror, Yagata no Kagami, shattered, with only one piece remaining. Shaka Nyorai assured that his other regalia could help locate and restore the mirror's fragments. To understand more and possibly repair the mirror, Ninigi was advised to seek Inari Okami, a venerated kami residing in the Ogata rice plains, who could provide essential guidance on his journey through modern Japan.",
     vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
@@ -532,4 +532,15 @@ export const bungoOnoChapterData: Chapter[] = [
   },
 ];
 
+// chapterSelectionData
+
 export const chapterSelectionData: ChapterSelection[] = [];
+
+for (let i = 1; i <= 35; i++) {
+  chapterSelectionData.push({
+    selectedChapterId: bungoOnoChapterData[i]?.chapterId,
+    chapter: bungoOnoChapterData[i]?.chapterNumber,
+    placeName: bungoOnoChapterData[i]?.placeName,
+    isSelected: false,
+  });
+}

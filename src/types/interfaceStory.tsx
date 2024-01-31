@@ -31,12 +31,10 @@ export interface Chapter {
 }
 
 export interface ChapterSelection {
-  chapter: string;
-  selectedChapterId: string;
-  title: string;
-  image: string;
+  selectedChapterId: string | undefined;
+  chapter: string | undefined;
+  placeName: string | undefined;
   isSelected: boolean;
-  isIntro: boolean;
 }
 
 interface FutureUse {

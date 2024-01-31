@@ -9,25 +9,28 @@ interface ChapterProps {
 const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
   return (
     <div className="relative h-[70vh] w-auto rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal transition-all duration-500">
-      <div className="text-center font-bold uppercase tracking-wider md:text-5xl">
+      <div className="text-lg font-semibold uppercase tracking-widest">
+        {chapter?.chapterNumber}
+      </div>
+      <div className="absolute right-14 top-8 text-center text-lg font-bold uppercase tracking-widest">
         {chapter?.area}
-        <div className="mt-3 text-base font-semibold">
-          {chapter?.chapterNumber}
-        </div>
       </div>
       <div className="bottom-8 left-8 md:absolute">
         <div className="mb-5 w-80 font-bold">{chapter?.title}</div>
-        <Markdown className="gap-10 whitespace-pre-wrap text-justify text-sm md:w-7/12 xl:columns-2 xl:text-base">
+        <Markdown className="gap-10 whitespace-pre-wrap text-justify text-sm md:w-8/12 xl:columns-2 xl:text-base">
           {chapter?.content}
         </Markdown>
       </div>
-      <Image
-        src={chapter?.image ?? ""}
-        alt={chapter?.title ?? ""}
-        width={550}
-        height={550}
-        className="absolute bottom-8 right-8  hidden aspect-square w-auto rounded-full object-cover md:flex md:h-[35vh] lg:h-[45vh] xl:h-[55vh]"
-      />
+      <div className="absolute bottom-8 right-14">
+        <Image
+          src={chapter?.image ?? ""}
+          alt={chapter?.title ?? ""}
+          width={550}
+          height={550}
+          className=" aspect-square h-[45vh] w-[20vw] rounded-full object-cover"
+        />
+        <div className="mt-12 h-14 w-full bg-red text-center">test</div>
+      </div>
     </div>
   );
 };

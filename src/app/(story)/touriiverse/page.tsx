@@ -33,9 +33,9 @@ const Touriiverse: NextPage = () => {
   return (
     <div>
       <div className="flex h-[90vh] items-center justify-center transition-all duration-300">
-        <div className="flex w-full flex-col items-center">
+        <div className="flex w-full snap-x flex-col items-center">
           <StoryComponent key={selectedStory?.storyId} story={selectedStory} />
-          <div className="item-center mt-4 flex w-11/12 justify-center gap-1">
+          <div className="item-center mt-2 flex w-11/12 justify-center gap-1">
             {selectionData.map((selection) => (
               <StorySelectionButton
                 key={selection.selecedStoryId}
