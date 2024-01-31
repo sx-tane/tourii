@@ -17,7 +17,7 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
       </div>
       <div className="bottom-8 left-8 md:absolute">
         <div className="mb-5 w-80 font-bold">{chapter?.title}</div>
-        <Markdown className="gap-10 text-justify text-sm md:w-7/12 xl:columns-2 xl:text-base">
+        <Markdown className="gap-10 whitespace-pre-wrap text-justify text-sm md:w-7/12 xl:columns-2 xl:text-base">
           {chapter?.content}
         </Markdown>
       </div>

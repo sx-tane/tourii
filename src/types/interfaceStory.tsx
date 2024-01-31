@@ -18,7 +18,9 @@ export interface StorySelection {
 
 export interface Chapter {
   chapterId: string;
+  part: number;
   area?: string;
+  placeName?: string;
   chapterNumber: string;
   title: string;
   content: string;
