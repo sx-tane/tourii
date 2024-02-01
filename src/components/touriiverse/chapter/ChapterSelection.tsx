@@ -10,15 +10,29 @@ const ChapterSelectionButton: React.FC<ChapterSelectionButtonProps> = ({
   onSelect,
 }) => {
   return (
-    <button
-      onClick={() => onSelect(selection.selectedChapterId ?? "")}
-      className={`relative z-10 h-28 w-96 flex-shrink-0 transform rounded-lg text-left font-bold uppercase tracking-widest text-charcoal transition-all duration-300 lg:text-xl ${selection.isSelected ? "bg-warmGrey3 text-warmGrey" : "bg-warmGrey hover:bg-warmGrey2"}`}
-    >
-      <div className="absolute left-6 top-4">{selection.placeName}</div>
-      <div className="absolute bottom-4 right-6 text-sm font-medium capitalize italic tracking-widest text-charcoal">
+    <div className="space-y-2 px-8 py-7 pt-8 text-center">
+      {" "}
+      {/* Adjust px-8 as needed */}
+      <div className="text-xs font-semibold uppercase tracking-widest text-charcoal">
         {selection.chapter}
       </div>
-    </button>
+      {/* Container for the line and the button */}
+      <div className="relative -mx-8 flex justify-center py-2">
+        {/* Line behind the button */}
+        <div
+          className="absolute left-0 z-0 h-0.5 w-full bg-charcoal "
+          style={{ top: "50%", transform: "translateY(-50%)" }}
+        ></div>
+        {/* Button */}
+        <button
+          onClick={() => onSelect(selection.selectedChapterId ?? "")}
+          className={`relative z-10 h-4 w-4 rounded-full border-2 border-charcoal transition-all duration-300 ${selection.isSelected ? "bg-red" : "bg-warmGrey hover:bg-red"}`}
+        />
+      </div>
+      <div className="w-96 text-sm font-bold uppercase tracking-widest">
+        {selection.placeName}
+      </div>
+    </div>
   );
 };
 

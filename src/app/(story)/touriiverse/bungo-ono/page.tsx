@@ -39,7 +39,7 @@ const BungoOno: NextPage = () => {
   };
 
   return (
-    <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden ">
+    <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden">
       {selectedChapter?.chapterNumber === "Intro" ? (
         <IntroComponent
           key={selectedChapter?.chapterId}
@@ -51,12 +51,15 @@ const BungoOno: NextPage = () => {
           chapter={selectedChapter}
         />
       )}
-      <div className="mt-2 rounded-bl-xl rounded-tl-xl bg-warmGrey2 px-6 py-4">
+      <div className="mt-2 flex rounded-bl-xl rounded-tl-xl bg-warmGrey2 pb-4 pl-12">
         <div
           ref={scrollContainerRef}
           onWheel={handleWheel}
-          className=" flex overflow-y-hidden overflow-x-scroll"
+          className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
         >
+          <div className="mr-10 shrink-0 text-xl font-bold tracking-wider">
+            BUNGO ONO
+          </div>
           {selectionData.map((selection) => (
             <ChapterSelectionButton
               key={selection.selectedChapterId}

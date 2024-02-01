@@ -50,7 +50,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Harajiri Falls & Komatsu Fire Festival",
     content:
       "In 2024, Ninigi and his party awaken at Harajiri Falls, meeting Sarutahiko who has awaited them for over a thousand years. They find themselves amidst the Komatsu Fire Festival, a local ritual for good harvests and protection against evil spirits, now overshadowed by a severe drought destroying half of Ogata's rice crops. The reason for this calamity is unknown, but the people's strong will has created a divine aura at the falls, drawing Sarutahiko from hiding. He reveals his mission to assist Ninigi in claiming rulership of Ashihara no Nakatsukuni, as instructed by Amaterasu. However, the fading human belief in kami has led to the disappearance of Okuninushi and Kunitsukami and weakened Sarutahiko, who has expended his remaining power for this crucial encounter with Ninigi.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://tanejp.com/harajiri-fall/",
     vnUnlocked: true,
   },
   {
@@ -69,7 +69,7 @@ export const bungoOnoChapterData: Chapter[] = [
   },
   {
     chapterId: generateChapterId(),
-    placeName: "Ogatamiyasako East Stone Buddhas",
+    placeName: "Ogatamiyasako Stone Buddhas",
     part: 1,
     area: bungoOnoArea,
     chapterNumber: "Chapter 3",
@@ -92,7 +92,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Ozaki Stone Bath Cave",
     content:
       "Prioritizing Sarutahiko's well-being, Ninigi leads the group to seek Yakushi Nyorai within the Ozaki Stone Bath Cave. There, they are introduced to archaic healing rituals involving stone and steam, akin to modern tent saunas, complete with a list of necessary herbs. This ancient knowledge proves vital as Sarutahiko, healed by the process, gratefully acknowledges Ninigi's leadership.\r\rGuided by Yakushi Nyorai, Ninigi's next quest is to locate Inari Okami, known to be near the Ogata canal road. With a message from Yakushi Nyorai to herald their journey, they plan to meet this revered kami. As evening approaches, they are directed to seek refuge at Lodge Kiyokawa, accessible by car, ensuring they have a base for their ongoing odyssey.\r\rBefore parting, Yakushi Nyorai bestows upon Ninigi a sacred healing mantra, a beacon of solace for the trials ahead, promising relief not just from corporeal wounds but also soothing the psyche and spirit, an invaluable asset for Ninigi's mission to bridge the celestial and the earthly.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/ogata-irrigational-canal/",
     vnUnlocked: false,
   },
   {
@@ -106,7 +106,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Night at Lodge Kiyokawa",
     content:
       "In the heart of Bungo Ono, surrounded by the whispering trees and the gentle flow of the Ondake River, Lodge Kiyokawa stands as a sanctuary of peace. As Ninigi and his party arrive, the lodge's unique charm is immediately apparent—the architecture is in harmony with nature, promising a stay that's as restorative as the healing rituals they seek. The night's stay at Lodge Kiyokawa allows them to reflect on their journey thus far and prepare for the challenges ahead. The lodge, offering diverse room types from traditional tatami to modern western styles, caters to their varied needs, ensuring each member finds comfort and solace under its welcoming roof.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/lodge-kiyokawa/",
     vnUnlocked: true,
   },
   {
@@ -120,7 +120,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Shiitake Hunting",
     content:
       "The following morning, Ninigi's group engages with the local traditions and embarks on a shiitake mushroom hunting excursion in the misty forests surrounding Lodge Kiyokawa. The experience brings them closer to the land's spirit, teaching them the ancient ways of foraging and deepening their connection with the natural world of Bungo Ono. The shiitake, revered for both its culinary and medicinal properties, becomes a symbol of the earth's generosity, providing sustenance and health. This chapter is a celebration of the harmonious balance between human and nature, a key element in their quest for understanding and unity.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/lodge-kiyokawa-shiitake/",
     vnUnlocked: true,
   },
   {
@@ -134,7 +134,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Tent Sauna Experience",
     content:
       "In the cool evening, as twilight paints the sky with shades of dusky lavender, Ninigi's party experiences the rejuvenating tradition of a tent sauna, set by the river's edge. This practice, mirroring the ancient healing methods taught by Yakushi Nyorai, offers not just physical cleansing but also mental clarity. The sauna's steam, infused with local herbs, envelops them in a warm embrace, symbolizing the purification of their intentions and the strengthening of their resolve. The tent sauna becomes a ritual of bonding for the group, fortifying their spirits for the imminent meeting with Inari Okami and the journey that lies beyond.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/lodge-kiyokawa-sauna/",
     vnUnlocked: true,
   },
   {
@@ -172,7 +172,7 @@ export const bungoOnoChapterData: Chapter[] = [
     placeName: "Anamori Shrine",
     chapterNumber: "Chapter 10",
     image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
-    realImage: "",
+    realImage: "/image/touriiverse/bungo-ono-real/chapter10.jpg",
     title: "Serpent's Harmony and Kami's Alliance at Anamori Shrine",
     content:
       "In the mystical aura of Anamori Shrine, Ninigi's group, enriched by the profound Kagura dances of Kagura Village and the stunning vistas of Mount Ontake, confronts Oodamaki in his serpent form. With strategic use of sake and the healing mantra from Yakushi Nyorai, they pacify the great serpent. Takemikazuchi no Kami's formidable strength then safely escorts Oodamaki back to his cave, restoring him to human form and rejuvenating the once-blocked waterways. This act unveils hints of a deeper enigma as Oodamaki mentions a mysterious, regal blue kami.\r\rThe shrine becomes a nexus of powerful alliances, as both Takemikazuchi and Inari Okami imbue Ninigi's Kusanagi sword with their energies, signifying their pledged support. This convergence of divine force not only strengthens Ninigi's resolve but also illuminates the path to recovering the scattered mirror shards, guided by the magatama's latent power. As the journey unfolds, Ninigi is set to traverse the land, awakening dormant kami, and forging an unbreakable chain of alliances, all while piecing together the fragments of a larger cosmic puzzle that transcends time itself.",
@@ -218,7 +218,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Turmoil at Fukoji Temple",
     content:
       "Arriving at Fukoji Temple, Ninigi's group steps into a scene far removed from the sanctuary they anticipated. The temple grounds, usually a bastion of serenity, are ensnared in turmoil. Amidst this chaos stands Fudo Myoo, the temple's guardian deity, his formidable presence overshadowed by the discord that permeates his domain.\r\rDriven by a profound respect for the sacred and a steadfast resolve, Ninigi and his allies delve into the heart of the disturbance. Their journey leads them to a concealed garden where hydrangeas bloom in riotous colors, their vibrant petals stark against the temple's unrest. As if by ancient magic, the flowers' tranquil beauty begins to weave a tapestry of calm, gradually stilling the tumultuous energy that had seized the temple.\r\rIn the newly restored peace, Fudo Myoo acknowledges the bravery and sincerity of Ninigi's group with a deep sense of gratitude. He bestows upon Ninigi his sacred sword, a revered blade with the power to quell the lingering malevolence of the Kappa. As the temple basks in its reclaimed tranquility, the Kappa, liberated from its age-old confinement, imparts a cryptic message to Ninigi—a clue pointing towards the hidden depths of Jinkaku Temple, where the secrets of the Kojiki records lie in wait, ready to unveil the next chapter in their celestial journey.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/fukoji-temple/",
     vnUnlocked: true,
   },
   {
@@ -387,7 +387,7 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Echoes from the Abyss",
     content:
       "At the mouth of Inazumi Cave, a place shrouded in ancient mysteries and guarded by Kannon, Ninigi's party stands on the threshold of the unknown. The cave, holding the power to distort time itself, poses a challenge like no other, its darkness a canvas for the untold stories of eras long past. Kannon, with a solemn grace, imparts a warning of the cave's significance and the unnerving vibrations emanating from its depths. Unable to venture within due to her duty as guardian, she entrusts Ninigi with the task of unraveling the cave's secrets.\r\rWith Kannon's caution lingering in the air, Ninigi's party chooses the underwater route, navigating through the silent waters with a mix of trepidation and resolve. The journey through the cave is a descent into the heart of the earth, where each echo tells a story older than the kami themselves. Emerging into an open cavern, the furthest reach of the water route, they are met with an enigmatic silhouette. The figure stands alone, its presence a silent challenge, setting the stage for revelations and encounters that will peel back the layers of time and myth, revealing the truths that Inazumi Cave has cradled through the ages.",
-    vnLink: "https://www.youtube.com/watch?v=Z3Z4YX6XH3M",
+    vnLink: "https://www.tanejp.com/inazumi-cave/",
     vnUnlocked: true,
   },
   {

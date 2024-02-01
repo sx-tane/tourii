@@ -49,7 +49,7 @@ export const storySelectionData: StorySelection[] = [
   {
     title: "Bungo Ono",
     selecedStoryId: storyData[1]?.storyId,
-    chapterNumber: 10,
+    chapterNumber: 36,
     isSelected: false,
     isPrologue: false,
   },
