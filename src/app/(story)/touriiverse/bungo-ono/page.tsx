@@ -1,6 +1,5 @@
 "use client";
 
-import StoryComponent from "@/components/touriiverse/StoryComponent";
 import ChapterComponent from "@/components/touriiverse/chapter/ChapterComponent";
 import ChapterSelectionButton from "@/components/touriiverse/chapter/ChapterSelection";
 import {
@@ -8,7 +7,7 @@ import {
   chapterSelectionData,
 } from "@/lib/data/story/chapterData";
 import { type NextPage } from "next";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const BungoOno: NextPage = () => {
   const [selectedChapter, setselectedChapter] = useState(
@@ -30,6 +29,14 @@ const BungoOno: NextPage = () => {
     }
   };
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft += e.deltaY;
+    }
+  };
+
   return (
     <div className="absolute -right-0 top-32 h-[90vh] w-[95vw] overflow-hidden ">
       <ChapterComponent
@@ -37,7 +44,11 @@ const BungoOno: NextPage = () => {
         chapter={selectedChapter}
       />
       <div className="mt-2 rounded-bl-xl rounded-tl-xl bg-warmGrey2 px-6 py-4">
-        <div className=" flex overflow-y-hidden overflow-x-scroll ">
+        <div
+          ref={scrollContainerRef}
+          onWheel={handleWheel}
+          className=" flex overflow-y-hidden overflow-x-scroll"
+        >
           {selectionData.map((selection) => (
             <ChapterSelectionButton
               key={selection.selectedChapterId}
