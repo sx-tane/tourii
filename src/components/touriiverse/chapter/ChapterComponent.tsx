@@ -1,12 +1,22 @@
+"use client";
+
 import { type Chapter } from "@/types/interfaceStory";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import Markdown from "react-markdown";
+import ChapterButton from "./ChapterButton";
 
 interface ChapterProps {
   chapter: Chapter | undefined;
 }
 
 const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const imageSrc =
+    isHovered && chapter?.realImage ? chapter.realImage : chapter?.image;
+
   return (
     <div className="relative h-[70vh] w-auto rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal transition-all duration-500">
       <div className="text-lg font-semibold uppercase tracking-widest">
@@ -21,15 +31,19 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
           {chapter?.content}
         </Markdown>
       </div>
-      <div className="absolute bottom-8 right-14">
+      <div
+        className="absolute bottom-8 right-14"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <Image
-          src={chapter?.image ?? ""}
+          src={imageSrc ?? ""}
           alt={chapter?.title ?? ""}
           width={550}
           height={550}
-          className=" aspect-square h-[45vh] w-[20vw] rounded-full object-cover"
+          className="aspect-square h-[48vh] w-[20vw] rounded-full object-cover"
         />
-        <div className="mt-12 h-14 w-full bg-red text-center">test</div>
+        <ChapterButton key={chapter?.chapterId} chapter={chapter} />
       </div>
     </div>
   );

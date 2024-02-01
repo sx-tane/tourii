@@ -2,6 +2,7 @@
 
 import ChapterComponent from "@/components/touriiverse/chapter/ChapterComponent";
 import ChapterSelectionButton from "@/components/touriiverse/chapter/ChapterSelection";
+import IntroComponent from "@/components/touriiverse/chapter/IntroComponent";
 import {
   bungoOnoChapterData,
   chapterSelectionData,
@@ -38,11 +39,18 @@ const BungoOno: NextPage = () => {
   };
 
   return (
-    <div className="absolute -right-0 top-32 h-[90vh] w-[95vw] overflow-hidden ">
-      <ChapterComponent
-        key={selectedChapter?.chapterId}
-        chapter={selectedChapter}
-      />
+    <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden ">
+      {selectedChapter?.chapterNumber === "Intro" ? (
+        <IntroComponent
+          key={selectedChapter?.chapterId}
+          chapter={selectedChapter}
+        />
+      ) : (
+        <ChapterComponent
+          key={selectedChapter?.chapterId}
+          chapter={selectedChapter}
+        />
+      )}
       <div className="mt-2 rounded-bl-xl rounded-tl-xl bg-warmGrey2 px-6 py-4">
         <div
           ref={scrollContainerRef}

@@ -1,5 +1,4 @@
 import { type Chapter } from "@/types/interfaceStory";
-import Image from "next/image";
 import Markdown from "react-markdown";
 
 interface IntroProps {
@@ -21,13 +20,15 @@ const IntroComponent: React.FC<IntroProps> = ({ chapter }) => {
           {chapter?.content}
         </Markdown>
       </div>
-      <Image
-        src={chapter?.image ?? ""}
-        alt={chapter?.title ?? ""}
-        width={550}
-        height={550}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
         className="absolute bottom-8 right-8  hidden aspect-square w-auto rounded-full object-cover md:flex md:h-[35vh] lg:h-[45vh] xl:h-[55vh]"
-      />
+      >
+        <source src={chapter?.image ?? ""} type="video/mp4" />
+      </video>
     </div>
   );
 };
