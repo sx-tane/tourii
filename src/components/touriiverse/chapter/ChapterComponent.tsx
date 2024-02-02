@@ -24,10 +24,14 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
       <div className="absolute right-14 top-8 text-center text-lg font-bold uppercase tracking-widest">
         {chapter?.area}
       </div>
-      <div className="bottom-8 left-8 md:absolute">
-        <div className="mb-5 w-80 font-bold">{chapter?.title}</div>
-        <Markdown className="gap-10 whitespace-pre-wrap text-justify text-sm md:w-8/12 xl:columns-2 xl:text-base">
-          {chapter?.content}
+      <div className="bottom-8 left-8 md:absolute md:w-8/12">
+        <div className="mb-5 text-sm font-bold uppercase tracking-widest md:text-3xl">
+          {chapter?.title}
+        </div>
+        <Markdown className="gap-10 overflow-hidden whitespace-pre-wrap text-justify text-base ">
+          {chapter?.content.length ?? 0 > 350
+            ? `${chapter?.content?.substring(0, 350)}...`
+            : chapter?.content}
         </Markdown>
       </div>
       <div

@@ -3,11 +3,14 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
+import Description, { DescriptionStory } from "@/components/about/Description";
 import { bungoOnoChapterData } from "@/lib/data/story/chapterData";
 import { type Chapter } from "@/types/interfaceStory";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import Markdown from "react-markdown";
 
 type Props = {
   params: {
@@ -69,7 +72,7 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
   }
 
   return (
-    <div className="absolute right-0 h-[90vh] w-[87vw] rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal transition-all duration-500">
+    <div className="absolute right-0 h-[90vh] w-[87vw] rounded-bl-xl rounded-tl-xl bg-warmGrey text-charcoal transition-all duration-500">
       {chapter.vnLink ? (
         <iframe
           src={chapter.vnLink}
@@ -77,13 +80,30 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
           className="absolute left-0 top-0 h-full w-full rounded-bl-xl rounded-tl-xl"
         />
       ) : (
-        <Image
-          src={chapter.image}
-          alt={chapter.title}
-          height={500}
-          width={500}
-          className="absolute left-0 top-0 h-full w-full rounded-bl-xl rounded-tl-xl object-cover"
-        />
+        <div className="flex h-full w-full">
+          <div className="my-auto w-1/2 p-10">
+            <DescriptionStory
+              smallTitle={chapter.chapterNumber}
+              title={chapter.title}
+              content={chapter.content}
+            />
+            <Link
+              href={"/touriiverse/bungo-ono"}
+              className="mx-auto flex h-fit w-fit rounded-full border-[1.5px] border-red px-8 py-2 font-medium uppercase tracking-widest text-red transition hover:bg-red hover:text-warmGrey"
+            >
+              close
+            </Link>
+          </div>
+          <div className="w-1/2">
+            <Image
+              src={chapter.image}
+              alt={chapter.title}
+              height={500}
+              width={500}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
       )}
     </div>
   );
