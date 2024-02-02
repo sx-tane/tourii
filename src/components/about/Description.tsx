@@ -2,6 +2,7 @@ import React from "react";
 import { type DescriptionProps } from "./descriptionData";
 import ReactMarkdown from "react-markdown";
 import Line from "./divider-line/Line";
+import Link from "next/link";
 
 const Description: React.FC<DescriptionProps> = ({
   smallTitle,
@@ -45,7 +46,7 @@ export const DescriptionStory: React.FC<DescriptionProps> = ({
           <Line />
         </div>
       </div>
-      <div className="mt-8 whitespace-pre-line px-2 text-xs font-medium md:text-sm">
+      <div className="mt-8 whitespace-pre-line px-2 text-xs font-medium md:text-base">
         <ReactMarkdown className="leading-normal">{content}</ReactMarkdown>
       </div>
     </div>

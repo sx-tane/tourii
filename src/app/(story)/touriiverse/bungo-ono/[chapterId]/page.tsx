@@ -3,14 +3,13 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import Description, { DescriptionStory } from "@/components/about/Description";
+import { DescriptionStory } from "@/components/about/Description";
 import { bungoOnoChapterData } from "@/lib/data/story/chapterData";
 import { type Chapter } from "@/types/interfaceStory";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import Markdown from "react-markdown";
+import { useState, useEffect, useRef } from "react";
 
 type Props = {
   params: {
@@ -80,8 +79,8 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
           className="absolute left-0 top-0 h-full w-full rounded-bl-xl rounded-tl-xl"
         />
       ) : (
-        <div className="flex h-full w-full">
-          <div className="my-auto w-1/2 p-10">
+        <div className="flex h-full w-full overflow-hidden">
+          <div className="my-auto h-[90vh] w-1/2 overflow-y-auto p-10">
             <DescriptionStory
               smallTitle={chapter.chapterNumber}
               title={chapter.title}
@@ -89,11 +88,12 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
             />
             <Link
               href={"/touriiverse/bungo-ono"}
-              className="mx-auto flex h-fit w-fit rounded-full border-[1.5px] border-red px-8 py-2 font-medium uppercase tracking-widest text-red transition hover:bg-red hover:text-warmGrey"
+              className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-red px-8 py-2 text-center font-medium uppercase tracking-widest text-red transition hover:bg-red hover:text-warmGrey md:flex"
             >
-              close
+              CLOSE
             </Link>
           </div>
+
           <div className="w-1/2">
             <Image
               src={chapter.image}

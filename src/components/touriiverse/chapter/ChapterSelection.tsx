@@ -11,7 +11,6 @@ const ChapterSelectionButton: React.FC<ChapterSelectionButtonProps> = ({
 }) => {
   return (
     <div className="space-y-2 px-8 py-7 pt-8 text-center">
-      {" "}
       {/* Adjust px-8 as needed */}
       <div className="text-xs font-semibold uppercase tracking-widest text-charcoal">
         {selection.chapter}
