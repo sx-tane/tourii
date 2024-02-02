@@ -1,18 +1,18 @@
 export interface ModelRouteSelection {
+  [x: string]: any;
   areaId: string;
   areaName: string;
   image: string;
   isOpen: boolean;
-  modelRoute: ModelRoute[];
+  modelRoute: ModelRoute[] | undefined;
 }
 
 export interface ModelRoute {
   modelRouteId: string;
   modelRouteName: string;
-  recommendation: string[]; // receommendation for people
-  isOpen: boolean;
-  routeDestinations: RouteDestinations[];
-  routeDetails: RouteDetails[];
+  recommendation: string[];
+  routeDestinations: RouteDestinations[] | undefined;
+  routeDetails: RouteDetails[] | undefined;
 }
 
 export interface RouteDestinations {
@@ -26,6 +26,7 @@ export interface RouteDetails {
   routeDetailId: string; // stop 1
   routeDetailTime: string; // 9am
   routeDetailName: string; // Harajiri Falls
+  routeDetailStoryTitle: string; // Harajiri Falls
   visualNovelLink: string; // Revisit the story
   routeDetailBigImage: string; // image
   routeDetailSmallImage: {

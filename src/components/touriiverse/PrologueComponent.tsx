@@ -8,7 +8,7 @@ interface IntroProps {
 
 const PrologueComponent: React.FC<IntroProps> = ({ chapter }) => {
   return (
-    <div className="relative h-[70vh] w-auto rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal transition-all duration-500">
+    <div className="relative h-[70vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">
       <div className="text-center font-bold uppercase tracking-wider md:text-5xl">
         {chapter?.area}
         <div className="mt-3 text-base font-semibold">

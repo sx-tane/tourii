@@ -41,7 +41,7 @@ const BungoOno: NextPage = () => {
   };
 
   return (
-    <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden">
+    <div className="absolute -right-0 h-[90vh] w-[95vw] animate-fadeIn overflow-hidden">
       {selectedChapter?.chapterNumber === "Intro" ? (
         <AnimatePresence mode="wait">
           <IntroComponent

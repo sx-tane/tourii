@@ -17,7 +17,7 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
     isHovered && chapter?.realImage ? chapter.realImage : chapter?.image;
 
   return (
-    <div className="relative h-[70vh] w-auto rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal transition-all duration-500">
+    <div className="relative h-[70vh] w-auto  animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">
       <div className="text-lg font-semibold uppercase tracking-widest">
         {chapter?.chapterNumber}
       </div>
