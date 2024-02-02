@@ -1,3 +1,5 @@
+"use client";
+
 import PrologueComponent from "@/components/touriiverse/PrologueComponent";
 import { prologueChapterData } from "@/lib/data/story/chapterData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
