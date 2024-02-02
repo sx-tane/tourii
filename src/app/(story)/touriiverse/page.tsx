@@ -3,6 +3,7 @@
 import StoryComponent from "@/components/touriiverse/StoryComponent";
 import StorySelectionButton from "@/components/touriiverse/StorySelection";
 import { storyData, storySelectionData } from "@/lib/data/story/storyData";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type NextPage } from "next";
 import { useEffect, useState } from "react";
 
@@ -50,4 +51,4 @@ const Touriiverse: NextPage = () => {
   );
 };
 
-export default Touriiverse;
+export default withPageAuthRequired(Touriiverse);

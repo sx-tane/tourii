@@ -64,8 +64,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Abode of the Mighty Bonjin Warrior",
     content:
       "Sarutahiko, concerned about their safety, leads the group to the Ichinomiya Hachiman Shrine. He warns that their divine aura might attract malevolent corrupted Kunitsukami or Yokai, who might regain power from his presence. The shrine, dedicated to the great Hachiman, a kunitsukami protector of farmers, fishermen, and warriors, represents the syncretism of Shinto and Buddhism.\r\rSarutahiko reveals that many Kunitsukami have become corrupt, resorting to violence for survival, with only a few still revered and maintaining peace. Bungo Ono, where they've descended, is unique for its harmonious blend of Shintoism and Buddhism, and located away from the main stream cities, is often overlooked by powerful beings.\r\rSuddenly, Sarutahiko collapses, weakened. Ninigi inquires how to restore his strength. Sarutahiko suggests seeking the great Dainichi Nyorai at the Miyazaki East and West Stone Carved Buddha Cliff. Dainichi Nyorai, the chief deity in Shingon Buddhism, symbolizes a life force akin to the sun, similar to Amaterasu. His audience might reveal why Ninigi was sent to 2024 and how he could return, while potentially healing Sarutahiko.\r\rHow do we get there Ninigi would ask. Take my CAR Sarutahiko said. CAR? Ninigi inquire. Ninigi will learn about the various transportation the modern Bonjin uses.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -78,8 +78,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Buddhas of Past, Present, and Future",
     content:
       "At the East Cliff, Ninigi's group met with Daichi Nyorai's protectors, who revealed the existence of three temporal buddhas. The present buddha, healer Yakushi Nyorai, was away, while Shaka Nyorai, of the past, explained that Ninigi's unintended travel to 2024 saved him from certain death in Izumo. The future's Amida Nyorai foresaw Ninigi's return, but only after earning the trust of the deities in this timeline, which would alter his original era's fate.\r\rNinigi discovered his sacred mirror, Yagata no Kagami, shattered, with only one piece remaining. Shaka Nyorai assured that his other regalia could help locate and restore the mirror's fragments. To understand more and possibly repair the mirror, Ninigi was advised to seek Inari Okami, a venerated kami residing in the Ogata rice plains, who could provide essential guidance on his journey through modern Japan.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -92,8 +92,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Forgotten Healing Magic",
     content:
       "Prioritizing Sarutahiko's well-being, Ninigi leads the group to seek Yakushi Nyorai within the Ozaki Stone Bath Cave. There, they are introduced to archaic healing rituals involving stone and steam, akin to modern tent saunas, complete with a list of necessary herbs. This ancient knowledge proves vital as Sarutahiko, healed by the process, gratefully acknowledges Ninigi's leadership.\r\rGuided by Yakushi Nyorai, Ninigi's next quest is to locate Inari Okami, known to be near the Ogata canal road. With a message from Yakushi Nyorai to herald their journey, they plan to meet this revered kami. As evening approaches, they are directed to seek refuge at Lodge Kiyokawa, accessible by car, ensuring they have a base for their ongoing odyssey.\r\rBefore parting, Yakushi Nyorai bestows upon Ninigi a sacred healing mantra, a beacon of solace for the trials ahead, promising relief not just from corporeal wounds but also soothing the psyche and spirit, an invaluable asset for Ninigi's mission to bridge the celestial and the earthly.",
-    vnLink: "https://www.tanejp.com/ogata-irrigational-canal/",
-    vnUnlocked: false,
+    vnLink: "",
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -148,8 +148,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "A Princess's Distress",
     content:
       "In the tranquil embrace of Bungo Ono, Ninigi's group is visited by Hana no Moto, who bears news of Oodamaki, a once-peaceful serpent now displaying disturbing behavior. The cause, a cursed needle embedded in his collar, compels Oodamaki to seek relief in the Kanbara River's currents, inadvertently threatening the local ecosystem. Hana no Moto, known for her insight into the ways of spirits, implores Ninigi to choose a path of compassion, suggesting that an offering of sake might soothe the serpent's woes. She points them towards Inari Okami, a deity with a connection to the Takakiya Sake Brewery, to procure this pacifying elixir.\r\rWith a solution in hand and the harmony of the land at stake, Ninigi's party must also consider the healing and relocation of the great serpent. The mantra given by Yakushi Nyorai could hold the key to easing Oodamaki's suffering, while the strength required to move him could only come from a powerful kami like Takemikazuchi no Kami. Hana no Moto advises learning the sacred Kagura dance to summon this deity, guiding them to the Kagura Hall and subsequently to the Kashimagu Shrine, setting the stage for a dance that would intertwine their fates with the divine and the serpentine.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -162,8 +162,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Awakening The Sumo Kami",
     content:
       "Immersed in the rich traditions of the Kagura Hall, Ninigi's group masters the ancient Kagura dance, a ritualistic performance destined to awaken the mighty Takemikazuchi no Kami. With each step and beat, they embody the stories of old, preparing their spirits for the pivotal moment of summoning. Their path leads them through the serene landscapes of Iwato, where the natural beauty of merging rivers sets a tranquil stage for the task at hand. Arriving at Kashima Shrine, they step into a realm where history whispers through the towering gates and sacred structures, a fitting arena for their heartfelt plea to the heavens.\r\rAs Ninigi and his companions commence the sacred dance within the hallowed grounds of Kashima Shrine, the air thrums with the power of their intention. The precise movements, coupled with the rhythm of their unified spirit, stir the ancient kami from his slumber. Takemikazuchi no Kami, moved by their dedication and the urgency of their quest, emerges, his aura a testament to his formidable essence as the progenitor of sumo. Acknowledging the sincerity and valor of Ninigi's party, he vows to lend his strength to their noble cause, offering his guidance in the delicate task of healing and relocating the great serpent, Oodamaki. This newfound alliance with Takemikazuchi no Kami forges a beacon of hope, illuminating their journey with the promise of divine support.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -176,8 +176,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Rouge Serpent God",
     content:
       "In the mystical aura of Anamori Shrine, Ninigi's group, enriched by the profound Kagura dances of Kagura Village and the stunning vistas of Mount Ontake, confronts Oodamaki in his serpent form. With strategic use of sake and the healing mantra from Yakushi Nyorai, they pacify the great serpent. Takemikazuchi no Kami's formidable strength then safely escorts Oodamaki back to his cave, restoring him to human form and rejuvenating the once-blocked waterways. This act unveils hints of a deeper enigma as Oodamaki mentions a mysterious, regal blue kami.\r\rThe shrine becomes a nexus of powerful alliances, as both Takemikazuchi and Inari Okami imbue Ninigi's Kusanagi sword with their energies, signifying their pledged support. This convergence of divine force not only strengthens Ninigi's resolve but also illuminates the path to recovering the scattered mirror shards, guided by the magatama's latent power. As the journey unfolds, Ninigi is set to traverse the land, awakening dormant kami, and forging an unbreakable chain of alliances, all while piecing together the fragments of a larger cosmic puzzle that transcends time itself.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -190,8 +190,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Whispers of the Past: The Kojiki Revelation",
     content:
       "In the shadowed stillness of an ancient library, amidst scrolls whispering secrets of ages past, Ninigi's fingers brush against the Kojiki records—a tome steeped in the ancestral lore of gods and heroes. As he unfurls the parchment, the air thickens with the weight of untold stories, the inked characters dancing a cryptic ballet of history and prophecy. The Kojiki, a chronicle of divine lineage and earthly sagas, offers Ninigi not just knowledge of his forebears but also a mirror reflecting his own destiny and that of his descendants.\r\rCompelled by the revelations within the timeworn pages, Ninigi resolves to trace the celestial footsteps chronicled in the Kojiki. Each location, a mosaic of myth and truth, promises to unveil fragments of the untold, guiding him deeper into the labyrinth of his lineage. Understanding these esoteric narratives is more than a quest for truth; it's a key to mastering the temporal tides he navigates. As he steps out, the library's ancient walls resonate with a silent promise: the paths tread by his ancestors, now shadowed by time's veil, will illuminate the road to his purpose, shaping the legacy that will echo through the ages.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -204,8 +204,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Sealed Kappa's Legend",
     content:
       "The aroma of grilled beef and the hum of convivial chatter envelop Ninigi's group as they find respite in the bustling ambiance of Restaurant Fukujuso. Amidst the feast and fellowship, an ancient tale emerges, whispered by locals with a reverence reserved for legends. It speaks of a Kappa, a creature of water and whim, sealed within a stone for a thousand years. The tale, as old as the hills that cradle the town, hints at a sealed mischief and a hidden wisdom waiting to be unearthed.\r\rCompelled by the story, Ninigi's party is drawn to the challenge of unveiling this mystery. The sealed Kappa, an echo of a forgotten past, beckons them, but the seal holds a corruption that threatens to seep through the cracks of time. Their path converges with the legend of Fudo Myoo, the deity wielding the soul-purification sword, a beacon of hope in their quest to cleanse the ancient seal. With determination in their hearts, Ninigi and his companions set their course for Fukoji Temple, where they seek the divine intervention of Fudo Myoo, hoping to unlock the secrets of the Kappa and safeguard the balance between the mystical and the mortal realms.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -232,8 +232,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Secret of Jinkaku Temple",
     content:
       "In the secluded serenity of Jinkaku Temple, enveloped in the resplendent bloom of azaleas, Ninigi immerses himself in the ancient texts of the Kojiki. The records, as enigmatic as the temple that houses them, unfold tales of his forebears, narrating the saga of his lineage's ascendancy over Ashihara no Nakatsukuni and the subsequent shaping of Japan's imperial dynasty. Yet, amidst the chronicles of triumphs and legacies, the narrative veils the intricate details of his own ascension and the pivotal decision that favored Takachiho over Izumo, leaving a trail of questions that beckon for clarity.\r\rAs Ninigi ponders the missing pieces of his ancestral puzzle, his thoughts inadvertently summon the wisdom of Dainichi Nyorai, resonating with a directive that charts a new course for his quest. The divine counsel guides him eastward, towards the revered presence of the great Kannon, the embodiment of compassion and mercy, venerated in the intertwined tapestries of Buddhism and Shintoism. In the quietude of the temple, surrounded by the vibrant azaleas, Ninigi senses that this enigmatic deity may hold the key to unlocking the secrets that lay delicately woven within the Kojiki's ancient verses.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -246,8 +246,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Guidance from the Kannon",
     content:
       "Ninigi's journey, guided by the whispers of Dainichi Nyorai, leads him east to the tranquil embrace of Eboshi Park. Amidst the verdant tapestry and the gentle cadence of nature, the Eboshi-dake-Josui Ji temple stands as a sanctuary of solace and wisdom. Here, in the hallowed presence of the compassionate Kannon, Ninigi finds a moment of profound clarity. The Kannon, with a gaze as serene as the dawn, imparts her knowledge, unveiling the intricate tapestry of the three interconnected realms—a cosmos where the threads of major historical events entwine with untold tales, each echoing the mysteries of existence.\r\rAs Kannon's words linger in the air, a silent revelation unfolds. Ninigi's magatama, a relic of celestial lineage, begins to emanate a soft, pulsating glow, its light a compass pointing southward. The direction is clear, towards the Chinda waterfalls, a place where nature's melody harmonizes with legends of old. Kannon, with a gentle nod, hints at the significance of this location. \"It has a touching legend there. Maybe you can find something there…” she muses, her voice a blend of mystery and guidance. With a newfound resolve and the Kannon's blessings whispering in his heart, Ninigi sets his sights on the Chinda waterfalls, ready to uncover the next piece of the cosmic puzzle and to understand the profound reasons behind his presence in the year 2024.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -260,8 +260,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "An Unexpected Meal",
     content:
       "At the Muretsuru sake brewery, Ninigi's party finds solace in the rich aroma of sake and the comforting warmth of a traditional kamado stove. Sarutahiko's knowledge of modern customs reassures them, explaining the art of Cosplay and how their unique attire blends seamlessly into this world. Embraced by the lively atmosphere and the brewery's hospitable owners, they dive into an authentic cooking experience, their laughter mingling with the clinking of sake glasses.\r\rThe evening transforms into a celebration of culinary delights, their shared meal enriched by the bond of friendship and the finest sake. As their joyous moments are captured and shared on social media, Ninigi's party becomes woven into the vibrant tapestry of the modern world, marking an unexpected but cherished chapter in their journey—a testament to the universal language of food, culture, and camaraderie.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -274,8 +274,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Legend of Chinda Waterfall",
     content:
       "In the ethereal embrace of Chinda Falls, Ninigi's party encounters whispers of ancient lore, the legend of the dragon girl weaving a mystical aura around the cascading waters. The pulse of Ninigi's magatama quickens, its rhythm a guide leading them to the lake's heart, where secrets lie submerged beneath the tranquil surface.\r\rThe quest for the hidden shard of Ninigi's mirror is a dance of courage and intuition, each step a delicate tread between the realms of the known and the mystical. As the party navigates the veiled paths of legend and the palpable mysteries of the Touriiverse, their journey becomes a tapestry of suspense and revelation, each thread pulling them closer to the truths that time has veiled. With resolve and unity, they prepare to unveil the secrets that Chinda Falls holds, ready to confront the challenges and embrace the revelations that await beneath its serene waters.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -288,8 +288,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Enigmatic Festivals of Bungo Ono",
     content:
       "Guided by Madina's insights at Lodge Kiyokawa, Ninigi's party is poised to embark on a journey through Bungo Ono's hidden side, where ancient festivals pulse with life and mystery. Each festival Madina lists is a tapestry of tradition, promising clues to the sacred shards of the Yagata Mirror.\r\rTheir first destination is the Mitarai Shrine for the Boiling Water Kagura, a rare ritual of steam and prayer. Next, they'll witness the fiery spectacle of the Roaster and Fire Festival at Sugao Magaibutsu, where flames dance in an ancient rite. The Sake Gourd Sama Blessing at Shibayama Hachimangu Shrine offers a serene contrast, with its festive display of sake gourds symbolizing blessing and abundance. Lastly, the jubilant Donko Fishing Tournament at Inukai port merges local customs with the joyous celebration of Children's Day.\r\rWith Madina's map in hand and her cautionary advice about the extraordinary nature of these events, Ninigi's party prepares to step into a realm where festivals are not just celebrations but gateways to the profound and the mystical, each offering a unique piece to complete their cosmic puzzle.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -302,8 +302,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Boiling Water Kagura",
     content:
       "As dusk wraps Mitarai Shrine in its tranquil embrace, Ninigi and his party witness the Yutate Kagura, a ritual where courage meets devotion amidst boiling cauldrons and leaping flames. This sacred dance, a testament to the shrine's spiritual legacy, unfolds with performers stepping fearlessly into the scalding embrace of the water, their chants merging with the fire's crackle in a profound display of faith.\r\rAmidst this powerful ceremony, Uzume diligently captures each movement, her 'book of dance' becoming a living chronicle of this ancient rite. As the ritual culminates, the party feels the pull of the magatama, guiding them forward on their journey, their path illuminated by the lingering warmth of the shrine's sacred flames and the resonating echo of the Kagura's timeless dance.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -317,8 +317,8 @@ export const bungoOnoChapterData: Chapter[] = [
       "Rokujimyogo and Sugao Magaibutsu - The Oni That Fled from the Roaster",
     content:
       "Amidst Bungo Ono's mystical tapestry, Ninigi's party encounters the Rokujimyogo, an ancient stone inscription whispering mantras into the wind. Their path leads them to the vibrant Sugeo Stone Buddhas Fire Festival, a celebration where the flicker of flames honors the guardian Buddhas. Welcomed warmly by a local, they immerse themselves in the festival's fervent spirit, surrounded by the community's pulsating energy and the protective gaze of the cliff Buddhas.\r\rPost-festival, over shared sake, the local unveils tales of the cliff Buddhas, carved sentinels against ancient threats, and the Rokujimyogo's protective chants. Ninigi's inquiry about the mirror shards leads them to the summit, where they stand before the carved Buddhas. Amitabha Nyorai, amidst this assembly of sanctity, acknowledges the shard's northern pull, urging Ninigi to heed the wisdom of the Buddhas. As the night deepens, choices unfold before them, each path a silent promise of revelations yet to be discovered.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -331,8 +331,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Shibayama Hachiman Shrine - The Sake Gourd Blessing",
     content:
       "Ninigi's journey brings them to the heart of the spirited Shimotsuki Festival at Shibayama Hachiman Shrine. The air is vibrant with the beat of traditional music, and the scent of sacred sake fills the atmosphere. As the revered Hyotan Sama graces the event with a mystical gourd, the festival becomes a tapestry of joy and communal bond.\r\rThe moment Uzume steps into dance with Hyotan Sama, the celebration ascends into a realm of divine joy, her grace mending any unintended misstep from Ninigi. The sacred sake, once withheld, now flows freely, blessing Ninigi, Sarutahiko, and their companions with fortune. As they depart, hearts light with the festival's spirit, the group sets their sights on the majestic Osako Magaibutsu cliffs, where the next chapter of their journey and the enigmatic presence of Dainichi Nyorai await.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -345,8 +345,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Clay Masked Buddha",
     content:
       "In the quietude of Osako Magaibutsu, Ninigi stands before the enigmatic Dainichi Nyorai, known as the 'Bull Deity,' its mask-like visage a testament to ancient artistry and spiritual reverence. The deity's clay face, crafted with hemp-infused clay on rock, holds the weight of centuries, its presence both startling and profound. As Ninigi learns of Dainichi Nyorai's protective aura over the land and its cattle, he seeks wisdom, his gaze fixed on the deity's timeless expression.\r\rDainichi Nyorai reveals truths that unsettle yet enlighten Ninigi. The ancient rock, predating known eras, and the mysterious Inazumi Cave, a place of temporal enigmas, beckon Ninigi with promises of deeper understanding and potential answers to his temporal displacement. With Kannon's message weighing on his heart, Ninigi prepares to venture into the cave's depths after his quest at the Donko Fishing Festival. The journey ahead is paved with revelation and mystery, each step a stride closer to unraveling the cosmic puzzle of his existence.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -359,8 +359,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Tedorigando - The Elusive Crabs",
     content:
       "At the serene shores of Tedorigando, Ninigi's party, still warmed by Hyotan Sama's blessing, finds themselves amidst an unexpected abundance. The rocks teem with crabs, their leisurely crawl a dance of nature's generosity. The scene, bathed in the golden glow of the setting sun, is one of joyous fortune as they gather the crabs, each one a symbol of the land's benevolence and the festival's lingering spirit. This moment of serendipity at Tedorigando marks not just a feast for the evening but a reminder of the journey's rich tapestry of experiences, woven with the threads of adventure, learning, and the occasional gracious gift of the sea.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -373,8 +373,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Inukai Donko Fishing Tournament - Fishing for the Mirror Shard",
     content:
       "At the Inukai Donko Fishing Tournament, Ninigi and his party engage in a spirited competition, the air alive with anticipation and the scent of the sea. With Tedorigando crabs as their secret weapon, Ninigi skillfully navigates the waters, his line drawing one Donko fish after another in a display of harmony between man and nature. As the competition reaches its climax, Ninigi's catch, a testament to skill and fortune, earns him the coveted first prize – the elusive mirror shard, a crucial piece in their quest. This moment of triumph at Inukai, amidst cheers and the vibrant pulse of the festival, marks not only a victory in the tournament but also a significant step forward in the journey, as the shards of the past slowly piece together the path to the future.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -401,8 +401,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Message from Izanami",
     content:
       "In the shadowed depths of Inazumi Cave, Ninigi's party stands face to face with the ethereal silhouette of Izanami, the ambiance charged with tension and mystery. The figure's recognition of Ninigi sends a ripple of shock through the group, raising questions that hang heavily in the still cave air.\r\rAs Izanami's form flickers like a flame caught in a gentle breeze, her presence seems less corporeal, more an echo of the past than a being of flesh and bone. Her words, though cryptic, hint at a preordained encounter, a message meant for Ninigi alone. Sarutahiko, ever the sentinel, discerns the nature of the vision before them—a projection of kami energy, a whisper from the past left to guide Ninigi in this moment of uncertainty.\r\rWith caution and reverence, Ninigi and his party stand ready to receive the wisdom of Izanami, their senses attuned to the slightest nuance of her spectral message. In the silence of the cave, every word, every flicker of her form, is a piece of a puzzle that spans the ages, a story waiting to be told, a legacy waiting to be understood.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -415,8 +415,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The Legacy of Izanami",
     content:
       "A profound message unravels before Ninigi and his party. The flickering silhouette of Izanami, a bridge between the physical and the ethereal, conveys a message that transcends time, a heartfelt revelation from Ninigi's great grandmother. Her words, laden with the weight of eons, echo through the cavern, a testament to the bonds that connect the lineage of kami.\r\rIzanami's revelation casts a new light on Ninigi's journey, affirming that his path into the future was no mere twist of fate, but a carefully woven tapestry by the hands of his ancestors. Her message, a beacon from the past, assures Ninigi that the dangers he would have faced had he descended onto Izumo in his own timeline have been averted. In this moment of connection, the party stands enveloped in the gravity of Izanami's forethought and the depth of her legacy, their hearts touched by a love that transcends the boundaries of time and realm.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -429,8 +429,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Izanami's Duality: A Struggle Within",
     content:
       "In the hallowed confines of Inazumi Cave, Ninigi and his companions are confronted with the stark duality of Izanami, a revelation that paints her not just as a deity, but as an entity torn between two realms of existence. The image before them, a poignant portrayal of her inner turmoil, depicts the stark contrast between her benevolent nature and the shadows of wrath that linger beneath.\r\rIzanami's confession, a narrative of her journey from the depths of Yomi to the precarious balance between light and darkness, unveils her vulnerability. The betrayal by Izanagi, a scar upon her essence, birthed her contrasting personas, casting her existence into a perpetual struggle for harmony. Her admission of occasionally succumbing to her darker aspect resonates through the cave, a somber reminder of the eternal battle waged within her soul. As Ninigi and his party absorb the gravity of her words, they gain not just insight into the complexity of Izanami's being but also a profound understanding of the delicate balance that governs the cosmos and the hearts of its inhabitants.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -443,8 +443,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Izanami's Concern for Ninigi",
     content:
       "Izanami's intense revelation shrouds Ninigi's party in a tense atmosphere within the depths of Inazumi Cave. Her admission unveils a moment of darkness, where her wrath nearly led to Ninigi's demise, and discloses a conspiracy involving powerful kami, including her own darker self and Okuninushi. This confession, laden with regret and concern, paints a vivid picture of the threats Ninigi unknowingly faces.\r\rHer message, a blend of warning and wisdom, charges Ninigi with the daunting task of identifying the three remaining adversaries plotting against his divine ascendancy. As the silhouette of Izanami fades into the cave's shadows, her words linger, setting Ninigi on a path fraught with danger and mystery, urging him to navigate the intricate web of divine intrigue woven across timelines.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -457,8 +457,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Izanami's Sacrifice: The Path to Redemption",
     content:
       "In the enigmatic heart of Inazumi Cave, Ninigi is riveted by Izanami's poignant revelation. Her glowing stone, a beacon in the cavern's gloom, symbolizes her desperate gamble across time to save him from certain death. This act, borne from a love transcending realms, reshaped history, casting both kami and humans into a maelstrom of chaos. Izanami's stark admission, that her intervention led to a leaderless world besieged by conflict, lays bare the gravity of Ninigi's quest.\r\rHolding the glowing stone, a fragment of Izanami's essence, Ninigi grapples with the weight of her request. His mission, now twofold, is not only to secure his safety in the present but also to return, strengthened, to restore balance to a fractured past. As he steps out of the cave, the stone's light a silent vow, Ninigi carries with him Izanami's warning: the same divine aura that binds them could also awaken the hidden adversaries. With the wisdom of his ancestor guiding him, Ninigi embarks on a journey fraught with peril and promise, his resolve steeling him against the shadows that lurk in the guise of allies.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -471,8 +471,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "The End of Izanami's Message",
     content:
       "As Ninigi and his party emerge from the depths of Inazumi Cave, the night air greets them with a ballet of fireflies, each tiny light a serene counterpoint to the gravity of Izanami's message. The glowing stone, now a part of Ninigi's sword, serves as a tangible link to his great grandmother's legacy and her hope for a harmonious future. With each step away from the cave, the fireflies' dance weaves a tapestry of light, transforming the path into a corridor of hope and enchantment.\r\rThe journey back to Kiyokawa Lodge becomes a silent pilgrimage, the fireflies' luminescent trail a guide through the introspective darkness. Their delicate glow, flickering in the soft embrace of the May-June night, echoes Ninigi's renewed determination. As the party moves through the nocturnal symphony of light and shadow, each firefly's glow is a whisper of the resolve and purpose that now drives them forward, an ethereal reflection of the path they've chosen to set history right.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -485,8 +485,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Guidance at Uchida Shrine",
     content:
       "At Uchida Shrine, Ninigi's party finds themselves amidst a scene woven with sorrow and the echoes of unfinished journeys. The sorrowful spirits of the nine court ladies and the Yubu family, bound by unresolved tales and unfulfilled destinies, linger in the sacred air. Their presence, ethereal and poignant, is a silent testament to the shrine's storied past.\r\rAs Ninigi approaches, the spirits, recognizing the aura of divinity that surrounds him, reach out with a plea that tugs at the heartstrings of time. They seek guidance to Hyuga, their intended haven, where they hope to find the solace and peace that has long eluded them. Moved by their plight, Ninigi and his companions pledge to accompany the spirits on their final journey, a side quest that weaves compassion with duty. Together, they embark on a path that leads not just to Hyuga, but to closure and liberation, a journey that intertwines the living with the echoes of the past in a silent pact of guidance and understanding.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -499,8 +499,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Mount Atago's Enigmatic Encounter",
     content:
       "Mt. Atago, with its tranquil ambiance and the singular beauty of a lone Sakura tree blooming out of season, holds a special resonance for Ninigi. Amid the calm of the mountain, he feels a connection that transcends the boundaries of time, a nostalgic pull to a familiar yet distant memory. The sight of the Sakura, vibrant against the mountain's serenity, stirs within him an urge to communicate across time, to leave a heartfelt message for Konohanasakuya-hime.\r\rAs a single tear traces its path down Ninigi's cheek, a symbol of profound emotion unspoken, he etches a message onto a nearby rock—a silent, enduring testament to his love for Konohanasakuya-hime. His companions, sensing the depth of the moment yet respecting the privacy of his thoughts, can only wonder at the encounter's significance. As they descend from the mountain, the message remains, a carved whisper of hope and love from Ninigi, reaching out across the ages to his beloved Konohanasakuya-hime.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -513,8 +513,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "Hyuga and the Heike Clan Spirits",
     content:
       "In the historical tapestry of Hyuga, Ninigi's party finds themselves amid an encounter that bridges the gap between legend and reality. The spirits of the Heike clan, once embroiled in the turmoil of the Genpei War, now roam with a lightness borne from their newfound peace. As the spirits wander the city, their presence, though ethereal, stirs the air with a palpable joy, their harmless antics weaving into the fabric of local lore.\r\rAs the first light of dawn paints the sky, the spirits of the Heike clan gather to express their gratitude to Ninigi. Their words, a blend of relief and reverence, carry hints of leads that might guide Ninigi to Amaterasu, offering not just closure to their own saga but also a beacon for Ninigi's ongoing quest. This moment, where history and the present converge in a serene dawn, marks not just the departure of the Heike spirits but also the beginning of a new chapter in Ninigi's journey, one that promises deeper connections with the divine tapestry of the land.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
   {
     chapterId: generateChapterId(),
@@ -527,8 +527,8 @@ export const bungoOnoChapterData: Chapter[] = [
     title: "A Beacon of Hope",
     content:
       "At the serene Omi Shrine, a sanctuary bathed in tranquility and sacred whispers, Ninigi stands in contemplative silence. This place, dedicated to Amaterasu, carries the promise of a deeper connection, a potential bridge to the celestial realms. The guidance of the Heike spirits, a gesture of goodwill and respect, has led him here, to the threshold of a hopeful communion with his divine grandmother, Amaterasu.\r\rSurrounded by the shrine's calming presence, Ninigi feels the weight of his journey and the myriad paths it has woven through time and myth. The Omi Shrine, with its sacred aura, seems to hold the keys to the celestial dialogue he seeks. As the chapter of Bungo Ono draws to a close, Ninigi is poised at the brink of a new chapter, one that promises to unfold beyond the borders of this land, carrying him closer to the cosmic legacy of the kami and the destiny that awaits.",
-    vnLink: "",
-    vnUnlocked: false,
+    vnLink: undefined,
+    vnUnlocked: true,
   },
 ];
 

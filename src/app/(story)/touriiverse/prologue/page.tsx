@@ -1,5 +1,6 @@
 import PrologueComponent from "@/components/touriiverse/PrologueComponent";
 import { prologueChapterData } from "@/lib/data/story/chapterData";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { type NextPage } from "next";
 
 const Prologue: NextPage = () => {
@@ -12,4 +13,4 @@ const Prologue: NextPage = () => {
   );
 };
 
-export default Prologue;
+export default withPageAuthRequired(Prologue);

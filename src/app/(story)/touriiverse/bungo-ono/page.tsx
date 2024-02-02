@@ -7,6 +7,7 @@ import {
   bungoOnoChapterData,
   chapterSelectionData,
 } from "@/lib/data/story/chapterData";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence } from "framer-motion";
 import { type NextPage } from "next";
 import { useRef, useState } from "react";
@@ -78,4 +79,4 @@ const BungoOno: NextPage = () => {
   );
 };
 
-export default BungoOno;
+export default withPageAuthRequired(BungoOno);
