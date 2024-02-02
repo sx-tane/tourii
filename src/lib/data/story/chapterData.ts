@@ -171,7 +171,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Anamori Shrine",
     chapterNumber: "Chapter 10",
-    image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
+    image: "/image/touriiverse/bungo-ono/chapter10.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter10.jpg",
     title: "Serpent's Harmony and Kami's Alliance at Anamori Shrine",
     content:
@@ -185,8 +185,8 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Bungo Ono",
     chapterNumber: "Chapter 11",
-    image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
-    realImage: "",
+    image: "/image/touriiverse/bungo-ono/chapter11.png",
+    realImage: "/image/touriiverse/bungo-ono-real/chapter11.jpg",
     title: "Whispers of the Past: The Kojiki Revelation",
     content:
       "In the shadowed stillness of an ancient library, amidst scrolls whispering secrets of ages past, Ninigi's fingers brush against the Kojiki records—a tome steeped in the ancestral lore of gods and heroes. As he unfurls the parchment, the air thickens with the weight of untold stories, the inked characters dancing a cryptic ballet of history and prophecy. The Kojiki, a chronicle of divine lineage and earthly sagas, offers Ninigi not just knowledge of his forebears but also a mirror reflecting his own destiny and that of his descendants.\r\rCompelled by the revelations within the timeworn pages, Ninigi resolves to trace the celestial footsteps chronicled in the Kojiki. Each location, a mosaic of myth and truth, promises to unveil fragments of the untold, guiding him deeper into the labyrinth of his lineage. Understanding these esoteric narratives is more than a quest for truth; it's a key to mastering the temporal tides he navigates. As he steps out, the library's ancient walls resonate with a silent promise: the paths tread by his ancestors, now shadowed by time's veil, will illuminate the road to his purpose, shaping the legacy that will echo through the ages.",
@@ -199,8 +199,8 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Restaurant Fukujuso",
     chapterNumber: "Chapter 12",
-    image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
-    realImage: "",
+    image: "/image/touriiverse/bungo-ono/chapter12.png",
+    realImage: "/image/touriiverse/bungo-ono-real/chapter12.jpg",
     title: "The Sealed Kappa's Legend",
     content:
       "The aroma of grilled beef and the hum of convivial chatter envelop Ninigi's group as they find respite in the bustling ambiance of Restaurant Fukujuso. Amidst the feast and fellowship, an ancient tale emerges, whispered by locals with a reverence reserved for legends. It speaks of a Kappa, a creature of water and whim, sealed within a stone for a thousand years. The tale, as old as the hills that cradle the town, hints at a sealed mischief and a hidden wisdom waiting to be unearthed.\r\rCompelled by the story, Ninigi's party is drawn to the challenge of unveiling this mystery. The sealed Kappa, an echo of a forgotten past, beckons them, but the seal holds a corruption that threatens to seep through the cracks of time. Their path converges with the legend of Fudo Myoo, the deity wielding the soul-purification sword, a beacon of hope in their quest to cleanse the ancient seal. With determination in their hearts, Ninigi and his companions set their course for Fukoji Temple, where they seek the divine intervention of Fudo Myoo, hoping to unlock the secrets of the Kappa and safeguard the balance between the mystical and the mortal realms.",
@@ -213,8 +213,8 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Fukoji Temple",
     chapterNumber: "Chapter 13",
-    image: "/image/touriiverse/bungo-ono/harajiri-fall.jpeg",
-    realImage: "",
+    image: "/image/touriiverse/bungo-ono/chalter13.png",
+    realImage: "/image/touriiverse/bungo-ono-real/chapter13.jpg",
     title: "Turmoil at Fukoji Temple",
     content:
       "Arriving at Fukoji Temple, Ninigi's group steps into a scene far removed from the sanctuary they anticipated. The temple grounds, usually a bastion of serenity, are ensnared in turmoil. Amidst this chaos stands Fudo Myoo, the temple's guardian deity, his formidable presence overshadowed by the discord that permeates his domain.\r\rDriven by a profound respect for the sacred and a steadfast resolve, Ninigi and his allies delve into the heart of the disturbance. Their journey leads them to a concealed garden where hydrangeas bloom in riotous colors, their vibrant petals stark against the temple's unrest. As if by ancient magic, the flowers' tranquil beauty begins to weave a tapestry of calm, gradually stilling the tumultuous energy that had seized the temple.\r\rIn the newly restored peace, Fudo Myoo acknowledges the bravery and sincerity of Ninigi's group with a deep sense of gratitude. He bestows upon Ninigi his sacred sword, a revered blade with the power to quell the lingering malevolence of the Kappa. As the temple basks in its reclaimed tranquility, the Kappa, liberated from its age-old confinement, imparts a cryptic message to Ninigi—a clue pointing towards the hidden depths of Jinkaku Temple, where the secrets of the Kojiki records lie in wait, ready to unveil the next chapter in their celestial journey.",
@@ -544,3 +544,38 @@ for (let i = 1; i <= 35; i++) {
     isSelected: false,
   });
 }
+
+const routeDetails = [
+  {
+    routeDetailId: "stop 1",
+    routeDetailTime: "9am",
+    routeDetailName: "Harajiri Falls",
+    visualNovelLink: "Revisit the story",
+    routeDetailBigImage: "",
+    routeDetailSmallImage: {
+      image1: "",
+      image2: "",
+      image3: "",
+    }, // image
+    routeDetailDescription: `Boasting a width of 120m and a height of 20m, Harajiri falls is also called the "Niagara of the East". It appears suddenly in a tranquil agricultural area, allowing for close-up views of the waterfall. The waterfall is located over the Ogata River, a tributary of the Ono River, and when viewed from above, it forms a beautiful arc\r\rSince ancient times, it has been closely related to people's lives and has had a significant impact on our history, culture, and industry. The foundation of this impact can be observed in the appearance of the waterfall and the state of the river. The shrine, waterways, and stone bridges are built on top of this foundation. In spring, many tulips bloom around the area, spreading a beautiful scenery`,
+    routeDetailLocation: "Harajiri Falls",
+    routeDetailAddress: "410 Ogatamachi Harajiri, Bungoono, Oita",
+    routeHashtag: ["#waterfall", "#rafting"],
+  },
+  {
+    routeDetailId: "stop 2",
+    routeDetailTime: "11am",
+    routeDetailName: "Eboshi Park",
+    visualNovelLink: "Revisit the story",
+    routeDetailBigImage: "",
+    routeDetailSmallImage: {
+      image1: "",
+      image2: "",
+      image3: "",
+    }, // image
+    routeDetailDescription: `Eboshi Park is a park located`,
+    routeDetailLocation: "Eboshi Park",
+    routeDetailAddress: "410 Ogatamachi Harajiri, Bungoono, Oita",
+    routeHashtag: ["#park", "#nature"],
+  },
+];

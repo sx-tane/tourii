@@ -7,6 +7,7 @@ import {
   bungoOnoChapterData,
   chapterSelectionData,
 } from "@/lib/data/story/chapterData";
+import { AnimatePresence } from "framer-motion";
 import { type NextPage } from "next";
 import { useRef, useState } from "react";
 
@@ -41,15 +42,19 @@ const BungoOno: NextPage = () => {
   return (
     <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden">
       {selectedChapter?.chapterNumber === "Intro" ? (
-        <IntroComponent
-          key={selectedChapter?.chapterId}
-          chapter={selectedChapter}
-        />
+        <AnimatePresence mode="wait">
+          <IntroComponent
+            key={selectedChapter?.chapterId}
+            chapter={selectedChapter}
+          />
+        </AnimatePresence>
       ) : (
-        <ChapterComponent
-          key={selectedChapter?.chapterId}
-          chapter={selectedChapter}
-        />
+        <AnimatePresence mode="wait">
+          <ChapterComponent
+            key={selectedChapter?.chapterId}
+            chapter={selectedChapter}
+          />
+        </AnimatePresence>
       )}
       <div className="mt-2 flex rounded-bl-xl rounded-tl-xl bg-warmGrey2 pb-4 pl-12">
         <div
