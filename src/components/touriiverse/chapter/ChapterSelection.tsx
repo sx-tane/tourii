@@ -26,7 +26,7 @@ const ChapterSelectionButton: React.FC<ChapterSelectionButtonProps> = ({
         {/* Button */}
         <button
           onClick={() => onSelect(selection.selectedChapterId ?? "")}
-          className={`relative z-10 h-4 w-4 rounded-full border-2 border-charcoal transition-all duration-300 ${selection.isSelected ? "bg-red" : "bg-warmGrey hover:bg-red"}`}
+          className={`relative z-10 h-4 w-4 rounded-full border-2 border-charcoal transition-all duration-300 hover:scale-130 ${selection.isSelected ? "scale-130 bg-red" : "bg-warmGrey hover:bg-red"}`}
         />
       </div>
       <div className="w-96 text-sm font-bold uppercase tracking-widest">
