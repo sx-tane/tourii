@@ -26,6 +26,7 @@ const PrologueComponent: React.FC<IntroProps> = ({ chapter }) => {
         alt={chapter?.title ?? ""}
         width={550}
         height={550}
+        priority={true}
         className="absolute bottom-8 right-8  hidden aspect-square w-auto rounded-full object-cover md:flex md:h-[35vh] lg:h-[45vh] xl:h-[55vh]"
       />
     </div>

@@ -40,6 +40,7 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
           alt={chapter?.title ?? ""}
           width={550}
           height={550}
+          priority={true}
           className="aspect-square h-[48vh] w-[20vw] rounded-full object-cover"
         />
         <ChapterButton key={chapter?.chapterId} chapter={chapter} />
