@@ -1,16 +1,17 @@
 import { type ChapterSelection } from "@/types/interfaceStory";
+import { forwardRef } from "react";
 
 type ChapterSelectionButtonProps = {
   selection: ChapterSelection;
   onSelect: (selectedStoryId: string) => void;
 };
 
-const ChapterSelectionButton: React.FC<ChapterSelectionButtonProps> = ({
-  selection,
-  onSelect,
-}) => {
+const ChapterSelectionButton = forwardRef<
+  HTMLDivElement,
+  ChapterSelectionButtonProps
+>(({ selection, onSelect }, ref) => {
   return (
-    <div className="space-y-2 px-8 py-7 pt-8 text-center">
+    <div ref={ref} className="space-y-2 px-8 py-7 pt-8 text-center">
       {/* Adjust px-8 as needed */}
       <div className="text-xs font-semibold uppercase tracking-widest text-charcoal">
         {selection.chapter}
@@ -33,6 +34,8 @@ const ChapterSelectionButton: React.FC<ChapterSelectionButtonProps> = ({
       </div>
     </div>
   );
-};
+});
+
+ChapterSelectionButton.displayName = "ChapterSelectionButton";
 
 export default ChapterSelectionButton;

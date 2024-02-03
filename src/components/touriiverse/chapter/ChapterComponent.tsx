@@ -35,7 +35,7 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
         </Markdown>
       </div>
       <div
-        className="absolute bottom-8 right-14"
+        className="absolute bottom-8 right-14 animate-fadeIn"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -45,7 +45,7 @@ const ChapterComponent: React.FC<ChapterProps> = ({ chapter }) => {
           width={550}
           height={550}
           priority={true}
-          className="aspect-square h-[48vh] w-[20vw] rounded-full object-cover"
+          className="aspect-square h-[48vh] w-[20vw] animate-fadeIn rounded-full object-cover"
         />
         <ChapterButton key={chapter?.chapterId} chapter={chapter} />
       </div>

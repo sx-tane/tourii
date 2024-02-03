@@ -75,6 +75,7 @@ export default {
       },
       animation: {
         fadeIn: "fadeIn 0.2s ease-in-out",
+        spin: "spin 5s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
@@ -82,6 +83,10 @@ export default {
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        spin: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
         "accordion-down": {
           from: { height: "0" },

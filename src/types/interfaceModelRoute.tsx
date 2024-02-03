@@ -1,5 +1,4 @@
 export interface ModelRouteSelection {
-  [x: string]: any;
   areaId: string;
   areaName: string;
   image: string;
@@ -9,6 +8,7 @@ export interface ModelRouteSelection {
 
 export interface ModelRoute {
   modelRouteId: string;
+  placeName: string;
   modelRouteName: string;
   recommendation: string[];
   routeDestinations: RouteDestinations[] | undefined;
@@ -40,14 +40,10 @@ export interface RouteDetails {
   routeHashtag: string[]; // hashtag
 }
 
-//   // component
-//   // ModelRouteSelectionPage
-//   1. ModelRouteSelectionCard.tsx
-
 //   // ModelRoutePage
 //   1. ModelRouteIntro.tsx
 //       - IntroUpperSection.tsx
-//       - Recommandation.tsx
+//       - Recommendation.tsx
 //   2. RouteDestination.tsx
 //   3. ModelRouteCard.tsx
 //       - IntroUpperSection.tsx

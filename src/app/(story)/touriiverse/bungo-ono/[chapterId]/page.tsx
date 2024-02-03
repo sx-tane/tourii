@@ -9,7 +9,7 @@ import { type Chapter } from "@/types/interfaceStory";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
   params: {

@@ -10,12 +10,14 @@ import {
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence } from "framer-motion";
 import { type NextPage } from "next";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BungoOno: NextPage = () => {
-  const [selectedChapter, setselectedChapter] = useState(
-    bungoOnoChapterData[0],
-  );
+  const [selectedChapter, setSelectedChapter] = useState(() => {
+    const savedChapter = localStorage.getItem("selectedChapter");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return savedChapter ? JSON.parse(savedChapter) : bungoOnoChapterData[0];
+  });
   const [selectionData, setSelectionData] = useState(chapterSelectionData);
 
   const handleSelectChapter = (selectedChapterId: string) => {
@@ -23,7 +25,8 @@ const BungoOno: NextPage = () => {
       (s) => s.chapterId === selectedChapterId,
     );
     if (chapter) {
-      setselectedChapter(chapter);
+      setSelectedChapter(chapter);
+      localStorage.setItem("selectedChapter", JSON.stringify(chapter)); // Save to localStorage
       const updatedSelectionData = selectionData.map((selection) => ({
         ...selection,
         isSelected: selection.selectedChapterId === selectedChapterId,
@@ -39,6 +42,22 @@ const BungoOno: NextPage = () => {
       scrollContainerRef.current.scrollLeft += e.deltaY;
     }
   };
+
+  const selectedButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const savedChapterId = localStorage.getItem("selectedChapterId");
+    if (savedChapterId) {
+      handleSelectChapter(savedChapterId);
+    }
+    if (selectedButtonRef.current) {
+      selectedButtonRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [selectedChapter]);
 
   return (
     <div className="absolute -right-0 h-[90vh] w-[95vw] animate-fadeIn overflow-hidden">
@@ -71,6 +90,7 @@ const BungoOno: NextPage = () => {
               key={selection.selectedChapterId}
               selection={selection}
               onSelect={handleSelectChapter}
+              ref={selection.isSelected ? selectedButtonRef : null}
             />
           ))}
         </div>
