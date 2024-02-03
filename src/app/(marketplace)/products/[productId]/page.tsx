@@ -5,13 +5,13 @@ import { type NextPage } from "next";
 import { productsData } from "@/lib/data/marketplace/productData";
 import ProductImage from "@/components/marketplace/product/ProductImage";
 import ProductDetails from "@/components/marketplace/product/ProductDetails";
-import { type Product } from "@/types/interface";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import { ErrorComponent } from "@/app/error";
 import RelatedProducts from "@/components/marketplace/product/RelatedProduct";
 import Divider from "@/components/about/divider-line/Divider";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { type Product } from "@/types/interfaceProduct";
 
 type Props = {
   params: {
@@ -94,24 +94,26 @@ const ProductPage: NextPage<Props> = withPageAuthRequired(
     };
 
     return (
-      <div className="mx-10 flex flex-col items-center justify-center">
-        <div className="flex items-center justify-center">
-          <div className="w-1/2 p-24">
-            <ProductImage
-              image={defaultProduct.image}
-              name={defaultProduct.name}
-            />
+      <div>
+        <div className="mx-10 flex flex-col items-center justify-center transition-all duration-300">
+          <div className="flex items-center justify-center">
+            <div className="w-1/2 p-24">
+              <ProductImage
+                image={defaultProduct.image}
+                name={defaultProduct.name}
+              />
+            </div>
+            <div className="w-1/2">
+              <ProductDetails product={defaultProduct} />
+            </div>
           </div>
-          <div className="w-1/2">
-            <ProductDetails product={defaultProduct} />
+          <RelatedProducts
+            bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
+            productId={defaultProduct.productId}
+          />
+          <div className="my-10">
+            <Divider />
           </div>
-        </div>
-        <RelatedProducts
-          bungoOnoArea={defaultProduct.category.bungoOnoArea ?? ""}
-          productId={defaultProduct.productId}
-        />
-        <div className="my-10">
-          <Divider />
         </div>
       </div>
     );

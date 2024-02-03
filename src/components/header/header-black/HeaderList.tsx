@@ -47,9 +47,9 @@ const HeaderListBlack: React.FC = () => {
           className="header-nav-black md:flex md:space-x-5 lg:space-x-10"
           ref={dropdownRef}
         >
-          {navigationSignedOut.map((item, index) => {
+          {navigationSignedOut.map((item) => {
             return item.dropdown ? (
-              <div key={index} className="relative">
+              <div key={item.href} className="relative">
                 <motion.button
                   className={`relative text-sm font-semibold tracking-widest text-warmGrey3  ${
                     pathname === item.href ? "active" : ""
@@ -97,9 +97,9 @@ const HeaderListBlack: React.FC = () => {
             className="header-nav-black md:flex md:space-x-5 lg:space-x-10"
             ref={dropdownRef}
           >
-            {navigationSignedIn.map((item, index) => {
+            {navigationSignedIn.map((item) => {
               return item.dropdown ? (
-                <div key={index} className="relative">
+                <div key={item.href} className="relative">
                   <motion.button
                     className={`relative text-sm font-semibold tracking-widest text-warmGrey3  ${
                       pathname === item.href ? "active" : ""

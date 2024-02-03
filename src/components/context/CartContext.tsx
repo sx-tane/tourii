@@ -1,6 +1,6 @@
 "use client";
 
-import { type CartItem } from "@/types/interface";
+import { type CartItem } from "@/types/interfaceProduct";
 import React, {
   type ReactNode,
   createContext,

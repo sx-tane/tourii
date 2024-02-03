@@ -21,7 +21,7 @@ const HeaderBlack: React.FC = () => {
           />
         </Link>
         <div className="ml-3 mt-2">
-          <Beta textColor={"warmGrey"} />
+          <Beta textColor={"warmGrey3"} />
         </div>
       </div>
       <div className="hidden lg:flex">
