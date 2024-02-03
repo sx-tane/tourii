@@ -43,9 +43,11 @@ export interface RouteDetails {
 }
 
 //   // ModelRoutePage
-//   2. RouteDestination.tsx
 //   3. ModelRouteCard.tsx
 //       - IntroUpperSection.tsx
 //   　- ModelRouteDescription.tsx
-//       - ModelRouteCardImage.tsx
+//     - ModelRouteCardImage.tsx
+//       - 1. Image with iamge 1,2,undefined
+//       - 2. Image with image 3
+//       - 3. Image with image 1,2,empty string
 //     - ModelRouteLocation.tsx

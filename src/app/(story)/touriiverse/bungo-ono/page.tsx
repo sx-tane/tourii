@@ -21,9 +21,16 @@ const BungoOno: NextPage = () => {
   const [selectionData, setSelectionData] = useState(chapterSelectionData);
 
   const handleSelectChapter = (selectedChapterId: string) => {
-    const chapter = bungoOnoChapterData.find(
-      (s) => s.chapterId === selectedChapterId,
-    );
+    let chapter;
+    if (selectedChapterId === "Intro") {
+      // Assuming the first chapter in bungoOnoChapterData is your intro
+      chapter = bungoOnoChapterData[0];
+    } else {
+      chapter = bungoOnoChapterData.find(
+        (s) => s.chapterId === selectedChapterId,
+      );
+    }
+
     if (chapter) {
       setSelectedChapter(chapter);
       localStorage.setItem("selectedChapter", JSON.stringify(chapter)); // Save to localStorage
@@ -82,9 +89,13 @@ const BungoOno: NextPage = () => {
           onWheel={handleWheel}
           className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
         >
-          <div className="mr-10 shrink-0 text-xl font-bold tracking-wider">
+          <div
+            onClick={() => handleSelectChapter("Intro")}
+            className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
+          >
             BUNGO ONO
           </div>
+
           {selectionData.map((selection) => (
             <ChapterSelectionButton
               key={selection.selectedChapterId}

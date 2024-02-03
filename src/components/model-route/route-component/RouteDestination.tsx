@@ -34,14 +34,14 @@ const RouteDestination: React.FC<RouteDestinationProps> = ({
                   height={300}
                   priority={true}
                   className="z-20 mx-8 h-32 w-32 cursor-pointer rounded-full border-2 border-charcoal transition-all duration-300 hover:scale-110"
-                />{" "}
+                />
               </Link>
 
               {index !== routeDestination.length - 1 && (
                 <div className="absolute left-10 top-1/2 z-10 h-0.5 w-full translate-y-1/2 bg-charcoal" />
               )}
             </div>
-            <div className="mt-4 h-12 w-32 px-2 py-1 text-center text-xs uppercase tracking-wider">
+            <div className="my-4 h-12 w-32 px-2 py-1 text-center text-xs uppercase tracking-wider">
               {destination.destinationName}
             </div>
           </div>

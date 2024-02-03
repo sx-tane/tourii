@@ -313,8 +313,7 @@ export const bungoOnoChapterData: Chapter[] = [
     chapterNumber: "Chapter 20",
     image: "/image/touriiverse/bungo-ono/chapter1.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter20.jpg",
-    title:
-      "Rokujimyogo and Sugao Magaibutsu - The Oni That Fled from the Roaster",
+    title: "The Oni That Fled from the Roaster",
     content:
       "Amidst Bungo Ono's mystical tapestry, Ninigi's party encounters the Rokujimyogo, an ancient stone inscription whispering mantras into the wind. Their path leads them to the vibrant Sugeo Stone Buddhas Fire Festival, a celebration where the flicker of flames honors the guardian Buddhas. Welcomed warmly by a local, they immerse themselves in the festival's fervent spirit, surrounded by the community's pulsating energy and the protective gaze of the cliff Buddhas.\r\rPost-festival, over shared sake, the local unveils tales of the cliff Buddhas, carved sentinels against ancient threats, and the Rokujimyogo's protective chants. Ninigi's inquiry about the mirror shards leads them to the summit, where they stand before the carved Buddhas. Amitabha Nyorai, amidst this assembly of sanctity, acknowledges the shard's northern pull, urging Ninigi to heed the wisdom of the Buddhas. As the night deepens, choices unfold before them, each path a silent promise of revelations yet to be discovered.",
     vnLink: undefined,
@@ -328,7 +327,7 @@ export const bungoOnoChapterData: Chapter[] = [
     chapterNumber: "Chapter 21",
     image: "/image/touriiverse/bungo-ono/chapter1.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter21.jpg",
-    title: "Shibayama Hachiman Shrine - The Sake Gourd Blessing",
+    title: "The Sake Gourd Blessing",
     content:
       "Ninigi's journey brings them to the heart of the spirited Shimotsuki Festival at Shibayama Hachiman Shrine. The air is vibrant with the beat of traditional music, and the scent of sacred sake fills the atmosphere. As the revered Hyotan Sama graces the event with a mystical gourd, the festival becomes a tapestry of joy and communal bond.\r\rThe moment Uzume steps into dance with Hyotan Sama, the celebration ascends into a realm of divine joy, her grace mending any unintended misstep from Ninigi. The sacred sake, once withheld, now flows freely, blessing Ninigi, Sarutahiko, and their companions with fortune. As they depart, hearts light with the festival's spirit, the group sets their sights on the majestic Osako Magaibutsu cliffs, where the next chapter of their journey and the enigmatic presence of Dainichi Nyorai await.",
     vnLink: undefined,
@@ -356,7 +355,7 @@ export const bungoOnoChapterData: Chapter[] = [
     chapterNumber: "Chapter 23",
     image: "/image/touriiverse/bungo-ono/chapter1.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter23.jpg",
-    title: "Tedorigando - The Elusive Crabs",
+    title: "The Elusive Crabs",
     content:
       "At the serene shores of Tedorigando, Ninigi's party, still warmed by Hyotan Sama's blessing, finds themselves amidst an unexpected abundance. The rocks teem with crabs, their leisurely crawl a dance of nature's generosity. The scene, bathed in the golden glow of the setting sun, is one of joyous fortune as they gather the crabs, each one a symbol of the land's benevolence and the festival's lingering spirit. This moment of serendipity at Tedorigando marks not just a feast for the evening but a reminder of the journey's rich tapestry of experiences, woven with the threads of adventure, learning, and the occasional gracious gift of the sea.",
     vnLink: undefined,
@@ -370,7 +369,7 @@ export const bungoOnoChapterData: Chapter[] = [
     chapterNumber: "Chapter 24",
     image: "/image/touriiverse/bungo-ono/chapter24.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter24.jpg",
-    title: "Inukai Donko Fishing Tournament - Fishing for the Mirror Shard",
+    title: "Fishing for the Mirror Shard",
     content:
       "At the Inukai Donko Fishing Tournament, Ninigi and his party engage in a spirited competition, the air alive with anticipation and the scent of the sea. With Tedorigando crabs as their secret weapon, Ninigi skillfully navigates the waters, his line drawing one Donko fish after another in a display of harmony between man and nature. As the competition reaches its climax, Ninigi's catch, a testament to skill and fortune, earns him the coveted first prize – the elusive mirror shard, a crucial piece in their quest. This moment of triumph at Inukai, amidst cheers and the vibrant pulse of the festival, marks not only a victory in the tournament but also a significant step forward in the journey, as the shards of the past slowly piece together the path to the future.",
     vnLink: undefined,
@@ -544,38 +543,3 @@ for (let i = 1; i <= 35; i++) {
     isSelected: false,
   });
 }
-
-const routeDetails = [
-  {
-    routeDetailId: "stop 1",
-    routeDetailTime: "9am",
-    routeDetailName: "Harajiri Falls",
-    visualNovelLink: "Revisit the story",
-    routeDetailBigImage: "",
-    routeDetailSmallImage: {
-      image1: "",
-      image2: "",
-      image3: "",
-    }, // image
-    routeDetailDescription: `Boasting a width of 120m and a height of 20m, Harajiri falls is also called the "Niagara of the East". It appears suddenly in a tranquil agricultural area, allowing for close-up views of the waterfall. The waterfall is located over the Ogata River, a tributary of the Ono River, and when viewed from above, it forms a beautiful arc\r\rSince ancient times, it has been closely related to people's lives and has had a significant impact on our history, culture, and industry. The foundation of this impact can be observed in the appearance of the waterfall and the state of the river. The shrine, waterways, and stone bridges are built on top of this foundation. In spring, many tulips bloom around the area, spreading a beautiful scenery`,
-    routeDetailLocation: "Harajiri Falls",
-    routeDetailAddress: "410 Ogatamachi Harajiri, Bungoono, Oita",
-    routeHashtag: ["#waterfall", "#rafting"],
-  },
-  {
-    routeDetailId: "stop 2",
-    routeDetailTime: "11am",
-    routeDetailName: "Eboshi Park",
-    visualNovelLink: "Revisit the story",
-    routeDetailBigImage: "",
-    routeDetailSmallImage: {
-      image1: "",
-      image2: "",
-      image3: "",
-    }, // image
-    routeDetailDescription: `Eboshi Park is a park located`,
-    routeDetailLocation: "Eboshi Park",
-    routeDetailAddress: "410 Ogatamachi Harajiri, Bungoono, Oita",
-    routeHashtag: ["#park", "#nature"],
-  },
-];

@@ -5,6 +5,8 @@ import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import ModelRouteIntro from "@/components/model-route/route-component/ModelRouteIntro";
 import RouteDestination from "@/components/model-route/route-component/RouteDestination";
+import IntroUpperSection from "@/components/model-route/route-component/route-details/IntroUpperSection";
+import BottomSection from "@/components/model-route/route-component/route-details/bottom-section/BottomSection";
 import { modelRouteData } from "@/lib/data/model-route/modelRouteSelectionData";
 import { type ModelRoute } from "@/types/interfaceModelRoute";
 import { type NextPage } from "next/types";
@@ -70,7 +72,7 @@ const Route: NextPage<Props> = ({ params }) => {
   }
 
   return (
-    <div className="absolute -right-0 mt-10 w-[95vw] animate-fadeIn space-y-2">
+    <div className="absolute -right-0 mt-10 w-[95vw] animate-fadeIn space-y-2 py-10">
       <ModelRouteIntro
         modelRouteId={modelRoute.modelRouteId}
         placeName={modelRoute.placeName}
@@ -78,6 +80,23 @@ const Route: NextPage<Props> = ({ params }) => {
         recommendation={modelRoute.recommendation}
       />
       <RouteDestination routeDestination={modelRoute.routeDestinations ?? []} />
+      <div className="h-fit w-[95vw] rounded-bl-xl rounded-tl-xl bg-warmGrey py-8 text-center">
+        <span className="mx-4 text-sm font-bold capitalize tracking-wider text-charcoal">
+          route details
+        </span>
+        {modelRoute.routeDetails?.map((routeDetail) => (
+          <div>
+            <IntroUpperSection
+              key={routeDetail.routeDetailId}
+              routeDetails={routeDetail}
+            />
+            <BottomSection
+              key={routeDetail.routeDetailId}
+              routeDetails={routeDetail}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
