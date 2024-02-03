@@ -84,7 +84,7 @@ const Route: NextPage<Props> = ({ params }) => {
         <span className="mx-4 text-sm font-bold capitalize tracking-wider text-charcoal">
           route details
         </span>
-        {modelRoute.routeDetails?.map((routeDetail) => (
+        {modelRoute.routeDetails?.map((routeDetail, index, array) => (
           <div>
             <IntroUpperSection
               key={routeDetail.routeDetailId}
@@ -94,6 +94,9 @@ const Route: NextPage<Props> = ({ params }) => {
               key={routeDetail.routeDetailId}
               routeDetails={routeDetail}
             />
+            {index < array.length - 1 && (
+              <div className="mx-auto w-8/12 border-t-4 border-red" />
+            )}
           </div>
         ))}
       </div>

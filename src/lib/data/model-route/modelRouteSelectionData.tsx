@@ -3,6 +3,9 @@ import {
   type ModelRouteSelection,
 } from "@/types/interfaceModelRoute";
 import { routeDestinations1, routeDetails1 } from "./modelRouteData1";
+import { routeDestinations2, routeDetails2 } from "./modelRouteData2";
+import { routeDestinations3, routeDetails3 } from "./modelRouteData3";
+import { routeDestinations4, routeDetails4 } from "./modelRouteData4";
 
 //4 Model Route
 export const modelRouteData: ModelRoute[] = [
@@ -23,8 +26,8 @@ export const modelRouteData: ModelRoute[] = [
     placeName: "BUNGO ONO",
     modelRouteName: "The Discovery Route",
     recommendation: ["Local Food", "Local Hidden Legends", "Nature"],
-    routeDestinations: undefined,
-    routeDetails: undefined,
+    routeDestinations: routeDestinations2,
+    routeDetails: routeDetails2,
   },
   {
     modelRouteId: "3",
@@ -35,8 +38,8 @@ export const modelRouteData: ModelRoute[] = [
       "interested in Esoteric Aspects",
       "Local Food",
     ],
-    routeDestinations: undefined,
-    routeDetails: undefined,
+    routeDestinations: routeDestinations3,
+    routeDetails: routeDetails3,
   },
   {
     modelRouteId: "4",
@@ -47,8 +50,8 @@ export const modelRouteData: ModelRoute[] = [
       "Local Food",
       "Local Hidden Legends",
     ],
-    routeDestinations: undefined,
-    routeDetails: undefined,
+    routeDestinations: routeDestinations4,
+    routeDetails: routeDetails4,
   },
 ];
 

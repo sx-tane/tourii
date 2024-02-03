@@ -17,6 +17,7 @@ export interface ModelRoute {
 
 export interface RouteDestinations {
   destinationId: string | undefined;
+  routeDetailId: string | undefined;
   stopId: string | undefined; // stop 1
   destinationName: string | undefined; // Harajiri Falls
   destinationImage: string | undefined;
@@ -24,7 +25,8 @@ export interface RouteDestinations {
 }
 
 export interface RouteDetails {
-  routeDetailId: string; // stop 1
+  routeDetailId: string;
+  stop: string;
   routeDetailTime: string; // 9am
   routeDetailName: string; // Harajiri Falls
   routeDetailStoryTitle: string; // Harajiri Falls

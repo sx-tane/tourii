@@ -5,9 +5,16 @@ import {
 
 let number = 0;
 
-function generateStoryId() {
+function generateRouteDetailId() {
   number = number + 1;
-  return `stop ${number}`;
+  return `RouteDetail ${number}`;
+}
+
+let stopNumber = 0;
+
+function generateStopId() {
+  stopNumber = stopNumber + 1;
+  return `stop ${stopNumber}`;
 }
 
 let destinationNumber = 0;
@@ -39,8 +46,9 @@ function generateChapterImageId() {
 
 export const routeDetails1: RouteDetails[] = [
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Harajiri Falls",
     routeDetailStoryTitle: "The Ancient Fire Rising from the Timeless Waters",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -57,8 +65,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["#waterfall", "#rafting"],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Ninomiya Hachiman Shrine",
     routeDetailStoryTitle: "The Abode of the Mighty Bonjin warrior",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -75,8 +84,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Miyazaki East and West Stone Carved Buddha Cliff",
     routeDetailStoryTitle: "Buddhas of Past, Present, and Future",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -93,8 +103,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Ozaki Stone Bath Cave",
     routeDetailStoryTitle: "The Forgotten Healing Magic",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -103,7 +114,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
       image2: "/image/homepage/tourii_main.png",
-      image3: "/image/homepage/tourii_main.png",
+      image3: undefined,
     }, // image
     routeDetailDescription: `The "Enseki" in Ogata is a two-tiered stone bath carved into volcanic tuff rock in the early 17th century. It features a 2-meter-high, 80-centimeter-wide horizontal hole, with the upper tier being a 4-square-meter bathing area with a 1.5-meter ceiling. The lower-level fire chamber burns firewood, and the hot stone floor is covered with a medicinal herb called "Ishiko" before water is poured on to create steam. A "Mushiro" curtain is hung at the entrance for bathers to enter.`,
     routeDetailLocation: "",
@@ -111,8 +122,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Lodge Kiyokawa",
     routeDetailStoryTitle: "A Mystical Sanctuary, Cradled by Forests and River",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -129,8 +141,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["#sauna", "#tent"],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Udahime Shrine",
     routeDetailStoryTitle: "A Princess's Distress",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -139,7 +152,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
       image2: "/image/homepage/tourii_main.png",
-      image3: "/image/homepage/tourii_main.png",
+      image3: "image3",
     }, // image
     routeDetailDescription: `Located approximately 1 kilometer from the "Michi-no-Eki" (Roadside Station) on the way to Mount Ontake, "Uda-hime Shrine" can be found along the road.\r\rAn explanatory board on the right side of the stone steps leading to the shrine provides an overview. The shrine is dedicated to the deity Hana-no-Moto, but the springwater within the shrine is considered the true deity and is linked to the goddess. Legend has it that this sacred spring flows through a cave to the Ubagamine Grotto at the base of Mount Sobo. The shrine has a rich history and is associated with the birth of the military commander Oomi Yorimitsu.\r\rThe romantic and mystical legend of Princess Hana-no-Moto, which appears in the historical chronicle "Genpei Seisuiki" (The Rise and Fall of the Minamoto and Taira Clans), has been passed down through generations.\r\rAdditionally, this site is renowned for being one of Japan's "100 Best Waters," with water emerging from the mountains.`,
     routeDetailLocation: "",
@@ -147,8 +160,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Kashima Shrine",
     routeDetailStoryTitle: "Awakening The Sumo Kami",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -157,7 +171,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
       image2: "/image/homepage/tourii_main.png",
-      image3: "/image/homepage/tourii_main.png",
+      image3: "image3",
     }, // image
     routeDetailDescription: `Autumn Festival (秋祭り): Celebrated annually on October 10th at the 鹿島宮 Kashima Shrine in Usuo, this festival involves dedicating Kagura (a traditional Shinto theatrical dance) performances to the deities, offering a cultural experience for locals and visitors, with a focus on worshiping 建御雷之男神 Takemikazuchi.\r\rKagura Hall Regular Performances (神楽会館定期公演): The Kagura Hall in Kiyokawa hosts regular Kagura performances, occurring approximately once a month. These performances provide an opportunity for the audience to witness the art of Kagura up close, allowing them to experience the mystical world of ancient gods and spirits.`,
     routeDetailLocation: "",
@@ -165,8 +179,9 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: generateStoryId(),
-    routeDetailTime: "9.00\nam",
+    routeDetailId: generateRouteDetailId(),
+    stop: generateStopId(),
+    routeDetailTime: "9:00\nam",
     routeDetailName: "Anamori Shrine",
     routeDetailStoryTitle: "The Rouge Serpent God",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
@@ -189,7 +204,8 @@ export const routeDestinations1: RouteDestinations[] = [];
 for (let i = 0; i < 8; i++) {
   routeDestinations1.push({
     destinationId: generateDestinationId(),
-    stopId: routeDetails1[i]?.routeDetailId,
+    stopId: routeDetails1[i]?.stop,
+    routeDetailId: routeDetails1[i]?.routeDetailId,
     destinationName: routeDetails1[i]?.routeDetailName,
     destinationImage: routeDetails1[i]?.routeDetailSmallImage.image1,
     modelRouteLink: routeDetails1[i]?.modelRouteLink,

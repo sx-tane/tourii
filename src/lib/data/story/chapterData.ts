@@ -255,7 +255,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Muretsuru Sake Brewery",
     chapterNumber: "Chapter 16",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter16.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter16.jpg",
     title: "An Unexpected Meal",
     content:
@@ -297,7 +297,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Mitarai Shrine",
     chapterNumber: "Chapter 19",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter19.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter19.jpg",
     title: "The Boiling Water Kagura",
     content:
@@ -311,7 +311,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Sugao Magaibutsu",
     chapterNumber: "Chapter 20",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter20.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter20.jpg",
     title: "The Oni That Fled from the Roaster",
     content:
@@ -325,7 +325,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Shibayama Hachimangu Shrine",
     chapterNumber: "Chapter 21",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter21.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter21.jpg",
     title: "The Sake Gourd Blessing",
     content:

@@ -13,9 +13,9 @@ const IntroUpperSection: React.FC<IntroUpperSectionProps> = ({
   return (
     <div className="mt-20">
       <div className="mb-2 text-sm font-medium uppercase tracking-widest">
-        {routeDetails.routeDetailId}
+        {routeDetails.stop}
       </div>
-      <Markdown className="mx-auto mb-5 flex h-16 w-16 cursor-pointer items-center justify-center whitespace-pre-wrap rounded-full border-[1.5px] border-red text-sm font-bold leading-none text-red">
+      <Markdown className="mx-auto mb-5 flex h-16 w-16 items-center justify-center whitespace-pre-wrap rounded-full border-[1.5px] border-red text-sm font-bold leading-none text-red">
         {routeDetails.routeDetailTime}
       </Markdown>
       <div className="text-3xl font-bold uppercase tracking-widest">

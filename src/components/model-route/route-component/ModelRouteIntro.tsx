@@ -15,10 +15,10 @@ const ModelRouteIntro: React.FC<ModelRouteIntroProps> = ({
 }) => {
   return (
     <div className="h-fit w-[95vw] rounded-bl-xl rounded-tl-xl bg-warmGrey py-8 text-center">
-      <div className=" flex items-center justify-center px-[630px] text-sm font-bold tracking-wider text-charcoal">
+      <div className=" flex items-center justify-center  text-sm font-bold tracking-wider text-charcoal">
         <span className="mx-4">{placeName}</span>
-        <div className="flex-grow  border-t-2 border-charcoal" />
-        <span className="mx-4">MODEL ROUTES {modelRouteId}</span>
+        <div className="w-16  border-t-2 border-charcoal" />
+        <span className="mx-4">MODEL ROUTE {modelRouteId}</span>
       </div>
       <div className=" mt-20 text-3xl font-bold uppercase tracking-wider">
         {modelRouteName}
