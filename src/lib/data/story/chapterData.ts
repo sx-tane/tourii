@@ -339,7 +339,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Osako Magaibutsu",
     chapterNumber: "Chapter 22",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter22.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter22.jpg",
     title: "The Clay Masked Buddha",
     content:
