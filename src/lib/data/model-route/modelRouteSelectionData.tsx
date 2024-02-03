@@ -2,7 +2,7 @@ import {
   type ModelRoute,
   type ModelRouteSelection,
 } from "@/types/interfaceModelRoute";
-import { routeDestinations1, routeDetails1 } from "./modelRouteData";
+import { routeDestinations1, routeDetails1 } from "./modelRouteData1";
 
 //4 Model Route
 export const modelRouteData: ModelRoute[] = [

@@ -16,10 +16,11 @@ export interface ModelRoute {
 }
 
 export interface RouteDestinations {
-  destinationId: string; //stop 1
-  destinationName: string; // Harajiri Falls
-  destinationImage: string;
-  visualNovelLink: string;
+  destinationId: string | undefined;
+  stopId: string | undefined; // stop 1
+  destinationName: string | undefined; // Harajiri Falls
+  destinationImage: string | undefined;
+  modelRouteLink: string | undefined;
 }
 
 export interface RouteDetails {
@@ -28,6 +29,7 @@ export interface RouteDetails {
   routeDetailName: string; // Harajiri Falls
   routeDetailStoryTitle: string; // Harajiri Falls
   visualNovelLink: string; // Revisit the story
+  modelRouteLink: string; // Model Route
   routeDetailBigImage: string; // image
   routeDetailSmallImage: {
     image1: string;
@@ -41,9 +43,6 @@ export interface RouteDetails {
 }
 
 //   // ModelRoutePage
-//   1. ModelRouteIntro.tsx
-//       - IntroUpperSection.tsx
-//       - Recommendation.tsx
 //   2. RouteDestination.tsx
 //   3. ModelRouteCard.tsx
 //       - IntroUpperSection.tsx

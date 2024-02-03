@@ -3,22 +3,28 @@ import {
   type RouteDestinations,
 } from "@/types/interfaceModelRoute";
 
-export const routeDestinations1: RouteDestinations[] = [
-  {
-    destinationId: "",
-    destinationName: "",
-    destinationImage: "",
-    visualNovelLink: "",
-  },
-];
+let number = 0;
+
+function generateStoryId() {
+  number = number + 1;
+  return `stop ${number}`;
+}
+
+let destinationNumber = 0;
+
+function generateDestinationId() {
+  destinationNumber = destinationNumber + 1;
+  return `destination${destinationNumber}`;
+}
 
 export const routeDetails1: RouteDetails[] = [
   {
-    routeDetailId: "stop 1",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
-    routeDetailName: "Harajiri Falls & Komatsu Fire Festival",
+    routeDetailName: "Harajiri Falls",
     routeDetailStoryTitle: "The Ancient Fire Rising from the Timeless Waters",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "https://www.tanejp.com/route/harajiri-route",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -31,11 +37,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["#waterfall", "#rafting"],
   },
   {
-    routeDetailId: "stop 2",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Ninomiya Hachiman Shrine",
     routeDetailStoryTitle: "The Abode of the Mighty Bonjin warrior",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -48,11 +55,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: "stop 3",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Miyazaki East and West Stone Carved Buddha Cliff",
     routeDetailStoryTitle: "Buddhas of Past, Present, and Future",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -65,11 +73,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: "stop 4",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Ozaki Stone Bath Cave",
     routeDetailStoryTitle: "The Forgotten Healing Magic",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "https://www.tanejp.com/route/ogata-route",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -82,11 +91,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: "stop 5",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Lodge Kiyokawa",
     routeDetailStoryTitle: "A Mystical Sanctuary, Cradled by Forests and River",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "https://www.tanejp.com/route/lodge-kiyokawa-route",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -99,11 +109,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["#sauna", "#tent"],
   },
   {
-    routeDetailId: "stop 6",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Udahime Shrine",
     routeDetailStoryTitle: "A Princess's Distress",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -116,11 +127,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: "stop 7",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Kashima Shrine",
     routeDetailStoryTitle: "Awakening The Sumo Kami",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -133,11 +145,12 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
   {
-    routeDetailId: "stop 8",
+    routeDetailId: generateStoryId(),
     routeDetailTime: "",
     routeDetailName: "Anamori Shrine",
     routeDetailStoryTitle: "The Rouge Serpent God",
     visualNovelLink: "Revisit the story",
+    modelRouteLink: "",
     routeDetailBigImage: "/image/homepage/tourii_main.png",
     routeDetailSmallImage: {
       image1: "/image/homepage/tourii_main.png",
@@ -150,3 +163,15 @@ export const routeDetails1: RouteDetails[] = [
     routeHashtag: ["", ""],
   },
 ];
+
+export const routeDestinations1: RouteDestinations[] = [];
+
+for (let i = 0; i < 8; i++) {
+  routeDestinations1.push({
+    destinationId: generateDestinationId(),
+    stopId: routeDetails1[i]?.routeDetailId,
+    destinationName: routeDetails1[i]?.routeDetailName,
+    destinationImage: routeDetails1[i]?.routeDetailBigImage,
+    modelRouteLink: routeDetails1[i]?.modelRouteLink,
+  });
+}

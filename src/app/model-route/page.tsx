@@ -1,13 +1,16 @@
 import ModelRouteSelectionCard from "@/components/model-route/ModelRouteSelectionCard";
-import { modelRouteSelectionData } from "@/lib/data/model-route/modalRouteSelectionData";
+import { modelRouteSelectionData } from "@/lib/data/model-route/modelRouteSelectionData";
 import { type NextPage } from "next";
 
 const ModelRoute: NextPage = () => {
   return (
-    <div className="flex h-[90vh] items-center justify-center py-20">
+    <div className="flex h-[90vh] items-center justify-center overflow-hidden py-20">
       <div className="grid grid-cols-2 gap-4">
-        {modelRouteSelectionData?.map((data) => (
-          <ModelRouteSelectionCard key={data.id} modelRouteSelection={data} />
+        {modelRouteSelectionData?.map((modelRoute) => (
+          <ModelRouteSelectionCard
+            key={modelRoute.areaId}
+            modelRouteSelection={modelRoute}
+          />
         ))}
       </div>
     </div>

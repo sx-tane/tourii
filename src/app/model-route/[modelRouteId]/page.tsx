@@ -3,8 +3,9 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import { modelRouteData } from "@/lib/data/model-route/modalRouteSelectionData";
-import ModelRouteIntro from "@/lib/data/model-route/route-component/ModelRouteIntro";
+import ModelRouteIntro from "@/components/model-route/route-component/ModelRouteIntro";
+import RouteDestination from "@/components/model-route/route-component/RouteDestination";
+import { modelRouteData } from "@/lib/data/model-route/modelRouteSelectionData";
 import { type ModelRoute } from "@/types/interfaceModelRoute";
 import { type NextPage } from "next/types";
 import { useState, useEffect } from "react";
@@ -69,13 +70,14 @@ const Route: NextPage<Props> = ({ params }) => {
   }
 
   return (
-    <div className="mt-10 animate-fadeIn">
+    <div className="absolute -right-0 mt-10 w-[95vw] animate-fadeIn space-y-2">
       <ModelRouteIntro
         modelRouteId={modelRoute.modelRouteId}
         placeName={modelRoute.placeName}
         modelRouteName={modelRoute.modelRouteName}
         recommendation={modelRoute.recommendation}
       />
+      <RouteDestination routeDestination={modelRoute.routeDestinations ?? []} />
     </div>
   );
 };

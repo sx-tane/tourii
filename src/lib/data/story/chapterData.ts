@@ -269,7 +269,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Chinda Waterfall",
     chapterNumber: "Chapter 17",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter17.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter17.jpg",
     title: "The Legend of Chinda Waterfall",
     content:
@@ -283,7 +283,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Lodge Kiyokawa",
     chapterNumber: "Chapter 18",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter18.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter18.jpg",
     title: "Enigmatic Festivals of Bungo Ono",
     content:

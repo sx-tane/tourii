@@ -14,8 +14,8 @@ const ModelRouteIntro: React.FC<ModelRouteIntroProps> = ({
   recommendation,
 }) => {
   return (
-    <div className="absolute right-0 h-fit w-[95vw] rounded-bl-xl rounded-tl-xl bg-warmGrey text-center">
-      <div className="mt-8 flex items-center justify-center px-[630px] text-sm font-bold tracking-wider text-charcoal">
+    <div className="h-fit w-[95vw] rounded-bl-xl rounded-tl-xl bg-warmGrey py-8 text-center">
+      <div className=" flex items-center justify-center px-[630px] text-sm font-bold tracking-wider text-charcoal">
         <span className="mx-4">{placeName}</span>
         <div className="flex-grow  border-t-2 border-charcoal" />
         <span className="mx-4">MODEL ROUTES {modelRouteId}</span>
@@ -27,7 +27,7 @@ const ModelRouteIntro: React.FC<ModelRouteIntroProps> = ({
         <div className="my-4 flex-grow  border-t-2 border-warmGrey3" />
       </div>
       <div className="font-bold tracking-wider text-red ">Recommended for</div>
-      <div className="mb-8 mt-6 flex justify-center space-x-16">
+      <div className=" mt-6 flex justify-center space-x-16">
         {recommendation.map((recommendation) => (
           <div
             key={recommendation}
