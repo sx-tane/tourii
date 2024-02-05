@@ -1,3 +1,4 @@
+"use client";
 import ModelRouteSelectionCard from "@/components/model-route/ModelRouteSelectionCard";
 import { modelRouteSelectionData } from "@/lib/data/model-route/modelRouteSelectionData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
