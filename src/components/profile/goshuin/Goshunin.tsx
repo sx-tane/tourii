@@ -15,7 +15,7 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
   return (
     <div
       key={goshuin.goshuinId}
-      className=" h-16 w-16 cursor-pointer rounded-full px-1 transition-all duration-300 hover:bg-white"
+      className=" h-16 w-16 rounded-full px-1 transition-all duration-300 hover:bg-white"
     >
       <HoverCard>
         <HoverCardTrigger asChild>
@@ -27,10 +27,10 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
             className="h-16 w-16 rounded-full"
           />
         </HoverCardTrigger>
-        <HoverCardContent className="relative h-24 w-64 animate-fadeIn border-charcoal bg-charcoal text-warmGrey">
+        <HoverCardContent className="relative h-24 w-64 animate-fadeIn bg-charcoal text-warmGrey">
           <div className="flex justify-between space-x-4">
             <div className="space-y-2">
-              <h4 className="text-sm uppercase leading-relaxed tracking-widest">
+              <h4 className="text-sm font-bold uppercase leading-relaxed tracking-widest">
                 {goshuin.goshuinName}
               </h4>
 
