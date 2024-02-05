@@ -15,7 +15,7 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
   return (
     <div
       key={goshuin.goshuinId}
-      className=" h-16 w-16 rounded-full px-1 transition-all duration-300 hover:bg-white"
+      className=" h-16 w-16 rounded-full px-1 transition-all duration-300 hover:scale-110"
     >
       <HoverCard>
         <HoverCardTrigger asChild>
