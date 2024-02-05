@@ -9,7 +9,7 @@ import { type Chapter } from "@/types/interfaceStory";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 type Props = {
   params: {
@@ -71,7 +71,7 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
   }
 
   return (
-    <div className="absolute right-0 h-[90vh] w-[87vw] rounded-bl-xl rounded-tl-xl bg-warmGrey text-charcoal transition-all duration-500">
+    <div className="absolute right-0 h-[90vh] w-[87vw] animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey text-charcoal">
       {chapter.vnLink ? (
         <iframe
           src={chapter.vnLink}
@@ -79,7 +79,7 @@ const VisualNovel: React.FC<Props> = ({ params }) => {
           className="absolute left-0 top-0 h-full w-full rounded-bl-xl rounded-tl-xl"
         />
       ) : (
-        <div className="flex h-full w-full overflow-hidden">
+        <div className="flex h-full w-full justify-between overflow-hidden">
           <div className="my-auto h-[90vh] w-1/2 overflow-y-auto p-10">
             <DescriptionStory
               smallTitle={chapter.chapterNumber}

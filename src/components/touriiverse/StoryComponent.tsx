@@ -11,7 +11,7 @@ const StoryComponent: React.FC<StoryComponentProps> = ({ story }) => {
   const isVideo = story?.backgroundImage.endsWith(".mp4");
 
   return (
-    <div className="relative h-[65vh] w-11/12 overflow-hidden rounded-xl text-warmGrey">
+    <div className="relative h-[65vh] w-11/12 animate-fadeIn overflow-hidden rounded-xl text-warmGrey">
       {isVideo ? (
         <div>
           <div className="absolute left-10 top-5 z-50 whitespace-pre-line font-bold uppercase tracking-wider text-warmGrey md:text-7xl lg:text-9xl">

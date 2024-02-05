@@ -3,53 +3,54 @@ export interface ModelRouteSelection {
   areaName: string;
   image: string;
   isOpen: boolean;
-  modelRoute: ModelRoute[];
+  modelRoute: ModelRoute[] | undefined;
 }
 
 export interface ModelRoute {
   modelRouteId: string;
+  placeName: string;
   modelRouteName: string;
-  recommendation: string[]; // receommendation for people
-  isOpen: boolean;
-  routeDestinations: RouteDestinations[];
-  routeDetails: RouteDetails[];
+  recommendation: string[];
+  routeDestinations: RouteDestinations[] | undefined;
+  routeDetails: RouteDetails[] | undefined;
 }
 
 export interface RouteDestinations {
-  destinationId: string; //stop 1
-  destinationName: string; // Harajiri Falls
-  destinationImage: string;
-  visualNovelLink: string;
+  destinationId: string | undefined;
+  routeDetailId: string | undefined;
+  stopId: string | undefined; // stop 1
+  destinationName: string | undefined; // Harajiri Falls
+  destinationImage: string | undefined;
+  modelRouteLink: string | undefined;
+  destinationDescription: string | undefined;
 }
 
 export interface RouteDetails {
-  routeDetailId: string; // stop 1
+  routeDetailId: string;
+  stop: string;
   routeDetailTime: string; // 9am
   routeDetailName: string; // Harajiri Falls
+  routeDetailStoryTitle: string; // Harajiri Falls
   visualNovelLink: string; // Revisit the story
-  routeDetailBigImage: string; // image
+  modelRouteLink: string; // Model Route
+  routeDetailBigImage: string;
   routeDetailSmallImage: {
     image1: string;
     image2: string;
     image3?: string;
-  }; // image
+  };
   routeDetailDescription: string; // description
   routeDetailLocation: string; // location
   routeDetailAddress: string; // address
   routeHashtag: string[]; // hashtag
 }
 
-//   // component
-//   // ModelRouteSelectionPage
-//   1. ModelRouteSelectionCard.tsx
-
 //   // ModelRoutePage
-//   1. ModelRouteIntro.tsx
-//       - IntroUpperSection.tsx
-//       - Recommandation.tsx
-//   2. RouteDestination.tsx
 //   3. ModelRouteCard.tsx
 //       - IntroUpperSection.tsx
 //   　- ModelRouteDescription.tsx
-//       - ModelRouteCardImage.tsx
+//     - ModelRouteCardImage.tsx
+//       - 1. Image with iamge 1,2,undefined
+//       - 2. Image with image 3
+//       - 3. Image with image 1,2,empty string
 //     - ModelRouteLocation.tsx

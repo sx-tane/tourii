@@ -1,20 +1,21 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import HeaderBlack from "@/components/header/header-black/Header";
 import { type Metadata } from "next";
-import Loading from "../loading";
+import React from "react";
+import Loading from "@/app/loading";
+import HeaderBlack from "@/components/header/header-black/Header";
 
 export const metadata: Metadata = {
-  title: "World",
+  title: "Model Route",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-full animate-fadeIn bg-charcoal pb-10">
+    <body className="h-full min-h-screen animate-fadeIn  bg-charcoal ">
       <div className="mx-6">
         <HeaderBlack />
-        <Suspense fallback={<Loading />}>{children}</Suspense>
+        <Suspense fallback={<Loading />}>{children} </Suspense>
       </div>
-    </div>
+    </body>
   );
 }

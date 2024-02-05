@@ -8,7 +8,7 @@ import { type NextPage } from "next";
 const Prologue: NextPage = () => {
   return (
     <div>
-      <div className="absolute -right-0 top-32 h-[90vh] w-[98vw] transition-all duration-300">
+      <div className="absolute -right-0 top-32 h-[90vh] w-[98vw] animate-fadeIn">
         <PrologueComponent chapter={prologueChapterData} />
       </div>
     </div>

@@ -49,10 +49,10 @@ export function NotFoundComponent() {
           className="h-44 w-44  md:h-60 md:w-60 xl:h-72 xl:w-72"
           priority={true}
         />
-        <h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
+        <h1 className="py-5 text-4xl font-extrabold tracking-widest text-warmGrey md:text-6xl">
           NOT FOUND
         </h1>
-        <h2 className="text-center text-base font-bold uppercase tracking-wider text-charcoal md:text-lg">
+        <h2 className="text-center text-base font-bold uppercase tracking-wider text-warmGrey md:text-lg">
           Ninigi got lost in the middle of nowhere. <br />
           The street sign suggests heading back where he came from.
         </h2>

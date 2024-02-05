@@ -10,20 +10,30 @@ import {
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence } from "framer-motion";
 import { type NextPage } from "next";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BungoOno: NextPage = () => {
-  const [selectedChapter, setselectedChapter] = useState(
-    bungoOnoChapterData[0],
-  );
+  const [selectedChapter, setSelectedChapter] = useState(() => {
+    const savedChapter = localStorage.getItem("selectedChapter");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return savedChapter ? JSON.parse(savedChapter) : bungoOnoChapterData[0];
+  });
   const [selectionData, setSelectionData] = useState(chapterSelectionData);
 
   const handleSelectChapter = (selectedChapterId: string) => {
-    const chapter = bungoOnoChapterData.find(
-      (s) => s.chapterId === selectedChapterId,
-    );
+    let chapter;
+    if (selectedChapterId === "Intro") {
+      // Assuming the first chapter in bungoOnoChapterData is your intro
+      chapter = bungoOnoChapterData[0];
+    } else {
+      chapter = bungoOnoChapterData.find(
+        (s) => s.chapterId === selectedChapterId,
+      );
+    }
+
     if (chapter) {
-      setselectedChapter(chapter);
+      setSelectedChapter(chapter);
+      localStorage.setItem("selectedChapter", JSON.stringify(chapter)); // Save to localStorage
       const updatedSelectionData = selectionData.map((selection) => ({
         ...selection,
         isSelected: selection.selectedChapterId === selectedChapterId,
@@ -40,8 +50,24 @@ const BungoOno: NextPage = () => {
     }
   };
 
+  const selectedButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const savedChapterId = localStorage.getItem("selectedChapterId");
+    if (savedChapterId) {
+      handleSelectChapter(savedChapterId);
+    }
+    if (selectedButtonRef.current) {
+      selectedButtonRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [selectedChapter]);
+
   return (
-    <div className="absolute -right-0 h-[90vh] w-[95vw] overflow-hidden">
+    <div className="absolute -right-0 h-[90vh] w-[95vw] animate-fadeIn overflow-hidden">
       {selectedChapter?.chapterNumber === "Intro" ? (
         <AnimatePresence mode="wait">
           <IntroComponent
@@ -63,14 +89,19 @@ const BungoOno: NextPage = () => {
           onWheel={handleWheel}
           className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
         >
-          <div className="mr-10 shrink-0 text-xl font-bold tracking-wider">
+          <div
+            onClick={() => handleSelectChapter("Intro")}
+            className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
+          >
             BUNGO ONO
           </div>
+
           {selectionData.map((selection) => (
             <ChapterSelectionButton
               key={selection.selectedChapterId}
               selection={selection}
               onSelect={handleSelectChapter}
+              ref={selection.isSelected ? selectedButtonRef : null}
             />
           ))}
         </div>
