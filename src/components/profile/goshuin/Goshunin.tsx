@@ -34,7 +34,7 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
                 {goshuin.goshuinName}
               </h4>
 
-              <span className="mt-5 text-xs italic tracking-widest underline">
+              <span className="mt-5 text-xs italic tracking-widest">
                 {goshuin.goshuinLocation}
               </span>
             </div>
