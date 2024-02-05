@@ -16,7 +16,7 @@ const ModelRouteSelectionCard: React.FC<ModelRouteSelectionCardProps> = ({
   return (
     <div>
       {modelRouteSelection.isOpen ? (
-        <div className="flex h-[80vh] w-[22vw] animate-fadeIn flex-col justify-between rounded-xl bg-warmGrey text-charcoal">
+        <div className="flex h-[80vh] w-[30vw] animate-fadeIn flex-col justify-between rounded-xl bg-warmGrey text-charcoal xl:w-[22vw]">
           <div className="mt-5 p-4 text-center text-2xl font-bold tracking-widest">
             {modelRouteSelection.areaName}
           </div>
@@ -50,7 +50,7 @@ const ModelRouteSelectionCard: React.FC<ModelRouteSelectionCardProps> = ({
           </div>
         </div>
       ) : (
-        <div className="flex h-[80vh] w-[20vw] flex-col items-center justify-center rounded-xl bg-warmGrey3 text-xl font-medium italic tracking-widest text-warmGrey">
+        <div className="flex h-[80vh] w-[30vw] flex-col items-center justify-center rounded-xl bg-warmGrey3 text-xl font-medium italic tracking-widest text-warmGrey xl:w-[22vw]">
           Coming soon
         </div>
       )}

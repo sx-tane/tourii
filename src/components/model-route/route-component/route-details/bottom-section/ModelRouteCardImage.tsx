@@ -46,7 +46,7 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
         )}
         {hasThirdImage && (
           <Image
-            src={routeDetailsSmallImage.image3}
+            src={routeDetailsSmallImage.image3 ?? ""}
             alt={imageName}
             width={500}
             height={500}

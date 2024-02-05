@@ -22,6 +22,7 @@ export interface RouteDestinations {
   destinationName: string | undefined; // Harajiri Falls
   destinationImage: string | undefined;
   modelRouteLink: string | undefined;
+  destinationDescription: string | undefined;
 }
 
 export interface RouteDetails {
@@ -32,12 +33,12 @@ export interface RouteDetails {
   routeDetailStoryTitle: string; // Harajiri Falls
   visualNovelLink: string; // Revisit the story
   modelRouteLink: string; // Model Route
-  routeDetailBigImage: string; // image
+  routeDetailBigImage: string;
   routeDetailSmallImage: {
     image1: string;
     image2: string;
     image3?: string;
-  }; // image
+  };
   routeDetailDescription: string; // description
   routeDetailLocation: string; // location
   routeDetailAddress: string; // address

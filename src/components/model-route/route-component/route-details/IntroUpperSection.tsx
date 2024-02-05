@@ -1,7 +1,6 @@
 import { type RouteDetails } from "@/types/interfaceModelRoute";
 import Image from "next/image";
 import Link from "next/link";
-import Markdown from "react-markdown";
 
 interface IntroUpperSectionProps {
   routeDetails: RouteDetails;
@@ -15,9 +14,9 @@ const IntroUpperSection: React.FC<IntroUpperSectionProps> = ({
       <div className="mb-2 text-sm font-medium uppercase tracking-widest">
         {routeDetails.stop}
       </div>
-      <Markdown className="mx-auto mb-5 flex h-16 w-16 items-center justify-center whitespace-pre-wrap rounded-full border-[1.5px] border-red text-sm font-bold leading-none text-red">
+      {/* <Markdown className="mx-auto mb-5 flex h-16 w-16 items-center justify-center whitespace-pre-wrap rounded-full border-[1.5px] border-red text-sm font-bold leading-none text-red">
         {routeDetails.routeDetailTime}
-      </Markdown>
+      </Markdown> */}
       <div className="text-3xl font-bold uppercase tracking-widest">
         {routeDetails.routeDetailName}
       </div>
@@ -31,7 +30,7 @@ const IntroUpperSection: React.FC<IntroUpperSectionProps> = ({
           width={500}
           height={500}
           priority={true}
-          className=" mx-auto h-[30vh] w-4/12 rounded-full object-cover brightness-90"
+          className=" mx-auto h-[30vh] w-8/12 rounded-full object-cover brightness-90 xl:w-4/12"
         />
         <Link
           className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-warmGrey px-4 py-2 text-xs font-bold tracking-widest text-warmGrey transition-all duration-300 hover:border-charcoal hover:bg-charcoal hover:text-warmGrey"
