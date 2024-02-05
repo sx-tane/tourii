@@ -66,7 +66,7 @@ export const routeDetails2: RouteDetails[] = [
     routeDetailName: "Fukoji Temple",
     routeDetailStoryTitle: "Turmoil at Fukoji Temple",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
-    modelRouteLink: "https://www.tanejp.com/route/fukoji-route",
+    modelRouteLink: "https://www.tanejp.com/route/fukoji-route/",
     routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
     routeDetailSmallImage: {
       image1: "/image/model-route/2/fukoji-temple/1.jpg",

@@ -53,7 +53,7 @@ export const routeDetails4: RouteDetails[] = [
       image2: "/image/model-route/4/uchida-shrine/2.jpg",
       image3: "image3",
     },
-    routeDetailDescription: `Long ago, during the Genpei War, nine women from the defeated Heike clan sought refuge on their way to Hyuga (present-day Miyazaki Prefecture) and stayed with the Yubu family in the village of Uchida. Upon realizing the remaining journey was perilous and that Genji clan troops were in pursuit, the women, in despair, drowned themselves in a nearby spring the next morning. Though the spring is now largely obscured by fields, the shrine (called "Yoshii Daimyojin”) remains a revered part of the Uchida district, preserving this legend.`,
+    routeDetailDescription: `Long ago, during the Genpei War, nine women from the defeated Heike clan sought refuge on their way to Hyuga (present-day Miyazaki Prefecture) and stayed with the Yubu family in the village of Uchida. Upon realizing the remaining journey was perilous and that Genji clan troops were in pursuit, the women, in despair, drowned themselves in a nearby spring the next morning. Shocked by what happened, the Yubu couple was overcome with grief and also threw themselves into the spring. Though the spring is now largely obscured by fields, the shrine (called "Yoshii Daimyojin”) remains a revered part of the Uchida district, preserving this legend.`,
     routeDetailLocation: "Uchida Shrine",
     routeDetailAddress: "Miemachi Uchida, Bungoono, Oita 879-7125, Japan",
     routeHashtag: ["#HistoricShrines", " #LegendarySites"],

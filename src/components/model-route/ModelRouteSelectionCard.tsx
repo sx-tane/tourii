@@ -41,7 +41,7 @@ const ModelRouteSelectionCard: React.FC<ModelRouteSelectionCardProps> = ({
                 <Link
                   href={`/model-route/${route.modelRouteId}`}
                   key={route.modelRouteId}
-                  className="cursor-pointer rounded-full border-[1.5px] border-charcoal px-8 py-2 text-base font-semibold tracking-widest transition-all hover:bg-charcoal hover:text-warmGrey"
+                  className="cursor-pointer rounded-full border-[1.5px] border-charcoal px-4 py-2 text-base font-semibold tracking-widest transition-all hover:bg-charcoal hover:text-warmGrey 2xl:px-8 2xl:py-2"
                 >
                   {route.modelRouteId}
                 </Link>

@@ -52,7 +52,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailName: "Harajiri Falls",
     routeDetailStoryTitle: "The Ancient Fire Rising from the Timeless Waters",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
-    modelRouteLink: "https://www.tanejp.com/route/harajiri-route",
+    modelRouteLink: "https://www.tanejp.com/route/harajiri-route/",
     routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
     routeDetailSmallImage: {
       image1: "/image/model-route/1/harajiri-fall/1.jpg",
@@ -110,7 +110,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailName: "Ozaki Stone Bath Cave",
     routeDetailStoryTitle: "The Forgotten Healing Magic",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
-    modelRouteLink: "https://www.tanejp.com/route/ogata-route",
+    modelRouteLink: "https://www.tanejp.com/route/ogata-route/",
     routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
     routeDetailSmallImage: {
       image1: "/image/model-route/1/ozaki/1.jpg",
@@ -129,7 +129,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailName: "Lodge Kiyokawa",
     routeDetailStoryTitle: "A Mystical Sanctuary, Cradled by Forests and River",
     visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
-    modelRouteLink: "https://www.tanejp.com/route/lodge-kiyokawa-route",
+    modelRouteLink: "https://www.tanejp.com/route/lodge-kiyokawa-route/",
     routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
     routeDetailSmallImage: {
       image1: "/image/model-route/1/lodge-kiyokawa/1.jpg",
