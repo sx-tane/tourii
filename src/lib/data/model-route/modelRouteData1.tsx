@@ -62,7 +62,7 @@ export const routeDetails1: RouteDetails[] = [
     routeDetailDescription: `Harajiri Falls is known as the "Niagara of the East", is a 120m wide and 20m high waterfall that forms a stunning arc over the Ogata River in a peaceful agricultural area. It has played a significant role in the region's history, culture, and industry, with its influence evident in local structures like shrines, waterways, and stone bridges. During spring, the surroundings are adorned with blooming tulip.\r\r The Komatsu Fire Festival (小松明火祭り) is an annual event on August 14th, commemorating a 300-year-old peasant uprising in Ogata Township due to harsh tax collections despite crop failures. These torches, approximately 1.5 meters long, are attached to bamboo sticks or oil-filled cans with wicks as a tribute to the historical event and to pray for a good harvest and protection against pests. It is said to have started in 1759.`,
     routeDetailLocation: "Harajiri Falls",
     routeDetailAddress: "410 Ogatamachi Harajiri, Bungoono, Oita",
-    routeHashtag: ["#waterfall", "#rafting"],
+    routeHashtag: ["#Waterfall", " #Rafting"],
   },
   {
     routeDetailId: generateRouteDetailId(),

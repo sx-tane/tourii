@@ -13,11 +13,13 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
   routeDetailsSmallImage,
   imageName,
 }) => {
-  // Determine the classes for image2 based on the presence of image3
-  const image2Classes =
-    routeDetailsSmallImage.image3 === "image3"
-      ? "h-[20vh] w-full object-cover"
-      : "mr-2 h-[20vh] w-1/2 object-cover";
+  // Dynamic class generation based on the presence of image3
+  const hasThirdImage =
+    routeDetailsSmallImage.image3 && routeDetailsSmallImage.image3 !== "image3";
+  const image2Classes = hasThirdImage
+    ? "mr-2 h-[20vh] w-[49%] object-cover"
+    : "h-[20vh] w-full object-cover";
+  const image3Classes = hasThirdImage ? "h-[20vh] w-[49%] object-cover" : "";
 
   return (
     <div className="space-y-2">
@@ -39,21 +41,19 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
             width={500}
             height={500}
             priority={true}
-            // Apply the dynamic classes
             className={image2Classes}
           />
         )}
-        {routeDetailsSmallImage.image3 &&
-          routeDetailsSmallImage.image3 !== "image3" && (
-            <Image
-              src={routeDetailsSmallImage.image3}
-              alt={imageName}
-              width={500}
-              height={500}
-              priority={true}
-              className="h-[20vh] w-1/2 object-cover"
-            />
-          )}
+        {hasThirdImage && (
+          <Image
+            src={routeDetailsSmallImage.image3}
+            alt={imageName}
+            width={500}
+            height={500}
+            priority={true}
+            className={image3Classes}
+          />
+        )}
       </div>
     </div>
   );

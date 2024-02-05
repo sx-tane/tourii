@@ -287,7 +287,7 @@ export const bungoOnoChapterData: Chapter[] = [
     realImage: "/image/touriiverse/bungo-ono-real/chapter18.jpg",
     title: "Enigmatic Festivals of Bungo Ono",
     content:
-      "Guided by Madina's insights at Lodge Kiyokawa, Ninigi's party is poised to embark on a journey through Bungo Ono's hidden side, where ancient festivals pulse with life and mystery. Each festival Madina lists is a tapestry of tradition, promising clues to the sacred shards of the Yagata Mirror.\r\rTheir first destination is the Mitarai Shrine for the Boiling Water Kagura, a rare ritual of steam and prayer. Next, they'll witness the fiery spectacle of the Roaster and Fire Festival at Sugao Magaibutsu, where flames dance in an ancient rite. The Sake Gourd Sama Blessing at Shibayama Hachimangu Shrine offers a serene contrast, with its festive display of sake gourds symbolizing blessing and abundance. Lastly, the jubilant Donko Fishing Tournament at Inukai port merges local customs with the joyous celebration of Children's Day.\r\rWith Madina's map in hand and her cautionary advice about the extraordinary nature of these events, Ninigi's party prepares to step into a realm where festivals are not just celebrations but gateways to the profound and the mystical, each offering a unique piece to complete their cosmic puzzle.",
+      "Guided by Madina's insights at Lodge Kiyokawa, Ninigi's party is poised to embark on a journey through Bungo Ono's hidden side, where ancient festivals pulse with life and mystery. Each festival Madina lists is a tapestry of tradition, promising clues to the sacred shards of the Yagata Mirror.\r\rTheir first destination is the Mitarai Shrine for the Boiling Water Kagura, a rare ritual of steam and prayer. Next, they'll witness the fiery spectacle of the Roaster and Fire Festival at Sugao Magaibutsu, where flames dance in an ancient rite. The Sake Gourd Sama Blessing at Shibayama Hachimangu Shrine offers a serene contrast, with its festive display of sake gourds symbolizing blessing and abundance. Lastly, the jubilant Donko Fishing Tournament at Inukai merges local customs with the joyous celebration of Children's Day.\r\rWith Madina's map in hand and her cautionary advice about the extraordinary nature of these events, Ninigi's party prepares to step into a realm where festivals are not just celebrations but gateways to the profound and the mystical, each offering a unique piece to complete their cosmic puzzle.",
     vnLink: undefined,
     vnUnlocked: true,
   },
@@ -353,7 +353,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Tedorigando",
     chapterNumber: "Chapter 23",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
+    image: "/image/touriiverse/bungo-ono/chapter23.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter23.jpg",
     title: "The Elusive Crabs",
     content:
@@ -365,7 +365,7 @@ export const bungoOnoChapterData: Chapter[] = [
     chapterId: generateChapterId(),
     part: 3,
     area: bungoOnoArea,
-    placeName: "Inukai Port",
+    placeName: "Inukai",
     chapterNumber: "Chapter 24",
     image: "/image/touriiverse/bungo-ono/chapter24.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter24.jpg",

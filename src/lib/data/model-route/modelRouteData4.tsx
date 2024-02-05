@@ -1,4 +1,7 @@
-import { RouteDestinations, RouteDetails } from "@/types/interfaceModelRoute";
+import {
+  type RouteDestinations,
+  type RouteDetails,
+} from "@/types/interfaceModelRoute";
 
 let stopNumber = 0;
 
