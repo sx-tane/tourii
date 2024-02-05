@@ -1,0 +1,48 @@
+import { type TravelGoshuin } from "@/types/interfaceProfile";
+import React from "react";
+import Image from "next/image";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/lib/ui/hoverCard";
+
+interface GoshuinProps {
+  goshuin: TravelGoshuin;
+}
+
+const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
+  return (
+    <div
+      key={goshuin.goshuinId}
+      className=" h-16 w-16 cursor-pointer rounded-full px-1 transition-all duration-300 hover:bg-white"
+    >
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <Image
+            src={goshuin.goshuinImage}
+            alt={goshuin.goshuinName}
+            width={64}
+            height={64}
+            className="h-16 w-16 rounded-full"
+          />
+        </HoverCardTrigger>
+        <HoverCardContent className="relative h-24 w-64 animate-fadeIn border-charcoal bg-charcoal text-warmGrey">
+          <div className="flex justify-between space-x-4">
+            <div className="space-y-2">
+              <h4 className="text-sm uppercase leading-relaxed tracking-widest">
+                {goshuin.goshuinName}
+              </h4>
+
+              <span className="mt-5 text-xs italic tracking-widest underline">
+                {goshuin.goshuinLocation}
+              </span>
+            </div>
+          </div>
+        </HoverCardContent>
+      </HoverCard>
+    </div>
+  );
+};
+
+export default Goshunin;

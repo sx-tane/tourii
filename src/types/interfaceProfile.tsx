@@ -1,36 +1,37 @@
-export interface ProfileInfo {
-  profileId: number;
-  nickname: string;
+export interface UserProfile {
+  userId: string;
+  profileImage: string;
+  userName: string;
   name: string;
   residingCity: string;
   dateOfBirth: string;
   email: string;
-  travelGoshuin: TraveGoshuin[];
-  nft: NFT[];
+  travelGoshuin: TravelGoshuin[] | undefined;
+  nft: NFT[] | undefined;
 }
 
-export interface TraveGoshuin {
+export interface TravelGoshuin {
+  goshuinId: string;
   goshuinImage: string;
-  goshuinId: number;
   goshuinName: string;
   goshuinLocation: string;
-  goshuinDate: Date;
-  goshuinExpiryDate: Date;
+  goshuinDate: string;
+  goshuinExpiryDate: string;
   goshuinDescription: string;
   redeemed: boolean;
 }
 
 export interface NFT {
-  nftId: number;
+  nftId: string;
   nftRarity: string;
   nftDescription: NFTDescription[];
   nftImage: string;
-  nftHeldDate: Date;
+  nftHeldDate: string;
   walletAddress: string;
 }
 
 export interface NFTDescription {
   nftName: string;
-  nftHeldDate: Date;
+  nftHeldDate: string;
   nftDescription: string;
 }
