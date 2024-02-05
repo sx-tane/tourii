@@ -505,7 +505,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1300,
   },
@@ -518,7 +518,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 700,
   },
@@ -531,7 +531,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 400,
   },
@@ -544,7 +544,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 800,
   },
@@ -557,7 +557,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1000,
   },
@@ -570,7 +570,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1000,
   },
@@ -972,7 +972,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 7700,
   },
@@ -984,7 +984,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 8800,
   },
@@ -996,7 +996,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 44000,
   },
@@ -1008,7 +1008,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 4650,
   },
@@ -1020,7 +1020,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 2420,
   },
@@ -1032,7 +1032,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 400,
   },
@@ -1044,7 +1044,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 2000,
   },
@@ -1056,7 +1056,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 2000,
   },
@@ -1068,7 +1068,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 2000,
   },
@@ -1080,7 +1080,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1000,
   },
@@ -1092,7 +1092,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1500,
   },
@@ -1104,7 +1104,7 @@ export const productsData: Product[] = [
     category: {
       productType: "Experience",
       bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#920883",
+      bungoOnoAreaColor: "#0E6EB8",
     },
     price: 1500,
   },
