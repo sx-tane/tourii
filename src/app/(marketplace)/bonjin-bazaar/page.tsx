@@ -53,25 +53,20 @@ const Market: NextPage = () => {
 
   return (
     <div>
-      <div className="flex  flex-col items-center justify-center">
-        <div className="flex w-full">
-          <div className="m-auto text-3xl font-bold uppercase tracking-widest text-warmGrey3">
-            Bonjin Bazaar
-          </div>
-          <div className="w-3/4">
-            <div className="mx-3 flex items-center justify-between">
-              <FilterDropdown setFilter={setFilter} />
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                setPage={setCurrentPage}
-              />
-            </div>
-            <ProductGrid
-              products={displayedProducts}
+      <div className="flex h-[90vh] items-center justify-center">
+        <div className="m-auto text-3xl font-bold uppercase tracking-widest text-warmGrey3">
+          Bonjin Bazaar
+        </div>
+        <div className="w-3/4">
+          <div className="mx-3 flex items-center justify-between">
+            <FilterDropdown setFilter={setFilter} />
+            <Pagination
               currentPage={currentPage}
+              totalPages={totalPages}
+              setPage={setCurrentPage}
             />
           </div>
+          <ProductGrid products={displayedProducts} currentPage={currentPage} />
         </div>
       </div>
     </div>
