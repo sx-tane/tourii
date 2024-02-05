@@ -33,6 +33,7 @@ const BungoOno: NextPage = () => {
 
     if (chapter) {
       setSelectedChapter(chapter);
+      localStorage.setItem("selectedChapterId", selectedChapterId); // Save chapter ID to localStorage <-- Add this line
       localStorage.setItem("selectedChapter", JSON.stringify(chapter)); // Save to localStorage
       const updatedSelectionData = selectionData.map((selection) => ({
         ...selection,

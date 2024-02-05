@@ -63,7 +63,7 @@ export const bungoOnoChapterData: Chapter[] = [
     realImage: "/image/touriiverse/bungo-ono-real/chapter2.jpg",
     title: "The Abode of the Mighty Bonjin Warrior",
     content:
-      "Sarutahiko, concerned about their safety, leads the group to the Ichinomiya Hachiman Shrine. He warns that their divine aura might attract malevolent corrupted Kunitsukami or Yokai, who might regain power from his presence. The shrine, dedicated to the great Hachiman, a kunitsukami protector of farmers, fishermen, and warriors, represents the syncretism of Shinto and Buddhism.\r\rSarutahiko reveals that many Kunitsukami have become corrupt, resorting to violence for survival, with only a few still revered and maintaining peace. Bungo Ono, where they've descended, is unique for its harmonious blend of Shintoism and Buddhism, and located away from the main stream cities, is often overlooked by powerful beings.\r\rSuddenly, Sarutahiko collapses, weakened. Ninigi inquires how to restore his strength. Sarutahiko suggests seeking the great Dainichi Nyorai at the Miyazaki West Stone Carved Buddha Cliff. Dainichi Nyorai, the chief deity in Shingon Buddhism, symbolizes a life force akin to the sun, similar to Amaterasu. His audience might reveal why Ninigi was sent to 2024 and how he could return, while potentially healing Sarutahiko.\r\rHow do we get there Ninigi would ask. Take my CAR Sarutahiko said. CAR? Ninigi inquire. Ninigi will learn about the various transportation the modern Bonjin uses.",
+      "Sarutahiko, concerned about their safety, leads the group to the Ichinomiya Hachiman Shrine. He warns that their divine aura might attract malevolent corrupted Kunitsukami or Yokai, who might regain power from his presence. The shrine, dedicated to the great Hachiman, a kunitsukami protector of farmers, fishermen, and warriors, represents the syncretism of Shinto and Buddhism.\r\rSarutahiko reveals that many Kunitsukami have become corrupt, resorting to violence for survival, with only a few still revered and maintaining peace. Bungo Ono, where they've descended, is unique for its harmonious blend of Shintoism and Buddhism, and located away from the main stream cities, is often overlooked by powerful beings.\r\rSuddenly, Sarutahiko collapses, weakened. Ninigi inquires how to restore his strength. Sarutahiko suggests seeking the great Dainichi Nyorai at the Miyazaki West Stone Carved Buddha Cliff. Dainichi Nyorai, the chief deity in Shingon Buddhism, symbolizes a life force akin to the sun, similar to Amaterasu. His audience might reveal why Ninigi was sent to 2024 and how he could return, while potentially healing Sarutahiko.\r\rHow do we get there Ninigi would ask. Take my CAR Sarutahiko said. CAR? Ninigi inquires. Ninigi will learn about the various transportation the modern Bonjin uses.",
     vnLink: undefined,
     vnUnlocked: true,
   },
@@ -227,7 +227,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Jinkaku-ji",
     chapterNumber: "Chapter 14",
-    image: "/image/touriiverse/bungo-ono/chapter14.jpg",
+    image: "/image/touriiverse/bungo-ono/chapter14.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter14.jpg",
     title: "Secret of Jinkaku-ji",
     content:
@@ -241,7 +241,7 @@ export const bungoOnoChapterData: Chapter[] = [
     area: bungoOnoArea,
     placeName: "Eboshi Park",
     chapterNumber: "Chapter 15",
-    image: "/image/touriiverse/bungo-ono/chapter15.jpg",
+    image: "/image/touriiverse/bungo-ono/chapter15.png",
     realImage: "/image/touriiverse/bungo-ono-real/chapter15.jpg",
     title: "Guidance from the Kannon",
     content:

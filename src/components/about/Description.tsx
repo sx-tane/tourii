@@ -35,7 +35,7 @@ export const DescriptionStory: React.FC<DescriptionProps> = ({
   return (
     <div className="my-10 items-center text-center text-red">
       <div className="font-bold uppercase">
-        <h3 className="text-3xl leading-normal tracking-wide md:text-base md:tracking-wide">
+        <h3 className="text-3xl leading-normal tracking-wide md:text-base md:tracking-widest">
           {smallTitle}
         </h3>
         <h2 className="mt-5 text-lg tracking-wide md:text-2xl md:tracking-widest">
