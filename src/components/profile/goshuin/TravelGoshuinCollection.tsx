@@ -1,7 +1,7 @@
 import { type UserProfile } from "@/types/interfaceProfile";
 import Link from "next/link";
 import React from "react";
-import Goshunin from "./Goshuin";
+import Goshuin from "./Goshuin";
 import Image from "next/image";
 
 interface TravelGoshuinCollectionProps {
@@ -24,7 +24,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
           Travel Goshuin
         </div>
         <Link
-          href={`/profile/goshuin`}
+          href={`/profile/goshuin/${userProfile.userId}`}
           className="text-xs font-medium text-red underline"
         >
           View All
@@ -46,12 +46,12 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
         <div className="flex items-center justify-center space-x-4">
           {goshuinList.map((goshuin, index) =>
             goshuin ? ( // Check if goshuin is not null
-              <Goshunin goshuin={goshuin} />
+              <Goshuin goshuin={goshuin} />
             ) : (
               // This is the placeholder
               <div
                 key={index}
-                className="h-12 w-12  rounded-full bg-warmGrey3 shadow-inner"
+                className="h-12 w-12 rounded-full bg-warmGrey2 shadow-inner"
               />
             ),
           )}

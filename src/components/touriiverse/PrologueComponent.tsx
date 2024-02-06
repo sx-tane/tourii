@@ -1,5 +1,7 @@
 import { type Chapter } from "@/types/interfaceStory";
+import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import Link from "next/link";
 import Markdown from "react-markdown";
 
 interface IntroProps {
@@ -9,10 +11,15 @@ interface IntroProps {
 const PrologueComponent: React.FC<IntroProps> = ({ chapter }) => {
   return (
     <div className="relative h-[70vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">
-      <div className="text-center font-bold uppercase tracking-wider md:text-5xl">
-        {chapter?.area}
-        <div className="mt-3 text-base font-semibold">
-          {chapter?.chapterNumber}
+      <div className="grid-3 flex">
+        <Link href={`/touriiverse`}>
+          <ArrowUturnLeftIcon className="h-4 w-4 text-charcoal transition-all duration-300 hover:scale-110 hover:text-red" />
+        </Link>
+        <div className="flex-1 text-center font-bold uppercase tracking-wider md:text-5xl">
+          {chapter?.area}
+          <div className="mt-3 text-base font-semibold">
+            {chapter?.chapterNumber}
+          </div>
         </div>
       </div>
       <div className="bottom-8 left-8 md:absolute">

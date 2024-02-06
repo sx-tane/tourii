@@ -18,7 +18,7 @@ const Profile: React.FC<ProfileProps> = ({
   userProfile = profile1,
 }) => {
   const [selectedNFT, setSelectedNFT] = useState<NFT | undefined>(
-    profileNFT?.[0] ?? undefined,
+    profileNFT?.[0],
   );
 
   const handleNFTChange = (nftId: string) => {
@@ -27,10 +27,9 @@ const Profile: React.FC<ProfileProps> = ({
   };
 
   // Create an array of length 6 filled with NFTs and placeholders
-  const nftList = new Array(6).fill(undefined);
-  for (let i = 0; i < (profileNFT?.length ?? 0); i++) {
-    nftList[i] = profileNFT?.[i];
-  }
+  const nftList = profileNFT
+    ? new Array(6).fill(undefined).map((_, index) => profileNFT[index])
+    : new Array(6).fill(undefined);
 
   return (
     <div className="absolute right-0 flex h-[90vh] w-[95vw] space-x-2 ">

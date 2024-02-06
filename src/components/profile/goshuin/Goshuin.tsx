@@ -11,21 +11,23 @@ interface GoshuinProps {
   goshuin: TravelGoshuin;
 }
 
-const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
+const Goshuin: React.FC<GoshuinProps> = ({ goshuin }) => {
   return (
     <div
       key={goshuin.goshuinId}
-      className=" h-16 w-16 rounded-full px-1 transition-all duration-300 hover:scale-110"
+      className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-white"
     >
       <HoverCard>
         <HoverCardTrigger asChild>
-          <Image
-            src={goshuin.goshuinImage}
-            alt={goshuin.goshuinName}
-            width={64}
-            height={64}
-            className="h-16 w-16 rounded-full"
-          />
+          <div className="flex items-center justify-center">
+            <Image
+              src={goshuin.goshuinImage}
+              alt={goshuin.goshuinName}
+              width={64}
+              height={64}
+              className="h-16 w-16 rounded-full"
+            />
+          </div>
         </HoverCardTrigger>
         <HoverCardContent className="relative h-fit w-64 animate-fadeIn bg-charcoal text-warmGrey">
           <div className="flex justify-between space-x-4">
@@ -45,4 +47,4 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
   );
 };
 
-export default Goshunin;
+export default Goshuin;

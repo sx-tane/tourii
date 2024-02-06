@@ -18,6 +18,7 @@ export interface TravelGoshuin {
   goshuinDate: string;
   goshuinExpiryDate: string;
   goshuinDescription: string;
+  perksImage: string;
   redeemed: boolean;
 }
 
@@ -39,4 +40,8 @@ export interface NFTDescription {
   clothing: string;
   weapon: string;
   background: string;
+}
+
+export interface ProfileList {
+  profile: UserProfile[];
 }
