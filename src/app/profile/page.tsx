@@ -32,12 +32,26 @@ const Profile: NextPage = () => {
           NFT & Collectibles
         </div>
         <div className="mt-20 flex h-4/6 w-full">
-          <div className="h-full w-1/2 ">
+          <div className=" mr-96 h-full w-1/2">
             <div className="text-sm font-semibold uppercase tracking-widest text-red">
               tourii
             </div>
             <div className="pt-2 text-8xl font-normal uppercase tracking-tight text-red">
               {selectedNFT?.nftId ?? ""}
+            </div>
+            <div className="pt-2 font-semibold tracking-tight text-red">
+              <div className="flex h-[70px] w-[70px] flex-col items-center justify-center rounded-full border border-red">
+                <div className="text-center text-xs">Rarity</div>
+                <div className="text-center text-lg">
+                  {selectedNFT?.nftRarity ?? ""}
+                </div>
+              </div>
+            </div>
+            {/*RACE*/}
+            <div className="flex items-center justify-center text-sm font-bold tracking-wider text-charcoal">
+              <span className="mx-4">Race</span>
+              <div className="w-full  border-t-2 border-charcoal" />
+              <span className="mx-4">{selectedNFT?.nftDescription?.race}</span>
             </div>
           </div>
           <div className="flex h-full w-1/2 bg-blue-400"></div>
@@ -61,13 +75,12 @@ const Profile: NextPage = () => {
                   width={100}
                   height={100}
                   onClick={() => handleNFTChange(nft.nftId)}
-                  className="h-auto w-full"
+                  className={`h-auto w-full cursor-pointer rounded-xl transition-all duration-300 hover:scale-110 ${selectedNFT?.nftId === nft.nftId ? " border-4 border-white transition-all" : ""}`}
                 />
               ) : (
-                // This is the placeholder
                 <div
                   key={index}
-                  className="h-full w-full bg-warmGrey3 shadow-inner"
+                  className="h-full w-full rounded-xl bg-warmGrey3 shadow-inner"
                 />
               ),
             )}
