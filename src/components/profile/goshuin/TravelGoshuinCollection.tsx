@@ -41,7 +41,6 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
             priority={true}
           />
         </div>
-
         {/* Goshuin Items */}
         <div className="flex items-center justify-center space-x-4">
           {goshuinList.map((goshuin, index) =>
