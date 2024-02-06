@@ -7,14 +7,43 @@ interface GoshuinInfoProps {
 
 const GoshuinInfo: React.FC<GoshuinInfoProps> = ({ goshuin }) => {
   return (
-    <div className="flex w-full">
-      <div className="h-full w-8/12">
-        <div>{goshuin?.goshuinId}</div>
-        <div>{goshuin?.goshuinName}</div>
-        <div>{goshuin?.goshuinLocation}</div>
-        <div>{goshuin?.goshuinDescription}</div>
-        <div>Acquired On:{goshuin?.goshuinDate}</div>
-        <div>Expiring On:{goshuin?.goshuinExpiryDate}</div>
+    <div className="relative flex w-full">
+      {goshuin?.redeemed ? (
+        <Image
+          src={goshuin?.goshuinImage ?? ""}
+          alt="goshuin"
+          width={1000}
+          height={1000}
+          priority={true}
+          className="absolute right-1/2 top-10 aspect-square h-1/4 w-auto rotate-12 object-cover"
+        />
+      ) : null}
+      <div className="relative flex h-full w-8/12 flex-col p-8">
+        <div className="text-xs font-bold uppercase tracking-wider text-red">
+          perk details
+        </div>
+        <div className="mt-20 text-lg font-medium tracking-wider">
+          {goshuin?.goshuinId}
+        </div>
+        <div className="w-11/12 text-wrap text-5xl font-bold uppercase leading-tight tracking-widest">
+          {goshuin?.goshuinName}
+        </div>
+        <div className="mt-16 w-1/2 text-lg font-semibold capitalize tracking-wider">
+          {goshuin?.goshuinLocation}
+        </div>
+        <div className=" mt-3 columns-2 gap-10 text-wrap leading-relaxed tracking-wider">
+          {goshuin?.goshuinDescription}
+        </div>
+        {/* This is the new container for dates and redeem button aligned at the bottom */}
+        <div className="mt-auto flex w-full justify-between">
+          <div>
+            <div>Acquired On: {goshuin?.goshuinDate}</div>
+            <div>Expiring On: {goshuin?.goshuinExpiryDate}</div>
+          </div>
+          <div className="flex w-1/2 cursor-pointer items-center justify-center rounded-full bg-charcoal font-semibold tracking-widest text-warmGrey transition-all duration-300 hover:bg-red">
+            Redeem!
+          </div>
+        </div>
       </div>
       <div className="h-full w-4/12">
         <Image
