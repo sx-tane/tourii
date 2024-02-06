@@ -16,16 +16,14 @@ const BottomSection: React.FC<BottomSectionProps> = ({ routeDetails }) => {
         </Markdown>
         <ModelRouteLocation routeDetails={routeDetails} />
       </div>
-      <div className="w-1/2">
-        <ModelRouteCardImage
-          routeDetailsSmallImage={{
-            image1: routeDetails.routeDetailSmallImage.image1,
-            image2: routeDetails.routeDetailSmallImage.image2,
-            image3: routeDetails.routeDetailSmallImage.image3,
-          }}
-          imageName={routeDetails.routeDetailName}
-        />
-      </div>
+      <ModelRouteCardImage
+        routeDetailsSmallImage={{
+          image1: routeDetails.routeDetailSmallImage.image1,
+          image2: routeDetails.routeDetailSmallImage.image2,
+          image3: routeDetails.routeDetailSmallImage.image3,
+        }}
+        imageName={routeDetails.routeDetailName}
+      />
     </div>
   );
 };
