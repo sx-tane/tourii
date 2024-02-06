@@ -120,5 +120,5 @@ export const profile1: UserProfile = {
   dateOfBirth: "2 Feb 2022",
   email: "test01@tanejp.com",
   travelGoshuin: profile1TravelGoshuin,
-  nft: undefined,
+  nft: profile1NFT,
 };

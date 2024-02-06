@@ -7,6 +7,13 @@ interface UserProfileCardProps {
 }
 
 const UserProfileCard: React.FC<UserProfileCardProps> = ({ userProfile }) => {
+  const properties = [
+    { label: "Registered Name", value: userProfile.name },
+    { label: "Residing City", value: userProfile.residingCity },
+    { label: "Date of Birth", value: userProfile.dateOfBirth },
+    { label: "Email Address", value: userProfile.email },
+  ];
+
   return (
     <div className="h-4/12 h-[70%]">
       <div className="relative h-1/2 overflow-hidden rounded-t-xl">
@@ -26,38 +33,16 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ userProfile }) => {
         </div>
       </div>
       <div className="flex h-1/2 flex-col justify-center space-y-5 rounded-b-xl bg-warmGrey pl-10">
-        <div className="space-y-1 text-red">
-          <div className="text-[10px] font-bold tracking-normal ">
-            Registered Name
+        {properties.map((property) => (
+          <div className="space-y-1 text-red">
+            <div className="text-[10px] font-semibold tracking-normal ">
+              {property.label}
+            </div>
+            <div className="text-base font-normal tracking-wider">
+              {property.value}
+            </div>
           </div>
-          <div className="text-base font-semibold tracking-wider">
-            {userProfile.name}
-          </div>
-        </div>
-        <div className="space-y-1 text-red">
-          <div className="text-[10px] font-bold tracking-normal ">
-            Residing City
-          </div>
-          <div className="text-base font-semibold tracking-wider">
-            {userProfile.residingCity}
-          </div>
-        </div>
-        <div className="space-y-1 text-red">
-          <div className="text-[10px] font-bold tracking-normal ">
-            Date of Birth
-          </div>
-          <div className="text-base font-semibold tracking-wider">
-            {userProfile.dateOfBirth}
-          </div>
-        </div>
-        <div className="space-y-1 text-red">
-          <div className="text-[10px] font-bold tracking-normal ">
-            Email Address
-          </div>
-          <div className="text-base font-semibold tracking-wider">
-            {userProfile.email}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

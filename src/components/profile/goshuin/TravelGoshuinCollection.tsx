@@ -1,7 +1,7 @@
 import { type UserProfile } from "@/types/interfaceProfile";
 import Link from "next/link";
 import React from "react";
-import Goshunin from "./Goshunin";
+import Goshunin from "./Goshuin";
 import Image from "next/image";
 
 interface TravelGoshuinCollectionProps {
@@ -51,7 +51,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
               // This is the placeholder
               <div
                 key={index}
-                className="h-16 w-16  rounded-full bg-warmGrey3 shadow-inner"
+                className="h-12 w-12  rounded-full bg-warmGrey3 shadow-inner"
               />
             ),
           )}
