@@ -18,14 +18,14 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ userProfile }) => {
           className="object-cover shadow-inner"
         />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-800 via-transparent to-transparent"></div>
-        <div className="absolute left-5 top-5 text-xs font-bold uppercase tracking-wider text-red">
+        <div className="absolute left-8 top-8 text-xs font-bold uppercase tracking-wider text-red">
           profile
         </div>
-        <div className="absolute bottom-5 left-5 text-lg font-bold tracking-wider text-warmGrey">
+        <div className="absolute bottom-8 left-8 text-lg font-bold tracking-wider text-warmGrey">
           {userProfile.userName}
         </div>
       </div>
-      <div className="flex h-1/2 flex-col justify-center space-y-5 rounded-b-xl bg-warmGrey pl-5">
+      <div className="flex h-1/2 flex-col justify-center space-y-5 rounded-b-xl bg-warmGrey pl-10">
         <div className="space-y-1 text-red">
           <div className="text-[10px] font-bold tracking-normal ">
             Registered Name

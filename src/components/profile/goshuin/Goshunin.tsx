@@ -27,7 +27,7 @@ const Goshunin: React.FC<GoshuinProps> = ({ goshuin }) => {
             className="h-16 w-16 rounded-full"
           />
         </HoverCardTrigger>
-        <HoverCardContent className="relative h-24 w-64 animate-fadeIn bg-charcoal text-warmGrey">
+        <HoverCardContent className="relative h-fit w-64 animate-fadeIn bg-charcoal text-warmGrey">
           <div className="flex justify-between space-x-4">
             <div className="space-y-2">
               <h4 className="text-sm font-bold uppercase leading-relaxed tracking-widest">

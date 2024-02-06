@@ -24,14 +24,19 @@ export interface TravelGoshuin {
 export interface NFT {
   nftId: string;
   nftRarity: string;
-  nftDescription: NFTDescription[];
+  nftDescription: NFTDescription | undefined;
   nftImage: string;
   nftHeldDate: string;
   walletAddress: string;
 }
 
 export interface NFTDescription {
-  nftName: string;
-  nftHeldDate: string;
-  nftDescription: string;
+  race: string;
+  hairColor: string;
+  eyes: string;
+  mouth: string;
+  accessory: string;
+  clothing: string;
+  weapon: string;
+  background: string;
 }

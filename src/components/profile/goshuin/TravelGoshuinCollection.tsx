@@ -2,6 +2,7 @@ import { type UserProfile } from "@/types/interfaceProfile";
 import Link from "next/link";
 import React from "react";
 import Goshunin from "./Goshunin";
+import Image from "next/image";
 
 interface TravelGoshuinCollectionProps {
   userProfile: UserProfile;
@@ -17,7 +18,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
       : new Array(4).fill(undefined);
 
   return (
-    <div className="relative flex h-[30%] flex-col justify-between rounded-xl bg-warmGrey p-5">
+    <div className="relative flex h-[30%] flex-col justify-between rounded-xl bg-warmGrey p-8">
       <div className="flex items-start justify-between">
         <div className="text-xs font-bold uppercase tracking-wider text-red">
           Travel Goshuin
@@ -30,15 +31,15 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
         </Link>
       </div>
       <div className="relative flex flex-grow items-center justify-center">
-        {/* Left Arrow */}
+        {/* Left Arrow TODO:src\components\about\about-tourii-nft\benefit-modal\BenefitDetail.tsx */}
         <div className="absolute left-0 z-10">
-          <button
-            type="button"
-            className=" p-2 text-charcoal focus:outline-none"
-            aria-label="Previous"
-          >
-            &#9664;
-          </button>
+          <Image
+            src="/image/about/left.svg"
+            alt="left"
+            width={20}
+            height={20}
+            priority={true}
+          />
         </div>
 
         {/* Goshuin Items */}
@@ -55,20 +56,18 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
             ),
           )}
         </div>
-        {/* Right Arrow */}
         <div className="absolute right-0 z-10">
-          <button
-            type="button"
-            className=" p-2 text-black focus:outline-none"
-            aria-label="Next"
-          >
-            {/* Replace with an actual arrow icon */}
-            &#9654;
-          </button>
+          <Image
+            src="/image/about/right.svg"
+            alt="left"
+            width={20}
+            height={20}
+            priority={true}
+          />
         </div>
       </div>
       <div className="flex w-full cursor-not-allowed items-center justify-center rounded-full border-2 border-white bg-warmGrey3 py-3 text-sm font-bold tracking-wider text-charcoal">
-        Get More Goshuin!
+        Coming Soon!
       </div>
     </div>
   );
