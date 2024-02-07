@@ -15,20 +15,20 @@ interface GoshuinGridProps {
 
 const GoshuinGrid: React.FC<GoshuinGridProps> = ({ goshuin }) => {
   const goshuinList = goshuin
-    ? new Array(20).fill(undefined).map((_, index) => goshuin[index])
-    : new Array(20).fill(undefined);
+    ? new Array(24).fill(undefined).map((_, index) => goshuin[index])
+    : new Array(24).fill(undefined);
   return (
-    <div className="h-full w-1/3  rounded-s-xl p-8">
-      <div>
-        <div className="flex justify-between">
-          <div className="text-xs font-bold uppercase tracking-wider text-red">
-            Travel Goshuin
-          </div>
-          <Link href={`/profile`}>
-            <ArrowUturnLeftIcon className="h-6 w-6 text-warmGrey3" />
-          </Link>
+    <div className="flex h-full w-1/3 flex-col overflow-hidden rounded-s-xl p-8">
+      <div className="flex justify-between">
+        <div className="text-xs font-bold uppercase tracking-wider text-red">
+          Travel Goshuin
         </div>
-        <div className="mt-24 grid grid-cols-4 gap-4 gap-y-10 overflow-y-scroll">
+        <Link href={`/profile`}>
+          <ArrowUturnLeftIcon className="h-6 w-6 text-warmGrey3" />
+        </Link>
+      </div>
+      <div className="mt-12 flex-grow overflow-y-scroll">
+        <div className="grid grid-cols-4 gap-4 gap-y-10">
           {goshuinList.map((goshuin, index) =>
             goshuin ? (
               <div
@@ -71,8 +71,10 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({ goshuin }) => {
           )}
         </div>
       </div>
-      <div className="mt-10 flex w-full cursor-not-allowed items-center justify-center rounded-full border-2 border-white bg-warmGrey3 py-3 text-sm font-bold tracking-wider text-charcoal">
-        Coming Soon!
+      <div className="mt-4 flex w-full justify-center">
+        <div className="w-full cursor-not-allowed rounded-full border-2 border-white bg-warmGrey3 py-3 text-center text-sm font-bold tracking-wider text-charcoal">
+          Coming Soon!
+        </div>
       </div>
     </div>
   );
