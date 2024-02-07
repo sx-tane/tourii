@@ -9,15 +9,14 @@ import NFTInfo from "@/components/profile/nft/NftInfo";
 import { profile1 } from "@/lib/data/user/profile1";
 import { type NextPage } from "next";
 
-interface ProfileProps {
-  profileNFT?: NFT[];
-  userProfile: UserProfile;
-}
+// interface ProfileProps {
+//   userProfile: UserProfile;
+// }
 
-const Profile: NextPage<ProfileProps> = ({
-  profileNFT = profile1.nft,
-  userProfile = profile1,
-}) => {
+const Profile: NextPage = () => {
+  const userProfile: UserProfile = profile1;
+  const profileNFT = userProfile.nft;
+
   const [selectedNFT, setSelectedNFT] = useState<NFT | undefined>(
     profileNFT?.[0],
   );
