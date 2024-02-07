@@ -27,6 +27,7 @@ export interface TravelGoshuinReservation {
   gohsuinId: string;
   reservationDate: string;
   reservationTime: string;
+  name: string;
   email: string;
   contactNumber: string;
   reservationStatus: string;

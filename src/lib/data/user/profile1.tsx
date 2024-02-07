@@ -115,7 +115,7 @@ export const profile1TravelGoshuin: TravelGoshuin[] = [
     goshuinRedeemDate: "",
     goshuinDescription: `Discover the unique culinary delight of \"紅茶いのしし\" (Tea-Flavored Wild Boar) in Bungo Ono, a local delicacy that marries the robust flavors of game meat with the refined, aromatic notes of locally produced tea. This innovative dish is the brainchild of two skilled sisters, hunters who expertly capture and process the wild boar, then masterfully simmer it with tea to create a flavor profile that is both bold and nuanced. Available at popular destinations such as \"Michi-no-Eki Asaji\" and \"Michi-no-Eki Oono,\" Tea-Flavored Wild Boar has captured the hearts and palates of locals and visitors alike, making it a must-try for those seeking to explore the depth of regional Japanese cuisine. This dish not only offers a taste of Bungo Ono's rich culinary heritage but also highlights the local commitment to sustainable and innovative food practices.`,
     perksImage: "/image/profile/goshuin/perks/perks3.jpg",
-    redeemed: true,
+    redeemed: false,
   },
 ];
 

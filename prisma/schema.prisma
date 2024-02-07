@@ -52,12 +52,15 @@ model CartItem {
 }
 
 model GoshuinReservation {
-  gohsuinId         String   @id
+  reservationId     Int      @id @default(autoincrement())
+  goshuinId         String
   goshuinName       String
-  reservationDate   DateTime
-  reservationTime   DateTime
+  name              String
+  reservationDate   String
+  reservationTime   String
   redemptionDate    DateTime
   email             String
   contactNumber     String
   reservationStatus String
+  createdAt         DateTime @default(now())
 }
