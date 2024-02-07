@@ -1,0 +1,41 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// PurchaseData model for Experience
+model ExperiencePurchase {
+  id            Int        @id @default(autoincrement())
+  participants  Int
+  date          DateTime?
+  totalPurchase Int
+  cartItems     CartItem[]
+  createdAt     DateTime   @default(now())
+}
+
+// PurchaseData model for Merchandise
+model MerchandisePurchase {
+  id            Int        @id @default(autoincrement())
+  itemNumber    Int
+  deliveryDate  DateTime?
+  totalPurchase Int
+  cartItems     CartItem[]
+  createdAt     DateTime   @default(now())
+}
+
+// CartItem model
+model CartItem {
+  id                    Int                  @id @default(autoincrement())
+  createdAt             DateTime             @default(now())
+  productId             String
+  productName           String
+  experiencePurchase    ExperiencePurchase?  @relation(fields: [experiencePurchaseId], references: [id])
+  experiencePurchaseId  Int?
+  merchandisePurchase   MerchandisePurchase? @relation(fields: [merchandisePurchaseId], references: [id])
+  merchandisePurchaseId Int?
+}

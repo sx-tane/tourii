@@ -19,20 +19,22 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   purchaseData,
 }) => {
   const { addToCart } = useCart();
-
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const productWithDetails: CartItem = {
       product, // the product details
       purchaseData, // the purchase-specific details
     };
+
+    // Add to local cart context
     addToCart(productWithDetails);
+
+    // Show success notification
     toast("", {
       description: `${product.name} has been entrusted to your Kinchaku.`,
       style: {
         backgroundColor: "#21211b",
         color: "#e3e3dc",
       },
-      // TODO: make this button sync to check out
       action: {
         label: "Kinchaku",
         onClick: () => {
@@ -40,6 +42,38 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
         },
       },
     });
+
+    const cartItemData = {
+      product: {
+        productId: product.productId,
+        productName: product.name,
+      },
+      purchaseData: {
+        purchaseType: purchaseData.purchaseType,
+        details: purchaseData.details,
+        totalPurchase: purchaseData.totalPurchase,
+      },
+    };
+
+    // Send the details to the backend
+    try {
+      const response = await fetch("/api/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItemData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Added to cart:", result);
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
+    }
 
     console.log("Product with details:", productWithDetails);
   };
