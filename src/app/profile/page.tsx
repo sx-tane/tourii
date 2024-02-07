@@ -3,95 +3,47 @@
 import { useState } from "react";
 import UserProfileCard from "@/components/profile/UserProfileCard";
 import TravelGoshuinCollection from "@/components/profile/goshuin/TravelGoshuinCollection";
-import { profile1, profile1NFT } from "@/lib/data/user/profile1";
-import { type NextPage } from "next";
-import Image from "next/image";
+import { type UserProfile, type NFT } from "@/types/interfaceProfile"; // Import your types
+import NFTSelection from "@/components/profile/nft/NftSelector";
+import NFTInfo from "@/components/profile/nft/NftInfo";
+import { profile1 } from "@/lib/data/user/profile1";
 
-const Profile: NextPage = () => {
-  const [selectedNFT, setSelectedNFT] = useState(profile1NFT[0]);
+interface ProfileProps {
+  profileNFT?: NFT[];
+  userProfile: UserProfile;
+}
+
+const Profile: React.FC<ProfileProps> = ({
+  profileNFT = profile1.nft,
+  userProfile = profile1,
+}) => {
+  const [selectedNFT, setSelectedNFT] = useState<NFT | undefined>(
+    profileNFT?.[0],
+  );
 
   const handleNFTChange = (nftId: string) => {
-    const newSelectedNFT = profile1NFT.find((nft) => nft.nftId === nftId);
+    const newSelectedNFT = profileNFT?.find((nft) => nft.nftId === nftId);
     setSelectedNFT(newSelectedNFT);
   };
 
   // Create an array of length 6 filled with NFTs and placeholders
-  const nftList = new Array(6).fill(undefined);
-  for (let i = 0; i < profile1NFT.length; i++) {
-    nftList[i] = profile1NFT[i];
-  }
+  const nftList = profileNFT
+    ? new Array(6).fill(undefined).map((_, index) => profileNFT[index])
+    : new Array(6).fill(undefined);
 
   return (
     <div className="absolute right-0 flex h-[90vh] w-[95vw] space-x-2 ">
       <div className="flex w-1/4 flex-col space-y-2">
-        <UserProfileCard userProfile={profile1} />
-        <TravelGoshuinCollection userProfile={profile1} />
+        <UserProfileCard userProfile={userProfile} />
+        <TravelGoshuinCollection userProfile={userProfile} />
       </div>
-      <div className="flex w-3/4 flex-col justify-between rounded-xl bg-warmGrey px-8 pt-8">
-        <div className="text-xs font-bold uppercase tracking-wider text-red">
-          NFT & Collectibles
-        </div>
-        <div className="mt-20 flex h-4/6 w-full">
-          <div className=" mr-96 h-full w-1/2">
-            <div className="text-sm font-semibold uppercase tracking-widest text-red">
-              tourii
-            </div>
-            <div className="pt-2 text-8xl font-normal uppercase tracking-tight text-red">
-              {selectedNFT?.nftId ?? ""}
-            </div>
-            <div className="pt-2 font-semibold tracking-tight text-red">
-              <div className="flex h-[70px] w-[70px] flex-col items-center justify-center rounded-full border border-red">
-                <div className="text-center text-xs">Rarity</div>
-                <div className="text-center text-lg">
-                  {selectedNFT?.nftRarity ?? ""}
-                </div>
-              </div>
-            </div>
-            {/*RACE*/}
-            <div className="flex items-center justify-center text-sm font-bold tracking-wider text-charcoal">
-              <span className="mx-4">Race</span>
-              <div className="w-full  border-t-2 border-charcoal" />
-              <span className="mx-4">{selectedNFT?.nftDescription?.race}</span>
-            </div>
-          </div>
-          <div className="flex h-full w-1/2 bg-blue-400"></div>
-        </div>
-        <div className="mt-10 flex h-1/3 items-center">
-          {/* Left Arrow */}
-          <Image
-            src="/image/about/left.svg"
-            alt="left"
-            width={20}
-            height={20}
-            priority={true}
-          />
-          <div className="mx-12 grid w-full grid-cols-6 items-center justify-items-center gap-12">
-            {nftList.map((nft, index) =>
-              nft ? (
-                <Image
-                  key={nft.nftId}
-                  src={nft.nftImage}
-                  alt={nft.nftId}
-                  width={100}
-                  height={100}
-                  onClick={() => handleNFTChange(nft.nftId)}
-                  className={`h-auto w-full cursor-pointer rounded-xl transition-all duration-300 hover:scale-110 ${selectedNFT?.nftId === nft.nftId ? " border-4 border-white transition-all" : ""}`}
-                />
-              ) : (
-                <div
-                  key={index}
-                  className="h-full w-full rounded-xl bg-warmGrey3 shadow-inner"
-                />
-              ),
-            )}
-          </div>
-          {/* Right Arrow */}
-          <Image
-            src="/image/about/right.svg"
-            alt="left"
-            width={20}
-            height={20}
-            priority={true}
+      <div className="flex w-3/4 flex-col justify-between rounded-s-xl bg-warmGrey px-8 pt-8">
+        <div className="h-full w-full">
+          <NFTInfo selectedNFT={selectedNFT} />
+          <NFTSelection
+            nftList={nftList}
+            selectedNFT={selectedNFT}
+            handleNFTChange={handleNFTChange}
           />
         </div>
       </div>

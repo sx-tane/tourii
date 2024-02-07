@@ -31,13 +31,11 @@ const Route: NextPage<Props> = ({ params }) => {
         const foundModelRoute = modelRouteData.find(
           (p) => p.modelRouteId === params.modelRouteId,
         );
-        setModelRoute(
-          foundModelRoute
-            ? {
-                ...foundModelRoute,
-              }
-            : null,
-        );
+        if (foundModelRoute) {
+          setModelRoute(foundModelRoute);
+        } else {
+          setModelRoute(null);
+        }
       } catch (e) {
         setError("Failed to fetch model route data"); // Set the error state
       } finally {
