@@ -7,13 +7,14 @@ import { type UserProfile, type NFT } from "@/types/interfaceProfile"; // Import
 import NFTSelection from "@/components/profile/nft/NftSelector";
 import NFTInfo from "@/components/profile/nft/NftInfo";
 import { profile1 } from "@/lib/data/user/profile1";
+import { type NextPage } from "next";
 
 interface ProfileProps {
   profileNFT?: NFT[];
   userProfile: UserProfile;
 }
 
-const Profile: React.FC<ProfileProps> = ({
+const Profile: NextPage<ProfileProps> = ({
   profileNFT = profile1.nft,
   userProfile = profile1,
 }) => {
