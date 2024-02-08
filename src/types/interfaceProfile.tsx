@@ -17,9 +17,19 @@ export interface TravelGoshuin {
   goshuinLocation: string;
   goshuinDate: string;
   goshuinExpiryDate: string;
+  goshuinRedeemDate: string;
   goshuinDescription: string;
   perksImage: string;
   redeemed: boolean;
+}
+
+export interface TravelGoshuinReservation {
+  gohsuinId: string;
+  reservationDate: string;
+  reservationTime: string;
+  email: string;
+  contactNumber: string;
+  reservationStatus: string;
 }
 
 export interface NFT {

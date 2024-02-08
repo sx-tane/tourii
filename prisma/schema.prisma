@@ -1,6 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -9,14 +9,14 @@ generator client {
 
 // Product model
 model Product {
-  productId     String   @id
-  name          String
-  description   String?
-  image         String
-  price         Int
-  productType   String?
-  bungoOnoArea  String?
-  areaColor     String?
+  productId    String  @id
+  name         String
+  description  String?
+  image        String
+  price        Int
+  productType  String?
+  bungoOnoArea String?
+  areaColor    String?
 }
 
 // PurchaseData model for Experience
@@ -51,3 +51,13 @@ model CartItem {
   merchandisePurchaseId Int?
 }
 
+model GoshuinReservation {
+  gohsuinId         String   @id
+  goshuinName       String
+  reservationDate   DateTime
+  reservationTime   DateTime
+  redemptionDate    DateTime
+  email             String
+  contactNumber     String
+  reservationStatus String
+}
