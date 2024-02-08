@@ -7,11 +7,10 @@ const MainImage: React.FC = () => {
       <Image
         src="/image/homepage/tourii_main.png"
         alt="main art"
-        layout="responsive"
         width={700}
         height={700}
         quality={100}
-        className="z-20 rounded-full object-cover"
+        className="z-20 h-full w-full rounded-full object-cover"
         priority={true}
       />
     </div>

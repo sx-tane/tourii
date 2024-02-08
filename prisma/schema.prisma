@@ -1,0 +1,66 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Product model
+model Product {
+  productId    String  @id
+  name         String
+  description  String?
+  image        String
+  price        Int
+  productType  String?
+  bungoOnoArea String?
+  areaColor    String?
+}
+
+// PurchaseData model for Experience
+model ExperiencePurchase {
+  id            Int        @id @default(autoincrement())
+  participants  Int
+  date          DateTime?
+  totalPurchase Int
+  cartItems     CartItem[]
+  createdAt     DateTime   @default(now())
+}
+
+// PurchaseData model for Merchandise
+model MerchandisePurchase {
+  id            Int        @id @default(autoincrement())
+  itemNumber    Int
+  deliveryDate  DateTime?
+  totalPurchase Int
+  cartItems     CartItem[]
+  createdAt     DateTime   @default(now())
+}
+
+// CartItem model
+model CartItem {
+  id                    Int                  @id @default(autoincrement())
+  createdAt             DateTime             @default(now())
+  productId             String
+  productName           String
+  experiencePurchase    ExperiencePurchase?  @relation(fields: [experiencePurchaseId], references: [id])
+  experiencePurchaseId  Int?
+  merchandisePurchase   MerchandisePurchase? @relation(fields: [merchandisePurchaseId], references: [id])
+  merchandisePurchaseId Int?
+}
+
+model GoshuinReservation {
+  reservationId     Int      @id @default(autoincrement())
+  goshuinId         String
+  goshuinName       String
+  name              String
+  reservationDate   String
+  reservationTime   String
+  redemptionDate    DateTime
+  email             String
+  contactNumber     String
+  reservationStatus String
+  createdAt         DateTime @default(now())
+}

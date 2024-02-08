@@ -46,7 +46,7 @@ export const productsData: Product[] = [
       bungoOnoArea: "Kiyokawa",
       bungoOnoAreaColor: "#0E6EB8",
     },
-    price: 2500,
+    price: 1500,
   },
   {
     productId: generateProductId(),
@@ -154,7 +154,7 @@ export const productsData: Product[] = [
       bungoOnoArea: "Asaji",
       bungoOnoAreaColor: "#C30E23",
     },
-    price: 1000,
+    price: 3500,
   },
   {
     productId: generateProductId(),
@@ -167,7 +167,7 @@ export const productsData: Product[] = [
       bungoOnoArea: "Asaji",
       bungoOnoAreaColor: "#C30E23",
     },
-    price: 1000,
+    price: 5000,
   },
   {
     productId: generateProductId(),
@@ -1050,66 +1050,6 @@ export const productsData: Product[] = [
   },
   {
     productId: generateProductId(),
-    name: "Lodge Kiyokawa Pack Rafting",
-    description: "Price per hour",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#0E6EB8",
-    },
-    price: 2000,
-  },
-  {
-    productId: generateProductId(),
-    name: "Lodge Kiyokawa Pack Rafting",
-    description: "Price per hour",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#0E6EB8",
-    },
-    price: 2000,
-  },
-  {
-    productId: generateProductId(),
-    name: "Lodge Kiyokawa River Fishing",
-    description: "April to November",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#0E6EB8",
-    },
-    price: 1000,
-  },
-  {
-    productId: generateProductId(),
-    name: "Lodge Kiyokawa Tent Sauna",
-    description: "Price per guest",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#0E6EB8",
-    },
-    price: 1500,
-  },
-  {
-    productId: generateProductId(),
-    name: "Lodge Kiyokawa Tent Sauna",
-    description: "Price per guest",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Kiyokawa",
-      bungoOnoAreaColor: "#0E6EB8",
-    },
-    price: 1500,
-  },
-  {
-    productId: generateProductId(),
     name: "Inazumi Underwater Cave Snorkeling",
     description: "Equipment included. Price per guest",
     image: "/image/about/tourii_main.png",
@@ -1122,18 +1062,6 @@ export const productsData: Product[] = [
   },
   {
     productId: generateProductId(),
-    name: "Inazumi Underwater Cave Tent Sauna (with cave admission)",
-    description: "Price per guest. JPY 5500 per additional guest",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Mie",
-      bungoOnoAreaColor: "#920883",
-    },
-    price: 9000,
-  },
-  {
-    productId: generateProductId(),
     name: "Harajiri Waterfall Station Restaurant Shira-taki",
     description: "Waterfall Basket Meal",
     image: "/image/about/tourii_main.png",
@@ -1143,32 +1071,6 @@ export const productsData: Product[] = [
       bungoOnoAreaColor: "#920883",
     },
     price: 1600,
-  },
-  {
-    productId: generateProductId(),
-    name: "Rice Cooking Experience Kamado Rice Cooking",
-    description:
-      "Consult for groups of 4+. Price per guest (for 2 or more guests)",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Mie",
-      bungoOnoAreaColor: "#920883",
-    },
-    price: 5000,
-  },
-  {
-    productId: generateProductId(),
-    name: "Special Tours (Meditation Tours) Sato no Tabi Agency (里の旅公社) Fukokoji Temple Experience (普光寺)",
-    description:
-      "Custom Tour Package. Guided Experience. Tea and souvenirs included. Bookings via travel agencies recommended",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Mie",
-      bungoOnoAreaColor: "#920883",
-    },
-    price: 3500,
   },
   {
     productId: generateProductId(),

@@ -39,6 +39,7 @@ export const navigationSignedIn: NavItem[] = [
       { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
     ],
   },
+  { href: "/profile", label: "PROFILE" },
   // { href: "/login", label: "CONNECT" },
 ];
 

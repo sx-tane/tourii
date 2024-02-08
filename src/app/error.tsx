@@ -23,7 +23,7 @@ const Error: React.FC = () => {
         <h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
           404 ERROR
         </h1>
-        <h2 className="text-center text-base font-bold uppercase tracking-wider text-charcoal md:text-lg">
+        <h2 className="text-center text-base font-bold uppercase tracking-wider text-warmGrey md:text-lg">
           Ninigi's mirror appears to have been left behind in this place.
         </h2>
       </div>
