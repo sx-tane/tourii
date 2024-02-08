@@ -11,9 +11,15 @@ import Image from "next/image";
 
 interface GoshuinGridProps {
   goshuin: TravelGoshuin[];
+  selectedGoshuin: TravelGoshuin | undefined;
+  handleGoshuinChange: (goshuinId: string) => void;
 }
 
-const GoshuinGrid: React.FC<GoshuinGridProps> = ({ goshuin }) => {
+const GoshuinGrid: React.FC<GoshuinGridProps> = ({
+  goshuin,
+  selectedGoshuin,
+  handleGoshuinChange,
+}) => {
   const goshuinList = goshuin
     ? new Array(24).fill(undefined).map((_, index) => goshuin[index])
     : new Array(24).fill(undefined);
@@ -33,7 +39,7 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({ goshuin }) => {
             goshuin ? (
               <div
                 key={goshuin.goshuinId}
-                className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-white"
+                className={`flex h-20 w-20 cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-white ${selectedGoshuin?.goshuinId === goshuin?.goshuinId ? " bg-white transition-all" : ""} `}
               >
                 <HoverCard>
                   <HoverCardTrigger asChild>
@@ -43,7 +49,8 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({ goshuin }) => {
                         alt={goshuin.goshuinName}
                         width={64}
                         height={64}
-                        className="h-16 w-16 rounded-full"
+                        onClick={() => handleGoshuinChange(goshuin.goshuinId)}
+                        className={`h-16 w-16 rounded-full`}
                       />
                     </div>
                   </HoverCardTrigger>

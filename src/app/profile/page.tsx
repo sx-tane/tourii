@@ -32,7 +32,7 @@ const Profile: NextPage = () => {
     : new Array(6).fill(undefined);
 
   return (
-    <div className="absolute right-0 flex h-[90vh] w-[95vw] space-x-2 ">
+    <div className="absolute right-0 flex h-[90vh] w-[95vw] animate-fadeIn space-x-2">
       <div className="flex w-1/4 flex-col space-y-2">
         <UserProfileCard userProfile={userProfile} />
         <TravelGoshuinCollection userProfile={userProfile} />

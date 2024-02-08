@@ -4,6 +4,7 @@ import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import GoshuinGrid from "@/components/profile/goshuin/GoshuinCard/GoshuinGrid";
+import GoshuinInfo from "@/components/profile/goshuin/GoshuinCard/GoshuinInfo";
 import { profileList } from "@/lib/data/user/profileList";
 import { TravelGoshuin } from "@/types/interfaceProfile";
 import { type NextPage } from "next";
@@ -20,6 +21,13 @@ const TravelGoshuin: NextPage<Props> = ({ params }) => {
   const [goshuin, setGoshuin] = useState<TravelGoshuin[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null); // State to hold any errors
+  const [selectedGoshuin, setSelectedGoshuin] = useState<
+    TravelGoshuin | undefined
+  >(undefined);
+  const handleGoshuinChange = (goshuinId: string) => {
+    const newSelectedGoshuin = goshuin?.find((g) => g.goshuinId === goshuinId);
+    setSelectedGoshuin(newSelectedGoshuin ?? undefined);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +38,7 @@ const TravelGoshuin: NextPage<Props> = ({ params }) => {
         );
         if (foundUser?.travelGoshuin) {
           setGoshuin(foundUser.travelGoshuin); // set directly to the goshuin array
+          setSelectedGoshuin(foundUser.travelGoshuin[0]); // Select the first goshuin by default
         } else {
           setGoshuin(null); // or handle this scenario appropriately
         }
@@ -70,28 +79,16 @@ const TravelGoshuin: NextPage<Props> = ({ params }) => {
 
   return (
     <div className="absolute right-0 flex h-[90vh] w-[95vw] animate-fadeIn rounded-s-xl bg-warmGrey ">
-      <GoshuinGrid goshuin={goshuin} />
+      <GoshuinGrid
+        goshuin={goshuin}
+        selectedGoshuin={selectedGoshuin}
+        handleGoshuinChange={handleGoshuinChange}
+      />
       <div className="flex h-full w-2/3 border-l-2 border-red">
-        <div className="h-full w-8/12"></div>
-        <div className="h-full w-4/12 bg-slate-600">
-          <Image
-            src={"/image/profile/goshuin/perks/perks1.jpg"}
-            alt="perks"
-            width={1000}
-            height={1000}
-            priority={true}
-            className="aspect-square h-full w-full object-cover"
-          />
-        </div>
+        <GoshuinInfo goshuin={selectedGoshuin} />
       </div>
     </div>
   );
 };
 
 export default TravelGoshuin;
-
-/* {goshuin?.map((goshuin) => (
-        <div key={goshuin.goshuinId} className="text-charcoal">
-          {goshuin.goshuinId}
-        </div>
-      ))} */
