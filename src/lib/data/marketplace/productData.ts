@@ -1050,18 +1050,6 @@ export const productsData: Product[] = [
   },
   {
     productId: generateProductId(),
-    name: "Inazumi Underwater Cave Snorkeling",
-    description: "Equipment included. Price per guest",
-    image: "/image/about/tourii_main.png",
-    category: {
-      productType: "Experience",
-      bungoOnoArea: "Mie",
-      bungoOnoAreaColor: "#920883",
-    },
-    price: 7500,
-  },
-  {
-    productId: generateProductId(),
     name: "Harajiri Waterfall Station Restaurant Shira-taki",
     description: "Waterfall Basket Meal",
     image: "/image/about/tourii_main.png",
@@ -1074,21 +1062,21 @@ export const productsData: Product[] = [
   },
   {
     productId: generateProductId(),
-    name: "Local Products Pricing - Bungo Ono Station Shiitake Mushrooms",
+    name: "Bungo Ono Shiitake Mushrooms",
     description: "Highest priced item",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/merchandise/shiitake.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",
       bungoOnoAreaColor: "#920883",
     },
-    price: 2000,
+    price: 1500,
   },
   {
     productId: generateProductId(),
-    name: "Local Products Pricing - Bungo Ono Station Shiitake Mushrooms",
+    name: "Bungo Ono Shiitake Mushrooms",
     description: "Premium range",
-    image: "/image/about/tourii_main.png",
+    image: "/image/bonjin-bazaar/merchandise/shiitake-high.png",
     category: {
       productType: "Experience",
       bungoOnoArea: "Mie",

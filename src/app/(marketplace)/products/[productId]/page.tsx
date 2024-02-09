@@ -95,8 +95,8 @@ const ProductPage: NextPage<Props> = withPageAuthRequired(
 
     return (
       <div>
-        <div className="mx-10 flex flex-col items-center justify-center transition-all duration-300">
-          <div className="flex items-center justify-center">
+        <div className="mx-auto flex w-11/12 flex-col items-center justify-center transition-all duration-300">
+          <div className="flex w-full items-center justify-center">
             <div className="w-1/2 p-24">
               <ProductImage
                 image={defaultProduct.image}
