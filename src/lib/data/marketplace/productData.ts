@@ -1066,7 +1066,7 @@ export const productsData: Product[] = [
     description: "Highest priced item",
     image: "/image/bonjin-bazaar/merchandise/shiitake.png",
     category: {
-      productType: "Experience",
+      productType: "Merchandise",
       bungoOnoArea: "Mie",
       bungoOnoAreaColor: "#920883",
     },
@@ -1078,7 +1078,7 @@ export const productsData: Product[] = [
     description: "Premium range",
     image: "/image/bonjin-bazaar/merchandise/shiitake-high.png",
     category: {
-      productType: "Experience",
+      productType: "Merchandise",
       bungoOnoArea: "Mie",
       bungoOnoAreaColor: "#920883",
     },
