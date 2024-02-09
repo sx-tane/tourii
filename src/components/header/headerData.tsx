@@ -60,6 +60,7 @@ export const hamburgerNavigationSignedIn: NavItem[] = [
   { href: "/touriiverse", label: "STORY" },
   { href: "/model-route", label: "MODEL ROUTE" },
   { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+  { href: "/profile", label: "PROFILE" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   {
     href: "https://discord.com/invite/SAuAgYtCcr",
