@@ -51,7 +51,7 @@ const HeaderListBlack: React.FC = () => {
             return item.dropdown ? (
               <div key={item.href} className="relative">
                 <motion.button
-                  className={`relative text-sm font-semibold tracking-widest text-warmGrey3  ${
+                  className={`relative text-xs font-semibold tracking-widest text-warmGrey3  ${
                     pathname === item.href ? "active" : ""
                   }`}
                   onClick={() => toggleDropdown(item.href)}
@@ -75,7 +75,7 @@ const HeaderListBlack: React.FC = () => {
                 <Link
                   href={item.href}
                   passHref
-                  className={`text-sm font-semibold tracking-widest text-warmGrey3 ${
+                  className={`relative text-xs font-semibold tracking-widest text-warmGrey3 ${
                     pathname === item.href ? "active" : ""
                   }`}
                 >
@@ -101,7 +101,7 @@ const HeaderListBlack: React.FC = () => {
               return item.dropdown ? (
                 <div key={item.href} className="relative">
                   <motion.button
-                    className={`relative text-sm font-semibold tracking-widest text-warmGrey3  ${
+                    className={`relative text-xs font-semibold tracking-widest text-warmGrey3  ${
                       pathname === item.href ? "active" : ""
                     }`}
                     onClick={() => toggleDropdown(item.href)}
@@ -125,7 +125,7 @@ const HeaderListBlack: React.FC = () => {
                   <Link
                     href={item.href}
                     passHref
-                    className={`text-sm font-semibold tracking-widest text-warmGrey3 ${
+                    className={`relative text-xs font-semibold tracking-widest text-warmGrey3 ${
                       pathname === item.href ? "active" : ""
                     }`}
                   >

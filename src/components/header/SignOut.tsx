@@ -11,7 +11,7 @@ const SignOut = ({
     <div>
       <Link
         href="/api/auth/logout"
-        className={`rounded-lg border-[1.5px] border-${textColor} px-2 py-2 text-xs font-semibold uppercase text-${textColor} transition-all duration-300 hover:bg-${textColor} hover:text-${hoverTextColor}`}
+        className={`rounded-lg border border-${textColor} px-2 py-1 text-xs font-semibold uppercase text-${textColor} transition-all duration-300 hover:bg-${textColor} hover:text-${hoverTextColor}`}
       >
         Sign out
       </Link>

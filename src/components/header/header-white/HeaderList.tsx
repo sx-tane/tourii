@@ -49,7 +49,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
             return item.dropdown ? (
               <div key={index} className="relative">
                 <motion.button
-                  className={`relative text-sm font-semibold tracking-widest text-${textColor}  ${
+                  className={`relative text-xs font-semibold tracking-widest text-${textColor}  ${
                     pathname === item.href ? "active" : ""
                   }`}
                   onClick={() => toggleDropdown(item.href)}
@@ -73,7 +73,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
                 <Link
                   href={item.href}
                   passHref
-                  className={`text-sm font-semibold tracking-widest text-${textColor} ${
+                  className={`relative text-xs font-semibold tracking-widest text-${textColor} ${
                     pathname === item.href ? "active" : ""
                   }`}
                 >
@@ -99,7 +99,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
               return item.dropdown ? (
                 <div key={index} className="relative">
                   <motion.button
-                    className={`relative text-sm font-semibold tracking-widest text-${textColor}  ${
+                    className={`relative text-xs font-semibold tracking-widest text-${textColor}  ${
                       pathname === item.href ? "active" : ""
                     }`}
                     onClick={() => toggleDropdown(item.href)}
@@ -123,7 +123,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
                   <Link
                     href={item.href}
                     passHref
-                    className={`text-sm font-semibold tracking-widest text-${textColor} ${
+                    className={`relative text-xs font-semibold tracking-widest text-${textColor} ${
                       pathname === item.href ? "active" : ""
                     }`}
                   >
