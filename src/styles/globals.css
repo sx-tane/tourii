@@ -30,7 +30,7 @@
   
 .header-nav a .upperline, .header-nav button .upperline {
   position: absolute;
-  top: -5px;
+  top: -8px;
   height: 2px;
   background-color: transparent;
   transition: background-color 0.3s, width 0.3s ease-in-out;
@@ -50,7 +50,7 @@
   
 .header-nav-black a .upperline, .header-nav-black button .upperline {
   position: absolute;
-  top: -5px;
+  top: -8px;
   height: 2px;
   background-color: transparent;
   transition: background-color 0.3s, width 0.3s ease-in-out;
