@@ -5,7 +5,7 @@ import ChapterSelectionButton from "@/components/touriiverse/chapter/ChapterSele
 import IntroComponent from "@/components/touriiverse/chapter/IntroComponent";
 import {
   bungoOnoChapterData,
-  chapterSelectionData,
+  bungoOnoChapterSelectionData,
 } from "@/lib/data/story/chapterData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence } from "framer-motion";
@@ -18,7 +18,9 @@ const BungoOno: NextPage = () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return savedChapter ? JSON.parse(savedChapter) : bungoOnoChapterData[0];
   });
-  const [selectionData, setSelectionData] = useState(chapterSelectionData);
+  const [selectionData, setSelectionData] = useState(
+    bungoOnoChapterSelectionData,
+  );
 
   const handleSelectChapter = (selectedChapterId: string) => {
     let chapter;

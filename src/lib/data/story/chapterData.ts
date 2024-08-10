@@ -8,9 +8,9 @@ function generatePrologueChapterId() {
   return `prologueChapterId${numberPrologue}`;
 }
 
-function generateChapterId() {
+function generateBungoOnoChapterId() {
   numberChapter = numberChapter + 1;
-  return `chapterId${numberChapter}`;
+  return `bungoOnoChapterId${numberChapter}`;
 }
 
 export const prologueChapterData: Chapter = {
@@ -29,7 +29,7 @@ const bungoOnoArea = "Bungo Ono";
 
 export const bungoOnoChapterData: Chapter[] = [
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     chapterNumber: "Intro",
@@ -40,7 +40,7 @@ export const bungoOnoChapterData: Chapter[] = [
       "In the mystical Touriiverse, Bungo Ono emerges as a land where ancient Japanese legends and ethereal beauty coalesce. Here, amidst the tranquil bamboo groves and the Harajiri Falls' majestic cascade, the city whispers tales of celestial beings and earthly spirits. This enchanting region, steeped in the ancient Kojiki's lore, invites seekers and dreamers to explore its hallowed grounds. In 2024, Bungo Ono stands as a testament to the harmonious blend of tradition and modernity, where time-honored customs and contemporary life intertwine seamlessly. Visitors are captivated by the city's cultural depth, from its legendary Manano Chojya to the mystical yokai that roam its landscapes. Every corner of Bungo Ono, from the Inazumi Underwater Limestone Cave to the vibrant Hakusan River, tells a story of time's passage and the enduring legacy of myth. Here, the past is not just remembered but vividly alive, inviting travelers to embark on a journey through a realm where myths are woven into the fabric of everyday life, reshaping our understanding of time and legend.",
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Harajiri Falls",
@@ -54,7 +54,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Ichinomiya Hachiman Shrine",
@@ -68,7 +68,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     placeName: "Ogatamiyasako Stone Buddhas",
     part: 1,
     area: bungoOnoArea,
@@ -82,7 +82,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     placeName: "Ozaki Stone Bath Cave",
     part: 1,
     area: bungoOnoArea,
@@ -96,7 +96,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Lodge Kiyokawa",
@@ -110,7 +110,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Lodge Kiyokawa",
@@ -124,7 +124,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Lodge Kiyokawa",
@@ -138,7 +138,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Udahime Shrine",
@@ -152,7 +152,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Kashima Shrine",
@@ -166,7 +166,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 1,
     area: bungoOnoArea,
     placeName: "Anamori Shrine",
@@ -180,7 +180,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Bungo Ono",
@@ -194,7 +194,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Restaurant Fukujuso",
@@ -208,7 +208,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Fukoji Temple",
@@ -222,7 +222,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Jinkaku-ji",
@@ -236,7 +236,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Eboshi Park",
@@ -250,7 +250,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Muretsuru Sake Brewery",
@@ -264,7 +264,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 2,
     area: bungoOnoArea,
     placeName: "Chinda Waterfall",
@@ -278,7 +278,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Lodge Kiyokawa",
@@ -292,7 +292,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Mitarai Shrine",
@@ -306,7 +306,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Sugao Magaibutsu",
@@ -320,7 +320,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Shibayama Hachimangu Shrine",
@@ -334,7 +334,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Osako Magaibutsu",
@@ -348,7 +348,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Tedorigando",
@@ -362,7 +362,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inukai",
@@ -376,7 +376,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -390,7 +390,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -404,7 +404,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -418,7 +418,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -432,7 +432,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -446,7 +446,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -460,7 +460,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 3,
     area: bungoOnoArea,
     placeName: "Inazumi Cave",
@@ -474,7 +474,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 4,
     area: bungoOnoArea,
     placeName: "Uchida Shrine",
@@ -488,7 +488,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 4,
     area: bungoOnoArea,
     placeName: "Mount Atago",
@@ -502,7 +502,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 4,
     area: bungoOnoArea,
     placeName: "Hyuga",
@@ -516,7 +516,7 @@ export const bungoOnoChapterData: Chapter[] = [
     vnUnlocked: true,
   },
   {
-    chapterId: generateChapterId(),
+    chapterId: generateBungoOnoChapterId(),
     part: 4,
     area: bungoOnoArea,
     placeName: "Omi Shrine",
@@ -531,12 +531,12 @@ export const bungoOnoChapterData: Chapter[] = [
   },
 ];
 
-// chapterSelectionData
+// bungoOnoChapterSelectionData
 
-export const chapterSelectionData: ChapterSelection[] = [];
+export const bungoOnoChapterSelectionData: ChapterSelection[] = [];
 
 for (let i = 1; i <= 35; i++) {
-  chapterSelectionData.push({
+  bungoOnoChapterSelectionData.push({
     selectedChapterId: bungoOnoChapterData[i]?.chapterId,
     chapter: bungoOnoChapterData[i]?.chapterNumber,
     placeName: bungoOnoChapterData[i]?.placeName,

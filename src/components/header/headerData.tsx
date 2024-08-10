@@ -19,7 +19,7 @@ export const navigationSignedOut: NavItem[] = [
     label: "SOCIAL MEDIA",
     dropdown: [
       { href: "https://twitter.com/TouriiJP", label: "X" },
-      { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+      { href: "https://discord.gg/fsyS822VYn", label: "DISCORD" },
     ],
   },
   // { href: "/login", label: "CONNECT"},
@@ -36,7 +36,7 @@ export const navigationSignedIn: NavItem[] = [
     label: "SOCIAL MEDIA",
     dropdown: [
       { href: "https://twitter.com/TouriiJP", label: "X" },
-      { href: "https://discord.com/invite/SAuAgYtCcr", label: "DISCORD" },
+      { href: "https://discord.gg/fsyS822VYn", label: "DISCORD" },
     ],
   },
   { href: "/profile", label: "PROFILE" },
@@ -49,7 +49,7 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
   { href: "/story", label: "STORY" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   {
-    href: "https://discord.com/invite/SAuAgYtCcr",
+    href: "https://discord.gg/fsyS822VYn",
     label: "DISCORD",
   },
 ];
@@ -63,7 +63,7 @@ export const hamburgerNavigationSignedIn: NavItem[] = [
   { href: "/profile", label: "PROFILE" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   {
-    href: "https://discord.com/invite/SAuAgYtCcr",
+    href: "https://discord.gg/fsyS822VYn",
     label: "DISCORD",
   },
 ];
