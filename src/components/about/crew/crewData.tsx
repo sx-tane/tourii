@@ -58,12 +58,12 @@ export const crewData: CrewInfoProps[] = [
     twiiterHandle: "@omotyazukiyasan",
     twitterLink: "https://twitter.com/omotyazukiyasan",
   },
-  {
-    profileImage: "/image/about/crew/tony.png",
-    name: "Tony",
-    title: "Software scientiest",
-    description: "Coding cells for world dominations.",
-    twiiterHandle: "@Tonyxxx1x",
-    twitterLink: "https://twitter.com/Tonyxxx1x",
-  },
+  // {
+  //   profileImage: "/image/about/crew/tony.png",
+  //   name: "Tony",
+  //   title: "Software scientiest",
+  //   description: "Coding cells for world dominations.",
+  //   twiiterHandle: "@Tonyxxx1x",
+  //   twitterLink: "https://twitter.com/Tonyxxx1x",
+  // },
 ];
