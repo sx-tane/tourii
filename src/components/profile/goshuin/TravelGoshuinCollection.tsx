@@ -21,7 +21,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
     <div className="relative flex h-[30%] flex-col justify-between rounded-xl bg-warmGrey p-8">
       <div className="flex items-start justify-between">
         <div className="text-xs font-bold uppercase tracking-wider text-red">
-          Travel Goshuin
+          Goshuin
         </div>
         <Link
           href={`/profile/goshuin/${userProfile.userId}`}

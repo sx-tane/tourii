@@ -1,8 +1,8 @@
 "use client";
 
-import FilterDropdown from "@/components/marketplace/storefront/FilterBar";
-import Pagination from "@/components/marketplace/storefront/Pagination";
-import ProductGrid from "@/components/marketplace/storefront/ProductGrid";
+import FilterDropdown from "redacted/marketplace/marketplace-component/storefront/FilterBar";
+import Pagination from "redacted/marketplace/storefront/Pagination";
+import ProductGrid from "redacted/marketplace/marketplace-component/storefront/ProductGrid";
 import { productsData } from "@/lib/data/marketplace/productData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type NextPage } from "next";

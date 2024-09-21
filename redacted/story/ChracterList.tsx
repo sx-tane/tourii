@@ -2,7 +2,7 @@ import CharacterCard from "./CharacterCard";
 import {
   type CharacterProps,
   characters,
-} from "../../components/story/characterData";
+} from "../../src/components/story/characterData";
 
 const ProtagonistsSection: React.FC<CharacterProps> = () => {
   return (

@@ -6,7 +6,6 @@ import { Montserrat } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { CartProvider } from "@/components/context/CartContext";
 import { Toaster } from "@/lib/ui/toast";
 
 const baseURL = new URL("https://www.tourii.xyz/");
@@ -90,7 +89,7 @@ export default function RootLayout({
       <UserProvider>
         <body>
           <Suspense fallback={<Loading />}>
-            <CartProvider>{children}</CartProvider>
+            {children}
             <Toaster />
             <SpeedInsights />
             <Analytics />

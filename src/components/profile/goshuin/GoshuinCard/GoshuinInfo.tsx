@@ -40,7 +40,7 @@ const GoshuinInfo: React.FC<GoshuinInfoProps> = ({ goshuin }) => {
       ) : null}
       <div className="relative flex h-full w-8/12 flex-col p-8">
         <div className="text-xs font-bold uppercase tracking-wider text-red">
-          perk details
+          goshuin details
         </div>
 
         <div className="mt-20 flex text-lg font-medium tracking-wider">

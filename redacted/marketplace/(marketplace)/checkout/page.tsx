@@ -1,6 +1,6 @@
 "use client";
 
-import CartSummary from "@/components/marketplace/checkout/CartSummary";
+import CartSummary from "redacted/marketplace/marketplace-component/checkout/CartSummary";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type NextPage } from "next";
 

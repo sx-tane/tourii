@@ -5,7 +5,7 @@ import React from "react";
 import Loading from "@/app/loading";
 
 export const metadata: Metadata = {
-  title: "Travel Goshuin | Tourii",
+  title: "Goshuin | Tourii",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

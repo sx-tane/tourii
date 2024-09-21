@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { type NextPage } from "next";
 import { productsData } from "@/lib/data/marketplace/productData";
-import ProductImage from "@/components/marketplace/product/ProductImage";
-import ProductDetails from "@/components/marketplace/product/ProductDetails";
+import ProductImage from "redacted/marketplace/marketplace-component/product/ProductImage";
+import ProductDetails from "redacted/marketplace/marketplace-component/product/ProductDetails";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import { ErrorComponent } from "@/app/error";
-import RelatedProducts from "@/components/marketplace/product/RelatedProduct";
+import RelatedProducts from "redacted/marketplace/marketplace-component/product/RelatedProduct";
 import Divider from "@/components/about/divider-line/Divider";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { type Product } from "@/types/interfaceProduct";

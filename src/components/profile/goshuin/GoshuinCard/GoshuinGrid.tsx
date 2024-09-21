@@ -27,7 +27,7 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({
     <div className="flex h-full w-1/3 flex-col overflow-hidden rounded-s-xl p-8">
       <div className="flex justify-between">
         <div className="text-xs font-bold uppercase tracking-wider text-red">
-          Travel Goshuin
+          Goshuin
         </div>
         <Link href={`/profile`}>
           <ArrowUturnLeftIcon className="h-6 w-6 text-warmGrey3" />

@@ -30,7 +30,8 @@ export const navigationSignedIn: NavItem[] = [
   { href: "/world", label: "WORLD" },
   { href: "/touriiverse", label: "STORY" },
   { href: "/model-route", label: "MODEL ROUTE" },
-  { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+  // { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+  { href: "/profile", label: "PROFILE" },
   {
     href: "/social",
     label: "SOCIAL MEDIA",
@@ -39,7 +40,6 @@ export const navigationSignedIn: NavItem[] = [
       { href: "https://discord.gg/fsyS822VYn", label: "DISCORD" },
     ],
   },
-  { href: "/profile", label: "PROFILE" },
   // { href: "/login", label: "CONNECT" },
 ];
 
@@ -59,7 +59,7 @@ export const hamburgerNavigationSignedIn: NavItem[] = [
   { href: "/world", label: "WORLD" },
   { href: "/touriiverse", label: "STORY" },
   { href: "/model-route", label: "MODEL ROUTE" },
-  { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+  // { href: "/bonjin-bazaar", label: "MARKETPLACE" },
   { href: "/profile", label: "PROFILE" },
   { href: "https://twitter.com/TouriiJP", label: "X" },
   {
