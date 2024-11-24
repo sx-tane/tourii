@@ -31,7 +31,7 @@ function generateChapterId() {
 	if (chapterNumber === 8) {
 		chapterNumber = chapterNumber + 2;
 	}
-	return `chapterId${chapterNumber}`;
+	return `bungoOnoChapterId${chapterNumber}`;
 }
 
 let chapterImageNumber = 0;

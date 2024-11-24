@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "@/app/loading";
-import { CartProvider } from "@/components/context/CartContext";
 import Header from "@/components/header/header-white/Header";
 import type { Metadata } from "next";
 import type React from "react";

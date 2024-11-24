@@ -28,7 +28,7 @@ let chapterNumber = 12;
 
 function generateChapterId() {
 	chapterNumber = chapterNumber + 1;
-	return `chapterId${chapterNumber}`; //reach chapterid 18
+	return `bungoOnoChapterId${chapterNumber}`; //reach chapterid 18
 }
 
 let chapterImageNumber = 11;

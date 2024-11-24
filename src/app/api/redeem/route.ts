@@ -1,29 +1,35 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
-export async function POST(req: Request, res: Response) {
-	const requestGoshuinData = await req.json();
-	console.log(requestGoshuinData);
+// export async function POST(req: Request) {
+//   try {
+//     const requestGoshuinData = await req.json();
 
-	try {
-		// Add the goshuin item
-		const upodatedGoshuin = await prisma.goshuinReservation.create({
-			data: {
-				goshuinId: requestGoshuinData.goshuinId,
-				goshuinName: requestGoshuinData.goshuinName,
-				name: requestGoshuinData.name,
-				reservationDate: requestGoshuinData.reservationDate,
-				reservationTime: requestGoshuinData.reservationTime,
-				contactNumber: requestGoshuinData.contactNumber,
-				redemptionDate: requestGoshuinData.redemptionDate,
-				email: requestGoshuinData.email,
-				reservationStatus: requestGoshuinData.reservationStatus,
-			},
-		});
+//     // Add the goshuin item
+//     const updatedGoshuin = await prisma.goshuinReservation.create({
+//       data: {
+//         goshuinId: requestGoshuinData.goshuinId,
+//         goshuinName: requestGoshuinData.goshuinName,
+//         name: requestGoshuinData.name,
+//         reservationDate: requestGoshuinData.reservationDate,
+//         reservationTime: requestGoshuinData.reservationTime,
+//         contactNumber: requestGoshuinData.contactNumber,
+//         redemptionDate: requestGoshuinData.redemptionDate,
+//         email: requestGoshuinData.email,
+//         reservationStatus: requestGoshuinData.reservationStatus,
+//       },
+//     });
 
-		return Response.json({ goshuinId: upodatedGoshuin.goshuinId });
-	} catch (error) {
-		console.error("Failed to add item to cart:", error);
-	}
-}
+//     return new Response(JSON.stringify({ goshuinId: updatedGoshuin.goshuinId }), {
+//       status: 200,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   } catch (error) {
+//     console.error('Failed to add item to cart:', error);
+//     return new Response(JSON.stringify({ error: 'Failed to add item to cart' }), {
+//       status: 500,
+//       headers: { 'Content-Type': 'application/json' },
+//     });
+//   }
+// }

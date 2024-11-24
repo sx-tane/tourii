@@ -9,15 +9,11 @@ import { profileList } from "@/lib/data/user/profileList";
 import type { TravelGoshuin } from "@/types/interfaceProfile";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type Props = {
-	params: {
-		userId: string;
-	};
-};
-
-const TravelGoshuinPage: NextPage<Props> = ({ params }) => {
+const TravelGoshuinPage: NextPage = () => {
+	const { userId } = useParams();
 	const [goshuin, setGoshuin] = useState<TravelGoshuin[] | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null); // State to hold any errors
@@ -33,9 +29,7 @@ const TravelGoshuinPage: NextPage<Props> = ({ params }) => {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true);
-				const foundUser = profileList.profile.find(
-					(p) => p.userId === params.userId,
-				);
+				const foundUser = profileList.profile.find((p) => p.userId === userId);
 				if (foundUser?.travelGoshuin) {
 					setGoshuin(foundUser.travelGoshuin); // set directly to the goshuin array
 					setSelectedGoshuin(foundUser.travelGoshuin[0]); // Select the first goshuin by default
@@ -51,7 +45,7 @@ const TravelGoshuinPage: NextPage<Props> = ({ params }) => {
 		};
 
 		fetchData().catch((e) => setError(e.message)); // Catch any unhandled errors
-	}, [params.userId]);
+	}, [userId]);
 
 	if (isLoading) {
 		return (

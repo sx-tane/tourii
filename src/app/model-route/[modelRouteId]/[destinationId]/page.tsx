@@ -12,15 +12,11 @@ import type { RouteDestinations } from "@/types/interfaceModelRoute";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type Props = {
-	params: {
-		destinationId: string;
-	};
-};
-
-const VisualNovelModelRoute: React.FC<Props> = ({ params }) => {
+const VisualNovelModelRoute: React.FC = () => {
+	const { destinationId } = useParams(); // Access the dynamic route parameter
 	const [destination, setDestination] = useState<RouteDestinations | null>(
 		null,
 	);
@@ -33,31 +29,33 @@ const VisualNovelModelRoute: React.FC<Props> = ({ params }) => {
 			try {
 				setIsLoading(true);
 
-				const destinationNumber = Number.parseInt(
-					params.destinationId.replace("destination", ""),
-				);
+				const destinationNumber = destinationId
+					? Number.parseInt(
+							(destinationId as string).replace("destination", ""),
+						)
+					: 0;
 
 				let foundDestination: RouteDestinations | undefined;
 				let routeNumber = 1; // Default to "1"
 
 				if (destinationNumber >= 1 && destinationNumber <= 8) {
 					foundDestination = routeDestinations1.find(
-						(p) => p.destinationId === params.destinationId,
+						(p) => p.destinationId === destinationId,
 					);
 					routeNumber = 1;
 				} else if (destinationNumber >= 9 && destinationNumber <= 14) {
 					foundDestination = routeDestinations2.find(
-						(p) => p.destinationId === params.destinationId,
+						(p) => p.destinationId === destinationId,
 					);
 					routeNumber = 2;
 				} else if (destinationNumber >= 15 && destinationNumber <= 21) {
 					foundDestination = routeDestinations3.find(
-						(p) => p.destinationId === params.destinationId,
+						(p) => p.destinationId === destinationId,
 					);
 					routeNumber = 3;
 				} else if (destinationNumber >= 22 && destinationNumber <= 31) {
 					foundDestination = routeDestinations4.find(
-						(p) => p.destinationId === params.destinationId,
+						(p) => p.destinationId === destinationId,
 					);
 					routeNumber = 4;
 				}
@@ -78,7 +76,7 @@ const VisualNovelModelRoute: React.FC<Props> = ({ params }) => {
 		};
 
 		fetchData().catch((e) => setError(e.message)); // Catch any unhandled errors
-	}, [params.destinationId]);
+	}, [destinationId]);
 
 	if (isLoading) {
 		return (

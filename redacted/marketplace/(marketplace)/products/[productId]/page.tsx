@@ -9,9 +9,9 @@ import type { Product } from "@/types/interfaceProduct";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import ProductDetails from "redacted/marketplace/marketplace-component/product/ProductDetails";
-import ProductImage from "redacted/marketplace/marketplace-component/product/ProductImage";
-import RelatedProducts from "redacted/marketplace/marketplace-component/product/RelatedProduct";
+import ProductDetails from "@/components/marketplace-component/product/ProductDetails";
+import ProductImage from "@/components/marketplace-component/product/ProductImage";
+import RelatedProducts from "@/components/marketplace-component/product/RelatedProduct";
 
 type Props = {
 	params: {
