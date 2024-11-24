@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/components/context/CartContext";
+import { useCart } from "redacted/marketplace/marketplace-api/cart/CartContext";
 
 const CartSummary: React.FC = () => {
 	const { cartItems } = useCart();
@@ -12,8 +12,8 @@ const CartSummary: React.FC = () => {
 	return (
 		<div>
 			<h2>Cart Summary</h2>
-			{cartItems?.map((item, index) => (
-				<div key={index}>
+			{cartItems?.map((item) => (
+				<div key={item.product.productId}>
 					<p>
 						{item.product.name} - ${item.product.price}
 					</p>

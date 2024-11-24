@@ -42,20 +42,20 @@ export const storyData: Story[] = [
 export const storySelectionData: StorySelection[] = [
 	{
 		title: "Prologue",
-		selecedStoryId: storyData[0]?.storyId,
+		selectedStoryId: storyData[0]?.storyId,
 		isSelected: false,
 		isPrologue: true,
 	},
 	{
 		title: "Bungo Ono",
-		selecedStoryId: storyData[1]?.storyId,
+		selectedStoryId: storyData[1]?.storyId,
 		chapterNumber: 35,
 		isSelected: false,
 		isPrologue: false,
 	},
 	{
 		title: "Coming Soon",
-		selecedStoryId: storyData[2]?.storyId,
+		selectedStoryId: storyData[2]?.storyId,
 		isSelected: false,
 		isPrologue: false,
 	},

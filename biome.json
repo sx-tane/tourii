@@ -7,7 +7,9 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [],
+		"include": ["**/*.tsx"],
+		"maxSize": 5000000
 	},
 	"formatter": {
 		"enabled": true,

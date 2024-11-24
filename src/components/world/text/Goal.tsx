@@ -18,7 +18,7 @@ const Goal: React.FC<GoalProps> = () => {
 			<div>
 				<div className="flex flex-row items-center justify-center gap-10 text-center text-xs font-semibold uppercase sm:text-base">
 					{goalData.map((goal) => (
-						<Drawer>
+						<Drawer key={goal.title}>
 							<DrawerTrigger className="flex h-36 w-36 cursor-pointer items-center justify-center rounded-full border-[1px] border-warmGrey p-3 uppercase tracking-widest transition-all duration-300 hover:bg-warmGrey hover:text-charcoal sm:h-60 sm:w-60 md:mb-0 xl:h-72 xl:w-72">
 								{goal.title}
 							</DrawerTrigger>

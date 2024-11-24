@@ -1,8 +1,8 @@
-import { useCart } from "@/components/context/CartContext";
 import { Button } from "@/lib/ui/button";
 import type { CartItem, Product, PurchaseData } from "@/types/interfaceProduct";
 import Link from "next/link";
 import type React from "react";
+import { useCart } from "redacted/marketplace/marketplace-api/cart/CartContext";
 import { toast } from "sonner";
 
 interface AddToCartButtonProps {

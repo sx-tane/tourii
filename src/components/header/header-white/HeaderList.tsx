@@ -3,9 +3,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import {
+	navigationSignedIn,
+	navigationSignedOut,
+} from "../../../lib/data/headerData";
 import Dropdown from "../Dropdown";
 import SignOut from "../SignOut";
-import { navigationSignedIn, navigationSignedOut } from "../headerData";
 
 const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
 	const pathname = usePathname();
@@ -47,7 +50,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
 				>
 					{navigationSignedOut.map((item, index) => {
 						return item.dropdown ? (
-							<div key={index} className="relative">
+							<div key={item.href} className="relative">
 								<motion.button
 									className={`relative text-xs font-semibold tracking-widest text-${textColor}  ${
 										pathname === item.href ? "active" : ""
@@ -69,7 +72,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
 								/>
 							</div>
 						) : (
-							<div className="relative">
+							<div key={item.href} className="relative">
 								<Link
 									href={item.href}
 									passHref
@@ -95,9 +98,9 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
 						className="header-nav md:flex md:space-x-5 lg:space-x-10"
 						ref={dropdownRef}
 					>
-						{navigationSignedIn.map((item, index) => {
+						{navigationSignedIn.map((item) => {
 							return item.dropdown ? (
-								<div key={index} className="relative">
+								<div key={item.href} className="relative">
 									<motion.button
 										className={`relative text-xs font-semibold tracking-widest text-${textColor}  ${
 											pathname === item.href ? "active" : ""
@@ -119,7 +122,7 @@ const HeaderList: React.FC<{ textColor: string }> = ({ textColor }) => {
 									/>
 								</div>
 							) : (
-								<div className="relative">
+								<div key={item.href} className="relative">
 									<Link
 										href={item.href}
 										passHref

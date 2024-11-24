@@ -36,7 +36,7 @@ const MerchandiseForm: React.FC<MerchandiseFormProps> = ({
 				deliveryDate: deliveryDate,
 			});
 		}
-	}, [deliveryDate, pieces]);
+	}, [deliveryDate, pieces, onDetailsChange]);
 
 	return (
 		<div className="flex pt-2 uppercase">

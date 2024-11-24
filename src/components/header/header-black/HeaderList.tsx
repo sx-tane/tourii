@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import {
+	navigationSignedIn,
+	navigationSignedOut,
+} from "../../../lib/data/headerData";
 import Dropdown from "../Dropdown";
 import SignOut from "../SignOut";
-import { navigationSignedIn, navigationSignedOut } from "../headerData";
 
 const HeaderListBlack: React.FC = () => {
 	const pathname = usePathname();
@@ -71,7 +74,7 @@ const HeaderListBlack: React.FC = () => {
 								/>
 							</div>
 						) : (
-							<div className="relative">
+							<div key={item.href} className="relative">
 								<Link
 									href={item.href}
 									passHref
@@ -121,7 +124,7 @@ const HeaderListBlack: React.FC = () => {
 									/>
 								</div>
 							) : (
-								<div className="relative">
+								<div key={item.href} className="relative">
 									<Link
 										href={item.href}
 										passHref

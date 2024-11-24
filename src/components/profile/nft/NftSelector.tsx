@@ -24,7 +24,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
 				priority={true}
 			/>
 			<div className="mx-12 grid w-full grid-cols-6 items-center justify-items-center gap-12">
-				{nftList.map((nft, index) =>
+				{nftList.map((nft) =>
 					nft ? (
 						<Image
 							key={nft.nftId}
@@ -37,7 +37,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
 						/>
 					) : (
 						<div
-							key={index}
+							key={`nft-${Math.random()}`}
 							className="h-full w-full rounded-xl bg-warmGrey3 shadow-inner"
 						/>
 					),

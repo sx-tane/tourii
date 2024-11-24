@@ -120,7 +120,6 @@ touriiverse
 Tourii
 BUNGO
 Touriiverse
-seleced
 IERC
 retval
 mload

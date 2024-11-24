@@ -81,6 +81,9 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 							<div
 								key={data.number}
 								onClick={() => handleCircleClick(data.number)}
+								onKeyUp={(e) =>
+									e.key === "Enter" && handleCircleClick(data.number)
+								}
 								className="flex h-48 w-48 cursor-pointer flex-col items-center justify-center rounded-full border-[1px] border-warmGrey transition-all duration-300 hover:bg-circleHover"
 							>
 								<span className="font-tertiary text-3xl italic text-warmGrey3 ">
@@ -94,7 +97,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 					</div>
 					{/*Mobile*/}
 					<div className="m-8 flex justify-between text-center align-middle md:hidden">
-						<button onClick={handlePrevious}>
+						<button type="button" onClick={handlePrevious}>
 							<div className="h-3 w-3 sm:h-6 sm:w-6">
 								<Image
 									src="/image/about/left.svg"
@@ -115,7 +118,7 @@ const BenefitModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 								{benefitType[currentIndex]?.description}
 							</span>
 						</div>
-						<button onClick={handleNext}>
+						<button type="button" onClick={handleNext}>
 							<div className="h-3 w-3 sm:h-6 sm:w-6">
 								<Image
 									src="/image/about/right.svg"

@@ -11,7 +11,7 @@ export interface Story {
 export interface StorySelection {
 	title: string;
 	chapterNumber?: number;
-	selecedStoryId: string | undefined;
+	selectedStoryId: string | undefined;
 	isSelected: boolean;
 	isPrologue: boolean;
 }

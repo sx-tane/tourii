@@ -5,7 +5,7 @@ import HeaderBlack from "@/components/header/header-black/Header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "World",
+	title: "Touriiverse",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -5,22 +5,21 @@ import { productsData } from "@/lib/data/marketplace/productData";
 import type { Metadata } from "next";
 
 type Props = {
-	params: {
+	params: Promise<{
 		productId: string;
-	};
+	}>;
 };
 
-export const generateMetadata = async ({
-	params,
-}: Props): Promise<Metadata> => {
-	const productId: string = await new Promise((resolve) => {
+export const generateMetadata = async (props: Props): Promise<Metadata> => {
+    const params = await props.params;
+    const productId: string = await new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(`${params.productId}`);
 		}, 300);
 	});
-	const product = productsData.find((p) => p.productId === productId);
-	const decodeproductId = product?.name ?? "";
-	return {
+    const product = productsData.find((p) => p.productId === productId);
+    const decodeproductId = product?.name ?? "";
+    return {
 		title: {
 			absolute: `${decodeproductId} | Bonjin Bazaar`,
 		},

@@ -7,11 +7,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { Fragment } from "react";
-import SignOut from "../SignOut";
 import {
 	hamburgerNavigationSignedIn,
 	hamburgerNavigationSignedOut,
-} from "../headerData";
+} from "../../../lib/data/headerData";
+import SignOut from "../SignOut";
 
 const HamburgerBlack: React.FC = () => {
 	const pathname = usePathname();

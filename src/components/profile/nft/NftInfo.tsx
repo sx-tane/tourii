@@ -57,7 +57,10 @@ const NFTInfo: React.FC<NftInfoProps> = ({ selectedNFT }) => {
 				{/*NFT INFO*/}
 				<div className="mt-8 space-y-2 pr-40">
 					{properties.map((property) => (
-						<div className="flex items-center justify-center text-sm font-medium tracking-wider text-red">
+						<div
+							key={property.label}
+							className="flex items-center justify-center text-sm font-medium tracking-wider text-red"
+						>
 							<span className="mr-4 whitespace-nowrap">{property.label}</span>
 							<div className="w-full border-t border-red" />
 							<span className="ml-4 w-auto whitespace-nowrap">
@@ -69,7 +72,10 @@ const NFTInfo: React.FC<NftInfoProps> = ({ selectedNFT }) => {
 				{/*Bottom NFT INFO*/}
 				<div className="mt-12 space-y-2 pr-40">
 					{bottomProperties.map((property) => (
-						<div className="grid grid-cols-2 items-center text-xs font-normal italic tracking-wider text-red">
+						<div
+							key={property.label}
+							className="grid grid-cols-2 items-center text-xs font-normal italic tracking-wider text-red"
+						>
 							<span className="whitespace-nowrap">{property.label}</span>
 							<span
 								className={`justify-self-end whitespace-nowrap ${property.label === "Address" ? "font-semibold not-italic  underline" : ""}`}

@@ -11,6 +11,7 @@ const Touriiverse: NextPage = () => {
 	const [selectedStory, setSelectedStory] = useState(storyData[0]);
 	const [selectionData, setSelectionData] = useState(storySelectionData);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const initialSelectionData = selectionData.map((selection, index) => ({
 			...selection,
@@ -25,7 +26,7 @@ const Touriiverse: NextPage = () => {
 			setSelectedStory(story);
 			const updatedSelectionData = selectionData.map((selection) => ({
 				...selection,
-				isSelected: selection.selecedStoryId === selectedStoryId,
+				isSelected: selection.selectedStoryId === selectedStoryId,
 			}));
 			setSelectionData(updatedSelectionData);
 		}
@@ -39,7 +40,7 @@ const Touriiverse: NextPage = () => {
 					<div className="item-center mt-2 flex w-11/12 justify-center gap-1">
 						{selectionData.map((selection) => (
 							<StorySelectionButton
-								key={selection.selecedStoryId}
+								key={selection.selectedStoryId}
 								selection={selection}
 								onSelect={handleSelectStory}
 							/>

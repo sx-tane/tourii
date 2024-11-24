@@ -35,7 +35,7 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown);
 		};
-	}, [currentNumber]);
+	}, []);
 
 	const handleNext = () => {
 		if (currentNumber < data.length) {
@@ -57,7 +57,11 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
 		<div className="w-[900px] animate-fadeIn items-center justify-center overflow-auto p-10">
 			{benefitData ? (
 				<div className="flex items-center">
-					<button onClick={handlePrevious} className="flex-shrink-0">
+					<button
+						type="button"
+						onClick={handlePrevious}
+						className="flex-shrink-0"
+					>
 						<Image
 							src="/image/about/left.svg"
 							alt="left"
@@ -72,7 +76,7 @@ const BenefitDetail: React.FC<BenefitDetailProps> = ({ number, data }) => {
 							title={benefitData.title}
 						/>
 					</div>
-					<button onClick={handleNext} className="flex-shrink-0">
+					<button type="button" onClick={handleNext} className="flex-shrink-0">
 						<Image
 							src="/image/about/right.svg"
 							alt="right"

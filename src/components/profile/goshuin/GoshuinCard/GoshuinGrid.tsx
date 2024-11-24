@@ -35,8 +35,8 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({
 			</div>
 			<div className="mt-12 flex-grow overflow-y-scroll">
 				<div className="grid grid-cols-4 gap-4 gap-y-10">
-					{goshuinList.map((goshuin, index) =>
-						goshuin ? (
+					{goshuinList.map((goshuin, index) => {
+						return goshuin ? (
 							<div
 								key={goshuin.goshuinId}
 								className={`flex h-20 w-20 cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-white ${selectedGoshuin?.goshuinId === goshuin?.goshuinId ? " bg-white transition-all" : ""} `}
@@ -71,11 +71,11 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({
 							</div>
 						) : (
 							<div
-								key={index}
+								key={`goshuin-${index}-${Math.random().toString(36).substr(2, 9)}`}
 								className="h-20 w-20 rounded-full bg-warmGrey2 shadow-inner"
 							/>
-						),
-					)}
+						);
+					})}
 				</div>
 			</div>
 			<div className="mt-4 flex w-full justify-center">

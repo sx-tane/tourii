@@ -21,6 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setSearchQuery }) => {
 				className="border px-4 py-2"
 			/>
 			<button
+				type="button"
 				onClick={handleSearch}
 				className="bg-blue-500 px-4 py-2 text-white"
 			>

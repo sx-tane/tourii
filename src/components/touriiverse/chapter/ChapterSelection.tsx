@@ -25,6 +25,7 @@ const ChapterSelectionButton = forwardRef<
 				/>
 				{/* Button */}
 				<button
+					type="button"
 					onClick={() => onSelect(selection.selectedChapterId ?? "")}
 					className={`relative z-10 h-4 w-4 rounded-full border-2 border-charcoal transition-all duration-300 hover:scale-130 ${selection.isSelected ? "scale-130 bg-red" : "bg-warmGrey hover:bg-red"}`}
 				/>

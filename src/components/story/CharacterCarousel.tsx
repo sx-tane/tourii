@@ -25,7 +25,7 @@ export function CharacterCarousel() {
 		<Carousel className="-mt-10 w-full md:max-w-md">
 			<CarouselContent>
 				{characters.map((character) => (
-					<CarouselItem>
+					<CarouselItem key={character.name}>
 						<Card>
 							<CardContent className="flex items-center justify-center p-6 text-center">
 								<div>

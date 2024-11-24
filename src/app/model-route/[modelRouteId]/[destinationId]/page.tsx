@@ -37,7 +37,7 @@ const VisualNovelModelRoute: React.FC<Props> = ({ params }) => {
 					params.destinationId.replace("destination", ""),
 				);
 
-				let foundDestination;
+				let foundDestination: RouteDestinations | undefined;
 				let routeNumber = 1; // Default to "1"
 
 				if (destinationNumber >= 1 && destinationNumber <= 8) {

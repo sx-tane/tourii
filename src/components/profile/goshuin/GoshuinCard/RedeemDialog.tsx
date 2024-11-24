@@ -76,6 +76,7 @@ const RedeemDialog: React.FC<RedeemDialogProps> = ({
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<button
+					type="button"
 					disabled={isRedeemed}
 					className={`${isRedeemed ? " bg-re cursor-not-allowed" : "bg-charcoal"} flex h-full w-1/2 cursor-pointer items-center justify-center rounded-full bg-charcoal font-semibold tracking-widest text-warmGrey transition-all duration-300 hover:bg-red`}
 				>

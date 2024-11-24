@@ -35,9 +35,14 @@ const DrawerOverlay = React.forwardRef<
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 
+interface DrawerContentProps
+	extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
+	barColor?: string;
+}
+
 const DrawerContent = React.forwardRef<
 	React.ElementRef<typeof DrawerPrimitive.Content>,
-	React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
+	DrawerContentProps
 >(({ className, children, barColor, ...props }, ref) => (
 	<DrawerPortal>
 		<DrawerOverlay />

@@ -17,7 +17,7 @@ type Props = {
 	};
 };
 
-const TravelGoshuin: NextPage<Props> = ({ params }) => {
+const TravelGoshuinPage: NextPage<Props> = ({ params }) => {
 	const [goshuin, setGoshuin] = useState<TravelGoshuin[] | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null); // State to hold any errors
@@ -91,4 +91,4 @@ const TravelGoshuin: NextPage<Props> = ({ params }) => {
 	);
 };
 
-export default withPageAuthRequired(TravelGoshuin);
+export default withPageAuthRequired(TravelGoshuinPage);

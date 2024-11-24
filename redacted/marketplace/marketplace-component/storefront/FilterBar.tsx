@@ -56,17 +56,18 @@ const FilterDropdown: React.FC<FilterProps> = ({ setFilter }) => {
 						{data.map((item) => (
 							<Menu.Item key={item}>
 								{({ active }) => (
-									<a
+									<button
+										type="button"
 										onClick={() => handleFilterChange(item)}
 										className={classNames(
 											active
-												? " cursor-pointer font-bold text-red"
+												? "cursor-pointer font-bold text-red"
 												: "text-charcoal",
-											"block px-4 py-2 text-xs font-medium uppercase tracking-widest",
+											"block w-full text-left px-4 py-2 text-xs font-medium uppercase tracking-widest",
 										)}
 									>
 										{item}
-									</a>
+									</button>
 								)}
 							</Menu.Item>
 						))}

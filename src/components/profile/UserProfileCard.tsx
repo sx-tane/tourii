@@ -34,7 +34,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ userProfile }) => {
 			</div>
 			<div className="flex h-1/2 flex-col justify-center space-y-5 rounded-b-xl bg-warmGrey pl-10">
 				{properties.map((property) => (
-					<div className="space-y-1 text-red">
+					<div key={property.label} className="space-y-1 text-red">
 						<div className="text-[10px] font-semibold tracking-normal ">
 							{property.label}
 						</div>

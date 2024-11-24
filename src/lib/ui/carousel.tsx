@@ -3,7 +3,6 @@
 import useEmblaCarousel, {
 	type UseEmblaCarouselType,
 } from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -135,16 +134,15 @@ const Carousel = React.forwardRef<
 					canScrollNext,
 				}}
 			>
-				<div
+				<section
 					ref={ref}
 					onKeyDownCapture={handleKeyDown}
 					className={cn("relative", className)}
-					role="region"
 					aria-roledescription="carousel"
 					{...props}
 				>
 					{children}
-				</div>
+				</section>
 			</CarouselContext.Provider>
 		);
 	},

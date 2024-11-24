@@ -84,7 +84,7 @@ const Route: NextPage<Props> = ({ params }) => {
 					route details
 				</span>
 				{modelRoute.routeDetails?.map((routeDetail, index, array) => (
-					<div>
+					<div key={routeDetail.routeDetailId}>
 						<IntroUpperSection
 							key={routeDetail.routeDetailId}
 							routeDetails={routeDetail}

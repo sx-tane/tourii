@@ -11,7 +11,7 @@ type DropdownItem = {
 
 export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
-	{ href: "/world", label: "WORLD" },
+	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/story", label: "STORY" },
 	// { href: "/model-route", label: "MODEL ROUTE"},
 	{
@@ -27,10 +27,10 @@ export const navigationSignedOut: NavItem[] = [
 
 export const navigationSignedIn: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
-	{ href: "/world", label: "WORLD" },
+	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/touriiverse", label: "STORY" },
 	{ href: "/model-route", label: "MODEL ROUTE" },
-	// { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+	{ href: "/bonjin-bazaar", label: "MARKETPLACE" },
 	{ href: "/profile", label: "PROFILE" },
 	{
 		href: "/social",
@@ -45,7 +45,7 @@ export const navigationSignedIn: NavItem[] = [
 
 export const hamburgerNavigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
-	{ href: "/world", label: "WORLD" },
+	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/story", label: "STORY" },
 	{ href: "https://twitter.com/TouriiJP", label: "X" },
 	{
@@ -56,10 +56,10 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
 
 export const hamburgerNavigationSignedIn: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
-	{ href: "/world", label: "WORLD" },
+	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/touriiverse", label: "STORY" },
 	{ href: "/model-route", label: "MODEL ROUTE" },
-	// { href: "/bonjin-bazaar", label: "MARKETPLACE" },
+	{ href: "/bonjin-bazaar", label: "MARKETPLACE" },
 	{ href: "/profile", label: "PROFILE" },
 	{ href: "https://twitter.com/TouriiJP", label: "X" },
 	{

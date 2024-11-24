@@ -11,7 +11,8 @@ const StorySelectionButton: React.FC<StorySelectionButtonProps> = ({
 }) => {
 	return (
 		<button
-			onClick={() => onSelect(selection.selecedStoryId ?? "")}
+			type="button"
+			onClick={() => onSelect(selection.selectedStoryId ?? "")}
 			className={`relative z-10 h-28 w-full transform rounded-lg font-bold uppercase tracking-widest text-charcoal transition-all duration-300 lg:text-2xl ${selection.isSelected ? "bg-warmGrey3 text-warmGrey" : "bg-warmGrey hover:bg-warmGrey2"}`}
 		>
 			{selection.title !== "Coming Soon" ? (

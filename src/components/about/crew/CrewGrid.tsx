@@ -6,7 +6,7 @@ const CrewGrid: React.FC = () => {
 	return (
 		<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 ">
 			{crewData.map((crewMember: CrewInfoProps, index: number) => (
-				<CrewMemberCard crewMember={crewMember} key={index} />
+				<CrewMemberCard crewMember={crewMember} key={crewMember.name} />
 			))}
 		</div>
 	);

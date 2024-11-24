@@ -10,7 +10,7 @@ import {
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const BungoOno: NextPage = () => {
 	const [selectedChapter, setSelectedChapter] = useState(() => {
@@ -23,7 +23,7 @@ const BungoOno: NextPage = () => {
 	);
 
 	const handleSelectChapter = (selectedChapterId: string) => {
-		let chapter;
+		let chapter: (typeof bungoOnoChapterData)[0] | undefined;
 		if (selectedChapterId === "Intro") {
 			// Assuming the first chapter in bungoOnoChapterData is your intro
 			chapter = bungoOnoChapterData[0];
@@ -55,6 +55,7 @@ const BungoOno: NextPage = () => {
 
 	const selectedButtonRef = useRef<HTMLDivElement>(null);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const savedChapterId = localStorage.getItem("selectedChapterId");
 		if (savedChapterId) {
@@ -92,12 +93,18 @@ const BungoOno: NextPage = () => {
 					onWheel={handleWheel}
 					className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
 				>
-					<div
+					<button
+						type="button"
 						onClick={() => handleSelectChapter("Intro")}
+						onKeyUp={(e) => {
+							if (e.key === "Enter" || e.key === " ") {
+								handleSelectChapter("Intro");
+							}
+						}}
 						className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
 					>
 						BUNGO ONO
-					</div>
+					</button>
 
 					{selectionData.map((selection) => (
 						<ChapterSelectionButton

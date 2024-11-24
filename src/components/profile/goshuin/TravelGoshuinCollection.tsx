@@ -45,11 +45,11 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
 				<div className="flex items-center justify-center space-x-4">
 					{goshuinList.map((goshuin, index) =>
 						goshuin ? ( // Check if goshuin is not null
-							<Goshuin goshuin={goshuin} />
+							<Goshuin key={goshuin.id || index} goshuin={goshuin} />
 						) : (
 							// This is the placeholder
 							<div
-								key={index}
+								key={`travelGoshuin-${index}-${Math.random().toString(36).substr(2, 9)}`}
 								className="h-12 w-12 rounded-full bg-warmGrey2 shadow-inner"
 							/>
 						),
