@@ -76,14 +76,19 @@ export default {
 			animation: {
 				fadeIn: "fadeIn 0.2s ease-in-out",
 				spin: "spin 5s linear infinite",
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
+				accordionDown: "accordion-down 0.2s ease-out",
+				accordionUp: "accordion-up 0.2s ease-out",
+				mustardGlow: "mustardGlow 2s infinite",
 			},
 			keyframes: {
 				fadeIn: {
 					"0%": { opacity: "0" },
 					"100%": { opacity: "1" },
 				},
+				mustardGlow: {
+					"0%": { boxShadow: "0 0 10px rgba(182, 173, 51, 0.4)" },
+					"10%": { boxShadow: "0 0 20px rgba(182, 173, 51, 0.5)" },
+				  },								
 				spin: {
 					"0%": { transform: "rotate(0deg)" },
 					"100%": { transform: "rotate(360deg)" },

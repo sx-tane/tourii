@@ -8,18 +8,19 @@ const HomePage: React.FC = () => {
 	return (
 		<div>
 			{/*Desktop and Laptop Size*/}
-			<div className="hidden w-full items-end overflow-hidden lg:flex">
-				<div className="fixed bottom-6 left-6 z-20 ">
+			<div className="hidden w-full items-end overflow-hidden lg:flex animate-fadeIn">
+				<div className="fixed bottom-6 left-6 z-20  transition-transform duration-300 hover:scale-105">
 					<Headline />
 				</div>
-				<div className="fixed bottom-5  overflow-hidden md:right-2 md:w-[75vh] lg:right-8 lg:w-[85vh] xl:right-8 ">
+
+				<div className="fixed bottom-5 md:right-2 md:w-[75vh] lg:right-8 lg:w-[85vh] xl:right-8">
 					<MainImage />
 				</div>
-				<div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
+
+				{/* <div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
 					<NFTEmblem />
-				</div>
+				</div> */}
 			</div>
-			{/*Tablet and Phone Size*/}
 			<div className="h-full overflow-hidden lg:hidden">
 				<div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
 					<div className="mx-6 mb-5">
@@ -42,9 +43,6 @@ const HomePage: React.FC = () => {
 						alt="tourii_main"
 						className="z-10 h-[65vh] w-full object-cover "
 					/>
-				</div>
-				<div className="z-20 lg:hidden">
-					<NFTEmblem />
 				</div>
 			</div>
 		</div>
