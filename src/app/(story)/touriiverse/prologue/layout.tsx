@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import { type Metadata } from "next";
-import React from "react";
 import Loading from "@/app/loading";
+import type { Metadata } from "next";
+import type React from "react";
 
 export const metadata: Metadata = {
-  title: "Prologue | Tourii",
+	title: "Prologue | Tourii",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <Suspense fallback={<Loading />}>{children} </Suspense>;
+	return <Suspense fallback={<Loading />}>{children} </Suspense>;
 }

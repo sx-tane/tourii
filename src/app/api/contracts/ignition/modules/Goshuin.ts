@@ -9,11 +9,11 @@ dotenv.config();
 const DEPLOYER_WALLET_ADDRESS = process.env.DEPLOYER_WALLET_ADDRESS ?? "";
 
 const GoshuinModule = buildModule("GoshuinModule", (m) => {
-  const initialOwner = m.getParameter("initialOwner", DEPLOYER_WALLET_ADDRESS);
+	const initialOwner = m.getParameter("initialOwner", DEPLOYER_WALLET_ADDRESS);
 
-  const goshuin = m.contract("Goshuin", [initialOwner]);
+	const goshuin = m.contract("Goshuin", [initialOwner]);
 
-  return { goshuin };
+	return { goshuin };
 });
 
 export default GoshuinModule;

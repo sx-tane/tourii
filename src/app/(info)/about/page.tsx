@@ -7,59 +7,59 @@ import CrewGrid from "@/components/about/crew/CrewGrid";
 import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
-import { type Metadata } from "next";
-import React from "react";
+import type { Metadata } from "next";
+import type React from "react";
 
 export const metadata: Metadata = {
-  title: "About",
+	title: "About",
 };
 
 const About: React.FC = async () => {
-  return (
-    <div>
-      <div className="fixed right-6 top-28 z-10 hidden md:flex ">
-        <AboutCoin />
-      </div>
-      <div className="z-50 flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
-        <div id="who-is-tourii" className=" ">
-          <div className="hidden md:flex">
-            <Description {...descriptionData[0]} />
-          </div>
-          <div className="md:hidden">
-            <Description
-              {...descriptionData[0]}
-              smallTitle="what"
-              title="is tourii"
-            />
-          </div>
-        </div>
-        <div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
-          <Line />
-        </div>
-        <div id="our-objectives">
-          <Description {...descriptionData[1]} />
-        </div>
-        <AboutImage />
-        <div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
-          <JourneyAndNft />
-        </div>
-        <div className="-mx-6 pb-10 md:mx-0 md:mt-5">
-          <Divider />
-        </div>
-        <h3
-          id="meet-our-crew"
-          className="mb-10 text-center text-xl font-bold uppercase tracking-widest text-red"
-        >
-          Meet our crew
-        </h3>
-        <CrewGrid />
-      </div>
-      <div className="-mx-6 mt-10 md:mx-0 md:pb-10">
-        <Divider />
-        <BackToTop />
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div className="fixed right-6 top-28 z-10 hidden md:flex ">
+				<AboutCoin />
+			</div>
+			<div className="z-50 flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
+				<div id="who-is-tourii" className=" ">
+					<div className="hidden md:flex">
+						<Description {...descriptionData[0]} />
+					</div>
+					<div className="md:hidden">
+						<Description
+							{...descriptionData[0]}
+							smallTitle="what"
+							title="is tourii"
+						/>
+					</div>
+				</div>
+				<div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
+					<Line />
+				</div>
+				<div id="our-objectives">
+					<Description {...descriptionData[1]} />
+				</div>
+				<AboutImage />
+				<div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
+					<JourneyAndNft />
+				</div>
+				<div className="-mx-6 pb-10 md:mx-0 md:mt-5">
+					<Divider />
+				</div>
+				<h3
+					id="meet-our-crew"
+					className="mb-10 text-center text-xl font-bold uppercase tracking-widest text-red"
+				>
+					Meet our crew
+				</h3>
+				<CrewGrid />
+			</div>
+			<div className="-mx-6 mt-10 md:mx-0 md:pb-10">
+				<Divider />
+				<BackToTop />
+			</div>
+		</div>
+	);
 };
 
 export default About;

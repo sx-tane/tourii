@@ -3,24 +3,24 @@ import { descriptionData } from "@/components/about/descriptionData";
 import Divider from "@/components/about/divider-line/Divider";
 import Line from "@/components/about/divider-line/Line";
 import { CharacterCarousel } from "@/components/story/CharacterCarousel";
-import React from "react";
+import type React from "react";
 
 const Story: React.FC = () => {
-  return (
-    <div>
-      <div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
-        <div className="mt-10">
-          <Description {...descriptionData[4]} />
-        </div>
-        <Line />
-        <Description {...descriptionData[5]} />
-        <CharacterCarousel />
-        <div className="mb-10 mt-5">
-          <Divider />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
+				<div className="mt-10">
+					<Description {...descriptionData[4]} />
+				</div>
+				<Line />
+				<Description {...descriptionData[5]} />
+				<CharacterCarousel />
+				<div className="mb-10 mt-5">
+					<Divider />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Story;
