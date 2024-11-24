@@ -13,7 +13,7 @@ export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/story", label: "STORY" },
-	// { href: "/model-route", label: "MODEL ROUTE"},
+	// { href: "/model-route", label: "MODEL ROUTE" },
 	{
 		href: "/social",
 		label: "SOCIAL MEDIA",
@@ -30,7 +30,7 @@ export const navigationSignedIn: NavItem[] = [
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/touriiverse", label: "STORY" },
 	{ href: "/model-route", label: "MODEL ROUTE" },
-	{ href: "/bonjin-bazaar", label: "MARKETPLACE" },
+	// { href: "/bonjin-bazaar", label: "MARKETPLACE" },
 	{ href: "/profile", label: "PROFILE" },
 	{
 		href: "/social",
@@ -59,7 +59,7 @@ export const hamburgerNavigationSignedIn: NavItem[] = [
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/touriiverse", label: "STORY" },
 	{ href: "/model-route", label: "MODEL ROUTE" },
-	{ href: "/bonjin-bazaar", label: "MARKETPLACE" },
+	// { href: "/bonjin-bazaar", label: "MARKETPLACE" },
 	{ href: "/profile", label: "PROFILE" },
 	{ href: "https://twitter.com/TouriiJP", label: "X" },
 	{

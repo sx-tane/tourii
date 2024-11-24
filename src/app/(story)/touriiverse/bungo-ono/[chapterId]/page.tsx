@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
@@ -11,40 +12,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-type Props = {
-	params: {
-		chapterId: string;
-	};
-};
-
-const VisualNovel: React.FC<Props> = ({ params }) => {
+const VisualNovel: React.FC = () => {
+	const { chapterId } = useParams(); // Access the dynamic route parameter
 	const [chapter, setChapter] = useState<Chapter | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null); // State to hold any errors
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true);
 				const foundChapter = bungoOnoChapterData.find(
-					(p) => p.chapterId === params.chapterId,
+					(p) => p.chapterId === chapterId,
 				);
-				setChapter(
-					foundChapter
-						? {
-								...foundChapter,
-							}
-						: null,
-				);
+				setChapter(foundChapter ?? null);
 			} catch (e) {
-				setError("Failed to fetch chapter data"); // Set the error state
+				setError("Failed to fetch chapter data");
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
-		fetchData().catch((e) => setError(e.message)); // Catch any unhandled errors
-	}, [params.chapterId]);
+		fetchData().catch((e) => setError(e.message));
+	}, [chapterId]);
 
 	if (isLoading) {
 		return (

@@ -12,17 +12,13 @@ import type { ModelRoute } from "@/types/interfaceModelRoute";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next/types";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation"; // Import useParams
 
-type Props = {
-	params: {
-		modelRouteId: string;
-	};
-};
-
-const Route: NextPage<Props> = ({ params }) => {
+const Route: NextPage = () => {
+	const params = useParams(); // Retrieve params asynchronously
 	const [modelRoute, setModelRoute] = useState<ModelRoute | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null); // State to hold any errors
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -37,13 +33,13 @@ const Route: NextPage<Props> = ({ params }) => {
 					setModelRoute(null);
 				}
 			} catch (e) {
-				setError("Failed to fetch model route data"); // Set the error state
+				setError("Failed to fetch model route data");
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
-		fetchData().catch((e) => setError(e.message)); // Catch any unhandled errors
+		fetchData();
 	}, [params.modelRouteId]);
 
 	if (isLoading) {

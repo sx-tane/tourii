@@ -1,3 +1,4 @@
+// app/layout.tsx
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import { Toaster } from "@/lib/ui/toast";
@@ -8,33 +9,21 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import Loading from "./loading";
 
-const baseURL = new URL("https://www.tourii.xyz/");
-
 const montserrat = Montserrat({
 	subsets: ["latin"],
 	display: "swap",
 });
 
-export const viewport: Viewport = {
-	width: "device-width",
-	initialScale: 1.0,
-};
-
 export const metadata: Metadata = {
-	metadataBase: new URL(baseURL.toString()),
-	title: {
-		default: "Tourii",
-		template: "%s | Tourii",
-	},
+	title: "Tourii",
 	description:
 		"Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-	category: "Travel",
 	openGraph: {
 		title: "Tourii - Unveiling Japan's Mystical Realms",
 		description:
 			"Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-		images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Open Graph image
-		url: baseURL.toString(),
+		images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp",
+		url: "https://www.tourii.xyz/",
 		locale: "ja_JP",
 	},
 	twitter: {
@@ -43,15 +32,13 @@ export const metadata: Metadata = {
 		title: "Tourii - Unveiling Japan's Mystical Realms",
 		description:
 			"Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
-		images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp", // Replace with Twitter card image
+		images: "https://tanejp.com/wp-content/uploads/2024/01/tourii_main.webp",
 	},
 };
 
 export default function RootLayout({
 	children,
-}: {
-	children: React.ReactNode;
-}) {
+}: { children: React.ReactNode }) {
 	return (
 		<html lang="en" className={montserrat.className}>
 			<head>
@@ -86,16 +73,16 @@ export default function RootLayout({
 				/>
 				<meta name="theme-color" content="#ffffff" />
 			</head>
-			<UserProvider>
-				<body>
+			<body>
+				<UserProvider>
 					<Suspense fallback={<Loading />}>
 						{children}
 						<Toaster />
 						<SpeedInsights />
 						<Analytics />
 					</Suspense>
-				</body>
-			</UserProvider>
+				</UserProvider>
+			</body>
 		</html>
 	);
 }
