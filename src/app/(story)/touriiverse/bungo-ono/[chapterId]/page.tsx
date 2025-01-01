@@ -1,6 +1,5 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
@@ -10,6 +9,7 @@ import type { Chapter } from "@/types/interfaceStory";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const VisualNovel: React.FC = () => {

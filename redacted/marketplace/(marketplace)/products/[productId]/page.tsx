@@ -4,14 +4,14 @@ import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import Divider from "@/components/about/divider-line/Divider";
+import ProductDetails from "@/components/marketplace-component/product/ProductDetails";
+import ProductImage from "@/components/marketplace-component/product/ProductImage";
+import RelatedProducts from "@/components/marketplace-component/product/RelatedProduct";
 import { productsData } from "@/lib/data/marketplace/productData";
 import type { Product } from "@/types/interfaceProduct";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import ProductDetails from "@/components/marketplace-component/product/ProductDetails";
-import ProductImage from "@/components/marketplace-component/product/ProductImage";
-import RelatedProducts from "@/components/marketplace-component/product/RelatedProduct";
 
 type Props = {
 	params: {

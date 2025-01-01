@@ -2,18 +2,21 @@ export type PlaceProps = {
 	title?: string;
 	smallTitle?: string;
 	image?: string;
+	video?: string;
 };
 
 export const placeData: PlaceProps[] = [
 	{
 		title: "takamagahara",
 		smallTitle: "Heavenly Plains",
-		image: "/image/world/heaven.png",
+		image: "/image/world/Takamagahara.png",
+		video: "/video/touriiverse/Takamagahara.mp4",
 	},
 	{
-		title: "yomitsukuni",
+		title: "yomi",
 		smallTitle: "Land of the Dead",
-		image: "/image/world/dead.png",
+		image: "/image/world/Yomi.png",
+		video: "/video/touriiverse/Yomi.mp4",
 	},
 ];
 
@@ -41,9 +44,9 @@ export type TitleProps = {
 export const titleData: TitleProps[] = [
 	{
 		smallTitle: "an intro to the world of tourii",
-		title: "the\ntouriiverse\ncosmology",
+		title: "the\ntouriiverse",
 	},
-	{ smallTitle: "unlocking heritage", title: "the\ntouriiverse\njourney" },
+	{ smallTitle: "Tourii Story", title: "the\nprologue" },
 ];
 
 export type GoalProps = {
@@ -74,7 +77,7 @@ export type worldDescriptionProps = {
 export const worldData: worldDescriptionProps[] = [
 	{
 		description:
-			"Embark on a journey to the Touriiverse, where timeless myths and today's Japan converge in a tapestry of fantasy. Explore three enchanted realms: the exalted ***Takagamahara*** above, the serene ***Ashihara no Nakatsukuni*** below, and the mysterious ***Yomitsukuni***, where spirits linger.\n\nVenture across the divine Ame No Ukihashi or tread along the shadowed Yomotsu Hirasaka, pathways to worlds unknown. In this land, Amatsukami, Kunitsukami, Bonjin, Yomitsukami and Yokai coexist, weaving stories of old into the fabric of the present.",
+			"Embark on a journey to the **Touriiverse**, where Japan's rich mythology meets modern-day charm in a world of fantasy. \n\nExplore three captivating realms: the celestial ***Takagamahara***, the peaceful ***Ashihara no Nakatsukuni***, and the mysterious ***Yomitsukuni***. Cross the divine bridge ***Ame no Ukihashi*** or follow the shadowed path ***Yomotsu Hirasaka*** to uncover hidden stories where kami, blending ancient tales with the present.",
 	},
 	{
 		description: "Touriiverse embody Tourii's two primary goals:",

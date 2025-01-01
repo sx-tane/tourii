@@ -1,12 +1,12 @@
 "use client";
 
+import FilterDropdown from "@/components/marketplace-component/storefront/FilterBar";
+import Pagination from "@/components/marketplace-component/storefront/Pagination";
+import ProductGrid from "@/components/marketplace-component/storefront/ProductGrid";
 import { productsData } from "@/lib/data/marketplace/productData";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import FilterDropdown from "@/components/marketplace-component/storefront/FilterBar";
-import Pagination from "@/components/marketplace-component/storefront/Pagination";
-import ProductGrid from "@/components/marketplace-component/storefront/ProductGrid";
 
 const Market: NextPage = () => {
 	const [allProducts] = useState(productsData); // Original products data

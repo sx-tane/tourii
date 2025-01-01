@@ -8,17 +8,18 @@ const NFTEmblem: React.FC = () => {
 			<div className="hidden items-center justify-center lg:flex">
 				<div className="absolute z-20 flex flex-col items-center justify-center bg-transparent text-center text-black">
 					<hr className=" mb-3 w-9 border-t-[1.4px] border-black md:mb-1 md:w-5 xl:w-7 2xl:mb-3 2xl:w-9" />
-					<div className="font-secondary text-xl leading-8 tracking-tighter md:text-3xl xl:text-4xl 2xl:text-5xl">
-						7777
+					{/* <div className="font-secondary text-xl leading-8 tracking-tighter md:text-3xl xl:text-4xl 2xl:text-5xl">
+						Tourii
+					</div> */}
+					<div className="text-lg font-semibold leading-tight lg:text-xl xl:text-2xl 2xl:text-3xl">
+						Tourii
 					</div>
 					<div className="text-lg font-semibold leading-tight lg:text-xl xl:text-2xl 2xl:text-3xl">
-						NFT
+						Story
 					</div>
 					<hr className=" my-2 w-9 border-t-[1.4px] border-black md:my-2 md:w-5 xl:my-2 xl:w-7 2xl:my-2 2xl:w-9" />
 					<div className="mt-1 text-[8px] font-bold uppercase leading-tight tracking-wider md:text-[10px] xl:text-[12px] 2xl:text-[14px]">
-						coming
-						<br />
-						soon
+						Jan 2025
 					</div>
 				</div>
 				<Image
@@ -32,15 +33,18 @@ const NFTEmblem: React.FC = () => {
 			</div>
 			{/* Tablet & Mobile */}
 			<div className="lg:hidden">
-				<div className="fixed bottom-9 right-[42px] z-40  flex flex-col items-center justify-center bg-transparent text-center text-black">
+				<div className="fixed bottom-12 right-10 z-40  flex flex-col items-center justify-center bg-transparent text-center text-black">
 					<div className="mb-1 w-4 border-t-[1.4px] border-black" />
-					<div className="font-secondary text-2xl tracking-tighter">7777</div>
-					<div className="text-[14px] font-semibold tracking-normal">NFT</div>
+					{/* <div className="font-secondary text-2xl tracking-tighter">7777</div> */}
+					<div className="text-[14px] font-semibold tracking-normal">
+						Tourii
+					</div>
+					<div className="text-[14px] font-semibold tracking-normal">Story</div>
 					<div className="my-1 w-4 border-t-[1.4px] border-black" />
 					<div className="mt-1 text-[9px] font-bold uppercase leading-tight tracking-wider">
-						coming
-						<br />
-						soon
+						{/* coming in
+						<br /> */}
+						Jan 2025
 					</div>
 				</div>
 				<Image

@@ -11,6 +11,7 @@ const Section = () => {
 					title={placeData[0]?.title}
 					smallTitle={placeData[0]?.smallTitle}
 					image={placeData[0]?.image}
+					video={placeData[0]?.video}
 				/>
 			</div>
 			<div className="z-60">
@@ -33,6 +34,7 @@ const Section = () => {
 					title={placeData[1]?.title}
 					smallTitle={placeData[1]?.smallTitle}
 					image={placeData[1]?.image}
+					video={placeData[1]?.video}
 				/>
 			</div>
 		</div>

@@ -17,9 +17,9 @@ const HomePage: React.FC = () => {
 					<MainImage />
 				</div>
 
-				{/* <div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
+				<div className="fixed z-30 md:-bottom-8 md:-right-6 xl:-bottom-10 xl:-right-6 2xl:-bottom-10 2xl:-right-4">
 					<NFTEmblem />
-				</div> */}
+				</div>
 			</div>
 			<div className="h-full overflow-hidden lg:hidden">
 				<div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
@@ -36,13 +36,20 @@ const HomePage: React.FC = () => {
 							priority={true}
 						/>
 					</div>
-					<Image
-						src="/image/about/tourii_main.png"
+					<video
+						autoPlay
+						loop
+						muted
+						playsInline
 						width={1000}
 						height={1000}
-						alt="tourii_main"
 						className="z-10 h-[65vh] w-full object-cover "
-					/>
+					>
+						<source src="/video/Tourii.mp4" type="video/mp4" />
+					</video>
+					<div className="z-20 lg:hidden">
+						<NFTEmblem />
+					</div>
 				</div>
 			</div>
 		</div>

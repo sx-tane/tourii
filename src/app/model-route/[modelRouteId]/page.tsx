@@ -10,9 +10,9 @@ import BottomSection from "@/components/model-route/route-component/route-detail
 import { modelRouteData } from "@/lib/data/model-route/modelRouteSelectionData";
 import type { ModelRoute } from "@/types/interfaceModelRoute";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { useParams } from "next/navigation"; // Import useParams
 import type { NextPage } from "next/types";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation"; // Import useParams
 
 const Route: NextPage = () => {
 	const params = useParams(); // Retrieve params asynchronously

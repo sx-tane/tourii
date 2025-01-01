@@ -11,15 +11,15 @@ type Props = {
 };
 
 export const generateMetadata = async (props: Props): Promise<Metadata> => {
-    const params = await props.params;
-    const productId: string = await new Promise((resolve) => {
+	const params = await props.params;
+	const productId: string = await new Promise((resolve) => {
 		setTimeout(() => {
 			resolve(`${params.productId}`);
 		}, 300);
 	});
-    const product = productsData.find((p) => p.productId === productId);
-    const decodeproductId = product?.name ?? "";
-    return {
+	const product = productsData.find((p) => p.productId === productId);
+	const decodeproductId = product?.name ?? "";
+	return {
 		title: {
 			absolute: `${decodeproductId} | Bonjin Bazaar`,
 		},

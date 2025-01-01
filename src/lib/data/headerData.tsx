@@ -46,7 +46,9 @@ export const navigationSignedIn: NavItem[] = [
 export const hamburgerNavigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
-	{ href: "/story", label: "STORY" },
+	// { href: "/touriiverse", label: "STORY" },
+	// { href: "/model-route", label: "MODEL ROUTE" },
+	// { href: "/bonjin-bazaar", label: "MARK
 	{ href: "https://twitter.com/TouriiJP", label: "X" },
 	{
 		href: "https://discord.gg/fsyS822VYn",
