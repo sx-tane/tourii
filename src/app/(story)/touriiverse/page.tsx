@@ -1,9 +1,11 @@
 "use client";
 
-import StoryComponent from "@/components/touriiverse/StoryComponent";
-import StorySelectionButton from "@/components/touriiverse/StorySelection";
-import { storyData, storySelectionData } from "@/lib/data/story/storyData";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import StoryComponent from "@/components/touriiverse-story/story-component";
+import StorySelectionButton from "@/components/touriiverse-story/story-selection";
+import {
+	storyData,
+	storySelectionData,
+} from "@/lib/data/touriiverse/story-data";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
@@ -52,4 +54,4 @@ const Touriiverse: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(Touriiverse);
+export default Touriiverse;

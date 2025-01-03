@@ -3,10 +3,9 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import { DescriptionStory } from "@/components/about/Description";
-import { bungoOnoChapterData } from "@/lib/data/story/chapterData";
-import type { Chapter } from "@/types/interfaceStory";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { DescriptionStory } from "@/components/about/description";
+import { bungoOnoChapterData } from "@/lib/data/touriiverse/chapter-data";
+import type { Chapter } from "@/types/story-type";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -99,4 +98,4 @@ const VisualNovel: React.FC = () => {
 	);
 };
 
-export default withPageAuthRequired(VisualNovel);
+export default VisualNovel;

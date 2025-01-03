@@ -1,10 +1,11 @@
-import Headline from "@/components/homepage/Headline";
-import MainImage from "@/components/homepage/MainImage";
-import NFTEmblem from "@/components/homepage/NFTEmblem";
+import Headline from "@/components/homepage/headline";
+import MainImage from "@/components/homepage/main-image";
+import NFTEmblem from "@/components/homepage/nft-emblem";
+import type { NextPage } from "next";
 import Image from "next/image";
 import type React from "react";
 
-const HomePage: React.FC = () => {
+const HomePage: NextPage = () => {
 	return (
 		<div>
 			{/*Desktop and Laptop Size*/}

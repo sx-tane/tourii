@@ -3,12 +3,12 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import { DescriptionStory } from "@/components/about/Description";
-import { routeDestinations1 } from "@/lib/data/model-route/modelRouteData1";
-import { routeDestinations2 } from "@/lib/data/model-route/modelRouteData2";
-import { routeDestinations3 } from "@/lib/data/model-route/modelRouteData3";
-import { routeDestinations4 } from "@/lib/data/model-route/modelRouteData4";
-import type { RouteDestinations } from "@/types/interfaceModelRoute";
+import { DescriptionStory } from "@/components/about/description";
+import { routeDestinations1 } from "@/lib/data/model-route/model-route-data-1";
+import { routeDestinations2 } from "@/lib/data/model-route/model-route-data-2";
+import { routeDestinations3 } from "@/lib/data/model-route/model-route-data-3";
+import { routeDestinations4 } from "@/lib/data/model-route/model-route-data-4";
+import type { RouteDestinations } from "@/types/model-route-type";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";

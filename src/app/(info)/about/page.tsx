@@ -1,20 +1,21 @@
-import AboutImage from "@/components/about/AboutImage";
-import BackToTop from "@/components/about/BackToTop";
-import Description from "@/components/about/Description";
-import AboutCoin from "@/components/about/about-menu/AboutCoin";
-import JourneyAndNft from "@/components/about/about-tourii-nft/JourneyAndNft";
-import CrewGrid from "@/components/about/crew/CrewGrid";
-import { descriptionData } from "@/components/about/descriptionData";
-import Divider from "@/components/about/divider-line/Divider";
-import Line from "@/components/about/divider-line/Line";
-import type { Metadata } from "next";
+import AboutImage from "@/components/about/about-image";
+import AboutCoin from "@/components/about/about-menu/about-coin";
+import BackToTop from "@/components/about/back-to-top";
+import CrewGrid from "@/components/about/crew/crew-grid";
+import Description from "@/components/about/description";
+import Divider from "@/components/about/divider-line/divider";
+import Line from "@/components/about/divider-line/line";
+import TouriiEcosystem from "@/components/about/tourii-ecosystem/tourii-ecosystem";
+import TouriiIdentity from "@/components/about/tourii-ecosystem/tourii-identity";
+import { descriptionData } from "@/lib/data/about/description-data";
+import type { Metadata, NextPage } from "next";
 import type React from "react";
 
 export const metadata: Metadata = {
 	title: "About",
 };
 
-const About: React.FC = async () => {
+const About: NextPage = async () => {
 	return (
 		<div>
 			<div className="fixed right-6 top-28 z-10 hidden md:flex ">
@@ -39,9 +40,17 @@ const About: React.FC = async () => {
 				<div id="our-objectives">
 					<Description {...descriptionData[1]} />
 				</div>
-				<AboutImage />
-				<div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
-					<JourneyAndNft />
+				<div className="-mx-6 -mt-10">
+					<AboutImage />
+				</div>
+				<div className="-mx-6 -mt-10 w-full md:mx-0 md:my-0">
+					<Line />
+				</div>
+				<div id="tourii-ecosystem" className="md:my-10">
+					<TouriiEcosystem />
+				</div>
+				<div className="-mx-6 my-10 h-full items-center bg-warmGrey3 md:mx-0">
+					<TouriiIdentity />
 				</div>
 				<div className="-mx-6 pb-10 md:mx-0 md:mt-5">
 					<Divider />

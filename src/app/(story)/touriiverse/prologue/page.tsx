@@ -1,8 +1,7 @@
 "use client";
 
-import PrologueComponent from "@/components/touriiverse/PrologueComponent";
-import { prologueChapterData } from "@/lib/data/story/chapterData";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import PrologueComponent from "@/components/touriiverse-story/prologue-component";
+import { prologueChapterData } from "@/lib/data/touriiverse/chapter-data";
 import type { NextPage } from "next";
 
 const Prologue: NextPage = () => {
@@ -15,4 +14,4 @@ const Prologue: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(Prologue);
+export default Prologue;

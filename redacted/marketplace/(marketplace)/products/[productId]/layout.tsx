@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import Header from "@/components/header/header-white/Header";
-import { productsData } from "@/lib/data/marketplace/productData";
+import Header from "@/components/header/header-white/header-white";
+import { productsData } from "@/lib/data/marketplace/product-data";
 import type { Metadata } from "next";
 
 type Props = {

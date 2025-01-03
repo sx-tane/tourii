@@ -3,10 +3,10 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import GoshuinGrid from "@/components/profile/goshuin/GoshuinCard/GoshuinGrid";
-import GoshuinInfo from "@/components/profile/goshuin/GoshuinCard/GoshuinInfo";
-import { profileList } from "@/lib/data/user/profileList";
-import type { TravelGoshuin } from "@/types/interfaceProfile";
+import GoshuinGrid from "@/components/profile/goshuin/goshuin-card/goshuin-grid";
+import GoshuinInfo from "@/components/profile/goshuin/goshuin-card/goshuin-info";
+import { profileList } from "@/lib/data/user/profile-list";
+import type { TravelGoshuin } from "@/types/profile-type";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useParams } from "next/navigation";

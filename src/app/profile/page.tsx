@@ -1,11 +1,11 @@
 "use client";
 
-import UserProfileCard from "@/components/profile/UserProfileCard";
-import TravelGoshuinCollection from "@/components/profile/goshuin/TravelGoshuinCollection";
-import NFTInfo from "@/components/profile/nft/NftInfo";
-import NFTSelection from "@/components/profile/nft/NftSelector";
-import { profile1 } from "@/lib/data/user/profile1";
-import type { NFT, UserProfile } from "@/types/interfaceProfile"; // Import your types
+import TravelGoshuinCollection from "@/components/profile/goshuin/travel-goshuin-collection";
+import NFTInfo from "@/components/profile/nft/nft-info";
+import NFTSelection from "@/components/profile/nft/nft-selector";
+import UserProfileCard from "@/components/profile/user-profile-card";
+import { profile1 } from "@/lib/data/user/profile-1";
+import type { NFT, UserProfile } from "@/types/profile-type"; // Import your types
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useState } from "react";

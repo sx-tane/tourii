@@ -1,13 +1,13 @@
-import DividerWhite from "@/components/world/Divider";
-import WhiteLine from "@/components/world/Line";
-import Section from "@/components/world/place/Section";
-import DescriptionWorld from "@/components/world/text/Description";
-import Goal from "@/components/world/text/Goal";
-import Title from "@/components/world/text/Title";
-import { titleData, worldData } from "@/components/world/worldData";
+import Section from "@/components/world/place/section";
+import Title from "@/components/world/text/title";
+import Prologue from "@/components/world/video/prologue";
+import DividerWhite from "@/components/world/white-divider";
+import WhiteLine from "@/components/world/white-line";
+import { titleData } from "@/lib/data/world/world-data";
+import type { NextPage } from "next";
 import type React from "react";
 
-const World: React.FC = () => {
+const World: NextPage = () => {
 	return (
 		<div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">
 			<Title
@@ -15,10 +15,10 @@ const World: React.FC = () => {
 				title={titleData[0]?.title}
 			/>
 			<Section />
-			<div className="mt-10">
-				<DescriptionWorld data={worldData[0]?.description ?? ""} />
+			<div className="mt-16">
+				{/* <DescriptionWorld data={worldData[0]?.description ?? ""} /> */}
 			</div>
-			<div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
+			<div className="-mx-6 w-full md:mx-0 -my-10">
 				<WhiteLine />
 			</div>
 			<Title
@@ -26,9 +26,13 @@ const World: React.FC = () => {
 				title={titleData[1]?.title}
 			/>
 			<div className="-mt-10 md:-mt-20">
-				<DescriptionWorld data={worldData[1]?.description ?? ""} />
+				{/* <DescriptionWorld data={worldData[1]?.description ?? ""} /> */}
 			</div>
-			<Goal />
+			{/* <Goal /> */}
+			<div className="my-10">
+				<Prologue />
+			</div>
+
 			<DividerWhite />
 		</div>
 	);

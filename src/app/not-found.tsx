@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/header/header-white/Header";
+import Header from "@/components/header/header-white/header-white";
 import Image from "next/image";
 import type React from "react";
 

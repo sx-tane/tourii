@@ -1,13 +1,12 @@
 "use client";
 
-import ChapterComponent from "@/components/touriiverse/chapter/ChapterComponent";
-import ChapterSelectionButton from "@/components/touriiverse/chapter/ChapterSelection";
-import IntroComponent from "@/components/touriiverse/chapter/IntroComponent";
+import ChapterSelectionButton from "@/components/touriiverse-story/chapter/chapter-selection";
+import ChapterComponent from "@/components/touriiverse-story/chapter/character-component";
+import IntroComponent from "@/components/touriiverse-story/chapter/intro-component";
 import {
 	bungoOnoChapterData,
 	bungoOnoChapterSelectionData,
-} from "@/lib/data/story/chapterData";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+} from "@/lib/data/touriiverse/chapter-data";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
@@ -120,4 +119,4 @@ const BungoOno: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(BungoOno);
+export default BungoOno;

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "@/app/loading";
-import HeaderBlack from "@/components/header/header-black/Header";
+import HeaderBlack from "@/components/header/header-black/header-black";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

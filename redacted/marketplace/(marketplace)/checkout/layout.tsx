@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import Loading from "@/app/loading";
-import Header from "@/components/header/header-white/Header";
+import Header from "@/components/header/header-white/header-white";
 import type { Metadata } from "next";
 import type React from "react";
 
