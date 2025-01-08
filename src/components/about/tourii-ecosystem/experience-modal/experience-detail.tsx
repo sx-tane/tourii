@@ -11,7 +11,7 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 }) => {
 	const [currentNumber, setCurrentNumber] = useState(number);
 
-	const benefitData = data.find((item) => item.number === currentNumber);
+	const experienceData = data.find((item) => item.number === currentNumber);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
@@ -52,7 +52,7 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 
 	return (
 		<div className="w-[900px] animate-fadeIn items-center justify-center overflow-auto p-10">
-			{benefitData ? (
+			{experienceData ? (
 				<div className="flex items-center">
 					<button
 						type="button"
@@ -69,8 +69,9 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 					</button>
 					<div className="mx-5">
 						<ExperienceCircle
-							number={benefitData.number}
-							title={benefitData.title}
+							number={experienceData.number}
+							title={experienceData.title}
+							image={experienceData.image}
 						/>
 					</div>
 					<button type="button" onClick={handleNext} className="flex-shrink-0">
@@ -82,9 +83,14 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 							priority={true}
 						/>
 					</button>
-					<span className="ml-10 text-pretty text-base leading-relaxed tracking-wider text-warmGrey3">
-						{benefitData.description}
-					</span>
+					<div className="ml-10 flex flex-col text-warmGrey3">
+						<span className="mb-3 font-semibold italic uppercase tracking-widest">
+							{experienceData.number}. {experienceData.title}
+						</span>
+						<span className="text-base leading-relaxed tracking-wider">
+							{experienceData.description}
+						</span>
+					</div>
 				</div>
 			) : (
 				<div>No data found</div>

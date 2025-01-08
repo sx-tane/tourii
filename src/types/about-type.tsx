@@ -17,6 +17,7 @@ export interface DescriptionProps {
 export interface ExperienceCircleProps {
 	number: number;
 	title: string;
+	image: string;
 	description?: string;
 }
 

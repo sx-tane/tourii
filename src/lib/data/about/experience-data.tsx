@@ -3,52 +3,83 @@ import type { ExperienceCircleProps } from "@/types/about-type";
 export const offChainExperienceData: ExperienceCircleProps[] = [
 	{
 		number: 1,
-		title: "Interactive Story",
-		description: "Influence on Story through interactive polls or decisions.",
+		title: "Storytelling",
+		image: "/image/about/experience/storytelling.png",
+		description:
+			"Explore the Touriiverse through immersive narratives rooted in Japanese mythology and the Kojiki Records. These stories guide users on journeys that connect virtual adventures with real-world locations, fostering a deep cultural appreciation and engagement.",
 	},
 	{
 		number: 2,
-		title: "Creative Contents",
+		title: "Tourii Bazaar",
+		image: "/image/about/experience/tourii-bazaar.png",
 		description:
-			"Organized writing, art, or multimedia contests where NFT holders can contribute their own creations, with winners getting their work featured in the Touriiverse.",
+			"A marketplace to trade Goshuin NFTs, including Travel Perks, Gachapon Tickets, Kojiki Janken Items, and more.",
 	},
 	{
 		number: 3,
-		title: "Personalized Story",
+		title: "Gachapon",
+		image: "/image/about/experience/gachapon.png",
 		description:
-			"Choosen through contest NFT holder can also become a minor character within the Touriiverse, with the story tailored to their interests or actions.",
+			"A lottery-style system offering randomized rewards, with Gachapon Tickets available through gameplay or trade.",
 	},
 	{
 		number: 4,
-		title: "Artistic Collaborations",
+		title: "Kojiki Janken Game",
+		image: "/image/about/experience/kojiki-janken.png",
 		description:
-			"Partner with artists to create one-of-a-kind digital or physical art pieces that are directly inspired by the holder’s journey or interactions within the Touriiverse.",
+			"A strategic card game combining Rock-Paper-Scissors mechanics with Japanese mythology, available in both PvE and PvP modes.",
+	},
+	{
+		number: 5,
+		title: "Magatama Coin System",
+		image: "/image/about/experience/magatama.png",
+		description:
+			"The in-house currency used for wagering, trading in the Tourii Bazaar, and evolving ranks within the ecosystem.",
+	},
+	{
+		number: 6,
+		title: "Evolve System",
+		image: "/image/about/experience/evolve-system.png",
+		description:
+			"A progression system allowing users to evolve from Bonjin to Kami, unlocking exclusive rewards and enhancing gameplay.",
 	},
 ];
 
 export const onChainExperienceData: ExperienceCircleProps[] = [
 	{
 		number: 1,
-		title: "Treasure Hunts",
+		title: "Tourii dNFT",
 		description:
-			"Treasure hunts according to the places in the narratives. A set of hints kit will be emailed to NFT holders before they depart for the specific regions promoted. A physical reward will be given upon completing a predesignated treasure hunt route.",
+			"Dynamic digital identities that unlock exclusive access to onchain and offchain experiences, evolving based on user participation.",
 	},
 	{
 		number: 2,
-		title: "Mystery Boxes",
+		title: "Gacha Rewards",
 		description:
-			"Only NFT holders get to roll the Tourii gachapon game which holds real travel perks for them to use during their trips to the actual regions.",
+			"Randomized rewards accessible through Gachapon Tickets, including travel perks and in-game items.",
 	},
 	{
 		number: 3,
-		title: "Exclusive Group Tours",
+		title: "Game Items",
 		description:
-			"Special organized NFT holders-only group tours to the promoted regions and engaging activities.",
+			"Special onchain items, such as Kojiki Janken Cards, enhancing gameplay and competitive strategy.",
 	},
 	{
 		number: 4,
-		title: "Support Queries",
+		title: "Travel Perks",
 		description:
-			"NFT holders get to directly inquire about the regions we are promoting and express their desired destinations. We can also assist in facilitating their connections throughout their journey, both prior to and after their visit to our featured locations.",
+			"Onchain rewards tied to real-world locations, offering exclusive benefits and redeemable experiences.",
+	},
+	{
+		number: 5,
+		title: "Evolve Rank",
+		description:
+			"Proof of progression within the ecosystem, with ranks unlocking additional perks and exclusive access.",
+	},
+	{
+		number: 6,
+		title: "Game Wagering Pool",
+		description:
+			"A decentralized pool for competitive wagering, allowing players to stake Magatama Coins, fiat, or cryptocurrency.",
 	},
 ];

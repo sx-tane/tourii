@@ -28,7 +28,7 @@ export const descriptionData: DescriptionProps[] = [
 		smallTitle: "tourii",
 		title: "ecosystem",
 		content:
-			"Dive into a world where your ***Tourii NFT*** isn't just another royalty program. It's a gateway to actively engage with the captivating storylines of the Touriiverse, both in the virtual realm and at real-world tourism sites. \n\nYour digital asset is more than just a token but a dynamic key unlocking a universe of interaction and adventure! With ***Tourii NFT***, your rewards and experiences come alive as you interact and explore.",
+			"Step into the Tourii Ecosystem, where interaction meets adventure. Whether through immersive storytelling, dynamic gameplay, or real-world tourism perks, your engagement fuels the experience.\n\nFrom **Storytelling** and the **User Evolve System** to exciting features like **Gachapon** and the **Tourii Bazaar**, every element connects seamlessly to offer unparalleled exploration and rewards.\n\nWith cutting-edge innovations like **Tourii dNFTs** and **Travel Perks**, the ecosystem bridges the virtual and physical worlds, creating opportunities for meaningful participation. Some features are still under development, promising even greater adventures ahead!",
 		images: [
 			"/image/about/tourii-system.svg",
 			"/image/about/tourii-system-mobile.svg",

@@ -16,12 +16,13 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handleNext = () => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % benefitType.length);
+		setCurrentIndex((prevIndex) => (prevIndex + 1) % experienceType.length);
 	};
 
 	const handlePrevious = () => {
 		setCurrentIndex(
-			(prevIndex) => (prevIndex - 1 + benefitType.length) % benefitType.length,
+			(prevIndex) =>
+				(prevIndex - 1 + experienceType.length) % experienceType.length,
 		);
 	};
 
@@ -37,7 +38,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 		};
 	}, [isOpen]);
 
-	const benefitType =
+	const experienceType =
 		data === "Offchain Experience"
 			? offChainExperienceData
 			: onChainExperienceData;
@@ -61,18 +62,18 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 			onRequestClose={handleClose}
 			ariaHideApp={false}
 			overlayClassName="fixed inset-0 z-20 bg-black bg-opacity-50 flex items-center justify-center"
-			className="h-20vh w-25vw absolute m-10 animate-fadeIn rounded-lg bg-charcoal md:m-0"
+			className="h-20vh w-25vw absolute m-10 animate-fadeIn rounded-lg bg-charcoal lg:m-0"
 		>
-			<h1 className="top-0 mx-10 mt-4 text-center text-xs font-bold uppercase tracking-widest text-warmGrey3 sm:text-base md:mx-0 md:mt-6">
+			<h1 className="top-0 mx-10 mt-4 text-center text-xs font-bold uppercase tracking-widest text-warmGrey3 sm:text-base lg:mx-0 lg:mt-6">
 				{data}
 			</h1>
 			{selectedBenefitId ? (
-				<ExperienceDetail number={selectedBenefitId} data={benefitType} />
+				<ExperienceDetail number={selectedBenefitId} data={experienceType} />
 			) : (
 				<div>
 					{/*Desktop & Laptop*/}
-					<div className="hidden grid-cols-4 justify-center gap-10 p-10 align-middle  md:grid ">
-						{benefitType.map((data) => (
+					<div className="hidden lg:grid-cols-3 xl:grid-cols-6 justify-center gap-10 p-10 align-middle lg:grid ">
+						{experienceType.map((data) => (
 							<div
 								key={data.number}
 								onClick={() => handleCircleClick(data.number)}
@@ -91,7 +92,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 						))}
 					</div>
 					{/*Mobile*/}
-					<div className="m-8 flex justify-between text-center align-middle md:hidden">
+					<div className="m-10 flex justify-between text-center align-middle lg:hidden">
 						<button type="button" onClick={handlePrevious}>
 							<div className="h-3 w-3 sm:h-6 sm:w-6">
 								<Image
@@ -103,14 +104,21 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 								/>
 							</div>
 						</button>
-						<div key={benefitType[currentIndex]?.number} className="m-3 sm:m-6">
+						<div key={experienceType[currentIndex]?.number} className="sm:m-6">
 							<div className="pb-3 text-xs text-warmGrey3 sm:text-sm">
+								<Image
+									src={experienceType[currentIndex]?.image ?? ""}
+									alt={experienceType[currentIndex]?.title ?? ""}
+									width={200}
+									height={200}
+									className="mb-5 mx-auto"
+								/>
 								<span className=" font-bold uppercase tracking-widest">
-									{benefitType[currentIndex]?.title}
+									{experienceType[currentIndex]?.title}
 								</span>
 							</div>
 							<span className="text-xs tracking-wide text-warmGrey3 sm:text-sm ">
-								{benefitType[currentIndex]?.description}
+								{experienceType[currentIndex]?.description}
 							</span>
 						</div>
 						<button type="button" onClick={handleNext}>
@@ -140,7 +148,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 				/>
 			)}
 			{!selectedBenefitId && (
-				<h1 className="my-6 hidden text-center text-base italic tracking-wider text-[#858581] md:flex md:flex-col">
+				<h1 className="my-6 hidden text-center text-base italic tracking-wider text-[#858581] lg:flex lg:flex-col">
 					Click for more information
 				</h1>
 			)}

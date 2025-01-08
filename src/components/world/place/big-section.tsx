@@ -40,7 +40,7 @@ const BigSection: React.FC = () => {
 							muted
 						/>
 						<Image
-							src="/image/world/Earth.png"
+							src="/image/world/ashihara.png"
 							alt="Ashihara-no-Nakatsukuni"
 							quality={100}
 							className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${

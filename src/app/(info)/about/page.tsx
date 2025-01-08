@@ -46,10 +46,10 @@ const About: NextPage = async () => {
 				<div className="-mx-6 -mt-10 w-full md:mx-0 md:my-0">
 					<Line />
 				</div>
-				<div id="tourii-ecosystem" className="md:my-10">
+				<div id="tourii-ecosystem" className="mb-10 md:mb-20 md:mt-10">
 					<TouriiEcosystem />
 				</div>
-				<div className="-mx-6 my-10 h-full items-center bg-warmGrey3 md:mx-0">
+				<div className="-mx-6 mb-10 h-full items-center bg-warmGrey3 md:mx-0">
 					<TouriiIdentity />
 				</div>
 				<div className="-mx-6 pb-10 md:mx-0 md:mt-5">
