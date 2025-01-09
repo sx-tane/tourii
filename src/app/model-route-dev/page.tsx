@@ -1,7 +1,6 @@
 "use client";
 import ModelRouteSelectionCard from "@/components/model-route/model-route-selection-card";
 import { modelRouteSelectionData } from "@/lib/data/model-route/model-route-selection-data";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 
 const ModelRoute: NextPage = () => {
@@ -19,4 +18,4 @@ const ModelRoute: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(ModelRoute);
+export default ModelRoute;

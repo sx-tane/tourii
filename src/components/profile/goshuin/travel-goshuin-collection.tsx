@@ -24,7 +24,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
 					Goshuin
 				</div>
 				<Link
-					href={`/profile/goshuin/${userProfile.userId}`}
+					href={`/profile-dev/goshuin/${userProfile.userId}`}
 					className="text-xs font-medium text-red underline"
 				>
 					View All

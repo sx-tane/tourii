@@ -8,12 +8,12 @@ const ExperienceCircle: React.FC<ExperienceCircleProps> = ({
 	image,
 }) => {
 	return (
-		<div className="flex h-48 w-48  flex-col items-center justify-center rounded-full">
+		<div className="flex h-48 w-48 flex-col items-center justify-center rounded-full">
 			<Image
 				src={image}
 				alt={title}
-				width={160}
-				height={160}
+				width={1024}
+				height={1024}
 				className="mx-auto"
 			/>
 			{/* <span className="font-tertiary text-3xl italic text-warmGrey3 ">

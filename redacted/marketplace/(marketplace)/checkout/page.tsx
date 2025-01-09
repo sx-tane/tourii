@@ -1,15 +1,14 @@
 "use client";
 
 import CartSummary from "@/components/marketplace/checkout/cart-summary";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 
-const Checkout: NextPage = withPageAuthRequired(async () => {
+const Checkout: NextPage = () => {
 	return (
 		<div>
 			<CartSummary />
 		</div>
 	);
-});
+};
 
 export default Checkout;

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Beta from "../beta";
 import HamburgerBlack from "./hamburger-black";
 import HeaderListBlack from "./header-list-black";
 
@@ -20,9 +19,9 @@ const HeaderBlack: React.FC = () => {
 						className="h-10 w-10 sm:h-12 sm:w-12"
 					/>
 				</Link>
-				<div className="ml-3 mt-2">
+				{/* <div className="ml-3 mt-2">
 					<Beta textColor={"warmGrey3"} />
-				</div>
+				</div> */}
 			</div>
 			<div className="hidden lg:flex">
 				<HeaderListBlack />

@@ -6,7 +6,7 @@ import { useState } from "react";
 import Markdown from "react-markdown";
 import ChapterButton from "./chapter-button";
 
-const ChapterComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
+const ChapterComponent: React.FC<{ chapter?: Chapter }> = ({ chapter }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	const imageSrc =
@@ -44,9 +44,9 @@ const ChapterComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 					className="aspect-square h-[48vh] w-[20vw] animate-fadeIn rounded-full object-cover"
 				/>
 				<ChapterButton
-					vnUnlocked={chapter.vnUnlocked}
-					chapterId={chapter.chapterId}
-					chapterNumber={chapter.chapterNumber}
+					vnUnlocked={chapter?.vnUnlocked}
+					chapterId={chapter?.chapterId}
+					chapterNumber={chapter?.chapterNumber}
 				/>
 			</div>
 		</div>

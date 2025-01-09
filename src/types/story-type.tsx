@@ -37,8 +37,8 @@ export interface Chapter {
 
 export interface ChapterButtonProps {
 	vnUnlocked?: boolean;
-	chapterId: string;
-	chapterNumber: string;
+	chapterId?: string;
+	chapterNumber?: string;
 }
 
 export interface ChapterSelection {

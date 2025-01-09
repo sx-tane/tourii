@@ -7,7 +7,6 @@ import GoshuinGrid from "@/components/profile/goshuin/goshuin-card/goshuin-grid"
 import GoshuinInfo from "@/components/profile/goshuin/goshuin-card/goshuin-info";
 import { profileList } from "@/lib/data/user/profile-list";
 import type { TravelGoshuin } from "@/types/profile-type";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -85,4 +84,4 @@ const TravelGoshuinPage: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(TravelGoshuinPage);
+export default TravelGoshuinPage;

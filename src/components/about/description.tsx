@@ -51,6 +51,7 @@ export const DescriptionWithImages: React.FC<DescriptionProps> = ({
 							src={image}
 							alt={title ?? ""}
 							className="w-full rounded-full"
+							unoptimized={true}
 							width={200}
 							height={200}
 						/>
@@ -122,6 +123,28 @@ export const DescriptionStory: React.FC<DescriptionProps> = ({
 				<div className="-my-2">
 					<Line />
 				</div>
+			</div>
+			<div className="mt-8 whitespace-pre-line px-2 text-xs font-medium md:text-base">
+				<ReactMarkdown className="leading-loose">{content}</ReactMarkdown>
+			</div>
+		</div>
+	);
+};
+
+export const DescriptionCharacter: React.FC<DescriptionProps> = ({
+	smallTitle,
+	title,
+	content,
+}) => {
+	return (
+		<div className="my-10 items-center text-center text-red">
+			<div className="uppercase">
+				<h2 className="whitespace-break-spaces font-bold break-all text-3xl tracking-wide md:text-5xl md:tracking-widest my-3">
+					{title}
+				</h2>
+				<h3 className="leading-normal font-semibold text-base tracking-widest">
+					{smallTitle}
+				</h3>
 			</div>
 			<div className="mt-8 whitespace-pre-line px-2 text-xs font-medium md:text-base">
 				<ReactMarkdown className="leading-loose">{content}</ReactMarkdown>

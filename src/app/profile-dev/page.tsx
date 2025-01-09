@@ -6,7 +6,6 @@ import NFTSelection from "@/components/profile/nft/nft-selector";
 import UserProfileCard from "@/components/profile/user-profile-card";
 import { profile1 } from "@/lib/data/user/profile-1";
 import type { NFT, UserProfile } from "@/types/profile-type"; // Import your types
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useState } from "react";
 
@@ -52,4 +51,4 @@ const Profile: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(Profile);
+export default Profile;

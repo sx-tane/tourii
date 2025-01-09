@@ -3,7 +3,7 @@ import Image from "next/image";
 import type React from "react";
 import StoryButton from "./story-button";
 
-const StoryComponent: React.FC<{ story: Story }> = ({ story }) => {
+const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 	const isVideo = story?.backgroundImage.endsWith(".mp4");
 
 	return (

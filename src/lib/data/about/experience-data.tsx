@@ -49,36 +49,42 @@ export const onChainExperienceData: ExperienceCircleProps[] = [
 	{
 		number: 1,
 		title: "Tourii dNFT",
+		image: "/image/about/experience/d-nft.png",
 		description:
-			"Dynamic digital identities that unlock exclusive access to onchain and offchain experiences, evolving based on user participation.",
+			"Dynamic digital identities that serve as gateways to exclusive on-chain and off-chain experiences, offering evolving benefits, personalized perks, and seamless integration with various ecosystem features based on user engagement and participation.",
 	},
 	{
 		number: 2,
 		title: "Gacha Rewards",
+		image: "/image/about/experience/magamata-pack.png",
 		description:
 			"Randomized rewards accessible through Gachapon Tickets, including travel perks and in-game items.",
 	},
 	{
 		number: 3,
 		title: "Game Items",
+		image: "/image/about/experience/kojiki-item.png",
 		description:
 			"Special onchain items, such as Kojiki Janken Cards, enhancing gameplay and competitive strategy.",
 	},
 	{
 		number: 4,
 		title: "Travel Perks",
+		image: "/image/about/experience/monsho.png",
 		description:
 			"Onchain rewards tied to real-world locations, offering exclusive benefits and redeemable experiences.",
 	},
 	{
 		number: 5,
 		title: "Evolve Rank",
+		image: "/image/about/experience/yokai-rank.png",
 		description:
 			"Proof of progression within the ecosystem, with ranks unlocking additional perks and exclusive access.",
 	},
 	{
 		number: 6,
 		title: "Game Wagering Pool",
+		image: "/image/about/experience/wagering-pool.png",
 		description:
 			"A decentralized pool for competitive wagering, allowing players to stake Magatama Coins, fiat, or cryptocurrency.",
 	},

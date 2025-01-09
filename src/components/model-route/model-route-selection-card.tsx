@@ -3,22 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import type React from "react";
 
-const ModelRouteSelectionCard: React.FC<ModelRouteSelection> = ({
-	areaName,
-	image,
-	isOpen,
-	modelRoute,
-}) => {
+const ModelRouteSelectionCard: React.FC<{
+	modelRouteSelection: ModelRouteSelection;
+}> = ({ modelRouteSelection }) => {
 	return (
 		<div>
-			{isOpen ? (
+			{modelRouteSelection.isOpen ? (
 				<div className="flex h-[80vh] w-[30vw] animate-fadeIn flex-col justify-between rounded-xl bg-warmGrey text-charcoal xl:w-[22vw]">
 					<div className="mt-5 p-4 text-center text-2xl font-bold tracking-widest">
-						{areaName}
+						{modelRouteSelection.areaName}
 					</div>
 					<Image
-						src={image ?? ""}
-						alt={areaName ?? ""}
+						src={modelRouteSelection.image ?? ""}
+						alt={modelRouteSelection.areaName ?? ""}
 						width={200}
 						height={200}
 						priority={true}
@@ -33,9 +30,9 @@ const ModelRouteSelectionCard: React.FC<ModelRouteSelection> = ({
 							<div className="flex-grow border-t-[1.5px] border-charcoal" />
 						</div>
 						<div className="flex justify-center space-x-2 py-8">
-							{modelRoute?.map((route: ModelRoute) => (
+							{modelRouteSelection.modelRoute?.map((route: ModelRoute) => (
 								<Link
-									href={`/model-route/${route.modelRouteId}`}
+									href={`/model-route-dev/${route.modelRouteId}`}
 									key={route.modelRouteId}
 									className="cursor-pointer rounded-full border-[1.5px] border-charcoal px-4 py-2 text-base font-semibold tracking-widest transition-all hover:bg-charcoal hover:text-warmGrey 2xl:px-8 2xl:py-2"
 								>

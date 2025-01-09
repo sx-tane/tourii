@@ -1,7 +1,5 @@
-import {
-	type CharacterProps,
-	characters,
-} from "../../src/lib/data/character/character-data";
+import type { CharacterProps } from "@/types/character-type";
+import { characters } from "../../src/lib/data/character/character-data";
 import CharacterCard from "./CharacterCard";
 
 const ProtagonistsSection: React.FC<CharacterProps> = () => {

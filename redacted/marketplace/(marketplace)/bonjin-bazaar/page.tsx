@@ -4,7 +4,6 @@ import FilterDropdown from "@/components/marketplace/storefront/filter-bar";
 import Pagination from "@/components/marketplace/storefront/pagination";
 import ProductGrid from "@/components/marketplace/storefront/product-grid";
 import { productsData } from "@/lib/data/marketplace/product-data";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
@@ -73,4 +72,4 @@ const Market: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(Market);
+export default Market;

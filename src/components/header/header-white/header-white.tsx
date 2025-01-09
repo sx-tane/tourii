@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import Beta from "../beta";
 import Hamburger from "./hamburger-white";
 import HeaderList from "./header-list-white";
 
@@ -20,9 +19,9 @@ const Header: React.FC = () => {
 							className="h-10 w-10 sm:h-12 sm:w-12"
 						/>
 					</Link>
-					<div className="ml-3 mt-2">
+					{/* <div className="ml-3 mt-2">
 						<Beta textColor={"red"} />
-					</div>
+					</div> */}
 				</div>
 				<div className="hidden lg:flex">
 					<HeaderList textColor={"charcoal"} />

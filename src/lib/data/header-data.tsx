@@ -4,7 +4,7 @@ export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
-	{ href: "/touriiverse", label: "STORY" },
+	// { href: "/touriiverse", label: "STORY" },
 	// { href: "/model-route", label: "MODEL ROUTE" },
 	{
 		href: "/social",

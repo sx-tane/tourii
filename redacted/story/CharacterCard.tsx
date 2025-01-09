@@ -1,6 +1,6 @@
+import type { CharacterProps } from "@/types/character-type";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import type { CharacterProps } from "../../src/lib/data/character/character-data";
 
 const CharacterCard: React.FC<CharacterProps> = ({
 	name,

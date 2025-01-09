@@ -13,18 +13,27 @@ import { useEffect, useRef, useState } from "react";
 
 const BungoOno: NextPage = () => {
 	const [selectedChapter, setSelectedChapter] = useState(() => {
-		const savedChapter = localStorage.getItem("selectedChapter");
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-		return savedChapter ? JSON.parse(savedChapter) : bungoOnoChapterData[0];
+		// Return the default chapter initially
+		return bungoOnoChapterData[0];
 	});
+
 	const [selectionData, setSelectionData] = useState(
 		bungoOnoChapterSelectionData,
 	);
 
+	// Ensure localStorage is only accessed on the client
+	useEffect(() => {
+		const savedChapterId =
+			typeof window !== "undefined" &&
+			localStorage.getItem("selectedChapterId");
+		if (savedChapterId) {
+			handleSelectChapter(savedChapterId);
+		}
+	}, []);
+
 	const handleSelectChapter = (selectedChapterId: string) => {
 		let chapter: (typeof bungoOnoChapterData)[0] | undefined;
 		if (selectedChapterId === "Intro") {
-			// Assuming the first chapter in bungoOnoChapterData is your intro
 			chapter = bungoOnoChapterData[0];
 		} else {
 			chapter = bungoOnoChapterData.find(
@@ -34,8 +43,10 @@ const BungoOno: NextPage = () => {
 
 		if (chapter) {
 			setSelectedChapter(chapter);
-			localStorage.setItem("selectedChapterId", selectedChapterId); // Save chapter ID to localStorage <-- Add this line
-			localStorage.setItem("selectedChapter", JSON.stringify(chapter)); // Save to localStorage
+			if (typeof window !== "undefined") {
+				localStorage.setItem("selectedChapterId", selectedChapterId);
+				localStorage.setItem("selectedChapter", JSON.stringify(chapter));
+			}
 			const updatedSelectionData = selectionData.map((selection) => ({
 				...selection,
 				isSelected: selection.selectedChapterId === selectedChapterId,
@@ -56,10 +67,6 @@ const BungoOno: NextPage = () => {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const savedChapterId = localStorage.getItem("selectedChapterId");
-		if (savedChapterId) {
-			handleSelectChapter(savedChapterId);
-		}
 		if (selectedButtonRef.current) {
 			selectedButtonRef.current.scrollIntoView({
 				behavior: "smooth",

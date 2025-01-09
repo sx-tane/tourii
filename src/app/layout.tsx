@@ -2,7 +2,6 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
 import { Toaster } from "@/lib/ui/toast";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
@@ -74,14 +73,12 @@ export default function RootLayout({
 				<meta name="theme-color" content="#ffffff" />
 			</head>
 			<body>
-				<UserProvider>
-					<Suspense fallback={<Loading />}>
-						{children}
-						<Toaster />
-						<SpeedInsights />
-						<Analytics />
-					</Suspense>
-				</UserProvider>
+				<Suspense fallback={<Loading />}>
+					{children}
+					<Toaster />
+					<SpeedInsights />
+					<Analytics />
+				</Suspense>
 			</body>
 		</html>
 	);

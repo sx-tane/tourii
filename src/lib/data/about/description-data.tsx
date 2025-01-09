@@ -35,11 +35,7 @@ export const descriptionData: DescriptionProps[] = [
 		],
 	},
 	{
+		title: "character",
 		smallTitle: "touriiverse",
-		title: `story
-prologue`,
-		content:
-			"In Takamagahara's Sun Palace, ***Amaterasu, the Revered Sun Goddess***, summons ***Ninigi, her grandson***, to journey to Ashihara no Nakatsukuni (Central Earth Japan), on his destiny to succeed Okuninushi as ruler. She has also gave Ninigi a team of Amatsukami to assist on his mission. One of the most important comrade is ***Ame-no-Uzume, Goddess of Dawn and Mirth***. \n\nHowever, as the party began their descent through the Ame-no-ukihashi, an unforeseen twist occurs. ***Raijin, the Thunder Kami***, ambushes them, sending Ninigi's group to an unexpected time and place within Japan. He find himself in the year 2024, at a majestic waterfall before a white torii gate, greeted by a mysterious figure. He realised that his Amatsukami entourage are all gone, except for Uzume.\n\nThis sudden shift in time and location alters the Touriiverse narrative significantly. Ninigi, now in an unfamiliar era, must overcome new challenges, understand his changed role, and strive to fulfill his destiny in this vastly different world.",
-		images: ["/image/world/Earth.png"],
 	},
 ];

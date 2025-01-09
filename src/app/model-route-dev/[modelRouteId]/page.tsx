@@ -9,7 +9,6 @@ import BottomSection from "@/components/model-route/route-component/route-detail
 import IntroUpperSection from "@/components/model-route/route-component/route-details/intro-upper-section";
 import { modelRouteData } from "@/lib/data/model-route/model-route-selection-data";
 import type { ModelRoute } from "@/types/model-route-type";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useParams } from "next/navigation"; // Import useParams
 import type { NextPage } from "next/types";
 import { useEffect, useState } from "react";
@@ -96,4 +95,4 @@ const Route: NextPage = () => {
 	);
 };
 
-export default withPageAuthRequired(Route);
+export default Route;

@@ -9,7 +9,6 @@ import { routeDestinations2 } from "@/lib/data/model-route/model-route-data-2";
 import { routeDestinations3 } from "@/lib/data/model-route/model-route-data-3";
 import { routeDestinations4 } from "@/lib/data/model-route/model-route-data-4";
 import type { RouteDestinations } from "@/types/model-route-type";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -141,4 +140,4 @@ const VisualNovelModelRoute: React.FC = () => {
 	);
 };
 
-export default withPageAuthRequired(VisualNovelModelRoute);
+export default VisualNovelModelRoute;
