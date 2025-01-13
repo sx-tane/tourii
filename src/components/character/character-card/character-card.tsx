@@ -1,23 +1,32 @@
-import type { CharacterProps } from "@/types/character-type";
 import type React from "react";
 import Image from "next/image";
 import { Noto_Serif_JP } from "next/font/google";
+import type { CharacterProps } from "@/types/character-type";
 
 const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],
 	display: "swap",
 });
 
-const CharacterCard: React.FC<CharacterProps> = ({
+interface CharacterCardProps extends CharacterProps {
+	onClick: () => void;
+}
+
+const CharacterCard: React.FC<CharacterCardProps> = ({
 	name,
 	kanjiname,
 	thumbnailImage,
+	onClick,
 }) => {
 	return (
-		<div className="relative border-red border-[1.5px] rounded-3xl overflow-hidden group">
+		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+		<div
+			className="relative border-red border-[1.5px] rounded-3xl overflow-hidden group cursor-pointer"
+			onClick={onClick}
+		>
 			<Image
 				src={thumbnailImage ?? ""}
-				alt={`${name}`}
+				alt={name ?? ""}
 				width={350}
 				height={350}
 				quality={100}
@@ -32,7 +41,5 @@ const CharacterCard: React.FC<CharacterProps> = ({
 		</div>
 	);
 };
-
-//
 
 export default CharacterCard;

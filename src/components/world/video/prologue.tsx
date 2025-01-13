@@ -2,16 +2,17 @@ import React from "react";
 
 const Prologue = () => {
 	return (
-		<div>
-			{/* biome-ignore lint/a11y/useMediaCaption: <explanation> */}
-			<video controls className="z-10 w-full object-cover rounded-xl">
-				<source
-					src="/video/touriiverse/Prologue-website.mp4"
-					type="video/mp4"
+		<div className="w-screen flex items-center justify-center">
+			<div className="w-full max-w-4xl aspect-video">
+				<iframe
+					src="https://www.youtube.com/embed/76yQ6bMiQB8?si=CWnpciqKEcXHxeyD"
+					title="Tourii Prologue"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					referrerPolicy="strict-origin-when-cross-origin"
+					allowFullScreen
+					className="w-full h-full rounded-xl"
 				/>
-				<track kind="subtitles" label="English" srcLang="en" default />
-				Your browser does not support the video tag.
-			</video>
+			</div>
 		</div>
 	);
 };

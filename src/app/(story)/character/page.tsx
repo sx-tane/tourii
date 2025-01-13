@@ -1,5 +1,4 @@
 import { DescriptionCharacter } from "@/components/about/description";
-import Divider from "@/components/about/divider-line/divider";
 import CharacterList from "@/components/character/character-list";
 import { descriptionData } from "@/lib/data/about/description-data";
 import type { NextPage } from "next";
@@ -11,9 +10,8 @@ const Character: NextPage = () => {
 			<div className="mt-10">
 				<DescriptionCharacter {...descriptionData[4]} />
 			</div>
-			<CharacterList />
-			<div className="absolute bottom-10 left-0 right-0">
-				<Divider />
+			<div className="mt-10">
+				<CharacterList />
 			</div>
 		</div>
 	);

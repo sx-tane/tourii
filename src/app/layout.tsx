@@ -5,15 +5,10 @@ import { Toaster } from "@/lib/ui/toast";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Montserrat, Noto_Sans_JP } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Loading from "./loading";
 
 const montserrat = Montserrat({
-	subsets: ["latin"],
-	display: "swap",
-});
-
-const notoSansJP = Noto_Sans_JP({
 	subsets: ["latin"],
 	display: "swap",
 });
