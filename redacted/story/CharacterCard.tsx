@@ -2,7 +2,7 @@ import type { CharacterProps } from "@/types/character-type";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 
-const CharacterCard: React.FC<CharacterProps> = ({
+const RedactedCharacterCard: React.FC<CharacterProps> = ({
 	name,
 	image,
 	description,
@@ -31,4 +31,4 @@ const CharacterCard: React.FC<CharacterProps> = ({
 	);
 };
 
-export default CharacterCard;
+export default RedactedCharacterCard;

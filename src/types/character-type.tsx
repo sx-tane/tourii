@@ -1,6 +1,7 @@
 export interface CharacterProps {
 	name?: string;
+	kanjiname?: string;
 	image?: string;
-	smallImage?: string;
+	thumbnailImage?: string;
 	description?: string;
 }

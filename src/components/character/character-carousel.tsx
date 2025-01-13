@@ -48,7 +48,7 @@ export function CharacterCarousel() {
 											<div className="mx-auto w-full max-w-sm md:max-w-lg">
 												<DrawerHeader className="">
 													<Image
-														src={character.smallImage ?? ""}
+														src={character.thumbnailImage ?? ""}
 														width={200}
 														height={200}
 														alt={character.name ?? ""}

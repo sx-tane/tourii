@@ -5,7 +5,7 @@ import Header from "@/components/header/header-white/header-white";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "Story",
+	title: "Character",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
