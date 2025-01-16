@@ -6,6 +6,7 @@ import { Noto_Serif_JP } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import type { CharacterProps } from "@/types/character-type";
 import InfoTable from "./info-table";
+import Loading from "@/app/loading";
 
 const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],
@@ -66,7 +67,7 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({ character }) => {
 				>
 					{isLoading && (
 						<div className="absolute inset-0 flex items-center justify-center">
-							<div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900" />
+							<Loading />
 						</div>
 					)}
 					<Image
