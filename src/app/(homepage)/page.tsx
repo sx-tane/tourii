@@ -25,17 +25,7 @@ const HomePage: NextPage = () => {
 			<div className="h-full overflow-hidden lg:hidden">
 				<div className="absolute bottom-0 top-[20%] -mx-6 w-full overflow-hidden">
 					<div className="mx-6 mb-5">
-						<div className="mb-4 pr-20 sm:mb-10 sm:pr-64">
-							<Headline />
-						</div>
-						<Image
-							src="/image/homepage/tourii.svg"
-							alt="tourii"
-							width={500}
-							height={600}
-							className="relative w-[55%] object-cover sm:w-5/12"
-							priority
-						/>
+						<Headline />
 					</div>
 					<video
 						autoPlay

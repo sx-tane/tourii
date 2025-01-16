@@ -1,7 +1,7 @@
-import type React from "react";
-import Image from "next/image";
-import { Noto_Serif_JP } from "next/font/google";
 import type { CharacterProps } from "@/types/character-type";
+import { Noto_Serif_JP } from "next/font/google";
+import Image from "next/image";
+import type React from "react";
 
 const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],

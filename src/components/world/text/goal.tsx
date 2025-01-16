@@ -39,7 +39,6 @@ const Goal: React.FC<GoalProps> = () => {
 											className="object-contain"
 											src="/image/about/line-charcoal.svg"
 											alt="line"
-											layout="responsive"
 											width={800}
 											height={800}
 											priority

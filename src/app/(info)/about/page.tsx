@@ -34,7 +34,7 @@ const About: NextPage = async () => {
 						/>
 					</div>
 				</div>
-				<div className="-mx-6 -my-10 w-full md:mx-0 md:my-0">
+				<div className="-mx-6 -my-10 md:mx-0 md:my-0">
 					<Line />
 				</div>
 				<div id="our-objectives">
@@ -43,7 +43,7 @@ const About: NextPage = async () => {
 				<div className="-mx-6 -mt-10">
 					<AboutImage />
 				</div>
-				<div className="-mx-6 -mt-10 w-full md:mx-0 md:my-0">
+				<div className="-mx-6 -mt-10 md:mx-0 md:my-0">
 					<Line />
 				</div>
 				<div id="tourii-ecosystem" className="mb-10 md:mb-20 md:mt-10">

@@ -1,12 +1,16 @@
-import type React from "react";
-import { useState, useEffect } from "react";
-import Markdown from "react-markdown";
-import Image from "next/image";
-import { Noto_Serif_JP } from "next/font/google";
-import { motion, AnimatePresence } from "framer-motion";
-import type { CharacterProps } from "@/types/character-type";
-import InfoTable from "./info-table";
 import Loading from "@/app/loading";
+import {
+	downToUpVariants,
+	upToDownVariants,
+} from "@/lib/animation/variants-settings";
+import type { CharacterProps } from "@/types/character-type";
+import { AnimatePresence, motion } from "framer-motion";
+import { Noto_Serif_JP } from "next/font/google";
+import Image from "next/image";
+import type React from "react";
+import { useState } from "react";
+import Markdown from "react-markdown";
+import InfoTable from "./info-table";
 
 const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],
@@ -16,16 +20,6 @@ const notoSerifJP = Noto_Serif_JP({
 interface CharacterModalLeftProps {
 	character: CharacterProps;
 }
-
-const textVariants = {
-	hidden: { opacity: 0, y: -50 },
-	visible: { opacity: 1, y: 0 },
-};
-
-const imageVariants = {
-	hidden: { opacity: 0, y: 50 },
-	visible: { opacity: 1, y: 0 },
-};
 
 const CharacterIntro: React.FC<CharacterModalLeftProps> = ({ character }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -39,8 +33,8 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({ character }) => {
 					initial="hidden"
 					animate="visible"
 					exit="hidden"
-					variants={textVariants}
-					transition={{ duration: 0.5, ease: "easeOut" }}
+					variants={upToDownVariants}
+					transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
 				>
 					<p
 						className={`text-2xl font-bold tracking-widest md:text-3xl text-black my-5 ${notoSerifJP.className}`}
@@ -55,15 +49,14 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({ character }) => {
 					</Markdown>
 					<InfoTable character={character} />
 				</motion.div>
-
 				<motion.div
 					key="image-content"
 					className="h-full w-5/12 flex-none mx-10 mt-20 relative"
 					initial="hidden"
 					animate="visible"
 					exit="hidden"
-					variants={imageVariants}
-					transition={{ duration: 0.5, ease: "easeOut" }}
+					variants={downToUpVariants}
+					transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
 				>
 					{isLoading && (
 						<div className="absolute inset-0 flex items-center justify-center">

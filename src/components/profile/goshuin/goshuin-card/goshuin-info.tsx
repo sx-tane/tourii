@@ -60,11 +60,11 @@ const GoshuinInfo: React.FC<GoshuinInfoProps> = ({ goshuin }) => {
 				<div className="mt-auto flex w-full justify-between">
 					<div className="space-y-2 text-sm italic tracking-wider">
 						<div>
-							<span className="font-medium">Acquired On:</span>{" "}
+							<span className="font-medium">Acquired On:</span>
 							{goshuin?.goshuinDate}
 						</div>
 						<div>
-							<span className="font-medium">Expiring On:</span>{" "}
+							<span className="font-medium">Expiring On:</span>
 							{goshuin?.goshuinExpiryDate}
 						</div>
 					</div>

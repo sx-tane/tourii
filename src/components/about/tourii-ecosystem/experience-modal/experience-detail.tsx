@@ -53,11 +53,11 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 	return (
 		<div className="w-[900px] animate-fadeIn items-center justify-center overflow-auto p-10">
 			{experienceData ? (
-				<div className="flex items-center">
+				<div className="flex items-center animate-fadeIn">
 					<button
 						type="button"
 						onClick={handlePrevious}
-						className="flex-shrink-0"
+						className="flex-shrink-0 animate-fadeIn"
 					>
 						<Image
 							src="/image/about/left.svg"
@@ -67,14 +67,18 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 							priority
 						/>
 					</button>
-					<div className="mx-5">
+					<div className="mx-5 animate-fadeIn">
 						<ExperienceCircle
 							number={experienceData.number}
 							title={experienceData.title}
 							image={experienceData.image}
 						/>
 					</div>
-					<button type="button" onClick={handleNext} className="flex-shrink-0">
+					<button
+						type="button"
+						onClick={handleNext}
+						className="flex-shrink-0 animate-fadeIn"
+					>
 						<Image
 							src="/image/about/right.svg"
 							alt="right"
@@ -83,11 +87,11 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 							priority
 						/>
 					</button>
-					<div className="ml-10 flex flex-col text-warmGrey3">
+					<div className="ml-10 flex flex-col text-warmGrey3 animate-fadeIn">
 						<span className="mb-3 font-semibold italic uppercase tracking-widest">
 							{experienceData.number}. {experienceData.title}
 						</span>
-						<span className="text-base leading-relaxed tracking-wider">
+						<span className="text-base leading-relaxed tracking-wider animate-fadeIn">
 							{experienceData.description}
 						</span>
 					</div>

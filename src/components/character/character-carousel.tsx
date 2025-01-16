@@ -62,7 +62,6 @@ export function CharacterCarousel() {
 														className="object-contain"
 														src="/image/world/line.svg"
 														alt="line"
-														layout="responsive"
 														width={800}
 														height={800}
 														priority

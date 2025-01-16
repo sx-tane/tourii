@@ -22,7 +22,7 @@ const AboutCoin: React.FC = () => {
 						initial={{ opacity: 0, rotateY: 90 }}
 						animate={{ opacity: 1, rotateY: 0 }}
 						exit={{ opacity: 0, rotateY: -90 }}
-						transition={{ duration: 0.1, ease: "easeOut" }}
+						transition={{ duration: 0.1, ease: [0, 0.71, 0.2, 1.01] }}
 						className="absolute right-0 w-48"
 					>
 						<AboutMenu onClose={() => setIsHovered(false)} />
