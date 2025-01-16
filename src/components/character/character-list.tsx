@@ -25,7 +25,7 @@ const CharacterList: React.FC = () => {
 
 	return (
 		<>
-			<div className="gap-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+			<div className="gap-5 grid grid-cols-2 mb-10 lg:grid-cols-4 md:gap-10">
 				{characters.map((char, index) => (
 					<motion.div
 						key={char.name}

@@ -7,7 +7,7 @@ interface CharacterModalInfoTableProps {
 
 const InfoTable: React.FC<CharacterModalInfoTableProps> = ({ character }) => {
 	return (
-		<div className="mt-8">
+		<div className="mt-8 text-xs md:text-base">
 			<table className="table-auto w-fit text-center border-collapse border border-gray-700">
 				<tbody>
 					<tr className="border border-black">

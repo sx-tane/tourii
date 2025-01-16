@@ -34,7 +34,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 			/>
 			<div className="absolute top-0 right-0 bg-red h-2/5 w-1/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<p
-					className={`text-white text-4xl font-bold tracking-[0.2em] [writing-mode:vertical-rl] ${notoSerifJP.className}`}
+					className={`text-white text-xs sm:text-base md:text-xl lg:text-2xl xl:text-4xl font-bold tracking-[0.2em] [writing-mode:vertical-rl] ${notoSerifJP.className}`}
 				>
 					{kanjiname}
 				</p>

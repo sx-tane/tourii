@@ -12,12 +12,12 @@ import { useState } from "react";
 import Markdown from "react-markdown";
 import InfoTable from "./info-table";
 
-const notoSerifJP = Noto_Serif_JP({
+export const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],
 	display: "swap",
 });
 
-interface CharacterModalLeftProps {
+export interface CharacterModalLeftProps {
 	character: CharacterProps;
 }
 

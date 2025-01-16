@@ -18,7 +18,7 @@ const World: NextPage = () => {
 			<div className="mt-16">
 				{/* <DescriptionWorld data={worldData[0]?.description ?? ""} /> */}
 			</div>
-			<div className="-mx-6 w-full md:mx-0 -my-10">
+			<div className="-mx-6 md:mx-0 -my-10">
 				<WhiteLine />
 			</div>
 			<Title
