@@ -46,7 +46,7 @@ export function ErrorComponent() {
 					height={600}
 					alt={"404"}
 					className="h-32 w-32 animate-spin md:h-48 md:w-48 xl:h-60 xl:w-60"
-					priority={true}
+					priority
 				/>
 				<h1 className="py-5 text-4xl font-extrabold tracking-widest text-warmGrey md:text-6xl">
 					404 ERROR
