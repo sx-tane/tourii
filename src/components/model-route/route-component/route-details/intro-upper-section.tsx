@@ -25,8 +25,8 @@ const IntroUpperSection: React.FC<IntroUpperSectionProps> = ({
 					alt={routeDetails.routeDetailName}
 					width={500}
 					height={500}
-					priority={true}
-					className=" mx-auto h-[30vh] w-8/12 rounded-full object-cover brightness-90 xl:w-4/12"
+					priority
+					className="mx-auto h-[30vh] w-8/12 rounded-full object-cover brightness-90 xl:w-4/12"
 				/>
 				<Link
 					className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-4 py-2 text-xs font-semibold tracking-widest text-warmGrey transition-all duration-300 hover:bg-red"

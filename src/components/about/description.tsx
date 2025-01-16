@@ -54,6 +54,7 @@ export const DescriptionWithImages: React.FC<DescriptionProps> = ({
 							unoptimized={true}
 							width={200}
 							height={200}
+							priority
 						/>
 					</div>
 				))}
@@ -88,6 +89,7 @@ export const DescriptionWithImage: React.FC<DescriptionProps> = ({
 					className="w-full"
 					width={1920}
 					height={1080}
+					priority
 				/>
 			</div>
 			<div className="mt-8 md:hidden">
@@ -97,6 +99,7 @@ export const DescriptionWithImage: React.FC<DescriptionProps> = ({
 					className="w-full"
 					width={1920}
 					height={1080}
+					priority
 				/>
 			</div>
 			<div className="mt-8 whitespace-pre-line px-2 text-sm font-medium md:text-base">

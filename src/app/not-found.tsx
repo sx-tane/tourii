@@ -18,7 +18,7 @@ const NotFound: React.FC = () => {
 					height={600}
 					alt={"404"}
 					className="h-44 w-44  md:h-60 md:w-60 xl:h-72 xl:w-72"
-					priority={true}
+					priority
 				/>
 				<h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
 					NOT FOUND
@@ -47,7 +47,7 @@ export function NotFoundComponent() {
 					height={600}
 					alt={"404"}
 					className="h-44 w-44  md:h-60 md:w-60 xl:h-72 xl:w-72"
-					priority={true}
+					priority
 				/>
 				<h1 className="py-5 text-4xl font-extrabold tracking-widest text-warmGrey md:text-6xl">
 					NOT FOUND

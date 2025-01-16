@@ -28,7 +28,7 @@ const RouteDestination: React.FC<{
 									alt="destination"
 									width={300}
 									height={300}
-									priority={true}
+									priority
 									className="z-20 mx-8 h-32 w-32 cursor-pointer rounded-full border-2 border-charcoal object-cover transition-all duration-300 hover:scale-110"
 								/>
 							</Link>

@@ -30,6 +30,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 				width={350}
 				height={350}
 				quality={100}
+				priority
 			/>
 			<div className="absolute top-0 right-0 bg-red h-2/5 w-1/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<p

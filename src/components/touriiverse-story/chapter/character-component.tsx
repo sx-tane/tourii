@@ -40,7 +40,7 @@ const ChapterComponent: React.FC<{ chapter?: Chapter }> = ({ chapter }) => {
 					alt={chapter?.title ?? ""}
 					width={550}
 					height={550}
-					priority={true}
+					priority
 					className="aspect-square h-[48vh] w-[20vw] animate-fadeIn rounded-full object-cover"
 				/>
 				<ChapterButton

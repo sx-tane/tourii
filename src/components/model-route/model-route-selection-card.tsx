@@ -18,7 +18,7 @@ const ModelRouteSelectionCard: React.FC<{
 						alt={modelRouteSelection.areaName ?? ""}
 						width={200}
 						height={200}
-						priority={true}
+						priority
 						className="mx-12 h-[40vh] w-auto items-center  rounded-full  object-cover"
 					/>
 					<div>

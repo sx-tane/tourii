@@ -38,7 +38,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
 						alt="left"
 						width={20}
 						height={20}
-						priority={true}
+						priority
 					/>
 				</div>
 				{/* Goshuin Items */}
@@ -61,7 +61,7 @@ const TravelGoshuinCollection: React.FC<TravelGoshuinCollectionProps> = ({
 						alt="left"
 						width={20}
 						height={20}
-						priority={true}
+						priority
 					/>
 				</div>
 			</div>

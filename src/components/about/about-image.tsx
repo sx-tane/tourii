@@ -10,7 +10,7 @@ const AboutImage: React.FC = () => {
 					alt="main art"
 					width={1200}
 					height={1200}
-					priority={true}
+					priority
 				/>
 			</div>
 		</div>

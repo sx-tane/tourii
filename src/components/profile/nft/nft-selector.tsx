@@ -15,7 +15,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
 				alt="left"
 				width={20}
 				height={20}
-				priority={true}
+				priority
 			/>
 			<div className="mx-12 grid w-full grid-cols-6 items-center justify-items-center gap-12">
 				{nftList.map((nft) =>
@@ -27,6 +27,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
 							width={100}
 							height={100}
 							onClick={() => handleNFTChange(nft.nftId)}
+							priority
 							className={`h-auto w-full cursor-pointer rounded-xl transition-all duration-300 hover:scale-110 ${selectedNFT?.nftId === nft.nftId ? " border-4 border-white transition-all" : ""}`}
 						/>
 					) : (
@@ -43,7 +44,7 @@ const NFTSelection: React.FC<NFTSelectionProps> = ({
 				alt="left"
 				width={20}
 				height={20}
-				priority={true}
+				priority
 			/>
 		</div>
 	);

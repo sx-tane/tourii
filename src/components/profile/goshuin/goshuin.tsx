@@ -26,6 +26,7 @@ const Goshuin: React.FC<GoshuinProps> = ({ goshuin }) => {
 							width={64}
 							height={64}
 							className="h-16 w-16 rounded-full"
+							priority
 						/>
 					</div>
 				</HoverCardTrigger>

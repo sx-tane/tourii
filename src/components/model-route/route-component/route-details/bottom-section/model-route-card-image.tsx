@@ -17,7 +17,7 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
 						alt={imageName}
 						width={500}
 						height={500}
-						priority={true}
+						priority
 						className="h-[40vh] w-full object-cover"
 					/>
 				)}
@@ -30,7 +30,7 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
 							alt={imageName}
 							width={500}
 							height={500}
-							priority={true}
+							priority
 							className="h-[20vh] w-full object-cover"
 						/>
 					)}
@@ -40,7 +40,7 @@ const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({
 							alt={imageName}
 							width={500}
 							height={500}
-							priority={true}
+							priority
 							className="h-[20vh] w-full object-cover"
 						/>
 					)}

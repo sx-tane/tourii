@@ -29,6 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 						width={400}
 						height={400}
 						className="z-30 h-64 w-52 rounded-lg object-cover"
+						priority
 					/>
 				</Link>
 			</div>

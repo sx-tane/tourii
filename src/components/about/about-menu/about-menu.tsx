@@ -30,6 +30,7 @@ const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
 				alt="menu"
 				width={1000}
 				height={1000}
+				priority
 			/>
 			<div className="absolute z-10 flex flex-col items-center justify-center space-y-11 text-center text-[9px] font-semibold leading-3 tracking-widest text-white">
 				<Link

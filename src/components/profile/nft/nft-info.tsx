@@ -94,7 +94,7 @@ const NFTInfo: React.FC<NftInfoProps> = ({ selectedNFT }) => {
 					alt={selectedNFT?.nftId ?? ""}
 					width={500}
 					height={500}
-					priority={true}
+					priority
 					className="h-full w-auto rounded-full object-cover"
 				/>
 			</div>

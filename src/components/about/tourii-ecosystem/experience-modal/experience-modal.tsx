@@ -100,7 +100,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 									alt="left"
 									width={60}
 									height={60}
-									priority={true}
+									priority
 								/>
 							</div>
 						</button>
@@ -111,6 +111,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 									alt={experienceType[currentIndex]?.title ?? ""}
 									width={200}
 									height={200}
+									priority
 									className="mb-5 mx-auto"
 								/>
 								<span className=" font-bold uppercase tracking-widest">
@@ -128,7 +129,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 									alt="right"
 									width={60}
 									height={60}
-									priority={true}
+									priority
 								/>
 							</div>
 						</button>

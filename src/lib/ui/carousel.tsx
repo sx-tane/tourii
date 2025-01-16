@@ -220,7 +220,7 @@ const CarouselPrevious = React.forwardRef<
 				alt="right"
 				width={20}
 				height={20}
-				priority={true}
+				priority
 				className="h-4 w-4"
 			/>
 			<span className="sr-only">Previous slide</span>
@@ -256,7 +256,7 @@ const CarouselNext = React.forwardRef<
 				alt="right"
 				width={20}
 				height={20}
-				priority={true}
+				priority
 				className="h-4 w-4"
 			/>
 			<span className="sr-only">Next slide</span>

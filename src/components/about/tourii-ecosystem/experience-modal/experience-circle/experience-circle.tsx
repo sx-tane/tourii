@@ -3,7 +3,6 @@ import Image from "next/image";
 import type React from "react";
 
 const ExperienceCircle: React.FC<ExperienceCircleProps> = ({
-	number,
 	title,
 	image,
 }) => {
@@ -15,6 +14,7 @@ const ExperienceCircle: React.FC<ExperienceCircleProps> = ({
 				width={1024}
 				height={1024}
 				className="mx-auto"
+				priority
 			/>
 			{/* <span className="font-tertiary text-3xl italic text-warmGrey3 ">
 				{number}

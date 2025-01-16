@@ -26,7 +26,7 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 							alt={story?.title ?? ""}
 							width={600}
 							height={600}
-							priority={true}
+							priority
 							quality={100}
 						/>
 					</div>
@@ -58,7 +58,7 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						width={600}
 						height={600}
 						className="absolute left-0 top-0 z-40 h-full w-full object-cover brightness-50"
-						priority={true}
+						priority
 					/>
 				</div>
 			)}

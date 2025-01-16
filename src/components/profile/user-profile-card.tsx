@@ -23,6 +23,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({ userProfile }) => {
 					width={500}
 					height={500}
 					className="object-cover shadow-inner"
+					priority
 				/>
 				<div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-800 via-transparent to-transparent" />
 				<div className="absolute left-8 top-8 text-xs font-bold uppercase tracking-wider text-red">

@@ -40,6 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 				width={10000}
 				height={1000}
 				className="my-10 h-3 w-full object-cover"
+				priority
 			/>
 			<div>
 				<div className="mb-4 space-y-2 ">
@@ -62,6 +63,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 				width={10000}
 				height={1000}
 				className="my-10 h-3 w-full object-cover"
+				priority
 			/>
 			<div className=" flex justify-between">
 				<p className=" text-3xl font-bold uppercase tracking-wider text-red">{`${product.price} Yen`}</p>

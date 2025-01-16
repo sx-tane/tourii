@@ -12,6 +12,7 @@ const Divider: React.FC = () => {
 						width={10000}
 						height={3000}
 						className="h-3 object-cover"
+						priority
 					/>
 				</div>
 			}

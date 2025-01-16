@@ -45,6 +45,7 @@ const GoshuinGrid: React.FC<GoshuinGridProps> = ({
 												height={64}
 												onClick={() => handleGoshuinChange(goshuin.goshuinId)}
 												className={"h-16 w-16 rounded-full"}
+												priority
 											/>
 										</div>
 									</HoverCardTrigger>

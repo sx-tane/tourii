@@ -34,7 +34,7 @@ const GoshuinInfo: React.FC<GoshuinInfoProps> = ({ goshuin }) => {
 					alt="goshuin"
 					width={1000}
 					height={1000}
-					priority={true}
+					priority
 					className="absolute right-1/2 top-10 aspect-square h-1/4 w-auto rotate-12 object-cover"
 				/>
 			) : null}
@@ -82,7 +82,7 @@ const GoshuinInfo: React.FC<GoshuinInfoProps> = ({ goshuin }) => {
 					alt="perks"
 					width={1000}
 					height={1000}
-					priority={true}
+					priority
 					className="aspect-square h-full w-full object-cover"
 				/>
 			</div>

@@ -11,6 +11,7 @@ const DividerWhite: React.FC = () => {
 						alt="divider"
 						width={10000}
 						height={3000}
+						priority
 						className="h-3 object-cover"
 					/>
 				</div>

@@ -57,7 +57,7 @@ const SmallSection: React.FC<PlaceProps> = ({
 									isHovered ? "opacity-0" : "opacity-100"
 								}`}
 								fill={true}
-								priority={true}
+								priority
 							/>
 						</div>
 					</div>

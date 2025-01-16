@@ -23,6 +23,7 @@ const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
 					width={100}
 					height={300}
 					quality={100}
+					priority
 					className="h-full w-fit object-cover"
 				/>
 			</div>

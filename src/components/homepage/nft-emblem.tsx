@@ -31,7 +31,7 @@ const NFTEmblem: React.FC = () => {
 					width={280}
 					height={300}
 					className="w-full md:h-[240px] lg:h-[260px] xl:h-[280px] 2xl:h-[340px]"
-					priority={true}
+					priority
 				/>
 			</div>
 			{/* Tablet & Mobile */}
@@ -63,7 +63,7 @@ const NFTEmblem: React.FC = () => {
 					width={800}
 					height={300}
 					className="fixed -bottom-5 -right-4 z-30 w-[162px] "
-					priority={true}
+					priority
 				/>
 			</div>
 		</div>

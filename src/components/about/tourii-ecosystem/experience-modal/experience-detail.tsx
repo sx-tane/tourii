@@ -64,7 +64,7 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 							alt="left"
 							width={20}
 							height={20}
-							priority={true}
+							priority
 						/>
 					</button>
 					<div className="mx-5">
@@ -80,7 +80,7 @@ const ExperienceDetail: React.FC<ExperienceDetailProps> = ({
 							alt="right"
 							width={20}
 							height={20}
-							priority={true}
+							priority
 						/>
 					</button>
 					<div className="ml-10 flex flex-col text-warmGrey3">

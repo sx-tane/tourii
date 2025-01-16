@@ -31,7 +31,7 @@ const Goal: React.FC<GoalProps> = () => {
 										height={200}
 										alt={goal.title ?? ""}
 										className="w-fit-content h-fit-content relative mx-auto"
-										priority={true}
+										priority
 									/>
 									<DrawerHeader>
 										<DrawerTitle className="-mt-2">{goal.title}</DrawerTitle>
@@ -42,7 +42,7 @@ const Goal: React.FC<GoalProps> = () => {
 											layout="responsive"
 											width={800}
 											height={800}
-											priority={true}
+											priority
 										/>
 										<DrawerDescription className="text-center">
 											<ReactMarkdown>{goal.description}</ReactMarkdown>

@@ -15,7 +15,7 @@ const Header: React.FC = () => {
 							alt="Logo"
 							width={50}
 							height={50}
-							priority={true}
+							priority
 							className="h-10 w-10 sm:h-12 sm:w-12"
 						/>
 					</Link>

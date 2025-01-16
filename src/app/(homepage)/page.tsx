@@ -34,7 +34,7 @@ const HomePage: NextPage = () => {
 							width={500}
 							height={600}
 							className="relative w-[55%] object-cover sm:w-5/12"
-							priority={true}
+							priority
 						/>
 					</div>
 					<video

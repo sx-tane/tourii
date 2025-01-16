@@ -23,6 +23,7 @@ const Loading: React.FC = () => {
 					alt="Loading"
 					width={130}
 					height={130}
+					priority
 				/>
 			</motion.div>
 		</div>

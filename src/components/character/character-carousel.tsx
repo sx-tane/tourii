@@ -37,7 +37,7 @@ export function CharacterCarousel() {
 												width={400}
 												height={400}
 												className="mb-2"
-												priority={true}
+												priority
 											/>
 											{character.name}
 										</DrawerTrigger>
@@ -53,7 +53,7 @@ export function CharacterCarousel() {
 														height={200}
 														alt={character.name ?? ""}
 														className="w-fit-content h-fit-content relative mx-auto"
-														priority={true}
+														priority
 													/>
 													<DrawerTitle className="text-warmGrey3">
 														{character.name}
@@ -65,7 +65,7 @@ export function CharacterCarousel() {
 														layout="responsive"
 														width={800}
 														height={800}
-														priority={true}
+														priority
 													/>
 													<DrawerDescription className=" text-center text-warmGrey3">
 														<ReactMarkdown>

@@ -11,7 +11,7 @@ const WhiteLine: React.FC = () => {
 				layout="responsive"
 				width={800}
 				height={800}
-				priority={true}
+				priority
 			/>
 		</div>
 	);

@@ -13,7 +13,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ image, name }) => {
 				height={3000}
 				quality={100}
 				className="z-20 aspect-square rounded-full object-cover"
-				priority={true}
+				priority
 			/>
 		</div>
 	);
