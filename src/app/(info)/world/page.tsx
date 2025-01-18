@@ -29,10 +29,9 @@ const World: NextPage = () => {
 				{/* <DescriptionWorld data={worldData[1]?.description ?? ""} /> */}
 			</div>
 			{/* <Goal /> */}
-			<div className="my-10">
+			<div className="mx-20 lg:mx-0 my-10">
 				<Prologue />
 			</div>
-
 			<DividerWhite />
 		</div>
 	);

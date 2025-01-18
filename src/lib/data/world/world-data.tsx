@@ -37,7 +37,7 @@ export const titleData: TitleProps[] = [
 		smallTitle: "an intro to the world of tourii",
 		title: "the\ntouriiverse",
 	},
-	{ smallTitle: "Tourii Prologue", title: "a bridge\nbetween realms" },
+	{ smallTitle: "bungo ono", title: "Tourii\nPrologue" },
 ];
 
 export const goalData: GoalProps[] = [

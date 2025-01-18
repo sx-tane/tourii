@@ -25,7 +25,7 @@ const AboutImage: React.FC = () => {
 							priority
 						/>
 					</div>
-				</div>{" "}
+				</div>
 			</motion.div>
 		</AnimatePresence>
 	);

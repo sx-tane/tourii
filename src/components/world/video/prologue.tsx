@@ -13,7 +13,7 @@ const Prologue = () => {
 				exit="hidden"
 				variants={downToUpVariants}
 				transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
-				className="w-screen flex items-center justify-center"
+				className=" w-[80vw] md:w-screen flex items-center justify-center"
 			>
 				<div className="w-full max-w-4xl aspect-video">
 					<iframe

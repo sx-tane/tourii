@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const BigSection: React.FC = () => {
 	const [isHovered, setIsHovered] = useState(false);
+	const isMobile = typeof window !== "undefined" && window.innerWidth <= 425;
 
 	return (
 		<div className="flex flex-col items-center justify-center text-warmGrey3">
@@ -30,21 +31,21 @@ const BigSection: React.FC = () => {
 							height: "100%",
 						}}
 					>
-						<video
-							src="/video/touriiverse/Earth.mp4"
-							className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-								isHovered ? "opacity-100" : "opacity-0"
-							}`}
-							autoPlay
-							loop
-							muted
-						/>
+						{!isMobile && (
+							<video
+								src="/video/touriiverse/Earth.mp4"
+								className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+								autoPlay
+								loop
+								muted
+							/>
+						)}
 						<Image
 							src="/image/world/ashihara.png"
 							alt="Ashihara-no-Nakatsukuni"
 							quality={100}
 							className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-								isHovered ? "opacity-0" : "opacity-100"
+								isHovered ? "opacity-100 sm:opacity-0" : "opacity-100"
 							}`}
 							fill={true}
 							priority

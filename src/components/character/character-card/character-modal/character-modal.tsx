@@ -67,7 +67,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
 							<CharacterIntroMobile character={character} />{" "}
 						</div>
 						{/* Close Button */}
-						<div className="flex flex-col justify-center w-2/12 h-full bg-red">
+						<div className="flex flex-col w-3/12 md:w-2/12 h-full bg-red z-60">
 							<CloseButtonMobile onClose={onClose} />
 						</div>
 					</motion.div>

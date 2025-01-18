@@ -27,17 +27,14 @@ const HomePage: NextPage = () => {
 					<div className="mx-6 mb-5">
 						<Headline />
 					</div>
-					<video
-						autoPlay
-						loop
-						muted
-						playsInline
+					<Image
+						src="/image/homepage/tourii_main.png"
+						alt="main art"
 						width={1000}
 						height={1000}
 						className="z-10 h-[65vh] w-full object-cover "
-					>
-						<source src="/video/Tourii.mp4" type="video/mp4" />
-					</video>
+					/>
+
 					<div className="z-20 lg:hidden">
 						<NFTEmblem />
 					</div>

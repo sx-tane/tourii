@@ -6,6 +6,7 @@ import Image from "next/image";
 import type React from "react";
 import ReactMarkdown from "react-markdown";
 import Line from "./divider-line/line";
+import { useInView } from "react-intersection-observer";
 
 const Description: React.FC<DescriptionProps> = ({
 	smallTitle,
@@ -48,15 +49,23 @@ export const DescriptionWithImages: React.FC<DescriptionProps> = ({
 	content,
 	images = [],
 }) => {
+	const [ref, inView] = useInView({
+		triggerOnce: true,
+		threshold: 0.5,
+	});
+
 	return (
-		<div className="my-10 items-center text-center text-red">
+		<div ref={ref} className="my-10 items-center text-center text-red">
 			<AnimatePresence>
 				<motion.div
 					key="image-content"
 					initial="hidden"
 					animate="visible"
 					exit="hidden"
-					variants={downToUpVariants}
+					variants={{
+						hidden: { opacity: 0, y: 20 },
+						visible: { opacity: 1, y: 0 },
+					}}
 					transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
 				>
 					<div className="font-bold uppercase">
@@ -68,31 +77,37 @@ export const DescriptionWithImages: React.FC<DescriptionProps> = ({
 						</h2>
 					</div>
 					<div className="mt-8 grid gap-3 md:gap-10 grid-cols-3">
-						{images.map((image, index) => (
-							<div key={image}>
-								<motion.div
-									key={image}
-									variants={downToUpVariants}
-									initial="hidden"
-									animate="visible"
-									transition={{
-										duration: 0.8,
-										delay: index * 0.2,
-										ease: [0, 0.71, 0.2, 1.01],
-									}}
-								>
-									<Image
-										src={image}
-										alt={title ?? ""}
-										className="w-full rounded-full"
-										unoptimized={true}
-										width={200}
-										height={200}
-										priority
-									/>{" "}
-								</motion.div>
-							</div>
-						))}
+						{images.map(
+							(image, index) =>
+								inView && (
+									<div key={image}>
+										<motion.div
+											key={image}
+											initial="hidden"
+											animate="visible"
+											variants={{
+												hidden: { opacity: 0, y: 20 },
+												visible: { opacity: 1, y: 0 },
+											}}
+											transition={{
+												duration: 0.5,
+												delay: index * 0.2,
+												ease: [0, 0.71, 0.2, 1.01],
+											}}
+										>
+											<Image
+												src={image}
+												alt={title ?? ""}
+												className="w-full rounded-full"
+												unoptimized={true}
+												width={200}
+												height={200}
+												priority
+											/>
+										</motion.div>
+									</div>
+								),
+						)}
 					</div>
 					<div className="mt-8 whitespace-pre-line px-2 text-sm font-medium md:text-base">
 						<ReactMarkdown>{content}</ReactMarkdown>

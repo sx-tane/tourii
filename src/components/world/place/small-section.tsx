@@ -11,6 +11,7 @@ const SmallSection: React.FC<PlaceProps> = ({
 	video,
 }) => {
 	const [isHovered, setIsHovered] = useState(false);
+	const isMobile = typeof window !== "undefined" && window.innerWidth <= 425;
 
 	return (
 		<div>
@@ -20,8 +21,8 @@ const SmallSection: React.FC<PlaceProps> = ({
 				</h2>
 				<div
 					className="w-[65vw] lg:w-[40vw] xl:w-[35vw]"
-					onMouseEnter={() => setIsHovered(true)}
-					onMouseLeave={() => setIsHovered(false)}
+					onMouseEnter={() => !isMobile && setIsHovered(true)}
+					onMouseLeave={() => !isMobile && setIsHovered(false)}
 				>
 					<div
 						className="relative overflow-hidden rounded-full border-2 border-warmGrey3"
@@ -36,25 +37,25 @@ const SmallSection: React.FC<PlaceProps> = ({
 						<div
 							className="absolute inset-0 transition-opacity duration-500"
 							style={{
-								width: "100%",
+								width: "100%,",
 								height: "100%",
 							}}
 						>
-							<video
-								src={video}
-								className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-									isHovered ? "opacity-100" : "opacity-0"
-								}`}
-								autoPlay
-								loop
-								muted
-							/>
+							{!isMobile && (
+								<video
+									src={video}
+									className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+									autoPlay
+									loop
+									muted
+								/>
+							)}
 							<Image
 								src={image ?? ""}
 								alt={title ?? ""}
 								quality={100}
 								className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-									isHovered ? "opacity-0" : "opacity-100"
+									isHovered ? "opacity-100 sm:opacity-0" : "opacity-100"
 								}`}
 								fill={true}
 								priority
