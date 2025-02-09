@@ -6,8 +6,8 @@ import type { CharacterProps } from "@/types/character-type";
 import { AnimatePresence, motion } from "framer-motion";
 import type React from "react";
 import CharacterIntro from "./character-intro";
-import CloseButton from "./close-button";
 import CharacterIntroMobile from "./character-intro-mobile";
+import CloseButton from "./close-button";
 import CloseButtonMobile from "./close-button-mobile";
 
 interface CharacterModalProps {

@@ -1,13 +1,13 @@
 "use client";
-import type React from "react";
-import { notoSerifJP, type CharacterModalLeftProps } from "./character-intro";
-import { useState } from "react";
 import Loading from "@/app/loading";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
-import Markdown from "react-markdown";
-import InfoTable from "./info-table";
 import Image from "next/image";
+import type React from "react";
+import { useState } from "react";
+import Markdown from "react-markdown";
+import { type CharacterModalLeftProps, notoSerifJP } from "./character-intro";
+import InfoTable from "./info-table";
 
 const CharacterIntroMobile: React.FC<CharacterModalLeftProps> = ({
 	character,

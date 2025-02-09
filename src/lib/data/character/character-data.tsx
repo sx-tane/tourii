@@ -19,7 +19,7 @@ export const characters: CharacterProps[] = [
 		thumbnailImage: "/image/character/thumbnail/amaterasu-card.png",
 		image: "/image/character/Amateras_03.png",
 		description:
-			"***Amaterasu, the Revered Sun Goddess and ruler of all Kami***, reigns over the heavenly plains of Takamagahara. As Ninigi no Mikoto’s grandmother, she is revered as the most powerful kami in the Japanese mythological pantheon, even by the Bonjin, for bringing the light necessary for cultivation. Amaterasu possesses a younger form known only to her closest lineage and select kami and bonjin, which she uses for secret visits to the Central Plains to avoid recognition and commotion. It is said that when Ninigi went missing during his descent, Amaterasu descended in this hidden form to search for him. This act underscores her unwavering dedication and concern for her family, further cementing her reputation as a vigilant and powerful deity.",
+			"***Amaterasu, the Revered Sun Goddess and ruler of all Kami***, reigns over the heavenly plains of Takamagahara. As Ninigi no Mikoto’s grandmother, she is revered as the most powerful kami in the Japanese mythological pantheon, even by the Bonjin, for bringing the light necessary for cultivation. Amaterasu possesses a younger form known only to her closest lineage and select kami and bonjin, which she uses for secret visits to the Central Plains to avoid recognition and commotion.",
 		dob: "Unknown",
 		realm: "Takamagahara",
 		height: "130cm",
@@ -31,7 +31,7 @@ export const characters: CharacterProps[] = [
 		thumbnailImage: "/image/character/thumbnail/sarutahiko-card.png",
 		image: "/image/character/Sarutahiko_04.png",
 		description:
-			"***Sarutahiko, the revered leader among earthly Kami***, stands as a paragon of Misogi, embodying formidable strength and unwavering guidance. His significance is highlighted as the first Kunitsukami to welcome Ninigi no Mikoto during the latter's descent to the central land. His instrumental role in aiding Ninigi's journey across Japan cements his reputation not only as a trustworthy guide among the pantheon of Kunitsukami but also as a deity of travel. Despite his allegiance to Okuninushi, the former ruler, Sarutahiko's intentions in assisting Ninigi are shrouded in mystery...",
+			"***Sarutahiko, the revered leader among earthly Kami***, stands as a paragon of Misogi, embodying formidable strength and unwavering guidance. His significance is highlighted as the first Kunitsukami to welcome Ninigi no Mikoto during the latter's descent to the central land. His instrumental role in aiding Ninigi's journey across Japan cements his reputation not only as a trustworthy guide among the pantheon of Kunitsukami but also as a deity of travel.",
 		dob: "Unknown",
 		realm: "Ashihara-no-Nakatsukuni",
 		height: "200cm",

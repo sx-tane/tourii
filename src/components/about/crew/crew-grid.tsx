@@ -4,8 +4,8 @@ import { crewData } from "@/lib/data/about/crew-data";
 import type { CrewInfoProps } from "@/types/about-type";
 import { motion } from "framer-motion";
 import type React from "react";
-import CrewMemberCard from "./crew-member-card";
 import { useInView } from "react-intersection-observer";
+import CrewMemberCard from "./crew-member-card";
 
 const CrewGrid: React.FC = () => {
 	const [ref, inView] = useInView({

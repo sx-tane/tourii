@@ -37,21 +37,21 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({ character }) => {
 					transition={{ duration: 0.5, ease: [0, 0.71, 0.2, 1.01] }}
 				>
 					<p
-						className={`text-2xl font-bold tracking-widest md:text-3xl text-black my-5 ${notoSerifJP.className}`}
+						className={` font-bold tracking-widest md:text-2xl text-black my-5 ${notoSerifJP.className}`}
 					>
 						{character.kanjiname}
 					</p>
-					<h2 className="font-bold tracking-widest uppercase mb-5 text-3xl md:text-5xl md:tracking-widest">
+					<h2 className="font-bold tracking-widest uppercase mb-5 md:text-3xl md:tracking-widest">
 						{character.name}
 					</h2>
-					<Markdown className="text-sm text-black tracking-wider mt-5 font-medium md:text-base leading-relaxed">
+					<Markdown className="text-black tracking-wider mt-5 font-medium md:text-sm leading-relaxed">
 						{character.description}
 					</Markdown>
 					<InfoTable character={character} />
 				</motion.div>
 				<motion.div
 					key="image-content"
-					className="h-full w-5/12 flex-none mx-10 mt-20 relative"
+					className="h-full w-1/2 flex-none mx-10 relative"
 					initial="hidden"
 					animate="visible"
 					exit="hidden"

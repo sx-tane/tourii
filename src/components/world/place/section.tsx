@@ -1,10 +1,10 @@
 "use client";
+import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import { bridgeData, placeData } from "../../../lib/data/world/world-data";
 import LinkBridge from "../link-bridge";
 import BigSection from "./big-section";
 import SmallSection from "./small-section";
-import { downToUpVariants } from "@/lib/animation/variants-settings";
 
 const Section = () => {
 	return (
