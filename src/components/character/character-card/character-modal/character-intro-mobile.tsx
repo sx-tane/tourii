@@ -11,6 +11,8 @@ import InfoTable from "./info-table";
 
 const CharacterIntroMobile: React.FC<CharacterModalLeftProps> = ({
 	character,
+	onNext,
+	onPrevious,
 }) => {
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -66,6 +68,37 @@ const CharacterIntroMobile: React.FC<CharacterModalLeftProps> = ({
 					</div>
 				</motion.div>
 			</AnimatePresence>
+			{/* Navigation Buttons */}
+			{/* <button
+				className="absolute left-0 top-1/2 transform -translate-y-1/2 z-50"
+				onClick={onPrevious}
+				type="button"
+			>
+				<div className="h-3 w-3 sm:h-6 sm:w-6">
+					<Image
+						src="/image/about/left.svg"
+						alt="left"
+						width={60}
+						height={60}
+						priority
+					/>
+				</div>
+			</button> */}
+			{/* <button
+				className="absolute right-0 top-1/2 transform -translate-y-1/2 z-50"
+				onClick={onNext}
+				type="button"
+			>
+				<div className="h-3 w-3 sm:h-6 sm:w-6">
+					<Image
+						src="/image/about/right.svg"
+						alt="right"
+						width={60}
+						height={60}
+						priority
+					/>
+				</div>
+			</button> */}
 		</div>
 	);
 };

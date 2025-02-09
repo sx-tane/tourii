@@ -1,50 +1,18 @@
 import type { RouteDestinations, RouteDetails } from "@/types/model-route-type";
+import createIdGenerator from "@/utils/id-utils";
 
-let stopNumber = 0;
-
-function generateStopId() {
-	stopNumber = stopNumber + 1;
-	return `stop ${stopNumber}`;
-}
-
-let number = 21;
-
-function generateRouteDetailId() {
-	number = number + 1;
-	return `RouteDetail ${number}`;
-}
-
-let destinationNumber = 21;
-
-function generateDestinationId() {
-	destinationNumber = destinationNumber + 1;
-	return `destination${destinationNumber}`; //reach 21
-}
-
-let chapterNumber = 32;
-
-function generateChapterId() {
-	chapterNumber = chapterNumber + 1;
-	return `bungoOnoChapterId${chapterNumber}`;
-}
-
-let chapterImageNumber = 31;
-
-function generateChapterImageId() {
-	chapterImageNumber = chapterImageNumber + 1;
-	return `chapter${chapterImageNumber}.png`; //reach chapter 31
-}
+const route4Generator = new createIdGenerator(21, 0, 21, 32, 31, 0, 0);
 
 export const routeDetails4: RouteDetails[] = [
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route4Generator.generateRouteDetailId(),
+		stop: route4Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Uchida Shrine",
 		routeDetailStoryTitle: "Guidance at Uchida Shrine",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/4/uchida-shrine/1.jpg",
 			image2: "/image/model-route/4/uchida-shrine/2.jpg",
@@ -56,14 +24,14 @@ export const routeDetails4: RouteDetails[] = [
 		routeHashtag: ["#HistoricShrines", " #LegendarySites"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route4Generator.generateRouteDetailId(),
+		stop: route4Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Mount Atago",
 		routeDetailStoryTitle: "Mount Atago's Enigmatic Encounter",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/4/mount-atago/1.jpg",
 			image2: "/image/model-route/4/mount-atago/2.jpg",
@@ -75,14 +43,14 @@ export const routeDetails4: RouteDetails[] = [
 		routeHashtag: ["#ScenicViews", " #NatureEscapes"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route4Generator.generateRouteDetailId(),
+		stop: route4Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Hyuga",
 		routeDetailStoryTitle: "Hyuga and the Heike Clan Spirits",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/4/hyuga/1.jpg",
 			image2: "/image/model-route/4/hyuga/2.jpg",
@@ -94,14 +62,14 @@ export const routeDetails4: RouteDetails[] = [
 		routeHashtag: ["#CoastalBeauty", " #CulturalHeritage"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route4Generator.generateRouteDetailId(),
+		stop: route4Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Omi Shrine",
 		routeDetailStoryTitle: "A Beacon of Hope",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/4/omi-shrine/1.jpeg",
 			image2: "/image/model-route/4/omi-shrine/2.jpg",
@@ -118,7 +86,7 @@ export const routeDestinations4: RouteDestinations[] = [];
 
 for (let i = 0; i < 4; i++) {
 	routeDestinations4.push({
-		destinationId: generateDestinationId(),
+		destinationId: route4Generator.generateDestinationId(),
 		stopId: routeDetails4[i]?.stop,
 		routeDetailId: routeDetails4[i]?.routeDetailId,
 		destinationName: routeDetails4[i]?.routeDetailName,

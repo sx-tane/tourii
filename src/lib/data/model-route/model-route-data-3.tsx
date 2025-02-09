@@ -1,50 +1,18 @@
 import type { RouteDestinations, RouteDetails } from "@/types/model-route-type";
+import createIdGenerator from "@/utils/id-utils";
 
-let stopNumber = 0;
-
-function generateStopId() {
-	stopNumber = stopNumber + 1;
-	return `stop ${stopNumber}`;
-}
-
-let number = 14;
-
-function generateRouteDetailId() {
-	number = number + 1;
-	return `RouteDetail ${number}`;
-}
-
-let destinationNumber = 14;
-
-function generateDestinationId() {
-	destinationNumber = destinationNumber + 1;
-	return `destination${destinationNumber}`; //reach 21
-}
-
-let chapterNumber = 19;
-
-function generateChapterId() {
-	chapterNumber = chapterNumber + 1;
-	return `bungoOnoChapterId${chapterNumber}`; //reach chapterid 32
-}
-
-let chapterImageNumber = 18;
-
-function generateChapterImageId() {
-	chapterImageNumber = chapterImageNumber + 1;
-	return `chapter${chapterImageNumber}.png`; //reach chapter 31
-}
+const route3Generator = new createIdGenerator(14, 0, 14, 19, 18, 0, 0);
 
 export const routeDetails3: RouteDetails[] = [
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Mitarai Shrine",
 		routeDetailStoryTitle: "The Boiling Water Kagura",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/mitarai-shrine/1.jpg",
 			image2: "/image/model-route/3/mitarai-shrine/2.jpg",
@@ -57,14 +25,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#ShrineVisit", " #CulturalSpot"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Sugao Magaibutsu",
 		routeDetailStoryTitle: "The Oni That Fled from the Roaster",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/sugao-magaibutsu/1.jpg",
 			image2: "/image/model-route/3/sugao-magaibutsu/2.jpg",
@@ -76,14 +44,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#BuddhaArt", " #HeritageSite"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Shibayama Hachiman Shrine",
 		routeDetailStoryTitle: "The Sake Gourd Blessing",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/shibayama-hachiman-shrine/2.jpg",
 			image2: "/image/model-route/3/shibayama-hachiman-shrine/1.jpg",
@@ -96,14 +64,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#ShrineFest", " #SpiritualPlace"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Osako Magaibutsu",
 		routeDetailStoryTitle: "The Clay Masked Buddha",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/osako-magaibutsu/1.jpg",
 			image2: "/image/model-route/3/osako-magaibutsu/2.jpg",
@@ -116,14 +84,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#SacredSite", " #HistoricBuddha"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Tedorigando",
 		routeDetailStoryTitle: "The Elusive Crabs",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/tedorigando/1.jpg",
 			image2: "/image/model-route/3/tedorigando/2.jpg",
@@ -136,14 +104,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#NaturalSpot", " #GeoWonder"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Inukai",
 		routeDetailStoryTitle: "Fishing for the Mirror Shard",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/inukai/2.jpg",
 			image2: "/image/model-route/3/inukai/1.jpg",
@@ -155,14 +123,14 @@ export const routeDetails3: RouteDetails[] = [
 		routeHashtag: ["#LocalFest", " #CommunityEvent"],
 	},
 	{
-		routeDetailId: generateRouteDetailId(),
-		stop: generateStopId(),
+		routeDetailId: route3Generator.generateRouteDetailId(),
+		stop: route3Generator.generateStopId(),
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Inazumi Cave",
 		routeDetailStoryTitle: "The Cave That Is Older Than The Kami",
-		visualNovelLink: `/touriiverse/bungo-ono/${generateChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route3Generator.generateBungoOnoChapterId()}`,
 		modelRouteLink: "https://www.tanejp.com/route/inazumi-route/",
-		routeDetailBigImage: `/image/touriiverse/bungo-ono/${generateChapterImageId()}`,
+		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route3Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
 			image1: "/image/model-route/3/inazumi-cave/1.jpg",
 			image2: "/image/model-route/3/inazumi-cave/2.jpg",
@@ -179,7 +147,7 @@ export const routeDestinations3: RouteDestinations[] = [];
 
 for (let i = 0; i < 7; i++) {
 	routeDestinations3.push({
-		destinationId: generateDestinationId(),
+		destinationId: route3Generator.generateDestinationId(),
 		stopId: routeDetails3[i]?.stop,
 		routeDetailId: routeDetails3[i]?.routeDetailId,
 		destinationName: routeDetails3[i]?.routeDetailName,

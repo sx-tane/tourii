@@ -1,25 +1,21 @@
 import type { Story, StorySelection } from "@/types/story-type";
 import { prologueChapterData } from "./chapter-data";
-
-let number = 0;
+import createIdGenerator from "@/utils/id-utils";
 
 const defaultBackgroundImage = "/image/touriiverse/story-page.png";
 
-function generateStoryId() {
-	number = number + 1;
-	return `storyId${number}`;
-}
+const storyIdGenerator = new createIdGenerator(0, 0, 0, 0, 0, 0, 0);
 
 export const storyData: Story[] = [
 	{
-		storyId: generateStoryId(),
+		storyId: storyIdGenerator.generateStoryId(),
 		title: "Prologue",
 		backgroundImage: defaultBackgroundImage,
 		chapter: prologueChapterData,
 		url: "prologue",
 	},
 	{
-		storyId: generateStoryId(),
+		storyId: storyIdGenerator.generateStoryId(),
 		title: "Bungo\nOno",
 		backgroundImage: "/video/bungo-ono.mp4",
 		description:
@@ -28,12 +24,12 @@ export const storyData: Story[] = [
 		url: "bungo-ono",
 	},
 	{
-		storyId: generateStoryId(),
+		storyId: storyIdGenerator.generateStoryId(),
 		title: "Coming Soon",
 		backgroundImage: "/image/touriiverse/yokai.png",
 	},
 	// {
-	//   storyId: generateStoryId(),
+	//   storyId: storyIdGenerator.generateStoryId(),
 	//   title: "Coming Soon",
 	//   backgroundImage: "/image/touriiverse/coming-soon.png",
 	// },

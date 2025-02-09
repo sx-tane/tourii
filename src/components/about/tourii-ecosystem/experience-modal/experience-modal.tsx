@@ -19,6 +19,7 @@ import ExperienceDetail from "./experience-detail";
 const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 	const [selectedBenefitId, setSelectedBenefitId] = useState(0);
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentExperienceType, setCurrentExperienceType] = useState(data);
 
 	const handleNext = () => {
 		setCurrentIndex((prevIndex) => (prevIndex + 1) % experienceType.length);
@@ -44,7 +45,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 	}, [isOpen]);
 
 	const experienceType =
-		data === "Offchain Experience"
+		currentExperienceType === "Offchain Experience"
 			? offChainExperienceData
 			: onChainExperienceData;
 
@@ -59,6 +60,14 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 
 	const handleBack = () => {
 		setSelectedBenefitId(0);
+	};
+
+	const handleMoreInfoClick = () => {
+		setCurrentExperienceType((prevType) =>
+			prevType === "Offchain Experience"
+				? "Onchain Experience"
+				: "Offchain Experience",
+		);
 	};
 
 	return (
@@ -79,7 +88,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 						className="h-20vh w-25vw absolute m-10 animate-fadeIn rounded-lg bg-charcoal lg:m-0"
 					>
 						<h1 className="top-0 mx-10 mt-4 text-center text-xs font-bold uppercase tracking-widest text-warmGrey3 sm:text-base lg:mx-0 lg:mt-6">
-							{data}
+							{currentExperienceType}
 						</h1>
 						{selectedBenefitId ? (
 							<ExperienceDetail
@@ -181,8 +190,15 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 							/>
 						)}
 						{!selectedBenefitId && (
-							<h1 className="my-6 hidden text-center text-base italic tracking-wider text-[#858581] lg:flex lg:flex-col">
-								Click for more information
+							<h1
+								className="my-6 hidden text-center text-base italic tracking-wider text-[#858581] lg:flex lg:flex-col cursor-pointer"
+								onClick={handleMoreInfoClick}
+								onKeyUp={(e) => e.key === "Enter" && handleMoreInfoClick()}
+							>
+								Click here for{" "}
+								{currentExperienceType === "Offchain Experience"
+									? "Onchain Experience"
+									: "Offchain Experience"}
 							</h1>
 						)}
 					</ReactModal>

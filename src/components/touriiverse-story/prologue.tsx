@@ -6,7 +6,7 @@ import Markdown from "react-markdown";
 
 const PrologueComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 	return (
-		<div className="relative h-[70vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">
+		<div className="relative md:h-[65vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">
 			<div className="grid-3 flex">
 				<Link href={"/touriiverse"}>
 					<ArrowUturnLeftIcon className="h-4 w-4 text-charcoal transition-all duration-300 hover:scale-110 hover:text-red" />

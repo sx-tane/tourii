@@ -1,5 +1,5 @@
 import type { TravelGoshuin } from "@/types/profile-type";
-import DateUtils from "@/utils/DateUtils";
+import DateUtils from "@/utils/date-utils";
 import Image from "next/image";
 import { useState } from "react";
 import RedeemDialog from "./redeem-dialog";

@@ -26,10 +26,10 @@ const NFTEmblem: React.FC = () => {
 						Tourii
 					</div> */}
 							<div className="mb-5 text-[8px] font-bold uppercase leading-tight tracking-wider md:text-[10px] xl:text-[12px] 2xl:text-[14px]">
-								Chapter 1
+								Chapter 2
 							</div>
 							{/* <hr className=" my-3 w-9 border-t-[1.4px] border-black md:mb-1 md:w-5 xl:w-7 2xl:mb-3 2xl:w-9" /> */}
-							<div className="text-lg font-semibold leading-tight lg:text-xl xl:text-2xl 2xl:text-2xl">
+							<div className="text-lg font-semibold leading-tight lg:text-xl xl:text-xl 2xl:text-2xl">
 								BUNGO
 								<br />
 								ONO
@@ -37,7 +37,7 @@ const NFTEmblem: React.FC = () => {
 							</div>
 							{/* <hr className=" my-2 w-9 border-t-[1.4px] border-black md:my-2 md:w-5 xl:my-2 xl:w-7 2xl:my-2 2xl:w-9" /> */}
 							<div className="mt-5 text-[8px] font-bold uppercase leading-tight tracking-wider md:text-[10px] xl:text-[12px] 2xl:text-[14px]">
-								Jan 2025
+								Feb 2025
 							</div>
 						</div>
 						<Image
@@ -66,7 +66,7 @@ const NFTEmblem: React.FC = () => {
 							<div className="mb-3 text-[9px] font-bold uppercase leading-tight tracking-wider">
 								{/* coming in
 						<br /> */}
-								Chapter 1
+								Chapter 2
 							</div>
 							{/* <div className="my-1 w-4 border-t-[1.4px] border-black" /> */}
 							<div className="text-[14px] font-semibold tracking-normal">
@@ -78,7 +78,7 @@ const NFTEmblem: React.FC = () => {
 							<div className="mt-3 text-[9px] font-bold uppercase leading-tight tracking-wider">
 								{/* coming in
 						<br /> */}
-								Jan 2025
+								Feb 2025
 							</div>
 						</div>
 						<Image

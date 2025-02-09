@@ -21,6 +21,11 @@ export type StorySelectionButtonProps = {
 	onSelect: (selectedStoryId: string) => void;
 };
 
+export interface StorySelectionListProps {
+	selectionData: StorySelection[];
+	onSelect: (selectedStoryId: string) => void;
+}
+
 export interface Chapter {
 	chapterId: string;
 	part: number;

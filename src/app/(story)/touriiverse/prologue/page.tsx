@@ -1,6 +1,6 @@
 "use client";
 
-import PrologueComponent from "@/components/touriiverse-story/prologue-component";
+import PrologueComponent from "@/components/touriiverse-story/prologue";
 import { prologueChapterData } from "@/lib/data/touriiverse/chapter-data";
 import type { NextPage } from "next";
 

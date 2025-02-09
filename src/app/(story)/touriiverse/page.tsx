@@ -1,7 +1,8 @@
 "use client";
 
-import StoryComponent from "@/components/touriiverse-story/story-component";
-import StorySelectionButton from "@/components/touriiverse-story/story-selection";
+import StoryComponent from "@/components/touriiverse-story/story";
+import StorySelectionButton from "@/components/touriiverse-story/story-selection/story-selection-button";
+import StorySelectionList from "@/components/touriiverse-story/story-selection/story-selection-list";
 import {
 	storyData,
 	storySelectionData,
@@ -35,20 +36,13 @@ const Touriiverse: NextPage = () => {
 	};
 
 	return (
-		<div>
-			<div className="flex h-[90vh] items-center justify-center transition-all duration-300">
-				<div className="flex w-full snap-x flex-col items-center">
-					<StoryComponent key={selectedStory?.storyId} story={selectedStory} />
-					<div className="item-center mt-2 flex w-11/12 justify-center gap-1">
-						{selectionData.map((selection) => (
-							<StorySelectionButton
-								key={selection.selectedStoryId}
-								selection={selection}
-								onSelect={handleSelectStory}
-							/>
-						))}
-					</div>
-				</div>
+		<div className="h-[90vh] w-full">
+			<div className="flex flex-col items-center justify-center h-full">
+				<StoryComponent key={selectedStory?.storyId} story={selectedStory} />
+				<StorySelectionList
+					selectionData={selectionData}
+					onSelect={handleSelectStory}
+				/>
 			</div>
 		</div>
 	);

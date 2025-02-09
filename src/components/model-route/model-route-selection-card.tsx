@@ -32,7 +32,7 @@ const ModelRouteSelectionCard: React.FC<{
 						<div className="flex justify-center space-x-2 py-8">
 							{modelRouteSelection.modelRoute?.map((route: ModelRoute) => (
 								<Link
-									href={`/model-route-dev/${route.modelRouteId}`}
+									href={`/model-route/${route.modelRouteId}`}
 									key={route.modelRouteId}
 									className="cursor-pointer rounded-full border-[1.5px] border-charcoal px-4 py-2 text-base font-semibold tracking-widest transition-all hover:bg-charcoal hover:text-warmGrey 2xl:px-8 2xl:py-2"
 								>

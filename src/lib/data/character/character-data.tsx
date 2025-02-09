@@ -2,6 +2,7 @@ import type { CharacterProps } from "@/types/character-type";
 
 export const characters: CharacterProps[] = [
 	{
+		id: "1",
 		name: "Ninigi-No-Mikoto",
 		kanjiname: "瓊瓊杵命",
 		thumbnailImage: "/image/character/thumbnail/ninigi-card.png",
@@ -14,6 +15,7 @@ export const characters: CharacterProps[] = [
 		weapon: "Kusanagi-no-Tsurugi",
 	},
 	{
+		id: "2",
 		name: "Amaterasu-Omikami",
 		kanjiname: "天照大神",
 		thumbnailImage: "/image/character/thumbnail/amaterasu-card.png",
@@ -26,6 +28,7 @@ export const characters: CharacterProps[] = [
 		weapon: "Yata-no-Kagami",
 	},
 	{
+		id: "3",
 		name: "Sarutahiko-Okami",
 		kanjiname: "猿田彦",
 		thumbnailImage: "/image/character/thumbnail/sarutahiko-card.png",
@@ -38,6 +41,7 @@ export const characters: CharacterProps[] = [
 		weapon: "Magatama Staff",
 	},
 	{
+		id: "4",
 		name: "Ame-no-Uzume",
 		kanjiname: "天鈿女命",
 		thumbnailImage: "/image/character/thumbnail/uzume-card.png",

@@ -14,8 +14,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		<div className="h-full min-h-screen animate-fadeIn overflow-hidden bg-charcoal ">
 			<div className="mx-6">
 				<HeaderBlack />
-				<Suspense fallback={<Loading />}>{children} </Suspense>
 			</div>
+			<Suspense fallback={<Loading />}>{children} </Suspense>
 		</div>
 	);
 }
