@@ -1,29 +1,61 @@
 "use client";
 
 import type { HeaderProps } from "@/types/header-type";
-import { Menu, Transition } from "@headlessui/react";
-import { Bars3Icon } from "@heroicons/react/20/solid";
+import { Menu, MenuButton, MenuItems, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { hamburgerNavigationSignedOut } from "../../../lib/data/header-data";
-import SignOut from "../sign-out";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
+	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
 	const isBlackTheme = theme === "black";
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
+	};
 
 	return (
 		<div>
 			<Menu as="div" className="relative flex text-left">
 				<div className="flex">
-					<Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md">
-						<Bars3Icon
-							className={`h-8 w-8 ${isBlackTheme ? "text-warmGrey3" : "text-charcoal"}`}
-							aria-hidden="true"
-						/>
-					</Menu.Button>
+					<MenuButton
+						className="inline-flex w-full justify-center gap-x-1.5 rounded-md"
+						onClick={toggleMenu}
+					>
+						<AnimatePresence mode={"wait"}>
+							{isOpen ? (
+								<motion.div
+									key="close"
+									initial={{ opacity: 0, rotate: -90 }}
+									animate={{ opacity: 1, rotate: 0 }}
+									exit={{ opacity: 0, rotate: 90 }}
+									transition={{ duration: 0.2 }}
+								>
+									<XMarkIcon
+										className={`h-8 w-8 ${isBlackTheme ? "text-warmGrey3" : "text-charcoal"}`}
+										aria-hidden="true"
+									/>
+								</motion.div>
+							) : (
+								<motion.div
+									key="open"
+									initial={{ opacity: 0, rotate: 90 }}
+									animate={{ opacity: 1, rotate: 0 }}
+									exit={{ opacity: 0, rotate: -90 }}
+									transition={{ duration: 0.2 }}
+								>
+									<Bars3Icon
+										className={`h-8 w-8 ${isBlackTheme ? "text-warmGrey3" : "text-charcoal"}`}
+										aria-hidden="true"
+									/>
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</MenuButton>
 				</div>
 				<Transition
 					as={Fragment}
@@ -34,7 +66,7 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 					leaveFrom="transform opacity-100 scale-100"
 					leaveTo="transform opacity-0 scale-95"
 				>
-					<Menu.Items
+					<MenuItems
 						className={`absolute -right-7 z-50 mt-10 w-44 rounded-md ${
 							isBlackTheme ? "bg-warmGrey" : "bg-charcoal"
 						} px-8 py-4 shadow-lg`}
@@ -61,7 +93,7 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 								</div>
 							))}
 						</div>
-					</Menu.Items>
+					</MenuItems>
 				</Transition>
 			</Menu>
 			{/* Uncomment and modify the following block if user authentication is needed */}

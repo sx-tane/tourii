@@ -115,17 +115,23 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
 						variants={modalVariants}
 						transition={{ duration: 0.3 }}
 						onTouchStart={(e) => {
-							const touchStartX = e.changedTouches[0].screenX;
-							const handleTouchEnd = (e: TouchEvent) => {
-								const touchEndX = e.changedTouches[0].screenX;
-								if (touchStartX - touchEndX > 50) {
-									handleSwipe("left");
-								} else if (touchEndX - touchStartX > 50) {
-									handleSwipe("right");
-								}
-								document.removeEventListener("touchend", handleTouchEnd);
-							};
-							document.addEventListener("touchend", handleTouchEnd);
+							if (e.changedTouches && e.changedTouches.length > 0) {
+								const touchStartX = e.changedTouches?.[0]?.screenX;
+								const handleTouchEnd = (e: TouchEvent) => {
+									if (e.changedTouches && e.changedTouches.length > 0) {
+										const touchEndX = e.changedTouches?.[0]?.screenX;
+										if (touchStartX === undefined || touchEndX === undefined)
+											return;
+										if (touchStartX - touchEndX > 50) {
+											handleSwipe("left");
+										} else if (touchEndX - touchStartX > 50) {
+											handleSwipe("right");
+										}
+									}
+									document.removeEventListener("touchend", handleTouchEnd);
+								};
+								document.addEventListener("touchend", handleTouchEnd);
+							}
 						}}
 					>
 						{/* Mobile Content */}
