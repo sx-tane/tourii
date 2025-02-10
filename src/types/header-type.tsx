@@ -15,3 +15,8 @@ export interface DropdownProps {
 	backgroundColor: string;
 	textColor: string;
 }
+
+export interface HeaderProps {
+	theme: "black" | "white";
+	textColor?: string;
+}

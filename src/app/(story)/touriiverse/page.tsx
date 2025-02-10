@@ -36,7 +36,7 @@ const Touriiverse: NextPage = () => {
 	};
 
 	return (
-		<div className="h-[90vh] w-full">
+		<div className="h-[90vh] w-full z-20">
 			<div className="flex flex-col items-center justify-center h-full">
 				<StoryComponent key={selectedStory?.storyId} story={selectedStory} />
 				<StorySelectionList

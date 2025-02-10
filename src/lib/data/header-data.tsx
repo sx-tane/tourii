@@ -4,7 +4,7 @@ export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
-	// { href: "/touriiverse", label: "STORY" },
+	{ href: "/touriiverse", label: "STORY" },
 	// { href: "/model-route", label: "MODEL ROUTE" },
 	{
 		href: "/social",
@@ -40,14 +40,15 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
-	// { href: "/touriiverse", label: "STORY" },
+	{ href: "/touriiverse", label: "STORY" },
+	{ href: "https://linktr.ee/touriijp", label: "LINKTREE" },
 	// { href: "/model-route", label: "MODEL ROUTE" },
 	// { href: "/bonjin-bazaar", label: "MARK
-	{ href: "https://twitter.com/TouriiJP", label: "X" },
-	{
-		href: "https://discord.gg/fsyS822VYn",
-		label: "DISCORD",
-	},
+	// { href: "https://twitter.com/TouriiJP", label: "X" },
+	// {
+	// 	href: "https://discord.gg/fsyS822VYn",
+	// 	label: "DISCORD",
+	// },
 ];
 
 export const hamburgerNavigationSignedIn: NavItem[] = [

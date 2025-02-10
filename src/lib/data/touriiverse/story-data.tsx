@@ -1,6 +1,6 @@
 import type { Story, StorySelection } from "@/types/story-type";
-import { prologueChapterData } from "./chapter-data";
 import createIdGenerator from "@/utils/id-utils";
+import { prologueChapterData } from "./chapter-data";
 
 const defaultBackgroundImage = "/image/touriiverse/story-page.png";
 

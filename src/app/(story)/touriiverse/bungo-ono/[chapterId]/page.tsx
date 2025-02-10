@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const VisualNovel: React.FC = () => {
-	const { chapterId } = useParams(); // Access the dynamic route parameter
+	const { chapterId } = useParams();
 	const [chapter, setChapter] = useState<Chapter | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);

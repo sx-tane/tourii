@@ -1,10 +1,14 @@
 "use client";
+
+import type { HeaderProps } from "@/types/header-type";
 import Image from "next/image";
 import Link from "next/link";
-import Hamburger from "./hamburger-white";
-import HeaderList from "./header-list-white";
+import Hamburger from "./hamburger";
+import HeaderList from "./header-list";
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ theme }) => {
+	const isBlackTheme = theme === "black";
+
 	return (
 		<div>
 			<div className="z-10 flex w-full items-center justify-between py-4 md:mx-0">
@@ -20,14 +24,17 @@ const Header: React.FC = () => {
 						/>
 					</Link>
 					{/* <div className="ml-3 mt-2">
-						<Beta textColor={"red"} />
-					</div> */}
+                        <Beta textColor={isBlackTheme ? "warmGrey3" : "red"} />
+                    </div> */}
 				</div>
 				<div className="hidden lg:flex">
-					<HeaderList textColor={"charcoal"} />
+					<HeaderList
+						theme={theme}
+						textColor={isBlackTheme ? "warmGrey3" : "charcoal"}
+					/>
 				</div>
-				<div className=" lg:hidden">
-					<Hamburger />
+				<div className="lg:hidden">
+					<Hamburger theme={theme} />
 				</div>
 			</div>
 		</div>

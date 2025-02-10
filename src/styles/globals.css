@@ -25,15 +25,15 @@ body {
 	@apply bg-warmGrey;
 }
 
-.header-nav a:hover,
-.header-nav button:hover,
-.header-nav a.active,
-.header-nav button.active {
+.header-nav-white a:hover,
+.header-nav-white button:hover,
+.header-nav-white a.active,
+.header-nav-white button.active {
 	color: #ae3111;
 }
 
-.header-nav a .upperline,
-.header-nav button .upperline {
+.header-nav-white a .upperline,
+.header-nav-white button .upperline {
 	position: absolute;
 	top: -8px;
 	height: 2px;
@@ -42,10 +42,10 @@ body {
 	width: 0;
 }
 
-.header-nav a:hover .upperline,
-.header-nav button:hover .upperline,
-.header-nav a.active .upperline,
-.header-nav button.active .upperline {
+.header-nav-white a:hover .upperline,
+.header-nav-white button:hover .upperline,
+.header-nav-white a.active .upperline,
+.header-nav-white button.active .upperline {
 	width: 100%;
 	background-color: #ae3111;
 }

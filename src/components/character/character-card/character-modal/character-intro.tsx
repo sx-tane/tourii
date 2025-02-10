@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import InfoTable from "./info-table";
 
