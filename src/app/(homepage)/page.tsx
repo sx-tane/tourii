@@ -10,7 +10,7 @@ const HomePage: NextPage = () => {
 		<div>
 			{/*Desktop and Laptop Size*/}
 			<div className="hidden w-full items-end overflow-hidden lg:flex animate-fadeIn">
-				<div className="fixed bottom-6 left-6 z-20  transition-transform duration-300 hover:scale-105">
+				<div className="fixed -bottom-5 left-6 z-20 transition-transform duration-300 hover:scale-105">
 					<Headline />
 				</div>
 

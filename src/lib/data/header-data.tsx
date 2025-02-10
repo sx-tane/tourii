@@ -5,6 +5,7 @@ export const navigationSignedOut: NavItem[] = [
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
 	{ href: "/touriiverse", label: "STORY" },
+	{ href: "/model-route", label: "MODEL ROUTE" },
 	// { href: "/model-route", label: "MODEL ROUTE" },
 	{
 		href: "/social",
@@ -41,6 +42,7 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
 	{ href: "/touriiverse", label: "STORY" },
+	{ href: "/model-route", label: "MODEL ROUTE" },
 	{ href: "https://linktr.ee/touriijp", label: "LINKTREE" },
 	// { href: "/model-route", label: "MODEL ROUTE" },
 	// { href: "/bonjin-bazaar", label: "MARK

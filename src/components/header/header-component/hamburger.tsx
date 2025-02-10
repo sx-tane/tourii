@@ -45,9 +45,9 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 									<Link
 										href={item.href}
 										passHref
-										className={`relative text-xs tracking-[0.15em] ${
+										className={`relative text-[10px] tracking-[0.15em] ${
 											pathname === item.href
-												? `font-medium ${isBlackTheme ? "text-red border-red" : "text-warmGrey"} border-t-[0.5px] pt-1`
+												? `font-medium ${isBlackTheme ? "text-red border-red" : "text-warmGrey"} border-t pt-1`
 												: `font-medium ${isBlackTheme ? "text-charcoal" : "text-warmGrey"}`
 										}`}
 									>
