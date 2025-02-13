@@ -1,3 +1,5 @@
+import type { bungoOnoChapterSelectionData } from "@/lib/data/touriiverse/chapter-data";
+
 export interface Story {
 	storyId: string;
 	title: string;
@@ -51,6 +53,12 @@ export interface ChapterSelection {
 	chapter: string | undefined;
 	placeName: string | undefined;
 	isSelected: boolean;
+}
+
+export interface ChapterSelectionProps {
+	selectionData: typeof bungoOnoChapterSelectionData;
+	handleSelectChapter: (selectedChapterId: string) => void;
+	selectedButtonRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export type ChapterSelectionButtonProps = {

@@ -1,7 +1,7 @@
 "use client";
 
-import ChapterSelectionButton from "@/components/touriiverse-story/chapter/chapter-selection";
-import ChapterComponent from "@/components/touriiverse-story/chapter/character-component";
+import ChapterComponent from "@/components/touriiverse-story/chapter/chapter-component";
+import ChapterSelectionComponent from "@/components/touriiverse-story/chapter/chapter-selection";
 import IntroComponent from "@/components/touriiverse-story/chapter/intro-component";
 import {
 	bungoOnoChapterData,
@@ -55,26 +55,7 @@ const BungoOno: NextPage = () => {
 		}
 	};
 
-	const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-	const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-		if (scrollContainerRef.current) {
-			scrollContainerRef.current.scrollLeft += e.deltaY;
-		}
-	};
-
-	const selectedButtonRef = useRef<HTMLDivElement>(null);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		if (selectedButtonRef.current) {
-			selectedButtonRef.current.scrollIntoView({
-				behavior: "smooth",
-				block: "nearest",
-				inline: "center",
-			});
-		}
-	}, [selectedChapter]);
+	const selectedButtonRef = useRef<HTMLDivElement | null>(null);
 
 	return (
 		<div className="absolute -right-0 h-[90vh] w-[95vw] animate-fadeIn overflow-hidden">
@@ -93,35 +74,11 @@ const BungoOno: NextPage = () => {
 					/>
 				</AnimatePresence>
 			)}
-			<div className="mt-2 flex rounded-bl-xl rounded-tl-xl bg-warmGrey2 pb-4 pl-12">
-				<div
-					ref={scrollContainerRef}
-					onWheel={handleWheel}
-					className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
-				>
-					<button
-						type="button"
-						onClick={() => handleSelectChapter("Intro")}
-						onKeyUp={(e) => {
-							if (e.key === "Enter" || e.key === " ") {
-								handleSelectChapter("Intro");
-							}
-						}}
-						className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
-					>
-						BUNGO ONO
-					</button>
-
-					{selectionData.map((selection) => (
-						<ChapterSelectionButton
-							key={selection.selectedChapterId}
-							selection={selection}
-							onSelect={handleSelectChapter}
-							ref={selection.isSelected ? selectedButtonRef : null}
-						/>
-					))}
-				</div>
-			</div>
+			<ChapterSelectionComponent
+				selectionData={selectionData}
+				handleSelectChapter={handleSelectChapter}
+				selectedButtonRef={selectedButtonRef}
+			/>
 		</div>
 	);
 };

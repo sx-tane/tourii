@@ -1,37 +1,54 @@
-import type { ChapterSelectionButtonProps } from "@/types/story-type";
-import { forwardRef } from "react";
+import { downToUpVariants } from "@/lib/animation/variants-settings";
+import { motion } from "framer-motion";
+import type React from "react";
+import ChapterSelectionButton from "./chapter-selection-button";
+import type {
+	ChapterSelection,
+	ChapterSelectionProps,
+} from "@/types/story-type";
 
-const ChapterSelectionButton = forwardRef<
-	HTMLDivElement,
-	ChapterSelectionButtonProps
->(({ selection, onSelect }, ref) => {
+const ChapterSelectionComponent: React.FC<ChapterSelectionProps> = ({
+	selectionData,
+	handleSelectChapter,
+	selectedButtonRef,
+}) => {
 	return (
-		<div ref={ref} className="space-y-2 px-8 py-7 pt-8 text-center">
-			{/* Adjust px-8 as needed */}
-			<div className="text-xs font-semibold uppercase tracking-widest text-charcoal">
-				{selection.chapter}
-			</div>
-			{/* Container for the line and the button */}
-			<div className="relative -mx-8 flex justify-center py-2">
-				{/* Line behind the button */}
-				<div
-					className="absolute left-0 z-0 h-0.5 w-full bg-charcoal "
-					style={{ top: "50%", transform: "translateY(-50%)" }}
-				/>
-				{/* Button */}
+		<motion.div
+			className="mt-2 flex rounded-bl-xl rounded-tl-xl bg-warmGrey2 pb-2 pl-12"
+			initial="hidden"
+			animate="visible"
+			variants={downToUpVariants}
+			transition={{ duration: 0.5 }}
+		>
+			<div className="flex w-full items-center overflow-y-hidden overflow-x-scroll">
 				<button
 					type="button"
-					onClick={() => onSelect(selection.selectedChapterId ?? "")}
-					className={`relative z-10 h-4 w-4 rounded-full border-2 border-charcoal transition-all duration-300 hover:scale-130 ${selection.isSelected ? "scale-130 bg-red" : "bg-warmGrey hover:bg-red"}`}
-				/>
+					onClick={() => handleSelectChapter("Intro")}
+					onKeyUp={(e) => {
+						if (e.key === "Enter" || e.key === " ") {
+							handleSelectChapter("Intro");
+						}
+					}}
+					className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
+				>
+					BUNGO ONO
+				</button>
+
+				{selectionData.map((selection: ChapterSelection, index: number) => (
+					<div
+						key={selection.selectedChapterId}
+						className={`md:w-full ${index === 0 ? "sticky" : ""}`}
+					>
+						<ChapterSelectionButton
+							selection={selection}
+							onSelect={handleSelectChapter}
+							ref={selection.isSelected ? selectedButtonRef : null}
+						/>
+					</div>
+				))}
 			</div>
-			<div className="w-96 text-sm font-bold uppercase tracking-widest">
-				{selection.placeName}
-			</div>
-		</div>
+		</motion.div>
 	);
-});
+};
 
-ChapterSelectionButton.displayName = "ChapterSelectionButton";
-
-export default ChapterSelectionButton;
+export default ChapterSelectionComponent;
