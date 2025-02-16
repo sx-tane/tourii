@@ -1,50 +1,35 @@
+import { upToDownVariants } from "@/lib/animation/variants-settings";
 import type { Chapter } from "@/types/story-type";
-import Markdown from "react-markdown";
 import { motion } from "framer-motion";
-import {
-	downToUpVariants,
-	upToDownVariants,
-} from "@/lib/animation/variants-settings";
+import Markdown from "react-markdown";
 
 const IntroComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 	return (
 		<motion.div
-			className="relative h-[70vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal"
+			className="relative h-fit md:h-[70vh] w-auto animate-fadeIn rounded-xl md:rounded-bl-xl md:rounded-tl-xl bg-warmGrey p-8 text-charcoal"
 			initial="hidden"
 			animate="visible"
 			variants={upToDownVariants}
 			transition={{ duration: 0.5 }}
 		>
 			<motion.div
-				className="text-center font-bold uppercase tracking-wider md:text-5xl"
+				className="text-center font-medium md:font-bold uppercase tracking-widest md:tracking-wider text-sm md:text-5xl"
 				initial="hidden"
 				animate="visible"
 				variants={upToDownVariants}
 				transition={{ duration: 0.5, delay: 0.1 }}
 			>
 				{chapter?.area}
-				<div className="mt-3 text-base font-semibold">
+				<div className="mt-1 mb-10 md:mt-3 text-3xl md:text-base font-bold md:font-semibold">
 					{chapter?.chapterNumber}
 				</div>
-			</motion.div>
-			<motion.div
-				className="bottom-8 left-8 md:absolute"
-				initial="hidden"
-				animate="visible"
-				variants={upToDownVariants}
-				transition={{ duration: 0.5, delay: 0.2 }}
-			>
-				<div className="mb-5 w-80 font-bold">{chapter?.title}</div>
-				<Markdown className="gap-10 whitespace-pre-wrap text-justify text-sm md:w-7/12 xl:columns-2 xl:text-base">
-					{chapter?.content}
-				</Markdown>
 			</motion.div>
 			<motion.video
 				autoPlay
 				loop
 				muted
 				playsInline
-				className="absolute bottom-8 right-8 hidden aspect-square w-auto rounded-full object-cover md:flex md:h-[35vh] lg:h-[45vh] xl:h-[55vh]"
+				className="md:absolute md:bottom-8 md:right-8 aspect-square w-8/12 md:w-auto md:rounded-full object-cover rounded-t-full rounded-b-full md:flex h-[38vh] md:h-[25vh] lg:h-[40vh] xl:h-[55vh] mx-auto"
 				initial="hidden"
 				animate="visible"
 				variants={upToDownVariants}
@@ -52,6 +37,20 @@ const IntroComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 			>
 				<source src={chapter?.image ?? ""} type="video/mp4" />
 			</motion.video>
+			<motion.div
+				className="md:bottom-8 md:left-8 md:absolute mt-10 md:mt-0"
+				initial="hidden"
+				animate="visible"
+				variants={upToDownVariants}
+				transition={{ duration: 0.5, delay: 0.2 }}
+			>
+				<div className="mb-5 w-full pr-10 md:pr-0 font-bold uppercase text-sm md:text-2xl tracking-widest">
+					{chapter?.title}
+				</div>
+				<Markdown className="pr-1 md:pr-0 text-justify text-sm md:w-7/12 md:text-base leading-relaxed max-h-[30vh] md:max-h-full overflow-y-auto md:overflow-y-visible">
+					{chapter?.content}
+				</Markdown>
+			</motion.div>
 		</motion.div>
 	);
 };

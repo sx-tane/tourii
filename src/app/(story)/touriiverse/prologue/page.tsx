@@ -1,19 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import type { NextPage } from "next";
-import Link from "next/link";
-import { Button } from "@headlessui/react";
-import { motion } from "framer-motion";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
+import { Button } from "@headlessui/react";
 import {
+	ArrowRightIcon,
 	ArrowUturnLeftIcon,
 	SpeakerWaveIcon,
 	SpeakerXMarkIcon,
 } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
+import type { NextPage } from "next";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Prologue: NextPage = () => {
 	const [isMuted, setIsMuted] = useState(false);
+	const router = useRouter();
 	const [iframeSrc, setIframeSrc] = useState(
 		"https://www.youtube.com/embed/76yQ6bMiQB8?autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 	);
@@ -51,13 +54,17 @@ const Prologue: NextPage = () => {
 			}
 		};
 
-		handleResize(); // Check initial screen size
+		handleResize();
 		window.addEventListener("resize", handleResize);
 
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
+
+	const handleNextChapter = () => {
+		router.push("/touriiverse/bungo-ono/bungoOnoChapterId2");
+	};
 
 	return (
 		<div>
@@ -98,6 +105,12 @@ const Prologue: NextPage = () => {
 						) : (
 							<SpeakerWaveIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
 						)}
+					</Button>
+					<Button
+						onClick={handleNextChapter}
+						className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
+					>
+						<ArrowRightIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
 					</Button>
 				</motion.div>
 			</motion.div>

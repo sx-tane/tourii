@@ -1,9 +1,10 @@
 import Section from "@/components/world/place/section";
+import DescriptionWorld from "@/components/world/text/description";
 import Title from "@/components/world/text/title";
 import Prologue from "@/components/world/video/prologue";
 import DividerWhite from "@/components/world/white-divider";
 import WhiteLine from "@/components/world/white-line";
-import { titleData } from "@/lib/data/world/world-data";
+import { titleData, worldData } from "@/lib/data/world/world-data";
 import type { NextPage } from "next";
 import type React from "react";
 
@@ -15,23 +16,22 @@ const World: NextPage = () => {
 				title={titleData[0]?.title}
 			/>
 			<Section />
-			<div className="mt-16">
-				{/* <DescriptionWorld data={worldData[0]?.description ?? ""} /> */}
+			<div className="my-4">
+				<DescriptionWorld data={worldData[0]?.description ?? ""} />
 			</div>
-			<div className="-mx-6 md:mx-0 -my-10">
+			{/* <div className="-mx-6 md:mx-0 -my-10">
 				<WhiteLine />
-			</div>
-			<Title
+			</div> */}
+			{/* <Title
 				smallTitle={titleData[1]?.smallTitle}
 				title={titleData[1]?.title}
 			/>
 			<div className="-mt-10 md:-mt-20">
-				{/* <DescriptionWorld data={worldData[1]?.description ?? ""} /> */}
+				<DescriptionWorld data={worldData[1]?.description ?? ""} />
 			</div>
-			{/* <Goal /> */}
 			<div className="mx-20 lg:mx-0 my-10">
 				<Prologue />
-			</div>
+			</div> */}
 			<DividerWhite />
 		</div>
 	);

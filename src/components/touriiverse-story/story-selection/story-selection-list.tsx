@@ -9,7 +9,7 @@ const StorySelectionList: React.FC<StorySelectionListProps> = ({
 	onSelect,
 }) => {
 	return (
-		<div className="item-center mt-2 flex w-full overflow-x-auto md:overflow-hidden md:w-11/12 justify-start gap-1 scrollbar-hide">
+		<div className="item-center mt-2 flex w-full overflow-x-auto md:w-11/12 justify-start gap-1 scrollbar-hide">
 			{selectionData.map((selection, index) => (
 				<motion.div
 					key={selection.selectedStoryId}

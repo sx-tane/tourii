@@ -3,12 +3,12 @@
 import type { HeaderProps } from "@/types/header-type";
 import { Menu, MenuButton, MenuItems, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { Fragment, useState } from "react";
 import { hamburgerNavigationSignedOut } from "../../../lib/data/header-data";
-import { AnimatePresence, motion } from "framer-motion";
 
 const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 	const [isOpen, setIsOpen] = useState(false);

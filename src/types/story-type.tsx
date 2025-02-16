@@ -38,8 +38,9 @@ export interface Chapter {
 	content: string;
 	image: string;
 	realImage: string;
-	vnLink?: string;
-	vnUnlocked?: boolean;
+	videoLink?: string;
+	videoMobileLink?: string;
+	storyUnlocked?: boolean;
 }
 
 export interface ChapterButtonProps {
