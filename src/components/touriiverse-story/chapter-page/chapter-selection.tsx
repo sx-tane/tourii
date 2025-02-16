@@ -8,6 +8,7 @@ import type React from "react";
 import ChapterSelectionButton from "./chapter-selection-button";
 
 const ChapterSelectionComponent: React.FC<ChapterSelectionProps> = ({
+	placeName,
 	selectionData,
 	handleSelectChapter,
 	selectedButtonRef,
@@ -28,7 +29,7 @@ const ChapterSelectionComponent: React.FC<ChapterSelectionProps> = ({
 				}`}
 			>
 				<div className="mr-10 shrink-0 text-xl font-bold tracking-wider transition-all duration-500">
-					BUNGO ONO
+					{placeName}
 				</div>
 
 				{selectionData.map((selection: ChapterSelection, index: number) => (

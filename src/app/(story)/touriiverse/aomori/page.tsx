@@ -5,21 +5,21 @@ import ChapterSelectionComponent from "@/components/touriiverse-story/chapter-pa
 import ChapterSelectionMobileComponent from "@/components/touriiverse-story/chapter-page/chapter-selection-mobile";
 import IntroComponent from "@/components/touriiverse-story/chapter-page/intro-component";
 import {
-	bungoOnoChapterData,
-	bungoOnoChapterSelectionData,
+	aomoriChapterData,
+	aomoriChapterSelectionData,
 } from "@/lib/data/touriiverse/chapter-data";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
 
-const BungoOno: NextPage = () => {
+const Aomori: NextPage = () => {
 	const [selectedChapter, setSelectedChapter] = useState(() => {
 		// Return the default chapter initially
-		return bungoOnoChapterData[0];
+		return aomoriChapterData[0];
 	});
 
 	const [selectionData, setSelectionData] = useState(
-		bungoOnoChapterSelectionData,
+		aomoriChapterSelectionData,
 	);
 
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,11 +35,11 @@ const BungoOno: NextPage = () => {
 	}, []);
 
 	const handleSelectChapter = (selectedChapterId: string) => {
-		let chapter: (typeof bungoOnoChapterData)[0] | undefined;
+		let chapter: (typeof aomoriChapterData)[0] | undefined;
 		if (selectedChapterId === "Intro") {
-			chapter = bungoOnoChapterData[0];
+			chapter = aomoriChapterData[0];
 		} else {
-			chapter = bungoOnoChapterData.find(
+			chapter = aomoriChapterData.find(
 				(s) => s.chapterId === selectedChapterId,
 			);
 		}
@@ -56,7 +56,7 @@ const BungoOno: NextPage = () => {
 			}));
 			setSelectionData(updatedSelectionData);
 			setCurrentIndex(
-				bungoOnoChapterData.findIndex(
+				aomoriChapterData.findIndex(
 					(chapter) => chapter.chapterId === selectedChapterId,
 				),
 			);
@@ -64,19 +64,19 @@ const BungoOno: NextPage = () => {
 	};
 
 	const handleSwipe = (direction: "left" | "right") => {
-		const currentIndex = bungoOnoChapterData.findIndex(
+		const currentIndex = aomoriChapterData.findIndex(
 			(chapter) =>
 				selectedChapter && chapter.chapterId === selectedChapter.chapterId,
 		);
 		let newIndex: number;
 		if (direction === "left") {
-			newIndex = (currentIndex + 1) % bungoOnoChapterData.length;
+			newIndex = (currentIndex + 1) % aomoriChapterData.length;
 		} else {
 			newIndex =
-				(currentIndex - 1 + bungoOnoChapterData.length) %
-				bungoOnoChapterData.length;
+				(currentIndex - 1 + aomoriChapterData.length) %
+				aomoriChapterData.length;
 		}
-		const newChapterId = bungoOnoChapterData?.[newIndex]?.chapterId;
+		const newChapterId = aomoriChapterData?.[newIndex]?.chapterId;
 		if (newChapterId) {
 			handleSelectChapter(newChapterId);
 		}
@@ -157,7 +157,7 @@ const BungoOno: NextPage = () => {
 			) : (
 				<AnimatePresence mode="wait">
 					<ChapterComponent
-						areaLink="/touriiverse/bungo-ono"
+						areaLink="/touriiverse/aomori"
 						key={selectedChapter?.chapterId}
 						chapter={selectedChapter}
 					/>
@@ -171,7 +171,7 @@ const BungoOno: NextPage = () => {
 				setCurrentIndex={setCurrentIndex}
 			/>
 			<ChapterSelectionComponent
-				placeName="BUNGO ONO"
+				placeName="AOMORI"
 				selectionData={selectionData}
 				handleSelectChapter={handleSelectChapter}
 				selectedButtonRef={selectedButtonRef}
@@ -180,4 +180,4 @@ const BungoOno: NextPage = () => {
 	);
 };
 
-export default BungoOno;
+export default Aomori;

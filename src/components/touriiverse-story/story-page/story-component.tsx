@@ -3,7 +3,6 @@ import {
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
 import type { Story } from "@/types/story-type";
-import { is } from "date-fns/locale";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
@@ -65,7 +64,7 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						transition={{ delay: 0.2, duration: 0.5 }}
 					>
 						<Image
-							className="absolute bottom-5 right-10 z-40 h-[30vh] lg:h-[48vh] hidden md:flex w-auto object-cover"
+							className="absolute bottom-5 right-10 z-40 h-[30vh] lg:h-[40vh] xl:h-[45vh] hidden md:flex w-auto object-cover"
 							src={story?.image ?? ""}
 							alt={story?.title ?? ""}
 							width={1000}

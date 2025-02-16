@@ -7,7 +7,7 @@ import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/s
 import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import {
-	bungoOnoChapterData,
+	aomoriChapterData,
 	prologueChapterData,
 } from "@/lib/data/touriiverse/chapter-data";
 import type { Chapter } from "@/types/story-type";
@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const BungoOnoYoutubeVideo: React.FC = () => {
+const AomoriYoutubeVideo: React.FC = () => {
 	const { chapterId } = useParams();
 	const router = useRouter();
 	const [chapter, setChapter] = useState<Chapter | null>(null);
@@ -28,7 +28,7 @@ const BungoOnoYoutubeVideo: React.FC = () => {
 		const fetchData = async () => {
 			try {
 				setIsLoading(true);
-				const foundChapter = bungoOnoChapterData.find(
+				const foundChapter = aomoriChapterData.find(
 					(p) => p.chapterId === chapterId,
 				);
 				setChapter(foundChapter ?? null);
@@ -80,26 +80,23 @@ const BungoOnoYoutubeVideo: React.FC = () => {
 	};
 
 	const handleNextChapter = () => {
-		const currentIndex = bungoOnoChapterData.findIndex(
+		const currentIndex = aomoriChapterData.findIndex(
 			(ch) => ch.chapterId === chapterId,
 		);
-		const nextChapter = bungoOnoChapterData[currentIndex + 1];
+		const nextChapter = aomoriChapterData[currentIndex + 1];
 		if (nextChapter?.storyUnlocked) {
-			router.push(`/touriiverse/bungo-ono/${nextChapter.chapterId}`);
+			router.push(`/touriiverse/aomori/${nextChapter.chapterId}`);
 		}
 	};
 
 	const handlePreviousChapter = () => {
-		const currentIndex = bungoOnoChapterData.findIndex(
+		const currentIndex = aomoriChapterData.findIndex(
 			(ch) => ch.chapterId === chapterId,
 		);
-		if (currentIndex === 1) {
-			router.push("/touriiverse/prologue");
-		} else {
-			const previousChapter = bungoOnoChapterData[currentIndex - 1];
-			if (previousChapter) {
-				router.push(`/touriiverse/bungo-ono/${previousChapter.chapterId}`);
-			}
+
+		const previousChapter = aomoriChapterData[currentIndex - 1];
+		if (previousChapter) {
+			router.push(`/touriiverse/aomori/${previousChapter.chapterId}`);
 		}
 	};
 
@@ -127,14 +124,14 @@ const BungoOnoYoutubeVideo: React.FC = () => {
 		);
 	}
 
-	const currentIndex = bungoOnoChapterData.findIndex(
+	const currentIndex = aomoriChapterData.findIndex(
 		(ch) => ch.chapterId === chapterId,
 	);
-	const nextChapter = bungoOnoChapterData[currentIndex + 1];
+	const nextChapter = aomoriChapterData[currentIndex + 1];
 	const previousChapter =
 		currentIndex === 0
 			? prologueChapterData
-			: bungoOnoChapterData[currentIndex - 1];
+			: aomoriChapterData[currentIndex - 1];
 
 	return (
 		<div>
@@ -150,7 +147,7 @@ const BungoOnoYoutubeVideo: React.FC = () => {
 					title={`${chapter?.area} ${chapter?.chapterNumber}`}
 				/>
 				<StoryVideoNavigationButtons
-					returnLink="/touriiverse/bungo-ono"
+					returnLink="/touriiverse/aomori"
 					isMuted={isMuted}
 					toggleSound={toggleSound}
 					handlePreviousChapter={handlePreviousChapter}
@@ -163,4 +160,4 @@ const BungoOnoYoutubeVideo: React.FC = () => {
 	);
 };
 
-export default BungoOnoYoutubeVideo;
+export default AomoriYoutubeVideo;

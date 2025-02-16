@@ -7,7 +7,10 @@ import Image from "next/image";
 import Markdown from "react-markdown";
 import ChapterButton from "./chapter-button";
 
-const ChapterComponent: React.FC<{ chapter?: Chapter }> = ({ chapter }) => {
+const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
+	chapter,
+	areaLink,
+}) => {
 	return (
 		<motion.div
 			className="relative md:h-[70vh] w-auto rounded-xl md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl md:rounded-tl-xl bg-warmGrey p-8 text-charcoal"
@@ -16,8 +19,16 @@ const ChapterComponent: React.FC<{ chapter?: Chapter }> = ({ chapter }) => {
 			variants={upToDownVariants}
 			transition={{ duration: 0.5 }}
 		>
+			<div className="absolute right-4 top-4 md:hidden  w-9 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor-pointer mx-auto">
+				<div className="flex flex-col items-center space-y-1 my-3">
+					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
+					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
+					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
+				</div>
+			</div>
+
 			<motion.div
-				className="md:absolute md:right-14 md:top-8 text-center text-sm md:text-lg font-medium md:font-bold uppercase tracking-widest"
+				className="mt-5 md:mt-0 md:absolute md:right-14 md:top-8 text-center text-sm md:text-lg font-medium md:font-bold uppercase tracking-widest"
 				initial="hidden"
 				animate="visible"
 				variants={upToDownVariants}
@@ -82,6 +93,7 @@ const ChapterComponent: React.FC<{ chapter?: Chapter }> = ({ chapter }) => {
 					className="hidden md:flex h-[45vh] w-full animate-fadeIn rounded-t-full rounded-b-full object-cover"
 				/>
 				<ChapterButton
+					areaLink={areaLink}
 					vnUnlocked={chapter?.storyUnlocked}
 					chapterId={chapter?.chapterId}
 					chapterNumber={chapter?.chapterNumber}

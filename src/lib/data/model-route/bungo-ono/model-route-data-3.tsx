@@ -1,7 +1,16 @@
 import type { RouteDestinations, RouteDetails } from "@/types/model-route-type";
 import createIdGenerator from "@/utils/id-utils";
 
-const route3Generator = new createIdGenerator(14, 0, 14, 19, 18, 0, 0);
+const route3Generator = new createIdGenerator(
+	14,
+	0,
+	14,
+	19,
+	18,
+	0,
+	0,
+	"bungoOno",
+);
 
 export const routeDetails3: RouteDetails[] = [
 	{

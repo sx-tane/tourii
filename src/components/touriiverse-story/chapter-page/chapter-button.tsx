@@ -4,6 +4,7 @@ import Link from "next/link";
 import type React from "react";
 
 const ChapterButton: React.FC<ChapterButtonProps> = ({
+	areaLink,
 	vnUnlocked,
 	chapterId,
 	chapterNumber,
@@ -12,7 +13,7 @@ const ChapterButton: React.FC<ChapterButtonProps> = ({
 		<div className="text-sm">
 			{vnUnlocked ? (
 				<Link
-					href={`/touriiverse/bungo-ono/${chapterId}`}
+					href={`${areaLink}/${chapterId}`}
 					className="mt-8 flex cursor-pointer justify-center rounded-full bg-charcoal px-16 py-3 text-center font-semibold tracking-wider text-warmGrey transition-all duration-300 hover:bg-red hover:text-warmGrey"
 				>
 					Start {chapterNumber}

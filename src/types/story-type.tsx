@@ -44,6 +44,7 @@ export interface Chapter {
 }
 
 export interface ChapterButtonProps {
+	areaLink: string;
 	vnUnlocked?: boolean;
 	chapterId?: string;
 	chapterNumber?: string;
@@ -57,6 +58,7 @@ export interface ChapterSelection {
 }
 
 export interface ChapterSelectionProps {
+	placeName?: string;
 	selectionData: typeof bungoOnoChapterSelectionData;
 	handleSelectChapter: (selectedChapterId: string) => void;
 	selectedButtonRef: React.RefObject<HTMLDivElement | null>;

@@ -6,6 +6,7 @@ class createIdGenerator {
     private chapterImageNumber: number;
     private prologueNumber: number;
     private storyId: number;
+    private chapterPrefix?: string;
   
     constructor(
       routeStart: number,
@@ -14,7 +15,8 @@ class createIdGenerator {
       chapterIdStart: number,
       chapterImageStart: number,
       prologueStart: number,
-      storyIdStart: number
+      storyIdStart: number,
+      chapterPrefix?: string,
     ) {
       this.routeNumber = routeStart;
       this.stopNumber = stopStart;
@@ -23,6 +25,7 @@ class createIdGenerator {
       this.chapterImageNumber = chapterImageStart;
       this.prologueNumber = prologueStart;
       this.storyId = storyIdStart;
+      this.chapterPrefix = chapterPrefix;
     }
   
     generateRouteDetailId(): string {
@@ -38,8 +41,12 @@ class createIdGenerator {
     }
 
     generateBungoOnoChapterId(): string {
-    return `bungoOnoChapterId${++this.chapterNumber}`;
-    }
+    return `${this.chapterPrefix}ChapterId${++this.chapterNumber}`;
+    } //bungoOnoChapterId
+
+    generateAomoriChapterId(): string {
+    return `${this.chapterPrefix}ChapterId${++this.chapterNumber}`;
+    } //aomoriChapterId
 
     generateChapterImageId(): string {
     return `chapter${++this.chapterImageNumber}.png`;

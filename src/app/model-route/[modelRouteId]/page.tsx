@@ -7,7 +7,7 @@ import ModelRouteIntro from "@/components/model-route/route-component/model-rout
 import RouteDestination from "@/components/model-route/route-component/route-destination";
 import BottomSection from "@/components/model-route/route-component/route-details/bottom-section/bottom-section";
 import IntroUpperSection from "@/components/model-route/route-component/route-details/intro-upper-section";
-import { modelRouteData } from "@/lib/data/model-route/model-route-selection-data";
+import { modelRouteData } from "@/lib/data/model-route/bungo-ono/model-route-selection-data";
 import type { ModelRoute } from "@/types/model-route-type";
 import { useParams } from "next/navigation"; // Import useParams
 import type { NextPage } from "next/types";
