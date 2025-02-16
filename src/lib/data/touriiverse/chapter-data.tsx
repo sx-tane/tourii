@@ -29,6 +29,7 @@ export const bungoOnoChapterData: Chapter[] = [
 		title: "A Place Where Myth and Reality Merge",
 		content:
 			"Bungo Ono—where ancient legends and modern life unite. Amid tranquil bamboo groves and Harajiri Falls, whispers of celestial beings and yokai echo through every corner. Rooted in Kojiki lore, this city seamlessly blends time-honored customs with contemporary life. Landmark sites like Manano Chojya, the Inazumi Underwater Limestone Cave, and the Hakusan River pulse with mythic tales. Here, the past is vividly alive, beckoning travelers to journey into a realm where legend and reality entwine.",
+		storyUnlocked: true,
 	},
 	{
 		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
@@ -60,7 +61,7 @@ export const bungoOnoChapterData: Chapter[] = [
 			'Sarutahiko led them through the quiet forest, his voice steady but urgent. "We need to move quickly. Your divine energy will attract trouble—corrupted Kunitsukami and Yokai - spirits that once walked as protectors but had since fallen into hunger and violence, feeding on the remnants of forgotten',
 		videoLink: "https://tanejp.com/ninomiya-hachiman-shrine/",
 		videoMobileLink: "https://tanejp.com/ninomiya-hachiman-shrine/",
-		storyUnlocked: false,
+		storyUnlocked: true,
 	},
 	{
 		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),

@@ -1,9 +1,9 @@
 "use client";
 
-import ChapterComponent from "@/components/touriiverse-story/chapter/chapter-component";
-import ChapterSelectionComponent from "@/components/touriiverse-story/chapter/chapter-selection";
-import ChapterSelectionMobileComponent from "@/components/touriiverse-story/chapter/chapter-selection-mobile";
-import IntroComponent from "@/components/touriiverse-story/chapter/intro-component";
+import ChapterComponent from "@/components/touriiverse-story/chapter-page/chapter-component";
+import ChapterSelectionComponent from "@/components/touriiverse-story/chapter-page/chapter-selection";
+import ChapterSelectionMobileComponent from "@/components/touriiverse-story/chapter-page/chapter-selection-mobile";
+import IntroComponent from "@/components/touriiverse-story/chapter-page/intro-component";
 import {
 	bungoOnoChapterData,
 	bungoOnoChapterSelectionData,

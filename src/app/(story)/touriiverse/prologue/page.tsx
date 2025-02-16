@@ -1,5 +1,7 @@
 "use client";
 
+import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/story-video-navigation-button";
+import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { Button } from "@headlessui/react";
 import {
@@ -75,44 +77,16 @@ const Prologue: NextPage = () => {
 				variants={downToUpVariants}
 				transition={{ duration: 0.5 }}
 			>
-				<iframe
-					id="youtube-player"
-					src={iframeSrc}
-					title="Tourii Prologue"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					referrerPolicy="strict-origin-when-cross-origin"
-					allowFullScreen
-					className="w-full h-full md:rounded-bl-xl md:rounded-tl-xl rounded-xl"
+				<VideoIframe iframeSrc={iframeSrc} title="Tourii Prologue" />
+				<StoryVideoNavigationButtons
+					returnLink="/touriiverse"
+					isMuted={isMuted}
+					toggleSound={toggleSound}
+					handlePreviousChapter={() => {}}
+					handleNextChapter={handleNextChapter}
+					previousChapterUnlocked={false}
+					nextChapterUnlocked={true}
 				/>
-				<motion.div
-					initial="hidden"
-					animate="visible"
-					variants={downToUpVariants}
-					transition={{ duration: 0.5 }}
-					className="absolute left-5 bottom-5 space-x-2"
-				>
-					<Link href="/touriiverse">
-						<Button className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal">
-							<ArrowUturnLeftIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						</Button>
-					</Link>
-					<Button
-						onClick={toggleSound}
-						className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
-					>
-						{isMuted ? (
-							<SpeakerXMarkIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						) : (
-							<SpeakerWaveIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						)}
-					</Button>
-					<Button
-						onClick={handleNextChapter}
-						className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
-					>
-						<ArrowRightIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-					</Button>
-				</motion.div>
 			</motion.div>
 		</div>
 	);

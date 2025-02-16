@@ -3,6 +3,8 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
+import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/story-video-navigation-button";
+import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import {
 	bungoOnoChapterData,
@@ -22,7 +24,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const YoutubeVideo: React.FC = () => {
+const BungoOnoYoutubeVideo: React.FC = () => {
 	const { chapterId } = useParams();
 	const router = useRouter();
 	const [chapter, setChapter] = useState<Chapter | null>(null);
@@ -152,57 +154,22 @@ const YoutubeVideo: React.FC = () => {
 				variants={downToUpVariants}
 				transition={{ duration: 0.5 }}
 			>
-				<iframe
-					id="youtube-player"
-					src={iframeSrc}
+				<VideoIframe
+					iframeSrc={iframeSrc}
 					title={`${chapter?.area} ${chapter?.chapterNumber}`}
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					referrerPolicy="strict-origin-when-cross-origin"
-					allowFullScreen
-					className="w-full h-full md:rounded-bl-xl md:rounded-tl-xl rounded-xl"
 				/>
-				<motion.div
-					initial="hidden"
-					animate="visible"
-					variants={downToUpVariants}
-					transition={{ duration: 0.5 }}
-					className="absolute left-5 bottom-5 space-x-2"
-				>
-					<Link href="/touriiverse/bungo-ono">
-						<Button className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal">
-							<ArrowUturnLeftIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						</Button>
-					</Link>
-					<Button
-						onClick={toggleSound}
-						className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
-					>
-						{isMuted ? (
-							<SpeakerXMarkIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						) : (
-							<SpeakerWaveIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						)}
-					</Button>
-					{previousChapter && (
-						<Button
-							onClick={handlePreviousChapter}
-							className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
-						>
-							<ArrowLeftIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						</Button>
-					)}
-					{nextChapter?.storyUnlocked && (
-						<Button
-							onClick={handleNextChapter}
-							className="font-light tracking-widest text-[10px] md:text-xs z-20 p-2 uppercase text-warmGrey border-warmGrey2 border rounded-full transition-all duration-300 hover:bg-warmGrey hover:text-charcoal"
-						>
-							<ArrowRightIcon className="h-5 w-5 md:h-6 md:w-6 inline-block" />
-						</Button>
-					)}
-				</motion.div>
+				<StoryVideoNavigationButtons
+					returnLink="/touriiverse/bungo-ono"
+					isMuted={isMuted}
+					toggleSound={toggleSound}
+					handlePreviousChapter={handlePreviousChapter}
+					handleNextChapter={handleNextChapter}
+					previousChapterUnlocked={previousChapter?.storyUnlocked ?? false}
+					nextChapterUnlocked={nextChapter?.storyUnlocked ?? false}
+				/>
 			</motion.div>
 		</div>
 	);
 };
 
-export default YoutubeVideo;
+export default BungoOnoYoutubeVideo;

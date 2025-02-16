@@ -67,6 +67,21 @@ export type ChapterSelectionButtonProps = {
 	onSelect: (selectedStoryId: string) => void;
 };
 
+export interface VideoIframeProps {
+	iframeSrc: string | undefined;
+	title: string;
+}
+
+export interface StoryVideoNavigationButtonsProps {
+	returnLink: string;
+	isMuted: boolean;
+	toggleSound: () => void;
+	handlePreviousChapter: () => void;
+	handleNextChapter: () => void;
+	previousChapterUnlocked: boolean;
+	nextChapterUnlocked: boolean;
+}
+
 // User is implemented
 interface FutureUse {
 	lastUpdated: Date;
