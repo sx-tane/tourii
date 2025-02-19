@@ -19,13 +19,13 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 			variants={upToDownVariants}
 			transition={{ duration: 0.5 }}
 		>
-			<div className="absolute right-4 top-4 md:hidden  w-9 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor-pointer mx-auto">
+			{/* <div className="absolute right-4 top-4 md:hidden  w-9 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor-pointer mx-auto">
 				<div className="flex flex-col items-center space-y-1 my-3">
 					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
 					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
 					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
 				</div>
-			</div>
+			</div> */}
 
 			<motion.div
 				className="mt-5 md:mt-0 md:absolute md:right-14 md:top-8 text-center text-sm md:text-lg font-medium md:font-bold uppercase tracking-widest"

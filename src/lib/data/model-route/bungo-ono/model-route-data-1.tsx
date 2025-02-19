@@ -10,7 +10,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Harajiri Falls",
 		routeDetailStoryTitle: "The Ancient Fire Rising from the Timeless Waters",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "https://www.tanejp.com/route/harajiri-route/",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -30,7 +30,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Ninomiya Hachiman Shrine",
 		routeDetailStoryTitle: "The Abode of the Mighty Bonjin warrior",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -49,7 +49,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Miyazaki West Stone Carved Buddha Cliff",
 		routeDetailStoryTitle: "Buddhas of Past, Present, and Future",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -68,7 +68,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Ozaki Stone Bath Cave",
 		routeDetailStoryTitle: "The Forgotten Healing Magic",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "https://www.tanejp.com/route/ogata-route/",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -87,7 +87,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Lodge Kiyokawa",
 		routeDetailStoryTitle: "A Mystical Sanctuary, Cradled by Forests and River",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "https://www.tanejp.com/route/lodge-kiyokawa-route/",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -108,7 +108,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Udahime Shrine",
 		routeDetailStoryTitle: "A Princess's Distress",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -128,7 +128,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Kashima Shrine",
 		routeDetailStoryTitle: "Awakening The Sumo Kami",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -147,7 +147,7 @@ export const routeDetails1: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Anamori Shrine",
 		routeDetailStoryTitle: "The Rouge Serpent God",
-		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route1Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route1Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {

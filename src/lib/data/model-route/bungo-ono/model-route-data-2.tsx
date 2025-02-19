@@ -19,7 +19,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Restaurant Fukujusō",
 		routeDetailStoryTitle: "The Sealed Kappa's Legend",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -39,7 +39,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Fukoji Temple",
 		routeDetailStoryTitle: "Turmoil at Fukoji Temple",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "https://www.tanejp.com/route/fukoji-route/",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -59,7 +59,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Jinkaku-ji",
 		routeDetailStoryTitle: "Secrets of Jinkaku-ji",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -79,7 +79,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Eboshi Park",
 		routeDetailStoryTitle: "Guidance from the Kannon",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -99,7 +99,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Muretsuru Sake Brewery",
 		routeDetailStoryTitle: "An Unexpected Meal",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -119,7 +119,7 @@ export const routeDetails2: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Chinda Waterfall",
 		routeDetailStoryTitle: "The Legend of Chinda Falls",
-		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route2Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route2Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {

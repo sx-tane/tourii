@@ -40,13 +40,13 @@ class createIdGenerator {
     return `destination${++this.destinationNumber}`;
     }
 
-    generateBungoOnoChapterId(): string {
+    generateChapterId(): string {
     return `${this.chapterPrefix}ChapterId${++this.chapterNumber}`;
-    } //bungoOnoChapterId
+    } //bungoOnoChapterId, aomoriChapterId, tochigiChapterId
 
     generateAomoriChapterId(): string {
     return `${this.chapterPrefix}ChapterId${++this.chapterNumber}`;
-    } //aomoriChapterId
+    } //
 
     generateChapterImageId(): string {
     return `chapter${++this.chapterImageNumber}.png`;

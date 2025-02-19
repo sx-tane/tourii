@@ -28,7 +28,7 @@ const bungoOnoArea = "Bungo Ono";
 
 export const bungoOnoChapterData: Chapter[] = [
 	{
-		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
+		chapterId: bungoOnoChapterGenerator.generateChapterId(),
 		part: 1,
 		area: bungoOnoArea,
 		placeName: "Bungo Ono",
@@ -41,7 +41,7 @@ export const bungoOnoChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
+		chapterId: bungoOnoChapterGenerator.generateChapterId(),
 		part: 1,
 		area: bungoOnoArea,
 		placeName: "Harajiri Fall",
@@ -58,7 +58,7 @@ export const bungoOnoChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
+		chapterId: bungoOnoChapterGenerator.generateChapterId(),
 		part: 1,
 		area: bungoOnoArea,
 		placeName: "Ninomiya Hachiman Shrine",
@@ -73,7 +73,7 @@ export const bungoOnoChapterData: Chapter[] = [
 		storyUnlocked: false,
 	},
 	{
-		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
+		chapterId: bungoOnoChapterGenerator.generateChapterId(),
 		placeName: "Miyazako Stone Carved Buddha Cliff",
 		part: 1,
 		area: bungoOnoArea,
@@ -88,7 +88,7 @@ export const bungoOnoChapterData: Chapter[] = [
 		storyUnlocked: false,
 	},
 	{
-		chapterId: bungoOnoChapterGenerator.generateBungoOnoChapterId(),
+		chapterId: bungoOnoChapterGenerator.generateChapterId(),
 		placeName: "Ozaki Stone Bath Cave",
 		part: 1,
 		area: bungoOnoArea,
@@ -132,7 +132,7 @@ const aomoriChapterGenerator = new createIdGenerator(
 
 export const aomoriChapterData: Chapter[] = [
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Aomori",
@@ -141,11 +141,11 @@ export const aomoriChapterData: Chapter[] = [
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: "Where Spirits Roam and Legends Live",
 		content:
-			"Aomori—where ancient legends and modern life intertwine. Amid misty mountains and the shores of Mutsu Bay, whispers of spirits and deities linger in the air. Rooted in folklore and the traditions of the Tsugaru region, this land bridges the past and present. From the enigmatic Osorezan, believed to be a gateway to the afterlife, to the vibrant Nebuta Festival that brings legendary warriors to life, every corner pulses with mythic energy. Here, history is not just remembered—it breathes, inviting travelers into a world where legend and reality become one.",
+			"A land where ancient legends and modern life intertwine. Amid misty mountains and whispering forests, the presence of spirits and forgotten deities lingers in the air. Rooted in folklore and tradition, this realm bridges past and present, where myth shapes reality. From encounters with the elusive Yuki Onna to the eerie echoes of Osorezan, every path is touched by the supernatural. With the Miracle Apple in hand and the secrets of the Snow Monsters uncovered, the journey continues. Here, history is not just remembered—it breathes, inviting travelers into a world where legend and reality become one.",
 		storyUnlocked: false,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Aomori Furukawa market",
@@ -163,7 +163,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Osoresan and Bodaiji Temple",
@@ -180,7 +180,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Hirosaki Apple Park",
@@ -197,7 +197,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Hirosaki Apple Park",
@@ -214,7 +214,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Mountain Hakkoda",
@@ -231,7 +231,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Mountain Hakkoda",
@@ -248,7 +248,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "Mountain Hakkoda",
@@ -265,7 +265,7 @@ export const aomoriChapterData: Chapter[] = [
 		storyUnlocked: true,
 	},
 	{
-		chapterId: aomoriChapterGenerator.generateAomoriChapterId(),
+		chapterId: aomoriChapterGenerator.generateChapterId(),
 		part: 1,
 		area: aomoriArea,
 		placeName: "The Sessho-seki",
@@ -290,6 +290,176 @@ for (let i = 0; i <= 8; i++) {
 		selectedChapterId: aomoriChapterData[i]?.chapterId,
 		chapter: aomoriChapterData[i]?.chapterNumber,
 		placeName: aomoriChapterData[i]?.placeName,
+		isSelected: false,
+	});
+}
+
+/// Tochigi
+const tochigiArea = "Tochigi";
+
+const tochigiChapterGenerator = new createIdGenerator(
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	"tochigi",
+);
+
+export const tochigiChapterData: Chapter[] = [
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Tochigi",
+		chapterNumber: "Introduction",
+		image: "/image/world/Tochigi.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "Where Shadows Linger and Spirits Watch",
+		content: "Tochigi—a land where ancient traditions and hidden mysteries intertwine. Amid its sacred shrines and dense forests, whispers of the past echo through the mist. From the solemn Sentai Jizō-son, standing watch over the Nasu Plains, to the unsettling energy of the Sessho-seki Killing Stone, this region is steeped in legend. Some speak of a shadow in the woods, its glowing eyes watching from the darkness, while others tell of deities and spirits maintaining an uneasy balance. Here, history is not just preserved—it lingers, blurring the line between myth and reality, inviting the daring to uncover the truth.",
+		storyUnlocked: false,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Utsunomiya",
+		chapterNumber: "Chapter 1",
+		image: "/image/touriiverse/tochigi/chapter1.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "Arrival in Utsunomiya",
+		content: `"I can sense that the city is embodied with a dark aura.... What’s that in front of the JR Utsunomiya station?
+What a strange statue.... It looks like the posture of the Goddess Venus yet it is wrapped in the Gyoza shape... " i curiously wondered.`,
+		videoLink:
+			"https://www.youtube.com/embed/Z3BBImhK6zM?si=9FP93oZjoVBSSpKi&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/Z3BBImhK6zM?si=9FP93oZjoVBSSpKi&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Futaarayama Jinja",
+		chapterNumber: "Chapter 2",
+		image: "/image/touriiverse/tochigi/chapter2.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "The Gyoza Omikuji",
+		content:`"This is definitely one of the most interesting ways I’ve seen to reveal my fortune. But let’s head to Kindaijin pub now. There are too many Kami around here, and I’m not sure how long I can hide my aura without being noticed. Even though most of them aren’t the combative type, a clash would still be messy, and I’d rather not end up destroying your shrine." I hissed`,
+		videoLink:
+			"https://www.youtube.com/embed/YkERZJJbtjw?si=jdew75NgXVAcqApm&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/YkERZJJbtjw?si=jdew75NgXVAcqApm&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Nasu Plains",
+		chapterNumber: "Chapter 3",
+		image: "/image/touriiverse/tochigi/chapter3.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "The Missing Sister",
+		content:`"I've been to the Sessho-seki at Nasu Plains, desperately searching for my sister. But since the stone split, the area's been cordoned off to keep tourists away. I couldn't find much... except for this. It's my sister's friendship band. I found it among the smaller rocks, probably overlooked by the authorities. We carved our names on the back of the Gyoza ornaments, so I'm sure it's hers." revealed Ladytarget.`,
+		videoLink:
+			"https://www.youtube.com/embed/-1u5OAuEIoA?si=j9nGcTM4Inyb2q8o&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/-1u5OAuEIoA?si=j9nGcTM4Inyb2q8o&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Ooyaji Temple",
+		chapterNumber: "Chapter 4",
+		image: "/image/touriiverse/tochigi/chapter4.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: " The Guardian of Peace",
+		content:
+			`"The Nasu Plains… I had a disturbing experience there recently, at the thousands Sentai Jizō-son near the Sessho-seki killing stone. I wandered off the path, captivated by the intricate Jizō statues. Suddenly, I felt an oppressive gaze upon me, like a predator stalking its prey. My heart pounded; the air was thick with malice." recounts Carmey101 with intensity.`,
+		videoLink:
+			"https://www.youtube.com/embed/Cd2IF7yfinE?si=QMEYNY7bB7WAo_O_&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/Cd2IF7yfinE?si=QMEYNY7bB7WAo_O_&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Tamamo no Mae",
+		chapterNumber: "Chapter 5",
+		image: "/image/touriiverse/tochigi/chapter5.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "There are 3 Sessho Seki Stones!?",
+		content: `"Exorcising her wasn't easy. Very few knew that she has celestial roots, and accumulated deep grievances when she died. Ordinary rituals couldn't contain her. She would eventually revive by absorbing the life of any living things who came too close.", recalled Monk Genno.`,
+		videoLink:
+			"https://www.youtube.com/embed/hq8re1oXYGs?si=9YZfCYoE4NEub2Ho&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/hq8re1oXYGs?si=9YZfCYoE4NEub2Ho&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Sesshō-seki",
+		chapterNumber: "Chapter 6",
+		image: "/image/touriiverse/tochigi/chapter6.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "The Catalyst That Cracked the Stone?",
+		content: `"Speaking of training, Jayi, have you heard about the “Divine-Exchange”? Your inner strength is growing fast, though tinged with both light and shadow at the moment.`,
+		videoLink:
+			"https://www.youtube.com/embed/ba6RzZxTjEU?si=xehOIDiHaoAh4JeV&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/ba6RzZxTjEU?si=xehOIDiHaoAh4JeV&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Rinnoji Temple",
+		chapterNumber: "Chapter 7",
+		image: "/image/touriiverse/tochigi/chapter7.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "The Hike",
+		content:`"Have you heard about the disturbances in Tochigi lately? People have been going missing. Survivors speak of a shadow darting through the woods. They couldn’t make out what it was, but they saw lights reflecting from the eyes … it seemed to be wearing spectacles glasses." whispered FlyingSqurriel while glancing around nervously....`,
+		videoLink:
+			"https://www.youtube.com/embed/pf2bvSVxshE?si=iSBuJFEbjligIo9w&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/pf2bvSVxshE?si=iSBuJFEbjligIo9w&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+	{
+		chapterId: tochigiChapterGenerator.generateChapterId(),
+		part: 1,
+		area: tochigiArea,
+		placeName: "Futarasan Jinja",
+		chapterNumber: "Chapter 8",
+		image: "/image/touriiverse/tochigi/chapter8.png",
+		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
+		title: "The Fountain of Youth Made of Sake Water",
+		content: `"You certainly live up to your name, old friend. Housing such a variety of kami, buddhas, and even spirits to maintain balance on Earth. Honestly, I wouldn’t be surprised if you’re sheltering yokai here too.", smirked 0x8Tails, while raising an eyebrow. `,
+		videoLink:
+			"https://www.youtube.com/embed/GJd5PEMKxfs?si=A3ud5S1zyCYwUfNd&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/GJd5PEMKxfs?si=A3ud5S1zyCYwUfNd&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
+	},
+];
+
+export const tochigiChapterSelectionData: ChapterSelection[] = [];
+
+for (let i = 0; i <= 8; i++) {
+	tochigiChapterSelectionData.push({
+		selectedChapterId: tochigiChapterData[i]?.chapterId,
+		chapter: tochigiChapterData[i]?.chapterNumber,
+		placeName: tochigiChapterData[i]?.placeName,
 		isSelected: false,
 	});
 }

@@ -19,7 +19,7 @@ export const routeDetails4: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Uchida Shrine",
 		routeDetailStoryTitle: "Guidance at Uchida Shrine",
-		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -38,7 +38,7 @@ export const routeDetails4: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Mount Atago",
 		routeDetailStoryTitle: "Mount Atago's Enigmatic Encounter",
-		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -57,7 +57,7 @@ export const routeDetails4: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Hyuga",
 		routeDetailStoryTitle: "Hyuga and the Heike Clan Spirits",
-		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
@@ -76,7 +76,7 @@ export const routeDetails4: RouteDetails[] = [
 		routeDetailTime: "9:00\nam",
 		routeDetailName: "Omi Shrine",
 		routeDetailStoryTitle: "A Beacon of Hope",
-		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateBungoOnoChapterId()}`,
+		visualNovelLink: `/touriiverse/bungo-ono/${route4Generator.generateChapterId()}`,
 		modelRouteLink: "",
 		routeDetailBigImage: `/image/touriiverse/bungo-ono/${route4Generator.generateChapterImageId()}`,
 		routeDetailSmallImage: {
