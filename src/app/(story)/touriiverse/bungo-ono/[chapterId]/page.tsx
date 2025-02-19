@@ -3,19 +3,26 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import { DescriptionStory } from "@/components/about/description";
-import { bungoOnoChapterData } from "@/lib/data/touriiverse/chapter-data";
+import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/story-video-navigation-button";
+import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
+import { downToUpVariants } from "@/lib/animation/variants-settings";
+import {
+	bungoOnoChapterData,
+	prologueChapterData,
+} from "@/lib/data/touriiverse/chapter-data";
 import type { Chapter } from "@/types/story-type";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const VisualNovel: React.FC = () => {
-	const { chapterId } = useParams(); // Access the dynamic route parameter
+const BungoOnoYoutubeVideo: React.FC = () => {
+	const { chapterId } = useParams();
+	const router = useRouter();
 	const [chapter, setChapter] = useState<Chapter | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [isMuted, setIsMuted] = useState(false);
+	const [iframeSrc, setIframeSrc] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -34,6 +41,67 @@ const VisualNovel: React.FC = () => {
 
 		fetchData().catch((e) => setError(e.message));
 	}, [chapterId]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (window.innerWidth <= 768) {
+				setIframeSrc(chapter?.videoMobileLink);
+			} else {
+				setIframeSrc(chapter?.videoLink);
+			}
+		};
+
+		handleResize();
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, [chapter]);
+
+	const toggleSound = () => {
+		const iframe = document.getElementById(
+			"youtube-player",
+		) as HTMLIFrameElement;
+		if (iframe?.contentWindow) {
+			if (isMuted) {
+				iframe.contentWindow.postMessage(
+					'{"event":"command","func":"unMute","args":""}',
+					"*",
+				);
+			} else {
+				iframe.contentWindow.postMessage(
+					'{"event":"command","func":"mute","args":""}',
+					"*",
+				);
+			}
+			setIsMuted(!isMuted);
+		}
+	};
+
+	const handleNextChapter = () => {
+		const currentIndex = bungoOnoChapterData.findIndex(
+			(ch) => ch.chapterId === chapterId,
+		);
+		const nextChapter = bungoOnoChapterData[currentIndex + 1];
+		if (nextChapter?.storyUnlocked) {
+			router.push(`/touriiverse/bungo-ono/${nextChapter.chapterId}`);
+		}
+	};
+
+	const handlePreviousChapter = () => {
+		const currentIndex = bungoOnoChapterData.findIndex(
+			(ch) => ch.chapterId === chapterId,
+		);
+		if (currentIndex === 1) {
+			router.push("/touriiverse/prologue");
+		} else {
+			const previousChapter = bungoOnoChapterData[currentIndex - 1];
+			if (previousChapter) {
+				router.push(`/touriiverse/bungo-ono/${previousChapter.chapterId}`);
+			}
+		}
+	};
 
 	if (isLoading) {
 		return (
@@ -59,44 +127,40 @@ const VisualNovel: React.FC = () => {
 		);
 	}
 
-	return (
-		<div className="absolute right-0 h-[90vh] w-[87vw] animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey text-charcoal">
-			{chapter.vnLink ? (
-				<iframe
-					src={chapter.vnLink}
-					title={chapter.title}
-					className="absolute left-0 top-0 h-full w-full rounded-bl-xl rounded-tl-xl"
-				/>
-			) : (
-				<div className="flex h-full w-full justify-between overflow-hidden">
-					<div className="my-auto h-[90vh] w-1/2 overflow-y-auto p-10">
-						<DescriptionStory
-							smallTitle={chapter.chapterNumber}
-							title={chapter.title}
-							content={chapter.content}
-						/>
-						<Link
-							href={"/touriiverse/bungo-ono"}
-							className="mx-auto h-fit w-fit rounded-full border-[1.5px] border-red px-8 py-2 text-center font-medium uppercase tracking-widest text-red transition hover:bg-red hover:text-warmGrey md:flex"
-						>
-							CLOSE
-						</Link>
-					</div>
+	const currentIndex = bungoOnoChapterData.findIndex(
+		(ch) => ch.chapterId === chapterId,
+	);
+	const nextChapter = bungoOnoChapterData[currentIndex + 1];
+	const previousChapter =
+		currentIndex === 0
+			? prologueChapterData
+			: bungoOnoChapterData[currentIndex - 1];
 
-					<div className="w-1/2">
-						<Image
-							src={chapter.image}
-							alt={chapter.title}
-							height={500}
-							width={500}
-							className="h-full w-full object-cover"
-							priority
-						/>
-					</div>
-				</div>
-			)}
+	return (
+		<div>
+			<motion.div
+				className="absolute right-0 h-[90vh] w-full md:h-[85vh] md:w-[85vw] animate-fadeIn md:rounded-tl-full md:rounded-bl-full text-charcoal"
+				initial="hidden"
+				animate="visible"
+				variants={downToUpVariants}
+				transition={{ duration: 0.5 }}
+			>
+				<VideoIframe
+					iframeSrc={iframeSrc}
+					title={`${chapter?.area} ${chapter?.chapterNumber}`}
+				/>
+				<StoryVideoNavigationButtons
+					returnLink="/touriiverse/bungo-ono"
+					isMuted={isMuted}
+					toggleSound={toggleSound}
+					handlePreviousChapter={handlePreviousChapter}
+					handleNextChapter={handleNextChapter}
+					previousChapterUnlocked={previousChapter?.storyUnlocked ?? false}
+					nextChapterUnlocked={nextChapter?.storyUnlocked ?? false}
+				/>
+			</motion.div>
 		</div>
 	);
 };
 
-export default VisualNovel;
+export default BungoOnoYoutubeVideo;

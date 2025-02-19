@@ -1,4 +1,5 @@
 export interface CharacterProps {
+	id: string;
 	name?: string;
 	kanjiname?: string;
 	image?: string;

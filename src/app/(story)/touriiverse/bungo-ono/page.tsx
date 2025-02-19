@@ -1,8 +1,9 @@
 "use client";
 
-import ChapterSelectionButton from "@/components/touriiverse-story/chapter/chapter-selection";
-import ChapterComponent from "@/components/touriiverse-story/chapter/character-component";
-import IntroComponent from "@/components/touriiverse-story/chapter/intro-component";
+import ChapterComponent from "@/components/touriiverse-story/chapter-page/chapter-component";
+import ChapterSelectionComponent from "@/components/touriiverse-story/chapter-page/chapter-selection";
+import ChapterSelectionMobileComponent from "@/components/touriiverse-story/chapter-page/chapter-selection-mobile";
+import IntroComponent from "@/components/touriiverse-story/chapter-page/intro-component";
 import {
 	bungoOnoChapterData,
 	bungoOnoChapterSelectionData,
@@ -20,6 +21,8 @@ const BungoOno: NextPage = () => {
 	const [selectionData, setSelectionData] = useState(
 		bungoOnoChapterSelectionData,
 	);
+
+	const [currentIndex, setCurrentIndex] = useState(0);
 
 	// Ensure localStorage is only accessed on the client
 	useEffect(() => {
@@ -52,33 +55,99 @@ const BungoOno: NextPage = () => {
 				isSelected: selection.selectedChapterId === selectedChapterId,
 			}));
 			setSelectionData(updatedSelectionData);
+			setCurrentIndex(
+				bungoOnoChapterData.findIndex(
+					(chapter) => chapter.chapterId === selectedChapterId,
+				),
+			);
 		}
 	};
 
-	const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-	const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-		if (scrollContainerRef.current) {
-			scrollContainerRef.current.scrollLeft += e.deltaY;
+	const handleSwipe = (direction: "left" | "right") => {
+		const currentIndex = bungoOnoChapterData.findIndex(
+			(chapter) =>
+				selectedChapter && chapter.chapterId === selectedChapter.chapterId,
+		);
+		let newIndex: number;
+		if (direction === "left") {
+			newIndex = (currentIndex + 1) % bungoOnoChapterData.length;
+		} else {
+			newIndex =
+				(currentIndex - 1 + bungoOnoChapterData.length) %
+				bungoOnoChapterData.length;
+		}
+		const newChapterId = bungoOnoChapterData?.[newIndex]?.chapterId;
+		if (newChapterId) {
+			handleSelectChapter(newChapterId);
 		}
 	};
 
-	const selectedButtonRef = useRef<HTMLDivElement>(null);
+	const touchStartX = useRef<number | null>(null);
+	const touchEndX = useRef<number | null>(null);
+	const touchStartY = useRef<number | null>(null);
+	const touchEndY = useRef<number | null>(null);
+
+	const handleTouchStart = (e: React.TouchEvent) => {
+		touchStartX.current = e.targetTouches?.[0]?.clientX ?? null;
+		touchStartY.current = e.targetTouches?.[0]?.clientY ?? null;
+	};
+
+	const handleTouchMove = (e: React.TouchEvent) => {
+		touchEndX.current = e.targetTouches?.[0]?.clientX ?? null;
+		touchEndY.current = e.targetTouches?.[0]?.clientY ?? null;
+	};
+
+	const handleTouchEnd = () => {
+		if (
+			touchStartX.current !== null &&
+			touchEndX.current !== null &&
+			touchStartY.current !== null &&
+			touchEndY.current !== null
+		) {
+			const deltaX = touchStartX.current - touchEndX.current;
+			const deltaY = touchStartY.current - touchEndY.current;
+
+			// Check if the swipe is primarily horizontal and exceeds the threshold
+			if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+				if (deltaX > 0) {
+					handleSwipe("left");
+				} else {
+					handleSwipe("right");
+				}
+			}
+		}
+		touchStartX.current = null;
+		touchEndX.current = null;
+		touchStartY.current = null;
+		touchEndY.current = null;
+	};
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "ArrowLeft") {
+			handleSwipe("right");
+		} else if (e.key === "ArrowRight") {
+			handleSwipe("left");
+		}
+	};
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		if (selectedButtonRef.current) {
-			selectedButtonRef.current.scrollIntoView({
-				behavior: "smooth",
-				block: "nearest",
-				inline: "center",
-			});
-		}
+		window.addEventListener("keydown", handleKeyDown);
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+		};
 	}, [selectedChapter]);
 
+	const selectedButtonRef = useRef<HTMLDivElement | null>(null);
+
 	return (
-		<div className="absolute -right-0 h-[90vh] w-[95vw] animate-fadeIn overflow-hidden">
-			{selectedChapter?.chapterNumber === "Intro" ? (
+		<div
+			onTouchStart={handleTouchStart}
+			onTouchMove={handleTouchMove}
+			onTouchEnd={handleTouchEnd}
+			className="md:absolute md:right-0 max-h-full md:h-[90vh] md:w-[95vw] animate-fadeIn overflow-hidden"
+		>
+			{selectedChapter?.chapterNumber === "Introduction" ? (
 				<AnimatePresence mode="wait">
 					<IntroComponent
 						key={selectedChapter?.chapterId}
@@ -88,40 +157,25 @@ const BungoOno: NextPage = () => {
 			) : (
 				<AnimatePresence mode="wait">
 					<ChapterComponent
+						areaLink="/touriiverse/bungo-ono"
 						key={selectedChapter?.chapterId}
 						chapter={selectedChapter}
 					/>
 				</AnimatePresence>
 			)}
-			<div className="mt-2 flex rounded-bl-xl rounded-tl-xl bg-warmGrey2 pb-4 pl-12">
-				<div
-					ref={scrollContainerRef}
-					onWheel={handleWheel}
-					className="flex w-full items-center overflow-y-hidden overflow-x-scroll"
-				>
-					<button
-						type="button"
-						onClick={() => handleSelectChapter("Intro")}
-						onKeyUp={(e) => {
-							if (e.key === "Enter" || e.key === " ") {
-								handleSelectChapter("Intro");
-							}
-						}}
-						className="mr-10 shrink-0 cursor-pointer text-xl font-bold tracking-wider transition-all duration-500 hover:text-red"
-					>
-						BUNGO ONO
-					</button>
-
-					{selectionData.map((selection) => (
-						<ChapterSelectionButton
-							key={selection.selectedChapterId}
-							selection={selection}
-							onSelect={handleSelectChapter}
-							ref={selection.isSelected ? selectedButtonRef : null}
-						/>
-					))}
-				</div>
-			</div>
+			<ChapterSelectionMobileComponent
+				selectionData={selectionData}
+				handleSelectChapter={handleSelectChapter}
+				selectedButtonRef={selectedButtonRef}
+				currentIndex={currentIndex}
+				setCurrentIndex={setCurrentIndex}
+			/>
+			<ChapterSelectionComponent
+				placeName="BUNGO ONO"
+				selectionData={selectionData}
+				handleSelectChapter={handleSelectChapter}
+				selectedButtonRef={selectedButtonRef}
+			/>
 		</div>
 	);
 };

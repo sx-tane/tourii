@@ -10,7 +10,7 @@ const Character: NextPage = () => {
 			<div className="mt-10">
 				<DescriptionCharacter {...descriptionData[4]} />
 			</div>
-			<div className="mt-10">
+			<div className="">
 				<CharacterList />
 			</div>
 		</div>

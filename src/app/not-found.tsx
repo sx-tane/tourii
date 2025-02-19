@@ -1,13 +1,13 @@
 "use client";
 
-import Header from "@/components/header/header-white/header-white";
+import Header from "@/components/header/header-component/header";
 import Image from "next/image";
 import type React from "react";
 
 const NotFound: React.FC = () => {
 	return (
 		<div className="max-h-screen animate-fadeIn overflow-hidden px-6">
-			<Header />
+			<Header theme={"white"} />
 			<div
 				className="mx-4 flex flex-col items-center justify-center text-center xl:mx-96"
 				style={{ height: "calc(100vh - 77px)" }}

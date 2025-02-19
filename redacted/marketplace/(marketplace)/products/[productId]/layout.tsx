@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import Header from "@/components/header/header-white/header-white";
+import Header from "@/components/header/header-component/header";
 import { productsData } from "@/lib/data/marketplace/product-data";
 import type { Metadata } from "next";
 
@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="item-center h-full animate-fadeIn overflow-hidden">
 			<div className="mx-6">
-				<Header />
+				<Header theme={"white"} />
 				<Suspense>{children}</Suspense>
 			</div>
 		</div>

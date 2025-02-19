@@ -13,6 +13,7 @@ interface CharacterCardProps extends CharacterProps {
 }
 
 const CharacterCard: React.FC<CharacterCardProps> = ({
+	id,
 	name,
 	kanjiname,
 	thumbnailImage,
@@ -32,9 +33,9 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 				quality={100}
 				priority
 			/>
-			<div className="absolute top-0 right-0 bg-red h-2/5 w-1/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+			<div className="absolute top-0 right-0 bg-red h-2/5 w-1/5 md:h-2/5 md:w-1/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 				<p
-					className={`text-white text-xs sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold tracking-[0.2em] [writing-mode:vertical-rl] ${notoSerifJP.className}`}
+					className={`text-white text-base md:text-2xl xl:text-3xl font-bold tracking-[0.2em] [writing-mode:vertical-rl] ${notoSerifJP.className}`}
 				>
 					{kanjiname}
 				</p>

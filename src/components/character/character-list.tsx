@@ -25,7 +25,7 @@ const CharacterList: React.FC = () => {
 
 	return (
 		<>
-			<div className="gap-5 grid grid-cols-2 mb-10 lg:grid-cols-4 md:gap-10">
+			<div className="gap-5 grid grid-cols-2 lg:grid-cols-4 md:gap-10">
 				{characters.map((char, index) => (
 					<motion.div
 						key={char.name}
@@ -39,6 +39,7 @@ const CharacterList: React.FC = () => {
 						}}
 					>
 						<CharacterCard
+							id={char.id}
 							key={char.name}
 							name={char.name}
 							thumbnailImage={char.thumbnailImage}
@@ -53,6 +54,7 @@ const CharacterList: React.FC = () => {
 					isOpen={isModalOpen}
 					character={selectedCharacter}
 					onClose={handleCloseModal}
+					characters={characters}
 				/>
 			)}
 		</>
