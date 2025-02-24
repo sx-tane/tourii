@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="item-center h-full animate-fadeIn overflow-hidden">
+		<div className="animate-fadeIn overflow-hidden">
 			<div className="mx-6">
 				<Header theme={"white"} />
 				<Suspense fallback={<Loading />}>{children}</Suspense>

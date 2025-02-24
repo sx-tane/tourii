@@ -6,11 +6,11 @@ import type React from "react";
 
 const Character: NextPage = () => {
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<div className="mt-10">
+		<div className="flex flex-col items-center justify-center min-h-[90vh]">
+			<div>
 				<DescriptionCharacter {...descriptionData[4]} />
 			</div>
-			<div className="">
+			<div className="mt-10">
 				<CharacterList />
 			</div>
 		</div>
