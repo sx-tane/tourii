@@ -11,14 +11,14 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
 const Touriiverse: NextPage = () => {
-	const [selectedStory, setSelectedStory] = useState(storyData[0]);
+	const [selectedStory, setSelectedStory] = useState(storyData[1]);
 	const [selectionData, setSelectionData] = useState(storySelectionData);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const initialSelectionData = selectionData.map((selection, index) => ({
 			...selection,
-			isSelected: index === 0,
+			isSelected: index === 1,
 		}));
 		setSelectionData(initialSelectionData);
 	}, []);

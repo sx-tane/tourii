@@ -68,9 +68,11 @@ export const bungoOnoChapterData: Chapter[] = [
 		title: "Ninomiya Hachiman Shrine",
 		content:
 			'Sarutahiko led them through the quiet forest, his voice steady but urgent. "We need to move quickly. Your divine energy will attract trouble—corrupted Kunitsukami and Yokai - spirits that once walked as protectors but had since fallen into hunger and violence, feeding on the remnants of forgotten',
-		videoLink: "https://tanejp.com/ninomiya-hachiman-shrine/",
-		videoMobileLink: "https://tanejp.com/ninomiya-hachiman-shrine/",
-		storyUnlocked: false,
+		videoLink:
+			"https://www.youtube.com/embed/jVxuNbMWDY4?si=3ZNNIkSe5zMxZhj9&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/4ueJcSY0Bj8?si=Hyd9UhVNbh5ZniwL&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
 	},
 	{
 		chapterId: bungoOnoChapterGenerator.generateChapterId(),
