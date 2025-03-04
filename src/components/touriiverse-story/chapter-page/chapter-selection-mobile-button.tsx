@@ -1,19 +1,32 @@
-import React from "react";
+import type { ChapterSelectionButtonProps } from "@/types/story-type";
+import { forwardRef } from "react";
+import { usePathname } from "next/navigation";
 
-const chapterSelectionMobileButton = () => {
+const ChapterSelectionMobileButton = forwardRef<
+	HTMLDivElement,
+	ChapterSelectionButtonProps
+>(({ selection, onSelect }, ref) => {
+	const pathname = usePathname();
 	return (
-		<div>
-			<div className="relative flex items-center justify-center w-12 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor">
-				<div className="flex flex-col items-center space-y-2 my-4">
-					{/* Red dots */}
-					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
-					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
-					<div className="w-1 h-1 bg-red rounded-full group-hover:bg-warmGrey" />
+		<div ref={ref} className="relative top-10 flex flex-col items-center py-5">
+			<div
+				className={`relative bottom-2 flex flex-col items-center h-0.5 w-32 ${selection.isSelected ? "bg-white" : "hidden"}`}
+			/>
+			<button
+				type="button"
+				onClick={() => onSelect(selection.selectedChapterId ?? "")}
+				className={`text-warmGrey3 w-48 ${selection.isSelected ? "text-white" : "text-warmGrey3"}`}
+			>
+				<div className="font-bold text-xs uppercase tracking-wider">
+					{selection.chapter}
 				</div>
-			</div>
-			;
+
+				<div className="relative top-1 italic text-xs font-medium">
+					{selection.placeName}
+				</div>
+			</button>
 		</div>
 	);
-};
+});
 
-export default chapterSelectionMobileButton;
+export default ChapterSelectionMobileButton;

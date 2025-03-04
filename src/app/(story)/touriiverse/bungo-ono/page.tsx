@@ -163,13 +163,16 @@ const BungoOno: NextPage = () => {
 					/>
 				</AnimatePresence>
 			)}
+
 			<ChapterSelectionMobileComponent
+				placeName="BUNGO ONO"
 				selectionData={selectionData}
 				handleSelectChapter={handleSelectChapter}
 				selectedButtonRef={selectedButtonRef}
 				currentIndex={currentIndex}
 				setCurrentIndex={setCurrentIndex}
 			/>
+
 			<ChapterSelectionComponent
 				placeName="BUNGO ONO"
 				selectionData={selectionData}

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
 import { useEffect, useRef } from "react";
+import ChapterSelectionMobileMenuButton from "./chapter-selection-mobile-menu-button";
 
 interface ChapterSelectionMobileComponentProps extends ChapterSelectionProps {
 	currentIndex: number;
@@ -21,6 +22,7 @@ const ChapterSelectionMobileComponent: React.FC<
 	selectedButtonRef,
 	currentIndex,
 	setCurrentIndex,
+	placeName,
 }) => {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -75,6 +77,15 @@ const ChapterSelectionMobileComponent: React.FC<
 			variants={downToUpVariants}
 			transition={{ duration: 0.5 }}
 		>
+			<div className="absolute bottom-[47em] right-5 sm:bottom-[46em] z-20">
+				<ChapterSelectionMobileMenuButton
+					placeName={placeName}
+					selectionData={selectionData}
+					selectedButtonRef={selectedButtonRef}
+					handleSelectChapter={handleSelectChapter}
+				/>
+			</div>
+
 			<div
 				ref={containerRef}
 				className="flex w-full items-center justify-between"

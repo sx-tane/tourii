@@ -164,6 +164,7 @@ const Tochigi: NextPage = () => {
 				</AnimatePresence>
 			)}
 			<ChapterSelectionMobileComponent
+				placeName="TOCHIGI"
 				selectionData={selectionData}
 				handleSelectChapter={handleSelectChapter}
 				selectedButtonRef={selectedButtonRef}

@@ -164,6 +164,7 @@ const Aomori: NextPage = () => {
 				</AnimatePresence>
 			)}
 			<ChapterSelectionMobileComponent
+				placeName="AOMORI"
 				selectionData={selectionData}
 				handleSelectChapter={handleSelectChapter}
 				selectedButtonRef={selectedButtonRef}
