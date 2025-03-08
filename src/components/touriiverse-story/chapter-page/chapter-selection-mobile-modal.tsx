@@ -26,6 +26,9 @@ const ChapterSelectionMobileModal: React.FC<
 	handleSelectChapter,
 	selectedButtonRef,
 }) => {
+	// const handleswipe = (direction: "left" | "right")=> {
+	// 	const currentIndex : number
+	// }
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -40,19 +43,34 @@ const ChapterSelectionMobileModal: React.FC<
 						transition={{ duration: 0.1 }}
 						onClick={onClose}
 					>
-						<div className="relative top-5 text-white font-bold flex flex-col items-center tracking-widest z-50">
+						<div className="py-6 text-white font-bold flex flex-col items-center tracking-widest z-50">
 							{placeName}
 						</div>
+						<div className="pb-5">
+							{selectionData.slice(0, 9).map((selection: ChapterSelection) => (
+								<div key={selection.selectedChapterId}>
+									<ChapterSelectionMobileButton
+										selection={selection}
+										onSelect={handleSelectChapter}
+										ref={selection.isSelected ? selectedButtonRef : null}
+									/>
+								</div>
+							))}
 
-						{selectionData.map((selection: ChapterSelection) => (
-							<div key={selection.selectedChapterId}>
-								<ChapterSelectionMobileButton
-									selection={selection}
-									onSelect={handleSelectChapter}
-									ref={selection.isSelected ? selectedButtonRef : null}
-								/>
+							<div className=" ">
+								{selectionData
+									.slice(10, 19)
+									.map((selection: ChapterSelection) => (
+										<div key={selection.selectedChapterId}>
+											<ChapterSelectionMobileButton
+												selection={selection}
+												onSelect={handleSelectChapter}
+												ref={selection.isSelected ? selectedButtonRef : null}
+											/>
+										</div>
+									))}
 							</div>
-						))}
+						</div>
 					</motion.div>
 				</>
 			)}

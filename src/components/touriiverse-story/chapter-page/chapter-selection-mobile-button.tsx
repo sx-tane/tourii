@@ -8,9 +8,9 @@ const ChapterSelectionMobileButton = forwardRef<
 >(({ selection, onSelect }, ref) => {
 	const pathname = usePathname();
 	return (
-		<div ref={ref} className="relative top-10 flex flex-col items-center py-5">
+		<div ref={ref} className="relative flex flex-col items-center py-5">
 			<div
-				className={`relative bottom-2 flex flex-col items-center h-0.5 w-32 ${selection.isSelected ? "bg-white" : "hidden"}`}
+				className={`relative bottom-2 flex flex-col items-center h-0.5 w-20 ${selection.isSelected ? "bg-white" : "hidden"}`}
 			/>
 			<button
 				type="button"

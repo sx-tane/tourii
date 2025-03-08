@@ -1,4 +1,7 @@
-import { downToUpVariants } from "@/lib/animation/variants-settings";
+import {
+	downToUpVariants,
+	upToDownVariants,
+} from "@/lib/animation/variants-settings";
 import type {
 	ChapterSelection,
 	ChapterSelectionProps,
@@ -77,14 +80,20 @@ const ChapterSelectionMobileComponent: React.FC<
 			variants={downToUpVariants}
 			transition={{ duration: 0.5 }}
 		>
-			<div className="absolute bottom-[47em] right-5 sm:bottom-[46em] z-20">
+			<motion.div
+				initial="hidden"
+				animate="visible"
+				variants={upToDownVariants}
+				transition={{ duration: 0.5 }}
+				className="absolute h-full top-[6em] right-5 sm:bottom-[46em] z-20"
+			>
 				<ChapterSelectionMobileMenuButton
 					placeName={placeName}
 					selectionData={selectionData}
 					selectedButtonRef={selectedButtonRef}
 					handleSelectChapter={handleSelectChapter}
 				/>
-			</div>
+			</motion.div>
 
 			<div
 				ref={containerRef}

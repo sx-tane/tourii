@@ -28,7 +28,7 @@ const ChapterSelectionMobileMenuButton: React.FC<ChapterArea> = ({
 	return (
 		<>
 			<button
-				className="relative flex items-center justify-center w-12 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor-pointer"
+				className="relative w-12 h-fit border-2 border-red rounded-full hover:bg-red group transition-all duration-300 cursor-pointer"
 				onClick={() => handleclick(" ")}
 				type="button"
 			>
@@ -40,7 +40,7 @@ const ChapterSelectionMobileMenuButton: React.FC<ChapterArea> = ({
 				</div>
 			</button>
 
-			<div className="sm:pt-2">
+			<div className="sm:pb-2">
 				{buttonClicked && (
 					<ChapterSelectionMobileModal
 						isOpen={isModalOpen}
