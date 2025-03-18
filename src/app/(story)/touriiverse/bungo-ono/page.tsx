@@ -11,6 +11,11 @@ import {
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
+import type {
+	ChapterButtonProps,
+	ChapterSelection,
+	ChapterSelectionButtonProps,
+} from "@/types/story-type";
 
 const BungoOno: NextPage = () => {
 	const [selectedChapter, setSelectedChapter] = useState(() => {
@@ -139,6 +144,7 @@ const BungoOno: NextPage = () => {
 	}, [selectedChapter]);
 
 	const selectedButtonRef = useRef<HTMLDivElement | null>(null);
+	const selection = useRef<ChapterSelection>(null);
 
 	return (
 		<div

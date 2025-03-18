@@ -85,7 +85,7 @@ const ChapterSelectionMobileComponent: React.FC<
 				animate="visible"
 				variants={upToDownVariants}
 				transition={{ duration: 0.5 }}
-				className="absolute h-full top-[6em] right-5 sm:bottom-[46em] z-20"
+				className="absolute h-full top-[6em] right-3 sm:bottom-[46em] z-20"
 			>
 				<ChapterSelectionMobileMenuButton
 					placeName={placeName}

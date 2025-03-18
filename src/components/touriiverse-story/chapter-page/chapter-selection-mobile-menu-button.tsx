@@ -2,6 +2,7 @@ import type React from "react";
 import { useState } from "react";
 import type { ChapterSelectionProps } from "@/types/story-type";
 import ChapterSelectionMobileModal from "./chapter-selection-mobile-modal";
+import type { ChapterSelection } from "@/types/story-type";
 
 interface ChapterArea extends ChapterSelectionProps {
 	placeName?: string;
