@@ -109,7 +109,7 @@ export const bungoOnoChapterData: Chapter[] = [
 
 export const bungoOnoChapterSelectionData: ChapterSelection[] = [];
 
-for (let i = 0; i <= 4; i++) {
+for (let i = 0; i <= 5; i++) {
 	bungoOnoChapterSelectionData.push({
 		selectedChapterId: bungoOnoChapterData[i]?.chapterId,
 		chapter: bungoOnoChapterData[i]?.chapterNumber,
@@ -287,7 +287,7 @@ export const aomoriChapterData: Chapter[] = [
 
 export const aomoriChapterSelectionData: ChapterSelection[] = [];
 
-for (let i = 0; i <= 8; i++) {
+for (let i = 0; i <= 9; i++) {
 	aomoriChapterSelectionData.push({
 		selectedChapterId: aomoriChapterData[i]?.chapterId,
 		chapter: aomoriChapterData[i]?.chapterNumber,
@@ -320,7 +320,8 @@ export const tochigiChapterData: Chapter[] = [
 		image: "/image/world/Tochigi.png",
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: "Where Shadows Linger and Spirits Watch",
-		content: "Tochigi—a land where ancient traditions and hidden mysteries intertwine. Amid its sacred shrines and dense forests, whispers of the past echo through the mist. From the solemn Sentai Jizō-son, standing watch over the Nasu Plains, to the unsettling energy of the Sessho-seki Killing Stone, this region is steeped in legend. Some speak of a shadow in the woods, its glowing eyes watching from the darkness, while others tell of deities and spirits maintaining an uneasy balance. Here, history is not just preserved—it lingers, blurring the line between myth and reality, inviting the daring to uncover the truth.",
+		content:
+			"Tochigi—a land where ancient traditions and hidden mysteries intertwine. Amid its sacred shrines and dense forests, whispers of the past echo through the mist. From the solemn Sentai Jizō-son, standing watch over the Nasu Plains, to the unsettling energy of the Sessho-seki Killing Stone, this region is steeped in legend. Some speak of a shadow in the woods, its glowing eyes watching from the darkness, while others tell of deities and spirits maintaining an uneasy balance. Here, history is not just preserved—it lingers, blurring the line between myth and reality, inviting the daring to uncover the truth.",
 		storyUnlocked: false,
 	},
 	{
@@ -349,7 +350,7 @@ What a strange statue.... It looks like the posture of the Goddess Venus yet it 
 		image: "/image/touriiverse/tochigi/chapter2.png",
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: "The Gyoza Omikuji",
-		content:`"This is definitely one of the most interesting ways I’ve seen to reveal my fortune. But let’s head to Kindaijin pub now. There are too many Kami around here, and I’m not sure how long I can hide my aura without being noticed. Even though most of them aren’t the combative type, a clash would still be messy, and I’d rather not end up destroying your shrine." I hissed`,
+		content: `"This is definitely one of the most interesting ways I’ve seen to reveal my fortune. But let’s head to Kindaijin pub now. There are too many Kami around here, and I’m not sure how long I can hide my aura without being noticed. Even though most of them aren’t the combative type, a clash would still be messy, and I’d rather not end up destroying your shrine." I hissed`,
 		videoLink:
 			"https://www.youtube.com/embed/YkERZJJbtjw?si=jdew75NgXVAcqApm&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 		videoMobileLink:
@@ -365,7 +366,7 @@ What a strange statue.... It looks like the posture of the Goddess Venus yet it 
 		image: "/image/touriiverse/tochigi/chapter3.png",
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: "The Missing Sister",
-		content:`"I've been to the Sessho-seki at Nasu Plains, desperately searching for my sister. But since the stone split, the area's been cordoned off to keep tourists away. I couldn't find much... except for this. It's my sister's friendship band. I found it among the smaller rocks, probably overlooked by the authorities. We carved our names on the back of the Gyoza ornaments, so I'm sure it's hers." revealed Ladytarget.`,
+		content: `"I've been to the Sessho-seki at Nasu Plains, desperately searching for my sister. But since the stone split, the area's been cordoned off to keep tourists away. I couldn't find much... except for this. It's my sister's friendship band. I found it among the smaller rocks, probably overlooked by the authorities. We carved our names on the back of the Gyoza ornaments, so I'm sure it's hers." revealed Ladytarget.`,
 		videoLink:
 			"https://www.youtube.com/embed/-1u5OAuEIoA?si=j9nGcTM4Inyb2q8o&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 		videoMobileLink:
@@ -381,8 +382,7 @@ What a strange statue.... It looks like the posture of the Goddess Venus yet it 
 		image: "/image/touriiverse/tochigi/chapter4.png",
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: " The Guardian of Peace",
-		content:
-			`"The Nasu Plains… I had a disturbing experience there recently, at the thousands Sentai Jizō-son near the Sessho-seki killing stone. I wandered off the path, captivated by the intricate Jizō statues. Suddenly, I felt an oppressive gaze upon me, like a predator stalking its prey. My heart pounded; the air was thick with malice." recounts Carmey101 with intensity.`,
+		content: `"The Nasu Plains… I had a disturbing experience there recently, at the thousands Sentai Jizō-son near the Sessho-seki killing stone. I wandered off the path, captivated by the intricate Jizō statues. Suddenly, I felt an oppressive gaze upon me, like a predator stalking its prey. My heart pounded; the air was thick with malice." recounts Carmey101 with intensity.`,
 		videoLink:
 			"https://www.youtube.com/embed/Cd2IF7yfinE?si=QMEYNY7bB7WAo_O_&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 		videoMobileLink:
@@ -430,7 +430,7 @@ What a strange statue.... It looks like the posture of the Goddess Venus yet it 
 		image: "/image/touriiverse/tochigi/chapter7.png",
 		realImage: "/image/touriiverse/aomori-real/chapter1.jpg",
 		title: "The Hike",
-		content:`"Have you heard about the disturbances in Tochigi lately? People have been going missing. Survivors speak of a shadow darting through the woods. They couldn’t make out what it was, but they saw lights reflecting from the eyes … it seemed to be wearing spectacles glasses." whispered FlyingSqurriel while glancing around nervously....`,
+		content: `"Have you heard about the disturbances in Tochigi lately? People have been going missing. Survivors speak of a shadow darting through the woods. They couldn’t make out what it was, but they saw lights reflecting from the eyes … it seemed to be wearing spectacles glasses." whispered FlyingSqurriel while glancing around nervously....`,
 		videoLink:
 			"https://www.youtube.com/embed/pf2bvSVxshE?si=iSBuJFEbjligIo9w&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 		videoMobileLink:
@@ -457,7 +457,7 @@ What a strange statue.... It looks like the posture of the Goddess Venus yet it 
 
 export const tochigiChapterSelectionData: ChapterSelection[] = [];
 
-for (let i = 0; i <= 8; i++) {
+for (let i = 0; i <= 9; i++) {
 	tochigiChapterSelectionData.push({
 		selectedChapterId: tochigiChapterData[i]?.chapterId,
 		chapter: tochigiChapterData[i]?.chapterNumber,

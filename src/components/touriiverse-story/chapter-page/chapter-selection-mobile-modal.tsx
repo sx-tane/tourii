@@ -21,7 +21,6 @@ import { characters } from "@/lib/data/character/character-data";
 interface ChapterSelectionMobileModalProps extends ChapterSelectionProps {
 	isOpen: boolean;
 	onClose: () => void;
-	handleNextModalList: (list: ChapterSelection[]) => void;
 }
 const ChapterSelectionMobileModal: React.FC<
 	ChapterSelectionMobileModalProps
@@ -34,11 +33,21 @@ const ChapterSelectionMobileModal: React.FC<
 	selectedButtonRef,
 }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const handleLeftClick = () => {};
+	const handleLeftClick = () => {
+		const newIndex =
+			(currentIndex - 5 + selectionData.length) % selectionData.length;
+		setCurrentIndex(newIndex);
+		if (placeName === "BUNGO ONO") {
+			setCurrentIndex(currentIndex);
+		}
+	};
 
 	const handleRightClick = () => {
 		const newIndex = (currentIndex + 5) % selectionData.length;
 		setCurrentIndex(newIndex);
+		if (placeName === "BUNGO ONO") {
+			setCurrentIndex(currentIndex);
+		}
 	};
 	return (
 		<AnimatePresence>
@@ -46,7 +55,7 @@ const ChapterSelectionMobileModal: React.FC<
 				<>
 					{/* <div className="hidden">menu</div> */}
 					<motion.div
-						className="absolute -left-[10.2em] w-56 h-fit inset-0 rounded-md bg-red z-20"
+						className="absolute -left-[10.2em] w-56 h-[30em] inset-0 rounded-md bg-red z-20"
 						initial="hidden"
 						animate="visible"
 						exit="hidden"
@@ -61,7 +70,7 @@ const ChapterSelectionMobileModal: React.FC<
 						<div className="pb-5">
 							<button
 								type="button"
-								className="float-left flex flex-row justify-center animate-fadeIn"
+								className="absolute left-[0em] top-[13.8em] animate-bounce"
 								onClick={handleLeftClick}
 							>
 								<Image
@@ -72,36 +81,38 @@ const ChapterSelectionMobileModal: React.FC<
 									priority
 								/>
 							</button>
-							{[...Array(6)].map((_, index) => {
-								const selection = selectionData[index];
-								return (
-									<div
-										key={selectionData?.[index]?.selectedChapterId}
-										className="relative flex flex-col items-center py-5"
-									>
-										<div
-											className={`relative bottom-2 flex flex-col items-center h-0.5 w-[4.8em] ${selection?.isSelected ? "bg-white" : "hidden"}`}
-										/>
-										<button
-											type="button"
-											onClick={() =>
-												handleSelectChapter(selection?.selectedChapterId ?? "")
-											}
-											className={`text-warmGrey3 w-48 ${selection?.isSelected ? "text-white" : "text-warmGrey3"}`}
-										>
-											<div className="font-bold text-xs uppercase tracking-wider">
-												{selection?.chapter}
-											</div>
-											<div className="relative top-1 italic text-xs font-medium">
-												{selection?.placeName}
-											</div>
-										</button>
-									</div>
-								);
-							})}
+							{selectionData
+								.slice(currentIndex, currentIndex + (5 % selectionData.length))
+								.map((selection) => {
+									return (
+										<div key={selection.chapter} className="py-5">
+											<div
+												className={`relative bottom-1 left-[4.6em] h-0.5 w-[4.8em] ${selection?.isSelected ? "bg-white" : "hidden"}`}
+											/>
+											<button
+												type="button"
+												onClick={() =>
+													handleSelectChapter(
+														selection?.selectedChapterId ?? "",
+													)
+												}
+												className={`text-warmGrey3 w-48 ${selection?.isSelected ? "text-white" : "text-warmGrey3"}`}
+											>
+												<button type="button" onClick={onClose}>
+													<div className="font-bold text-xs uppercase tracking-wider">
+														{selection?.chapter}
+													</div>
+													<div className="relative top-1 italic text-xs font-medium">
+														{selection?.placeName}
+													</div>
+												</button>
+											</button>
+										</div>
+									);
+								})}
 							<button
 								type="button"
-								className="float-right flex flex-row justify-center animate-fadeIn"
+								className="absolute right-[0em] bottom-[15.2em] animate-bounce"
 								onClick={handleRightClick}
 							>
 								<Image
