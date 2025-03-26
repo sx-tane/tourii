@@ -27,7 +27,7 @@
 		"cspell": "^8.17.1",
 		"cspell-lib": "^8.17.1",
 		"date-fns": "^4.1.0",
-		"embla-carousel-react": "^8.5.1",
+		"embla-carousel-react": "^8.5.2",
 		"framer-motion": "^11.15.0",
 		"lucide-react": "^0.469.0",
 		"next": "^15.1.3",
