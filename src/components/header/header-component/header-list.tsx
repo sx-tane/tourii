@@ -7,8 +7,19 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navigationSignedOut } from "../../../lib/data/header-data";
 import Dropdown from "../dropdown";
+import LoginModal from "./login-modal";
 
 const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
+	const [connectClicked, setConnectClicked] = useState("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const handleclick = (menu: string) => {
+		setConnectClicked(menu);
+		setIsModalOpen(true);
+	};
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
+
 	const pathname = usePathname();
 	const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
 	const isBlackTheme = theme === "black";
@@ -45,6 +56,19 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 				className={`header-nav-${isBlackTheme ? "black" : "white"} md:flex md:space-x-5 lg:space-x-10`}
 				ref={dropdownRef}
 			>
+				<motion.button
+					className={`relative text-xs font-semibold tracking-widest text-${textColor} `}
+					onClick={() => handleclick(" ")}
+					type="button"
+				>
+					LOGIN
+					<div className={`upperline ${pathname === "" ? "active" : ""}`} />
+				</motion.button>
+
+				{connectClicked && (
+					<LoginModal isOpen={isModalOpen} onClose={handleCloseModal} />
+				)}
+
 				{navigationSignedOut.map((item) => {
 					return item.dropdown ? (
 						<div key={item.href} className="relative">
