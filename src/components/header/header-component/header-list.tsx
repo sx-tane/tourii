@@ -57,17 +57,15 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 				ref={dropdownRef}
 			>
 				<motion.button
-					className={`relative text-xs font-semibold tracking-widest text-${textColor} `}
+					className={`relative top-[0.1em] text-xs font-semibold tracking-widest text-${textColor} ${
+						pathname === "" ? "active" : ""
+					} `}
 					onClick={() => handleclick(" ")}
 					type="button"
 				>
 					LOGIN
 					<div className={`upperline ${pathname === "" ? "active" : ""}`} />
 				</motion.button>
-
-				{connectClicked && (
-					<LoginModal isOpen={isModalOpen} onClose={handleCloseModal} />
-				)}
 
 				{navigationSignedOut.map((item) => {
 					return item.dropdown ? (
@@ -112,6 +110,10 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 					);
 				})}
 			</nav>
+			{connectClicked && (
+				<LoginModal isOpen={isModalOpen} onClose={handleCloseModal} />
+			)}
+
 			{/* {user && (
                 <div className="flex space-x-5">
                     <nav
