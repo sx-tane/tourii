@@ -7,10 +7,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navigationSignedOut } from "../../../lib/data/header-data";
 import Dropdown from "../dropdown";
+import LoginModal from "./login-modal";
 
 const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 	const pathname = usePathname();
 	const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+	const [isLoginModalOpen, setIsLoginModalOpen] = useState<boolean>(false);
 	const isBlackTheme = theme === "black";
 
 	const toggleDropdown = (href: string) => {
@@ -22,6 +24,14 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 	};
 
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+	const handleLoginButtonClick = () => {
+		setIsLoginModalOpen(true);
+	};
+
+	const handleCloseLoginModal = () => {
+		setIsLoginModalOpen(false);
+	};
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -45,6 +55,16 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 				className={`header-nav-${isBlackTheme ? "black" : "white"} md:flex md:space-x-5 lg:space-x-10`}
 				ref={dropdownRef}
 			>
+				<motion.button
+					className={`relative top-[0.1em] text-xs font-semibold tracking-widest text-${textColor} ${
+						pathname === "" ? "active" : ""
+					} `}
+					onClick={handleLoginButtonClick}
+					type="button"
+				>
+					LOGIN
+					<div className={`upperline ${pathname === "" ? "active" : ""}`} />
+				</motion.button>
 				{navigationSignedOut.map((item) => {
 					return item.dropdown ? (
 						<div key={item.href} className="relative">
@@ -88,6 +108,10 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 					);
 				})}
 			</nav>
+			{isLoginModalOpen && (
+				<LoginModal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
+			)}
+
 			{/* {user && (
                 <div className="flex space-x-5">
                     <nav

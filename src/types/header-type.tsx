@@ -20,3 +20,8 @@ export interface HeaderProps {
 	theme: "black" | "white";
 	textColor?: string;
 }
+
+export interface LoginComponents {
+	loginlabel: string;
+	image: string;
+}
