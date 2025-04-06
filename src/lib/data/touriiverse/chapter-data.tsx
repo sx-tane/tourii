@@ -89,7 +89,7 @@ export const bungoOnoChapterData: Chapter[] = [
 			"https://www.youtube.com/embed/BzH2wE51lkY?si=Tn-YiIRli_AnQW9P&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
 		videoMobileLink:
 			"https://www.youtube.com/embed/BzH2wE51lkY?si=Tn-YiIRli_AnQW9P&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
-		storyUnlocked: false,
+		storyUnlocked: true,
 	},
 	{
 		chapterId: bungoOnoChapterGenerator.generateChapterId(),
