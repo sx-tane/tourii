@@ -12,15 +12,16 @@ const TouriiLogoAnimation: React.FC<TouriiLogoAnimationProps> = ({
 	const controls = useAnimation();
 
 	useEffect(() => {
-		// Start logo animation
 		const animateLogo = async () => {
 			await controls.start({
 				opacity: 1,
 				scale: 1,
-				transition: { duration: 0.3, ease: "easeOut" },
+				transition: {
+					duration: 0.5,
+					ease: [0.6, 0.05, 0.01, 0.9],
+				},
 			});
 
-			// Notify parent component when animation is complete
 			if (onAnimationComplete) {
 				onAnimationComplete();
 			}
@@ -32,32 +33,29 @@ const TouriiLogoAnimation: React.FC<TouriiLogoAnimationProps> = ({
 	return (
 		<div>
 			<motion.object
-				initial={{ opacity: 0, scale: 0.98 }}
+				initial={{ opacity: 0, scale: 0.95 }}
 				animate={controls}
 				type="image/svg+xml"
 				data="/image/homepage/tourii.svg"
 				className="w-8/12 h-full"
 				aria-label="Tourii Logo"
-				onAnimationComplete={() => {
-					if (onAnimationComplete) onAnimationComplete();
-				}}
 			/>
 
-			<motion.p
+			<motion.div
 				className="mt-5 text-base md:text-xl lg:text-3xl text-red tracking-[6px] font-bold"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
-				transition={{ duration: 0.3, delay: 0.3 }}
+				transition={{ duration: 0.5, delay: 0.3 }}
 			>
 				{["EXPLORE", "EARN", "CONNECT"].map((word, index) => (
 					<motion.span
 						key={word}
-						initial={{ y: 20, opacity: 0 }}
-						animate={{ y: 0, opacity: 1 }}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{
-							duration: 0.3,
-							delay: 0.5 + index * 0.3, // Faster animation with shorter delays
-							ease: [0.2, 0.65, 0.3, 0.9],
+							duration: 0.5,
+							delay: 0.5 + index * 0.2,
+							ease: [0.6, 0.05, 0.01, 0.9],
 						}}
 						className="inline-block"
 					>
@@ -67,8 +65,8 @@ const TouriiLogoAnimation: React.FC<TouriiLogoAnimationProps> = ({
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{
-									duration: 0.2,
-									delay: 0.45 + index * 0.1,
+									duration: 0.3,
+									delay: 0.4 + index * 0.2,
 								}}
 							>
 								.&nbsp;
@@ -76,7 +74,7 @@ const TouriiLogoAnimation: React.FC<TouriiLogoAnimationProps> = ({
 						)}{" "}
 					</motion.span>
 				))}
-			</motion.p>
+			</motion.div>
 		</div>
 	);
 };

@@ -294,16 +294,124 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 			{/* Common Sticky Container for Header and Main Content */}
 			<div className="z-20">
 				{/* Header */}
-				<div className="py-12 text-center text-red">
-					<div className="font-bold uppercase">
-						<h3 className="text-sm leading-normal tracking-widest md:text-base">
-							How Tourii Works
-						</h3>
-						<h2 className="mt-2 text-black whitespace-break-spaces break-all text-xl md:text-5xl tracking-widest">
-							IN THREE SIMPLE WAYS
-						</h2>
+				<motion.div
+					className="py-12 text-center text-red"
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					viewport={{ once: false, amount: 0.8 }}
+					transition={{ duration: 0.8 }}
+				>
+					<div className="font-bold uppercase relative">
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: false }}
+							transition={{
+								duration: 0.8,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							<motion.h3 className="text-sm leading-normal tracking-widest md:text-base relative z-10">
+								<motion.span
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: false }}
+									transition={{
+										duration: 0.6,
+										delay: 0.2,
+										ease: [0.6, 0.05, 0.01, 0.9],
+									}}
+								>
+									How
+								</motion.span>{" "}
+								<motion.span
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: false }}
+									transition={{
+										duration: 0.6,
+										delay: 0.3,
+										ease: [0.6, 0.05, 0.01, 0.9],
+									}}
+								>
+									Tourii
+								</motion.span>{" "}
+								<motion.span
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: false }}
+									transition={{
+										duration: 0.6,
+										delay: 0.4,
+										ease: [0.6, 0.05, 0.01, 0.9],
+									}}
+								>
+									Works
+								</motion.span>
+							</motion.h3>
+						</motion.div>
+						<motion.h2
+							className="mt-2 text-black whitespace-break-spaces break-all text-xl md:text-5xl tracking-widest"
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: false }}
+							transition={{
+								duration: 0.8,
+								delay: 0.5,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							<motion.span
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: false }}
+								transition={{
+									duration: 0.6,
+									delay: 0.6,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+							>
+								IN
+							</motion.span>{" "}
+							<motion.span
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: false }}
+								transition={{
+									duration: 0.6,
+									delay: 0.7,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+							>
+								THREE
+							</motion.span>{" "}
+							<motion.span
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: false }}
+								transition={{
+									duration: 0.6,
+									delay: 0.8,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+							>
+								SIMPLE
+							</motion.span>{" "}
+							<motion.span
+								initial={{ opacity: 0, scale: 0.9 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								viewport={{ once: false }}
+								transition={{
+									duration: 0.6,
+									delay: 0.9,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+							>
+								WAYS
+							</motion.span>
+						</motion.h2>
 					</div>
-				</div>
+				</motion.div>
 				{/* Main Content */}
 				<div className="flex z-20">
 					{/* Left Section */}
@@ -312,35 +420,77 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 							<motion.div
 								id={`section-${index}`}
 								key={section.title}
-								className="h-[80vh] flex items-center justify-end overflow-hidden"
+								className="h-[80vh] flex items-center justify-center overflow-hidden"
 								ref={(el) => {
 									if (!sectionRefs.current) sectionRefs.current = [];
 									sectionRefs.current[index] = el;
 								}}
-								initial={{ opacity: 0 }}
-								exit={{ opacity: 0 }}
-								whileInView={{ opacity: 1 }}
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
 								viewport={{ once: false, amount: 0.5 }}
-								transition={{ duration: 0.5, delay: index * 0.2 }}
+								transition={{
+									duration: 0.6,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
 							>
-								<div className="w-8/12 text-left">
-									<h2 className="text-3xl md:text-6xl font-bold uppercase text-black tracking-widest">
+								<motion.div
+									className="w-10/12 text-left pl-8"
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: false }}
+									transition={{
+										duration: 0.6,
+										delay: 0.2,
+										ease: [0.6, 0.05, 0.01, 0.9],
+									}}
+								>
+									<motion.h2
+										className="text-3xl md:text-6xl font-bold uppercase text-black tracking-widest"
+										initial={{ opacity: 0, y: 20 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										viewport={{ once: false }}
+										transition={{
+											duration: 0.6,
+											delay: 0.3,
+											ease: [0.6, 0.05, 0.01, 0.9],
+										}}
+									>
 										{section.title}
-									</h2>
-									<h3 className="text-lg text-red tracking-widest font-bold uppercase my-5">
+									</motion.h2>
+									<motion.h3
+										className="text-lg text-red tracking-widest font-bold uppercase my-5"
+										initial={{ opacity: 0, y: 20 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										viewport={{ once: false }}
+										transition={{
+											duration: 0.6,
+											delay: 0.4,
+											ease: [0.6, 0.05, 0.01, 0.9],
+										}}
+									>
 										{section.subtitle}
-									</h3>
-									<p className="text-black tracking-widest font-light text-pretty">
+									</motion.h3>
+									<motion.p
+										className="text-black tracking-widest font-light text-pretty"
+										initial={{ opacity: 0, y: 20 }}
+										whileInView={{ opacity: 1, y: 0 }}
+										viewport={{ once: false }}
+										transition={{
+											duration: 0.6,
+											delay: 0.5,
+											ease: [0.6, 0.05, 0.01, 0.9],
+										}}
+									>
 										{section.description}
-									</p>
-								</div>
+									</motion.p>
+								</motion.div>
 							</motion.div>
 						))}
 					</div>
 
 					{/* Right Section: Phone remains sticky */}
-					<div className="hidden md:block md:w-1/2 min-h-screen">
-						<div className="sticky top-0 h-[80vh] z-30 flex justify-center items-center">
+					<div className="hidden md:block md:w-1/2 min-h-screen ">
+						<div className="sticky top-10 h-[80vh] z-30 flex justify-center items-center">
 							<Iphone15>
 								{/* Phone Screen Content */}
 								<div className="relative w-full h-full bg-white overflow-hidden">
@@ -348,9 +498,10 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 										<motion.div
 											key={`phone-${section.title}`}
 											className="absolute inset-0"
-											initial={{ opacity: 0 }}
+											initial={{ opacity: 0, scale: 0.95 }}
 											animate={{
 												opacity: currentImage === section.image ? 1 : 0,
+												scale: currentImage === section.image ? 1 : 0.95,
 												backgroundColor:
 													currentImage === section.image
 														? index === 0
@@ -360,21 +511,72 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 																: "#CCE8FF"
 														: "transparent",
 											}}
-											transition={{ duration: 0.5 }}
+											transition={{
+												duration: 0.5,
+												ease: [0.6, 0.05, 0.01, 0.9],
+											}}
 										>
-											<div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-												<h3 className="text-2xl font-bold mb-4 text-gray-800">
+											<motion.div
+												className="w-full h-full flex flex-col items-center justify-center p-6 text-center"
+												initial={{ opacity: 0, y: 20 }}
+												animate={{
+													opacity: currentImage === section.image ? 1 : 0,
+													y: currentImage === section.image ? 0 : 20,
+												}}
+												transition={{
+													duration: 0.5,
+													delay: 0.2,
+													ease: [0.6, 0.05, 0.01, 0.9],
+												}}
+											>
+												<motion.h3
+													className="text-2xl font-bold mb-4 text-gray-800"
+													initial={{ opacity: 0, y: 20 }}
+													animate={{
+														opacity: currentImage === section.image ? 1 : 0,
+														y: currentImage === section.image ? 0 : 20,
+													}}
+													transition={{
+														duration: 0.5,
+														delay: 0.3,
+														ease: [0.6, 0.05, 0.01, 0.9],
+													}}
+												>
 													{section.title}
-												</h3>
-												<div className="w-16 h-16 rounded-full bg-white/50 mb-4 flex items-center justify-center">
+												</motion.h3>
+												<motion.div
+													className="w-16 h-16 rounded-full bg-white/50 mb-4 flex items-center justify-center"
+													initial={{ scale: 0.8, opacity: 0 }}
+													animate={{
+														scale: currentImage === section.image ? 1 : 0.8,
+														opacity: currentImage === section.image ? 1 : 0,
+													}}
+													transition={{
+														duration: 0.5,
+														delay: 0.4,
+														ease: [0.6, 0.05, 0.01, 0.9],
+													}}
+												>
 													<span className="text-3xl">
 														{index === 0 ? "🌍" : index === 1 ? "🏆" : "👥"}
 													</span>
-												</div>
-												<p className="text-sm text-gray-700">
+												</motion.div>
+												<motion.p
+													className="text-sm text-gray-700"
+													initial={{ opacity: 0, y: 20 }}
+													animate={{
+														opacity: currentImage === section.image ? 1 : 0,
+														y: currentImage === section.image ? 0 : 20,
+													}}
+													transition={{
+														duration: 0.5,
+														delay: 0.5,
+														ease: [0.6, 0.05, 0.01, 0.9],
+													}}
+												>
 													{section.subtitle}
-												</p>
-											</div>
+												</motion.p>
+											</motion.div>
 										</motion.div>
 									))}
 									{/* iPhone Home Indicator */}

@@ -86,9 +86,6 @@ importers:
       react-day-picker:
         specifier: ^9.5.0
         version: 9.5.0(react@19.0.0)
-      react-device-mockups:
-        specifier: ^0.1.12
-        version: 0.1.12(html5-device-mockups@3.2.1)(prop-types@15.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
@@ -1599,9 +1596,6 @@ packages:
   html-url-attributes@3.0.1:
     resolution: {integrity: sha512-ol6UPyBWqsrO6EJySPz2O7ZSr856WDrEzM5zMqp+FJJLGMW35cLYmmZnl0vztAZxRUoNZJFTCohfjuIJ8I4QBQ==}
 
-  html5-device-mockups@3.2.1:
-    resolution: {integrity: sha512-jxuLuDf9iABIoFlclVGmhjC3sH91JquIOz6ByKsROg/0ztqamac3XYlnA3GZHfQNM6XZRIsNX8OWal+2R/CTEQ==}
-
   import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -2020,15 +2014,6 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       react: '>=16.8.0'
-
-  react-device-mockups@0.1.12:
-    resolution: {integrity: sha512-ne45CDegHdk0zfhSTetgNj5xgXUC3m3iEZiyhq8XekiyDwcBEfxf4PdCayeVr+GQc7Me9ah8jibRhBQNlBkbLg==}
-    engines: {node: '>=8', npm: '>=5'}
-    peerDependencies:
-      html5-device-mockups: ^3.2.1
-      prop-types: ^15.5.4
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0
-      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0
 
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
@@ -3721,8 +3706,6 @@ snapshots:
 
   html-url-attributes@3.0.1: {}
 
-  html5-device-mockups@3.2.1: {}
-
   import-fresh@3.3.0:
     dependencies:
       parent-module: 1.0.1
@@ -4230,13 +4213,6 @@ snapshots:
       date-fns: 4.1.0
       date-fns-jalali: 4.1.0-0
       react: 19.0.0
-
-  react-device-mockups@0.1.12(html5-device-mockups@3.2.1)(prop-types@15.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      html5-device-mockups: 3.2.1
-      prop-types: 15.8.1
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
 
   react-dom@19.0.0(react@19.0.0):
     dependencies:
