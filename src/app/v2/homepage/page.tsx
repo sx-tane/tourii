@@ -2,8 +2,8 @@
 import type { NextPage } from "next";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
-import Line from "@/components/about/divider-line/line";
 import HowTouriiWorks from "@/components/homepage/how-tourii-works";
 
 const HomePage: NextPage = () => {
@@ -44,7 +44,12 @@ const HomePage: NextPage = () => {
 	return (
 		<div className="w-full flex flex-col animate-fadeIn z-20">
 			<section className="h-[100vh]">
-				<div className="absolute inset-0 overflow-hidden">
+				<motion.div
+					className="absolute inset-0 overflow-hidden"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 1, ease: "easeOut" }}
+				>
 					<Image
 						src="/image/homepage/tourii-background.png"
 						alt="Tourii Background"
@@ -52,7 +57,7 @@ const HomePage: NextPage = () => {
 						className="object-cover object-bottom min-h-full max-w-none"
 						priority
 					/>
-				</div>
+				</motion.div>
 				<div className="absolute bottom-5 left-5 md:bottom-5 z-10">
 					<TouriiAnimation onAnimationComplete={handleLogoAnimationComplete} />
 				</div>
@@ -64,7 +69,7 @@ const HomePage: NextPage = () => {
 				setCurrentImage={setCurrentImage}
 				sectionRefs={sectionRefs}
 			/>
-			<section className="bg-[#FFF9F5] py-12 text-center h-[100vh]">
+			<section className="bg-warmGrey py-12 text-center h-[100vh]">
 				<h2 className="text-2xl font-semibold mb-4">
 					Your Story Item is Stamped
 				</h2>
@@ -77,7 +82,7 @@ const HomePage: NextPage = () => {
 					className="mx-auto w-40"
 				/>
 			</section>
-			<section className="bg-[#F0ECE7] py-12 flex justify-center">
+			<section className="bg-warmGrey py-12 flex justify-center">
 				<div className="max-w-xl bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-6">
 					<img
 						src="/image/story_preview.png"

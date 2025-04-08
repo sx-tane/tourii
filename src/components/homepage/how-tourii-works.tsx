@@ -1,8 +1,9 @@
 "use client";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Line from "../about/divider-line/line";
+import Iphone15 from "./iphone";
 
 interface HowTouriiWorksProps {
 	sections: {
@@ -26,70 +27,279 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 	const isScrollingRef = useRef(false);
 	// Keep track of the current section index
 	const currentSectionIndexRef = useRef(0);
+	// Timeout ref for debouncing
+	const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	// State to track if user is manually scrolling
+	const [isManualScrolling, setIsManualScrolling] = useState(false);
+	// Add a debounce time for wheel events
+	const wheelDebounceTimeRef = useRef<NodeJS.Timeout | null>(null);
+	// Add a minimum delta threshold to prevent accidental scrolls
+	const MIN_WHEEL_DELTA = 40; // Increased from 20 to 40
+	// Add accumulator for wheel direction to require consistent scrolling
+	const wheelAccumulatorRef = useRef(0);
+	// Threshold for wheel accumulator
+	const WHEEL_ACCUMULATOR_THRESHOLD = 60;
+	// Add a longer cooldown specifically for the first section
+	const firstSectionCooldownRef = useRef(false);
 
-	// onWheel handler to jump to the next/previous section by id
 	const handleWheel = (e: React.WheelEvent) => {
 		if (isScrollingRef.current) return;
 		e.preventDefault();
 
-		let newIndex = currentSectionIndexRef.current;
-		if (e.deltaY > 0) {
-			newIndex = Math.min(newIndex + 1, sections.length - 1);
-		} else if (e.deltaY < 0) {
-			newIndex = Math.max(newIndex - 1, 0);
+		// Debounce small rapid wheel movements
+		if (wheelDebounceTimeRef.current) {
+			clearTimeout(wheelDebounceTimeRef.current);
 		}
 
-		// Only scroll if the index has changed
-		if (newIndex !== currentSectionIndexRef.current) {
-			const target = document.getElementById(`section-${newIndex}`);
-			if (target) {
+		// Only process wheel events that exceed the minimum threshold
+		if (Math.abs(e.deltaY) < MIN_WHEEL_DELTA) {
+			return;
+		}
+
+		// Apply a special cooldown to prevent accidental jumps from the first section
+		if (
+			currentSectionIndexRef.current === 0 &&
+			firstSectionCooldownRef.current
+		) {
+			return;
+		}
+
+		// Accumulate wheel delta in the same direction
+		if (
+			Math.sign(e.deltaY) === Math.sign(wheelAccumulatorRef.current) ||
+			wheelAccumulatorRef.current === 0
+		) {
+			wheelAccumulatorRef.current += e.deltaY;
+		} else {
+			// Reset if direction changed
+			wheelAccumulatorRef.current = e.deltaY;
+		}
+
+		// Only proceed if accumulator passes threshold
+		if (Math.abs(wheelAccumulatorRef.current) < WHEEL_ACCUMULATOR_THRESHOLD) {
+			return;
+		}
+
+		wheelDebounceTimeRef.current = setTimeout(() => {
+			// Reset accumulator
+			const scrollDirection = Math.sign(wheelAccumulatorRef.current);
+			wheelAccumulatorRef.current = 0;
+
+			// Set manual scrolling flag
+			setIsManualScrolling(true);
+
+			// Clear any existing timeout
+			if (scrollTimeoutRef.current) {
+				clearTimeout(scrollTimeoutRef.current);
+			}
+
+			let newIndex = currentSectionIndexRef.current;
+			if (scrollDirection > 0) {
+				newIndex = Math.min(newIndex + 1, sections.length - 1);
+			} else if (scrollDirection < 0) {
+				newIndex = Math.max(newIndex - 1, 0);
+			}
+
+			// Only scroll if the index has changed
+			if (newIndex !== currentSectionIndexRef.current) {
 				isScrollingRef.current = true;
 				currentSectionIndexRef.current = newIndex;
-				target.scrollIntoView({ behavior: "smooth" });
-				// Throttle further scrolling for a brief period (adjust delay as needed)
-				setTimeout(() => {
-					isScrollingRef.current = false;
-				}, 700);
+
+				// Apply special cooldown when leaving first section
+				if (currentSectionIndexRef.current === 0) {
+					firstSectionCooldownRef.current = true;
+					setTimeout(() => {
+						firstSectionCooldownRef.current = false;
+					}, 1200); // Special cooldown for first section
+				}
+
+				const target = document.getElementById(`section-${newIndex}`);
+				if (target) {
+					target.scrollIntoView({ behavior: "smooth" });
+
+					// Longer throttle period for smooth scrolling
+					scrollTimeoutRef.current = setTimeout(() => {
+						isScrollingRef.current = false;
+						setIsManualScrolling(false);
+					}, 1200); // Increased from 1000ms to 1200ms
+				}
+			} else {
+				// Reset manual scrolling if no scroll happened
+				setIsManualScrolling(false);
 			}
-		}
+		}, 50); // Small debounce for wheel events
 	};
 
-	// Update the phone image based on current left section scroll position
+	// Touch handling for mobile devices
 	useEffect(() => {
-		const handleScroll = () => {
-			const scrollY = window.scrollY + window.innerHeight / 2;
-			for (let i = 0; i < sectionRefs.current.length; i++) {
-				const ref = sectionRefs.current[i];
-				if (ref) {
-					const rect = ref.getBoundingClientRect();
-					const top = rect.top + window.scrollY;
-					const bottom = top + rect.height;
-					if (scrollY >= top && scrollY < bottom) {
-						setCurrentImage(sections[i]?.image ?? "/image/default-image.jpg");
-						currentSectionIndexRef.current = i;
-						break;
+		const leftSection = document.querySelector(".w-full.md\\:w-1\\/2");
+		if (!leftSection) return;
+
+		let touchStartY = 0;
+		const TOUCH_THRESHOLD = 100; // Increased from 70 to 100 for more intentional swipes
+		let touchMoveCount = 0;
+		const TOUCH_MOVE_REQUIRED = 3; // Require multiple touch move events in same direction
+
+		const handleTouchStart = (e: TouchEvent) => {
+			if (e.touches[0]) {
+				touchStartY = e.touches[0].clientY;
+				touchMoveCount = 0; // Reset touch move count on new touch start
+			}
+		};
+
+		const handleTouchMove = (e: TouchEvent) => {
+			if (isScrollingRef.current) {
+				e.preventDefault();
+				return;
+			}
+
+			const touchY = e.touches[0]?.clientY;
+			if (touchY === undefined) return;
+			const diff = touchStartY - touchY;
+
+			// Increased threshold to determine if user intended to scroll
+			if (Math.abs(diff) > TOUCH_THRESHOLD) {
+				touchMoveCount++; // Increment touch move count
+
+				// Only proceed if touch move count passes required threshold
+				if (touchMoveCount >= TOUCH_MOVE_REQUIRED) {
+					let newIndex = currentSectionIndexRef.current;
+					if (diff > 0) {
+						// scrolling down
+						newIndex = Math.min(newIndex + 1, sections.length - 1);
+					} else {
+						// scrolling up
+						newIndex = Math.max(newIndex - 1, 0);
+					}
+
+					if (newIndex !== currentSectionIndexRef.current) {
+						e.preventDefault();
+						isScrollingRef.current = true;
+						currentSectionIndexRef.current = newIndex;
+
+						const target = document.getElementById(`section-${newIndex}`);
+						if (target) {
+							target.scrollIntoView({ behavior: "smooth" });
+							setIsManualScrolling(true);
+
+							scrollTimeoutRef.current = setTimeout(() => {
+								isScrollingRef.current = false;
+								setIsManualScrolling(false);
+							}, 1000);
+						}
+					}
+
+					touchStartY = touchY; // Reset for continuous movement
+				}
+			}
+		};
+
+		leftSection.addEventListener(
+			"touchstart",
+			handleTouchStart as EventListener,
+		);
+		leftSection.addEventListener("touchmove", handleTouchMove as EventListener);
+
+		return () => {
+			leftSection.removeEventListener(
+				"touchstart",
+				handleTouchStart as EventListener,
+			);
+			leftSection.removeEventListener(
+				"touchmove",
+				handleTouchMove as EventListener,
+			);
+		};
+	}, [sections.length]);
+
+	// Use Intersection Observer for more reliable section detection
+	useEffect(() => {
+		if (!sectionRefs.current) return;
+
+		// Don't update during manual scrolling
+		if (isManualScrolling) return;
+
+		const observerOptions = {
+			root: null,
+			rootMargin: "0px",
+			threshold: 0.7, // Increased from 0.5 to 0.7 - element must be 70% visible to trigger
+		};
+
+		const observerCallback: IntersectionObserverCallback = (entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting && entry.target.id) {
+					const idParts = entry.target.id.split("-");
+					const index = idParts[1] ? Number.parseInt(idParts[1]) : Number.NaN;
+					if (!Number.isNaN(index) && index >= 0 && index < sections.length) {
+						currentSectionIndexRef.current = index;
+						setCurrentImage(
+							sections[index]?.image ?? "/image/default-image.jpg",
+						);
 					}
 				}
 			}
 		};
-		window.addEventListener("scroll", handleScroll);
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, [sections, setCurrentImage, sectionRefs]);
+
+		const observer = new IntersectionObserver(
+			observerCallback,
+			observerOptions,
+		);
+
+		// Observe each section
+		for (let i = 0; i < sectionRefs.current.length; i++) {
+			const ref = sectionRefs.current[i];
+			if (ref) {
+				observer.observe(ref);
+			}
+		}
+
+		return () => observer.disconnect();
+	}, [sections, setCurrentImage, sectionRefs, isManualScrolling]);
+
+	// Fallback to traditional scroll method (as backup)
+	useEffect(() => {
+		// Skip if using Intersection Observer or during manual scrolling
+		if (typeof IntersectionObserver === "undefined" || isManualScrolling) {
+			const handleScroll = () => {
+				const scrollY = window.scrollY + window.innerHeight / 2;
+				for (let i = 0; i < sectionRefs.current.length; i++) {
+					const ref = sectionRefs.current[i];
+					if (ref) {
+						const rect = ref.getBoundingClientRect();
+						const top = rect.top + window.scrollY;
+						const bottom = top + rect.height;
+						if (scrollY >= top && scrollY < bottom) {
+							setCurrentImage(sections[i]?.image ?? "/image/default-image.jpg");
+							currentSectionIndexRef.current = i;
+							break;
+						}
+					}
+				}
+			};
+
+			window.addEventListener("scroll", handleScroll);
+			return () => window.removeEventListener("scroll", handleScroll);
+		}
+
+		return undefined;
+	}, [sections, setCurrentImage, sectionRefs, isManualScrolling]);
 
 	return (
 		<section className="relative mt-20">
-			<div className="flex justify-center w-full">
-				<Line />
+			<div className="flex justify-center w-full px-5">
+				<div className="w-full max-w-screen-md">
+					<Line />
+				</div>
 			</div>
 			{/* Common Sticky Container for Header and Main Content */}
-			<div className="sticky top-0 z-20">
+			<div className="z-20">
 				{/* Header */}
 				<div className="py-12 text-center text-red">
 					<div className="font-bold uppercase">
-						<h3 className="text-xl leading-normal tracking-widest md:text-base">
+						<h3 className="text-sm leading-normal tracking-widest md:text-base">
 							How Tourii Works
 						</h3>
-						<h2 className="mt-2 text-black whitespace-break-spaces break-all text-4xl md:text-5xl tracking-widest">
+						<h2 className="mt-2 text-black whitespace-break-spaces break-all text-xl md:text-5xl tracking-widest">
 							IN THREE SIMPLE WAYS
 						</h2>
 					</div>
@@ -113,14 +323,16 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 								viewport={{ once: false, amount: 0.5 }}
 								transition={{ duration: 0.5, delay: index * 0.2 }}
 							>
-								<div className="max-w-lg px-4 md:px-8 text-left">
-									<h2 className="text-3xl md:text-8xl font-bold snap-start text-black tracking-widest">
+								<div className="w-8/12 text-left">
+									<h2 className="text-3xl md:text-6xl font-bold uppercase text-black tracking-widest">
 										{section.title}
 									</h2>
-									<h3 className="text-lg md:text-xl text-primary mt-2">
+									<h3 className="text-lg text-red tracking-widest font-bold uppercase my-5">
 										{section.subtitle}
 									</h3>
-									<p className="mt-4 text-gray-600">{section.description}</p>
+									<p className="text-black tracking-widest font-light text-pretty">
+										{section.description}
+									</p>
 								</div>
 							</motion.div>
 						))}
@@ -128,21 +340,10 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 
 					{/* Right Section: Phone remains sticky */}
 					<div className="hidden md:block md:w-1/2 min-h-screen">
-						{/* Adding padding-top to ensure phone content starts below header */}
-						<div className="pt-12 sticky top-0 h-[80vh] z-30 flex justify-center items-center">
-							<div className="iphone-frame relative bg-black rounded-[3rem] overflow-hidden shadow-xl border-[14px] border-black w-[320px] h-[650px]">
-								{/* iPhone UI elements */}
-								<div className="absolute top-0 left-0 right-0 h-6 z-30 flex justify-center">
-									<div className="w-40 h-7 bg-black rounded-b-2xl" />
-								</div>
-								<div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gray-800 rounded-full z-40" />
-								<div className="absolute top-1.5 right-[45%] w-2.5 h-2.5 bg-gray-800 rounded-full z-40" />
-								<div className="absolute -right-[14px] top-24 w-[2px] h-8 bg-gray-600 rounded-l-sm" />
-								<div className="absolute -left-[14px] top-24s w-[2px] h-6 bg-gray-600 rounded-r-sm" />
-								<div className="absolute -left-[14px] top-36 w-[2px] h-6 bg-gray-600 rounded-r-sm" />
-
+						<div className="sticky top-0 h-[80vh] z-30 flex justify-center items-center">
+							<Iphone15>
 								{/* Phone Screen Content */}
-								<div className="relative w-full h-full bg-white rounded-[2.3rem] overflow-hidden">
+								<div className="relative w-full h-full bg-white overflow-hidden">
 									{sections.map((section, index) => (
 										<motion.div
 											key={`phone-${section.title}`}
@@ -177,9 +378,9 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 										</motion.div>
 									))}
 									{/* iPhone Home Indicator */}
-									<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full"></div>
+									<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full" />
 								</div>
-							</div>
+							</Iphone15>
 						</div>
 					</div>
 				</div>
