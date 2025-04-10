@@ -11,7 +11,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({
 }) => {
   return (
     <motion.div
-      className="py-12 text-center text-red"
+      className="pt-4 p-12 text-center text-red"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: false, amount: 0.8 }}

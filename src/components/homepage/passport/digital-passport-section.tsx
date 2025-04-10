@@ -1,16 +1,14 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store/store";
 import { motion } from "framer-motion";
 import { PassportCard } from "./passport-card";
-import Line from "@/components/about/divider-line/line";
 import { SectionTitle } from "@/components/common/section-title";
+import type { RootState } from "@/lib/store/store";
 
 export const DigitalPassportSection: React.FC = () => {
   const passport = useSelector((state: RootState) => state.passport);
 
   return (
-    <section className="w-full min-h-screen">
+    <section className="w-11/12 mx-auto">
       <div className="container mx-auto px-4">
         <SectionTitle
           subtitle={["TOURII", "DIGITAL", "PASSPORT"]}

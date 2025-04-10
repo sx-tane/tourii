@@ -7,7 +7,9 @@
 		"build": "next build",
 		"dev": "next dev",
 		"dev:network": "next dev --hostname 192.168.0.67",
-		"format": "biome check",
+		"format": "biome format --write .",
+		"lint": "biome lint .",
+		"check": "biome check .",
 		"start": "next start"
 	},
 	"dependencies": {

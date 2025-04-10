@@ -74,7 +74,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 
   return (
     <section className="relative ">
-      <div className="flex justify-center w-full px-5">
+      <div className="flex justify-center w-11/12 px-5">
         <div className="w-full max-w-screen-md">
           <Line />
         </div>
@@ -90,7 +90,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.8 }}
           transition={{ duration: 0.8 }}
-        ></motion.div>
+        />
 
         <div className="flex lg:flex-row flex-col z-20 relative">
           {/* Content Section */}
@@ -235,7 +235,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                     {sections.map((section, index) => (
                       <motion.div
                         key={`phone-${section.title}`}
-                        className="absolute inset-0 rounded-3xl"
+                        className="absolute inset-0 rounded-[40px] "
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{
                           opacity: currentImage === section.image ? 1 : 0,
@@ -245,8 +245,8 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                               ? index === 0
                                 ? "#FFD8CC"
                                 : index === 1
-                                ? "#CCFFDB"
-                                : "#CCE8FF"
+                                  ? "#CCFFDB"
+                                  : "#CCE8FF"
                               : "transparent",
                         }}
                         transition={{

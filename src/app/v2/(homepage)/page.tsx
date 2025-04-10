@@ -14,6 +14,7 @@ import { homepageSections, defaultImage } from "@/lib/data/homepage";
 import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
 import HowTouriiWorks from "@/components/homepage/how-tourii-works";
 import { DigitalPassportSection } from "@/components/homepage/passport/digital-passport-section";
+import { StampedItemSection } from "@/components/homepage/stamped-item-section";
 
 const HomePage: NextPage = () => {
   const dispatch = useDispatch();
@@ -81,41 +82,8 @@ const HomePage: NextPage = () => {
             sectionRefs={sectionRefs}
           />
           <DigitalPassportSection />
-          <motion.section
-            className="bg-warmGrey/90 backdrop-blur-sm py-12 text-center min-h-screen"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="max-w-4xl mx-auto px-4">
-              <motion.h2
-                className="text-2xl font-semibold mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Your Story Item is Stamped
-              </motion.h2>
-              <motion.p
-                className="text-gray-600 max-w-md mx-auto mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                Collect and display unique items from your travel experiences.
-              </motion.p>
-              <motion.img
-                src="/image/stamp_card.png"
-                alt="Stamped Item"
-                className="mx-auto w-40"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-              />
-            </div>
-          </motion.section>
+          <StampedItemSection />
+
 
           <motion.section
             className="bg-warmGrey/90 backdrop-blur-sm py-12 flex justify-center"
