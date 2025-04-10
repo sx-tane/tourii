@@ -37,6 +37,7 @@ Tourii embraces modern minimalism infused with traditional Japanese aesthetics, 
 - [] Story
 - [] Model Route
 - [] Quest
+- [] Admin Board
 
 ### 📱 Homepage
 

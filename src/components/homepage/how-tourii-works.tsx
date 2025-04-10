@@ -25,100 +25,6 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
   sectionRefs,
 }) => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-  const isScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const scrollToSection = (index: number) => {
-    if (isScrollingRef.current) return;
-
-    isScrollingRef.current = true;
-    setCurrentSectionIndex(index);
-    setCurrentImage(sections[index]?.image ?? "/image/default-image.jpg");
-
-    const target = document.getElementById(`section-${index}`);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-
-    scrollTimeoutRef.current = setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 1000);
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    if (isScrollingRef.current) return;
-    e.preventDefault();
-
-    const direction = Math.sign(e.deltaY);
-    const newIndex = Math.max(
-      0,
-      Math.min(sections.length - 1, currentSectionIndex + direction)
-    );
-
-    if (newIndex !== currentSectionIndex) {
-      scrollToSection(newIndex);
-    }
-  };
-
-  // Touch handling for mobile devices
-  useEffect(() => {
-    const leftSection = document.querySelector(".w-full.md\\:w-1\\/2");
-    if (!leftSection) return;
-
-    let touchStartY = 0;
-    const TOUCH_THRESHOLD = 100;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches[0]) {
-        touchStartY = e.touches[0].clientY;
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isScrollingRef.current) {
-        e.preventDefault();
-        return;
-      }
-
-      const touchY = e.touches[0]?.clientY;
-      if (touchY === undefined) return;
-
-      const diff = touchStartY - touchY;
-      if (Math.abs(diff) > TOUCH_THRESHOLD) {
-        const direction = Math.sign(diff);
-        const newIndex = Math.max(
-          0,
-          Math.min(sections.length - 1, currentSectionIndex + direction)
-        );
-
-        if (newIndex !== currentSectionIndex) {
-          e.preventDefault();
-          scrollToSection(newIndex);
-        }
-      }
-    };
-
-    leftSection.addEventListener(
-      "touchstart",
-      handleTouchStart as EventListener
-    );
-    leftSection.addEventListener("touchmove", handleTouchMove as EventListener);
-
-    return () => {
-      leftSection.removeEventListener(
-        "touchstart",
-        handleTouchStart as EventListener
-      );
-      leftSection.removeEventListener(
-        "touchmove",
-        handleTouchMove as EventListener
-      );
-    };
-  }, [currentSectionIndex, sections.length]);
 
   // Use Intersection Observer for section detection
   useEffect(() => {
@@ -188,15 +94,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 
         <div className="flex lg:flex-row flex-col z-20 relative">
           {/* Content Section */}
-          <div
-            className="w-full lg:w-1/2"
-            onWheel={(e) => {
-              if (window.innerWidth >= 1024) {
-                // Only apply wheel handler for lg and above
-                handleWheel(e);
-              }
-            }}
-          >
+          <div className="w-full lg:w-1/2">
             {sections.map((section, index) => (
               <motion.div
                 id={`section-${index}`}
@@ -337,7 +235,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                     {sections.map((section, index) => (
                       <motion.div
                         key={`phone-${section.title}`}
-                        className="absolute inset-0"
+                        className="absolute inset-0 rounded-3xl"
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{
                           opacity: currentImage === section.image ? 1 : 0,
