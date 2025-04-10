@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Line from "../about/divider-line/line";
 import Iphone15 from "./iphone";
+import { SectionTitle } from "../common/section-title";
 
 interface HowTouriiWorksProps {
   sections: {
@@ -166,71 +167,24 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
   };
 
   return (
-    <section className="relative mt-20">
+    <section className="relative ">
       <div className="flex justify-center w-full px-5">
         <div className="w-full max-w-screen-md">
           <Line />
         </div>
       </div>
       <div className="z-20">
+        <SectionTitle
+          subtitle={["HOW", "TOURII", "WORKS"]}
+          title={["IN", "THREE", "SIMPLE", "WAYS"]}
+        />
         <motion.div
-          className="py-12 text-center text-red"
+          className=" text-center text-red"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, amount: 0.8 }}
           transition={{ duration: 0.8 }}
-        >
-          <div className="font-bold uppercase relative">
-            <motion.div {...textAnimation}>
-              <motion.h3 className="text-base lg:text-lg leading-normal tracking-widest md:text-lg relative z-10">
-                {["How", "Tourii", "Works"].map((word, i) => (
-                  <motion.span
-                    key={word}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: false }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.2 + i * 0.1,
-                      ease: [0.6, 0.05, 0.01, 0.9],
-                    }}
-                  >
-                    {word}
-                    {i < 2 ? " " : ""}
-                  </motion.span>
-                ))}
-              </motion.h3>
-            </motion.div>
-            <motion.h2
-              className="mt-2 text-black whitespace-break-spaces break-all text-3xl lg:text-5xl tracking-widest"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{
-                duration: 0.8,
-                delay: 0.5,
-                ease: [0.6, 0.05, 0.01, 0.9],
-              }}
-            >
-              {["IN", "THREE", "SIMPLE", "WAYS"].map((word, i) => (
-                <motion.span
-                  key={word}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: false }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.6 + i * 0.1,
-                    ease: [0.6, 0.05, 0.01, 0.9],
-                  }}
-                >
-                  {word}
-                  {i < 3 ? " " : ""}
-                </motion.span>
-              ))}
-            </motion.h2>
-          </div>
-        </motion.div>
+        ></motion.div>
 
         <div className="flex lg:flex-row flex-col z-20 relative">
           {/* Content Section */}
@@ -247,7 +201,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
               <motion.div
                 id={`section-${index}`}
                 key={section.title}
-                className="lg:h-[80vh] flex items-center justify-center overflow-hidden"
+                className="h-400vh] lg:h-[80vh] flex items-center justify-center overflow-hidden"
                 ref={(el) => {
                   if (!sectionRefs.current) sectionRefs.current = [];
                   sectionRefs.current[index] = el;
@@ -261,7 +215,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                 }}
               >
                 <motion.div
-                  className="w-10/12 text-left lg:pl-8 flex flex-col items-center"
+                  className="w-10/12 text-left lg:pl-8 items-center py-8 lg:py-0"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: false }}
@@ -272,10 +226,10 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                   }}
                 >
                   {/* Mobile/Tablet Layout */}
-                  <div className="lg:hidden w-full flex flex-col items-center">
+                  <div className="lg:hidden w-full items-center">
                     {/* Title and Subtitle */}
                     <motion.div
-                      className="w-full max-w-md rounded-lg p-8 mb-8 flex flex-col items-center"
+                      className=""
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: false }}
@@ -286,7 +240,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                       }}
                     >
                       <motion.h2
-                        className="text-lg font-bold uppercase text-warmGrey border-red border-2 bg-red rounded-full tracking-widest w-32 h-32 flex items-center justify-center text-center my-10"
+                        className="text-lg font-bold uppercase text-warmGrey border-red border-2 bg-red rounded-full tracking-widest w-36 h-36 flex items-center justify-center text-center my-10 mx-auto"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
@@ -299,7 +253,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                         {section.title}
                       </motion.h2>
                       <motion.h3
-                        className="text-base md:text-lg text-red tracking-widest font-bold uppercase mb-4 text-center"
+                        className="text-sm md:text-lg text-red tracking-widest font-bold uppercase mb-4 text-center"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
@@ -312,7 +266,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                         {section.subtitle}
                       </motion.h3>
                       <motion.p
-                        className="text-black tracking-widest font-normal text-pretty text-center w-full"
+                        className="text-black tracking-widest leading-relaxed font-normal text-center w-full text-sm"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: false }}
@@ -356,7 +310,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
                       {section.subtitle}
                     </motion.h3>
                     <motion.p
-                      className="text-black tracking-widest font-light text-pretty"
+                      className="text-charcoal tracking-widest text-pretty"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: false }}
@@ -471,6 +425,11 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="flex justify-center w-full px-5">
+        <div className="w-full max-w-screen-md">
+          <Line />
         </div>
       </div>
     </section>

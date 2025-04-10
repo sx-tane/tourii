@@ -15,7 +15,7 @@ export const homepageSections: HomepageSection[] = [
   },
   {
     title: "Earn",
-    subtitle: "Collect Rewards",
+    subtitle: "Collect Unified Rewards",
     description:
       "Gain rewards for your travel check-ins, quests, and community challenges across regions.",
     image: "/image/earn-screen.jpg",
