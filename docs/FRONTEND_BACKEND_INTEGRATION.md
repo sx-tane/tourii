@@ -1,4 +1,4 @@
-# Frontend-Backend Integration Guide
+# Frontend-Backend Integration Guide (recheck the endpoint at backend)
 
 ## Overview
 
@@ -7,14 +7,14 @@ This document outlines the integration points between the Tourii frontend and ba
 ## API Integration Points
 
 ### 1. Authentication & User Management
-- **Endpoints**: `/api/auth/*`
+- **Endpoints**: `/api/auth/*` (endpoint check again)
 - **Frontend Components**:
   - `AuthProvider` - Global authentication state management
   - `LoginForm` - Multi-provider authentication (Discord, Twitter, Google)
   - `UserProfile` - Profile management and settings
 
 ### 2. Story & Tourism Features
-- **Endpoints**: `/api/stories/*`, `/api/routes/*`, `/api/spots/*`
+- **Endpoints**: `/api/stories/*`, `/api/routes/*`, `/api/spots/*` (endpoint check again)
 - **Frontend Components**:
   - `StoryBrowser` - Browse and filter story sagas
   - `StoryViewer` - Interactive story experience
@@ -24,7 +24,7 @@ This document outlines the integration points between the Tourii frontend and ba
   - `RouteRecommendations` - Show route-specific recommendations
 
 ### 3. Gamification System
-- **Endpoints**: `/api/quests/*`, `/api/achievements/*`
+- **Endpoints**: `/api/quests/*`, `/api/achievements/*` (endpoint check again)
 - **Frontend Components**:
   - `QuestBrowser` - Browse available quests
   - `QuestTracker` - Active quest progress
@@ -32,7 +32,7 @@ This document outlines the integration points between the Tourii frontend and ba
   - `PointsDashboard` - Magatama points tracking
 
 ### 4. Blockchain Integration
-- **Endpoints**: `/api/blockchain/*`
+- **Endpoints**: `/api/blockchain/*` (endpoint check again)
 - **Frontend Components**:
   - `DigitalPassport` - Display and manage blockchain assets
   - `ItemInventory` - View and manage on-chain items
