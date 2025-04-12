@@ -26,7 +26,7 @@ export const DigitalPassportSection: React.FC = () => {
           }}
         >
           {/* Passport card - appears first on mobile */}
-          <div className=" mb-8 lg:mb-0 lg:mr-2">
+          <div className="mb-8 lg:mb-0 lg:mr-2 z-30 relative">
             <PassportCard
               passportType={passport.passportType}
               characters={passport.chineseCharacters}
@@ -35,7 +35,7 @@ export const DigitalPassportSection: React.FC = () => {
           </div>
 
           {/* Content section */}
-          <div className=" items-center text-left lg:text-left lg:items-start pb-6 lg:pb-0 lg:pr-0">
+          <div className="items-center text-left lg:text-left lg:items-start pb-6 lg:pb-0 lg:pr-0 z-20">
             <motion.h2
               className="lg:font-extrabold text-center lg:text-charcoal lg:text-left tracking-widest lg:absolute lg:top-8 lg:left-8 text-base md:text-lg lg:text-2xl text-red font-bold uppercase mt-10 lg:mt-0 "
               initial={{ opacity: 0, y: 30 }}

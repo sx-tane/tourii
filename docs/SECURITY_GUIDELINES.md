@@ -1,6 +1,6 @@
-# Security Guidelines for Tourii
+# 🔒 Tourii Security Guidelines
 
-This document outlines essential security practices that must be followed in the Tourii application development.
+## Overview
 
 ## 1. Rate Limiting
 

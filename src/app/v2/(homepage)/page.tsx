@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store/store";
+import type { RootState } from "@/lib/store/store";
 import {
   setCurrentImage,
   setLogoAnimationComplete,

@@ -66,15 +66,9 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
     return () => observer.disconnect();
   }, [sections, setCurrentImage, sectionRefs]);
 
-  const textAnimation = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: [0.6, 0.05, 0.01, 0.9] },
-  };
-
   return (
     <section className="relative ">
-      <div className="flex justify-center w-11/12 px-5">
+      <div className="flex justify-center w-11/12 px-5 mx-auto">
         <div className="w-full max-w-screen-md">
           <Line />
         </div>

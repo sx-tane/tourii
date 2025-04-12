@@ -7,14 +7,14 @@ This document outlines the integration points between the Tourii frontend and ba
 ## API Integration Points
 
 ### 1. Authentication & User Management
-- **Endpoints**: `/api/auth/*` (endpoint check again)
+- **Endpoints**: `/tourii-backend/auth/*`
 - **Frontend Components**:
   - `AuthProvider` - Global authentication state management
   - `LoginForm` - Multi-provider authentication (Discord, Twitter, Google)
   - `UserProfile` - Profile management and settings
 
 ### 2. Story & Tourism Features
-- **Endpoints**: `/api/stories/*`, `/api/routes/*`, `/api/spots/*` (endpoint check again)
+- **Endpoints**: `/tourii-backend/stories/*`, `/tourii-backend/routes/*`, `/tourii-backend/spots/*`
 - **Frontend Components**:
   - `StoryBrowser` - Browse and filter story sagas
   - `StoryViewer` - Interactive story experience
@@ -24,7 +24,7 @@ This document outlines the integration points between the Tourii frontend and ba
   - `RouteRecommendations` - Show route-specific recommendations
 
 ### 3. Gamification System
-- **Endpoints**: `/api/quests/*`, `/api/achievements/*` (endpoint check again)
+- **Endpoints**: `/tourii-backend/quests/*`, `/tourii-backend/achievements/*`
 - **Frontend Components**:
   - `QuestBrowser` - Browse available quests
   - `QuestTracker` - Active quest progress
@@ -32,7 +32,7 @@ This document outlines the integration points between the Tourii frontend and ba
   - `PointsDashboard` - Magatama points tracking
 
 ### 4. Blockchain Integration
-- **Endpoints**: `/api/blockchain/*` (endpoint check again)
+- **Endpoints**: `/tourii-backend/assets/*`
 - **Frontend Components**:
   - `DigitalPassport` - Display and manage blockchain assets
   - `ItemInventory` - View and manage on-chain items
@@ -301,34 +301,199 @@ export const TouristSpotCard = ({ spot }: { spot: TouristSpot }) => {
 ### 1. API Error Handling
 ```typescript
 // src/lib/error-handler.ts
-export const handleApiError = (error: any) => {
+export interface ApiError {
+  statusCode: number;
+  message: string;
+  error: string;
+  timestamp: string;
+  path: string;
+  apiKey?: {
+    valid: boolean;
+    permissions?: string[];
+    expiresAt?: string;
+  };
+}
+
+export class TouriiError extends Error {
+  constructor(
+    public statusCode: number,
+    public message: string,
+    public details?: any
+  ) {
+    super(message);
+    this.name = 'TouriiError';
+  }
+}
+
+export const handleApiError = (error: any): TouriiError => {
   if (error.response) {
-    switch (error.response.status) {
+    const { status, data } = error.response;
+    
+    switch (status) {
       case 401:
-        // Handle unauthorized
-        break;
+        // Handle unauthorized - redirect to login
+        window.location.href = '/login';
+        return new TouriiError(401, 'Authentication required');
+        
       case 403:
-        // Handle forbidden
-        break;
+        // Handle forbidden - check permissions
+        return new TouriiError(403, 'Insufficient permissions');
+        
       case 404:
         // Handle not found
-        break;
+        return new TouriiError(404, 'Resource not found');
+        
+      case 429:
+        // Handle rate limiting
+        return new TouriiError(429, 'Too many requests, please try again later');
+        
+      case 500:
+        // Handle server error
+        return new TouriiError(500, 'Internal server error');
+        
       default:
         // Handle other errors
-        break;
+        return new TouriiError(
+          status,
+          data.message || 'An unexpected error occurred'
+        );
     }
   }
+  
+  // Handle network errors
+  if (error.request) {
+    return new TouriiError(0, 'Network error, please check your connection');
+  }
+  
+  // Handle other errors
+  return new TouriiError(0, 'An unexpected error occurred');
 };
+
+// Usage example with React Query
+export const useStories = () => {
+  return useQuery<StorySaga[], TouriiError>('stories', async () => {
+    try {
+      const response = await apiClient.get('/tourii-backend/stories');
+      return response.data;
+    } catch (error) {
+      throw handleApiError(error);
+    }
+  });
+};
+
+// Usage example with error boundaries
+export class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; error: TouriiError | null }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: TouriiError) {
+    return { hasError: true, error };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-container">
+          <h2>Something went wrong</h2>
+          <p>{this.state.error?.message}</p>
+          {this.state.error?.statusCode === 401 && (
+            <button onClick={() => window.location.href = '/login'}>
+              Login Again
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 ```
 
 ### 2. Loading States
 ```typescript
 // src/components/LoadingState.tsx
-export const LoadingState = () => (
-  <div className="flex items-center justify-center min-h-[200px]">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-  </div>
-);
+interface LoadingStateProps {
+  size?: 'small' | 'medium' | 'large';
+  message?: string;
+  fullScreen?: boolean;
+}
+
+export const LoadingState: React.FC<LoadingStateProps> = ({
+  size = 'medium',
+  message = 'Loading...',
+  fullScreen = false,
+}) => {
+  const sizeClasses = {
+    small: 'h-4 w-4',
+    medium: 'h-8 w-8',
+    large: 'h-12 w-12',
+  };
+
+  const containerClasses = fullScreen
+    ? 'fixed inset-0 bg-white bg-opacity-75 z-50'
+    : 'min-h-[200px]';
+
+  return (
+    <div className={`flex items-center justify-center ${containerClasses}`}>
+      <div className="text-center">
+        <div
+          className={`animate-spin rounded-full border-b-2 border-primary ${sizeClasses[size]}`}
+        />
+        {message && (
+          <p className="mt-2 text-gray-600">{message}</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Usage example with suspense
+const SuspenseWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <Suspense
+      fallback={
+        <LoadingState
+          size="large"
+          message="Loading content..."
+          fullScreen
+        />
+      }
+    >
+      {children}
+    </Suspense>
+  );
+};
+
+// Usage example with React Query
+export const StoryBrowser = () => {
+  const { data: stories, isLoading, error } = useStories();
+
+  if (isLoading) {
+    return <LoadingState message="Loading stories..." />;
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>Failed to load stories: {error.message}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {stories?.map((story) => (
+        <StoryCard key={story.id} story={story} />
+      ))}
+    </div>
+  );
+};
 ```
 
 ## Testing Strategy
@@ -428,6 +593,158 @@ describe('StoryBrowser', () => {
    - Multi-language support
    - Region-specific content
    - Currency conversion
+
+## WebSocket Integration
+
+### WebSocket Events
+
+```typescript
+const WS_EVENTS = {
+  // Quest Events
+  QUEST_STARTED: 'quest:started',
+  QUEST_COMPLETED: 'quest:completed',
+  TASK_COMPLETED: 'task:completed',
+  
+  // Social Events
+  NEW_MEMORY: 'memory:new',
+  NEW_COMMENT: 'comment:new',
+  NEW_LIKE: 'like:new',
+  
+  // NFT Events
+  NFT_MINTED: 'nft:minted',
+  PERK_REDEEMED: 'perk:redeemed',
+  
+  // Achievement Events
+  ACHIEVEMENT_UNLOCKED: 'achievement:unlocked',
+  LEVEL_UP: 'level:up'
+};
+
+// WebSocket message types
+interface WebSocketMessage {
+  type: string;
+  data: any;
+}
+
+interface QuestMessage extends WebSocketMessage {
+  type: 'questStarted' | 'questCompleted' | 'taskCompleted';
+  data: {
+    questId: string;
+    userId: string;
+    timestamp: Date;
+    details: {
+      questName: string;
+      magatamaPointsEarned?: number;
+      progress?: number;
+    };
+  };
+}
+
+interface NftMessage extends WebSocketMessage {
+  type: 'nftMinted' | 'perkRedeemed';
+  data: {
+    tokenId: string;
+    contractAddress: string;
+    userId: string;
+    timestamp: Date;
+    metadata: {
+      name: string;
+      description: string;
+      image: string;
+      attributes?: Array<{
+        traitType: string;
+        value: string;
+      }>;
+    };
+  };
+}
+
+interface AchievementMessage extends WebSocketMessage {
+  type: 'achievementUnlocked' | 'levelUp';
+  data: {
+    userId: string;
+    timestamp: Date;
+    achievementName?: string;
+    newLevel?: string;
+    magatamaPointsEarned: number;
+  };
+}
+```
+
+### WebSocket Usage Example
+
+```typescript
+// src/lib/websocket.ts
+class TouriiWebSocket {
+  private socket: WebSocket | null = null;
+  private retries = 0;
+  private readonly config: WebSocketConfig;
+  private messageHandlers: Map<string, (data: any) => void>;
+
+  constructor(config: WebSocketConfig) {
+    this.config = config;
+    this.messageHandlers = new Map();
+  }
+
+  connect() {
+    try {
+      this.socket = new WebSocket(`${this.config.url}/tourii-backend/ws`);
+      this.setupEventHandlers();
+    } catch (error) {
+      this.handleReconnect();
+    }
+  }
+
+  subscribe<T extends WebSocketMessage>(
+    eventType: string,
+    handler: (data: T['data']) => void
+  ) {
+    this.messageHandlers.set(eventType, handler);
+  }
+
+  unsubscribe(eventType: string) {
+    this.messageHandlers.delete(eventType);
+  }
+
+  private handleMessage(message: WebSocketMessage) {
+    const handler = this.messageHandlers.get(message.type);
+    if (handler) {
+      handler(message.data);
+    }
+  }
+}
+
+// Usage example in a component
+function QuestTracker() {
+  const [quest, setQuest] = useState<Quest | null>(null);
+  const ws = useRef<TouriiWebSocket>();
+
+  useEffect(() => {
+    ws.current = new TouriiWebSocket({
+      url: process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3000',
+      reconnectInterval: 5000,
+      maxRetries: 5
+    });
+
+    ws.current.subscribe<QuestMessage>('questCompleted', (data) => {
+      // Update quest progress
+      setQuest(prevQuest => ({
+        ...prevQuest,
+        progress: data.details.progress
+      }));
+    });
+
+    ws.current.connect();
+
+    return () => {
+      ws.current?.unsubscribe('questCompleted');
+    };
+  }, []);
+
+  return (
+    // Quest tracker UI
+  );
+}
+```
 
 ---
 
