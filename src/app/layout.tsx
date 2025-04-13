@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Loading from "./loading";
-import { ReduxProvider } from "@/lib/providers/redux-provider";
+import { Providers } from './providers';
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,9 +15,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Tourii",
-  description:
-    "Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+  title: "Tourii - Your Travel Quest Companion",
+  description: "Complete quests, earn rewards, and discover amazing places with Tourii.",
   openGraph: {
     title: "Tourii - Unveiling Japan's Mystical Realms",
     description:
@@ -76,14 +75,14 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body>
-        <ReduxProvider>
+        <Providers>
           <Suspense fallback={<Loading />}>
             {children}
             <Toaster />
             <SpeedInsights />
             <Analytics />
           </Suspense>
-        </ReduxProvider>
+        </Providers>
       </body>
     </html>
   );

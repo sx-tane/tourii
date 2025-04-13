@@ -21,7 +21,7 @@ const HeaderApp = () => {
 				</div>
 				<Link
 					className="border-[1px] text-warmGrey text-center text-xs border-red tracking-[3px] rounded-full px-4 py-2 hover:bg-black hover:border-black bg-red hover:text-warmGrey transition duration-300 ease-in-out"
-					href="/"
+					href="/v2/launch-app"
 				>
 					LAUNCH APP
 				</Link>

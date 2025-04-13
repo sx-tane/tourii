@@ -6,7 +6,7 @@ import HeaderApp from "@/components/header/header-component/header-launch-app";
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="">
-			<HeaderApp theme={"black"} />
+			<HeaderApp />
 			<Suspense fallback={<Loading />}>{children}</Suspense>
 		</div>
 	);

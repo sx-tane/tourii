@@ -29,14 +29,14 @@ const ChapterDisplay: React.FC = () => {
                         <Image
                             src={imageUrl}
                             alt={storyTitle}
-                            width={1000}
-                            height={1000}
+                            width={2000}
+                            height={2000}
                             className="w-full h-full object-cover"
                             priority
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
                         <motion.div
-                            className="absolute bottom-4 left-5 p-3 text-warmGrey uppercase"
+                            className="absolute bottom-1 left-5 p-3 text-warmGrey uppercase"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: false }}
@@ -50,7 +50,7 @@ const ChapterDisplay: React.FC = () => {
                             <p className="text-base italic tracking-widest mt-2">{storyTitle}</p>
                         </motion.div>
                         <motion.div
-                            className="absolute bottom-4 right-5 p-3"
+                            className="absolute bottom-1 right-5 p-3"
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: false }}
