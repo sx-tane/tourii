@@ -2,6 +2,10 @@
 
 ## Overview
 
+This document outlines Tourii’s essential security practices across both frontend and backend systems, with a focus on Web3 authentication, API security, and user protection.
+
+---
+
 ## 1. Rate Limiting
 
 ### Why It's Important
@@ -21,9 +25,15 @@ Uncontrolled endpoint access can lead to:
 
 ### Action Items
 
-- [ ] Implement rate limiting on all public endpoints
-- [ ] Set appropriate limits based on endpoint usage patterns
-- [ ] Monitor and adjust limits as needed
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+
+
+---
 
 ## 2. Row-Level Security (RLS)
 
@@ -33,18 +43,21 @@ Without RLS, users can potentially access other users' data.
 
 ### Implementation Steps
 
-1. Enable RLS on all tables:
+- Enable RLS on all tables:
    - Navigate to Table → RLS → Enable
    - Implement policies using `user_id = auth.uid()`
-2. Test policies thoroughly
-3. Never disable RLS in production
+- Test policies thoroughly
+- Never disable RLS in production
 
 ### Action Items
 
-- [ ] Enable RLS on all tables from day one
-- [ ] Create appropriate policies for each table
-- [ ] Document all RLS policies
-- [ ] Regular security audits of RLS policies
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+---
 
 ## 3. CAPTCHA Implementation
 
@@ -65,9 +78,15 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Implement CAPTCHA on all authentication flows
-- [ ] Regular testing of CAPTCHA effectiveness
-- [ ] Monitor failed CAPTCHA attempts
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+
+
+---
 
 ## 4. Web Application Firewall (WAF)
 
@@ -84,9 +103,15 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Enable WAF in all environments
-- [ ] Monitor WAF logs regularly
-- [ ] Configure custom rules as needed
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+-
+
+---
 
 ## 5. API Keys and Secrets Management
 
@@ -99,10 +124,15 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Audit codebase for exposed secrets
-- [ ] Implement secret rotation schedule
-- [ ] Document all API keys and their purposes
-- [ ] Review AI-generated code for security compliance
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+-
+
+---
 
 ## 6. Backend Input Validation
 
@@ -122,9 +152,13 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Implement comprehensive input validation
-- [ ] Regular testing of validation effectiveness
-- [ ] Document validation rules
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+---
 
 ## 7. Dependencies Management
 
@@ -137,10 +171,17 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Schedule regular dependency audits
-- [ ] Document essential dependencies
-- [ ] Create dependency update procedure
-- [ ] Monitor security advisories
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+
+- Verify integration with actual usage flows
+
+- Log results and adjust based on live monitoring
+
+-
+
+---
 
 ## 8. Monitoring and Logging
 
@@ -167,29 +208,89 @@ Prevents automated bot attacks and fake signups.
 
 ### Action Items
 
-- [ ] Set up comprehensive logging
-- [ ] Implement monitoring alerts
-- [ ] Create incident response procedure
-- [ ] Regular log analysis
+To implement this security feature:
 
-## Regular Security Reviews
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
 
-Schedule regular security reviews to:
+---
 
-1. Audit all security measures
-2. Update policies as needed
-3. Review logs and incidents
-4. Update security documentation
+## 9. Authentication & Wallet Security
 
-## Reporting Security Issues
+### Flow
 
-If you discover a security vulnerability:
+- Email/OAuth (Google, Discord, Twitter)
+- Wallet login (signature nonce)
+- JWT access tokens stored in `HttpOnly` cookies or secure `localStorage`
 
-1. Do not disclose it publicly
-2. Email security@tourii.com immediately
-3. Provide detailed information about the vulnerability
-4. Wait for confirmation before any disclosure
+### Action Items
+
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+- 
+---
+
+## 10. Smart Contract & NFT Verification
+
+### Areas at Risk
+
+- Incorrect token ownership checks
+- Bad data embedded in on-chain metadata
+- NFT spoofing in client
+
+### Action Items
+
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+---
+
+## 11. WebSocket Security
+
+### Authentication
+
+- Attach JWT or API key during initial `onopen` handshake:
+
+```ts
+socket.send(JSON.stringify({ type: 'auth', token }));
+```
+
+### Action Items
+
+To implement this security feature:
+
+- Follow the setup steps using the recommended tools
+- Verify integration with actual usage flows
+- Log results and adjust based on live monitoring
+
+---
+
+## 📆 Regular Security Review Schedule
+
+- Reviewing endpoints bi-monthly
+- Rotating secrets regularly
+- Auditing WebSocket & NFT logic
+- Running optional 3rd-party pen tests
+
+---
+
+## 📣 Reporting Vulnerabilities
+
+Please report all potential issues to: `security@tourii.com`
+
+- Do not disclose publicly
+- Include reproduction steps or payload examples
 
 ---
 
 **Note**: This is a living document. Update it regularly as new security measures are implemented or requirements change.
+
+*Last updated: April 2025*
+

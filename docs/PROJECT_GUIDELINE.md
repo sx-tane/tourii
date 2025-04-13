@@ -1,218 +1,218 @@
-# 📝 Tourii Project Guideline
+# 🛍️ Tourii V2 Frontend Project Guideline
 
-This document serves as a living guideline to track the development status and priorities of the Tourii platform.
-
-## 🎯 Vision & Design Philosophy
-
-Tourii embraces modern minimalism infused with traditional Japanese aesthetics, creating an adventurous yet elegant experience. The interface prioritizes:
-
-- Clean layouts with ample white space (ma - 間)
-- Subtle Japanese-inspired elements (wave patterns, stamp motifs, calligraphic touches)
-- Clear visual hierarchy and intuitive navigation
-- Delightful micro-interactions that enhance without overwhelming
-- A tone that balances adventure with sophistication
-
-### Core Design Principles
-
-1. **Minimalism with Purpose**: Every element should serve a clear function while maintaining visual harmony
-2. **Cultural Integration**: Japanese design elements should be subtle and meaningful, not decorative
-3. **User-Centric Flow**: Navigation should feel natural and guide users through their journey
-4. **Responsive Feedback**: Micro-interactions should provide satisfying feedback without distraction
-5. **Content First**: Visual design should enhance content without competing with it
-
-## ✅ Status Indicators
-
-| Indicator   | Meaning                            |
-| ----------- | ---------------------------------- |
-| ⭕️ Working | Currently under active development |
-| 🟡 Pending  | Awaiting feedback or paused        |
-| ✅ Complete | Finished and verified              |
-
-## 🗂 Core Features
-
-## Redux Management
-
-- [✅] Homepage
-- [] Character
-- [] Story
-- [] Model Route
-- [] Quest
-- [] Admin Board
-
-### 📱 Homepage
-
-- [✅] Hero Section
-  - Immersive full-width banner with subtle animation
-  - Clear "Launch App" CTA with contrasting color
-  - Minimalist navigation with Japanese-inspired accents
-  - Tagline: "Your Adventure, Your Story – Explore the world, earn rewards, and connect with travelers"
-- [✅] Three Pillars Display
-  - Explore: Interactive stories & routes
-  - Earn: Points & digital stamps
-  - Connect: Community features
-  - Each pillar with icon and one-sentence description
-- [⭕️] Digital Passport Preview
-  - Visual explanation of NFT-based digital passport
-  - Sample rewards showcase
-  - Emphasis on ownership and reward
-  - 3d treejs card view
-- [ ] Featured Content
-  - Latest stories carousel with ample whitespace
-    - 1 story card
-  - Popular quests grid with clear reward indicators
-    - N quest card
-  - Community highlights with social proof elements
-- [ ] Footer
-
-### 🗺 Story Experience
-
-- [ ] Saga Selection Interface
-  - Region-based browsing with map integration
-  - Visual story cards with representative imagery
-  - Subtle washi paper texture background
-  - Elegant typography for region names
-- [ ] Chapter Selection Page
-  - Chapter By Chapter like Location Chapter List
-- [ ] Chapter Navigation
-  - Tabbed content (Story/Episode/Characters/World)
-  - Progress tracking with visual indicators
-  - Rich media integration with smooth transitions
-  - Breadcrumb navigation for context
-- [ ] Interactive Elements
-  - Character profiles with expandable details
-  - Location markers with tooltips
-  - Achievement triggers with micro-animations
-  - Subtle page-turn effects for navigation
-- [ ] Model Route Integration
-  - Interactive map with route visualization
-  - Tourist spot markers with detailed popups
-  - Route recommendations display
-  - Location-based quest triggers
-  - Real-time progress tracking
-  - Social sharing capabilities
-  - Offline mode support
-  - AR-enhanced navigation (future)
-
-### 🎯 Quest System
-
-- [ ] Quest Discovery
-  - Filterable quest list with clear categorization
-  - Map view toggle for location-based discovery
-  - Difficulty indicators with thematic names
-  - Trending quests highlighted with badges
-- [ ] Quest Details
-  - Clear task breakdown with type icons
-  - Points & rewards prominently displayed
-  - Progress tracking with visual feedback
-  - Social proof elements (completion count, ratings)
-- [ ] Completion Flow
-  - Task validation with satisfying animations
-  - Reward celebration with stamp effects
-  - Passport integration with visual feedback
-  - Share options for community engagement
-
-### 👤 Profile Hub
-
-- [ ] Digital Passport
-  - NFT-based passport collection with unique designs
-  - Achievement tracking with progress indicators
-  - Points summary with level progression
-  - Goshuin-inspired visual style
-- [ ] Travel Log
-  - Interactive check-in map with location pins
-  - Quest history with completion dates
-  - Story completion record with visual timeline
-  - Personal travel memories integration
-- [ ] Rewards Center
-  - Available perks with clear redemption paths
-  - Simple booking flow for travel rewards
-  - Points management with clear value
-  - Achievement badges display
-
-### 🛍 Shop System
-
-- [ ] NFT Marketplace
-  - Digital passport minting and trading
-  - Exclusive item collections
-  - Limited edition drops
-  - Rarity indicators and traits
-- [ ] Item Categories
-  - On-chain items (NFTs)
-  - Off-chain items
-  - Premium rewards
-  - Special event items
-- [ ] Shopping Experience
-  - Clean product listings
-  - Detailed item descriptions
-  - Secure checkout process
-  - Wallet integration
-- [ ] Inventory Management
-  - User inventory view
-  - Item transfer capabilities
-  - Collection organization
-  - Trading history
-
-### 👨‍💼 Admin Board
-
-- [ ] User Management
-  - User profiles and activity
-  - Role assignments
-  - Ban/unban functionality
-  - Activity logs
-- [ ] Content Management
-  - Story and quest creation
-  - Media asset management
-  - Content scheduling
-  - Version control
-- [ ] NFT Management
-  - Digital passport minting
-  - Item creation and distribution
-  - Collection management
-  - Trading oversight
-- [ ] Analytics Dashboard
-  - User engagement metrics
-  - Quest completion rates
-  - NFT trading volume
-  - Revenue tracking
-- [ ] System Configuration
-  - Reward settings
-  - Quest parameters
-  - NFT contract management
-  - Platform settings
-
-## 🔄 Development Workflow
-
-### Project Management
-
-- Create issues for each component with UI/UX specifications
-- Use status labels consistently
-- Link PRs to issues with visual references
-- Weekly progress updates with design reviews
-
-### Documentation
-
-- Update guidelines weekly
-- Record key design decisions
-- Maintain README sync
-- Document UI component library
-
-### Code Standards
-
-- Branch: `feature/section-name`
-- PR template with status updates
-- Regular team reviews
-- Design system compliance checks
-
-## 📈 Progress Tracking
-
-Track updates via:
-
-1. Status indicators
-2. Completion dates
-3. PR/commit links
-4. Blocker notes
-5. Design review feedback
+This guide outlines the core frontend journey and development focus for Tourii's gamified, Web3-powered travel platform.
 
 ---
 
-Last Updated: [Current Date]
+## 🎯 Tourii Experience Philosophy
+
+Tourii combines mythology, real-world travel, and digital collectibles into a social quest experience. Its frontend experience should be:
+
+- Clean, minimal, and culturally respectful (inspired by Japanese aesthetics)
+- Focused on story-driven navigation and reward loops
+- Built with reactivity and scalability in mind (Next.js + Redux + Web3 wallets)
+
+---
+
+## 🗜️ User Flow Overview
+
+1. **Landing Page** (`/`)
+   - Hero section
+   - "Explore / Earn / Connect" with visual walkthrough
+   - NFT Digital Passport teaser
+   - Featured: latest story chapter, popular quests
+   - Call to action: Launch App
+
+2. **Authentication Modal** (`/launch-app` → modal)
+   - Login & Sign Up (OAuth + Web3 wallet connect)
+   - On signup: create wallet, mint Passport NFT + Log NFT
+
+3. **Dashboard (Post-Login Hub)**
+   - Accessible sections:
+     - Story System
+     - Model Routes
+     - Quests
+     - Digital Passport
+     - Check-In Map
+     - Shop
+     - Memory Wall
+     - Profile Page
+
+4. **Exploration Loop**
+   - Read story → complete chapter → unlock location → trigger model route + online/offline quests → complete tasks → earn Tourii points/perks → repeat
+
+---
+
+## 🔧 Component/Feature Breakdown
+
+### 🏠 Homepage
+| Section                              | Status | Description                                 |
+| ------------------------------------ | ------ | ------------------------------------------- |
+| Hero                                 | ✅      | Background image, brand tagline, CTA button |
+| Three Pillars (Explore/Earn/Connect) | ✅      | Icon + summary display                      |
+| Digital Passport Teaser              | ⭕️      | NFT preview, benefits, how it works         |
+| Featured Chapter & Quests            | ⏳      | Story carousel, quest cards                 |
+| Footer                               | ⏳      | Legal, social, contact links                |
+
+### 📚 Story System
+| Page               | Status | Description                                                |
+| ------------------ | ------ | ---------------------------------------------------------- |
+| Saga Selection     | ⏳      | Browse stories by region (map planned)                     |
+| Chapter List       | ⏳      | Chapters per saga, progress shown                          |
+| Chapter Page       | ⏳      | Toggle: video/storyboard. Tabs: Characters, World, Content |
+| Completion Trigger | ⏳      | Unlock new location + related quests upon finish           |
+
+### 🧱 Model Route
+| Page            | Status | Description                                      |
+| --------------- | ------ | ------------------------------------------------ |
+| Region Selector | ⏳      | Display weather, region intro                    |
+| Route Overview  | ⏳      | Map of spots, description, unlock gating         |
+| Route Detail    | ⏳      | Tourist spot cards (linked to quests), GPS logic |
+
+### 🤩 Quest System
+| Page              | Status | Description                                                |
+| ----------------- | ------ | ---------------------------------------------------------- |
+| Quest List        | ⏳      | Filterable list (location / type / reward)                 |
+| Quest Parent      | ⏳      | Overview + toggle (online vs offline tasks)                |
+| Task Types        | ⏳      | Auto-render per type: photo, visit, text, group            |
+| Completion Screen | ⏳      | Stamp celebration + CTA: View Passport, Add to Memory Wall |
+
+### 🌸 Memory Wall
+| Page                | Status | Description                   |
+| ------------------- | ------ | ----------------------------- |
+| Feed                | ⏳      | Latest logs (no like/comment) |
+| Author Profile Link | ⏳      | Click avatar → Profile Page   |
+
+### 🧳️ Check-In Map
+| Page         | Status | Description                       |
+| ------------ | ------ | --------------------------------- |
+| Map Display  | ⏳      | GPS-based check-in, colored pins  |
+| QR Mode      | ⏳      | Modal scan popup (event triggers) |
+| History View | ⏳      | Past check-ins (timeline, badges) |
+
+### 👤 Profile Page
+| Section          | Status | Description                                                                 |
+| ---------------- | ------ | --------------------------------------------------------------------------- |
+| Travel Logs      | ⏳      | Location, story, and quest logs                                             |
+| Achievements     | ⏳      | Unlocked badges and perks                                                   |
+| Perk Redemption  | ⏳      | NFT-based redemption, Apple/Google Wallet export                            |
+| Digital Passport | ⏳      | NFT display, QR code, redemption history, Add Apple Wallet or Google Wallet |
+
+### 🛒 Shop
+| Section        | Status | Description                                             |
+| -------------- | ------ | ------------------------------------------------------- |
+| Shop Home      | ⏳      | Browse perks by category (Food, Access, Discount)       |
+| Purchase Flow  | ⏳      | NFT minting or token burning based on purchase          |
+| Inventory View | ⏳      | Used/perk history shown by status (Active/Used/Expired) |
+
+### 🛠️ Admin Panel
+| Section            | Status | Description                                                      |
+| ------------------ | ------ | ---------------------------------------------------------------- |
+| Dashboard Overview | ⏳      | Show stats: users, quests, stories, routes, completions, traffic |
+| Quest Manager      | ⏳      | CRUD quests (with task config & reward settings)                 |
+| Story Manager      | ⏳      | CRUD story sagas + chapters, character/world info                |
+| Route Manager      | ⏳      | CRUD model routes, assign locations, weather sync                |
+| User Manager       | ⏳      | Edit user roles, view logs, ban/unban                            |
+| Social Upload      | ⏳      | Push updates to TikTok, Twitter, Instagram, YouTube              |
+| Perk Manager       | ⏳      | Upload NFT perks, set redemption metadata, stock controls        |
+
+---
+
+## 🗂️ Routing Structure (Next.js App Router)
+
+```
+/app
+├── layout.tsx                  ← Global layout (Nav, AuthGuard, etc.)
+├── page.tsx                    ← Homepage (Landing)
+
+/launch-app
+├── page.tsx                    ← Auth Modal Page (Login/Signup overlay)
+
+dashboard/
+├── page.tsx                    ← Post-login user hub
+
+stories/
+├── layout.tsx                  ← Shared layout for story saga/chapter pages
+├── page.tsx                    ← Saga Selection
+├── [sagaId]/page.tsx          ← Chapter List
+├── [sagaId]/[chapterId]/page.tsx ← Chapter Page (tabs: content, character, map)
+
+routes/
+├── layout.tsx
+├── page.tsx                    ← Region Selector Page
+├── [regionId]/page.tsx        ← Model Route List
+├── [regionId]/[routeId]/page.tsx ← Model Route Detail (map, spots, quests)
+
+quests/
+├── page.tsx                    ← All Quests List
+├── [questId]/page.tsx         ← Quest Parent Page (online/offline toggle)
+├── [questId]/[taskId]/page.tsx ← Task Interaction Page
+├── [questId]/complete/page.tsx ← Completion Page (passport/stamp/reward popup)
+
+check-in/
+├── page.tsx                    ← Map View (GPS + QR)
+├── history/page.tsx           ← Check-in timeline/history
+
+shop/
+├── page.tsx                    ← Browse all perks
+├── [itemId]/page.tsx          ← Item detail / buy modal
+├── inventory/page.tsx         ← User-owned perks + status
+
+memory-wall/
+├── page.tsx                    ← Feed View
+├── [postId]/page.tsx          ← Memory Detail Page
+
+profile/
+├── page.tsx                    ← Personal profile dashboard
+├── [userId]/page.tsx          ← Public profile (via username/post)
+
+admin/
+├── layout.tsx
+├── page.tsx                    ← Admin Dashboard Overview
+├── quests/page.tsx            ← Quest Manager
+├── stories/page.tsx           ← Story Manager
+├── routes/page.tsx            ← Route Manager
+├── users/page.tsx             ← User Manager
+├── perks/page.tsx             ← Perk Manager
+├── media/page.tsx             ← Social Media Upload Panel
+```
+
+---
+
+## 📊 Dev System & Standards
+
+### Frontend Stack
+- `Next.js 14`
+- `TypeScript`
+- `TailwindCSS`
+- `Redux` with `createSlice`
+- `ethers.js` or `viem` (Web3 interaction)
+- `axios` API wrapper with token header
+- `framer-motion`, `lucide-react`, `shadcn/ui`
+
+### Design System
+- Base typography: Japanese serif + modern sans-serif
+- Iconography: Lucide
+- Layout: Grid-first, mobile optimized
+- Theme: Light mode only (for now)
+
+### Coding Conventions
+- File naming: kebab-case
+- Component folders: `/components/feature-name`
+- Pages: Flat routes in `/app/`
+- API utils: `/lib/api-client.ts`
+- Redux store: `/lib/store/slices/*`
+
+---
+
+### ✅ Status Key
+| Icon | Meaning     |
+| ---- | ----------- |
+| ✅    | Complete    |
+| ⭕️    | In Progress |
+| ⏳    | Not Started |
+
+---
+
+_Last Updated: 12/04/2025_
+
