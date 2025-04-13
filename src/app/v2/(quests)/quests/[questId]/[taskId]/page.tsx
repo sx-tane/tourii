@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import type { Quest, QuestTask } from '../../../types';
 import { formatDistanceToNow } from 'date-fns';
 import { logger } from '@/utils/logger';
@@ -15,6 +16,7 @@ interface TaskDetailPageProps {
 
 const TaskDetailPage = ({ params }: TaskDetailPageProps) => {
     const router = useRouter();
+    const { data: session, status } = useSession();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [quest, setQuest] = useState<Quest | null>(null);
     const [loading, setLoading] = useState(true);
@@ -41,7 +43,14 @@ const TaskDetailPage = ({ params }: TaskDetailPageProps) => {
         fetchQuest();
     }, [params.questId]);
 
-    if (loading) {
+    // Redirect to login if not authenticated (except in development)
+    useEffect(() => {
+        if (status === 'unauthenticated' && process.env.NODE_ENV !== 'development') {
+            router.push(`/v2/auth/launch-app?callbackUrl=/v2/quests/${params.questId}/${params.taskId}`);
+        }
+    }, [status, router, params.questId, params.taskId]);
+
+    if (loading || status === 'loading') {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
                 <div className="animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-blue-600" />
@@ -100,6 +109,7 @@ const TaskDetailPage = ({ params }: TaskDetailPageProps) => {
             const updatedQuest = await response.json();
             setQuest(updatedQuest);
             router.refresh();
+            router.push(`/v2/quests/${params.questId}/${params.taskId}/complete`);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Failed to start task';
             logger.error('Error starting task:', errorMessage);
@@ -110,7 +120,7 @@ const TaskDetailPage = ({ params }: TaskDetailPageProps) => {
     };
 
     const handleCompleteTask = () => {
-        router.push(`/v2/quests/${params.questId}/tasks/${params.taskId}/complete`);
+        router.push(`/v2/quests/${params.questId}/${params.taskId}/complete`);
     };
 
     return (
