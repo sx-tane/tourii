@@ -1,8 +1,7 @@
 "use client";
 
-import StoryComponent from "@/components/touriiverse-story/story-page/story-component";
-import StorySelectionButton from "@/components/touriiverse-story/story-page/story-selection/story-selection-button";
-import StorySelectionList from "@/components/touriiverse-story/story-page/story-selection/story-selection-list";
+import StoryComponent from "@/components/story/story-page/story-component";
+import StorySelectionList from "@/components/story/story-page/story-selection/story-selection-list";
 import {
 	storyData,
 	storySelectionData,

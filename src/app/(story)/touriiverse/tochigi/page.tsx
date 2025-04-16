@@ -1,9 +1,9 @@
 "use client";
 
-import ChapterComponent from "@/components/touriiverse-story/chapter-page/chapter-component";
-import ChapterSelectionComponent from "@/components/touriiverse-story/chapter-page/chapter-selection";
-import ChapterSelectionMobileComponent from "@/components/touriiverse-story/chapter-page/chapter-selection-mobile";
-import IntroComponent from "@/components/touriiverse-story/chapter-page/intro-component";
+import ChapterComponent from "@/components/story/chapter-page/chapter-component";
+import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
+import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
+import IntroComponent from "@/components/story/chapter-page/intro-component";
 import {
 	tochigiChapterData,
 	tochigiChapterSelectionData,

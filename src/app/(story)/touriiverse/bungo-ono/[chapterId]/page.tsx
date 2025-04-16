@@ -3,8 +3,8 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/story-video-navigation-button";
-import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
+import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
+import VideoIframe from "@/components/story/common/video-iframe";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import {
 	bungoOnoChapterData,

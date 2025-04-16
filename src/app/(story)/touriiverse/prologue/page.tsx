@@ -1,7 +1,7 @@
 "use client";
 
-import StoryVideoNavigationButtons from "@/components/touriiverse-story/common/story-video-navigation-button";
-import VideoIframe from "@/components/touriiverse-story/common/video-iframe";
+import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
+import VideoIframe from "@/components/story/common/video-iframe";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { Button } from "@headlessui/react";
 import {
@@ -82,7 +82,7 @@ const Prologue: NextPage = () => {
 					returnLink="/touriiverse"
 					isMuted={isMuted}
 					toggleSound={toggleSound}
-					handlePreviousChapter={() => {}}
+					handlePreviousChapter={() => { }}
 					handleNextChapter={handleNextChapter}
 					previousChapterUnlocked={false}
 					nextChapterUnlocked={true}

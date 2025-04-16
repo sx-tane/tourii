@@ -49,16 +49,14 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 					return item.dropdown ? (
 						<div key={item.href} className="relative">
 							<motion.button
-								className={`relative text-xs font-semibold tracking-widest text-${textColor} ${
-									pathname === item.href ? "active" : ""
-								}`}
+								className={`relative text-xs font-semibold tracking-widest text-${textColor} ${pathname === item.href ? "active" : ""
+									}`}
 								onClick={() => toggleDropdown(item.href)}
 							>
 								{item.label}
 								<div
-									className={`upperline ${
-										pathname === item.href ? "active" : ""
-									}`}
+									className={`upperline ${pathname === item.href ? "active" : ""
+										}`}
 								/>
 							</motion.button>
 							<Dropdown
@@ -73,15 +71,13 @@ const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 							<Link
 								href={item.href}
 								passHref
-								className={`relative text-xs font-semibold tracking-widest text-${textColor} ${
-									pathname === item.href ? "active" : ""
-								}`}
+								className={`relative text-xs font-semibold tracking-widest text-${textColor} ${pathname === item.href ? "active" : ""
+									}`}
 							>
 								{item.label}
 								<div
-									className={`upperline ${
-										pathname === item.href ? "active" : ""
-									}`}
+									className={`upperline ${pathname === item.href ? "active" : ""
+										}`}
 								/>
 							</Link>
 						</div>
