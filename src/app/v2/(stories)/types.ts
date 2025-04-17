@@ -1,5 +1,38 @@
+import type { Chapter } from "@/types/story-type";
+
 export type StoryStatus = "draft" | "published" | "archived";
 export type ChapterStatus = "locked" | "unlocked" | "completed";
+
+export interface Story {
+	storyId: string;
+	title: string;
+	backgroundImage: string;
+	description?: string;
+	image?: string;
+	url?: string;
+	chapter?: Chapter | Chapter[];
+	chapterNumber?: number;
+	isPrologue?: boolean;
+	isSelected?: boolean;
+}
+
+export interface StorySelection {
+	title: string;
+	chapterNumber?: number;
+	selectedStoryId: string | undefined;
+	isSelected: boolean;
+	isPrologue: boolean;
+}
+
+export type StorySelectionButtonProps = {
+	selection: StorySelection;
+	onSelect: (selectedStoryId: string) => void;
+};
+
+export interface StorySelectionListProps {
+	selectionData: StorySelection[];
+	onSelect: (selectedStoryId: string) => void;
+}
 
 export interface StoryChapter {
 	id: string;

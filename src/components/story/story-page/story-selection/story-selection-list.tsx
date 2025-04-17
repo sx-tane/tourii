@@ -1,8 +1,8 @@
 import { downToUpVariants } from "@/lib/animation/variants-settings";
-import type { StorySelectionListProps } from "@/types/story-type";
 import { motion } from "framer-motion";
 import type React from "react";
 import StorySelectionButton from "./story-selection-button";
+import type { StorySelectionListProps } from "@/app/v2/(stories)/types";
 
 const StorySelectionList: React.FC<StorySelectionListProps> = ({
 	selectionData,

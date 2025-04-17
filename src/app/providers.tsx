@@ -3,7 +3,7 @@
 import { Provider as ReduxProvider } from 'react-redux';
 import { SessionProvider } from 'next-auth/react';
 import type { ReactNode } from 'react';
-import { store } from '@/lib/store/store';
+import { store } from '@/lib/redux/store';
 
 // Mock session for development
 const mockSession = {
