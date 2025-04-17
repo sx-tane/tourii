@@ -8,7 +8,7 @@ export interface Story {
 	title: string;
 	backgroundImage: string;
 	description?: string;
-	image?: string;
+	mapImage?: string;
 	url?: string;
 	chapter?: Chapter | Chapter[];
 	chapterNumber?: number;

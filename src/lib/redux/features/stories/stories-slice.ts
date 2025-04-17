@@ -4,7 +4,7 @@ import {
 	createSelector,
 } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Story } from "@/app/v2/(stories)/types";
+import type { Story, StorySelection } from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
 
 interface StoriesState {
@@ -84,14 +84,17 @@ export const selectStories = createSelector(
 		selectedStory: storiesState.selectedStory,
 		status: storiesState.status,
 		error: storiesState.error,
-		// Transform stories array into selection data for backwards compatibility
-		selectionData: storiesState.stories.map((story) => ({
-			title: story.title,
-			selectedStoryId: story.storyId,
-			isSelected: story.isSelected,
-			isPrologue: story.isPrologue,
-			chapterNumber: story.chapterNumber,
-		})),
+		// Transform stories array into selection data with required fields
+		selectionData: storiesState.stories.map(
+			(story) =>
+				({
+					title: story.title,
+					selectedStoryId: story.storyId,
+					isSelected: story.isSelected ?? false,
+					isPrologue: story.isPrologue ?? false,
+					chapterNumber: story.chapterNumber,
+				}) satisfies StorySelection,
+		),
 	}),
 );
 
