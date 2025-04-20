@@ -14,11 +14,13 @@ interface PassportCardProps {
   passportType: string;
   characters: string[];
   avatarUrl: string;
+  backgroundColor?: string;
 }
 
 export const PassportCard: React.FC<PassportCardProps> = ({
   characters,
   avatarUrl,
+  backgroundColor = '#AE3111' // default red color
 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -69,8 +71,9 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           }}
         >
           <div
-            className="w-full h-full rounded-[50px] bg-red relative overflow-hidden"
+            className="w-full h-full rounded-[50px] relative overflow-hidden"
             style={{
+              backgroundColor,
               boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
               margin: "4px",
               outline: "1px solid #D4AF37",
@@ -80,9 +83,9 @@ export const PassportCard: React.FC<PassportCardProps> = ({
           >
             {/* Chinese characters on the left */}
             <div className="absolute left-9 top-9 flex flex-col gap-3">
-              {characters.map((char, index) => (
+              {characters.map((char) => (
                 <span
-                  key={index}
+                  key={char}
                   className={`text-mustard text-2xl font-bold ${notoSerifJP.className}`}
                   style={{ writingMode: "vertical-lr" }}
                 >
@@ -109,9 +112,9 @@ export const PassportCard: React.FC<PassportCardProps> = ({
 
             {/* Characters on the bottom right */}
             <div className="absolute bottom-9 right-9 flex flex-col items-end gap-3">
-              {[...characters].reverse().map((char, index) => (
+              {[...characters].reverse().map((char) => (
                 <span
-                  key={index}
+                  key={char}
                   className={`text-mustard text-2xl font-bold ${notoSerifJP.className}`}
                   style={{
                     transform: "rotate(180deg)",
