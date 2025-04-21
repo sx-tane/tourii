@@ -1,19 +1,42 @@
-import type { Chapter } from "@/types/story-type";
+// import type { Chapter } from "@/types/story-type";
 
 export type StoryStatus = "draft" | "published" | "archived";
 export type ChapterStatus = "locked" | "unlocked" | "completed";
 
+export interface BackendStoryChapter {
+	storyId: string;
+	touristSpotId: string;
+	chapterNumber: string;
+	chapterTitle: string;
+	chapterDesc: string;
+	chapterImage: string;
+	characterNameList: string[];
+	realWorldImage: string;
+	chapterVideoUrl: string;
+	chapterVideoMobileUrl: string;
+	chapterPdfUrl: string;
+	isUnlocked: boolean;
+	insUserId: string;
+	insDateTime: string;
+	updUserId: string;
+	updDateTime: string;
+}
+
 export interface Story {
 	storyId: string;
-	title: string;
-	backgroundImage: string;
-	description?: string;
+	sagaName: string;
+	sagaDesc?: string;
+	backgroundMedia: string;
 	mapImage?: string;
-	url?: string;
-	chapter?: Chapter | Chapter[];
-	chapterNumber?: number;
+	location?: string;
+	order?: number;
 	isPrologue?: boolean;
 	isSelected?: boolean;
+	chapterList?: BackendStoryChapter[];
+	insUserId?: string;
+	insDateTime?: string;
+	updUserId?: string;
+	updDateTime?: string;
 }
 
 export interface StorySelection {
@@ -34,6 +57,8 @@ export interface StorySelectionListProps {
 	onSelect: (selectedStoryId: string) => void;
 }
 
+// --- Remove or comment out old StoryChapter and StorySaga types if unused ---
+/* 
 export interface StoryChapter {
 	id: string;
 	sagaId: string;
@@ -95,3 +120,4 @@ export interface StorySaga {
 	createdAt: string;
 	updatedAt: string;
 }
+*/

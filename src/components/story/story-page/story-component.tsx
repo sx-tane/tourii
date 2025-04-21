@@ -2,15 +2,27 @@ import {
 	downToUpVariants,
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
-import type { Story } from "@/types/story-type";
+import type React from "react";
+import type { Story } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
 import StoryButton from "./story-button";
+import Link from "next/link";
 
 const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
-	const isVideo = story?.backgroundImage.endsWith(".mp4");
-	const isNotVideo = story?.backgroundImage.endsWith(".png");
+	// Use the updated field name: backgroundMedia
+	const isVideo = typeof story?.backgroundMedia === 'string' && story.backgroundMedia.endsWith(".mp4");
+	const isNotVideo = typeof story?.backgroundMedia === 'string' && story.backgroundMedia.endsWith(".png");
+
+	// Handle the case where story is undefined
+	if (!story) {
+		// Optionally render a placeholder or null
+		return null;
+	}
+
+	// Determine if we should use the layout with mapImage (assuming mapImage indicates the more detailed layout)
+	// We use backgroundMedia for the actual display
+	const hasDetailedLayout = !!story?.mapImage;
 
 	return (
 		<motion.div
@@ -22,9 +34,9 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 			variants={upToDownVariants}
 			transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
 		>
-			{story?.image ? (
+			{hasDetailedLayout ? (
 				<div>
-					{/* Animated Title (Single Block Animation) */}
+					{/* Layout for stories WITH mapImage/description etc. */}
 					<motion.div
 						className="absolute left-10 top-5 z-30 whitespace-pre-line font-bold uppercase tracking-wider text-warmGrey text-6xl lg:text-9xl"
 						variants={upToDownVariants}
@@ -32,10 +44,9 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						animate="visible"
 						transition={{ delay: 0.2, duration: 0.5 }}
 					>
-						{story?.title}
+						{story?.sagaName}
 					</motion.div>
 
-					{/* Delayed Button Animation */}
 					<motion.div
 						className="absolute bottom-10 left-10 z-30"
 						variants={downToUpVariants}
@@ -46,7 +57,6 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						<StoryButton story={story} />
 					</motion.div>
 
-					{/* Delayed Description & Image Animation */}
 					<motion.div
 						className="absolute right-10 top-5 z-30 w-1/3 hidden md:flex text-sm lg:text-base"
 						variants={upToDownVariants}
@@ -54,7 +64,7 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						animate="visible"
 						transition={{ delay: 0.2, duration: 0.5 }}
 					>
-						{story?.description}
+						{story?.sagaDesc}
 					</motion.div>
 
 					<motion.div
@@ -65,15 +75,15 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 					>
 						<Image
 							className="absolute bottom-5 right-10 z-40 h-[30vh] lg:h-[40vh] xl:h-[45vh] hidden md:flex w-auto object-cover"
-							src={story?.image ?? ""}
-							alt={story?.title ?? ""}
+							src={story?.mapImage ?? ""}
+							alt={story?.sagaName ? `${story.sagaName} Map` : "Map"}
 							width={1000}
 							height={1000}
 							priority
 						/>
 					</motion.div>
 
-					{/* Background Video */}
+					{/* Background Video/Image uses backgroundMedia */}
 					{isVideo && (
 						<video
 							autoPlay
@@ -83,15 +93,14 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 							preload="auto"
 							className="absolute z-20 aspect-video h-full w-full object-cover brightness-50"
 						>
-							<source src={story?.backgroundImage} type="video/mp4" />
+							<source src={story?.backgroundMedia} type="video/mp4" />
 						</video>
 					)}
 
-					{/* Background Image */}
 					{isNotVideo && (
 						<Image
-							src={story?.backgroundImage ?? ""}
-							alt={story?.title ?? ""}
+							src={story?.backgroundMedia ?? ""}
+							alt={story?.sagaName ?? ""}
 							width={1200}
 							height={1200}
 							className="absolute left-0 top-0 z-20 h-full w-full object-cover brightness-50"
@@ -100,9 +109,8 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 					)}
 				</div>
 			) : (
-				// Image background version
+				// Layout for simpler stories (e.g., Prologue, Coming Soon)
 				<div>
-					{/* Animated Title (Single Block Animation) */}
 					<motion.div
 						className="absolute left-10 top-5 z-40 whitespace-pre-line font-bold uppercase tracking-wider text-warmGrey text-5xl lg:text-9xl"
 						variants={upToDownVariants}
@@ -110,11 +118,10 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						animate="visible"
 						transition={{ delay: 0.2, duration: 0.8 }}
 					>
-						{story?.title}
+						{story?.sagaName}
 					</motion.div>
 
-					{/* Button appears only if title is not "Coming Soon" */}
-					{story?.title !== "Coming Soon" && (
+					{story?.sagaName !== "Coming Soon" && (
 						<motion.div
 							className="absolute bottom-10 left-10 z-40"
 							variants={downToUpVariants}
@@ -126,10 +133,10 @@ const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 						</motion.div>
 					)}
 
-					{/* Background Image */}
+					{/* Background Image uses backgroundMedia */}
 					<Image
-						src={story?.backgroundImage ?? ""}
-						alt={story?.title ?? ""}
+						src={story?.backgroundMedia ?? ""}
+						alt={story?.sagaName ?? ""}
 						width={1200}
 						height={1200}
 						className="absolute left-0 top-0 z-20 h-full w-full object-cover brightness-50"

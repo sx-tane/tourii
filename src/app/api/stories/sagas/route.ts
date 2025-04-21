@@ -1,32 +1,62 @@
 import { NextResponse } from "next/server";
-import { storyData } from "@/lib/data/touriiverse/story-data";
+import { env } from "@/env.js"; // Import the validated env object
+
+// Read validated & typed env variables
+const BACKEND_URL = env.BACKEND_URL;
+const API_KEY = env.BACKEND_API_KEY;
+// Use a default if the optional version isn't set
+const API_VERSION = env.BACKEND_API_VERSION || "1.0.0";
 
 export async function GET() {
+	// No need for manual checks here, t3-env handles it
+
 	try {
-		// For now, return mock data directly
-		// Later this will be replaced with actual backend API call
-		return NextResponse.json({
-			stories: storyData,
+		const response = await fetch(`${BACKEND_URL}/stories/sagas`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"x-api-key": API_KEY, // Use validated API_KEY
+				"accept-version": API_VERSION, // Use validated/defaulted API_VERSION
+			},
+			cache: "no-store",
 		});
 
-		// Uncomment this when ready to use real backend
-		// const response = await fetch(`${process.env.BACKEND_URL}/stories/sagas`, {
-		// 	headers: {
-		// 		"Content-Type": "application/json",
-		// 	},
-		// });
+		if (!response.ok) {
+			let errorBody: unknown;
+			try {
+				errorBody = await response.json();
+			} catch (parseError) {
+				try {
+					errorBody = { message: await response.text() };
+				} catch (textError) {
+					errorBody = { message: "Could not read error response body." };
+				}
+			}
 
-		// if (!response.ok) {
-		// 	throw new Error("Failed to fetch sagas");
-		// }
+			console.error(
+				`Error fetching sagas from backend: ${response.status} ${response.statusText}`,
+				errorBody,
+			);
 
-		// const data = await response.json();
-		// return NextResponse.json(data);
+			const errorMessage =
+				typeof errorBody === "object" &&
+				errorBody !== null &&
+				"message" in errorBody &&
+				typeof errorBody.message === "string"
+					? errorBody.message
+					: response.statusText || "Unknown backend error";
+
+			throw new Error(
+				`Failed to fetch sagas from backend (${response.status}): ${errorMessage}`,
+			);
+		}
+
+		const data = await response.json();
+		return NextResponse.json(data);
 	} catch (error) {
-		console.error("Error fetching sagas:", error);
-		return NextResponse.json(
-			{ error: "Failed to fetch sagas" },
-			{ status: 500 },
-		);
+		console.error("API Route Error fetching sagas:", error);
+		const message =
+			error instanceof Error ? error.message : "An unexpected error occurred";
+		return NextResponse.json({ error: message }, { status: 500 });
 	}
 }

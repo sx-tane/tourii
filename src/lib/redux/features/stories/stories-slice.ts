@@ -4,7 +4,11 @@ import {
 	createSelector,
 } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { Story, StorySelection } from "@/app/v2/(stories)/types";
+import type {
+	Story,
+	StorySelection,
+	BackendStoryChapter,
+} from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
 
 interface StoriesState {
@@ -21,15 +25,15 @@ const initialState: StoriesState = {
 	error: null,
 };
 
-export const fetchStories = createAsyncThunk(
+export const fetchStories = createAsyncThunk<Story[]>(
 	"stories/fetchStories",
 	async () => {
 		const response = await fetch("/api/stories/sagas");
 		if (!response.ok) {
-			throw new Error("Failed to fetch stories");
+			throw new Error(`Failed to fetch stories: ${response.statusText}`);
 		}
 		const data = await response.json();
-		return data.stories;
+		return data as Story[];
 	},
 );
 
@@ -38,14 +42,16 @@ const storiesSlice = createSlice({
 	initialState,
 	reducers: {
 		setSelectedStory: (state, action: PayloadAction<string>) => {
-			// Update isSelected flag for all stories
-			state.stories = state.stories.map((story) => ({
-				...story,
-				isSelected: story.storyId === action.payload,
-			}));
-			// Set selected story
-			state.selectedStory =
-				state.stories.find((story) => story.storyId === action.payload) || null;
+			state.stories = Array.isArray(state.stories)
+				? state.stories.map((story) => ({
+						...story,
+						isSelected: story.storyId === action.payload,
+					}))
+				: [];
+			state.selectedStory = Array.isArray(state.stories)
+				? state.stories.find((story) => story.storyId === action.payload) ||
+					null
+				: null;
 		},
 	},
 	extraReducers: (builder) => {
@@ -55,13 +61,16 @@ const storiesSlice = createSlice({
 			})
 			.addCase(
 				fetchStories.fulfilled,
-				(state, action: PayloadAction<Story[]>) => {
+				(state, action: PayloadAction<Story[] | undefined>) => {
 					state.status = "succeeded";
-					state.stories = action.payload;
-					// Find the default selected story or use the second story
+					const storiesPayload = Array.isArray(action.payload)
+						? action.payload
+						: [];
+					state.stories = storiesPayload;
+
 					state.selectedStory =
-						action.payload.find((story) => story.isSelected) ||
-						action.payload[1] ||
+						storiesPayload.find((story) => story.isSelected) ||
+						storiesPayload[1] ||
 						null;
 				},
 			)
@@ -88,11 +97,11 @@ export const selectStories = createSelector(
 		selectionData: storiesState.stories.map(
 			(story) =>
 				({
-					title: story.title,
+					title: story.sagaName,
 					selectedStoryId: story.storyId,
 					isSelected: story.isSelected ?? false,
 					isPrologue: story.isPrologue ?? false,
-					chapterNumber: story.chapterNumber,
+					chapterNumber: story.chapterList?.length,
 				}) satisfies StorySelection,
 		),
 	}),

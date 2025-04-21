@@ -14,7 +14,9 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string(),
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
-    BACKEND_URL: z.string(),
+    BACKEND_URL: z.string().url(),
+    BACKEND_API_KEY: z.string(),
+    BACKEND_API_VERSION: z.string(),
   },
 
   /**
@@ -38,6 +40,8 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     BACKEND_URL: process.env.BACKEND_URL,
+    BACKEND_API_KEY: process.env.BACKEND_API_KEY,
+    BACKEND_API_VERSION: process.env.BACKEND_API_VERSION,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
