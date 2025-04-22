@@ -1,41 +1,23 @@
 import {
 	createSlice,
-	createAsyncThunk,
 	createSelector,
 } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type {
 	Story,
 	StorySelection,
-	BackendStoryChapter,
 } from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
 
 interface StoriesState {
 	stories: Story[];
 	selectedStory: Story | null;
-	status: "idle" | "loading" | "succeeded" | "failed";
-	error: string | null;
 }
 
 const initialState: StoriesState = {
 	stories: [],
 	selectedStory: null,
-	status: "idle",
-	error: null,
 };
-
-export const fetchStories = createAsyncThunk<Story[]>(
-	"stories/fetchStories",
-	async () => {
-		const response = await fetch("/api/stories/sagas");
-		if (!response.ok) {
-			throw new Error(`Failed to fetch stories: ${response.statusText}`);
-		}
-		const data = await response.json();
-		return data as Story[];
-	},
-);
 
 const storiesSlice = createSlice({
 	name: "stories",
@@ -53,37 +35,21 @@ const storiesSlice = createSlice({
 					null
 				: null;
 		},
-	},
-	extraReducers: (builder) => {
-		builder
-			.addCase(fetchStories.pending, (state) => {
-				state.status = "loading";
-			})
-			.addCase(
-				fetchStories.fulfilled,
-				(state, action: PayloadAction<Story[] | undefined>) => {
-					state.status = "succeeded";
-					const storiesPayload = Array.isArray(action.payload)
-						? action.payload
-						: [];
-					state.stories = storiesPayload;
+		setStories: (state, action: PayloadAction<Story[]>) => {
+			state.stories = action.payload;
+			const currentSelectedId = state.selectedStory?.storyId;
+			state.selectedStory = state.stories.find(s => s.storyId === currentSelectedId) || state.stories[1] || null;
 
-					state.selectedStory =
-						storiesPayload.find((story) => story.isSelected) ||
-						storiesPayload[1] ||
-						null;
-				},
-			)
-			.addCase(fetchStories.rejected, (state, action) => {
-				state.status = "failed";
-				state.error = action.error.message || "Failed to fetch stories";
-			});
+			state.stories = state.stories.map(story => ({
+				...story,
+				isSelected: story.storyId === state.selectedStory?.storyId
+			}));
+		},
 	},
 });
 
-export const { setSelectedStory } = storiesSlice.actions;
+export const { setSelectedStory, setStories } = storiesSlice.actions;
 
-// Selectors
 const selectStoriesState = (state: RootState) => state.stories;
 
 export const selectStories = createSelector(
@@ -91,10 +57,7 @@ export const selectStories = createSelector(
 	(storiesState) => ({
 		stories: storiesState.stories,
 		selectedStory: storiesState.selectedStory,
-		status: storiesState.status,
-		error: storiesState.error,
-		// Transform stories array into selection data with required fields
-		selectionData: storiesState.stories.map(
+		selectionData: Array.isArray(storiesState.stories) ? storiesState.stories.map(
 			(story) =>
 				({
 					title: story.sagaName,
@@ -103,7 +66,7 @@ export const selectStories = createSelector(
 					isPrologue: story.isPrologue ?? false,
 					chapterNumber: story.chapterList?.length,
 				}) satisfies StorySelection,
-		),
+		) : [],
 	}),
 );
 

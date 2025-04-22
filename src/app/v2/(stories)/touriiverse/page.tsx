@@ -3,35 +3,86 @@
 import StoryComponent from "@/components/story/story-page/story-component";
 import StorySelectionList from "@/components/story/story-page/story-selection/story-selection-list";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import { fetchStories, setSelectedStory, selectStories } from "@/lib/redux/features/stories/stories-slice";
+import {
+	setStories,
+	setSelectedStory,
+	selectStories,
+} from "@/lib/redux/features/stories/stories-slice";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
+import { useSagas } from "@/hooks/stories/useSagas";
+import TouriiError from "@/app/error";
+import { ApiError } from "@/lib/errors";
+import { logger } from "@/utils/logger";
 
 const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
-	const { selectedStory, selectionData, status, error } = useAppSelector(selectStories);
+	const { selectedStory, selectionData } = useAppSelector(selectStories);
+
+	const { sagas, isLoading, isError: error, mutateSagas } = useSagas();
 
 	useEffect(() => {
-		if (status === 'idle') {
-			dispatch(fetchStories());
+		if (sagas) {
+			dispatch(setStories(sagas));
 		}
-	}, [status, dispatch]);
+	}, [sagas, dispatch]);
 
 	const handleSelectStory = (selectedStoryId: string) => {
 		dispatch(setSelectedStory(selectedStoryId));
 	};
 
-	if (status === 'loading') {
+	if (isLoading) {
 		return <Loading />;
 	}
 
-	if (status === 'failed') {
-		return <div>Error: {error}</div>;
+	if (error) {
+		let errorMessage = "An unexpected error occurred while loading stories.";
+		let errorStatus: number | undefined = undefined;
+
+		if (error instanceof ApiError) {
+			errorMessage = error.message;
+			errorStatus = error.status;
+			logger.error("API Error loading sagas:", {
+				status: error.status,
+				message: error.message,
+				context: error.context,
+			});
+		} else if (error instanceof Error) {
+			errorMessage = error.message;
+			logger.error("Generic Error loading sagas:", {
+				message: error.message,
+				stack: error.stack,
+			});
+		} else {
+			logger.error("Unknown Error loading sagas:", { error });
+		}
+
+		return (
+			<TouriiError
+				errorMessage={errorMessage}
+				status={errorStatus}
+				onRetry={mutateSagas}
+			/>
+		);
+	}
+
+	if (!isLoading && sagas && sagas.length === 0) {
+		return (
+			<TouriiError
+				errorMessage="No stories are currently available."
+				isEmpty={true}
+			/>
+		);
+	}
+
+	if (!selectedStory && !isLoading && sagas && sagas.length > 0) {
+		return <Loading />;
 	}
 
 	if (!selectedStory) {
-		return null;
+		logger.warn("Touriiverse rendered without a selected story.");
+		return <div>Please select a story.</div>;
 	}
 
 	return (
