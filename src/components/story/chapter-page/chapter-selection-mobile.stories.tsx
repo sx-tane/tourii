@@ -3,7 +3,7 @@ import ChapterSelectionMobile from './chapter-selection-mobile';
 
 // Define the new item type expected by the component
 interface ChapterSelectionItem {
-    touristSpotId: string;
+    storyChapterId: string;
     isSelected: boolean;
     chapterNumber: string;
     chapterTitle: string;
@@ -33,19 +33,19 @@ type Story = StoryObj<typeof ChapterSelectionMobile>;
 // Update mock data to use ChapterSelectionItem structure
 const mockSelections: ChapterSelectionItem[] = [
     {
-        touristSpotId: "ch1", // Was selectedChapterId
+        storyChapterId: "ch1", // Was selectedChapterId
         chapterNumber: "Chapter 1", // Was chapter
         chapterTitle: "Kyoto Temple", // Was placeName
         isSelected: true
     },
     {
-        touristSpotId: "ch2",
+        storyChapterId: "ch2",
         chapterNumber: "Chapter 2",
         chapterTitle: "Zen Garden",
         isSelected: false
     },
     {
-        touristSpotId: "ch3",
+        storyChapterId: "ch3",
         chapterNumber: "Chapter 3",
         chapterTitle: "Ancient Shrine",
         isSelected: false
