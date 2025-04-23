@@ -1,16 +1,30 @@
 "use client";
 
 import { upToDownVariants } from "@/lib/animation/variants-settings";
-import type { Chapter } from "@/types/story-type";
+import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Markdown from "react-markdown";
 import ChapterButton from "./chapter-button";
 
-const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
+interface ChapterComponentProps {
+	chapter?: BackendStoryChapter;
+	sagaName?: string;
+	areaLink: string;
+}
+
+const ChapterComponent: React.FC<ChapterComponentProps> = ({
 	chapter,
+	sagaName,
 	areaLink,
 }) => {
+	const chapterImage = chapter?.chapterImage ?? "";
+	const chapterTitle = chapter?.chapterTitle ?? "";
+	const chapterDesc = chapter?.chapterDesc ?? "";
+	const chapterNumber = chapter?.chapterNumber ?? "";
+	const storyChapterId = chapter?.storyChapterId ?? "";
+	const isUnlocked = chapter?.isUnlocked ?? false;
+
 	return (
 		<motion.div
 			className="relative md:h-[70vh] w-auto rounded-xl md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl md:rounded-tl-xl bg-warmGrey p-8 text-charcoal"
@@ -34,7 +48,7 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				variants={upToDownVariants}
 				transition={{ duration: 0.5, delay: 0.1 }}
 			>
-				{chapter?.area}
+				{sagaName ?? "Chapter Area"}
 			</motion.div>
 			<motion.div
 				className="mt-1 mb-10 md:mt-0 text-3xl md:text-lg font-bold md:font-semibold text-center md:text-left uppercase tracking-widest"
@@ -43,7 +57,7 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				variants={upToDownVariants}
 				transition={{ duration: 0.5, delay: 0.1 }}
 			>
-				{chapter?.chapterNumber}
+				{chapterNumber}
 			</motion.div>
 			<motion.div
 				className="mt-1 mb-10 md:mt-0 text-3xl md:text-lg font-bold md:font-semibold text-center md:text-left uppercase tracking-widest"
@@ -53,8 +67,8 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				transition={{ duration: 0.5, delay: 0.2 }}
 			>
 				<Image
-					src={chapter?.image ?? ""}
-					alt={chapter?.title ?? ""}
+					src={chapterImage}
+					alt={chapterTitle}
 					width={550}
 					height={550}
 					priority
@@ -69,12 +83,12 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				transition={{ duration: 0.5, delay: 0.3 }}
 			>
 				<div className="mb-5 text-sm font-bold uppercase tracking-widest md:text-2xl">
-					{chapter?.title}
+					{chapterTitle}
 				</div>
 				<Markdown className="text-justify text-sm md:w-10/12 md:text-base leading-relaxed max-h-[30vh] md:max-h-full overflow-y-auto md:overflow-y-visible">
-					{(chapter?.content.length ?? 0 > 400)
-						? `${chapter?.content?.substring(0, 400)}...`
-						: chapter?.content}
+					{chapterDesc.length > 400
+						? `${chapterDesc.substring(0, 400)}...`
+						: chapterDesc}
 				</Markdown>
 			</motion.div>
 			<motion.div
@@ -85,8 +99,8 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				transition={{ duration: 0.5, delay: 0.4 }}
 			>
 				<Image
-					src={chapter?.image ?? ""}
-					alt={chapter?.title ?? ""}
+					src={chapterImage}
+					alt={chapterTitle}
 					width={550}
 					height={550}
 					priority
@@ -94,9 +108,9 @@ const ChapterComponent: React.FC<{ chapter?: Chapter; areaLink: string }> = ({
 				/>
 				<ChapterButton
 					areaLink={areaLink}
-					vnUnlocked={chapter?.storyUnlocked}
-					chapterId={chapter?.chapterId}
-					chapterNumber={chapter?.chapterNumber}
+					vnUnlocked={isUnlocked}
+					chapterId={storyChapterId}
+					chapterNumber={chapterNumber}
 				/>
 			</motion.div>
 		</motion.div>

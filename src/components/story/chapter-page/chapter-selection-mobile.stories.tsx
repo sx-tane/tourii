@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ChapterSelectionMobile from './chapter-selection-mobile';
-import type { ChapterSelection as ChapterSelectionType } from "@/types/story-type";
+
+// Define the new item type expected by the component
+interface ChapterSelectionItem {
+    touristSpotId: string;
+    isSelected: boolean;
+    chapterNumber: string;
+    chapterTitle: string;
+}
 
 const meta = {
     title: 'Story/Chapter/MobileSelection',
@@ -23,17 +30,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof ChapterSelectionMobile>;
 
-const mockSelections: ChapterSelectionType[] = [
-    { selectedChapterId: "ch1", chapter: "Chapter 1", placeName: "Kyoto Temple", isSelected: true },
-    { selectedChapterId: "ch2", chapter: "Chapter 2", placeName: "Zen Garden", isSelected: false },
-    { selectedChapterId: "ch3", chapter: "Chapter 3", placeName: "Ancient Shrine", isSelected: false },
+// Update mock data to use ChapterSelectionItem structure
+const mockSelections: ChapterSelectionItem[] = [
+    {
+        touristSpotId: "ch1", // Was selectedChapterId
+        chapterNumber: "Chapter 1", // Was chapter
+        chapterTitle: "Kyoto Temple", // Was placeName
+        isSelected: true
+    },
+    {
+        touristSpotId: "ch2",
+        chapterNumber: "Chapter 2",
+        chapterTitle: "Zen Garden",
+        isSelected: false
+    },
+    {
+        touristSpotId: "ch3",
+        chapterNumber: "Chapter 3",
+        chapterTitle: "Ancient Shrine",
+        isSelected: false
+    },
 ];
 
 export const Default: Story = {
     args: {
         selectionData: mockSelections,
         handleSelectChapter: (id: string) => console.log('Selected:', id),
-        selectedButtonRef: { current: null },
         currentIndex: 0,
         setCurrentIndex: (index: number) => console.log('New index:', index),
     },
@@ -43,7 +65,6 @@ export const LastChapter: Story = {
     args: {
         selectionData: mockSelections,
         handleSelectChapter: (id: string) => console.log('Selected:', id),
-        selectedButtonRef: { current: null },
         currentIndex: 2,
         setCurrentIndex: (index: number) => console.log('New index:', index),
     },

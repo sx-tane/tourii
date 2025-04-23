@@ -23,13 +23,12 @@ const TouriiError: React.FC<TouriiErrorProps> = ({
 	const title = isEmpty ? "No Content" : status ? `${status} ERROR` : "Error";
 	// Use a different image or style for empty state?
 	const imageSrc = isEmpty
-		? "/image/other/empty-box.png"
+		? "/image/other/mirror.png"
 		: "/image/other/mirror.png"; // Example: use different image
 	const imageAlt = isEmpty ? "Empty" : "Error Mirror";
 
 	return (
 		<div className="max-h-screen animate-fadeIn overflow-hidden px-6">
-			<Header theme={"white"} />
 			<div
 				className="mx-4 flex flex-col items-center justify-center text-center xl:mx-96"
 				style={{ height: "calc(100vh - 77px)" }}

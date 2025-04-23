@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import IntroComponent from './intro-component';
+import type { BackendStoryChapter } from '@/app/v2/(stories)/types';
 
 const meta = {
     title: 'Story/Chapter/Intro',
@@ -27,21 +28,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof IntroComponent>;
 
-const mockChapter = {
-    chapterId: "chapter-1",
-    chapterNumber: "Chapter 1",
-    title: "The Beginning",
-    content: "In the heart of ancient Japan, where legends whisper through cherry blossoms and shadows dance in moonlit temples, our story begins. A tale of courage, mystery, and the eternal dance between light and darkness unfolds...",
-    area: "Kyoto",
-    image: "/image/touriiverse/bungo-ono/chapter1.png",
-    realImage: "/image/touriiverse/bungo-ono/chapter1.png",
-    storyUnlocked: true,
-    part: 1
+const mockChapter: BackendStoryChapter = {
+    storyChapterId: "kyoto-intro-chapter",
+    storyId: "STO-Kyoto-Intro-456",
+    touristSpotId: "kyoto-intro-chapter",
+    chapterNumber: "Introduction",
+    chapterTitle: "Welcome to Kyoto",
+    chapterDesc: "In the heart of ancient Japan, where legends whisper through cherry blossoms and shadows dance in moonlit temples, our story begins. A tale of courage, mystery, and the eternal dance between light and darkness unfolds...",
+    chapterImage: "/image/touriiverse/bungo-ono/chapter1.png",
+    characterNameList: [],
+    realWorldImage: "/image/touriiverse/bungo-ono/chapter1.png",
+    chapterVideoUrl: "",
+    chapterVideoMobileUrl: "",
+    chapterPdfUrl: "",
+    isUnlocked: true,
+    insUserId: "storybook",
+    insDateTime: "2024-01-01 09:00",
+    updUserId: "storybook",
+    updDateTime: "2024-01-01 09:00",
 };
 
 export const Default: Story = {
     args: {
         chapter: mockChapter,
+        sagaName: "Kyoto Saga",
     },
 };
 
@@ -49,23 +59,9 @@ export const WithMarkdown: Story = {
     args: {
         chapter: {
             ...mockChapter,
-            content: `# Welcome to Kyoto
-
-Discover the ancient secrets of Japan's cultural heart. This chapter will take you through temples, gardens, and mysteries that have endured for centuries.
-
-## What to Expect
-
-- Visit ancient temples hidden in misty mountains
-- Experience traditional tea ceremonies with local masters
-- Uncover the secrets of the old capital
-- Meet mysterious characters who guard ancient wisdom
-
-Through winding alleyways and sacred grounds, each step reveals a new chapter in this timeless tale.
-
-## Your Journey Begins
-
-Are you ready to step into the heart of Japan's most enigmatic city?`,
+            chapterDesc: `# Welcome to Kyoto\n\nDiscover the ancient secrets of Japan's cultural heart. This chapter will take you through temples, gardens, and mysteries that have endured for centuries.\n\n## What to Expect\n\n- Visit ancient temples hidden in misty mountains\n- Experience traditional tea ceremonies with local masters\n- Uncover the secrets of the old capital\n- Meet mysterious characters who guard ancient wisdom\n\nThrough winding alleyways and sacred grounds, each step reveals a new chapter in this timeless tale.\n\n## Your Journey Begins\n\nAre you ready to step into the heart of Japan's most enigmatic city?`,
         },
+        sagaName: "Kyoto Saga",
     },
 };
 
@@ -73,7 +69,8 @@ export const WithVideo: Story = {
     args: {
         chapter: {
             ...mockChapter,
-            image: "/video/sample.mp4",
+            chapterImage: "/video/sample.mp4",
         },
+        sagaName: "Kyoto Saga",
     },
 }; 

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CharacterList from './character-list';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import characterReducer from '@/lib/store/slices/character-slice';
 import { characters } from '@/lib/data/character/character-data';
+import characterReducer from '@/lib/redux/features/character/character-slice';
 
 // Create a mock store with initial state
 const mockStore = configureStore({

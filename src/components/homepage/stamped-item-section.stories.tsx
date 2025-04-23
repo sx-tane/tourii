@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StampedItemSection } from './stamped-item-section';
 import { Provider } from 'react-redux';
-import { store } from '@/lib/store/store';
-import { setChapterDetails } from '@/lib/store/slices/chapter-slice';
+import { store } from '@/lib/redux/store';
+import { setChapterDetails } from '@/lib/redux/features/chapter/chapter-slice';
 
 // Initialize the store with some data
 store.dispatch(setChapterDetails({
