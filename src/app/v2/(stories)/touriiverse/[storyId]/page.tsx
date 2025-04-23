@@ -8,7 +8,6 @@ import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { useParams } from "next/navigation";
-import { logger } from "@/utils/logger";
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";

@@ -22,8 +22,6 @@ const ChapterComponent: React.FC<ChapterComponentProps> = ({
 	const chapterTitle = chapter?.chapterTitle ?? "";
 	const chapterDesc = chapter?.chapterDesc ?? "";
 	const chapterNumber = chapter?.chapterNumber ?? "";
-	const storyChapterId = chapter?.storyChapterId ?? "";
-	const isUnlocked = chapter?.isUnlocked ?? false;
 
 	return (
 		<motion.div
@@ -108,9 +106,7 @@ const ChapterComponent: React.FC<ChapterComponentProps> = ({
 				/>
 				<ChapterButton
 					areaLink={areaLink}
-					vnUnlocked={isUnlocked}
-					chapterId={storyChapterId}
-					chapterNumber={chapterNumber}
+					chapter={chapter}
 				/>
 			</motion.div>
 		</motion.div>
