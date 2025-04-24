@@ -12,17 +12,17 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ## 🧭 API Domain Overview
 
-| Domain             | Endpoint Prefix                | Notes                             |
-|-------------------|----------------------------------|------------------------------------|
-| Auth & Profile    | `/auth/*`                      | OAuth + Wallet login               |
-| User & Passport   | `/users/*`, `/passport/*`      | Profile + NFT minting & metadata  |
-| Stories           | `/stories/*`                   | Saga, Chapter, Lore                |
-| Routes & Spots    | `/routes/*`, `/spots/*`        | Model route & linked locations     |
-| Quests            | `/quests/*`, `/tasks/*`        | Parent quest, task submission      |
-| Memory Wall       | `/memories/*`                  | Memory wall logs only              |
-| Rewards & Perks   | `/perks/*`                     | NFT-based perks + shop logic       |
-| Check-in Map      | `/checkin/*`                   | GPS + QR logic                     |
-| Admin             | `/admin/*`                     | CRUD: quests, routes, stories      |
+| Domain          | Endpoint Prefix           | Notes                            |
+| --------------- | ------------------------- | -------------------------------- |
+| Auth & Profile  | `/auth/*`                 | OAuth + Wallet login             |
+| User & Passport | `/users/*`, `/passport/*` | Profile + NFT minting & metadata |
+| Stories         | `/stories/*`              | Saga, Chapter, Lore              |
+| Routes & Spots  | `/routes/*`, `/spots/*`   | Model route & linked locations   |
+| Quests          | `/quests/*`, `/tasks/*`   | Parent quest, task submission    |
+| Memory Wall     | `/memories/*`             | Memory wall logs only            |
+| Rewards & Perks | `/perks/*`                | NFT-based perks + shop logic     |
+| Check-in Map    | `/checkin/*`              | GPS + QR logic                   |
+| Admin           | `/admin/*`                | CRUD: quests, routes, stories    |
 
 ---
 
@@ -106,7 +106,7 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ### `/stories/[sagaId]/[chapterId]`
 
-- `GET /stories/sagas/{id}`
+- `GET /stories/sagas`
 - `GET /stories/chapters/{id}`
 - `POST /stories/chapters/{id}/progress`
 
