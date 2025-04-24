@@ -4,8 +4,8 @@ import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import type { QuestType, QuestDifficulty, Quest } from '../types';
-import { Spinner } from '../../components/Spinner';
 import { logger } from '../../../../utils/logger';
+import Loading from '@/app/loading';
 
 interface FilterState {
     type: QuestType | 'all';
@@ -69,7 +69,7 @@ const QuestsPage = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <Spinner />
+                <Loading />
             </div>
         );
     }

@@ -105,7 +105,7 @@ const ChapterComponent: React.FC<ChapterComponentProps> = ({
 					className="hidden md:flex h-[45vh] w-full animate-fadeIn rounded-t-full rounded-b-full object-cover"
 				/>
 				<ChapterButton
-					areaLink={areaLink}
+					storyId={chapter?.storyId ?? ""}
 					chapter={chapter}
 				/>
 			</motion.div>

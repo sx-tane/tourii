@@ -4,7 +4,6 @@ import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { logger } from '../../../../utils/logger';
-import { Spinner } from '../../components/Spinner';
 
 // Mock account for development
 const mockAccount = {
