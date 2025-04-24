@@ -2,7 +2,6 @@ name: 💻 Frontend Task
 description: Track UI/UX feature or bug for Tourii frontend
 title: "[FE] <Short title here>"
 labels: ["frontend", "type: task"]
-assignees: []
 
 body:
   - type: dropdown
