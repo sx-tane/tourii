@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
-import { PassportCard } from "./passport-card";
 import { SectionTitle } from "@/components/common/section-title";
 import type { RootState } from "@/lib/redux/store";
+import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { PassportCard } from "./passport-card";
 export const DigitalPassportSection: React.FC = () => {
 	const passport = useSelector((state: RootState) => state.passport);
 

@@ -82,7 +82,7 @@ const Prologue: NextPage = () => {
 					returnLink="/touriiverse"
 					isMuted={isMuted}
 					toggleSound={toggleSound}
-					handlePreviousChapter={() => { }}
+					handlePreviousChapter={() => {}}
 					handleNextChapter={handleNextChapter}
 					previousChapterUnlocked={false}
 					nextChapterUnlocked={true}

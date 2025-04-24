@@ -1,16 +1,16 @@
+import { downToUpVariants } from "@/lib/animation/variants-settings";
+import type { StoryVideoNavigationButtonsProps } from "@/types/story-type";
 import { Button } from "@headlessui/react";
 import {
-	ArrowUturnLeftIcon,
-	SpeakerXMarkIcon,
-	SpeakerWaveIcon,
-	ArrowRightIcon,
 	ArrowLeftIcon,
+	ArrowRightIcon,
+	ArrowUturnLeftIcon,
+	SpeakerWaveIcon,
+	SpeakerXMarkIcon,
 } from "@heroicons/react/20/solid";
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import type React from "react";
-import type { StoryVideoNavigationButtonsProps } from "@/types/story-type";
-import { downToUpVariants } from "@/lib/animation/variants-settings";
 
 const StoryVideoNavigationButtons: React.FC<
 	StoryVideoNavigationButtonsProps

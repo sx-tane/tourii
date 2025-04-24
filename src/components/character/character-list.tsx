@@ -1,12 +1,12 @@
 "use client";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
+import { setSelectedCharacter } from "@/lib/redux/features/character/character-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import type { CharacterProps } from "@/types/character-type";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import CharacterCard from "./character-card/character-card";
 import CharacterModal from "./character-card/character-modal/character-modal";
-import { setSelectedCharacter } from "@/lib/redux/features/character/character-slice";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 
 const CharacterList: React.FC = () => {
 	const dispatch = useAppDispatch();

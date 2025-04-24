@@ -8,9 +8,7 @@
 	"files": {
 		"ignoreUnknown": false,
 		"ignore": [],
-		"include": [
-			"**/*.tsx"
-		],
+		"include": ["**/*.tsx"],
 		"maxSize": 5000000
 	},
 	"formatter": {

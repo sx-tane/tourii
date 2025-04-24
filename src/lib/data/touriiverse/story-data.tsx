@@ -1,7 +1,6 @@
 import type { Story } from "@/app/v2/(stories)/types";
 import createIdGenerator from "@/utils/id-utils";
 
-
 const storyIdGenerator = new createIdGenerator(0, 0, 0, 0, 0, 0, 0);
 
 export const storyData: Story[] = [

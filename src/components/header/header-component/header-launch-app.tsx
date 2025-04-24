@@ -1,10 +1,10 @@
 "use client";
 
+import type { HeaderProps } from "@/types/header-type";
 import Image from "next/image";
 import Link from "next/link";
-import HeaderList from "./header-list";
 import Hamburger from "./hamburger";
-import type { HeaderProps } from "@/types/header-type";
+import HeaderList from "./header-list";
 
 const HeaderApp: React.FC<HeaderProps> = ({ theme }) => {
 	const isBlackTheme = theme === "black";
@@ -25,7 +25,10 @@ const HeaderApp: React.FC<HeaderProps> = ({ theme }) => {
 				</div>
 				<div className="flex items-center gap-4">
 					<div className="hidden lg:flex mr-2">
-						<HeaderList theme={theme} textColor={isBlackTheme ? "warmGrey3" : "charcoal"} />
+						<HeaderList
+							theme={theme}
+							textColor={isBlackTheme ? "warmGrey3" : "charcoal"}
+						/>
 					</div>
 					<Link
 						className="border-[1px] text-warmGrey text-center text-xs border-red tracking-[3px] rounded-full px-4 py-2 hover:bg-black hover:border-black bg-red hover:text-warmGrey transition duration-300 ease-in-out"

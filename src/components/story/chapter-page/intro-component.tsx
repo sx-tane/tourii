@@ -1,18 +1,21 @@
+import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import {
 	downToUpVariants,
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
-import Markdown from "react-markdown";
 import Image from "next/image";
+import Markdown from "react-markdown";
 
 interface IntroComponentProps {
 	chapter: BackendStoryChapter;
 	sagaName?: string;
 }
 
-const IntroComponent: React.FC<IntroComponentProps> = ({ chapter, sagaName }) => {
+const IntroComponent: React.FC<IntroComponentProps> = ({
+	chapter,
+	sagaName,
+}) => {
 	const isVideo = chapter.chapterImage.endsWith(".mp4");
 	const isNotVideo = chapter.chapterImage.endsWith(".png");
 

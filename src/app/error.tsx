@@ -1,9 +1,9 @@
 "use client";
 
 import Header from "@/components/header/header-component/header";
+import { Button } from "@/lib/ui/button";
 import Image from "next/image";
 import type React from "react";
-import { Button } from "@/lib/ui/button";
 
 // Define props for the error component
 interface TouriiErrorProps {

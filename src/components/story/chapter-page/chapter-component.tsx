@@ -1,7 +1,7 @@
 "use client";
 
-import { upToDownVariants } from "@/lib/animation/variants-settings";
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
+import { upToDownVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Markdown from "react-markdown";
@@ -104,10 +104,7 @@ const ChapterComponent: React.FC<ChapterComponentProps> = ({
 					priority
 					className="hidden md:flex h-[45vh] w-full animate-fadeIn rounded-t-full rounded-b-full object-cover"
 				/>
-				<ChapterButton
-					storyId={chapter?.storyId ?? ""}
-					chapter={chapter}
-				/>
+				<ChapterButton storyId={chapter?.storyId ?? ""} chapter={chapter} />
 			</motion.div>
 		</motion.div>
 	);

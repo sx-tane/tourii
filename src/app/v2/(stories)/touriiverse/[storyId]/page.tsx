@@ -1,28 +1,35 @@
 "use client";
 
+import TouriiError from "@/app/error";
+import Loading from "@/app/loading";
+import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import ChapterComponent from "@/components/story/chapter-page/chapter-component";
 import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
 import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
 import IntroComponent from "@/components/story/chapter-page/intro-component";
+import { useSagaById } from "@/hooks/stories/useSagaById";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
-import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import { useParams } from "next/navigation";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
-import TouriiError from "@/app/error";
-import Loading from "@/app/loading";
-import { useSagaById } from "@/hooks/stories/useSagaById";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const SagaChapterPage: NextPage = () => {
 	const params = useParams();
-	const storyId = Array.isArray(params.storyId) ? params.storyId[0] : params.storyId;
+	const storyId = Array.isArray(params.storyId)
+		? params.storyId[0]
+		: params.storyId;
 
 	// Use the original hook signature, expecting combined saga object
 	const { storyChapter, isLoadingSaga, isErrorSaga, mutateSaga } =
 		useSagaById(storyId);
 
 	// Log hook output directly
-	console.log("[SagaChapterPage] Hook Output:", { storyId, storyChapter, isLoadingSaga, isErrorSaga });
+	console.log("[SagaChapterPage] Hook Output:", {
+		storyId,
+		storyChapter,
+		isLoadingSaga,
+		isErrorSaga,
+	});
 
 	const [currentChapter, setCurrentChapter] =
 		useState<BackendStoryChapter | null>(null);
@@ -34,11 +41,15 @@ const SagaChapterPage: NextPage = () => {
 		if (storyChapter && storyChapter.length > 0) {
 			// Use saga.chapterList
 			const chapters = storyChapter;
-			console.log(`[SagaChapterPage] Init Effect: Found ${chapters.length} chapters for storyId: ${storyId}`);
+			console.log(
+				`[SagaChapterPage] Init Effect: Found ${chapters.length} chapters for storyId: ${storyId}`,
+			);
 
 			// Redundant check kept for clarity
 			if (chapters.length === 0) {
-				console.warn(`[SagaChapterPage] Init Effect: Chapter list is empty for storyId: ${storyId}`);
+				console.warn(
+					`[SagaChapterPage] Init Effect: Chapter list is empty for storyId: ${storyId}`,
+				);
 				setCurrentChapter(null);
 				setCurrentIndex(0);
 				return;
@@ -54,9 +65,13 @@ const SagaChapterPage: NextPage = () => {
 						(c: BackendStoryChapter) => c.storyChapterId === savedChapterId,
 					);
 					if (initialChapter) {
-						console.log(`[SagaChapterPage] Init Effect: Found saved chapter ID "${savedChapterId}"`);
+						console.log(
+							`[SagaChapterPage] Init Effect: Found saved chapter ID "${savedChapterId}"`,
+						);
 					} else {
-						console.warn(`[SagaChapterPage] Init Effect: Saved chapter ID "${savedChapterId}" not found in current chapters. Removing.`);
+						console.warn(
+							`[SagaChapterPage] Init Effect: Saved chapter ID "${savedChapterId}" not found in current chapters. Removing.`,
+						);
 						localStorage.removeItem(savedChapterIdKey);
 					}
 				}
@@ -64,77 +79,103 @@ const SagaChapterPage: NextPage = () => {
 
 			if (!initialChapter) {
 				initialChapter = chapters[0];
-				console.log(`[SagaChapterPage] Init Effect: Defaulting to first chapter: ${initialChapter?.storyChapterId}`);
+				console.log(
+					`[SagaChapterPage] Init Effect: Defaulting to first chapter: ${initialChapter?.storyChapterId}`,
+				);
 			}
 
 			if (initialChapter) {
 				setCurrentChapter(initialChapter);
 				const initialIndex = chapters.findIndex(
-					(c: BackendStoryChapter) => c.storyChapterId === initialChapter?.storyChapterId,
+					(c: BackendStoryChapter) =>
+						c.storyChapterId === initialChapter?.storyChapterId,
 				);
 				setCurrentIndex(initialIndex >= 0 ? initialIndex : 0);
 				if (typeof window !== "undefined") {
-					localStorage.setItem(savedChapterIdKey, initialChapter.storyChapterId);
+					localStorage.setItem(
+						savedChapterIdKey,
+						initialChapter.storyChapterId,
+					);
 				}
-				console.log(`[SagaChapterPage] Init Effect: Set current chapter to ${initialChapter.storyChapterId}, index ${initialIndex >= 0 ? initialIndex : 0}`);
+				console.log(
+					`[SagaChapterPage] Init Effect: Set current chapter to ${initialChapter.storyChapterId}, index ${initialIndex >= 0 ? initialIndex : 0}`,
+				);
 			} else {
-				console.error(`[SagaChapterPage] Init Effect: Could not determine initial chapter for storyId: ${storyId} despite chapters existing.`);
+				console.error(
+					`[SagaChapterPage] Init Effect: Could not determine initial chapter for storyId: ${storyId} despite chapters existing.`,
+				);
 				setCurrentChapter(null);
 				setCurrentIndex(0);
 			}
 		} else if (storyChapter && (!storyChapter || storyChapter.length === 0)) {
-			console.warn(`[SagaChapterPage] Init Effect: Saga data found for ${storyId}, but chapterList is missing or empty. Saga:`, storyChapter);
+			console.warn(
+				`[SagaChapterPage] Init Effect: Saga data found for ${storyId}, but chapterList is missing or empty. Saga:`,
+				storyChapter,
+			);
 			setCurrentChapter(null);
 			setCurrentIndex(0);
 		} else {
-			console.log(`[SagaChapterPage] Init Effect: Waiting for saga data or saga is null/undefined for storyId: ${storyId}`);
+			console.log(
+				`[SagaChapterPage] Init Effect: Waiting for saga data or saga is null/undefined for storyId: ${storyId}`,
+			);
 		}
 	}, [storyChapter, storyId]); // Depend on saga object
 
-	const handleSelectChapter = useCallback((selectedChapterId: string) => {
-		// Use saga.chapterList
-		const chapters = storyChapter ?? [];
-		const chapter = chapters.find(
-			(c: BackendStoryChapter) => c.storyChapterId === selectedChapterId,
-		);
-
-		if (chapter) {
-			setCurrentChapter(chapter);
-			const savedChapterIdKey = `selectedChapterId_${storyId}`;
-			if (typeof window !== "undefined") {
-				localStorage.setItem(savedChapterIdKey, selectedChapterId);
-			}
-			const newIndex = chapters.findIndex(
+	const handleSelectChapter = useCallback(
+		(selectedChapterId: string) => {
+			// Use saga.chapterList
+			const chapters = storyChapter ?? [];
+			const chapter = chapters.find(
 				(c: BackendStoryChapter) => c.storyChapterId === selectedChapterId,
 			);
-			setCurrentIndex(newIndex >= 0 ? newIndex : 0);
-		} else {
-			console.warn(`handleSelectChapter: Chapter not found for ID ${selectedChapterId} in story ${storyId}`);
-		}
-	}, [storyChapter, storyId]); // Depend on saga
 
-	const handleSwipe = useCallback((direction: "left" | "right") => {
-		// Use saga.chapterList
-		const chapters = storyChapter ?? [];
-		if (!currentChapter || chapters.length === 0) return;
-		const currentIdx = chapters.findIndex(
-			(chapter: BackendStoryChapter) => chapter.storyChapterId === currentChapter.storyChapterId,
-		);
-		if (currentIdx === -1) {
-			console.error(`handleSwipe: Current chapter not found in list for story ${storyId}`);
-			return;
-		}
-		let newIndex: number;
-		if (direction === "left") {
-			newIndex = (currentIdx + 1) % chapters.length;
-		} else {
-			newIndex = (currentIdx - 1 + chapters.length) % chapters.length;
-		}
-		const newChapterId = chapters[newIndex]?.storyChapterId;
-		if (newChapterId) {
-			handleSelectChapter(newChapterId);
-		}
-	}, [currentChapter, storyChapter, handleSelectChapter, storyId]); // Depend on saga
+			if (chapter) {
+				setCurrentChapter(chapter);
+				const savedChapterIdKey = `selectedChapterId_${storyId}`;
+				if (typeof window !== "undefined") {
+					localStorage.setItem(savedChapterIdKey, selectedChapterId);
+				}
+				const newIndex = chapters.findIndex(
+					(c: BackendStoryChapter) => c.storyChapterId === selectedChapterId,
+				);
+				setCurrentIndex(newIndex >= 0 ? newIndex : 0);
+			} else {
+				console.warn(
+					`handleSelectChapter: Chapter not found for ID ${selectedChapterId} in story ${storyId}`,
+				);
+			}
+		},
+		[storyChapter, storyId],
+	); // Depend on saga
+
+	const handleSwipe = useCallback(
+		(direction: "left" | "right") => {
+			// Use saga.chapterList
+			const chapters = storyChapter ?? [];
+			if (!currentChapter || chapters.length === 0) return;
+			const currentIdx = chapters.findIndex(
+				(chapter: BackendStoryChapter) =>
+					chapter.storyChapterId === currentChapter.storyChapterId,
+			);
+			if (currentIdx === -1) {
+				console.error(
+					`handleSwipe: Current chapter not found in list for story ${storyId}`,
+				);
+				return;
+			}
+			let newIndex: number;
+			if (direction === "left") {
+				newIndex = (currentIdx + 1) % chapters.length;
+			} else {
+				newIndex = (currentIdx - 1 + chapters.length) % chapters.length;
+			}
+			const newChapterId = chapters[newIndex]?.storyChapterId;
+			if (newChapterId) {
+				handleSelectChapter(newChapterId);
+			}
+		},
+		[currentChapter, storyChapter, handleSelectChapter, storyId],
+	); // Depend on saga
 
 	const touchStartX = useRef<number | null>(null);
 	const touchEndX = useRef<number | null>(null);
@@ -175,13 +216,16 @@ const SagaChapterPage: NextPage = () => {
 		touchEndY.current = null;
 	};
 
-	const handleKeyDown = useCallback((e: KeyboardEvent) => {
-		if (e.key === "ArrowLeft") {
-			handleSwipe("right");
-		} else if (e.key === "ArrowRight") {
-			handleSwipe("left");
-		}
-	}, [handleSwipe]);
+	const handleKeyDown = useCallback(
+		(e: KeyboardEvent) => {
+			if (e.key === "ArrowLeft") {
+				handleSwipe("right");
+			} else if (e.key === "ArrowRight") {
+				handleSwipe("left");
+			}
+		},
+		[handleSwipe],
+	);
 
 	useEffect(() => {
 		if (currentChapter && !isLoadingSaga) {
@@ -196,40 +240,67 @@ const SagaChapterPage: NextPage = () => {
 
 	if (isLoadingSaga) {
 		console.log("[SagaChapterPage] Render: isLoadingSaga is true.");
-		return <div className="flex justify-center items-center h-screen"><Loading /></div>;
+		return (
+			<div className="flex justify-center items-center h-screen">
+				<Loading />
+			</div>
+		);
 	}
 
 	if (isErrorSaga) {
-		console.error("[SagaChapterPage] Render: isErrorSaga is true. Error:", isErrorSaga);
-		return <TouriiError errorMessage={isErrorSaga.message || "Failed to load story data."} onRetry={mutateSaga} />;
+		console.error(
+			"[SagaChapterPage] Render: isErrorSaga is true. Error:",
+			isErrorSaga,
+		);
+		return (
+			<TouriiError
+				errorMessage={isErrorSaga.message || "Failed to load story data."}
+				onRetry={mutateSaga}
+			/>
+		);
 	}
 
 	// Check if saga object itself is missing after loading/no error
 	if (!storyChapter) {
-		console.error(`[SagaChapterPage] Render: Saga object is missing for storyId: ${storyId} after loading.`);
+		console.error(
+			`[SagaChapterPage] Render: Saga object is missing for storyId: ${storyId} after loading.`,
+		);
 		return <TouriiError errorMessage="Story data not found or is invalid." />;
 	}
 
 	// Check if chapterList is missing or empty on the saga object
 	if (!Array.isArray(storyChapter) || storyChapter.length === 0) {
-		console.warn(`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list on saga object. Saga:`, storyChapter);
-		return <TouriiError errorMessage="This story has no chapters." isEmpty={true} />;
+		console.warn(
+			`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list on saga object. Saga:`,
+			storyChapter,
+		);
+		return (
+			<TouriiError errorMessage="This story has no chapters." isEmpty={true} />
+		);
 	}
 
 	// Check if currentChapter hasn't been set by the useEffect yet
 	if (!currentChapter) {
-		console.log("[SagaChapterPage] Render: currentChapter is still null, waiting for initialization effect.");
-		return <div className="flex justify-center items-center h-screen"><Loading /></div>;
+		console.log(
+			"[SagaChapterPage] Render: currentChapter is still null, waiting for initialization effect.",
+		);
+		return (
+			<div className="flex justify-center items-center h-screen">
+				<Loading />
+			</div>
+		);
 	}
 
 	// Use saga.chapterList for mapping
-	const selectionDataForComponents = storyChapter.map((chap: BackendStoryChapter) => ({
-		touristSpotId: chap.touristSpotId,
-		storyChapterId: chap.storyChapterId,
-		isSelected: chap.storyChapterId === currentChapter.storyChapterId,
-		chapterNumber: chap.chapterNumber,
-		chapterTitle: chap.chapterTitle,
-	}));
+	const selectionDataForComponents = storyChapter.map(
+		(chap: BackendStoryChapter) => ({
+			touristSpotId: chap.touristSpotId,
+			storyChapterId: chap.storyChapterId,
+			isSelected: chap.storyChapterId === currentChapter.storyChapterId,
+			chapterNumber: chap.chapterNumber,
+			chapterTitle: chap.chapterTitle,
+		}),
+	);
 
 	const isIntroChapter = currentChapter?.chapterNumber === "Introduction";
 	const currentSagaName = currentChapter?.sagaName ?? "Unknown Saga";

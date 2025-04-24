@@ -1,18 +1,22 @@
+import type { Story } from "@/app/v2/(stories)/types";
 import {
 	downToUpVariants,
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
-import type React from "react";
-import type { Story } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import StoryButton from "./story-button";
 import Link from "next/link";
+import type React from "react";
+import StoryButton from "./story-button";
 
 const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
 	// Use the updated field name: backgroundMedia
-	const isVideo = typeof story?.backgroundMedia === 'string' && story.backgroundMedia.endsWith(".mp4");
-	const isNotVideo = typeof story?.backgroundMedia === 'string' && story.backgroundMedia.endsWith(".png");
+	const isVideo =
+		typeof story?.backgroundMedia === "string" &&
+		story.backgroundMedia.endsWith(".mp4");
+	const isNotVideo =
+		typeof story?.backgroundMedia === "string" &&
+		story.backgroundMedia.endsWith(".png");
 
 	// Handle the case where story is undefined
 	if (!story) {

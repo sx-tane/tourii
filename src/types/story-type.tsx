@@ -1,6 +1,5 @@
 import type { bungoOnoChapterSelectionData } from "@/lib/data/touriiverse/chapter-data";
 
-
 export interface Chapter {
 	chapterId: string;
 	part: number;

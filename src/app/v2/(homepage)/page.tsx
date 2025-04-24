@@ -1,19 +1,19 @@
 "use client";
-import type { NextPage } from "next";
-import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import type { NextPage } from "next";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { homepageSections, defaultImage } from "@/lib/data/homepage";
-import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
 import HowTouriiWorks from "@/components/homepage/how-tourii-works";
 import { DigitalPassportSection } from "@/components/homepage/passport/digital-passport-section";
 import { StampedItemSection } from "@/components/homepage/stamped-item-section";
+import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
+import { defaultImage, homepageSections } from "@/lib/data/homepage";
 import {
-	setSections,
 	setCurrentImage,
 	setLogoAnimationComplete,
+	setSections,
 } from "@/lib/redux/features/homepage/homepage-slice";
 import type { RootState } from "@/lib/redux/store";
 

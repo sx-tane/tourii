@@ -1,17 +1,14 @@
+import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import type React from "react";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 
 interface ChapterButtonProps {
 	storyId: string;
 	chapter: BackendStoryChapter | undefined;
 }
 
-const ChapterButton: React.FC<ChapterButtonProps> = ({
-	storyId,
-	chapter,
-}) => {
+const ChapterButton: React.FC<ChapterButtonProps> = ({ storyId, chapter }) => {
 	if (!chapter) {
 		return null;
 	}

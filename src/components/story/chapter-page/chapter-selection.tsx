@@ -37,8 +37,9 @@ const ChapterSelectionComponent: React.FC<ChapterSelectionComponentProps> = ({
 			transition={{ duration: 0.5 }}
 		>
 			<div
-				className={`flex w-full items-center overflow-y-hidden ${shouldScroll ? "overflow-x-scroll" : ""
-					}`}
+				className={`flex w-full items-center overflow-y-hidden ${
+					shouldScroll ? "overflow-x-scroll" : ""
+				}`}
 			>
 				<div className="mr-10 shrink-0 text-xl font-bold tracking-wider transition-all duration-500">
 					{placeName}

@@ -1,20 +1,20 @@
 "use client";
 
+import TouriiError from "@/app/error";
+import Loading from "@/app/loading";
 import StoryComponent from "@/components/story/story-page/story-component";
 import StorySelectionList from "@/components/story/story-page/story-selection/story-selection-list";
-import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { useSagas } from "@/hooks/stories/useSagas";
+import { ApiError } from "@/lib/errors";
 import {
-	setStories,
-	setSelectedStory,
 	selectStories,
+	setSelectedStory,
+	setStories,
 } from "@/lib/redux/features/stories/stories-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import Loading from "@/app/loading";
-import { useSagas } from "@/hooks/stories/useSagas";
-import TouriiError from "@/app/error";
-import { ApiError } from "@/lib/errors";
-import { logger } from "@/utils/logger";
 
 const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();

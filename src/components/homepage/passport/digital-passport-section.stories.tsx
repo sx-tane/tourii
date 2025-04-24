@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { DigitalPassportSection } from "./digital-passport-section";
-import { Provider } from "react-redux";
 import {
+	setChineseCharacters,
 	setPassportType,
 	setUserAvatar,
-	setChineseCharacters,
 } from "@/lib/redux/features/passport/passport-slice";
 import { store } from "@/lib/redux/store";
+import type { Meta, StoryObj } from "@storybook/react";
+import { Provider } from "react-redux";
+import { DigitalPassportSection } from "./digital-passport-section";
 
 // Initialize the store with sample passport data
 store.dispatch(setPassportType("BONJIN"));
