@@ -5,16 +5,42 @@ labels: ["frontend", "type: task"]
 
 body:
 
-  - type: textarea
-    id: description
+  - type: markdown
+    id: task_overview
     attributes:
-      label: Task Description
-      placeholder: Implement feature X, build page Y...
-
+      value: |
+        ## 💻 [FE] <Feature or Task Title Here>
+        
+        ---
+        
+        **Description:**  
+        <Provide a concise description of the task here, e.g., Implement feature X, build page Y.>
+        
+        **Tasks:**
+        - [ ] <Task 1>
+        - [ ] <Task 2>
+        - [ ] <Task 3>
+        - [ ] <Task 4>
+        
+        **Props:**
+        - <List any props or state variables required (if none, write 'None')>
+        
+        **Pseudocode:**
+        ```tsx
+        <Provide pseudocode or a sample code block here>
+        ```
+        
+        **Acceptance Criteria:**
+        - [ ] <Criterion 1>
+        - [ ] <Criterion 2>
+        - [ ] <Criterion 3>
+        
+        ---
+        
   - type: textarea
-    id: acceptance
+    id: additional_acceptance
     attributes:
-      label: Acceptance Criteria
+      label: Additional Acceptance Criteria
       placeholder: |
         - [ ] Component renders correctly
         - [ ] Mobile responsive
