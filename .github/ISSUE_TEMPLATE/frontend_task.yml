@@ -5,9 +5,10 @@ labels: ["frontend", "type: task"]
 
 body:
 
-  - type: markdown
-    id: task_overview
+  - type: textarea
+    id: description
     attributes:
+      label: Description
       value: |
         ## 💻 [FE] <Feature or Task Title Here>
         
@@ -35,15 +36,15 @@ body:
         - [ ] Criterion 3
         
         ---
-        
-  - type: markdown
+
+  - type: textarea
     id: additional_acceptance
     attributes:
+      label: Additional Acceptance Criteria
       value: |
-        ### Additional Acceptance Criteria
-        - Component renders correctly
-        - Mobile responsive
-        - Connected to backend via API
+        - [ ] Component renders correctly
+        - [ ] Mobile responsive
+        - [ ] Connected to backend via API
 
   - type: checkboxes
     id: dependencies
