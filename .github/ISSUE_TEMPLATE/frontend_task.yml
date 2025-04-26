@@ -4,22 +4,6 @@ title: "[FE] <Short title here>"
 labels: ["frontend", "type: task"]
 
 body:
-  - type: dropdown
-    id: priority
-    attributes:
-      label: Priority
-      options:
-        - High 🔥
-        - Medium ⚠️
-        - Low 🧊
-    validations:
-      required: true
-
-  - type: input
-    id: sprint
-    attributes:
-      label: Sprint
-      placeholder: e.g. Sprint 3, Backlog
 
   - type: textarea
     id: description
