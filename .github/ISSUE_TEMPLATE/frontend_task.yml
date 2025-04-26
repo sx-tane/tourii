@@ -24,8 +24,6 @@ body:
         ```tsx
         // Add pseudocode or an example code snippet here
         ```
-        
-        ---
 
   - type: textarea
     id: additional_acceptance
