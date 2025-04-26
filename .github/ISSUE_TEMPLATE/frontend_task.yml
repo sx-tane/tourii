@@ -9,31 +9,21 @@ body:
     id: description
     attributes:
       label: Description
-      value: |
-        ## 💻 [FE] <Feature or Task Title Here>
-        
-        ---
-        
-        **Description:**  
+      value: |  
         Provide a concise task description here, e.g., implement feature X, build page Y.
         
-        **Tasks:**
+        ### Tasks:
         - [ ] Task 1
         - [ ] Task 2
         - [ ] Task 3
         
-        **Props:**
+        ### Props:
         - None (or list props if applicable)
         
-        **Pseudocode:**
+        ### Pseudocode:
         ```tsx
         // Add pseudocode or an example code snippet here
         ```
-        
-        **Acceptance Criteria:**
-        - [ ] Criterion 1
-        - [ ] Criterion 2
-        - [ ] Criterion 3
         
         ---
 
