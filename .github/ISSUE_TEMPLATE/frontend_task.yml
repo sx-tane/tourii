@@ -14,37 +14,36 @@ body:
         ---
         
         **Description:**  
-        <Provide a concise description of the task here, e.g., Implement feature X, build page Y.>
+        Provide a concise task description here, e.g., implement feature X, build page Y.
         
         **Tasks:**
-        - [ ] <Task 1>
-        - [ ] <Task 2>
-        - [ ] <Task 3>
-        - [ ] <Task 4>
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
         
         **Props:**
-        - <List any props or state variables required (if none, write 'None')>
+        - None (or list props if applicable)
         
         **Pseudocode:**
         ```tsx
-        <Provide pseudocode or a sample code block here>
+        // Add pseudocode or an example code snippet here
         ```
         
         **Acceptance Criteria:**
-        - [ ] <Criterion 1>
-        - [ ] <Criterion 2>
-        - [ ] <Criterion 3>
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+        - [ ] Criterion 3
         
         ---
         
-  - type: textarea
+  - type: markdown
     id: additional_acceptance
     attributes:
-      label: Additional Acceptance Criteria
-      placeholder: |
-        - [ ] Component renders correctly
-        - [ ] Mobile responsive
-        - [ ] Connected to backend via API
+      value: |
+        ### Additional Acceptance Criteria
+        - Component renders correctly
+        - Mobile responsive
+        - Connected to backend via API
 
   - type: checkboxes
     id: dependencies
