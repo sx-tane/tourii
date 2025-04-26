@@ -12,15 +12,15 @@ body:
       value: |  
         Provide a concise task description here, e.g., implement feature X, build page Y.
         
-        ### Tasks:
+        ### Tasks
         - [ ] Task 1
         - [ ] Task 2
         - [ ] Task 3
         
-        ### Props:
+        ### Props
         - None (or list props if applicable)
         
-        ### Pseudocode:
+        ### Pseudocode
         ```tsx
         // Add pseudocode or an example code snippet here
         ```
