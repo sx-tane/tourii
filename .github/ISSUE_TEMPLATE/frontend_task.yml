@@ -4,34 +4,32 @@ title: "[FE] <Short title here>"
 labels: ["frontend", "type: task"]
 
 body:
-  - type: dropdown
-    id: priority
-    attributes:
-      label: Priority
-      options:
-        - High 🔥
-        - Medium ⚠️
-        - Low 🧊
-    validations:
-      required: true
-
-  - type: input
-    id: sprint
-    attributes:
-      label: Sprint
-      placeholder: e.g. Sprint 3, Backlog
 
   - type: textarea
     id: description
     attributes:
-      label: Task Description
-      placeholder: Implement feature X, build page Y...
+      label: Description
+      value: |  
+        Provide a concise task description here, e.g., implement feature X, build page Y.
+        
+        ### Tasks
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+        
+        ### Props
+        - None (or list props if applicable)
+        
+        ### Pseudocode
+        ```tsx
+        // Add pseudocode or an example code snippet here
+        ```
 
   - type: textarea
-    id: acceptance
+    id: additional_acceptance
     attributes:
-      label: Acceptance Criteria
-      placeholder: |
+      label: Additional Acceptance Criteria
+      value: |
         - [ ] Component renders correctly
         - [ ] Mobile responsive
         - [ ] Connected to backend via API
