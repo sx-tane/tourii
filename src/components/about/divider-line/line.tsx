@@ -21,7 +21,7 @@ const Line: React.FC = () => {
 						src="/image/about/line.svg"
 						alt="line"
 						width={800}
-						height={800}
+						height={1000}
 						priority
 					/>
 				</motion.div>

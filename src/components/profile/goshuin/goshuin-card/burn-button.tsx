@@ -17,3 +17,5 @@ const BurnButton: React.FC<BurnButtonProps> = ({
 		</button>
 	);
 };
+
+export default BurnButton;
