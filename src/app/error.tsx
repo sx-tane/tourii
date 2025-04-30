@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/header/header-component/header";
-import { Button } from "@/lib/ui/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import type React from "react";
 

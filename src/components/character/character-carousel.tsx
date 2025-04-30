@@ -1,11 +1,11 @@
-import { Card, CardContent } from "@/lib/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
 	Carousel,
 	CarouselContent,
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
-} from "@/lib/ui/carousel";
+} from "@/components/ui/carousel";
 import {
 	Drawer,
 	DrawerClose,
@@ -14,7 +14,7 @@ import {
 	DrawerHeader,
 	DrawerTitle,
 	DrawerTrigger,
-} from "@/lib/ui/drawer";
+} from "@/components/ui/drawer";
 import Image from "next/image";
 import * as React from "react";
 import ReactMarkdown from "react-markdown";

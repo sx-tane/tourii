@@ -1,6 +1,6 @@
-import { Button } from "@/lib/ui/button";
-import { Calendar } from "@/lib/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/lib/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import type { ExperienceFormProps } from "@/types/product-type";
 import { format } from "date-fns";

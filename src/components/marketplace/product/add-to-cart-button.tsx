@@ -1,4 +1,4 @@
-import { Button } from "@/lib/ui/button";
+import { Button } from "@/components/ui/button";
 import type { AddToCartButtonProps, CartItem } from "@/types/product-type";
 import Link from "next/link";
 import type React from "react";

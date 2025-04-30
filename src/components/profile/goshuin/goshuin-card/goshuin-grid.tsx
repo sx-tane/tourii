@@ -2,7 +2,7 @@ import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
-} from "@/lib/ui/hoverCard";
+} from "@/components/ui/hoverCard";
 import type { GoshuinGridProps } from "@/types/profile-type";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";

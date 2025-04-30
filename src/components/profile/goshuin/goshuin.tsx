@@ -2,7 +2,7 @@ import {
 	HoverCard,
 	HoverCardContent,
 	HoverCardTrigger,
-} from "@/lib/ui/hoverCard";
+} from "@/components/ui/hoverCard";
 import type { TravelGoshuin } from "@/types/profile-type";
 import Image from "next/image";
 import type React from "react";
