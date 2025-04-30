@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import {
     Tabs,
     TabsContent,
@@ -6,59 +5,37 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Label, Input } from "@headlessui/react"
 
-export function TabsDemo() {
+export function ChapterTabs() {
     return (
-        <Tabs defaultValue="account" className="w-[400px]">
-            <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="account">Account</TabsTrigger>
-                <TabsTrigger value="password">Password</TabsTrigger>
+        <Tabs defaultValue="chapters" className="w-[450px]">
+            <TabsList className="w-full grid-cols-3 bg-warmGrey3 flex justify-between py-5">
+                <TabsTrigger className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal" value="chapters">Chapters</TabsTrigger>
+                <TabsTrigger className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal" value="characters">Characters</TabsTrigger>
+                <TabsTrigger className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal" value="world-lore">World Lore</TabsTrigger>
             </TabsList>
-            <TabsContent value="account">
+            {/* TODO: Chapters Content */}
+            <TabsContent value="chapters">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Account</CardTitle>
-                        <CardDescription>
-                            Make changes to your account here. Click save when you're done.
-                        </CardDescription>
+                        <CardTitle>Chapter 1</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="name">Name</Label>
-                            <Input id="name" defaultValue="Pedro Duarte" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="username">Username</Label>
-                            <Input id="username" defaultValue="@peduarte" />
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button>Save changes</Button>
-                    </CardFooter>
                 </Card>
             </TabsContent>
-            <TabsContent value="password">
+            {/* TODO: Characters Content */}
+            <TabsContent value="characters">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Password</CardTitle>
-                        <CardDescription>
-                            Change your password here. After saving, you'll be logged out.
-                        </CardDescription>
+                        <CardTitle>Characters</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="space-y-1">
-                            <Label htmlFor="current">Current password</Label>
-                            <Input id="current" type="password" />
-                        </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="new">New password</Label>
-                            <Input id="new" type="password" />
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button>Save password</Button>
-                    </CardFooter>
+                </Card>
+            </TabsContent>
+            {/* TODO: World Lore Content */}
+            <TabsContent value="world-lore">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>World</CardTitle>
+                    </CardHeader>
                 </Card>
             </TabsContent>
         </Tabs>

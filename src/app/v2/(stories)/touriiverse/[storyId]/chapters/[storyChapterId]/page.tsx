@@ -4,7 +4,7 @@ import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
-import { TabsDemo } from "@/components/story/chapter-page/chapter-tabs";
+import { ChapterTabs, TabsDemo } from "@/components/story/chapter-page/chapter-tabs";
 import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
 import VideoIframe from "@/components/story/common/video-iframe";
 import { useSagaById } from "@/hooks/stories/useSagaById";
@@ -151,7 +151,7 @@ const ChapterPage: React.FC = () => {
 
 	return (
 		<div>
-			<TabsDemo />
+			<ChapterTabs />
 			<motion.div
 				className="absolute right-0 h-[90vh] w-full md:h-[85vh] md:w-[85vw] animate-fadeIn md:rounded-tl-full md:rounded-bl-full text-charcoal"
 				initial="hidden"
