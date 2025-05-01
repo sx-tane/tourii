@@ -102,8 +102,11 @@ export const bungoOnoChapterData: Chapter[] = [
 		title: "The Healing Ritual",
 		content:
 			"The scent of damp earth and ancient stone lingered as Ninigi knelt beside Sarutahiko, his wounds deep, his breath shallow. The path ahead could wait—he had made his choice. Healing came first.",
-		videoLink: "",
-		storyUnlocked: false,
+		videoLink:
+			"https://www.youtube.com/embed/c0nTJHvkPuI?si=egJ_JuMvPpZW1kfn&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/c0nTJHvkPuI?si=egJ_JuMvPpZW1kfn&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
 	},
 ];
 
