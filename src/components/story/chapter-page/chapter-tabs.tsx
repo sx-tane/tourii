@@ -10,8 +10,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from 'next/navigation';
 import VideoIframe from "@/components/story/common/video-iframe";
 import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
-import { ChevronLeft, Lock, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Lock, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { characters } from "@/lib/data/character/character-data";
 import CharacterCard from "@/components/character/character-card/character-card";
@@ -107,11 +106,11 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
                     className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
                     Characters
                 </TabsTrigger>
-                <TabsTrigger
+                {/* <TabsTrigger
                     value="world-lore"
                     className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
                     World Lore
-                </TabsTrigger>
+                </TabsTrigger> */}
             </TabsList>
 
             <TabsContent value="story" className="w-full">
@@ -233,7 +232,7 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
                 )}
             </TabsContent>
 
-            <TabsContent value="world-lore">
+            {/* <TabsContent value="world-lore">
                 <Card>
                     <CardHeader>
                         <CardTitle>World Lore</CardTitle>
@@ -243,7 +242,7 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
                         <p>This section will delve into the world and lore surrounding the story.</p>
                     </CardContent>
                 </Card>
-            </TabsContent>
+            </TabsContent> */}
 
             <CharacterModal
                 isOpen={isModalOpen}
