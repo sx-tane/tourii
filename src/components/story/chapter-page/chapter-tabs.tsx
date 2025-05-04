@@ -36,12 +36,10 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCharacterForModal, setSelectedCharacterForModal] = useState<CharacterProps | null>(null);
 
-    const selectedChapter = chapters.find(c => c.storyChapterId === selectedChapterId);
-
     const chapterToDisplay = chapters.find(c => c.storyChapterId === selectedChapterId);
 
-    const relevantCharacters = selectedChapter?.characterNameList
-        ? characters.filter(char => selectedChapter.characterNameList.includes(char.id))
+    const relevantCharacters = chapterToDisplay?.characterNameList
+        ? characters.filter(char => chapterToDisplay.characterNameList.includes(char.id))
         : [];
 
     const handleSelectChapter = (chapterId: string) => {
