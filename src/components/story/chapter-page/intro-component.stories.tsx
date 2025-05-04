@@ -27,6 +27,7 @@ type Story = StoryObj<typeof IntroComponent>;
 const mockChapter: BackendStoryChapter = {
 	storyChapterId: "kyoto-intro-chapter",
 	storyId: "STO-Kyoto-Intro-456",
+	sagaName: "Mock Saga From Chapter",
 	touristSpotId: "kyoto-intro-chapter",
 	chapterNumber: "Introduction",
 	chapterTitle: "Welcome to Kyoto",

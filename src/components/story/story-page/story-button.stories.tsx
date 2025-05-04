@@ -1,23 +1,13 @@
+import type { Story } from "@/app/v2/(stories)/types";
 import type { Meta, StoryObj } from "@storybook/react";
 import StoryButton from "./story-button";
 
-interface StoryType {
-	id: string;
-	title: string;
-	description: string;
-	image: string;
-	backgroundImage: string;
-	storyUnlocked: boolean;
-}
-
-const mockStory: StoryType = {
-	id: "1",
-	title: "The Legend of\nIzanami",
-	description:
-		"Journey through ancient Japan and discover the tale of creation, where divine beings shape the world and establish the foundations of Japanese mythology.",
-	image: "/image/touriiverse/oita.png",
-	backgroundImage: "/image/touriiverse/yokai.png",
-	storyUnlocked: true,
+const mockStory: Story = {
+	storyId: "1",
+	sagaName: "The Legend of Izanami",
+	sagaDesc: "Journey through ancient Japan...",
+	backgroundMedia: "/image/touriiverse/yokai.png",
+	mapImage: "/image/touriiverse/oita.png",
 };
 
 const meta = {
@@ -47,10 +37,7 @@ export const Unlocked: ComponentStory = {
 
 export const Locked: ComponentStory = {
 	args: {
-		story: {
-			...mockStory,
-			storyUnlocked: false,
-		},
+		story: mockStory,
 	},
 };
 

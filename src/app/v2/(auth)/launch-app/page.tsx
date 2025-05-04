@@ -200,7 +200,6 @@ const LaunchAppPage = () => {
 									>
 										{isLoading ? (
 											<span className="flex items-center justify-center gap-2">
-												<Spinner />
 												{isRegistering
 													? "Creating account..."
 													: "Signing in..."}
@@ -239,7 +238,6 @@ const LaunchAppPage = () => {
 								>
 									{isLoading ? (
 										<span className="flex items-center justify-center gap-2">
-											<Spinner />
 											Connecting...
 										</span>
 									) : (

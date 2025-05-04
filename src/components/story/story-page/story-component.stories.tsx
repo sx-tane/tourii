@@ -1,33 +1,23 @@
+import type { Story } from "@/app/v2/(stories)/types";
 import type { Meta, StoryObj } from "@storybook/react";
 import StoryComponent from "./story-component";
 
-interface StoryType {
-	id: string;
-	title: string;
-	description: string;
-	image: string;
-	backgroundImage: string;
-	storyUnlocked: boolean;
-}
-
-const mockStory: StoryType = {
-	id: "1",
-	title: "The Legend of\nIzanami",
-	description:
+const mockStory: Story = {
+	storyId: "story-image-1",
+	sagaName: "The Legend of\nIzanami",
+	sagaDesc:
 		"Journey through ancient Japan and discover the tale of creation, where divine beings shape the world and establish the foundations of Japanese mythology.",
-	image: "/image/touriiverse/oita.png",
-	backgroundImage: "/image/touriiverse/yokai.png",
-	storyUnlocked: true,
+	backgroundMedia: "/image/touriiverse/yokai.png",
+	mapImage: "/image/touriiverse/oita.png",
 };
 
-const mockVideoStory: StoryType = {
-	id: "2",
-	title: "Tales of\nYomi",
-	description:
+const mockVideoStory: Story = {
+	storyId: "story-video-2",
+	sagaName: "Tales of\nYomi",
+	sagaDesc:
 		"Explore the dark realm of Yomi, where shadows dance and ancient spirits dwell in eternal twilight.",
-	image: "/image/touriiverse/oita.png",
-	backgroundImage: "/video/bungo-ono.mp4",
-	storyUnlocked: false,
+	backgroundMedia: "/video/bungo-ono.mp4",
+	mapImage: "/image/touriiverse/oita.png",
 };
 
 const meta = {
@@ -65,9 +55,10 @@ export const ComingSoon: ComponentStory = {
 	args: {
 		story: {
 			...mockStory,
-			title: "Coming Soon",
-			description: "More stories to be unveiled",
-			storyUnlocked: false,
+			sagaName: "Coming Soon",
+			sagaDesc: "More stories to be unveiled",
+			backgroundMedia: "/image/touriiverse/coming-soon-bg.png",
+			mapImage: undefined,
 		},
 	},
 };

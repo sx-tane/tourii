@@ -28,46 +28,40 @@ type Story = StoryObj<typeof StoryVideoNavigationButtons>;
 // Base story with all buttons
 export const AllControls: Story = {
 	args: {
-		returnLink: "/stories",
 		isMuted: false,
 		toggleSound: () => console.log("Toggle sound"),
-		handlePreviousChapter: () => console.log("Previous chapter"),
-		handleNextChapter: () => console.log("Next chapter"),
-		previousChapterUnlocked: true,
-		nextChapterUnlocked: true,
 	},
 };
 
 // Story with muted state
 export const Muted: Story = {
 	args: {
-		...AllControls.args,
 		isMuted: true,
+		toggleSound: () => console.log("Toggle sound"),
 	},
 };
 
 // Story with only return and sound controls
 export const FirstChapter: Story = {
 	args: {
-		...AllControls.args,
-		previousChapterUnlocked: false,
-		nextChapterUnlocked: true,
+		isMuted: false,
+		toggleSound: () => console.log("Toggle sound"),
 	},
 };
 
 // Story with only return and sound controls
 export const LastChapter: Story = {
 	args: {
-		...AllControls.args,
-		previousChapterUnlocked: true,
-		nextChapterUnlocked: false,
+		isMuted: false,
+		toggleSound: () => console.log("Toggle sound"),
 	},
 };
 
 // Mobile view
 export const Mobile: Story = {
 	args: {
-		...AllControls.args,
+		isMuted: false,
+		toggleSound: () => console.log("Toggle sound"),
 	},
 	parameters: {
 		viewport: {

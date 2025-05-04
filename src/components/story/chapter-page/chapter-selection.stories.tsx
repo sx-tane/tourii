@@ -8,7 +8,7 @@ import ChapterSelectionComponent from "./chapter-selection";
 // Define the new item type expected by the component
 // (Could also import if defined centrally, but defining locally for clarity)
 interface ChapterSelectionItem {
-	touristSpotId: string;
+	storyChapterId: string;
 	isSelected: boolean;
 	chapterNumber: string;
 	chapterTitle: string;
@@ -34,19 +34,19 @@ const meta = {
 // Create mock data using the new ChapterSelectionItem structure
 const mockSelectionData: ChapterSelectionItem[] = [
 	{
-		touristSpotId: "spot-1",
+		storyChapterId: "chapter-1",
 		isSelected: true,
 		chapterNumber: "Chapter 1",
 		chapterTitle: "The Whispering Falls",
 	},
 	{
-		touristSpotId: "spot-2",
+		storyChapterId: "chapter-2",
 		isSelected: false,
 		chapterNumber: "Chapter 2",
 		chapterTitle: "Shrine of Secrets",
 	},
 	{
-		touristSpotId: "spot-3",
+		storyChapterId: "chapter-3",
 		isSelected: false,
 		chapterNumber: "Chapter 3",
 		chapterTitle: "Path of the Stone Buddha",
