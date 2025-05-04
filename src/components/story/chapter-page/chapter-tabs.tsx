@@ -13,10 +13,11 @@ import StoryVideoNavigationButtons from "@/components/story/common/story-video-n
 import { Lock, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { characters } from "@/lib/data/character/character-data";
-import CharacterCard from "@/components/character/character-card/character-card";
 import CharacterModal from "@/components/character/character-card/character-modal/character-modal";
 import type { CharacterProps } from "@/types/character-type";
 import { motion } from "framer-motion";
+import { StoryTabContent } from "./story-tab-content";
+import { CharactersTabContent } from "./characters-tab-content";
 
 interface ChapterTabsProps {
     chapters: BackendStoryChapter[];
@@ -95,7 +96,7 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
 
     return (
         <Tabs defaultValue="story" className="w-full">
-            <TabsList className="grid w-[450px] grid-cols-3 bg-background justify-between p-1 h-auto rounded-md mb-6 bg-warmGrey3">
+            <TabsList className="grid grid-cols-2 bg-background justify-between p-1 h-auto rounded-md mb-6 bg-warmGrey3">
                 <TabsTrigger
                     value="story"
                     className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
@@ -114,122 +115,22 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
             </TabsList>
 
             <TabsContent value="story" className="w-full">
-                <motion.div
-                    className="grid grid-cols-1 md:grid-cols-4 gap-6"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                >
-                    <div
-                        className="md:col-span-1 p-4 rounded-lg overflow-y-auto bg-warmGrey3 max-h-[70vh]"
-                    >
-                        <h3 className="text-sm font-semibold uppercase tracking-widest">Chapters</h3>
-                        <div className=" mt-5" />
-                        <ul>
-                            {chapters.map((chapter) => (
-                                <li key={chapter.storyChapterId} className="list-none border-b border-charcoal last:border-b-0">
-                                    <button
-                                        type="button"
-                                        onClick={chapter.isUnlocked ? () => handleSelectChapter(chapter.storyChapterId) : undefined}
-                                        disabled={!chapter.isUnlocked}
-                                        className={`w-full text-left rounded transition-colors duration-150 flex items-center p-3 space-x-4 ${selectedChapterId === chapter.storyChapterId
-                                            ? 'bg-warmGrey'
-                                            : chapter.isUnlocked
-                                                ? 'hover:bg-warmGrey/80 focus:bg-warmGrey/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
-                                                : 'opacity-60 cursor-not-allowed'
-                                            }`}
-                                    >
-                                        <div className="flex-shrink-0 w-12 h-12 bg-warmGrey4 rounded overflow-hidden flex items-center justify-center">
-                                            {chapter.isUnlocked && chapter.chapterImage ? (
-                                                <Image
-                                                    src={chapter.chapterImage}
-                                                    alt={chapter.chapterTitle}
-                                                    width={40}
-                                                    height={40}
-                                                    className="object-cover w-full h-full"
-                                                />
-                                            ) : (
-                                                <Lock className="w-6 h-6 text-charcoal" />
-                                            )}
-                                        </div>
-
-                                        <div className="flex-grow min-w-0">
-                                            <div className="text-xs text-charcoal uppercase tracking-widest font-medium ">
-                                                {chapter.chapterNumber}
-                                            </div>
-                                            <div className="font-semibold text-xs tracking-wider italic mt-1">
-                                                {chapter.chapterTitle}
-                                            </div>
-                                        </div>
-
-                                        {chapter.isUnlocked && (
-                                            <div className="flex-shrink-0">
-                                                <ChevronRight className="w-5 h-5 text-charcoal" />
-                                            </div>
-                                        )}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="md:col-span-3 bg-background p-4 rounded-lg border max-h-[70vh] overflow-y-auto scrollbar-hide bg-warmGrey3">
-                        {chapterToDisplay ? (
-                            <div>
-                                {iframeSrc && (
-                                    <div className="aspect-video overflow-hidden rounded-lg relative">
-                                        <VideoIframe
-                                            iframeSrc={iframeSrc}
-                                            title={`${chapterToDisplay.sagaName} ${chapterToDisplay.chapterNumber}`}
-                                        />
-                                        <StoryVideoNavigationButtons
-                                            isMuted={isMuted}
-                                            toggleSound={toggleSound}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <p>No chapter selected or chapter data missing.</p>
-                        )}
-                    </div>
-                </motion.div>
+                <StoryTabContent
+                    chapters={chapters}
+                    selectedChapterId={selectedChapterId}
+                    chapterToDisplay={chapterToDisplay}
+                    iframeSrc={iframeSrc}
+                    isMuted={isMuted}
+                    handleSelectChapter={handleSelectChapter}
+                    toggleSound={toggleSound}
+                />
             </TabsContent>
 
             <TabsContent value="characters" className="w-full">
-                {relevantCharacters.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {relevantCharacters.map((character) => (
-                            <motion.div
-                                key={character.id}
-                                tabIndex={0}
-                                className="block w-full text-left appearance-none bg-transparent border-none p-0 m-0 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-lg hover:shadow-md transition-shadow duration-200"
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        handleOpenModal(character);
-                                    }
-                                }}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.1 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                <CharacterCard
-                                    {...character}
-                                    onClick={() => handleOpenModal(character)}
-                                />
-                            </motion.div>
-                        ))}
-                    </div>
-                ) : (
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Characters</CardTitle>
-                            <CardDescription>No specific characters listed for this chapter.</CardDescription>
-                        </CardHeader>
-                    </Card>
-                )}
+                <CharactersTabContent
+                    relevantCharacters={relevantCharacters}
+                    handleOpenModal={handleOpenModal}
+                />
             </TabsContent>
 
             {/* <TabsContent value="world-lore">
