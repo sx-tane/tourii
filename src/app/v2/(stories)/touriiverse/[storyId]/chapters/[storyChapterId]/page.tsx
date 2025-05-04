@@ -1,10 +1,10 @@
 "use client";
 
-import { ErrorComponent } from "@/app/error";
+import TouriiError, { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
-import { ChapterTabs, TabsDemo } from "@/components/story/chapter-page/chapter-tabs";
+import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
 import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
 import VideoIframe from "@/components/story/common/video-iframe";
 import { useSagaById } from "@/hooks/stories/useSagaById";
@@ -14,6 +14,10 @@ import { useAppSelector } from "@/lib/redux/hooks";
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
+import WhiteLine from "@/components/world/white-line";
+import Title from "@/components/world/text/title";
 
 const ChapterPage: React.FC = () => {
 	const params = useParams();
@@ -80,99 +84,67 @@ const ChapterPage: React.FC = () => {
 		};
 	}, [chapter]);
 
-	const toggleSound = () => {
-		const iframe = document.getElementById(
-			"youtube-player",
-		) as HTMLIFrameElement;
-		if (iframe?.contentWindow) {
-			if (isMuted) {
-				iframe.contentWindow.postMessage(
-					'{"event":"command","func":"unMute","args":""}',
-					"*",
-				);
-			} else {
-				iframe.contentWindow.postMessage(
-					'{"event":"command","func":"mute","args":""}',
-					"*",
-				);
-			}
-			setIsMuted(!isMuted);
-		}
-	};
-
-	const handleNextChapter = () => {
-		if (!chapterList.length || !chapter) return;
-
-		const currentIndex = chapterList.findIndex(
-			(ch) => ch.storyChapterId === chapterId,
-		);
-		const nextChapter = chapterList[currentIndex + 1];
-		if (nextChapter?.isUnlocked) {
-			router.push(
-				`/v2/touriiverse/${storyId}/chapters/${nextChapter.storyChapterId}`,
-			);
-		}
-	};
-
-	const handlePreviousChapter = () => {
-		if (!chapterList.length || !chapter) return;
-
-		const currentIndex = chapterList.findIndex(
-			(ch) => ch.storyChapterId === chapterId,
-		);
-		const previousChapter = chapterList[currentIndex - 1];
-		if (previousChapter) {
-			router.push(
-				`/v2/touriiverse/${storyId}/chapters/${previousChapter.storyChapterId}`,
-			);
-		}
-	};
-
 	// Loading states
-	if (isLoadingSaga || (!chapter && !isErrorSaga)) {
+	if (isLoadingSaga || (!chapter && !isErrorSaga && !selectedStory)) {
 		return <Loading />;
 	}
 
 	// Error states
-	if (isErrorSaga || (!chapter && !chapterList.length)) {
-		return <ErrorComponent />;
+	if (isErrorSaga && !selectedStory?.chapterList?.length) {
+		// If API fetch failed AND we don't have data from Redux
+		return <TouriiError />;
 	}
 
-	// Not found state
-	if (!chapter) {
+	// Determine the final chapter and list to use
+	const currentChapter = chapter;
+	const currentChapterList = chapterList;
+
+	// Not found state (if after loading and checking both sources, we still don't have the specific chapter)
+	if (!currentChapter) {
 		return <NotFoundComponent />;
 	}
 
-	const currentIndex = chapterList.findIndex(
-		(ch) => ch.storyChapterId === chapterId,
-	);
-	const nextChapter = chapterList[currentIndex + 1];
-	const previousChapter = chapterList[currentIndex - 1];
-
 	return (
-		<div>
-			<ChapterTabs />
+		<div className="container mx-auto px-4">
 			<motion.div
-				className="absolute right-0 h-[90vh] w-full md:h-[85vh] md:w-[85vw] animate-fadeIn md:rounded-tl-full md:rounded-bl-full text-charcoal"
 				initial="hidden"
 				animate="visible"
 				variants={downToUpVariants}
-				transition={{ duration: 0.5 }}
+				transition={{ duration: 0.5, delay: 0.1 }}
+				className="mb-6 text-center"
 			>
-				<VideoIframe
-					iframeSrc={iframeSrc}
-					title={`${chapter.sagaName} ${chapter.chapterNumber}`}
-				/>
-				<StoryVideoNavigationButtons
-					returnLink={`/v2/touriiverse/${storyId}`}
-					isMuted={isMuted}
-					toggleSound={toggleSound}
-					handlePreviousChapter={handlePreviousChapter}
-					handleNextChapter={handleNextChapter}
-					previousChapterUnlocked={previousChapter?.isUnlocked ?? false}
-					nextChapterUnlocked={nextChapter?.isUnlocked ?? false}
+				<Title
+					smallTitle={currentChapter.chapterNumber}
+					title={currentChapter.chapterTitle}
 				/>
 			</motion.div>
+			<motion.div
+				initial="hidden"
+				animate="visible"
+				variants={downToUpVariants}
+				transition={{ duration: 0.5, delay: 0.2 }}
+			>
+				<ChapterTabs
+					chapters={currentChapterList}
+					initialSelectedChapterId={currentChapter.storyChapterId}
+				/>
+			</motion.div>
+			<motion.div
+				initial="hidden"
+				animate="visible"
+				variants={downToUpVariants}
+				transition={{ duration: 0.5, delay: 0.3 }}
+				className="my-5"
+			>
+				<Link
+					href={`/v2/touriiverse/${storyId}`}
+					className="flex items-center hover:cursor-pointer text-xs hover:underline text-warmGrey3 uppercase tracking-widest font-medium"
+				>
+					<ChevronLeft className="mr-2 inline-block h-5 w-5" />
+					Back to Story
+				</Link>
+			</motion.div>
+
 		</div>
 	);
 };

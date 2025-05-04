@@ -32,6 +32,4 @@ const ChapterSelectionButton = forwardRef<
 	);
 });
 
-ChapterSelectionButton.displayName = "ChapterSelectionButton";
-
 export default ChapterSelectionButton;

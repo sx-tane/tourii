@@ -9,4 +9,5 @@ export interface CharacterProps {
 	realm?: string;
 	height?: string;
 	weapon?: string;
+	kami?: string;
 }

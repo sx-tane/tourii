@@ -16,10 +16,10 @@ export interface BackendStoryChapter {
 	chapterVideoMobileUrl: string;
 	chapterPdfUrl: string;
 	isUnlocked: boolean;
-	insUserId: string;
-	insDateTime: string;
-	updUserId: string;
-	updDateTime: string;
+	insUserId?: string;
+	insDateTime?: string;
+	updUserId?: string;
+	updDateTime?: string;
 }
 
 export interface Story {
