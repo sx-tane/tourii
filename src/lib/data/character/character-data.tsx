@@ -2,33 +2,35 @@ import type { CharacterProps } from "@/types/character-type";
 
 export const characters: CharacterProps[] = [
 	{
-		id: "1",
+		id: "Ninigi",
 		name: "Ninigi-No-Mikoto",
 		kanjiname: "瓊瓊杵命",
 		thumbnailImage: "/image/character/thumbnail/ninigi-card.png",
 		image: "/image/character/Ninigi_03.png",
 		description:
-			"***Ninigi, Grandson of the mighty Amaterasu***, tasked to descend to Central land and assume its rulership during the Tenson Kourin event. He is believed to be the great grandfather of Japan’s first legendary emperor. However with a twist in fate, he landed in a very different Ashihara no Nakatsukuni. As he faces challenges and tests, he must prove himself as the rightful ruler and grow into a wise and worthy leader...",
+			"***Ninigi, Grandson of the mighty Amaterasu***, tasked to descend to Central land and assume its rulership during the Tenson Kourin event. He is believed to be the great grandfather of Japan's first legendary emperor. However with a twist in fate, he landed in a very different Ashihara no Nakatsukuni. As he faces challenges and tests, he must prove himself as the rightful ruler and grow into a wise and worthy leader...",
 		dob: "Unknown",
 		realm: "Takamagahara",
 		height: "180cm",
 		weapon: "Kusanagi-no-Tsurugi",
+		kami: "Amatsukami",
 	},
 	{
-		id: "2",
+		id: "Amaterasu",
 		name: "Amaterasu-Omikami",
 		kanjiname: "天照大神",
 		thumbnailImage: "/image/character/thumbnail/amaterasu-card.png",
 		image: "/image/character/Amateras_03.png",
 		description:
-			"***Amaterasu, the Revered Sun Goddess and ruler of all Kami***, reigns over the heavenly plains of Takamagahara. As Ninigi no Mikoto’s grandmother, she is revered as the most powerful kami in the Japanese mythological pantheon, even by the Bonjin, for bringing the light necessary for cultivation. Amaterasu possesses a younger form known only to her closest lineage and select kami and bonjin, which she uses for secret visits to the Central Plains to avoid recognition and commotion.",
+			"***Amaterasu, the Revered Sun Goddess and ruler of all Kami***, reigns over the heavenly plains of Takamagahara. As Ninigi no Mikoto's grandmother, she is revered as the most powerful kami in the Japanese mythological pantheon, even by the Bonjin, for bringing the light necessary for cultivation. Amaterasu possesses a younger form known only to her closest lineage and select kami and bonjin, which she uses for secret visits to the Central Plains to avoid recognition and commotion.",
 		dob: "Unknown",
 		realm: "Takamagahara",
 		height: "130cm",
 		weapon: "Yata-no-Kagami",
+		kami: "Amatsukami",
 	},
 	{
-		id: "3",
+		id: "Sarutahiko",
 		name: "Sarutahiko-Okami",
 		kanjiname: "猿田彦",
 		thumbnailImage: "/image/character/thumbnail/sarutahiko-card.png",
@@ -39,9 +41,10 @@ export const characters: CharacterProps[] = [
 		realm: "Ashihara-no-Nakatsukuni",
 		height: "200cm",
 		weapon: "Magatama Staff",
+		kami: "Kunitsukami",
 	},
 	{
-		id: "4",
+		id: "Uzume",
 		name: "Ame-no-Uzume",
 		kanjiname: "天鈿女命",
 		thumbnailImage: "/image/character/thumbnail/uzume-card.png",
@@ -52,5 +55,6 @@ export const characters: CharacterProps[] = [
 		realm: "Takamagahara",
 		height: "190cm",
 		weapon: "Ribbon of Radiance",
+		kami: "Amatsukami",
 	},
 ];

@@ -1,5 +1,4 @@
-import { SectionTitle } from "@/components/common/section-title";
-import type { RootState } from "@/lib/store/store";
+import type { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";

@@ -8,7 +8,7 @@ interface StoriesLayoutProps {
 
 const StoriesLayout = ({ children }: StoriesLayoutProps) => {
 	return (
-		<div className="h-full min-h-screen animate-fadeIn overflow-hidden bg-charcoal ">
+		<div className="min-h-screen animate-fadeIn overflow-hidden bg-charcoal before:fixed before:inset-0 before:z-[-1] before:bg-charcoal">
 			<div className="mx-6">
 				<HeaderApp theme={"black"} />
 			</div>

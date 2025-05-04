@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/header/header-component/header";
-import { Button } from "@/lib/ui/button";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import type React from "react";
 
@@ -48,7 +48,7 @@ const TouriiError: React.FC<TouriiErrorProps> = ({
 					{errorMessage}
 				</h2>
 				{onRetry && (
-					<Button onClick={onRetry} variant="destructive" className="mt-6">
+					<Button onClick={onRetry} variant="destructive" className="mt-6 bg-red uppercase tracking-widest text-warmGrey font-bold">
 						Retry
 					</Button>
 				)}

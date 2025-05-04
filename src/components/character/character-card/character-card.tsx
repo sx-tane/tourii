@@ -2,43 +2,62 @@ import type { CharacterProps } from "@/types/character-type";
 import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 import type React from "react";
-
-const notoSerifJP = Noto_Serif_JP({
-	subsets: ["latin"],
-	display: "swap",
-});
+import { MapPin, BookOpen } from "lucide-react";
+import { Button } from "@headlessui/react";
+import Markdown from "react-markdown";
 
 interface CharacterCardProps extends CharacterProps {
 	onClick: () => void;
 }
 
 const CharacterCard: React.FC<CharacterCardProps> = ({
-	id,
 	name,
-	kanjiname,
 	thumbnailImage,
+	realm,
+	kami,
+	description,
 	onClick,
 }) => {
 	return (
-		// biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-		<div
-			className="relative border-red border-[1.5px] rounded-3xl overflow-hidden group cursor-pointer"
-			onClick={onClick}
-		>
-			<Image
-				src={thumbnailImage ?? ""}
-				alt={name ?? ""}
-				width={350}
-				height={350}
-				quality={100}
-				priority
-			/>
-			<div className="absolute top-0 right-0 bg-red h-2/5 w-1/5 md:h-2/5 md:w-1/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-				<p
-					className={`text-white text-base md:text-2xl xl:text-3xl font-bold tracking-[0.2em] [writing-mode:vertical-rl] ${notoSerifJP.className}`}
+		<div className="flex flex-col md:flex-row md:items-stretch gap-0 bg-warmGrey3 rounded-lg overflow-hidden h-full w-full">
+			<div className="w-full h-48 md:w-1/3 md:h-auto rounded-t-lg md:rounded-l-lg md:rounded-tr-none overflow-hidden relative bg-warmGrey2">
+				<Image
+					src={thumbnailImage ?? "/image/character/thumbnail/placeholder.png"}
+					alt={name ?? "Character"}
+					width={1080}
+					height={1080}
+					className="object-cover h-full w-full scale-110"
+					priority
+				/>
+			</div>
+
+			<div className="w-full p-4 md:w-2/3 h-3/8 md:h-full flex flex-col">
+				<div className="flex-grow">
+					<h3 className="text-base lg:text-xl font-bold text-charcoal uppercase tracking-widest mt-1">{name}</h3>
+					<span className="font-normal text-xs text-charcoal italic tracking-widest">
+						{kami}
+					</span>
+					<div className="flex flex-wrap items-center font-normal text-xs text-charcoal italic tracking-widest gap-x-3 gap-y-1 my-5">
+						<span className="inline-flex items-center gap-1 tracking-wider">
+							<MapPin size={14} />
+							{realm}
+						</span>
+					</div>
+					{description && (
+						<Markdown className="mt-2 text-sm text-charcoal line-clamp-5 text-pretty leading-relaxed">
+							{description}
+						</Markdown>
+					)}
+				</div>
+
+				<Button
+					type="button"
+					onClick={onClick}
+					className="inline-flex items-center gap-1 text-xs text-red hover:underline font-medium uppercase tracking-widest transition-all duration-300 self-end"
 				>
-					{kanjiname}
-				</p>
+					<BookOpen size={14} />
+					Read More
+				</Button>
 			</div>
 		</div>
 	);
