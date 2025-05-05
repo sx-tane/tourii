@@ -7,7 +7,7 @@ const VideoIframe: React.FC<VideoIframeProps> = ({ iframeSrc, title }) => {
 			id="youtube-player"
 			src={iframeSrc}
 			title={title}
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 			referrerPolicy="strict-origin-when-cross-origin"
 			allowFullScreen
 			className="w-full h-full md:rounded-bl-xl md:rounded-tl-xl rounded-xl"

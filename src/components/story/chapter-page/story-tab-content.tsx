@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Lock, ChevronRight } from "lucide-react";
 import VideoIframe from "@/components/story/common/video-iframe";
 import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
-import type React from "react";
+import { type FC, useMemo } from "react";
 
 interface StoryTabContentProps {
     chapters: BackendStoryChapter[];
@@ -16,7 +16,13 @@ interface StoryTabContentProps {
     toggleSound: () => void;
 }
 
-export const StoryTabContent: React.FC<StoryTabContentProps> = ({
+// Helper function to extract sort key from chapter number
+const getChapterSortKey = (chapter: BackendStoryChapter): number => {
+    const numberPart = chapter.chapterNumber?.split(' ')[1];
+    return Number.parseInt(numberPart ?? '0', 10);
+};
+
+export const StoryTabContent: FC<StoryTabContentProps> = ({
     chapters,
     selectedChapterId,
     chapterToDisplay,
@@ -25,6 +31,15 @@ export const StoryTabContent: React.FC<StoryTabContentProps> = ({
     handleSelectChapter,
     toggleSound,
 }) => {
+    // Memoize the sorted chapters array
+    const sortedChapters = useMemo(() => {
+        return [...chapters].sort((a, b) => {
+            const aNum = getChapterSortKey(a);
+            const bNum = getChapterSortKey(b);
+            return aNum - bNum;
+        });
+    }, [chapters]);
+
     return (
         <motion.div
             className="grid grid-cols-1 md:grid-cols-4 gap-6"
@@ -39,7 +54,7 @@ export const StoryTabContent: React.FC<StoryTabContentProps> = ({
                 <h3 className="text-sm font-semibold uppercase tracking-widest">Chapters</h3>
                 <div className=" mt-5" />
                 <ul>
-                    {chapters.map((chapter) => (
+                    {sortedChapters.map((chapter) => (
                         <li key={chapter.storyChapterId} className="list-none border-b border-charcoal last:border-b-0">
                             <button
                                 type="button"
