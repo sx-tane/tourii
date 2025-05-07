@@ -1,8 +1,6 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// Assuming CharacterProps type is accessible from this new path
-// If not, you might need to adjust the import path or move the type definition
-import type { CharacterProps } from "@/types/character-type";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 
 interface CharacterState {
 	characters: CharacterProps[];

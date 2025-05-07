@@ -2,7 +2,7 @@ import {
 	backdropVariants,
 	modalVariants,
 } from "@/lib/animation/variants-settings";
-import type { CharacterProps } from "@/types/character-type";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { AnimatePresence, motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useState } from "react";

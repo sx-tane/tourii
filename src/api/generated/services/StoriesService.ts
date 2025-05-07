@@ -378,25 +378,25 @@ export class StoriesService {
          */
         isUnlocked: boolean;
         /**
-         * Flag to indicate if the story chapter is deleted
+         * Flag to indicate if the record is deleted
          */
-        delFlag: boolean;
+        delFlag?: boolean;
         /**
          * ID of user who created this record
          */
-        insUserId: string;
+        insUserId?: string;
         /**
          * Timestamp of record creation
          */
-        insDateTime: string;
+        insDateTime?: string;
         /**
          * ID of user who last updated this record
          */
-        updUserId: string;
+        updUserId?: string;
         /**
          * Timestamp of last record update
          */
-        updDateTime: string;
+        updDateTime?: string;
     }> {
         return __request(OpenAPI, {
             method: 'GET',
