@@ -43,7 +43,8 @@ This frontend app, built with **Next.js App Router**, powers an immersive user j
 | Styling            | [Tailwind CSS](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com)     |
 | Animations         | [Framer Motion](https://www.framer.com/motion)                                  |
 | State Management   | [Redux Toolkit + createSlice](https://redux-toolkit.js.org)                     |
-| Data Fetching      | [React Query](https://tanstack.com/query)                                       |
+| Data Fetching      | [React Query](https://tanstack.com/query), SWR                                  |
+| API Client         | Generated via [openapi-typescript-codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) using Fetch |
 | Web3 Integration   | [viem](https://viem.sh), [WalletConnect/Web3Modal](https://web3modal.com)       |
 | Mapping            | [Leaflet](https://leafletjs.com), [React Leaflet](https://react-leaflet.js.org) |
 | File Storage       | [NFT.Storage](https://nft.storage), IPFS                                        |
@@ -51,13 +52,77 @@ This frontend app, built with **Next.js App Router**, powers an immersive user j
 
 ---
 
+## 📞 API Client (OpenAPI Generated)
+
+The frontend utilizes a TypeScript client generated from the backend's OpenAPI specification (`api-specs/openapi.json`). This ensures type-safe API calls and reduces boilerplate.
+
+### Regeneration
+
+If the backend API changes, the client needs to be regenerated:
+
+```bash
+pnpm generate:api
+```
+
+This command uses `openapi-typescript-codegen` to update the client SDK located in `src/api/generated`.
+
+### Configuration
+
+The API client is configured in `src/api/api-client-config.ts`. This file sets the base URL for the API (from `env.NEXT_PUBLIC_BACKEND_URL`) and global headers like `x-api-key` (from `env.NEXT_PUBLIC_BACKEND_API_KEY`) and `accept-version`.
+
+This configuration is automatically loaded when the application starts via `src/app/api-client-initializer.tsx`.
+
+### Basic Usage (with SWR Hooks)
+
+Custom SWR hooks are used to interact with the generated API client services. For example, to fetch all story sagas:
+
+```typescript
+// src/hooks/stories/useSagas.ts
+import useSWR from "swr";
+import { StoriesService } from "@/api/generated";
+import { env } from "@/env.js";
+
+export function useSagas() {
+  const swrKey = "/api/stories/sagas";
+  const { data, error, isLoading, mutate } = useSWR(
+    swrKey,
+    async () => {
+      const apiKey = env.NEXT_PUBLIC_BACKEND_API_KEY;
+      if (!apiKey) throw new Error("API key is not configured");
+      return StoriesService.touriiBackendControllerGetSagas(
+        '1.0.0', // accept-version
+        apiKey   // x-api-key
+      );
+    }
+  );
+
+  return {
+    sagas: data, // Data is typed by the SDK
+    isLoading,
+    isError: error,
+    mutateSagas: mutate,
+  };
+}
+
+// In your component:
+// const { sagas, isLoading } = useSagas();
+// if (isLoading) return <p>Loading...</p>;
+// sagas will be an array of saga objects, typed by the SDK.
+```
+
+---
+
 ## 📁 Directory Overview
 
 ```
 src/
+├── api/
+│   ├── generated/          ← OpenAPI generated client SDK
+│   ├── api-client-config.ts← Global configuration for the SDK
 ├── app/
 │   ├── layout.tsx
 │   ├── page.tsx (homepage)
+│   ├── api-client-initializer.tsx ← Loads API client config
 │   ├── launch-app/           ← Auth Modal (OAuth + Wallet)
 │   ├── dashboard/            ← Personal Hub
 │   ├── stories/              ← Story system
@@ -69,12 +134,13 @@ src/
 │   ├── profile/              ← Profile + passport + perks
 │   └── admin/                ← Admin Panel (secured)
 ├── components/               ← UI modules by domain
+├── hooks/                    ← Custom React hooks (including SWR hooks for API calls)
 ├── lib/
-│   ├── api-client.ts         ← Axios config with headers
+│   ├── api-client.ts         ← Original Axios config (may still be used or phased out)
 │   ├── websocket.ts          ← WebSocket wrapper
 │   ├── blockchain/           ← EVM wallet logic
 ├── store/                    ← Redux slices
-├── types/                    ← Global type declarations
+├── types/                    ← Global type declarations (may be simplified as SDK provides API types)
 └── public/                   ← Static assets
 ```
 
@@ -100,7 +166,9 @@ pnpm dev
 ### 🌍 Environment Variables
 
 ```env
-NEXT_PUBLIC_API_URL=https://api.tourii.xyz
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3001/tourii-backend # Full URL to the backend API service
+NEXT_PUBLIC_BACKEND_API_KEY=your_backend_api_key_here
+# API_VERSION is used by backend, accept-version for client is in api-client-config.ts
 NEXT_PUBLIC_WS_URL=wss://api.tourii.xyz/ws
 NEXT_PUBLIC_MAPBOX_TOKEN=optional_if_used
 NEXT_PUBLIC_WALLET_CONNECT_ID=your_id

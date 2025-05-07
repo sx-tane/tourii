@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Loading from "./loading";
 import { Providers } from "./providers";
+import ApiClientInitializer from "./api-client-initializer";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({
 				<meta name="theme-color" content="#ffffff" />
 			</head>
 			<body>
+				<ApiClientInitializer />
 				<Providers>
 					<Suspense fallback={<Loading />}>
 						{children}

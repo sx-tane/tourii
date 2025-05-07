@@ -187,7 +187,8 @@ admin/
 - `TailwindCSS`
 - `Redux` with `createSlice`
 - `ethers.js` or `viem` (Web3 interaction)
-- `axios` API wrapper with token header
+- **API Client**: OpenAPI-generated client (`openapi-typescript-codegen` with Fetch) for type-safe backend communication. See `src/api/generated/`.
+- `axios` (Legacy API wrapper in `src/lib/api-client.ts`, may still be used for calls not covered by OpenAPI spec or specific interceptor needs).
 - `framer-motion`, `lucide-react`, `shadcn/ui`
 
 ### Design System
@@ -200,7 +201,9 @@ admin/
 - File naming: kebab-case
 - Component folders: `/components/feature-name`
 - Pages: Flat routes in `/app/`
-- API utils: `/lib/api-client.ts`
+- **API SDK & Config**: `src/api/generated/` (generated client), `src/api/api-client-config.ts` (SDK configuration).
+- **API Hooks**: Custom SWR hooks (e.g., in `src/hooks/`) are preferred for interacting with the API SDK.
+- Legacy API utils: `src/lib/api-client.ts` (axios based).
 - Redux store: `/lib/store/slices/*`
 
 ---

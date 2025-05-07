@@ -56,7 +56,6 @@ const ChapterPage: React.FC = () => {
 				setChapter(foundChapter);
 			}
 		} else if (directChapters) {
-			// If we don't have Redux data, use direct API data
 			setChapterList(directChapters);
 			const foundChapter = directChapters.find(
 				(c) => c.storyChapterId === chapterId,
@@ -144,7 +143,6 @@ const ChapterPage: React.FC = () => {
 					Back to Story
 				</Link>
 			</motion.div>
-
 		</div>
 	);
 };
