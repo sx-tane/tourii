@@ -48,7 +48,11 @@ const TouriiError: React.FC<TouriiErrorProps> = ({
 					{errorMessage}
 				</h2>
 				{onRetry && (
-					<Button onClick={onRetry} variant="destructive" className="mt-6 bg-red uppercase tracking-widest text-warmGrey font-bold">
+					<Button
+						onClick={onRetry}
+						variant="destructive"
+						className="mt-6 bg-red uppercase tracking-widest text-warmGrey font-bold"
+					>
 						Retry
 					</Button>
 				)}

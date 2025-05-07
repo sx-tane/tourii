@@ -1,4 +1,4 @@
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
+import type { StoryChapterResponseDto } from "@/api/generated";
 import type { Meta, StoryObj } from "@storybook/react";
 import IntroComponent from "./intro-component";
 
@@ -24,7 +24,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof IntroComponent>;
 
-const mockChapter: BackendStoryChapter = {
+const mockChapter: StoryChapterResponseDto = {
 	storyChapterId: "kyoto-intro-chapter",
 	storyId: "STO-Kyoto-Intro-456",
 	sagaName: "Mock Saga From Chapter",
@@ -44,6 +44,7 @@ const mockChapter: BackendStoryChapter = {
 	insDateTime: "2024-01-01 09:00",
 	updUserId: "storybook",
 	updDateTime: "2024-01-01 09:00",
+	delFlag: false,
 };
 
 export const Default: Story = {

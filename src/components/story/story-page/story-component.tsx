@@ -1,15 +1,16 @@
-import type { Story } from "@/app/v2/(stories)/types";
+import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 import {
 	downToUpVariants,
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import type React from "react";
 import StoryButton from "./story-button";
 
-const StoryComponent: React.FC<{ story: Story | undefined }> = ({ story }) => {
+const StoryComponent: React.FC<{ story: StoryResponseDto | undefined }> = ({
+	story,
+}) => {
 	// Use the updated field name: backgroundMedia
 	const isVideo =
 		typeof story?.backgroundMedia === "string" &&

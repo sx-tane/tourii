@@ -1,9 +1,9 @@
 import type { CharacterProps } from "@/types/character-type";
+import { Button } from "@headlessui/react";
+import { BookOpen, MapPin } from "lucide-react";
 import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 import type React from "react";
-import { MapPin, BookOpen } from "lucide-react";
-import { Button } from "@headlessui/react";
 import Markdown from "react-markdown";
 
 interface CharacterCardProps extends CharacterProps {
@@ -33,7 +33,9 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 
 			<div className="w-full p-4 md:w-2/3 h-3/8 md:h-full flex flex-col">
 				<div className="flex-grow">
-					<h3 className="text-base lg:text-xl font-bold text-charcoal uppercase tracking-widest mt-1">{name}</h3>
+					<h3 className="text-base lg:text-xl font-bold text-charcoal uppercase tracking-widest mt-1">
+						{name}
+					</h3>
 					<span className="font-normal text-xs text-charcoal italic tracking-widest">
 						{kami}
 					</span>

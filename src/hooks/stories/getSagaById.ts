@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import { StoryChapterResponseDto } from "@/api/generated";
 
 /**
  * Hook to fetch a single story (saga) by its ID using SWR.
@@ -12,11 +12,11 @@ export const getSagaById = (storyId: string | undefined) => {
 	const swrKey = storyId ? `/api/stories/${storyId}/chapters` : null;
 
 	const { data, error, isLoading, mutate } = useSWR<
-		BackendStoryChapter[],
+		StoryChapterResponseDto[],
 		StructuredError
 	>(
 		swrKey,
-		storyId ? proxyFetcher<BackendStoryChapter[]> : null, // Use imported proxyFetcher
+		storyId ? proxyFetcher<StoryChapterResponseDto[]> : null, // Use imported proxyFetcher
 		{
 			shouldRetryOnError: false,
 			// suspense: true, // Optional
@@ -24,7 +24,7 @@ export const getSagaById = (storyId: string | undefined) => {
 	);
 
 	return {
-		storyChapter: data, // data is BackendStoryChapter[] or undefined
+		storyChapter: data,
 		isLoadingSaga: isLoading,
 		isErrorSaga: error, // error is StructuredError or undefined
 		mutateSaga: mutate,

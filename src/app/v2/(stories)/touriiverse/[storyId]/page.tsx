@@ -1,8 +1,8 @@
 "use client";
 
+import type { StoryChapterResponseDto } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import ChapterComponent from "@/components/story/chapter-page/chapter-component";
 import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
 import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
@@ -32,7 +32,7 @@ const SagaChapterPage: NextPage = () => {
 	});
 
 	const [currentChapter, setCurrentChapter] =
-		useState<BackendStoryChapter | null>(null);
+		useState<StoryChapterResponseDto | null>(null);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	useEffect(() => {
@@ -55,14 +55,14 @@ const SagaChapterPage: NextPage = () => {
 				return;
 			}
 
-			let initialChapter: BackendStoryChapter | undefined = undefined;
+			let initialChapter: StoryChapterResponseDto | undefined = undefined;
 			const savedChapterIdKey = `selectedChapterId_${storyId}`;
 
 			if (typeof window !== "undefined") {
 				const savedChapterId = localStorage.getItem(savedChapterIdKey);
 				if (savedChapterId) {
 					initialChapter = chapters.find(
-						(c: BackendStoryChapter) => c.storyChapterId === savedChapterId,
+						(c: StoryChapterResponseDto) => c.storyChapterId === savedChapterId,
 					);
 					if (initialChapter) {
 						console.log(
@@ -87,7 +87,7 @@ const SagaChapterPage: NextPage = () => {
 			if (initialChapter) {
 				setCurrentChapter(initialChapter);
 				const initialIndex = chapters.findIndex(
-					(c: BackendStoryChapter) =>
+					(c: StoryChapterResponseDto) =>
 						c.storyChapterId === initialChapter?.storyChapterId,
 				);
 				setCurrentIndex(initialIndex >= 0 ? initialIndex : 0);
@@ -126,7 +126,7 @@ const SagaChapterPage: NextPage = () => {
 			// Use saga.chapterList
 			const chapters = storyChapter ?? [];
 			const chapter = chapters.find(
-				(c: BackendStoryChapter) => c.storyChapterId === selectedChapterId,
+				(c: StoryChapterResponseDto) => c.storyChapterId === selectedChapterId,
 			);
 
 			if (chapter) {
@@ -136,7 +136,8 @@ const SagaChapterPage: NextPage = () => {
 					localStorage.setItem(savedChapterIdKey, selectedChapterId);
 				}
 				const newIndex = chapters.findIndex(
-					(c: BackendStoryChapter) => c.storyChapterId === selectedChapterId,
+					(c: StoryChapterResponseDto) =>
+						c.storyChapterId === selectedChapterId,
 				);
 				setCurrentIndex(newIndex >= 0 ? newIndex : 0);
 			} else {
@@ -154,7 +155,7 @@ const SagaChapterPage: NextPage = () => {
 			const chapters = storyChapter ?? [];
 			if (!currentChapter || chapters.length === 0) return;
 			const currentIdx = chapters.findIndex(
-				(chapter: BackendStoryChapter) =>
+				(chapter: StoryChapterResponseDto) =>
 					chapter.storyChapterId === currentChapter.storyChapterId,
 			);
 			if (currentIdx === -1) {
@@ -293,7 +294,7 @@ const SagaChapterPage: NextPage = () => {
 
 	// Use saga.chapterList for mapping
 	const selectionDataForComponents = storyChapter.map(
-		(chap: BackendStoryChapter) => ({
+		(chap: StoryChapterResponseDto) => ({
 			touristSpotId: chap.touristSpotId,
 			storyChapterId: chap.storyChapterId,
 			isSelected: chap.storyChapterId === currentChapter.storyChapterId,
@@ -323,7 +324,6 @@ const SagaChapterPage: NextPage = () => {
 			) : (
 				<AnimatePresence mode="wait">
 					<ChapterComponent
-						areaLink={`/touriiverse/${storyId}`}
 						key={currentChapter.storyChapterId}
 						chapter={currentChapter}
 						sagaName={currentSagaName} // Use saga.sagaName

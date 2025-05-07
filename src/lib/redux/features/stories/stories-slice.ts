@@ -1,17 +1,12 @@
-import {
-	createSlice,
-	createSelector,
-} from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type {
-	Story,
-	StorySelection,
-} from "@/app/v2/(stories)/types";
+import type { StorySelection } from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
+import { StoryResponseDto } from "@/api/generated";
 
 interface StoriesState {
-	stories: Story[];
-	selectedStory: Story | null;
+	stories: StoryResponseDto[];
+	selectedStory: StoryResponseDto | null;
 }
 
 const initialState: StoriesState = {
@@ -35,14 +30,17 @@ const storiesSlice = createSlice({
 					null
 				: null;
 		},
-		setStories: (state, action: PayloadAction<Story[]>) => {
+		setStories: (state, action: PayloadAction<StoryResponseDto[]>) => {
 			state.stories = action.payload;
 			const currentSelectedId = state.selectedStory?.storyId;
-			state.selectedStory = state.stories.find(s => s.storyId === currentSelectedId) || state.stories[1] || null;
+			state.selectedStory =
+				state.stories.find((s) => s.storyId === currentSelectedId) ||
+				state.stories[1] ||
+				null;
 
-			state.stories = state.stories.map(story => ({
+			state.stories = state.stories.map((story) => ({
 				...story,
-				isSelected: story.storyId === state.selectedStory?.storyId
+				isSelected: story.storyId === state.selectedStory?.storyId,
 			}));
 		},
 	},
@@ -57,16 +55,18 @@ export const selectStories = createSelector(
 	(storiesState) => ({
 		stories: storiesState.stories,
 		selectedStory: storiesState.selectedStory,
-		selectionData: Array.isArray(storiesState.stories) ? storiesState.stories.map(
-			(story) =>
-				({
-					title: story.sagaName,
-					selectedStoryId: story.storyId,
-					isSelected: story.isSelected ?? false,
-					isPrologue: story.isPrologue ?? false,
-					chapterNumber: story.chapterList?.length,
-				}) satisfies StorySelection,
-		) : [],
+		selectionData: Array.isArray(storiesState.stories)
+			? storiesState.stories.map(
+					(story) =>
+						({
+							title: story.sagaName,
+							selectedStoryId: story.storyId,
+							isSelected: story.isSelected ?? false,
+							isPrologue: story.isPrologue ?? false,
+							chapterNumber: story.chapterList?.length,
+						}) satisfies StorySelection,
+				)
+			: [],
 	}),
 );
 

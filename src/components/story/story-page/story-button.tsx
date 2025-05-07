@@ -1,7 +1,9 @@
-import type { Story } from "@/app/v2/(stories)/types";
+import type { StoryResponseDto } from "@/api/generated";
 import Link from "next/link";
 
-const StoryButton: React.FC<{ story: Story | undefined }> = ({ story }) => {
+const StoryButton: React.FC<{ story: StoryResponseDto | undefined }> = ({
+	story,
+}) => {
 	return (
 		<div>
 			<Link

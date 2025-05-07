@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ChapterSelectionMobile from "./chapter-selection-mobile";
-
-// Define the new item type expected by the component
-interface ChapterSelectionItem {
-	storyChapterId: string;
-	isSelected: boolean;
-	chapterNumber: string;
-	chapterTitle: string;
-}
+import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 
 const meta = {
 	title: "Story/Chapter/MobileSelection",

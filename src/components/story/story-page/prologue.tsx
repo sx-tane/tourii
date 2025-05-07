@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
 
+// TODO:Fix to V2 Version
 const PrologueComponent: React.FC<{ chapter: Chapter }> = ({ chapter }) => {
 	return (
 		<div className="relative md:h-[65vh] w-auto animate-fadeIn rounded-bl-xl rounded-tl-xl bg-warmGrey p-8 text-charcoal">

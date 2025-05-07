@@ -22,7 +22,7 @@ export interface BackendStoryChapter {
 	updDateTime?: string;
 }
 
-export interface Story {
+interface Story {
 	storyId: string;
 	sagaName: string;
 	sagaDesc?: string;
@@ -47,12 +47,23 @@ export interface StorySelection {
 	isPrologue: boolean;
 }
 
-export type StorySelectionButtonProps = {
-	selection: StorySelection;
-	onSelect: (selectedStoryId: string) => void;
-};
+export interface ChapterSelectionItem {
+	storyChapterId: string;
+	isSelected: boolean;
+	chapterNumber: string;
+	chapterTitle: string;
+}
 
-export interface StorySelectionListProps {
-	selectionData: StorySelection[];
-	onSelect: (selectedStoryId: string) => void;
+export interface CharacterProps {
+	id: string;
+	name?: string;
+	kanjiname?: string;
+	image?: string;
+	thumbnailImage?: string;
+	description?: string;
+	dob?: string;
+	realm?: string;
+	height?: string;
+	weapon?: string;
+	kami?: string;
 }

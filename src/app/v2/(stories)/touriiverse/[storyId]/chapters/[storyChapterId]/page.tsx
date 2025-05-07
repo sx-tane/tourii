@@ -1,24 +1,23 @@
 "use client";
 
+import type { StoryChapterResponseDto } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
+import Title from "@/components/world/text/title";
 import { getSagaById } from "@/hooks/stories/getSagaById";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { selectStories } from "@/lib/redux/features/stories/stories-slice";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { motion } from "framer-motion";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import Title from "@/components/world/text/title";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const ChapterPage: React.FC = () => {
 	const params = useParams();
-	const router = useRouter();
 	const storyId = Array.isArray(params.storyId)
 		? params.storyId[0]
 		: params.storyId;
@@ -36,8 +35,8 @@ const ChapterPage: React.FC = () => {
 		isErrorSaga,
 	} = getSagaById(storyId);
 
-	const [chapter, setChapter] = useState<BackendStoryChapter | null>(null);
-	const [chapterList, setChapterList] = useState<BackendStoryChapter[]>([]);
+	const [chapter, setChapter] = useState<StoryChapterResponseDto | null>(null);
+	const [chapterList, setChapterList] = useState<StoryChapterResponseDto[]>([]);
 	const [iframeSrc, setIframeSrc] = useState<string | undefined>(undefined);
 
 	// Try to get chapter data from both sources
@@ -133,7 +132,7 @@ const ChapterPage: React.FC = () => {
 			>
 				<Link
 					href={`/v2/touriiverse/${storyId}`}
-					className="flex items-center hover:cursor-pointer text-xs hover:underline text-warmGrey3 uppercase tracking-widest font-medium"
+					className="flex items-center hover:cursor-pointer text-xs hover:underline text-warmGrey3 uppercase tracking-widest font-medium "
 				>
 					<ChevronLeft className="mr-2 inline-block h-5 w-5" />
 					Back to Story

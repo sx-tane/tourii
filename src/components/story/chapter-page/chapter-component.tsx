@@ -1,6 +1,6 @@
 "use client";
 
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
+import type { StoryChapterResponseDto } from "@/api/generated";
 import { upToDownVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -8,15 +8,13 @@ import Markdown from "react-markdown";
 import ChapterButton from "./chapter-button";
 
 interface ChapterComponentProps {
-	chapter?: BackendStoryChapter;
+	chapter?: StoryChapterResponseDto;
 	sagaName?: string;
-	areaLink: string;
 }
 
 const ChapterComponent: React.FC<ChapterComponentProps> = ({
 	chapter,
 	sagaName,
-	areaLink,
 }) => {
 	const chapterImage = chapter?.chapterImage ?? "";
 	const chapterTitle = chapter?.chapterTitle ?? "";
@@ -104,7 +102,7 @@ const ChapterComponent: React.FC<ChapterComponentProps> = ({
 					priority
 					className="hidden md:flex h-[45vh] w-full animate-fadeIn rounded-t-full rounded-b-full object-cover"
 				/>
-				<ChapterButton storyId={chapter?.storyId ?? ""} chapter={chapter} />
+				<ChapterButton chapter={chapter} />
 			</motion.div>
 		</motion.div>
 	);

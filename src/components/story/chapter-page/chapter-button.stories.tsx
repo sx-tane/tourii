@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ChapterButton from "./chapter-button";
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
-
+import type { StoryChapterResponseDto } from "@/api/generated";
 const meta = {
 	title: "Story/Chapter/Button",
 	component: ChapterButton,
@@ -21,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof ChapterButton>;
 
 // Mock data matching the BackendStoryChapter type used in the component
-const mockUnlockedChapter: BackendStoryChapter = {
+const mockUnlockedChapter: StoryChapterResponseDto = {
 	storyId: "test-story-id",
 	storyChapterId: "chapter-1-unlocked",
 	sagaName: "Test Saga",
@@ -36,9 +35,14 @@ const mockUnlockedChapter: BackendStoryChapter = {
 	chapterVideoMobileUrl: "https://example.com/video1_mobile.mp4",
 	chapterPdfUrl: "https://example.com/chapter1.pdf",
 	isUnlocked: true,
+	delFlag: false,
+	insUserId: "1",
+	insDateTime: "2021-01-01",
+	updUserId: "1",
+	updDateTime: "2021-01-01",
 };
 
-const mockLockedChapter: BackendStoryChapter = {
+const mockLockedChapter: StoryChapterResponseDto = {
 	storyId: "test-story-id",
 	storyChapterId: "chapter-2-locked",
 	sagaName: "Test Saga",
@@ -53,19 +57,21 @@ const mockLockedChapter: BackendStoryChapter = {
 	chapterVideoMobileUrl: "https://example.com/video2_mobile.mp4",
 	chapterPdfUrl: "https://example.com/chapter2.pdf",
 	isUnlocked: false,
+	delFlag: false,
+	insUserId: "1",
+	insDateTime: "2021-01-01",
+	updUserId: "1",
+	updDateTime: "2021-01-01",
 };
 
 export const Unlocked: Story = {
 	args: {
-		storyId: mockUnlockedChapter.storyId,
 		chapter: mockUnlockedChapter,
 	},
 };
 
 export const Locked: Story = {
 	args: {
-		storyId: mockLockedChapter.storyId,
 		chapter: mockLockedChapter,
 	},
 };
-

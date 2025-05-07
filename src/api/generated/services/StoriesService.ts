@@ -2,6 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { StoryChapterCreateRequestDto } from '../models/StoryChapterCreateRequestDto';
+import type { StoryChapterResponseDto } from '../models/StoryChapterResponseDto';
+import type { StoryCreateRequestDto } from '../models/StoryCreateRequestDto';
+import type { StoryResponseDto } from '../models/StoryResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -12,234 +16,14 @@ export class StoriesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Story Saga creation request
-     * @returns any Success
+     * @returns StoryResponseDto Successfully created story saga
      * @throws ApiError
      */
     public static touriiBackendControllerCreateStory(
         acceptVersion: string,
         xApiKey: string,
-        requestBody: {
-            /**
-             * Name of the story saga (e.g., 'Prologue', 'Bungo Ono')
-             */
-            sagaName: string;
-            /**
-             * Detailed description of the saga's narrative
-             */
-            sagaDesc: string;
-            /**
-             * URL to the saga's cover media (image or video)
-             */
-            backgroundMedia: string;
-            /**
-             * URL to the map image for the saga
-             */
-            mapImage?: string;
-            /**
-             * Real-world location of the saga (e.g., 'Tokyo')
-             */
-            location?: string;
-            /**
-             * Display order in the saga list
-             */
-            order: number;
-            /**
-             * Whether the saga is a prologue
-             */
-            isPrologue: boolean;
-            /**
-             * Whether the saga is selected by default
-             */
-            isSelected: boolean;
-            /**
-             * List of chapters in the saga
-             */
-            chapterList?: Array<{
-                /**
-                 * Unique identifier for the tourist spot
-                 */
-                touristSpotId: string;
-                /**
-                 * Chapter number or position (e.g., 'Prologue', 'Chapter 1')
-                 */
-                chapterNumber: string;
-                /**
-                 * Title of the story chapter
-                 */
-                chapterTitle: string;
-                /**
-                 * Detailed description or content of the story
-                 */
-                chapterDesc: string;
-                /**
-                 * URL to the fictional chapter image
-                 */
-                chapterImage: string;
-                /**
-                 * List of character names involved in the chapter
-                 */
-                characterNameList: Array<string>;
-                /**
-                 * URL to the real-world location image
-                 */
-                realWorldImage: string;
-                /**
-                 * URL to the chapter video for desktop viewing
-                 */
-                chapterVideoUrl: string;
-                /**
-                 * URL to the chapter video optimized for mobile
-                 */
-                chapterVideoMobileUrl: string;
-                /**
-                 * URL to the downloadable PDF version
-                 */
-                chapterPdfUrl: string;
-                /**
-                 * Whether the chapter is available to users without prerequisites
-                 */
-                isUnlocked: boolean;
-            }>;
-        },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the story saga
-         */
-        storyId: string;
-        /**
-         * Name of the story saga
-         */
-        sagaName: string;
-        /**
-         * Detailed description of the saga's narrative
-         */
-        sagaDesc: string;
-        /**
-         * URL to the saga's cover media (image or video)
-         */
-        backgroundMedia: string;
-        /**
-         * URL to the map image for the saga
-         */
-        mapImage: string;
-        /**
-         * Real-world location of the saga
-         */
-        location: string;
-        /**
-         * Display order in the saga list
-         */
-        order: number;
-        /**
-         * Whether the saga is a prologue
-         */
-        isPrologue: boolean;
-        /**
-         * Whether the saga is selected by default
-         */
-        isSelected: boolean;
-        /**
-         * List of stories in the saga
-         */
-        chapterList?: Array<{
-            /**
-             * Unique identifier for the story
-             */
-            storyId: string;
-            /**
-             * Unique identifier for the tourist spot
-             */
-            touristSpotId: string;
-            /**
-             * Unique identifier for the story chapter
-             */
-            storyChapterId: string;
-            /**
-             * Name of the saga
-             */
-            sagaName: string;
-            /**
-             * Chapter number or position
-             */
-            chapterNumber: string;
-            /**
-             * Title of the chapter
-             */
-            chapterTitle: string;
-            /**
-             * Detailed description of the chapter
-             */
-            chapterDesc: string;
-            /**
-             * URL to the fictional chapter image
-             */
-            chapterImage: string;
-            /**
-             * List of character names involved in the chapter
-             */
-            characterNameList: Array<string>;
-            /**
-             * URL to the real-world location image
-             */
-            realWorldImage: string;
-            /**
-             * URL to the chapter video for desktop viewing
-             */
-            chapterVideoUrl: string;
-            /**
-             * URL to the chapter video optimized for mobile
-             */
-            chapterVideoMobileUrl: string;
-            /**
-             * URL to the downloadable PDF version
-             */
-            chapterPdfUrl: string;
-            /**
-             * Whether the chapter is available to users without prerequisites
-             */
-            isUnlocked: boolean;
-            /**
-             * Flag to indicate if the story chapter is deleted
-             */
-            delFlag: boolean;
-            /**
-             * ID of user who created this record
-             */
-            insUserId: string;
-            /**
-             * Timestamp of record creation
-             */
-            insDateTime: string;
-            /**
-             * ID of user who last updated this record
-             */
-            updUserId: string;
-            /**
-             * Timestamp of last record update
-             */
-            updDateTime: string;
-        }>;
-        /**
-         * Flag to indicate if the story is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+        requestBody: StoryCreateRequestDto,
+    ): CancelablePromise<StoryResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/stories/create-saga',
@@ -262,137 +46,15 @@ export class StoriesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Story Chapter creation request
-     * @returns any Success
+     * @returns StoryChapterResponseDto Successfully created story chapter
      * @throws ApiError
      */
     public static touriiBackendControllerCreateStoryChapter(
         storyId: string,
         acceptVersion: string,
         xApiKey: string,
-        requestBody: {
-            /**
-             * Unique identifier for the tourist spot
-             */
-            touristSpotId: string;
-            /**
-             * Chapter number or position (e.g., 'Prologue', 'Chapter 1')
-             */
-            chapterNumber: string;
-            /**
-             * Title of the story chapter
-             */
-            chapterTitle: string;
-            /**
-             * Detailed description or content of the story
-             */
-            chapterDesc: string;
-            /**
-             * URL to the fictional chapter image
-             */
-            chapterImage: string;
-            /**
-             * List of character names involved in the chapter
-             */
-            characterNameList: Array<string>;
-            /**
-             * URL to the real-world location image
-             */
-            realWorldImage: string;
-            /**
-             * URL to the chapter video for desktop viewing
-             */
-            chapterVideoUrl: string;
-            /**
-             * URL to the chapter video optimized for mobile
-             */
-            chapterVideoMobileUrl: string;
-            /**
-             * URL to the downloadable PDF version
-             */
-            chapterPdfUrl: string;
-            /**
-             * Whether the chapter is available to users without prerequisites
-             */
-            isUnlocked: boolean;
-        },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the story
-         */
-        storyId: string;
-        /**
-         * Unique identifier for the tourist spot
-         */
-        touristSpotId: string;
-        /**
-         * Unique identifier for the story chapter
-         */
-        storyChapterId: string;
-        /**
-         * Name of the saga
-         */
-        sagaName: string;
-        /**
-         * Chapter number or position
-         */
-        chapterNumber: string;
-        /**
-         * Title of the chapter
-         */
-        chapterTitle: string;
-        /**
-         * Detailed description of the chapter
-         */
-        chapterDesc: string;
-        /**
-         * URL to the fictional chapter image
-         */
-        chapterImage: string;
-        /**
-         * List of character names involved in the chapter
-         */
-        characterNameList: Array<string>;
-        /**
-         * URL to the real-world location image
-         */
-        realWorldImage: string;
-        /**
-         * URL to the chapter video for desktop viewing
-         */
-        chapterVideoUrl: string;
-        /**
-         * URL to the chapter video optimized for mobile
-         */
-        chapterVideoMobileUrl: string;
-        /**
-         * URL to the downloadable PDF version
-         */
-        chapterPdfUrl: string;
-        /**
-         * Whether the chapter is available to users without prerequisites
-         */
-        isUnlocked: boolean;
-        /**
-         * Flag to indicate if the story chapter is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+        requestBody: StoryChapterCreateRequestDto,
+    ): CancelablePromise<StoryChapterResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/stories/create-chapter/{storyId}',
@@ -417,7 +79,7 @@ export class StoriesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Story Saga update request
-     * @returns any Success
+     * @returns StoryResponseDto Successfully updated story saga
      * @throws ApiError
      */
     public static touriiBackendControllerUpdateStory(
@@ -518,145 +180,7 @@ export class StoriesService {
              */
             updUserId: string;
         },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the story saga
-         */
-        storyId: string;
-        /**
-         * Name of the story saga
-         */
-        sagaName: string;
-        /**
-         * Detailed description of the saga's narrative
-         */
-        sagaDesc: string;
-        /**
-         * URL to the saga's cover media (image or video)
-         */
-        backgroundMedia: string;
-        /**
-         * URL to the map image for the saga
-         */
-        mapImage: string;
-        /**
-         * Real-world location of the saga
-         */
-        location: string;
-        /**
-         * Display order in the saga list
-         */
-        order: number;
-        /**
-         * Whether the saga is a prologue
-         */
-        isPrologue: boolean;
-        /**
-         * Whether the saga is selected by default
-         */
-        isSelected: boolean;
-        /**
-         * List of stories in the saga
-         */
-        chapterList?: Array<{
-            /**
-             * Unique identifier for the story
-             */
-            storyId: string;
-            /**
-             * Unique identifier for the tourist spot
-             */
-            touristSpotId: string;
-            /**
-             * Unique identifier for the story chapter
-             */
-            storyChapterId: string;
-            /**
-             * Name of the saga
-             */
-            sagaName: string;
-            /**
-             * Chapter number or position
-             */
-            chapterNumber: string;
-            /**
-             * Title of the chapter
-             */
-            chapterTitle: string;
-            /**
-             * Detailed description of the chapter
-             */
-            chapterDesc: string;
-            /**
-             * URL to the fictional chapter image
-             */
-            chapterImage: string;
-            /**
-             * List of character names involved in the chapter
-             */
-            characterNameList: Array<string>;
-            /**
-             * URL to the real-world location image
-             */
-            realWorldImage: string;
-            /**
-             * URL to the chapter video for desktop viewing
-             */
-            chapterVideoUrl: string;
-            /**
-             * URL to the chapter video optimized for mobile
-             */
-            chapterVideoMobileUrl: string;
-            /**
-             * URL to the downloadable PDF version
-             */
-            chapterPdfUrl: string;
-            /**
-             * Whether the chapter is available to users without prerequisites
-             */
-            isUnlocked: boolean;
-            /**
-             * Flag to indicate if the story chapter is deleted
-             */
-            delFlag: boolean;
-            /**
-             * ID of user who created this record
-             */
-            insUserId: string;
-            /**
-             * Timestamp of record creation
-             */
-            insDateTime: string;
-            /**
-             * ID of user who last updated this record
-             */
-            updUserId: string;
-            /**
-             * Timestamp of last record update
-             */
-            updDateTime: string;
-        }>;
-        /**
-         * Flag to indicate if the story is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+    ): CancelablePromise<StoryResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/stories/update-saga',
@@ -678,7 +202,7 @@ export class StoriesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Story Chapter update request
-     * @returns any Success
+     * @returns StoryChapterResponseDto Successfully updated story chapter
      * @throws ApiError
      */
     public static touriiBackendControllerUpdateStoryChapter(
@@ -742,84 +266,7 @@ export class StoriesService {
              */
             updUserId: string;
         },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the story
-         */
-        storyId: string;
-        /**
-         * Unique identifier for the tourist spot
-         */
-        touristSpotId: string;
-        /**
-         * Unique identifier for the story chapter
-         */
-        storyChapterId: string;
-        /**
-         * Name of the saga
-         */
-        sagaName: string;
-        /**
-         * Chapter number or position
-         */
-        chapterNumber: string;
-        /**
-         * Title of the chapter
-         */
-        chapterTitle: string;
-        /**
-         * Detailed description of the chapter
-         */
-        chapterDesc: string;
-        /**
-         * URL to the fictional chapter image
-         */
-        chapterImage: string;
-        /**
-         * List of character names involved in the chapter
-         */
-        characterNameList: Array<string>;
-        /**
-         * URL to the real-world location image
-         */
-        realWorldImage: string;
-        /**
-         * URL to the chapter video for desktop viewing
-         */
-        chapterVideoUrl: string;
-        /**
-         * URL to the chapter video optimized for mobile
-         */
-        chapterVideoMobileUrl: string;
-        /**
-         * URL to the downloadable PDF version
-         */
-        chapterPdfUrl: string;
-        /**
-         * Whether the chapter is available to users without prerequisites
-         */
-        isUnlocked: boolean;
-        /**
-         * Flag to indicate if the story chapter is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+    ): CancelablePromise<StoryChapterResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/stories/update-chapter',
@@ -840,151 +287,13 @@ export class StoriesService {
      * Retrieve all available story sagas.
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @returns any Successfully retrieved all sagas
+     * @returns StoryResponseDto Successfully retrieved all sagas
      * @throws ApiError
      */
     public static touriiBackendControllerGetSagas(
         acceptVersion: string,
         xApiKey: string,
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the story saga
-         */
-        storyId: string;
-        /**
-         * Name of the story saga
-         */
-        sagaName: string;
-        /**
-         * Detailed description of the saga's narrative
-         */
-        sagaDesc: string;
-        /**
-         * URL to the saga's cover media (image or video)
-         */
-        backgroundMedia: string;
-        /**
-         * URL to the map image for the saga
-         */
-        mapImage: string;
-        /**
-         * Real-world location of the saga
-         */
-        location: string;
-        /**
-         * Display order in the saga list
-         */
-        order: number;
-        /**
-         * Whether the saga is a prologue
-         */
-        isPrologue: boolean;
-        /**
-         * Whether the saga is selected by default
-         */
-        isSelected: boolean;
-        /**
-         * List of stories in the saga
-         */
-        chapterList?: Array<{
-            /**
-             * Unique identifier for the story
-             */
-            storyId: string;
-            /**
-             * Unique identifier for the tourist spot
-             */
-            touristSpotId: string;
-            /**
-             * Unique identifier for the story chapter
-             */
-            storyChapterId: string;
-            /**
-             * Name of the saga
-             */
-            sagaName: string;
-            /**
-             * Chapter number or position
-             */
-            chapterNumber: string;
-            /**
-             * Title of the chapter
-             */
-            chapterTitle: string;
-            /**
-             * Detailed description of the chapter
-             */
-            chapterDesc: string;
-            /**
-             * URL to the fictional chapter image
-             */
-            chapterImage: string;
-            /**
-             * List of character names involved in the chapter
-             */
-            characterNameList: Array<string>;
-            /**
-             * URL to the real-world location image
-             */
-            realWorldImage: string;
-            /**
-             * URL to the chapter video for desktop viewing
-             */
-            chapterVideoUrl: string;
-            /**
-             * URL to the chapter video optimized for mobile
-             */
-            chapterVideoMobileUrl: string;
-            /**
-             * URL to the downloadable PDF version
-             */
-            chapterPdfUrl: string;
-            /**
-             * Whether the chapter is available to users without prerequisites
-             */
-            isUnlocked: boolean;
-            /**
-             * Flag to indicate if the story chapter is deleted
-             */
-            delFlag: boolean;
-            /**
-             * ID of user who created this record
-             */
-            insUserId: string;
-            /**
-             * Timestamp of record creation
-             */
-            insDateTime: string;
-            /**
-             * ID of user who last updated this record
-             */
-            updUserId: string;
-            /**
-             * Timestamp of last record update
-             */
-            updDateTime: string;
-        }>;
-        /**
-         * Flag to indicate if the story is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+    ): CancelablePromise<Array<StoryResponseDto>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/stories/sagas',

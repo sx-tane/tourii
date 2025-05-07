@@ -17,22 +17,11 @@ export function touriiErrorResponse(
 export interface ErrorBodyWithCode {
 	code?: string;
 	message?: string;
-	// Add other potential properties from your backend's error structure if needed
 }
 
 export function isErrorBodyWithCode(body: unknown): body is ErrorBodyWithCode {
 	return typeof body === "object" && body !== null;
 }
-
-export type ApiServiceCall<T> = (
-	apiKey: string,
-	apiVersion: string,
-) => CancelablePromise<T>;
-export type ApiServiceCallWithId<T> = (
-	id: string,
-	apiKey: string,
-	apiVersion: string,
-) => CancelablePromise<T>;
 
 /**
  * Higher-order function to wrap API route logic with common setup and error handling.

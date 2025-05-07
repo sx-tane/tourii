@@ -2,6 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ModelRouteResponseDto } from '../models/ModelRouteResponseDto';
+import type { TouristSpotResponseDto } from '../models/TouristSpotResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -12,7 +14,7 @@ export class RoutesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Model Route creation request
-     * @returns any Success
+     * @returns ModelRouteResponseDto Successfully created model route
      * @throws ApiError
      */
     public static touriiBackendControllerCreateModelRoute(
@@ -74,172 +76,7 @@ export class RoutesService {
                 };
             }>;
         },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the model route
-         */
-        modelRouteId: string;
-        /**
-         * Unique identifier for the story
-         */
-        storyId: string;
-        /**
-         * Name of the model route
-         */
-        routeName: string;
-        /**
-         * Region of the model route
-         */
-        region: string;
-        /**
-         * Recommendation of the model route
-         */
-        recommendation: Array<string>;
-        /**
-         * Latitude of the region
-         */
-        regionLatitude: number;
-        /**
-         * Longitude of the region
-         */
-        regionLongitude: number;
-        /**
-         * URL to the region's cover media
-         */
-        regionBackgroundMedia: string;
-        /**
-         * List of tourist spots in the model route
-         */
-        touristSpotList: Array<{
-            /**
-             * Unique identifier for the tourist spot
-             */
-            touristSpotId: string;
-            /**
-             * Unique identifier for the story chapter
-             */
-            storyChapterId: string;
-            /**
-             * Name of the tourist spot
-             */
-            touristSpotName: string;
-            /**
-             * Description of the tourist spot
-             */
-            touristSpotDesc: string;
-            /**
-             * Best visit time of the tourist spot
-             */
-            bestVisitTime: string;
-            /**
-             * Address of the tourist spot
-             */
-            address: string;
-            /**
-             * Latitude of the tourist spot
-             */
-            touristSpotLatitude: number;
-            /**
-             * Longitude of the tourist spot
-             */
-            touristSpotLongitude: number;
-            /**
-             * Hashtags associated with this location
-             */
-            touristSpotHashtag: Array<string>;
-            /**
-             * Link to the related story chapter
-             */
-            storyChapterLink?: string;
-            /**
-             * Image set for the tourist spot
-             */
-            imageSet?: {
-                /**
-                 * Main image of the tourist spot
-                 */
-                main: string;
-                /**
-                 * Small images of the tourist spot
-                 */
-                small: Array<string>;
-            };
-            /**
-             * Weather info for the tourist spot
-             */
-            weatherInfo?: {
-                /**
-                 * Temperature of the weather
-                 */
-                temperatureCelsius: number;
-                /**
-                 * Name of the weather
-                 */
-                weatherName: string;
-                /**
-                 * Description of the weather
-                 */
-                weatherDesc: string;
-            };
-            /**
-             * Flag to indicate if the tourist spot is deleted
-             */
-            delFlag: boolean;
-            /**
-             * ID of user who created this record
-             */
-            insUserId: string;
-            /**
-             * Timestamp of record creation
-             */
-            insDateTime: string;
-            /**
-             * ID of user who last updated this record
-             */
-            updUserId: string;
-            /**
-             * Timestamp of last record update
-             */
-            updDateTime: string;
-        }>;
-        /**
-         * Current weather info for the region
-         */
-        regionWeatherInfo: {
-            /**
-             * Temperature of the weather
-             */
-            temperatureCelsius: number;
-            /**
-             * Name of the weather
-             */
-            weatherName: string;
-            /**
-             * Description of the weather
-             */
-            weatherDesc: string;
-        };
-        /**
-         * Flag to indicate if the model route is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+    ): CancelablePromise<ModelRouteResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/routes/create-model-route',
@@ -262,7 +99,7 @@ export class RoutesService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Tourist Spot creation request
-     * @returns any Success
+     * @returns TouristSpotResponseDto Successfully created tourist spot
      * @throws ApiError
      */
     public static touriiBackendControllerCreateTouristSpot(
@@ -304,98 +141,7 @@ export class RoutesService {
                 small: Array<string>;
             };
         },
-    ): CancelablePromise<{
-        /**
-         * Unique identifier for the tourist spot
-         */
-        touristSpotId: string;
-        /**
-         * Unique identifier for the story chapter
-         */
-        storyChapterId: string;
-        /**
-         * Name of the tourist spot
-         */
-        touristSpotName: string;
-        /**
-         * Description of the tourist spot
-         */
-        touristSpotDesc: string;
-        /**
-         * Best visit time of the tourist spot
-         */
-        bestVisitTime: string;
-        /**
-         * Address of the tourist spot
-         */
-        address: string;
-        /**
-         * Latitude of the tourist spot
-         */
-        touristSpotLatitude: number;
-        /**
-         * Longitude of the tourist spot
-         */
-        touristSpotLongitude: number;
-        /**
-         * Hashtags associated with this location
-         */
-        touristSpotHashtag: Array<string>;
-        /**
-         * Link to the related story chapter
-         */
-        storyChapterLink?: string;
-        /**
-         * Image set for the tourist spot
-         */
-        imageSet?: {
-            /**
-             * Main image of the tourist spot
-             */
-            main: string;
-            /**
-             * Small images of the tourist spot
-             */
-            small: Array<string>;
-        };
-        /**
-         * Weather info for the tourist spot
-         */
-        weatherInfo?: {
-            /**
-             * Temperature of the weather
-             */
-            temperatureCelsius: number;
-            /**
-             * Name of the weather
-             */
-            weatherName: string;
-            /**
-             * Description of the weather
-             */
-            weatherDesc: string;
-        };
-        /**
-         * Flag to indicate if the tourist spot is deleted
-         */
-        delFlag: boolean;
-        /**
-         * ID of user who created this record
-         */
-        insUserId: string;
-        /**
-         * Timestamp of record creation
-         */
-        insDateTime: string;
-        /**
-         * ID of user who last updated this record
-         */
-        updUserId: string;
-        /**
-         * Timestamp of last record update
-         */
-        updDateTime: string;
-    }> {
+    ): CancelablePromise<TouristSpotResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/routes/create-tourist-spot/{modelRouteId}',

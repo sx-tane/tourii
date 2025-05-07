@@ -1,23 +1,43 @@
-import type { Story } from "@/app/v2/(stories)/types";
+import type { StoryResponseDto } from "@/api/generated";
 import type { Meta, StoryObj } from "@storybook/react";
 import StoryComponent from "./story-component";
 
-const mockStory: Story = {
+const mockStory: StoryResponseDto = {
 	storyId: "story-image-1",
 	sagaName: "The Legend of\nIzanami",
 	sagaDesc:
 		"Journey through ancient Japan and discover the tale of creation, where divine beings shape the world and establish the foundations of Japanese mythology.",
 	backgroundMedia: "/image/touriiverse/yokai.png",
 	mapImage: "/image/touriiverse/oita.png",
+	location: "Oita, Japan",
+	order: 1,
+	isPrologue: false,
+	isSelected: false,
+	chapterList: [],
+	delFlag: false,
+	insUserId: "1",
+	insDateTime: "2021-01-01",
+	updUserId: "1",
+	updDateTime: "2021-01-01",
 };
 
-const mockVideoStory: Story = {
+const mockVideoStory: StoryResponseDto = {
 	storyId: "story-video-2",
 	sagaName: "Tales of\nYomi",
 	sagaDesc:
 		"Explore the dark realm of Yomi, where shadows dance and ancient spirits dwell in eternal twilight.",
 	backgroundMedia: "/video/bungo-ono.mp4",
 	mapImage: "/image/touriiverse/oita.png",
+	location: "Oita, Japan",
+	order: 1,
+	isPrologue: false,
+	isSelected: false,
+	chapterList: [],
+	delFlag: false,
+	insUserId: "1",
+	insDateTime: "2021-01-01",
+	updUserId: "1",
+	updDateTime: "2021-01-01",
 };
 
 const meta = {
@@ -58,7 +78,7 @@ export const ComingSoon: ComponentStory = {
 			sagaName: "Coming Soon",
 			sagaDesc: "More stories to be unveiled",
 			backgroundMedia: "/image/touriiverse/coming-soon-bg.png",
-			mapImage: undefined,
+			mapImage: "/image/touriiverse/oita.png",
 		},
 	},
 };

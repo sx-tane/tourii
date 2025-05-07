@@ -1,4 +1,4 @@
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
+import type { StoryChapterResponseDto } from "@/api/generated";
 import {
 	downToUpVariants,
 	upToDownVariants,
@@ -8,7 +8,7 @@ import Image from "next/image";
 import Markdown from "react-markdown";
 
 interface IntroComponentProps {
-	chapter: BackendStoryChapter;
+	chapter: StoryChapterResponseDto;
 	sagaName?: string;
 }
 
