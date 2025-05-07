@@ -14,7 +14,7 @@ interface RouteParams {
  */
 export async function GET(
 	_request: Request,
-	{ params }: { params: RouteParams },
+	{ params }: { params: Promise<{ storyId: string }> }
 ) {
 	// Adjusted params for App Router convention
 	const { storyId } = await params;

@@ -13,7 +13,7 @@ import { useAppSelector } from "@/lib/redux/hooks";
 import { motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ChapterPage: React.FC = () => {
