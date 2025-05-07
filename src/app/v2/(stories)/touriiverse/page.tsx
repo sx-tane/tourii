@@ -4,7 +4,7 @@ import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import StoryComponent from "@/components/story/story-page/story-component";
 import StorySelectionList from "@/components/story/story-page/story-selection/story-selection-list";
-import { useSagas } from "@/hooks/stories/useSagas";
+import { getSagas } from "@/hooks/stories/getSagas";
 import { ApiError } from "@/lib/errors";
 import {
 	selectStories,
@@ -20,13 +20,20 @@ const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
 	const { selectedStory, selectionData } = useAppSelector(selectStories);
 
-	const { sagas, isLoading, isError: error, mutateSagas } = useSagas();
+	const { sagas, isLoading, isError: error, mutateSagas } = getSagas();
 
 	useEffect(() => {
-		if (sagas) {
+		if (sagas !== undefined) {
 			dispatch(setStories(sagas));
+
+			if (sagas.length > 0 && !selectedStory) {
+				const firstStory = sagas[0];
+				if (firstStory) {
+					dispatch(setSelectedStory(firstStory.storyId));
+				}
+			}
 		}
-	}, [sagas, dispatch]);
+	}, [sagas, dispatch, selectedStory]);
 
 	const handleSelectStory = (selectedStoryId: string) => {
 		dispatch(setSelectedStory(selectedStoryId));

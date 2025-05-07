@@ -4,18 +4,12 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from 'next/navigation';
-import VideoIframe from "@/components/story/common/video-iframe";
-import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
-import { Lock, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { characters } from "@/lib/data/character/character-data";
 import CharacterModal from "@/components/character/character-card/character-modal/character-modal";
 import type { CharacterProps } from "@/types/character-type";
-import { motion } from "framer-motion";
 import { StoryTabContent } from "./story-tab-content";
 import { CharactersTabContent } from "./characters-tab-content";
 
@@ -94,15 +88,15 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({ chapters, initialSelec
 
     return (
         <Tabs defaultValue="story" className="w-full">
-            <TabsList className="grid grid-cols-2 bg-background justify-between p-1 h-auto rounded-md mb-6 bg-warmGrey3">
+            <TabsList className="grid grid-cols-2 md:w-1/3 w-full border border-warmGrey3 justify-between p-1 h-auto rounded-md mb-6 bg-transparent">
                 <TabsTrigger
                     value="story"
-                    className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
+                    className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-warmGrey3">
                     Story
                 </TabsTrigger>
                 <TabsTrigger
                     value="characters"
-                    className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
+                    className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-warmGrey3">
                     Characters
                 </TabsTrigger>
                 {/* <TabsTrigger

@@ -7,7 +7,7 @@ import ChapterComponent from "@/components/story/chapter-page/chapter-component"
 import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
 import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
 import IntroComponent from "@/components/story/chapter-page/intro-component";
-import { useSagaById } from "@/hooks/stories/useSagaById";
+import { getSagaById } from "@/hooks/stories/getSagaById";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useParams } from "next/navigation";
@@ -21,7 +21,7 @@ const SagaChapterPage: NextPage = () => {
 
 	// Use the original hook signature, expecting combined saga object
 	const { storyChapter, isLoadingSaga, isErrorSaga, mutateSaga } =
-		useSagaById(storyId);
+		getSagaById(storyId);
 
 	// Log hook output directly
 	console.log("[SagaChapterPage] Hook Output:", {

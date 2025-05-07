@@ -1,39 +1,60 @@
-import { ApiError } from "@/lib/errors"; // Import custom error
+// Standardized error structure for SWR hooks when using proxied API calls
+export interface StructuredError {
+	message: string;
+	status?: number;
+	code?: string;
+	details?: unknown;
+}
 
-export const fetcher = async (url: string) => {
-  const res = await fetch(url);
+// Generic fetcher for SWR, designed to call Next.js API proxy routes
+export async function proxyFetcher<T>(url: string): Promise<T> {
+	const res = await fetch(url);
 
-  if (!res.ok) {
-    let errorPayload: any = { message: `Request failed with status ${res.status}` };
-    try {
-      // Attempt to parse backend JSON error response
-      const jsonResponse = await res.json();
-      // Assume backend might send { error: { message: ..., code: ..., details: ... } } or similar
-      if (typeof jsonResponse === 'object' && jsonResponse !== null) {
-         if ('error' in jsonResponse && typeof jsonResponse.error === 'object' && jsonResponse.error !== null) {
-            // Prefer structured error if available
-            errorPayload = {
-              message: jsonResponse.error.message || errorPayload.message,
-              code: jsonResponse.error.code,
-              details: jsonResponse.error.details,
-            };
-         } else if ('message' in jsonResponse) {
-           // Fallback to top-level message if present
-           errorPayload.message = jsonResponse.message || errorPayload.message;
-         }
-      }
-    } catch (e) {
-      // If response is not JSON or parsing fails, use the basic message
-      console.warn(`Failed to parse error response body from ${url}:`, e);
-    }
+	if (!res.ok) {
+		let errorPayload: StructuredError = {
+			message: `An error occurred while fetching from proxy: ${res.statusText}`,
+			status: res.status,
+			code: "ProxyFetchError",
+		};
+		try {
+			// Attempt to parse the JSON error response from the Next.js API proxy route
+			const errorData = await res.json();
+			// Assumes proxy routes return errors in a structure like: { error: { message, code, details } }
+			// or directly { message, code, details }
+			errorPayload = {
+				message:
+					errorData?.error?.message || errorData?.message || res.statusText,
+				status: res.status, // Always use the actual response status
+				code:
+					errorData?.error?.code ||
+					errorData?.code ||
+					`ProxyError_${res.status}`,
+				details: errorData?.error?.details || errorData?.details || errorData,
+			};
+		} catch (e) {
+			// If parsing the error response body fails, stick with the initial payload
+			console.error(
+				`Failed to parse error JSON from proxy endpoint ${url}:`,
+				e,
+			);
+		}
+		throw errorPayload;
+	}
 
-    // Throw the custom ApiError
-    throw new ApiError(errorPayload.message, res.status, {
-      code: errorPayload.code,
-      details: errorPayload.details,
-      responseBody: errorPayload, // Include the parsed/attempted body for context
-    });
-  }
-
-  return res.json();
-}; 
+	// If response is OK, parse and return data
+	try {
+		return (await res.json()) as T;
+	} catch (e) {
+		console.error(
+			`Failed to parse success JSON from proxy endpoint ${url}:`,
+			e,
+		);
+		// Throw a structured error if JSON parsing of a successful response fails
+		throw {
+			message: "Invalid JSON response from a successful proxy request.",
+			status: res.status, // Still use original status
+			code: "ProxySuccessInvalidJSON",
+			details: await res.text().catch(() => "Could not read response text."), // Attempt to get body as text
+		} as StructuredError;
+	}
+}

@@ -19,8 +19,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 	onClick,
 }) => {
 	return (
-		<div className="flex flex-col md:flex-row md:items-stretch gap-0 bg-warmGrey3 rounded-lg overflow-hidden h-full w-full">
-			<div className="w-full h-48 md:w-1/3 md:h-auto rounded-t-lg md:rounded-l-lg md:rounded-tr-none overflow-hidden relative bg-warmGrey2">
+		<div className="flex flex-row md:items-stretch gap-0 bg-warmGrey3 rounded-lg overflow-hidden h-full w-full ">
+			<div className="w-1/3 h-auto rounded-t-lg md:rounded-l-lg md:rounded-tr-none overflow-hidden relative bg-warmGrey2">
 				<Image
 					src={thumbnailImage ?? "/image/character/thumbnail/placeholder.png"}
 					alt={name ?? "Character"}
@@ -44,7 +44,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 						</span>
 					</div>
 					{description && (
-						<Markdown className="mt-2 text-sm text-charcoal line-clamp-5 text-pretty leading-relaxed">
+						<Markdown className="mt-2 text-sm text-charcoal line-clamp-3 md:line-clamp-5 text-pretty leading-relaxed">
 							{description}
 						</Markdown>
 					)}
@@ -53,7 +53,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
 				<Button
 					type="button"
 					onClick={onClick}
-					className="inline-flex items-center gap-1 text-xs text-red hover:underline font-medium uppercase tracking-widest transition-all duration-300 self-end"
+					className="mt-2 inline-flex items-center gap-1 text-xs text-red hover:underline font-medium uppercase tracking-widest transition-all duration-300 self-end hover:scale-110"
 				>
 					<BookOpen size={14} />
 					Read More

@@ -100,7 +100,7 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
             </div>
 
             {/* Video/Description Column */}
-            <div className="md:col-span-3 bg-background p-4 rounded-lg border max-h-[70vh] overflow-y-auto scrollbar-hide bg-warmGrey3">
+            <div className="md:col-span-3 rounded-lg max-h-[70vh] overflow-y-auto ">
                 {chapterToDisplay ? (
                     <div>
                         {iframeSrc && (

@@ -1,13 +1,11 @@
 "use client";
 
-import TouriiError, { ErrorComponent } from "@/app/error";
+import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
 import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
-import StoryVideoNavigationButtons from "@/components/story/common/story-video-navigation-button";
-import VideoIframe from "@/components/story/common/video-iframe";
-import { useSagaById } from "@/hooks/stories/useSagaById";
+import { getSagaById } from "@/hooks/stories/getSagaById";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { selectStories } from "@/lib/redux/features/stories/stories-slice";
 import { useAppSelector } from "@/lib/redux/hooks";
@@ -16,7 +14,6 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import WhiteLine from "@/components/world/white-line";
 import Title from "@/components/world/text/title";
 
 const ChapterPage: React.FC = () => {
@@ -37,11 +34,10 @@ const ChapterPage: React.FC = () => {
 		storyChapter: directChapters,
 		isLoadingSaga,
 		isErrorSaga,
-	} = useSagaById(storyId);
+	} = getSagaById(storyId);
 
 	const [chapter, setChapter] = useState<BackendStoryChapter | null>(null);
 	const [chapterList, setChapterList] = useState<BackendStoryChapter[]>([]);
-	const [isMuted, setIsMuted] = useState(false);
 	const [iframeSrc, setIframeSrc] = useState<string | undefined>(undefined);
 
 	// Try to get chapter data from both sources
