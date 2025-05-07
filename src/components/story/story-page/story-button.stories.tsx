@@ -1,13 +1,23 @@
-import type { Story } from "@/app/v2/(stories)/types";
+import type { StoryResponseDto } from "@/api/generated";
 import type { Meta, StoryObj } from "@storybook/react";
 import StoryButton from "./story-button";
 
-const mockStory: Story = {
+const mockStory: StoryResponseDto = {
 	storyId: "1",
 	sagaName: "The Legend of Izanami",
 	sagaDesc: "Journey through ancient Japan...",
 	backgroundMedia: "/image/touriiverse/yokai.png",
 	mapImage: "/image/touriiverse/oita.png",
+	location: "Oita, Japan",
+	order: 1,
+	isPrologue: false,
+	isSelected: false,
+	chapterList: [],
+	delFlag: false,
+	insUserId: "1",
+	insDateTime: "2021-01-01",
+	updUserId: "1",
+	updDateTime: "2021-01-01",
 };
 
 const meta = {

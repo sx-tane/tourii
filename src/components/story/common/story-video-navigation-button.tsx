@@ -1,19 +1,12 @@
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import type { StoryVideoNavigationButtonsProps } from "@/types/story-type";
 import { Button } from "@headlessui/react";
-import {
-	ArrowLeftIcon,
-	ArrowRightIcon,
-	ArrowUturnLeftIcon,
-	SpeakerWaveIcon,
-	SpeakerXMarkIcon,
-} from "@heroicons/react/20/solid";
+import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import type React from "react";
 
 const StoryVideoNavigationButtons: React.FC<
-	Pick<StoryVideoNavigationButtonsProps, 'isMuted' | 'toggleSound'>
+	Pick<StoryVideoNavigationButtonsProps, "isMuted" | "toggleSound">
 > = ({ isMuted, toggleSound }) => {
 	return (
 		<motion.div

@@ -1,4 +1,3 @@
-import { goalData } from "@/lib/data/world/world-data";
 import {
 	Drawer,
 	DrawerClose,
@@ -8,6 +7,7 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
+import { goalData } from "@/lib/data/world/world-data";
 import type { GoalProps } from "@/types/world-type";
 import Image from "next/image";
 import type React from "react";

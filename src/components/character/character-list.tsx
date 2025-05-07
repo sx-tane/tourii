@@ -2,7 +2,7 @@
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { setSelectedCharacter } from "@/lib/redux/features/character/character-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
-import type { CharacterProps } from "@/types/character-type";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import CharacterCard from "./character-card/character-card";

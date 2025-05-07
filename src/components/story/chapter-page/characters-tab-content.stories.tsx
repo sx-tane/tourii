@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import type { CharacterProps } from "@/types/character-type";
 import { characters as allCharacters } from "@/lib/data/character/character-data"; // Import mock data
+import type { CharacterProps } from "@/app/v2/(stories)/types";
+import type { Meta, StoryObj } from "@storybook/react";
 import { CharactersTabContent } from "./characters-tab-content";
 
 // Prepare mock data subsets
@@ -9,16 +9,18 @@ const oneCharacter: CharacterProps[] = allCharacters.slice(2, 3); // e.g., Sarut
 const noCharacters: CharacterProps[] = [];
 
 const meta: Meta<typeof CharactersTabContent> = {
-    title: "Story/Chapter/CharactersTabContent",
-    component: CharactersTabContent,
-    tags: ["autodocs"],
-    parameters: {
-        layout: "fullscreen", // Usually appropriate for tab content
-    },
-    args: { // Default args
-        relevantCharacters: someCharacters,
-        handleOpenModal: (character) => console.log("Opening modal for:", character.id),
-    },
+	title: "Story/Chapter/CharactersTabContent",
+	component: CharactersTabContent,
+	tags: ["autodocs"],
+	parameters: {
+		layout: "fullscreen", // Usually appropriate for tab content
+	},
+	args: {
+		// Default args
+		relevantCharacters: someCharacters,
+		handleOpenModal: (character) =>
+			console.log("Opening modal for:", character.id),
+	},
 };
 
 export default meta;
@@ -29,14 +31,14 @@ export const Default: Story = {};
 
 // Story with only one character
 export const SingleCharacter: Story = {
-    args: {
-        relevantCharacters: oneCharacter,
-    },
+	args: {
+		relevantCharacters: oneCharacter,
+	},
 };
 
 // Story representing when a chapter has no associated characters
 export const NoRelevantCharacters: Story = {
-    args: {
-        relevantCharacters: noCharacters,
-    },
-}; 
+	args: {
+		relevantCharacters: noCharacters,
+	},
+};

@@ -1,7 +1,7 @@
 "use client";
+import type { TitleProps } from "@/types/world-type";
 import { motion } from "framer-motion";
 import type React from "react";
-import type { TitleProps } from "@/types/world-type";
 
 const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
 	// Split strings into words internally

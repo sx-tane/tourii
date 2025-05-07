@@ -1,4 +1,4 @@
-import type { BackendStoryChapter } from "@/app/v2/(stories)/types";
+import type { StoryChapterResponseDto } from "@/api/generated";
 import type { Meta, StoryObj } from "@storybook/react";
 import ChapterComponent from "./chapter-component";
 
@@ -24,7 +24,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof ChapterComponent>;
 
-const mockChapter: BackendStoryChapter = {
+const mockChapter: StoryChapterResponseDto = {
 	storyId: "STO-Kyoto-123",
 	touristSpotId: "kyoto-chapter-1",
 	chapterNumber: "Chapter 1",
@@ -44,12 +44,12 @@ const mockChapter: BackendStoryChapter = {
 	updDateTime: "2024-01-01 10:00",
 	storyChapterId: "kyoto-chapter-1",
 	sagaName: "Kyoto Saga",
+	delFlag: false,
 };
 
 export const Default: Story = {
 	args: {
 		chapter: mockChapter,
-		areaLink: "/stories/kyoto",
 		sagaName: "Kyoto Saga",
 	},
 };
@@ -61,7 +61,6 @@ export const LongContent: Story = {
 			chapterDesc:
 				"# The Tale of Kyoto\n\nIn the heart of ancient Japan, where legends whisper through cherry blossoms and shadows dance in moonlit temples, our story begins. A tale of courage, mystery, and the eternal dance between light and darkness unfolds...\n\n## The Journey Begins\n\n- Visit ancient temples hidden in misty mountains\n- Experience traditional tea ceremonies with local masters\n- Uncover the secrets of the old capital\n- Meet mysterious characters who guard ancient wisdom\n\nThrough winding alleyways and sacred grounds, each step reveals a new chapter in this timeless tale.",
 		},
-		areaLink: "/stories/kyoto",
 		sagaName: "Kyoto Saga",
 	},
 };

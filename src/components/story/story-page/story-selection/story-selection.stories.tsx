@@ -1,9 +1,7 @@
-import type {
-	StorySelectionButtonProps,
-	StorySelectionListProps,
-} from "@/app/v2/(stories)/types";
 import type { Meta, StoryObj } from "@storybook/react";
-import StorySelectionButton from "./story-selection-button";
+import StorySelectionButton, {
+	type StorySelectionButtonProps,
+} from "./story-selection-button";
 import StorySelectionList from "./story-selection-list";
 
 const mockSelections = [

@@ -1,4 +1,4 @@
-import type { CharacterProps } from "@/types/character-type";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 
 export const characters: CharacterProps[] = [
 	{

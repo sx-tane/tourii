@@ -1,18 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useRef } from "react";
 import ChapterSelectionComponent from "./chapter-selection";
-// Remove old type/data imports
-// import type { Chapter, ChapterSelection, ChapterSelectionProps } from "@/types/story-type";
-// import { bungoOnoChapterData } from "@/lib/data/touriiverse/chapter-data";
-
-// Define the new item type expected by the component
-// (Could also import if defined centrally, but defining locally for clarity)
-interface ChapterSelectionItem {
-	storyChapterId: string;
-	isSelected: boolean;
-	chapterNumber: string;
-	chapterTitle: string;
-}
+import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 
 const meta = {
 	title: "Story/Chapter/ChapterSelection",

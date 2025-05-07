@@ -1,6 +1,8 @@
 # 🧩 Tourii V2 Frontend-Backend Integration Guide
 
-This document outlines the integration points between the Tourii frontend and backend systems, ensuring seamless communication and consistent user experience across the platform.
+This document outlines the integration points between the Tourii frontend and backend systems.
+
+**Key Change**: Frontend interaction with the backend API endpoints (defined in `openapi.json`) is now primarily managed through an OpenAPI-generated client SDK (`src/api/generated/`). This SDK, configured via `src/api/api-client-config.ts` with `OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL` (e.g., `http://host/tourii-backend`), provides type-safe methods for direct API calls. Custom SWR hooks (e.g., in `src/hooks/`) typically wrap these SDK calls, often replacing previous Next.js API proxy routes.
 
 ---
 
@@ -12,25 +14,29 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ## 🧭 API Domain Overview
 
-| Domain          | Endpoint Prefix           | Notes                            |
-| --------------- | ------------------------- | -------------------------------- |
-| Auth & Profile  | `/auth/*`                 | OAuth + Wallet login             |
-| User & Passport | `/users/*`, `/passport/*` | Profile + NFT minting & metadata |
-| Stories         | `/stories/*`              | Saga, Chapter, Lore              |
-| Routes & Spots  | `/routes/*`, `/spots/*`   | Model route & linked locations   |
-| Quests          | `/quests/*`, `/tasks/*`   | Parent quest, task submission    |
-| Memory Wall     | `/memories/*`             | Memory wall logs only            |
-| Rewards & Perks | `/perks/*`                | NFT-based perks + shop logic     |
-| Check-in Map    | `/checkin/*`              | GPS + QR logic                   |
-| Admin           | `/admin/*`                | CRUD: quests, routes, stories    |
+This table provides a high-level overview of the backend API domains. The "Endpoint Prefix" indicates the general path segments that follow the configured `OpenAPI.BASE` (which includes common prefixes like `/tourii-backend`).
+
+| Domain          | Endpoint Prefix (relative to `OpenAPI.BASE`) | Notes                            |
+| --------------- | --------------------------------------------- | -------------------------------- |
+| Auth & Profile  | `/auth/*`                                     | OAuth + Wallet login             |
+| User & Passport | `/users/*`                                    | Profile + NFT minting & metadata |
+| Stories         | `/stories/*`                                  | Saga, Chapter, Lore              |
+| Routes & Spots  | `/routes/*`                                   | Model route & linked locations   |
+| Quests          | `/quests/*`                                   | Parent quest, task submission    |
+| Memory Wall     | `/memories/*`                                 | Memory wall logs only            |
+| Rewards & Perks | `/perks/*`                                    | NFT-based perks + shop logic     |
+| Check-in Map    | `/checkin/*`                                  | GPS + QR logic                   |
+| Admin           | `/admin/*`                                    | CRUD: quests, routes, stories    |
 
 ---
 
 ## 🔁 API–Frontend Integration Mapping (by Feature)
 
+This section maps frontend features to the relevant backend API path groupings. These paths are targeted by the SDK and are relative to `OpenAPI.BASE`.
+
 ### 1. Authentication & User Management
 
-- **Endpoints**: `/tourii-backend/auth/*`
+- **Backend API Paths**: `/auth/*`
 - **Frontend Components**:
   - `AuthProvider` - Global authentication state management
   - `LoginForm` - Multi-provider authentication (Discord, Twitter, Google)
@@ -38,7 +44,7 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ### 2. Story & Tourism Features
 
-- **Endpoints**: `/tourii-backend/stories/*`, `/tourii-backend/routes/*`, `/tourii-backend/spots/*`
+- **Backend API Paths**: `/stories/*`, `/routes/*`, `/spots/*`
 - **Frontend Components**:
   - `StoryBrowser` - Browse and filter story sagas
   - `StoryViewer` - Interactive story experience
@@ -49,7 +55,7 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ### 3. Gamification System
 
-- **Endpoints**: `/tourii-backend/quests/*`, `/tourii-backend/achievements/*`
+- **Backend API Paths**: `/quests/*`, `/achievements/*`
 - **Frontend Components**:
   - `QuestBrowser` - Browse available quests
   - `QuestTracker` - Active quest progress
@@ -58,7 +64,7 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ### 4. Blockchain Integration
 
-- **Endpoints**: `/tourii-backend/assets/*`
+- **Backend API Paths**: `/assets/*`
 - **Frontend Components**:
   - `DigitalPassport` - Display and manage blockchain assets
   - `ItemInventory` - View and manage on-chain items
@@ -68,7 +74,9 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ## 🧩 Component Usage Overview (Frontend → Backend)
 
-| Component            | Backend Endpoint                                | Purpose                          |
+This table maps frontend components (or the SWR hooks they use) to the conceptual backend API paths they interact with. These paths are relative to the backend's base URL (e.g., `env.NEXT_PUBLIC_BACKEND_URL`) and are targeted directly by the generated API SDK.
+
+| Component            | Backend Endpoint (Path targeted by SDK)        | Purpose                          |
 | -------------------- | ----------------------------------------------- | -------------------------------- |
 | `LoginForm`          | `/auth/login`, `/auth/register`, `/auth/wallet` | OAuth + wallet login             |
 | `AuthProvider`       | `/auth/refresh`, `/auth/logout`                 | Persist session, auto-refresh    |
@@ -84,10 +92,6 @@ This document defines the key integration logic between Tourii's frontend and ba
 | `MemoryWallFeed`     | `/social/feed`, `/social/memory-wall`           | Feed view, post/comment          |
 | `ProfileOverview`    | `/users/me`, `/logs/*`, `/wallet`               | Self profile dashboard           |
 | `AdminDashboardTabs` | `/admin/*`                                      | All backend CRUD/admin endpoints |
-
-## 🔁 API–Frontend Integration Mapping (by Page Route)
-
-*(This section cross-references backend API endpoints to actual page routes based on ****`/app`**** folder structure. See also: ****`BACKEND_FRONTEND_INTEGRATION.md`****)*
 
 ### `/launch-app`
 
@@ -177,8 +181,8 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ---
 
-✅ Full backend endpoint reference: `BACKEND_FRONTEND_INTEGRATION.md`
+✅ Full backend endpoint reference: `openapi.json` (this is the source of truth for API paths and SDK generation)
 ✅ DB schema reference: `schema.prisma`
-✅ Component usage examples: see `/components/*`
+✅ Component usage examples: see `/components/*` and API usage examples in `FRONTEND_API_EXAMPLE.md`
 
-*Last Updated: 12/04/2025*
+*Last Updated: 07/05/2025* Please update this date.

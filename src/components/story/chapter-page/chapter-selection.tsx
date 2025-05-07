@@ -2,19 +2,10 @@ import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import type React from "react";
 import ChapterSelectionButton from "./chapter-selection-button";
+import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 
-// Define the type for the items passed in selectionData prop
-// Matches the structure created in the parent component
-interface ChapterSelectionItem {
-	storyChapterId: string;
-	isSelected: boolean;
-	chapterNumber: string;
-	chapterTitle: string;
-}
-
-// Define the component props using the new item type
 interface ChapterSelectionComponentProps {
-	placeName?: string; // This is the overall saga name
+	placeName?: string;
 	selectionData: ChapterSelectionItem[];
 	handleSelectChapter: (selectedChapterId: string) => void;
 	selectedButtonRef: React.RefObject<HTMLDivElement | null>;
@@ -37,8 +28,9 @@ const ChapterSelectionComponent: React.FC<ChapterSelectionComponentProps> = ({
 			transition={{ duration: 0.5 }}
 		>
 			<div
-				className={`flex w-full items-center overflow-y-hidden ${shouldScroll ? "overflow-x-scroll" : ""
-					}`}
+				className={`flex w-full items-center overflow-y-hidden ${
+					shouldScroll ? "overflow-x-scroll" : ""
+				}`}
 			>
 				<div className="mr-10 shrink-0 text-xl font-bold tracking-wider transition-all duration-500 uppercase">
 					{placeName}

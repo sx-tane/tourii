@@ -1,9 +1,9 @@
-import type { Story } from "@/app/v2/(stories)/types";
+import type { StoryResponseDto } from "@/api/generated";
 import createIdGenerator from "@/utils/id-utils";
 
 const storyIdGenerator = new createIdGenerator(0, 0, 0, 0, 0, 0, 0);
 
-export const storyData: Story[] = [
+export const storyData: StoryResponseDto[] = [
 	{
 		storyId: storyIdGenerator.generateStoryId(),
 		sagaName: "Prologue",
@@ -12,6 +12,13 @@ export const storyData: Story[] = [
 		mapImage: "/image/touriiverse/oita.png",
 		isPrologue: true,
 		isSelected: false,
+		location: "Oita, Japan",
+		order: 1,
+		delFlag: false,
+		insUserId: "1",
+		insDateTime: "2021-01-01",
+		updUserId: "1",
+		updDateTime: "2021-01-01",
 	},
 	{
 		storyId: storyIdGenerator.generateStoryId(),
@@ -22,32 +29,62 @@ export const storyData: Story[] = [
 		mapImage: "/image/touriiverse/oita.png",
 		isPrologue: false,
 		isSelected: true, // Default selected story
+		location: "Oita, Japan",
+		order: 1,
+		delFlag: false,
+		insUserId: "1",
+		insDateTime: "2021-01-01",
+		updUserId: "1",
+		updDateTime: "2021-01-01",
 	},
 	{
 		storyId: storyIdGenerator.generateStoryId(),
 		sagaName: "Aomori",
-		sagaDesc: "In the Touriiverse, Aomori, wrapped in mist and myth, whispers ancient tales. Here, among the orchards of Hirosaki Apple Park and the rising mists of Hakkōda Ropeway Sanroku, nature and legend entwine. Atop Mt. Hakkoda, spirits roam the winds, inviting explorers to a realm where folklore breathes.",
+		sagaDesc:
+			"In the Touriiverse, Aomori, wrapped in mist and myth, whispers ancient tales. Here, among the orchards of Hirosaki Apple Park and the rising mists of Hakkōda Ropeway Sanroku, nature and legend entwine. Atop Mt. Hakkoda, spirits roam the winds, inviting explorers to a realm where folklore breathes.",
 		mapImage: "/image/touriiverse/aomori.png",
 		isPrologue: false,
 		isSelected: false,
 		backgroundMedia: "/image/world/Aomori.png",
+		location: "Aomori, Japan",
+		order: 1,
+		delFlag: false,
+		insUserId: "1",
+		insDateTime: "2021-01-01",
+		updUserId: "1",
+		updDateTime: "2021-01-01",
 	},
 	{
 		storyId: storyIdGenerator.generateStoryId(),
 		sagaName: "Tochigi",
-		sagaDesc: "In the Touriiverse, Tochigi, steeped in sacred lore, whispers ancient tales. Here, beneath the golden eaves of Nikkō Tōshōgū and the crimson arch of Shinkyo Bridge, myth and nature intertwine. From the misty heights of Kegon Falls, spirits drift with the waters, inviting explorers to a realm where legends endure.",
+		sagaDesc:
+			"In the Touriiverse, Tochigi, steeped in sacred lore, whispers ancient tales. Here, beneath the golden eaves of Nikkō Tōshōgū and the crimson arch of Shinkyo Bridge, myth and nature intertwine. From the misty heights of Kegon Falls, spirits drift with the waters, inviting explorers to a realm where legends endure.",
 		mapImage: "/image/touriiverse/tochigi.png",
 		isPrologue: false,
 		isSelected: false,
 		backgroundMedia: "/image/world/Tochigi.png",
+		location: "Tochigi, Japan",
+		order: 1,
+		delFlag: false,
+		insUserId: "1",
+		insDateTime: "2021-01-01",
+		updUserId: "1",
+		updDateTime: "2021-01-01",
 	},
 	{
 		storyId: storyIdGenerator.generateStoryId(),
 		sagaName: "Coming Soon",
 		sagaDesc: "More stories to be unveiled",
 		backgroundMedia: "/image/touriiverse/yokai.png",
-		mapImage: undefined,
+		mapImage: "/image/touriiverse/oita.png",
+		location: "Oita, Japan",
+		order: 1,
 		isPrologue: false,
 		isSelected: false,
+		delFlag: false,
+		insUserId: "1",
+		insDateTime: "2021-01-01",
+		updUserId: "1",
+		updDateTime: "2021-01-01",
 	},
 ];

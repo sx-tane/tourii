@@ -1,4 +1,9 @@
-import type { StorySelectionButtonProps } from "@/app/v2/(stories)/types";
+import type { StorySelection } from "@/app/v2/(stories)/types";
+
+export type StorySelectionButtonProps = {
+	selection: StorySelection;
+	onSelect: (selectedStoryId: string) => void;
+};
 
 const StorySelectionButton: React.FC<StorySelectionButtonProps> = ({
 	selection,
