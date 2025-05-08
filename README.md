@@ -54,60 +54,50 @@ This frontend app, built with **Next.js App Router**, powers an immersive user j
 
 ## 📞 API Client (OpenAPI Generated)
 
-The frontend utilizes a TypeScript client generated from the backend's OpenAPI specification (`api-specs/openapi.json`). This ensures type-safe API calls and reduces boilerplate.
+The frontend utilizes a TypeScript client generated from the backend's OpenAPI specification. This SDK is primarily used within Next.js API Routes (server-side proxies) to ensure type-safe API calls to the Tourii backend.
 
-### Regeneration
+### API Interaction Pattern
+
+1.  **Client-Side Hooks (SWR):** UI components use SWR hooks (e.g., in `src/hooks/`) that call internal Next.js API routes.
+2.  **Next.js API Routes (Proxies):** These routes (in `src/app/api/...`) receive requests from the client. They use the generated SDK to call the actual backend.
+3.  **SDK Configuration (Server-Side):** The SDK (e.g., `StoriesService`) is configured within these API routes (typically in a helper like `src/app/api/lib/route-helper.ts`) by setting `OpenAPI.BASE` and the API key using server-side environment variables from `src/env.js`. A global `src/api/api-client-config.ts` is generally not used for this pattern.
+
+### SDK Regeneration
 
 If the backend API changes, the client needs to be regenerated:
 
 ```bash
 pnpm generate:api
 ```
-
 This command uses `openapi-typescript-codegen` to update the client SDK located in `src/api/generated`.
 
-### Configuration
+### Basic Usage (SWR Hooks calling Proxy Routes)
 
-The API client is configured in `src/api/api-client-config.ts`. This file sets the base URL for the API (from `env.NEXT_PUBLIC_BACKEND_URL`) and global headers like `x-api-key` (from `env.NEXT_PUBLIC_BACKEND_API_KEY`) and `accept-version`.
-
-This configuration is automatically loaded when the application starts via `src/app/api-client-initializer.tsx`.
-
-### Basic Usage (with SWR Hooks)
-
-Custom SWR hooks are used to interact with the generated API client services. For example, to fetch all story sagas:
+Client-side SWR hooks call Next.js API routes. The API routes then use the SDK.
 
 ```typescript
-// src/hooks/stories/useSagas.ts
+// Example: src/hooks/stories/getSagas.ts (Client-Side)
 import useSWR from "swr";
-import { StoriesService } from "@/api/generated";
-import { env } from "@/env.js";
+import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher"; // Your custom fetcher
+import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
-export function useSagas() {
-  const swrKey = "/api/stories/sagas";
-  const { data, error, isLoading, mutate } = useSWR(
-    swrKey,
-    async () => {
-      const apiKey = env.NEXT_PUBLIC_BACKEND_API_KEY;
-      if (!apiKey) throw new Error("API key is not configured");
-      return StoriesService.touriiBackendControllerGetSagas(
-        '1.0.0', // accept-version
-        apiKey   // x-api-key
-      );
-    }
-  );
+export function getSagas() {
+  const swrKey = "/api/stories/sagas"; // Points to your Next.js API proxy
+  const { data, error, isLoading, mutate } = useSWR<
+    StoryResponseDto[],
+    StructuredError
+  >(swrKey, proxyFetcher);
 
   return {
-    sagas: data, // Data is typed by the SDK
+    sagas: data, // Data is typed via the proxy
     isLoading,
     isError: error,
     mutateSagas: mutate,
   };
 }
 
-// In your component:
-// const { sagas, isLoading } = useSagas();
-// if (isLoading) return <p>Loading...</p>;
-// sagas will be an array of saga objects, typed by the SDK.
+// The corresponding Next.js API route (e.g., src/app/api/stories/sagas/route.ts) 
+// would then use the generated StoriesService.touriiBackendControllerGetSagas().
 ```
 
 ---
@@ -117,30 +107,33 @@ export function useSagas() {
 ```
 src/
 ├── api/
-│   ├── generated/          ← OpenAPI generated client SDK
-│   ├── api-client-config.ts← Global configuration for the SDK
+│   └── generated/          ← OpenAPI generated client SDK (primarily used server-side in API routes)
+// Note: src/api/api-client-config.ts is likely unused/deprecated for the main SWR proxy flow.
 ├── app/
 │   ├── layout.tsx
-│   ├── page.tsx (homepage)
-│   ├── api-client-initializer.tsx ← Loads API client config
-│   ├── launch-app/           ← Auth Modal (OAuth + Wallet)
-│   ├── dashboard/            ← Personal Hub
-│   ├── stories/              ← Story system
-│   ├── quests/               ← Quest system
-│   ├── routes/               ← Wander log system
-│   ├── check-in/             ← Check-in map & timeline
-│   ├── shop/                 ← NFT reward shop
-│   ├── memory-wall/          ← Travel memory log
-│   ├── profile/              ← Profile + passport + perks
-│   └── admin/                ← Admin Panel (secured)
+│   ├── providers.tsx         ← Handles global setup
+│   ├── (homepage)/           ← Homepage (Landing, path: /)
+│   │   └── page.tsx
+│   ├── model-route/          ← Defines /model-route and /model-route/:modelRouteId
+│   ├── profile-dev/          ← Profile pages (path: /profile-dev)
+│   ├── v2/                   ← Main application features with v2 prefix
+│   │   ├── (auth)/           ← Authentication pages
+│   │   ├── (dashboard)/      ← User dashboard (path: /v2/dashboard)
+│   │   ├── (stories)/        ← Story system (path: /v2/stories)
+│   │   ├── (routes)/         ← Model routes (path: /v2/routes)
+│   │   ├── (quests)/         ← Quest system (path: /v2/quests)
+│   │   └── (shop)/           ← Shop (path: /v2/shop)
+│   ├── api/                  ← Next.js API Routes (proxies using the SDK)
+// Other routes like check-in, memory-wall, admin might be structured differently or pending.
 ├── components/               ← UI modules by domain
-├── hooks/                    ← Custom React hooks (including SWR hooks for API calls)
+├── hooks/                    ← Custom React hooks (calling proxy API routes)
 ├── lib/
-│   ├── api-client.ts         ← Original Axios config (may still be used or phased out)
+│   ├── swr/                  ← SWR utilities like proxyFetcher
 │   ├── websocket.ts          ← WebSocket wrapper
 │   ├── blockchain/           ← EVM wallet logic
-├── store/                    ← Redux slices
-├── types/                    ← Global type declarations (may be simplified as SDK provides API types)
+│   └── redux/                ← Redux Toolkit store, with features/slices in ./features/
+├── types/                    ← Global type declarations
+├── utils/                    ← Utility functions like logger
 └── public/                   ← Static assets
 ```
 
@@ -163,19 +156,6 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-### 🌍 Environment Variables
-
-```env
-NEXT_PUBLIC_BACKEND_URL=http://localhost:3001/tourii-backend # Full URL to the backend API service
-NEXT_PUBLIC_BACKEND_API_KEY=your_backend_api_key_here
-# API_VERSION is used by backend, accept-version for client is in api-client-config.ts
-NEXT_PUBLIC_WS_URL=wss://api.tourii.xyz/ws
-NEXT_PUBLIC_MAPBOX_TOKEN=optional_if_used
-NEXT_PUBLIC_WALLET_CONNECT_ID=your_id
-NEXT_PUBLIC_NFT_STORAGE_KEY=your_storage_key
-```
-
----
 
 ## 🧪 Testing
 

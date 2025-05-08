@@ -1,22 +1,31 @@
 # 🧪 Tourii Frontend API Usage Examples
 
-This document provides reference implementations for interacting with the Tourii V2 backend from the frontend codebase. These examples now focus on using the OpenAPI-generated client SDK.
+This document provides reference implementations for interacting with the Tourii V2 backend from the frontend codebase. The primary pattern involves using client-side SWR hooks to call Next.js API routes (proxies), which in turn use the OpenAPI-generated client SDK to communicate with the backend.
 
 ---
 
-## 🔗 API Client Setup (OpenAPI Generated SDK)
+## 🔗 API Interaction Pattern
 
-The primary way to interact with the backend API is through the generated TypeScript client SDK, located in `src/api/generated/`.
+The main way the frontend interacts with the backend API involves three key parts:
 
-### Configuration
+1.  **Client-Side SWR Hooks (e.g., in `src/hooks/`)**:
+    *   These hooks (like `getSagas.ts` or `getSagaById.ts`) are used in UI components.
+    *   They use a fetcher function (e.g., `proxyFetcher` from `src/lib/swr/fetcher.ts`) to make requests to internal Next.js API routes (e.g., `/api/stories/sagas`).
 
-The SDK is automatically configured on application startup:
-- **Base URL & Global Headers**: Defined in `src/api/api-client-config.ts`. This file uses environment variables (`env.NEXT_PUBLIC_BACKEND_URL`, `env.NEXT_PUBLIC_BACKEND_API_KEY`) to set the API base path and required headers like `x-api-key` and `accept-version`.
-- **Initialization**: The configuration is loaded by `src/app/api-client-initializer.tsx`, which is included in the root layout.
+2.  **Next.js API Routes (Proxy Routes - e.g., in `src/app/api/`)**:
+    *   These server-side routes (e.g., `src/app/api/stories/sagas/route.ts`) receive requests from the client-side hooks.
+    *   They utilize the **OpenAPI-generated TypeScript client SDK** (located in `src/api/generated/`) to make the actual calls to the backend Tourii API.
+    *   Common logic for these routes, including SDK configuration and error handling, is often centralized in helper functions (e.g., `executeValidatedServiceCall` in `src/app/api/lib/route-helper.ts`).
 
-### Regeneration
+3.  **SDK Configuration (Server-Side)**:
+    *   The OpenAPI client SDK (e.g., `StoriesService`) is configured *within the Next.js API routes* just before a call is made.
+    *   This typically involves setting `OpenAPI.BASE` (the backend URL) and providing the API key. These values are sourced from server-side environment variables (e.g., `env.NEXT_PUBLIC_BACKEND_URL`, `env.BACKEND_API_KEY` via `src/env.js`).
+    *   This server-side handling protects the API key and allows for centralized control over backend communication.
+    *   A global, static `src/api/api-client-config.ts` file for SDK initialization at app startup is generally not used for this proxied data-fetching pattern.
 
-If the backend's `openapi.json` changes, regenerate the client:
+### SDK Regeneration
+
+If the backend's `openapi.json` changes, regenerate the client SDK:
 
 ```bash
 pnpm generate:api
@@ -24,33 +33,27 @@ pnpm generate:api
 
 ---
 
-## 📚 Story Sagas Example (using SWR and Generated SDK)
+## 📚 Story Sagas Example (SWR Hook with Proxy API Route)
 
-This example demonstrates fetching all story sagas using a custom SWR hook (`useSagas`) that utilizes the generated `StoriesService`.
+This example demonstrates fetching all story sagas using a custom SWR hook (`getSagas`) that calls a Next.js API proxy route. The proxy route then uses the generated `StoriesService`.
 
+**1. Client-Side SWR Hook:**
 ```tsx
-// src/hooks/stories/useSagas.ts
+// src/hooks/stories/getSagas.ts
 import useSWR from "swr";
-import { StoriesService } from "@/api/generated";
-import { env } from "@/env.js";
+import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
-export function useSagas() {
-  const swrKey = "/api/stories/sagas"; // Unique key for SWR
-  const { data, error, isLoading, mutate } = useSWR(
-    swrKey,
-    async () => {
-      const apiKey = env.NEXT_PUBLIC_BACKEND_API_KEY;
-      if (!apiKey) throw new Error("API key is not configured");
-      // Call the generated SDK method directly
-      return StoriesService.touriiBackendControllerGetSagas(
-        '1.0.0', // accept-version
-        apiKey   // x-api-key
-      );
-    }
-  );
+export function getSagas() {
+  const swrKey = "/api/stories/sagas"; // Calls the Next.js API proxy route
+
+  const { data, error, isLoading, mutate } = useSWR<
+    StoryResponseDto[],
+    StructuredError
+  >(swrKey, proxyFetcher<StoryResponseDto[]>); // proxyFetcher defined in src/lib/swr/fetcher.ts
 
   return {
-    sagas: data, // Data is typed by the SDK according to openapi.json
+    sagas: data, // Data is typed by the SDK according to openapi.json (via the proxy)
     isLoading,
     isError: error,
     mutateSagas: mutate,
@@ -58,55 +61,100 @@ export function useSagas() {
 }
 
 // Example usage in a component:
-// import { useSagas } from '@/hooks/stories/useSagas';
+// import { getSagas } from '@/hooks/stories/getSagas';
 //
 // function MyComponent() {
-//   const { sagas, isLoading, isError } = useSagas();
+//   const { sagas, isLoading, isError } = getSagas();
 //
 //   if (isLoading) return <p>Loading sagas...</p>;
-//   if (isError) return <p>Error loading sagas.</p>;
+//   if (isError) return <p>Error loading sagas: {isError.message}</p>;
 //
 //   return (
 //     <ul>
 //       {sagas?.map(saga => (
-//         <li key={saga.storyId}>{saga.sagaName}</li>
+//         <li key={saga.storyId}>{saga.sagaName}</li> // Assuming StoryResponseDto has storyId and sagaName
 //       ))}
 //     </ul>
 //   );
 // }
 ```
 
-This approach replaces direct `axios` calls for endpoints covered by the OpenAPI specification.
+**2. Next.js API Proxy Route (Server-Side):**
+```typescript
+// src/app/api/stories/sagas/route.ts
+import { StoriesService } from "@/api/generated";
+import { executeValidatedServiceCall } from "../../lib/route-helper"; // Path to your helper
+
+export async function GET() {
+  return executeValidatedServiceCall(
+    (apiKey: string, apiVersion: string) =>
+      StoriesService.touriiBackendControllerGetSagas(apiVersion, apiKey),
+    "GET /api/stories/sagas"
+  );
+}
+```
+
+**3. SDK Configuration and Execution Helper (Server-Side):**
+(Simplified from `src/app/api/lib/route-helper.ts`)
+```typescript
+// Part of src/app/api/lib/route-helper.ts
+import { OpenAPI, ApiError } from "@/api/generated";
+import { env } from "@/env.js";
+import { NextResponse } from "next/server";
+
+export async function executeValidatedServiceCall<T>(
+  serviceCall: (apiKey: string, apiVersion: string) => Promise<T>,
+  routeNameForLogging: string,
+): Promise<NextResponse> {
+  OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Configured here
+  const apiKey = env.BACKEND_API_KEY;          // Configured here
+  const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
+
+  if (!OpenAPI.BASE || !apiKey) {
+    // ... error handling ...
+    return NextResponse.json({ error: "Server config error" }, { status: 500 });
+  }
+  try {
+    const data = await serviceCall(apiKey, apiVersion);
+    return NextResponse.json(data);
+  } catch (error) {
+    // ... sophisticated error handling using ApiError ...
+    if (error instanceof ApiError) {
+      return NextResponse.json({ error: error.body || error.message }, { status: error.status });
+    }
+    return NextResponse.json({ error: "Unknown server error" }, { status: 500 });
+  }
+}
+```
+
+This proxy pattern ensures API keys are not exposed client-side and centralizes backend API interaction.
 
 ---
 
-## 🌐 Fetching Story Chapters by ID (SWR and SDK)
+## 🌐 Fetching Story Chapters by ID (SWR Hook with Proxy)
 
+This follows the same pattern. The client-side hook `getSagaById` (from `src/hooks/stories/getSagaById.ts`) would call a Next.js API route like `/api/stories/[storyId]/chapters`.
+
+**Client-Side SWR Hook:**
 ```tsx
-// src/hooks/stories/useSagaById.ts (fetches chapters for a saga)
+// src/hooks/stories/getSagaById.ts
 import useSWR from "swr";
-import { StoriesService } from "@/api/generated";
-import { env } from "@/env.js";
+import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import type { StoryChapterResponseDto } from "@/api/generated";
 
-export const useSagaById = (storyId: string | undefined) => {
-  const swrKey = storyId ? `GET /api/stories/sagas/${storyId}/chapters` : null;
-  const { data, error, isLoading, mutate } = useSWR(
+export const getSagaById = (storyId: string | undefined) => {
+  const swrKey = storyId ? `/api/stories/${storyId}/chapters` : null;
+  const { data, error, isLoading, mutate } = useSWR<
+    StoryChapterResponseDto[],
+    StructuredError
+  >(
     swrKey,
-    async () => {
-      if (!storyId) return undefined;
-      const apiKey = env.NEXT_PUBLIC_BACKEND_API_KEY;
-      if (!apiKey) throw new Error("API key is not configured");
-      return StoriesService.touriiBackendControllerGetStoryChaptersByStoryId(
-        storyId,
-        "1.0.0",
-        apiKey
-      );
-    },
+    storyId ? proxyFetcher<StoryChapterResponseDto[]> : null,
     { shouldRetryOnError: false }
   );
 
   return {
-    storyChapter: data, // data is an array of chapter objects, typed by the SDK
+    storyChapter: data,
     isLoadingSaga: isLoading,
     isErrorSaga: error,
     mutateSaga: mutate,
@@ -114,78 +162,93 @@ export const useSagaById = (storyId: string | undefined) => {
 };
 ```
 
+**Next.js API Proxy Route (Server-Side):**
+```typescript
+// src/app/api/stories/[storyId]/chapters/route.ts
+import { StoriesService } from "@/api/generated";
+import { executeValidatedServiceCall } from "@/app/api/lib/route-helper"; // Adjusted path
+
+export async function GET(
+  _request: Request,
+  { params }: { params: Promise<{ storyId: string }> }
+) {
+  const { storyId } = await params;
+  // ... validation for storyId ...
+  return executeValidatedServiceCall(
+    (apiKey: string, apiVersion: string) =>
+      StoriesService.touriiBackendControllerGetStoryChaptersByStoryId(
+        storyId,
+        apiVersion,
+        apiKey,
+      ),
+    `GET /api/stories/${storyId}/chapters`,
+  );
+}
+```
+
 ---
 
 ## Legacy API Client (`axios`)
 
-The existing `axios` based client (`src/lib/api-client.ts`) might still be in use for:
-- API calls not defined in the `openapi.json` specification.
-- Specific interceptor logic (e.g., complex auth token refresh) not handled by the generated client's global configuration.
-
-For new features or when refactoring, prefer using the generated SDK for any endpoints defined in the OpenAPI spec.
+(This section describes a legacy `axios`-based client that was previously located at `src/lib/api-client.ts`. This client appears to have been removed from the project. For new features or when refactoring, always prefer using the generated SDK for any endpoints defined in the OpenAPI spec. If you encounter parts of the application potentially still attempting to use a legacy client, they should be updated to use the OpenAPI SDK.)
 
 ```ts
-// src/lib/api-client.ts (Legacy)
-import axios from 'axios';
-
-const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL, // Note: ensure this aligns with env.NEXT_PUBLIC_BACKEND_URL if used
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('auth_token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
-
-export default apiClient;
+// src/lib/api-client.ts (Legacy - Believed to be removed)
+// import axios from 'axios';
+//
+// const apiClient = axios.create({
+//   baseURL: process.env.NEXT_PUBLIC_API_URL, // Note: ensure this aligns with env.NEXT_PUBLIC_BACKEND_URL if used
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+// });
+//
+// apiClient.interceptors.request.use((config) => {
+//   const token = localStorage.getItem('auth_token');
+//   if (token) config.headers.Authorization = `Bearer ${token}`;
+//   return config;
+// });
+//
+// export default apiClient;
 ```
 
 ---
 
-## 💥 Error Handling with the SDK
+## 💥 Error Handling
 
-The generated SDK typically throws an `ApiError` (from `src/api/generated/core/ApiError.ts`) when an API call fails (e.g., 4xx or 5xx responses). This error object usually contains `status`, `statusText`, and `body` (the parsed error response from the backend).
-
-SWR's `error` object will contain this `ApiError` if the fetcher function (the SDK call) throws it.
+When using the proxy pattern:
+- **Client-Side**: The `proxyFetcher` is responsible for attempting to parse errors from the Next.js API route. The `error` object returned by SWR will be the `StructuredError` (defined in `src/lib/swr/fetcher.ts`) if the proxy route returns an error.
+- **Server-Side (in API Route)**: The `executeValidatedServiceCall` helper catches errors from the SDK call (e.g., `ApiError` from `@/api/generated/core/ApiError.ts`). It then transforms these into a standardized JSON response (e.g., using `touriiErrorResponse`).
 
 ```ts
-// Example in component using a hook
-// const { data, error } = useSagas();
+// Example in component using a hook (client-side)
+// const { data, error } = getSagas(); // or getSagaById
 //
-// if (error) {
-//   console.error("API Error:", error.status, error.body);
-//   // Display user-friendly message based on error.status or error.body.code
+// if (error) { // error is StructuredError
+//   console.error("Proxy API Error:", error.status, error.message, error.code, error.details);
+//   // Display user-friendly message based on error.message or error.code
 // }
 ```
-
-Your existing `handleApiError` and `TouriiError` utilities in `src/lib/error-handler.ts` might need to be adapted or used as a wrapper if you want to standardize errors from different sources (SDK, other fetches).
+Your `src/lib/errors.ts` utilities might be used by the `proxyFetcher` or for other client-side error handling needs if necessary, but primary SDK errors are handled server-side first.
 
 ---
 
 ## 📦 Types
 
-With the OpenAPI-generated client, types for API request bodies and responses are automatically generated and available from `src/api/generated/models` (if generated as separate models) or inferred from the service methods.
+With the OpenAPI-generated client, types for API request bodies and responses are automatically generated (e.g., `StoryResponseDto`, `StoryChapterResponseDto`).
 
-It's recommended to use these SDK-provided types in your hooks and components instead of manually defined interfaces for API objects to ensure alignment with the backend contract.
+It's recommended to use these SDK-provided types in your client-side hooks (for the expected data from the proxy) and in your Next.js API routes to ensure alignment with the backend contract.
 
 For example, instead of:
 
 ```ts
 // Old custom type
-// export interface StorySaga {
-//   id: string;
-//   title: string;
-//   ...
-// }
+// export interface StorySaga { // ... }
 ```
 
-You would rely on the type inferred by `StoriesService.touriiBackendControllerGetSagas()`.
+You would rely on types like `StoryResponseDto` provided by or composed from the SDK.
 
 ---
 
-_Last Updated: 07/05/2025_
+_Last Updated: May 8, 2025_
 

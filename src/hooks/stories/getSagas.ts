@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
-import { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
+import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
 export function getSagas() {
 	// This key now points to your Next.js API proxy route

@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
-import { StoryChapterResponseDto } from "@/api/generated";
+import type { StoryChapterResponseDto } from "@/api/generated";
 
 /**
  * Hook to fetch a single story (saga) by its ID using SWR.
