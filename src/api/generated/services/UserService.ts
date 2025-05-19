@@ -32,7 +32,6 @@ export class UserService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - User already exists`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -57,7 +56,6 @@ export class UserService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
                 404: `User not found`,
             },
         });

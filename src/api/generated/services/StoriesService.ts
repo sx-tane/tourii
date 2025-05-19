@@ -35,7 +35,6 @@ export class StoriesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -69,7 +68,6 @@ export class StoriesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -192,7 +190,6 @@ export class StoriesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -278,7 +275,6 @@ export class StoriesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -303,7 +299,6 @@ export class StoriesService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -410,7 +405,6 @@ export class StoriesService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }

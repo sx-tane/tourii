@@ -88,7 +88,6 @@ export class RoutesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -156,7 +155,59 @@ export class RoutesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
+            },
+        });
+    }
+    /**
+     * Get All Model Routes
+     * Retrieve a list of all available model routes with their details.
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns ModelRouteResponseDto Successfully retrieved all model routes
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetRoutes(
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<Array<ModelRouteResponseDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/routes',
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get Model Route by ID
+     * Retrieve a specific model route by its ID, including tourist spots and weather data.
+     * @param id
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns ModelRouteResponseDto Successfully retrieved the model route
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetRouteById(
+        id: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<ModelRouteResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/routes/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
             },
         });
     }
