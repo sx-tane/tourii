@@ -34,7 +34,7 @@ export default function QuestsPage() {
 		<QuestList
 			quests={data}
 			filters={filters}
-			onFilterChange={(newFilters) => {
+			onFilterChange={(newFilters: typeof filters) => {
 				setFilters(newFilters);
 				setPage(1);
 			}}
