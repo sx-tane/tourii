@@ -50,22 +50,22 @@ Tourii combines mythology, real-world travel, and digital collectibles into a so
 | ------------------------------------ | ------ | ------------------------------------------- |
 | Hero                                 | ✅      | Background image, brand tagline, CTA button |
 | Three Pillars (Explore/Earn/Connect) | ✅      | Icon + summary display                      |
-| Digital Passport Teaser              | ⭕️      | NFT preview, benefits, how it works         |
+| Digital Passport Teaser              | ✅      | NFT preview, benefits, how it works         |
 | Featured Chapter & Quests            | ⏳      | Story carousel, quest cards                 |
 | Footer                               | ⏳      | Legal, social, contact links                |
 
 ### 📚 Story System
 | Page               | Status | Description                                                |
 | ------------------ | ------ | ---------------------------------------------------------- |
-| Saga Selection     | ⏳      | Browse stories by region (map planned)                     |
-| Chapter List       | ⏳      | Chapters per saga, progress shown                          |
-| Chapter Page       | ⏳      | Toggle: video/storyboard. Tabs: Characters, World, Content |
+| Saga Selection     | ✅      | Browse stories by region (map planned)                     |
+| Chapter List       | ✅      | Chapters per saga, progress shown                          |
+| Chapter Page       | ✅      | Toggle: video/storyboard. Tabs: Characters, World, Content |
 | Completion Trigger | ⏳      | Unlock new location + related quests upon finish           |
 
 ### 🧱 Model Route
 | Page            | Status | Description                                      |
 | --------------- | ------ | ------------------------------------------------ |
-| Region Selector | ⏳      | Display weather, region intro                    |
+| Region Selector | ⭕️      | Display weather, region intro                    |
 | Route Overview  | ⏳      | Map of spots, description, unlock gating         |
 | Route Detail    | ⏳      | Tourist spot cards (linked to quests), GPS logic |
 
@@ -120,61 +120,50 @@ Tourii combines mythology, real-world travel, and digital collectibles into a so
 
 ## 🗂️ Routing Structure (Next.js App Router)
 
+This reflects the observed structure. Note the `v2/` prefix for many primary features. Some documented routes like `check-in`, `memory-wall`, and `admin` were not found as distinctly named directories and may be structured differently or pending implementation.
+
 ```
 /app
 ├── layout.tsx                  ← Global layout (Nav, AuthGuard, etc.)
-├── page.tsx                    ← Homepage (Landing)
-
-/launch-app
-├── page.tsx                    ← Auth Modal Page (Login/Signup overlay)
-
-dashboard/
-├── page.tsx                    ← Post-login user hub
-
-stories/
-├── layout.tsx                  ← Shared layout for story saga/chapter pages
-├── page.tsx                    ← Saga Selection
-├── [sagaId]/page.tsx          ← Chapter List
-├── [sagaId]/[chapterId]/page.tsx ← Chapter Page (tabs: content, character, map)
-
-routes/
-├── layout.tsx
-├── page.tsx                    ← Region Selector Page
-├── [regionId]/page.tsx        ← Model Route List
-├── [regionId]/[routeId]/page.tsx ← Model Route Detail (map, spots, quests)
-
-quests/
-├── page.tsx                    ← All Quests List
-├── [questId]/page.tsx         ← Quest Parent Page (online/offline toggle)
-├── [questId]/[taskId]/page.tsx ← Task Interaction Page
-├── [questId]/complete/page.tsx ← Completion Page (passport/stamp/reward popup)
-
-check-in/
-├── page.tsx                    ← Map View (GPS + QR)
-├── history/page.tsx           ← Check-in timeline/history
-
-shop/
-├── page.tsx                    ← Browse all perks
-├── [itemId]/page.tsx          ← Item detail / buy modal
-├── inventory/page.tsx         ← User-owned perks + status
-
-memory-wall/
-├── page.tsx                    ← Feed View
-├── [postId]/page.tsx          ← Memory Detail Page
-
-profile/
-├── page.tsx                    ← Personal profile dashboard
-├── [userId]/page.tsx          ← Public profile (via username/post)
-
-admin/
-├── layout.tsx
-├── page.tsx                    ← Admin Dashboard Overview
-├── quests/page.tsx            ← Quest Manager
-├── stories/page.tsx           ← Story Manager
-├── routes/page.tsx            ← Route Manager
-├── users/page.tsx             ← User Manager
-├── perks/page.tsx             ← Perk Manager
-├── media/page.tsx             ← Social Media Upload Panel
+├── providers.tsx               ← Global providers, potentially API client initialization
+├── (homepage)/
+│   └── page.tsx                ← Homepage (Landing, path: /)
+├── model-route/                ← Defines /model-route and /model-route/:modelRouteId
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── [modelRouteId]/
+│       └── page.tsx
+├── profile-dev/                ← Profile pages (path: /profile-dev)
+│   ├── page.tsx                ← Personal profile dashboard
+│   └── [userId]/page.tsx       ← Public profile (if structure follows docs)
+├── v2/
+│   ├── (auth)/                 ← Authentication pages (e.g., login, signup)
+│   │   └── page.tsx            ← Example: /v2/auth or /v2/auth/login
+│   ├── (dashboard)/
+│   │   └── page.tsx            ← Post-login user hub (path: /v2/dashboard)
+│   ├── (stories)/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx            ← Saga Selection (path: /v2/stories)
+│   │   ├── [sagaId]/page.tsx   ← Chapter List
+│   │   └── [sagaId]/[chapterId]/page.tsx ← Chapter Page
+│   ├── (routes)/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx            ← Region Selector Page (path: /v2/routes)
+│   │   ├── [regionId]/page.tsx ← Model Route List
+│   │   └── [regionId]/[routeId]/page.tsx ← Model Route Detail
+│   ├── (quests)/
+│   │   ├── page.tsx            ← All Quests List (path: /v2/quests)
+│   │   ├── [questId]/page.tsx  ← Quest Parent Page
+│   │   ├── [questId]/[taskId]/page.tsx ← Task Interaction Page
+│   │   └── [questId]/complete/page.tsx ← Completion Page
+│   ├── (shop)/
+│   │   ├── page.tsx            ← Browse all perks (path: /v2/shop)
+│   │   ├── [itemId]/page.tsx   ← Item detail / buy modal
+│   │   └── inventory/page.tsx  ← User-owned perks + status
+├── (story)/                    ← Contains /character/, purpose less clear for main pages
+│   └── character/
+// Other documented routes like /check-in, /memory-wall, /admin were not found under these exact paths.
+// Their structure might differ (e.g. within a sub-route of v2/) or they may be pending.
 ```
 
 ---
@@ -188,7 +177,6 @@ admin/
 - `Redux` with `createSlice`
 - `ethers.js` or `viem` (Web3 interaction)
 - **API Client**: OpenAPI-generated client (`openapi-typescript-codegen` with Fetch) for type-safe backend communication. See `src/api/generated/`.
-- `axios` (Legacy API wrapper in `src/lib/api-client.ts`, may still be used for calls not covered by OpenAPI spec or specific interceptor needs).
 - `framer-motion`, `lucide-react`, `shadcn/ui`
 
 ### Design System
@@ -201,10 +189,9 @@ admin/
 - File naming: kebab-case
 - Component folders: `/components/feature-name`
 - Pages: Flat routes in `/app/`
-- **API SDK & Config**: `src/api/generated/` (generated client), `src/api/api-client-config.ts` (SDK configuration).
-- **API Hooks**: Custom SWR hooks (e.g., in `src/hooks/`) are preferred for interacting with the API SDK.
-- Legacy API utils: `src/lib/api-client.ts` (axios based).
-- Redux store: `/lib/store/slices/*`
+- **API SDK & Config**: `src/api/generated/` (generated client). `src/api/api-client-config.ts` (if present, likely deprecated for primary SWR proxy flow).
+- **API Hooks**: Custom SWR hooks (e.g., in `src/hooks/`) are preferred for interacting with the API SDK by calling Next.js proxy API routes.
+- Redux store: `src/lib/redux/` (store.ts, hooks.ts, with slices in ./features/)
 
 ---
 
@@ -217,5 +204,5 @@ admin/
 
 ---
 
-_Last Updated: 12/04/2025_
+_Last Updated: May 8 2025_
 

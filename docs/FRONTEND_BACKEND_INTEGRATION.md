@@ -2,8 +2,6 @@
 
 This document outlines the integration points between the Tourii frontend and backend systems.
 
-**Key Change**: Frontend interaction with the backend API endpoints (defined in `openapi.json`) is now primarily managed through an OpenAPI-generated client SDK (`src/api/generated/`). This SDK, configured via `src/api/api-client-config.ts` with `OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL` (e.g., `http://host/tourii-backend`), provides type-safe methods for direct API calls. Custom SWR hooks (e.g., in `src/hooks/`) typically wrap these SDK calls, often replacing previous Next.js API proxy routes.
-
 ---
 
 # 🔗 Frontend–Backend Integration Guide (Tourii)
@@ -14,7 +12,6 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 ## 🧭 API Domain Overview
 
-This table provides a high-level overview of the backend API domains. The "Endpoint Prefix" indicates the general path segments that follow the configured `OpenAPI.BASE` (which includes common prefixes like `/tourii-backend`).
 
 | Domain          | Endpoint Prefix (relative to `OpenAPI.BASE`) | Notes                            |
 | --------------- | --------------------------------------------- | -------------------------------- |
@@ -32,134 +29,118 @@ This table provides a high-level overview of the backend API domains. The "Endpo
 
 ## 🔁 API–Frontend Integration Mapping (by Feature)
 
-This section maps frontend features to the relevant backend API path groupings. These paths are targeted by the SDK and are relative to `OpenAPI.BASE`.
+This section maps frontend features to the relevant backend API path groupings. These paths are targeted by the SDK (typically from server-side Next.js API Routes) and are relative to `OpenAPI.BASE`.
 
 ### 1. Authentication & User Management
 
 - **Backend API Paths**: `/auth/*`
-- **Frontend Components**:
-  - `AuthProvider` - Global authentication state management
-  - `LoginForm` - Multi-provider authentication (Discord, Twitter, Google)
-  - `UserProfile` - Profile management and settings
+- **Frontend Routes (Examples)**: `/v2/auth/login`, `/v2/auth/register` (Actual components: `AuthProvider`, `LoginForm`, `UserProfile`)
 
 ### 2. Story & Tourism Features
 
 - **Backend API Paths**: `/stories/*`, `/routes/*`, `/spots/*`
-- **Frontend Components**:
-  - `StoryBrowser` - Browse and filter story sagas
-  - `StoryViewer` - Interactive story experience
-  - `RouteMap` - Interactive map with tourist spots
-  - `SpotDetails` - Detailed tourist spot information
-  - `ModelRouteViewer` - Display and navigate through travel routes
-  - `RouteRecommendations` - Show route-specific recommendations
+- **Frontend Routes (Examples)**: `/v2/stories`, `/v2/routes`, `/model-route` (Actual components: `StoryBrowser`, `StoryViewer`, `RouteMap`, `SpotDetails`, `ModelRouteViewer`, `RouteRecommendations`)
 
 ### 3. Gamification System
 
 - **Backend API Paths**: `/quests/*`, `/achievements/*`
-- **Frontend Components**:
-  - `QuestBrowser` - Browse available quests
-  - `QuestTracker` - Active quest progress
-  - `AchievementDisplay` - User achievements and rewards
-  - `PointsDashboard` - Magatama points tracking
+- **Frontend Routes (Examples)**: `/v2/quests` (Actual components: `QuestBrowser`, `QuestTracker`, `AchievementDisplay`, `PointsDashboard`)
 
 ### 4. Blockchain Integration
 
 - **Backend API Paths**: `/assets/*`
-- **Frontend Components**:
-  - `DigitalPassport` - Display and manage blockchain assets
-  - `ItemInventory` - View and manage on-chain items
-  - `TransactionHistory` - Blockchain transaction records
+- **Frontend Routes (Examples)**: `/profile-dev` (related to Digital Passport), `/v2/shop/inventory` (Actual components: `DigitalPassport`, `ItemInventory`, `TransactionHistory`)
 
 ---
 
 ## 🧩 Component Usage Overview (Frontend → Backend)
 
-This table maps frontend components (or the SWR hooks they use) to the conceptual backend API paths they interact with. These paths are relative to the backend's base URL (e.g., `env.NEXT_PUBLIC_BACKEND_URL`) and are targeted directly by the generated API SDK.
+This table maps conceptual frontend features/pages (and the SWR hooks they might use) to the backend API paths. Frontend paths are now generally prefixed with `/v2/` or have specific names like `/profile-dev`. API calls are made via Next.js proxy routes.
 
-| Component            | Backend Endpoint (Path targeted by SDK)        | Purpose                          |
-| -------------------- | ----------------------------------------------- | -------------------------------- |
-| `LoginForm`          | `/auth/login`, `/auth/register`, `/auth/wallet` | OAuth + wallet login             |
-| `AuthProvider`       | `/auth/refresh`, `/auth/logout`                 | Persist session, auto-refresh    |
-| `StoryBrowser`       | `/stories/sagas`                                | Browse all sagas                 |
-| `StoryViewer`        | `/stories/chapters/{id}`                        | View chapter + content           |
-| `ModelRouteViewer`   | `/routes/{id}`, `/routes/{id}/spots`            | View route with spot map         |
-| `RouteMap`           | `/routes/{id}/weather`                          | Region or route weather          |
-| `QuestBrowser`       | `/quests/`, `/quests/{id}`                      | List or explore quests           |
-| `QuestTracker`       | `/tasks/{id}/submit`, `/tasks/{id}/verify`      | Active quest progression         |
-| `AchievementDisplay` | `/achievements`, `/achievements/milestones`     | User achievement board           |
-| `DigitalPassport`    | `/assets/passport`, `/assets/stamps`            | NFT passport + stamps            |
-| `ItemInventory`      | `/assets/perks`, `/assets/perks/history`        | List all owned perks             |
-| `MemoryWallFeed`     | `/social/feed`, `/social/memory-wall`           | Feed view, post/comment          |
-| `ProfileOverview`    | `/users/me`, `/logs/*`, `/wallet`               | Self profile dashboard           |
-| `AdminDashboardTabs` | `/admin/*`                                      | All backend CRUD/admin endpoints |
+| Feature/Page (Example Frontend Path) | Backend Endpoint (Path targeted by SDK from proxy) | Purpose                          |
+| ------------------------------------ | ----------------------------------------------- | -------------------------------- |
+| Login/Auth (`/v2/auth/...`)          | `/auth/login`, `/auth/register`, `/auth/wallet` | OAuth + wallet login             |
+| Session Management (`AuthProvider`)  | `/auth/refresh`, `/auth/logout`                 | Persist session, auto-refresh    |
+| Story Browser (`/v2/stories`)        | `/stories/sagas`                                | Browse all sagas                 |
+| Story Viewer (`/v2/stories/...`)     | `/stories/chapters/{id}`                        | View chapter + content           |
+| Model Route Viewer (`/v2/routes/{id}` or `/model-route/{id}`) | `/routes/{id}`, `/routes/{id}/spots`            | View route with spot map         |
+| Route Map Weather (`/v2/routes/...`) | `/routes/{id}/weather`                          | Region or route weather          |
+| Quest Browser (`/v2/quests`)         | `/quests/`, `/quests/{id}`                      | List or explore quests           |
+| Quest Tracker (`/v2/quests/...`)     | `/tasks/{id}/submit`, `/tasks/{id}/verify`      | Active quest progression         |
+| Achievements (`/profile-dev` or other) | `/achievements`, `/achievements/milestones`     | User achievement board           |
+| Digital Passport (`/profile-dev`)    | `/assets/passport`, `/assets/stamps`            | NFT passport + stamps            |
+| Item Inventory (`/v2/shop/inventory`)| `/assets/perks`, `/assets/perks/history`        | List all owned perks             |
+| Memory Wall (`/memory-wall` - *Route not found, TBD*) | `/social/feed`, `/social/memory-wall`           | Feed view, post/comment          |
+| Profile Overview (`/profile-dev`)    | `/users/me`, `/logs/*`, `/wallet`               | Self profile dashboard           |
+| Admin Panel (`/admin` - *Route not found, TBD*) | `/admin/*`                                      | All backend CRUD/admin endpoints |
 
-### `/launch-app`
+### `/v2/auth/...` (formerly /launch-app)
 
 - `POST /auth/login`
 - `POST /auth/register`
 - `POST /auth/wallet`
 - `POST /auth/verify-signature`
 
-### `/dashboard`
+### `/v2/dashboard`
 
 - `GET /users/me`
 - `GET /wallet`
 - `GET /quests/progress`
 - `GET /stories/progress`
-- `GET /social/feed`
+- `GET /social/feed` (Potentially for dashboard, if not for a separate memory wall)
 
-### `/stories/[sagaId]/[chapterId]`
+### `/v2/stories/[sagaId]/[chapterId]`
 
 - `GET /stories/sagas`
 - `GET /stories/chapters/{id}`
 - `POST /stories/chapters/{id}/progress`
 
-### `/routes/[regionId]/[routeId]`
+### `/v2/routes/[regionId]/[routeId]` (and potentially `/model-route/[routeId]`)
 
 - `GET /routes/{id}`
 - `GET /routes/{id}/spots`
 - `GET /routes/{id}/recommendations`
 - `GET /routes/{id}/weather`
 
-### `/quests/[questId]`
+### `/v2/quests/[questId]`
 
 - `GET /quests/{id}`
 - `GET /quests/{id}/tasks`
 - `POST /quests/{id}/start`
 
-### `/quests/[questId]/[taskId]`
+### `/v2/quests/[questId]/[taskId]`
 
 - `POST /tasks/{id}/submit`
 - `POST /tasks/{id}/verify`
 
-### `/quests/[questId]/complete`
+### `/v2/quests/[questId]/complete`
 
 - `GET /quests/{id}/rewards`
 
-### `/check-in`
+### `/check-in` (*Route not found, TBD*)
 
 - `POST /check-in/location`
 - `GET /check-in/map`
 - `GET /check-in/nearby`
 - `GET /check-in/history`
 
-### `/shop`
+### `/v2/shop`
 
 - `GET /shop/items`
 - `POST /shop/items/{id}/purchase`
 
-### `/shop/inventory`
+### `/v2/shop/inventory`
 
 - `GET /assets/perks`
 - `GET /assets/perks/history`
 
-### `/memory-wall`
+### `/memory-wall` (*Route not found, TBD*)
 
 - `GET /social/feed`
 - `POST /social/memory-wall`
 - `GET /social/memory-wall/{id}`
 
-### `/profile`
+### `/profile-dev` (formerly /profile)
 
 - `GET /users/me`
 - `GET /wallet`
@@ -169,20 +150,13 @@ This table maps frontend components (or the SWR hooks they use) to the conceptua
 - `GET /logs/quests`
 - `GET /logs/stories`
 
-### `/admin` (Tabs)
+### `/admin` (*Route not found, TBD*)
 
 - `GET /admin/dashboard`
 - `GET/POST/PUT /admin/quests`
-- `GET/POST/PUT /admin/stories`
-- `GET/POST/PUT /admin/routes`
-- `GET/PUT /admin/users`
-- `GET/POST /admin/perks`
-- `POST /admin/social`
-
----
 
 ✅ Full backend endpoint reference: `openapi.json` (this is the source of truth for API paths and SDK generation)
 ✅ DB schema reference: `schema.prisma`
 ✅ Component usage examples: see `/components/*` and API usage examples in `FRONTEND_API_EXAMPLE.md`
 
-*Last Updated: 07/05/2025* Please update this date.
+_Last Updated: May 8 2025_
