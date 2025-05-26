@@ -18,27 +18,8 @@ interface QuestListProps {
 	onPageChange: (page: number) => void;
 	isLoading?: boolean;
 	error?: any;
+	onQuestClick?: (questId: string) => void;
 }
-
-const questTypeOptions = [
-	{ value: "all", label: "All Types" },
-	{ value: "TRAVEL_TO_EARN", label: "Travel to Earn" },
-	{ value: "EARN_TO_TRAVEL", label: "Earn to Travel" },
-	{ value: "CAMPAIGN", label: "Campaign" },
-	{ value: "COMMUNITY_EVENT", label: "Community Event" },
-];
-
-const unlockStatusOptions = [
-	{ value: "all", label: "All Status" },
-	{ value: "true", label: "Unlocked" },
-	{ value: "false", label: "Locked" },
-];
-
-const premiumStatusOptions = [
-	{ value: "all", label: "All Status" },
-	{ value: "true", label: "Premium" },
-	{ value: "false", label: "Free" },
-];
 
 const QuestList = ({
 	quests,
@@ -47,6 +28,7 @@ const QuestList = ({
 	onPageChange,
 	isLoading,
 	error,
+	onQuestClick,
 }: QuestListProps) => {
 	const currentPage = quests?.pagination?.currentPage || 1;
 	const totalPages = quests?.pagination?.totalPages || 1;
@@ -73,7 +55,8 @@ const QuestList = ({
 							return (
 								<div
 									key={quest.questId}
-									className={`bg-[#fdfaf6] border border-[#e0d7c6] rounded-xl shadow-md p-4 flex flex-col items-stretch min-h-[370px] relative ${isLocked ? "opacity-60 pointer-events-none" : ""}`}
+									className={`bg-[#fdfaf6] border border-[#e0d7c6] rounded-xl shadow-md p-4 flex flex-col items-stretch min-h-[370px] relative ${isLocked ? "opacity-60 pointer-events-none" : "cursor-pointer"}`}
+									onClick={() => !isLocked && onQuestClick?.(quest.questId)}
 								>
 									<div className="relative">
 										<img

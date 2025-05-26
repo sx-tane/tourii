@@ -3,6 +3,7 @@
 import useSWR from "swr";
 import { useState } from "react";
 import QuestList from "@/components/quest/quest-list";
+import { useRouter } from "next/navigation";
 
 const fetcher = async (url: string) => {
 	const res = await fetch(url);
@@ -17,6 +18,7 @@ export default function QuestsPage() {
 		premiumStatus: "all",
 	});
 	const [page, setPage] = useState(1);
+	const router = useRouter();
 
 	const query = [
 		`/api/quests?`,
@@ -30,6 +32,10 @@ export default function QuestsPage() {
 
 	const { data, error, isLoading } = useSWR(query, fetcher);
 
+	const handleQuestClick = (questId: string) => {
+		router.push(`/v2/(quests)/quests/${questId}`);
+	};
+
 	return (
 		<QuestList
 			quests={data}
@@ -41,6 +47,7 @@ export default function QuestsPage() {
 			onPageChange={setPage}
 			isLoading={isLoading}
 			error={error}
+			onQuestClick={handleQuestClick}
 		/>
 	);
 }
