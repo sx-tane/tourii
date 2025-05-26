@@ -14,6 +14,9 @@ const initialState: StoriesState = {
 	selectedStory: null,
 };
 
+/**
+ * Slice for managing stories state.
+ */
 const storiesSlice = createSlice({
 	name: "stories",
 	initialState,
@@ -50,6 +53,11 @@ export const { setSelectedStory, setStories } = storiesSlice.actions;
 
 const selectStoriesState = (state: RootState) => state.stories;
 
+/**
+ * Selector to get the stories and selected story data.
+ * @param state - The root state.
+ * @returns The stories and selected story data.
+ */
 export const selectStories = createSelector(
 	[selectStoriesState],
 	(storiesState) => ({

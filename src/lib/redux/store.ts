@@ -4,6 +4,7 @@ import homepageReducer from "./features/homepage/homepage-slice";
 import characterReducer from "./features/character/character-slice";
 import passportReducer from "./features/passport/passport-slice";
 import chapterReducer from "./features/chapter/chapter-slice";
+import routesReducer from "./features/routes/routes-slice";
 
 export const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
 		character: characterReducer,
 		passport: passportReducer,
 		chapter: chapterReducer,
+		routes: routesReducer,
 	},
 	// Consider adding middleware here if needed (e.g., for logging, thunks)
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware(),

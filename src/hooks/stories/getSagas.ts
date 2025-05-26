@@ -2,6 +2,10 @@ import useSWR from "swr";
 import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
 import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
+/**
+ * Hook to fetch all sagas using SWR.
+ * @returns SWR response object containing the sagas data, loading state, error state, and mutation function.
+ */
 export function getSagas() {
 	// This key now points to your Next.js API proxy route
 	const swrKey = "/api/stories/sagas";
@@ -14,8 +18,8 @@ export function getSagas() {
 	return {
 		// Data should be Story[] or undefined
 		sagas: data,
-		isLoading,
-		isError: error, // error is StructuredError or undefined
+		isLoadingSagas: isLoading,
+		isErrorSagas: error, // error is StructuredError or undefined
 		mutateSagas: mutate,
 	};
 }

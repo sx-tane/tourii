@@ -20,7 +20,7 @@ const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
 	const { selectedStory, selectionData } = useAppSelector(selectStories);
 
-	const { sagas, isLoading, isError: error, mutateSagas } = getSagas();
+	const { sagas, isLoadingSagas, isErrorSagas, mutateSagas } = getSagas();
 
 	useEffect(() => {
 		if (sagas !== undefined) {
@@ -39,30 +39,30 @@ const Touriiverse: NextPage = () => {
 		dispatch(setSelectedStory(selectedStoryId));
 	};
 
-	if (isLoading) {
+	if (isLoadingSagas) {
 		return <Loading />;
 	}
 
-	if (error) {
+	if (isErrorSagas) {
 		let errorMessage = "An unexpected error occurred while loading stories.";
 		let errorStatus: number | undefined = undefined;
 
-		if (error instanceof ApiError) {
-			errorMessage = error.message;
-			errorStatus = error.status;
+		if (isErrorSagas instanceof ApiError) {
+			errorMessage = isErrorSagas.message;
+			errorStatus = isErrorSagas.status;
 			logger.error("API Error loading sagas:", {
-				status: error.status,
-				message: error.message,
-				context: error.context,
+				status: isErrorSagas.status,
+				message: isErrorSagas.message,
+				context: isErrorSagas.context,
 			});
-		} else if (error instanceof Error) {
-			errorMessage = error.message;
+		} else if (isErrorSagas instanceof Error) {
+			errorMessage = isErrorSagas.message;
 			logger.error("Generic Error loading sagas:", {
-				message: error.message,
-				stack: error.stack,
+				message: isErrorSagas.message,
+				stack: isErrorSagas.stack,
 			});
 		} else {
-			logger.error("Unknown Error loading sagas:", { error });
+			logger.error("Unknown Error loading sagas:", { isErrorSagas });
 		}
 
 		return (
@@ -74,7 +74,7 @@ const Touriiverse: NextPage = () => {
 		);
 	}
 
-	if (!isLoading && sagas && sagas.length === 0) {
+	if (!isLoadingSagas && sagas && sagas.length === 0) {
 		return (
 			<TouriiError
 				errorMessage="No stories are currently available."
@@ -83,7 +83,7 @@ const Touriiverse: NextPage = () => {
 		);
 	}
 
-	if (!selectedStory && !isLoading && sagas && sagas.length > 0) {
+	if (!selectedStory && !isLoadingSagas && sagas && sagas.length > 0) {
 		return <Loading />;
 	}
 

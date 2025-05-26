@@ -5,9 +5,6 @@ import {
 } from "@/app/api/lib/route-helper";
 import { logger } from "@/utils/logger";
 
-interface RouteParams {
-	storyId: string;
-}
 
 /**
  * GET handler to fetch a single story's chapters by its ID from the backend service via proxy.
