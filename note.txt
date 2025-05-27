@@ -1,0 +1,28 @@
+### 2025-05-28
+
+{
+    "modelRouteId": "MRT202505-b006c5-262350-06b2f5-BAAA",
+    "storyId": "STO202505-6a6c20-262350-662aeb-BAAA",
+    "routeName": "The Awakening Route",
+    "region": "Bungo Ono",
+    "regionLatitude": 32.9783415,
+    "regionLongitude": 131.5843317,
+    "regionBackgroundMedia": "/video/bungo-ono.mp4",
+    "regionWeatherInfo": {
+        "touristSpotName": "Bungo Ono",
+        "temperatureCelsius": 14.68,
+        "weatherName": "Clouds",
+        "weatherDesc": "broken clouds"
+    },
+    "delFlag": false,
+    "insUserId": "admin",
+    "insDateTime": "20250526 23:50",
+    "updUserId": "admin",
+    "updDateTime": "20250526 23:50"
+}
+
+  Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+
+  Region page only shows the region name, region background media, region weather info
+  
+  list need to show out how many tourist spot, style just all same like story, but just different color then is ok

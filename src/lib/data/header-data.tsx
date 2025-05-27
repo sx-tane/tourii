@@ -3,9 +3,9 @@ import type { NavItem } from "@/types/header-type";
 export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
 	{ href: "/world", label: "TOURIIVERSE" },
-	{ href: "/character", label: "CHARACTER" },
+	// { href: "/character", label: "CHARACTER" },
 	{ href: "/v2/touriiverse", label: "STORY" },
-	// { href: "/model-route", label: "MODEL ROUTE" },
+	{ href: "/v2/region", label: "ROUTE" },
 	{ href: "https://linktr.ee/touriijp", label: "LINKTREE" },
 	// { href: "/login", label: "CONNECT"},
 ];
@@ -34,7 +34,7 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
 	{ href: "/world", label: "TOURIIVERSE" },
 	{ href: "/character", label: "CHARACTER" },
 	{ href: "/v2/touriiverse", label: "STORY" },
-	// { href: "/model-route", label: "MODEL ROUTE" },
+	{ href: "/v2/region", label: "ROUTE" },
 	{ href: "https://linktr.ee/touriijp", label: "LINKTREE" },
 	// { href: "/bonjin-bazaar", label: "MARK
 	// { href: "https://twitter.com/TouriiJP", label: "X" },
