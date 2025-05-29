@@ -23,7 +23,18 @@ Model Route Response Dto
 }
 ```
 ### TODO
+  - [x] list need to show out how many tourist spot, style just all same like story, but just different color then is ok
   - [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
   - [ ] use lucide react and create helper for it
   - [ ] Region page only shows the region name, region background media, region weather info
-  - [ ] list need to show out how many tourist spot, style just all same like story, but just different color then is ok
+
+## 2025-05-29
+- [x] Done basic logic of region page
+- [x] list need to show out how many tourist spot, style just all same like story, but just different color then is ok
+
+### TODO
+- [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+  - [ ] A helper function to convert weatherName to weather icon
+  - [ ] use lucide react and create helper for it
+    - [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+- [ ] Redesign and match the style with story page

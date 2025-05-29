@@ -1,22 +1,24 @@
 "use client";
-import { ApiError } from "@/lib/errors";
+import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
+import type { RegionSelection } from "@/app/v2/(routes)/types";
+import RegionComponent from "@/components/model-route/region/region-component";
+import RegionSelectionList from "@/components/model-route/region/region-selection-list";
 import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
+import { ApiError } from "@/lib/errors";
 import {
 	selectRoutes,
 	setRoutes,
-	setSelectedRoute,
+	setSelectedRouteByRegion,
 } from "@/lib/redux/features/routes/routes-slice";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
 import { useEffect } from "react";
-import TouriiError from "@/app/error";
-
 const RegionPage: NextPage = () => {
 	const dispatch = useAppDispatch();
-	const { selectedRoute } = useAppSelector(selectRoutes);
+	const { selectedRoute, selectionData } = useAppSelector(selectRoutes);
 	const {
 		modelRoutes,
 		isLoadingModelRoutes,
@@ -30,8 +32,8 @@ const RegionPage: NextPage = () => {
 		}
 	}, [modelRoutes, dispatch]);
 
-	const handleSelectRoute = (routeId: string) => {
-		dispatch(setSelectedRoute(routeId));
+	const handleSelectRoute = (regionName: string) => {
+		dispatch(setSelectedRouteByRegion(regionName));
 	};
 
 	if (isLoadingModelRoutes) {
@@ -82,18 +84,20 @@ const RegionPage: NextPage = () => {
 		return <div>Please select a route.</div>;
 	}
 
+	const modelRouteCount = selectionData.filter(
+		(selection) => selection.region === selectedRoute.region,
+	).length;
+
 	return (
 		<div className="flex flex-col items-center justify-center h-screen bg-warmGrey3">
-			<h1 className="text-4xl font-bold">{selectedRoute.region}</h1>
-			<br />
-			<br />
-			<video src={selectedRoute.regionBackgroundMedia} autoPlay muted loop />
-			<br />
-			<br />
-			{selectedRoute.regionWeatherInfo.temperatureCelsius}
-			<br />
-			{selectedRoute.regionWeatherInfo.weatherName}
-			<br />
+			<div className="flex flex-col items-center justify-center h-full">
+				<RegionComponent region={selectedRoute} />
+				<RegionSelectionList
+					selectionData={selectionData}
+					modelRouteCount={modelRouteCount}
+					onSelect={handleSelectRoute}
+				/>
+			</div>
 		</div>
 	);
 };

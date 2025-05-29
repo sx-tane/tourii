@@ -20,6 +20,10 @@ export type ModelRouteResponseDto = {
      */
     region: string;
     /**
+     * Description of the region
+     */
+    regionDesc: string;
+    /**
      * Recommendation of the model route
      */
     recommendation: Array<string>;
@@ -146,6 +150,10 @@ export type ModelRouteResponseDto = {
          * Description of the weather
          */
         weatherDesc: string;
+        /**
+         * Name of the region
+         */
+        regionName: string;
     };
     /**
      * Flag to indicate if the record is deleted

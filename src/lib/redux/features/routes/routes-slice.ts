@@ -23,20 +23,24 @@ const routesSlice = createSlice({
             state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({ ...route, isSelected: route.modelRouteId === action.payload })) : [];
             state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((route) => route.modelRouteId === action.payload) || null : null;
         },
+        setSelectedRouteByRegion: (state, action: PayloadAction<string>) => {
+            state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({ ...route, isSelected: route.region === action.payload })) : [];
+            state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((route) => route.region === action.payload) || null : null;
+        },
         setRoutes: (state, action: PayloadAction<ModelRouteResponseDto[]>) => {
             state.routes = action.payload;
             const currentSelectedId = state.selectedRoute?.modelRouteId;
-            state.selectedRoute = state.routes.find((r) => r.modelRouteId === currentSelectedId) || state.routes[0] || null;
+            state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((r) => r.modelRouteId === currentSelectedId) || state.routes[0] || null : null;
 
-            state.routes = state.routes.map((route) => ({
+            state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({
                 ...route,
                 isSelected: route.modelRouteId === state.selectedRoute?.modelRouteId,
-            }));
+            })) : [];
         },
     },
 });
 
-export const { setSelectedRoute, setRoutes } = routesSlice.actions;
+export const { setSelectedRoute, setSelectedRouteByRegion, setRoutes } = routesSlice.actions;
 
 const selectRoutesState = (state: RootState) => state.routes;
 
@@ -47,13 +51,14 @@ const selectRoutesState = (state: RootState) => state.routes;
  */
 export const selectRoutes = createSelector(
     [selectRoutesState],
-    (routesState) => ({
-        routes: routesState.routes,
-        selectedRoute: routesState.selectedRoute,
-        selectionData: Array.isArray(routesState.routes) ? routesState.routes.map((route) => ({
-            title: route.region,
-            selectedRouteId: route.modelRouteId,
-            isSelected: route.modelRouteId === routesState.selectedRoute?.modelRouteId,
+    (routeState) => ({
+        routes: routeState.routes,
+        selectedRoute: routeState.selectedRoute,
+        selectionData: Array.isArray(routeState.routes) ? routeState.routes.map((route) => ({
+            region: route.region,
+            temperatureCelsius: route.regionWeatherInfo.temperatureCelsius,
+            weatherName: route.regionWeatherInfo.weatherName,
+            isSelected: route.modelRouteId === routeState.selectedRoute?.modelRouteId,
         })) : [],
     }),
 );

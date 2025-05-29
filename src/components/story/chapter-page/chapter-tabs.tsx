@@ -1,12 +1,12 @@
+import type { StoryChapterResponseDto } from "@/api/generated";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import CharacterModal from "@/components/character/character-card/character-modal/character-modal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { characters } from "@/lib/data/character/character-data";
-import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CharactersTabContent } from "./characters-tab-content";
 import { StoryTabContent } from "./story-tab-content";
-import type { StoryChapterResponseDto } from "@/api/generated";
 
 interface ChapterTabsProps {
 	chapters: StoryChapterResponseDto[];

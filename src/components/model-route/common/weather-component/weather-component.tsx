@@ -1,5 +1,5 @@
-import type React from "react";
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
+import type React from "react";
 
 // Assuming WeatherComponentProps is based on RegionWeatherInfo
 export interface WeatherComponentProps {

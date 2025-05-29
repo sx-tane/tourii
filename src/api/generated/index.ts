@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ModelRouteCreateRequestDto } from './models/ModelRouteCreateRequestDto';
 export type { ModelRouteResponseDto } from './models/ModelRouteResponseDto';
+export type { QuestResponseDto } from './models/QuestResponseDto';
 export type { StoryChapterCreateRequestDto } from './models/StoryChapterCreateRequestDto';
 export type { StoryChapterResponseDto } from './models/StoryChapterResponseDto';
 export type { StoryChapterUpdateRequestDto } from './models/StoryChapterUpdateRequestDto';
@@ -20,6 +21,7 @@ export type { TouristSpotResponseDto } from './models/TouristSpotResponseDto';
 export type { UserEntity } from './models/UserEntity';
 
 export { HealthCheckService } from './services/HealthCheckService';
+export { QuestService } from './services/QuestService';
 export { RoutesService } from './services/RoutesService';
 export { SecurityTestsService } from './services/SecurityTestsService';
 export { StoriesService } from './services/StoriesService';

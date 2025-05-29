@@ -1,6 +1,6 @@
+import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 import type { Meta, StoryObj } from "@storybook/react";
 import ChapterSelectionMobile from "./chapter-selection-mobile";
-import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 
 const meta = {
 	title: "Story/Chapter/MobileSelection",

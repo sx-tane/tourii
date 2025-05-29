@@ -1,8 +1,8 @@
+import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import type React from "react";
 import ChapterSelectionButton from "./chapter-selection-button";
-import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 
 interface ChapterSelectionComponentProps {
 	placeName?: string;

@@ -1,5 +1,5 @@
-import { characters as allCharacters } from "@/lib/data/character/character-data"; // Import mock data
 import type { CharacterProps } from "@/app/v2/(stories)/types";
+import { characters as allCharacters } from "@/lib/data/character/character-data"; // Import mock data
 import type { Meta, StoryObj } from "@storybook/react";
 import { CharactersTabContent } from "./characters-tab-content";
 

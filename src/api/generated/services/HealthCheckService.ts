@@ -27,7 +27,6 @@ export class HealthCheckService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }

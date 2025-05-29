@@ -34,6 +34,10 @@ export class RoutesService {
              */
             region: string;
             /**
+             * Description of the region
+             */
+            regionDesc: string;
+            /**
              * Recommendation of the model route
              */
             recommendation: Array<string>;
@@ -88,7 +92,6 @@ export class RoutesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -156,7 +159,6 @@ export class RoutesService {
             mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -181,7 +183,6 @@ export class RoutesService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
@@ -211,7 +212,6 @@ export class RoutesService {
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
-                401: `Unauthorized - Invalid or missing API key`,
             },
         });
     }
