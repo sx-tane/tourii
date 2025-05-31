@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type QuestResponseDto = {
-    quest: {
+export type QuestListResponseDto = {
+    quests: Array<{
         /**
          * Unique identifier for the quest
          */
@@ -23,7 +23,7 @@ export type QuestResponseDto = {
         /**
          * Quest type
          */
-        questType: QuestResponseDto.questType;
+        questType: 'UNKNOWN' | 'TRAVEL_TO_EARN' | 'EARN_TO_TRAVEL' | 'CAMPAIGN' | 'COMMUNITY_EVENT';
         /**
          * Whether quest is unlocked
          */
@@ -93,18 +93,11 @@ export type QuestResponseDto = {
              */
             totalMagatamaPointAwarded: number;
         }>;
+    }>;
+    pagination: {
+        currentPage: number;
+        totalPages: number;
+        totalQuests: number;
     };
 };
-export namespace QuestResponseDto {
-    /**
-     * Quest type
-     */
-    export enum questType {
-        UNKNOWN = 'UNKNOWN',
-        TRAVEL_TO_EARN = 'TRAVEL_TO_EARN',
-        EARN_TO_TRAVEL = 'EARN_TO_TRAVEL',
-        CAMPAIGN = 'CAMPAIGN',
-        COMMUNITY_EVENT = 'COMMUNITY_EVENT',
-    }
-}
 

@@ -9,7 +9,8 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { ModelRouteCreateRequestDto } from './models/ModelRouteCreateRequestDto';
 export type { ModelRouteResponseDto } from './models/ModelRouteResponseDto';
-export type { QuestResponseDto } from './models/QuestResponseDto';
+export type { QuestListResponseDto } from './models/QuestListResponseDto';
+export { QuestResponseDto } from './models/QuestResponseDto';
 export type { StoryChapterCreateRequestDto } from './models/StoryChapterCreateRequestDto';
 export type { StoryChapterResponseDto } from './models/StoryChapterResponseDto';
 export type { StoryChapterUpdateRequestDto } from './models/StoryChapterUpdateRequestDto';

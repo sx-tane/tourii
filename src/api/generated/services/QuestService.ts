@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { QuestListResponseDto } from '../models/QuestListResponseDto';
 import type { QuestResponseDto } from '../models/QuestResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -17,7 +18,7 @@ export class QuestService {
      * @param isPremium Filter by premium status
      * @param limit Number of quests per page (default: 20, max: 100)
      * @param page Page number for pagination (default: 1)
-     * @returns QuestResponseDto Fetch quests successfully
+     * @returns QuestListResponseDto Fetch quests successfully
      * @throws ApiError
      */
     public static touriiBackendControllerGetQuestList(
@@ -28,7 +29,7 @@ export class QuestService {
         isPremium?: boolean,
         limit?: number,
         page?: number,
-    ): CancelablePromise<QuestResponseDto> {
+    ): CancelablePromise<QuestListResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/quests',
@@ -42,6 +43,35 @@ export class QuestService {
                 'isPremium': isPremium,
                 'limit': limit,
                 'page': page,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get quest by ID
+     * Get quest by ID
+     * @param questId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns QuestResponseDto Quest found successfully
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetQuestById(
+        questId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<QuestResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/quests/{questId}',
+            path: {
+                'questId': questId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
