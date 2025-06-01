@@ -1,4 +1,4 @@
-# 🌏 Tourii Frontend
+# 🌏 Tourii
 
 ---
 
