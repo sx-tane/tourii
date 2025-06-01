@@ -34,6 +34,10 @@ export class RoutesService {
              */
             region: string;
             /**
+             * Description of the region
+             */
+            regionDesc: string;
+            /**
              * Recommendation of the model route
              */
             recommendation: Array<string>;

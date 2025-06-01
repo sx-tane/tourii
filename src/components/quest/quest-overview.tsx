@@ -2,7 +2,7 @@ import React from "react";
 import { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 
 interface QuestOverviewProps {
-  quest: QuestResponseDto["quest"];
+  quest: QuestResponseDto;
 }
 
 const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {

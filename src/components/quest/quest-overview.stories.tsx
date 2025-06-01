@@ -2,7 +2,7 @@ import QuestOverview from "./quest-overview";
 import { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const mockQuest: QuestResponseDto["quest"] = {
+const mockQuest: QuestResponseDto = {
   questId: "1",
   questName: "Golden Gate Adventure",
   questDesc:

@@ -2,9 +2,10 @@
 
 import QuestFilterBar from "./quest-filter-bar";
 import QuestPagination from "./quest-pagination";
+import { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
 
 interface QuestListProps {
-	quests: any;
+	quests: QuestListResponseDto;
 	filters: {
 		questType: string;
 		unlockStatus: string;

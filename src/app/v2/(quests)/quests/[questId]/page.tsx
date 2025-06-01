@@ -13,7 +13,7 @@ const fetchQuestById = async (questId: string) => {
 
 export default function QuestDetailPage() {
   const { questId } = useParams() as { questId: string };
-  const [quest, setQuest] = useState<QuestResponseDto["quest"] | null>(null);
+  const [quest, setQuest] = useState<QuestResponseDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
