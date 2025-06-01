@@ -14,6 +14,7 @@ import {
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
+import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 const RegionPage: NextPage = () => {
@@ -89,9 +90,9 @@ const RegionPage: NextPage = () => {
 	).length;
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen bg-warmGrey3">
+		<div className="h-[90vh] w-full z-20">
 			<div className="flex flex-col items-center justify-center h-full">
-				<RegionComponent region={selectedRoute} />
+				<RegionComponent key={selectedRoute.region} region={selectedRoute} />
 				<RegionSelectionList
 					selectionData={selectionData}
 					modelRouteCount={modelRouteCount}

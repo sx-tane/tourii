@@ -2,9 +2,14 @@ import { ModelRouteResponseDto } from "@/api/generated";
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
+// Create a serializable type that extends the API response
+interface SerializableRoute extends Omit<ModelRouteResponseDto, 'isSelected'> {
+    isSelected?: boolean;
+}
+
 interface RoutesState {
-    routes: ModelRouteResponseDto[];
-    selectedRoute: ModelRouteResponseDto | null;
+    routes: SerializableRoute[];
+    selectedRoute: SerializableRoute | null;
 }
 
 const initialState: RoutesState = {
@@ -20,22 +25,43 @@ const routesSlice = createSlice({
     initialState,
     reducers: {
         setSelectedRoute: (state, action: PayloadAction<string>) => {
-            state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({ ...route, isSelected: route.modelRouteId === action.payload })) : [];
-            state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((route) => route.modelRouteId === action.payload) || null : null;
+            state.routes = Array.isArray(state.routes) 
+                ? state.routes.map((route) => ({
+                    ...route,
+                    isSelected: route.modelRouteId === action.payload
+                })) 
+                : [];
+            state.selectedRoute = Array.isArray(state.routes) 
+                ? state.routes.find((route) => route.modelRouteId === action.payload) || null 
+                : null;
         },
         setSelectedRouteByRegion: (state, action: PayloadAction<string>) => {
-            state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({ ...route, isSelected: route.region === action.payload })) : [];
-            state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((route) => route.region === action.payload) || null : null;
+            state.routes = Array.isArray(state.routes) 
+                ? state.routes.map((route) => ({
+                    ...route,
+                    isSelected: route.region === action.payload
+                })) 
+                : [];
+            state.selectedRoute = Array.isArray(state.routes) 
+                ? state.routes.find((route) => route.region === action.payload) || null 
+                : null;
         },
         setRoutes: (state, action: PayloadAction<ModelRouteResponseDto[]>) => {
-            state.routes = action.payload;
+            // Create serializable copies of the API response objects
+            const serializedRoutes: SerializableRoute[] = action.payload.map(route => ({
+                ...route,
+                isSelected: false
+            }));
+            
+            state.routes = serializedRoutes;
             const currentSelectedId = state.selectedRoute?.modelRouteId;
-            state.selectedRoute = Array.isArray(state.routes) ? state.routes.find((r) => r.modelRouteId === currentSelectedId) || state.routes[0] || null : null;
+            state.selectedRoute = state.routes.find((r) => r.modelRouteId === currentSelectedId) || state.routes[0] || null;
 
-            state.routes = Array.isArray(state.routes) ? state.routes.map((route) => ({
+            // Update the selected state
+            state.routes = state.routes.map((route) => ({
                 ...route,
                 isSelected: route.modelRouteId === state.selectedRoute?.modelRouteId,
-            })) : [];
+            }));
         },
     },
 });

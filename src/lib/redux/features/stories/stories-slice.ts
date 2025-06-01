@@ -4,9 +4,14 @@ import type { StorySelection } from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
 import { StoryResponseDto } from "@/api/generated";
 
+// Create a serializable type that extends the API response
+interface SerializableStory extends Omit<StoryResponseDto, 'isSelected'> {
+	isSelected?: boolean;
+}
+
 interface StoriesState {
-	stories: StoryResponseDto[];
-	selectedStory: StoryResponseDto | null;
+	stories: SerializableStory[];
+	selectedStory: SerializableStory | null;
 }
 
 const initialState: StoriesState = {
@@ -34,13 +39,20 @@ const storiesSlice = createSlice({
 				: null;
 		},
 		setStories: (state, action: PayloadAction<StoryResponseDto[]>) => {
-			state.stories = action.payload;
+			// Create serializable copies of the API response objects
+			const serializedStories: SerializableStory[] = action.payload.map(story => ({
+				...story,
+				isSelected: false
+			}));
+			
+			state.stories = serializedStories;
 			const currentSelectedId = state.selectedStory?.storyId;
 			state.selectedStory =
 				state.stories.find((s) => s.storyId === currentSelectedId) ||
 				state.stories[1] ||
 				null;
 
+			// Update the selected state
 			state.stories = state.stories.map((story) => ({
 				...story,
 				isSelected: story.storyId === state.selectedStory?.storyId,

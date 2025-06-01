@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import BottomSection from "./bottom-section";
 
 const meta = {
-	title: "ModelRoute/RouteDetails/BottomSection",
+	title: "Model Route/RouteDetails/BottomSection",
 	component: BottomSection,
 	parameters: {
 		backgrounds: {

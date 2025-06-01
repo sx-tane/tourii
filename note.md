@@ -41,10 +41,13 @@ Model Route Response Dto
 
 ## 2025-05-31
 ### TODO
-- [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
-  - [ ] A helper function to convert weatherName to weather icon
-  - [ ] use lucide react and create helper for it
-    - [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
-- [ ] Redesign and match the style with story page
+- [X] Add the Quest Response Dto
+- [X] Change the Proceed Button to Read Now Button (Standardize)
+- [X] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+  - [X] A helper function to convert weatherName to weather icon
+  - [X] use lucide react and create helper for it
+    - [X] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+- [X] Redesign and match the style with story page
+- [ ] Add route page the folder path is [region]/page.tsx
 
 ### TODO Next Time

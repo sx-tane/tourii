@@ -15,8 +15,25 @@ export const store = configureStore({
 		chapter: chapterReducer,
 		routes: routesReducer,
 	},
-	// Consider adding middleware here if needed (e.g., for logging, thunks)
-	// middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				// Ignore these action types
+				ignoredActions: [
+					// Allow non-serializable values in specific actions if needed
+				],
+				// Ignore these field paths in all actions
+				ignoredActionsPaths: [
+					// Ignore non-serializable values in specific payload paths
+				],
+				// Ignore these paths in the state
+				ignoredPaths: [
+					// Ignore non-serializable values in specific state paths
+				],
+				// Warn instead of throwing errors for debugging
+				warnAfter: 128,
+			},
+		}),
 	// Enable Redux DevTools extension support
 	devTools: process.env.NODE_ENV !== "production",
 });

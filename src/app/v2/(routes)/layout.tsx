@@ -8,8 +8,8 @@ interface StoriesLayoutProps {
 
 const StoriesLayout = ({ children }: StoriesLayoutProps) => {
 	return (
-		<div>
-			<div className="absolute top-0 left-0 w-full z-20">
+		<div className="min-h-screen animate-fadeIn overflow-hidden before:fixed before:inset-0 before:z-[-1] before:bg-warmGrey">
+			<div className="mx-6">
 				<HeaderApp theme={"white"} />
 			</div>
 			<Suspense fallback={<Loading />}>{children}</Suspense>

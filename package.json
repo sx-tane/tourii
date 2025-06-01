@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
-    "dev:network": "next dev --hostname 192.168.0.67",
+    "dev": "next dev --turbopack",
+    "dev:network": "next dev --hostname 192.168.0.67 --turbopack",
     "format": "biome format --write .",
     "generate:api": "npx openapi-typescript-codegen --input ./docs/api-specs/openapi.json --output ./src/api/generated --client fetch",
     "lint": "biome lint .",

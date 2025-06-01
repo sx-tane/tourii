@@ -1,5 +1,4 @@
 import type { ModelRoute } from "@/types/model-route-type";
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import type React from "react";
 
