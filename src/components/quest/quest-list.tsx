@@ -66,10 +66,20 @@ const QuestList = ({
 											className="rounded-lg h-40 w-full object-cover mb-4"
 										/>
 										{quest.isPremium && (
-											<span className="absolute top-2 right-2 text-yellow-500 text-xl" title="Premium">★</span>
+											<span
+												className="absolute top-2 right-2 text-yellow-500 text-xl"
+												title="Premium"
+											>
+												★
+											</span>
 										)}
 										{isLocked && (
-											<span className="absolute top-2 left-2 text-gray-500 text-xl" title="Locked">🔒</span>
+											<span
+												className="absolute top-2 left-2 text-gray-500 text-xl"
+												title="Locked"
+											>
+												🔒
+											</span>
 										)}
 									</div>
 									<div className="font-semibold text-lg mb-1 text-[#3d2c13]">
@@ -89,7 +99,11 @@ const QuestList = ({
 							);
 						})}
 					</div>
-					<QuestPagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+					<QuestPagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						onPageChange={onPageChange}
+					/>
 				</>
 			)}
 		</div>
