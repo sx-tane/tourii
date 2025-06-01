@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
-import WeatherDisplay from "./weather-display";
+import WeatherDisplay from "../../region/weather-display";
 
 const meta: Meta<typeof WeatherDisplay> = {
 	title: "Model Route/Region/WeatherDisplay",

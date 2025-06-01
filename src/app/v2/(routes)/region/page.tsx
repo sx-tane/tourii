@@ -1,9 +1,10 @@
 "use client";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
-import type { RegionSelection } from "@/app/v2/(routes)/types";
-import RegionComponent from "@/components/model-route/region/region-component";
-import RegionSelectionList from "@/components/model-route/region/region-selection-list";
+import {
+	RegionComponent,
+	RegionSelectionList,
+} from "@/components/model-route/region";
 import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
 import { ApiError } from "@/lib/errors";
 import {
@@ -14,7 +15,6 @@ import {
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
-import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 const RegionPage: NextPage = () => {
@@ -95,7 +95,6 @@ const RegionPage: NextPage = () => {
 				<RegionComponent key={selectedRoute.region} region={selectedRoute} />
 				<RegionSelectionList
 					selectionData={selectionData}
-					modelRouteCount={modelRouteCount}
 					onSelect={handleSelectRoute}
 				/>
 			</div>

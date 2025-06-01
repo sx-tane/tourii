@@ -39,15 +39,18 @@ const SagaChapterPage: NextPage = () => {
 		useState<StoryChapterResponseDto | null>(null);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
+	// Memoize chapters to prevent infinite loops
+	const chapters = useMemo(() => {
+		return storyChapterList ?? [];
+	}, [storyChapterList]);
+
 	useEffect(() => {
 		console.log(
-			"[SagaChapterPage] Init Effect Triggered. Saga:",
-			storyChapterList,
+			"[SagaChapterPage] Init Effect Triggered. Chapters count:",
+			chapters.length,
 		);
 		// Effect depends on saga object and its chapterList property
-		if (storyChapterList && storyChapterList.length > 0) {
-			// Use saga.chapterList
-			const chapters = storyChapterList;
+		if (chapters && chapters.length > 0) {
 			console.log(
 				`[SagaChapterPage] Init Effect: Found ${chapters.length} chapters for storyId: ${storyId}`,
 			);
@@ -114,13 +117,9 @@ const SagaChapterPage: NextPage = () => {
 				setCurrentChapter(null);
 				setCurrentIndex(0);
 			}
-		} else if (
-			storyChapterList &&
-			(!storyChapterList || storyChapterList.length === 0)
-		) {
+		} else if (chapters.length === 0 && !isLoadingStoryChapterList) {
 			console.warn(
-				`[SagaChapterPage] Init Effect: Saga data found for ${storyId}, but chapterList is missing or empty. Saga:`,
-				storyChapterList,
+				`[SagaChapterPage] Init Effect: Chapter list is empty for storyId: ${storyId}`,
 			);
 			setCurrentChapter(null);
 			setCurrentIndex(0);
@@ -129,12 +128,10 @@ const SagaChapterPage: NextPage = () => {
 				`[SagaChapterPage] Init Effect: Waiting for saga data or saga is null/undefined for storyId: ${storyId}`,
 			);
 		}
-	}, [storyChapterList, storyId]); // Depend on saga object
+	}, [chapters, storyId, isLoadingStoryChapterList]); // Use memoized chapters
 
 	const handleSelectChapter = useCallback(
 		(selectedChapterId: string) => {
-			// Use saga.chapterList
-			const chapters = storyChapterList ?? [];
 			const chapter = chapters.find(
 				(c: StoryChapterResponseDto) => c.storyChapterId === selectedChapterId,
 			);
@@ -156,13 +153,11 @@ const SagaChapterPage: NextPage = () => {
 				);
 			}
 		},
-		[storyChapterList, storyId],
-	); // Depend on saga
+		[chapters, storyId],
+	);
 
 	const handleSwipe = useCallback(
 		(direction: "left" | "right") => {
-			// Use saga.chapterList
-			const chapters = storyChapterList ?? [];
 			if (!currentChapter || chapters.length === 0) return;
 			const currentIdx = chapters.findIndex(
 				(chapter: StoryChapterResponseDto) =>
@@ -185,8 +180,8 @@ const SagaChapterPage: NextPage = () => {
 				handleSelectChapter(newChapterId);
 			}
 		},
-		[currentChapter, storyChapterList, handleSelectChapter, storyId],
-	); // Depend on saga
+		[currentChapter, chapters, handleSelectChapter, storyId],
+	);
 
 	const touchStartX = useRef<number | null>(null);
 	const touchEndX = useRef<number | null>(null);
@@ -282,10 +277,9 @@ const SagaChapterPage: NextPage = () => {
 	}
 
 	// Check if chapterList is missing or empty on the saga object
-	if (!Array.isArray(storyChapterList) || storyChapterList.length === 0) {
+	if (!Array.isArray(chapters) || chapters.length === 0) {
 		console.warn(
-			`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list on saga object. Saga:`,
-			storyChapterList,
+			`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list.`,
 		);
 		return (
 			<TouriiError errorMessage="This story has no chapters." isEmpty={true} />
@@ -304,8 +298,8 @@ const SagaChapterPage: NextPage = () => {
 		);
 	}
 
-	// Use saga.chapterList for mapping
-	const selectionDataForComponents = storyChapterList.map(
+	// Use memoized chapters for mapping
+	const selectionDataForComponents = chapters.map(
 		(chap: StoryChapterResponseDto) => ({
 			touristSpotId: chap.touristSpotId,
 			storyChapterId: chap.storyChapterId,

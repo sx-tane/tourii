@@ -31,13 +31,6 @@ Model Route Response Dto
 ## 2025-05-29
 - [x] Done basic logic of region page
 - [x] list need to show out how many tourist spot, style just all same like story, but just different color then is ok
-  
-### TODO Next Time
-- [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
-  - [ ] A helper function to convert weatherName to weather icon
-  - [ ] use lucide react and create helper for it
-    - [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
-- [ ] Redesign and match the style with story page
 
 ## 2025-05-31
 ### TODO
@@ -48,6 +41,10 @@ Model Route Response Dto
   - [X] use lucide react and create helper for it
     - [X] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
 - [X] Redesign and match the style with story page
-- [ ] Add route page the folder path is [region]/page.tsx
 
-### TODO Next Time
+## 2025-06-01
+- [X] Add route page the folder path is [region]/page.tsx
+- [ ] Add model route selection page
+      - [ ] Pass the data from the region page to the model route selection page
+      - [ ] Split Component based on the sample image
+      - [ ] Check is the properties for model route is enough

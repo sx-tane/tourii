@@ -47,16 +47,22 @@ const storiesSlice = createSlice({
 			
 			state.stories = serializedStories;
 			const currentSelectedId = state.selectedStory?.storyId;
-			state.selectedStory =
-				state.stories.find((s) => s.storyId === currentSelectedId) ||
+			
+			// Find the selected story but don't modify it yet
+			const newSelectedStory = state.stories.find((s) => s.storyId === currentSelectedId) ||
 				state.stories[1] ||
 				null;
-
-			// Update the selected state
-			state.stories = state.stories.map((story) => ({
-				...story,
-				isSelected: story.storyId === state.selectedStory?.storyId,
-			}));
+			
+			// Only update if there's a change to prevent unnecessary re-renders
+			if (state.selectedStory?.storyId !== newSelectedStory?.storyId) {
+				state.selectedStory = newSelectedStory;
+				
+				// Update the selected state only if selection changed
+				state.stories = state.stories.map((story) => ({
+					...story,
+					isSelected: story.storyId === newSelectedStory?.storyId,
+				}));
+			}
 		},
 	},
 });

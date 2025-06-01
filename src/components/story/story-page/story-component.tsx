@@ -43,7 +43,7 @@ const StoryComponent: React.FC<{ story: StoryResponseDto | undefined }> = ({
 				<div>
 					{/* Layout for stories WITH mapImage/description etc. */}
 					<motion.div
-						className="absolute left-10 top-5 z-30 whitespace-pre-line font-bold uppercase tracking-wider text-warmGrey text-6xl lg:text-9xl"
+						className="absolute left-10 top-5 z-30 whitespace-pre-line font-bold uppercase tracking-wider text-warmGrey text-6xl lg:text-7xl xl:text-8xl"
 						variants={upToDownVariants}
 						initial="hidden"
 						animate="visible"

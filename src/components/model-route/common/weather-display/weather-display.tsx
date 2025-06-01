@@ -1,4 +1,3 @@
-import { motion, type Variants } from "framer-motion";
 import type React from "react";
 import {
 	Sun,
@@ -21,13 +20,6 @@ interface WeatherInfo {
 interface WeatherDisplayProps {
 	weatherInfo?: WeatherInfo;
 	className?: string;
-	variants?: Variants;
-	initial?: string;
-	animate?: string;
-	transition?: {
-		delay?: number;
-		duration?: number;
-	};
 	iconSize?: {
 		small: string;
 		large: string;
@@ -36,11 +28,7 @@ interface WeatherDisplayProps {
 
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 	weatherInfo,
-	className = "absolute right-10 bottom-5 z-30 text-right md:flex flex-col text-sm lg:text-base",
-	variants,
-	initial = "hidden",
-	animate = "visible",
-	transition = { delay: 0.2, duration: 0.5 },
+	className = "text-right md:flex flex-col text-sm lg:text-base",
 	iconSize = { small: "w-20 h-20", large: "lg:w-40 lg:h-40" },
 }) => {
 	if (!weatherInfo) {
@@ -48,23 +36,19 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 	}
 
 	return (
-		<motion.div
-			className={className}
-			variants={variants}
-			initial={initial}
-			animate={animate}
-			transition={transition}
-		>
-			<div className="text-lg lg:text-xl font-medium tracking-wider mb-2">
-				{getWeatherIcon(weatherInfo.weatherName, iconSize)}
+		<div className={className}>
+			<div className="flex">
+				<div className="text-3xl lg:text-6xl font-semibold lg:mt-2 tracking-wider">
+					{weatherInfo.temperatureCelsius
+						? Math.ceil(weatherInfo.temperatureCelsius)
+						: "--"}
+					°
+				</div>
+				<div className="text-lg lg:text-xl font-medium tracking-wider mb-2">
+					{getWeatherIcon(weatherInfo.weatherName, iconSize)}
+				</div>
 			</div>
-			<div className="text-3xl lg:text-7xl font-semibold mb-2 tracking-wider">
-				{weatherInfo.temperatureCelsius
-					? Math.ceil(weatherInfo.temperatureCelsius)
-					: "--"}
-				°c
-			</div>
-		</motion.div>
+		</div>
 	);
 };
 

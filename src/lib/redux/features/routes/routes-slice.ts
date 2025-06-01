@@ -77,16 +77,47 @@ const selectRoutesState = (state: RootState) => state.routes;
  */
 export const selectRoutes = createSelector(
     [selectRoutesState],
-    (routeState) => ({
-        routes: routeState.routes,
-        selectedRoute: routeState.selectedRoute,
-        selectionData: Array.isArray(routeState.routes) ? routeState.routes.map((route) => ({
-            region: route.region,
-            temperatureCelsius: route.regionWeatherInfo.temperatureCelsius,
-            weatherName: route.regionWeatherInfo.weatherName,
-            isSelected: route.modelRouteId === routeState.selectedRoute?.modelRouteId,
-        })) : [],
-    }),
+    (routeState) => {
+        // Group routes by unique regions and create selection data
+        const uniqueRegions = new Map<string, {
+            region: string;
+            temperatureCelsius: number | undefined;
+            weatherName: string | undefined;
+            routeCount: number;
+            isSelected: boolean;
+        }>();
+
+        if (Array.isArray(routeState.routes)) {
+            routeState.routes.forEach((route) => {
+                if (route.region) {
+                    const existing = uniqueRegions.get(route.region);
+                    if (existing) {
+                        // Increment count for existing region
+                        existing.routeCount += 1;
+                        // Update selection status if any route in this region is selected
+                        if (route.region === routeState.selectedRoute?.region) {
+                            existing.isSelected = true;
+                        }
+                    } else {
+                        // Create new entry for this region
+                        uniqueRegions.set(route.region, {
+                            region: route.region,
+                            temperatureCelsius: route.regionWeatherInfo?.temperatureCelsius,
+                            weatherName: route.regionWeatherInfo?.weatherName,
+                            routeCount: 1,
+                            isSelected: route.region === routeState.selectedRoute?.region,
+                        });
+                    }
+                }
+            });
+        }
+
+        return {
+            routes: routeState.routes,
+            selectedRoute: routeState.selectedRoute,
+            selectionData: Array.from(uniqueRegions.values()),
+        };
+    },
 );
 
 export default routesSlice.reducer;

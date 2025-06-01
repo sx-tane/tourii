@@ -14,26 +14,35 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
 	const { selectedStory, selectionData } = useAppSelector(selectStories);
+	const initializedRef = useRef(false);
+	const sagasProcessedRef = useRef<string[]>([]);
 
 	const { sagas, isLoadingSagas, isErrorSagas, mutateSagas } = getSagas();
 
 	useEffect(() => {
 		if (sagas !== undefined) {
-			dispatch(setStories(sagas));
+			// Create a key for this saga set to avoid reprocessing the same data
+			const sagasKey = sagas.map((s) => s.storyId).join(",");
 
-			if (sagas.length > 0 && !selectedStory) {
-				const firstStory = sagas[0];
-				if (firstStory) {
-					dispatch(setSelectedStory(firstStory.storyId));
+			if (!sagasProcessedRef.current.includes(sagasKey)) {
+				dispatch(setStories(sagas));
+				sagasProcessedRef.current.push(sagasKey);
+
+				if (sagas.length > 0 && !initializedRef.current) {
+					const firstStory = sagas[0];
+					if (firstStory) {
+						dispatch(setSelectedStory(firstStory.storyId));
+						initializedRef.current = true;
+					}
 				}
 			}
 		}
-	}, [sagas, dispatch, selectedStory]);
+	}, [sagas, dispatch]);
 
 	const handleSelectStory = (selectedStoryId: string) => {
 		dispatch(setSelectedStory(selectedStoryId));
@@ -92,10 +101,21 @@ const Touriiverse: NextPage = () => {
 		return <div>Please select a story.</div>;
 	}
 
+	// Ensure selectedStory has the required isSelected property
+	const storyWithIsSelected = selectedStory
+		? {
+				...selectedStory,
+				isSelected: selectedStory.isSelected ?? false,
+			}
+		: undefined;
+
 	return (
 		<div className="h-[90vh] w-full z-20">
 			<div className="flex flex-col items-center justify-center h-full">
-				<StoryComponent key={selectedStory.storyId} story={selectedStory} />
+				<StoryComponent
+					key={selectedStory.storyId}
+					story={storyWithIsSelected}
+				/>
 				<StorySelectionList
 					selectionData={selectionData}
 					onSelect={handleSelectStory}
