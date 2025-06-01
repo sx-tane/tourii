@@ -24,12 +24,14 @@ interface WeatherDisplayProps {
 		small: string;
 		large: string;
 	};
+	needTemperature?: boolean;
 }
 
 const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 	weatherInfo,
 	className = "text-right md:flex flex-col text-sm lg:text-base",
 	iconSize = { small: "w-20 h-20", large: "lg:w-40 lg:h-40" },
+	needTemperature = true,
 }) => {
 	if (!weatherInfo) {
 		return null;
@@ -39,10 +41,14 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({
 		<div className={className}>
 			<div className="flex">
 				<div className="text-3xl lg:text-6xl font-semibold lg:mt-2 tracking-wider">
-					{weatherInfo.temperatureCelsius
-						? Math.ceil(weatherInfo.temperatureCelsius)
-						: "--"}
-					°
+					{needTemperature ? (
+						<div>
+							{weatherInfo.temperatureCelsius
+								? Math.ceil(weatherInfo.temperatureCelsius)
+								: "--"}
+							°
+						</div>
+					) : undefined}
 				</div>
 				<div className="text-lg lg:text-xl font-medium tracking-wider mb-2">
 					{getWeatherIcon(weatherInfo.weatherName, iconSize)}

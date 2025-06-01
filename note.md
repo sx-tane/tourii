@@ -45,6 +45,6 @@ Model Route Response Dto
 ## 2025-06-01
 - [X] Add route page the folder path is [region]/page.tsx
 - [ ] Add model route selection page
-      - [ ] Pass the data from the region page to the model route selection page
+      - [X] Pass the data from the region page to the model route selection page
       - [ ] Split Component based on the sample image
       - [ ] Check is the properties for model route is enough

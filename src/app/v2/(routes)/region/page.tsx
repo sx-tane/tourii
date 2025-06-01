@@ -85,10 +85,6 @@ const RegionPage: NextPage = () => {
 		return <div>Please select a route.</div>;
 	}
 
-	const modelRouteCount = selectionData.filter(
-		(selection) => selection.region === selectedRoute.region,
-	).length;
-
 	return (
 		<div className="h-[90vh] w-full z-20">
 			<div className="flex flex-col items-center justify-center h-full">

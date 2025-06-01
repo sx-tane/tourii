@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { downToUpVariants } from "@/lib/animation/variants-settings";
-import WeatherDisplay from "../../region/weather-display";
+import { WeatherDisplay } from "@/components/model-route/common";
 
 const meta: Meta<typeof WeatherDisplay> = {
 	title: "Model Route/Region/WeatherDisplay",
@@ -38,22 +37,6 @@ const meta: Meta<typeof WeatherDisplay> = {
 		iconSize: {
 			control: "object",
 			description: "Icon size configuration for small and large screens",
-		},
-		variants: {
-			control: "object",
-			description: "Framer Motion animation variants",
-		},
-		initial: {
-			control: "text",
-			description: "Initial animation state",
-		},
-		animate: {
-			control: "text",
-			description: "Target animation state",
-		},
-		transition: {
-			control: "object",
-			description: "Animation transition configuration",
 		},
 	},
 	decorators: [
@@ -159,10 +142,6 @@ export const WithAnimation: Story = {
 			weatherName: "Clouds",
 			temperatureCelsius: 20,
 		},
-		variants: downToUpVariants,
-		initial: "hidden",
-		animate: "visible",
-		transition: { delay: 0.5, duration: 1 },
 	},
 };
 

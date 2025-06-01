@@ -1,1 +1,0 @@
-export { default as WeatherDisplay } from "./weather-display";

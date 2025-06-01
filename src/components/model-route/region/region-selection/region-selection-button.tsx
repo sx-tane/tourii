@@ -26,7 +26,8 @@ const RegionSelectionButton: React.FC<RegionSelectionButtonProps> = memo(
 				<div
 					className={`absolute bottom-4 right-6 text-sm font-semibold capitalize italic tracking-widest transition-colors duration-300 ${selection.isSelected ? "text-warmGrey" : "text-charcoal"}`}
 				>
-					{selection.routeCount} Routes
+					{selection.routeCount}
+					{selection.routeCount !== 1 ? " routes" : " route"}
 				</div>
 			</button>
 		);
