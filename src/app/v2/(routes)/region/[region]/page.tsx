@@ -1,7 +1,6 @@
 "use client";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
-import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import RouteCarousel from "@/components/model-route/route-component/route-carousel/route-carousel";
 import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
 import { ApiError } from "@/lib/errors";
@@ -98,7 +97,7 @@ const RegionModelRoutesPage: NextPage = () => {
 				transition={{ duration: 0.8, delay: 0.2 }}
 				className="px-4"
 			>
-				<RouteCarousel routes={regionModelRoutes} className="mt-8" />
+				<RouteCarousel routes={regionModelRoutes} className="" />
 			</motion.div>
 		</div>
 	);

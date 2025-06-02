@@ -46,5 +46,13 @@ Model Route Response Dto
 - [X] Add route page the folder path is [region]/page.tsx
 - [ ] Add model route selection page
       - [X] Pass the data from the region page to the model route selection page
-      - [ ] Split Component based on the sample image
-      - [ ] Check is the properties for model route is enough
+      - [X] Split Component based on the sample image
+      - [X] Check is the properties for model route is enough
+
+## TODO Next Time
+- [ ] Animation for Model Route Selection Page
+      - [ ] Make the animation expand work
+      - [ ] Only Image Expand and not word expand
+      - [ ] The Weather icon got some problem as well
+      - [ ] CreateLocation Info
+      - [ ] Navigation Banner to change

@@ -1,17 +1,19 @@
-// components/RouteCard.tsx
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type React from "react";
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import { WeatherDisplay } from "@/components/model-route/common";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
 export interface RouteCardProps {
 	route: ModelRouteResponseDto;
-	routeIndex: number; // 0-based index for displaying "#01, #02, …"
-	isExpanded?: boolean; // whether to render as full-screen
-	onSelect?: () => void; // called when clicking card (expand or collapse)
-	className?: string; // optional extra classes
+	routeIndex: number;
+	isExpanded?: boolean;
+	onSelect?: () => void;
+	className?: string;
+	onExpansionAnimationComplete?: () => void;
 }
 
 const RouteCard: React.FC<RouteCardProps> = ({
@@ -20,27 +22,43 @@ const RouteCard: React.FC<RouteCardProps> = ({
 	isExpanded = false,
 	onSelect,
 	className = "",
+	onExpansionAnimationComplete,
 }) => {
 	const handleClick = () => {
 		onSelect?.();
 	};
 
+	const [isAnimatingToExpanded, setIsAnimatingToExpanded] = useState(false);
+	const prevIsExpanded = useRef(isExpanded);
+
+	useEffect(() => {
+		if (isExpanded && !prevIsExpanded.current) {
+			setIsAnimatingToExpanded(true);
+		} else if (!isExpanded && prevIsExpanded.current) {
+			setIsAnimatingToExpanded(false);
+		}
+		prevIsExpanded.current = isExpanded;
+	}, [isExpanded]);
+
 	return (
-		// ── OUTERMOST container uses layoutId so Framer Motion can morph it ──
 		<motion.div
 			layoutId={`card-container-${route.modelRouteId}`}
 			onClick={handleClick}
 			initial={false}
 			animate={{
-				width: isExpanded ? "100vw" : "280px",
+				width: isExpanded ? "" : "280px",
 				height: isExpanded ? "90vh" : "400px",
 			}}
 			transition={{ duration: 0.5, ease: "easeInOut" }}
-			className={`relative overflow-hidden ${
-				isExpanded ? "" : "shadow-lg"
-			} bg-white rounded-3xl cursor-pointer w-[280px] h-[400px] ${className}`}
+			onAnimationComplete={() => {
+				if (isAnimatingToExpanded && isExpanded) {
+					onExpansionAnimationComplete?.();
+					setIsAnimatingToExpanded(false);
+				}
+			}}
+			className={`relative overflow-hidden ${isExpanded ? "" : "shadow-lg"}  rounded-3xl ${className}`}
 		>
-			{/* ─── Background (Image or Video) - This will scale with container ─── */}
+			{/* ─── Background (Image or Video) ─── */}
 			<motion.div className="absolute inset-0 w-full h-full" layout>
 				{route.regionBackgroundMedia?.endsWith(".mp4") ? (
 					<video
@@ -52,10 +70,14 @@ const RouteCard: React.FC<RouteCardProps> = ({
 						autoPlay
 					/>
 				) : (
-					<img
+					<Image
 						src={route.regionBackgroundMedia || "/placeholder-image.jpg"}
 						alt={`${route.routeName} route background`}
 						className="w-full h-full object-cover"
+						width={1920}
+						height={1080}
+						quality={100}
+						priority
 					/>
 				)}
 			</motion.div>
@@ -66,7 +88,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 				layout
 			/>
 
-			{/* ─── Weather Display (top-right) - Fixed size and position ─── */}
+			{/* ─── Weather Display ─── */}
 			<motion.div
 				className="absolute top-4 right-4 z-40"
 				layout="position"
@@ -85,7 +107,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 				/>
 			</motion.div>
 
-			{/* ─── Model Route Number (top-left) - Fixed size and position ─── */}
+			{/* ─── Route Number ─── */}
 			<motion.div
 				className="absolute top-4 left-4 text-white/90 font-bold tracking-wider text-base"
 				layout="position"
@@ -94,13 +116,13 @@ const RouteCard: React.FC<RouteCardProps> = ({
 				#{String(routeIndex + 1).padStart(2, "0")}
 			</motion.div>
 
-			{/* ─── Text content (bottom) - Fixed size and position ─── */}
+			{/* ─── Text content ─── */}
 			<motion.div
 				className="absolute bottom-4 left-4 right-4 text-white max-w-md"
 				layout="position"
 				transition={{ duration: 0.5, ease: "easeOut" }}
 			>
-				{/* Region Tag - Fixed size */}
+				{/* Region Tag */}
 				<motion.div
 					className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-medium rounded-full mb-3 text-sm"
 					layout="position"
@@ -109,7 +131,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 					{route.region}
 				</motion.div>
 
-				{/* Route Name - Fixed size */}
+				{/* Route Name */}
 				<motion.h3
 					className="font-bold text-white mb-2 line-clamp-2 text-lg"
 					layout="position"
@@ -118,7 +140,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 					{route.routeName}
 				</motion.h3>
 
-				{/* Description (only when expanded) - Fixed size */}
+				{/* Description (only when expanded) */}
 				{isExpanded && route.regionDesc && (
 					<motion.p
 						className="text-white/90 text-base leading-relaxed mt-4 max-w-2xl"
@@ -130,7 +152,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 					</motion.p>
 				)}
 
-				{/* Expand indicator (only when not expanded) - Fixed size */}
+				{/* Expand indicator (only when not expanded) */}
 				{!isExpanded && (
 					<motion.div
 						className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full mt-2"

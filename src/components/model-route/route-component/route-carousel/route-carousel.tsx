@@ -2,8 +2,13 @@
 
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import { motion } from "framer-motion";
-import type React from "react";
-import { useState, useCallback, useEffect } from "react";
+import React, {
+	useState,
+	useCallback,
+	useLayoutEffect,
+	useRef,
+	useMemo,
+} from "react";
 import RouteCard from "./route-card";
 
 export interface RouteCarouselProps {
@@ -11,80 +16,179 @@ export interface RouteCarouselProps {
 	className?: string;
 }
 
+const ANIMATION_DURATION_MS = 500; // keep at 500 ms
+
 const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	routes,
 	className = "",
 }) => {
-	const [expandedIndex, setExpandedIndex] = useState(0);
+	const [expandedIndex, setExpandedIndex] = useState<number>(0);
+	const [previousExpandedIndex, setPreviousExpandedIndex] = useState<
+		number | null
+	>(null);
+	const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
-	useEffect(() => {
+	const carouselWrapperRef = useRef<HTMLDivElement>(null);
+	const draggableContentRef = useRef<HTMLDivElement>(null);
+
+	// Whenever `routes` changes, reset to the first card expanded
+	React.useEffect(() => {
 		if (routes && routes.length > 0) {
 			setExpandedIndex(0);
+			setPreviousExpandedIndex(null);
 		}
 	}, [routes]);
 
-	const handleExpand = useCallback((index: number) => {
-		setExpandedIndex(index);
-	}, []);
+	// Compute which cards should be in the “dock” (exclude both current and previous expanded)
+	const dockRoutes = useMemo(() => {
+		return routes.filter(
+			(_, idx) => idx !== expandedIndex && idx !== previousExpandedIndex,
+		);
+	}, [routes, expandedIndex, previousExpandedIndex]);
+
+	//
+	// ─────────────── MEASURE & SET DRAG CONSTRAINTS ───────────────
+	// We useLayoutEffect so measurements happen after DOM is laid out,
+	// ensuring offsetWidth/scrollWidth reflect final sizes (including gap-6 and pr-1).
+	//
+	useLayoutEffect(() => {
+		const calculateConstraints = () => {
+			if (
+				carouselWrapperRef.current instanceof HTMLElement &&
+				draggableContentRef.current instanceof HTMLElement
+			) {
+				// 1) Visible width of the wrapper:
+				const containerWidth = carouselWrapperRef.current.offsetWidth;
+
+				// 2) Total scrollable width of the inner flex (all thumbnails + gap + pr-1):
+				const contentWidth = draggableContentRef.current.scrollWidth;
+
+				// 3) If contentWidth > containerWidth, leftValue is negative; otherwise 0.
+				const leftValue =
+					contentWidth > containerWidth ? containerWidth - contentWidth : 0;
+
+				setDragConstraints({ left: leftValue, right: 0 });
+			}
+		};
+
+		// Measure immediately after paint:
+		calculateConstraints();
+
+		// And re-measure on window resize:
+		window.addEventListener("resize", calculateConstraints);
+		return () => {
+			window.removeEventListener("resize", calculateConstraints);
+		};
+	}, [dockRoutes]); // re-run whenever `dockRoutes` (the thumbnail list) changes
+
+	//
+	// ─────────────── HANDLE “EXPAND A THUMBNAIL” ───────────────
+	//
+	const handleExpand = useCallback(
+		(index: number) => {
+			if (index === expandedIndex) return;
+
+			// 1) Remember the old expanded as “previousExpandedIndex”:
+			setPreviousExpandedIndex(expandedIndex);
+
+			// 2) Immediately set the new expandedIndex:
+			setExpandedIndex(index);
+
+			// 3) After 500 ms, clear previousExpandedIndex so the old card docks:
+			setTimeout(() => {
+				setPreviousExpandedIndex(null);
+			}, ANIMATION_DURATION_MS);
+		},
+		[expandedIndex],
+	);
 
 	if (!routes || routes.length === 0) {
 		return (
-			<div className="flex items-center justify-center h-64 text-warmGrey">
+			<div className="flex items-center justify-center h-64 text-charcoal">
 				No routes available
 			</div>
 		);
 	}
 
 	const expandedRoute = routes[expandedIndex];
-	if (!expandedRoute) return null;
+	const previousExpandedRoute =
+		previousExpandedIndex !== null ? routes[previousExpandedIndex] : null;
 
-	const dockRoutes = routes.filter((_, idx) => idx !== expandedIndex);
+	// Safeguard: if expandedIndex is out of range
+	if (!expandedRoute) return null;
 
 	return (
 		<div
-			className={`relative w-full h-full flex items-start justify-center overflow-hidden ${className}`}
+			className={`relative w-full h-full flex items-start justify-center ${className}`}
 		>
-			{/* Expanded Card */}
+			{/* ───────── Expanded Card Container ───────── */}
 			<motion.div
 				layout
-				key={`expanded-${expandedRoute.modelRouteId}`}
-				className="relative w-full h-full rounded-3xl overflow-hidden bg-charcoal flex-shrink-0 z-20"
-				transition={{ duration: 0.5 }}
+				className="relative w-screen h-[90vh] rounded-3xl z-20"
 			>
-				<RouteCard
-					route={expandedRoute}
-					routeIndex={expandedIndex}
-					isExpanded={true}
-					className="w-full h-full"
-				/>
+				{/* ─── Previously Expanded (underneath, for 500 ms) ─── */}
+				{previousExpandedRoute !== null && (
+					<motion.div
+						key={`expanded-prev-${previousExpandedRoute.modelRouteId}`}
+						className="absolute inset-0 w-full h-full rounded-3xl z-10"
+					>
+						<RouteCard
+							route={previousExpandedRoute}
+							routeIndex={previousExpandedIndex!}
+							isExpanded={true}
+						/>
+					</motion.div>
+				)}
+
+				{/* ─── Current Expanded (on top) ─── */}
+				<motion.div
+					layout
+					key={`expanded-curr-${expandedRoute.modelRouteId}`}
+					className="absolute inset-0 w-full h-full rounded-3xl z-20"
+				>
+					<RouteCard
+						route={expandedRoute}
+						routeIndex={expandedIndex}
+						isExpanded={true}
+					/>
+				</motion.div>
 			</motion.div>
 
-			{/* Docked Carousel */}
-			<motion.div
-				layout
-				className="absolute bottom-8 right-8 flex flex-row gap-6 z-50"
-			>
-				{dockRoutes.map((route, idx) => {
-					const realIndex = routes.findIndex(
-						(r) => r.modelRouteId === route.modelRouteId,
-					);
-					return (
-						<motion.div
-							layout
-							key={route.modelRouteId}
-							transition={{ duration: 0.5 }}
-						>
-							<RouteCard
-								route={route}
-								routeIndex={realIndex}
-								isExpanded={false}
-								onSelect={() => handleExpand(realIndex)}
-								className="w-[160px] h-[200px] cursor-pointer"
-							/>
-						</motion.div>
-					);
-				})}
-			</motion.div>
+			{/* ───────── Docked Carousel (thumbnails) ───────── */}
+			<div className="absolute bottom-8 right-8 z-50">
+				<div ref={carouselWrapperRef} className="max-w-[700px] overflow-hidden">
+					<motion.div
+						ref={draggableContentRef}
+						className="flex flex-row gap-6 pr-1"
+						drag="x"
+						dragConstraints={dragConstraints}
+						dragElastic={0.1}
+						style={{ cursor: "grab" }}
+						whileTap={{ cursor: "grabbing" }}
+					>
+						{dockRoutes.map((route) => {
+							const realIndex = routes.findIndex(
+								(r) => r.modelRouteId === route.modelRouteId,
+							);
+							return (
+								<motion.div
+									layout
+									key={route.modelRouteId}
+									className="flex-shrink-0"
+								>
+									<RouteCard
+										route={route}
+										routeIndex={realIndex}
+										isExpanded={false}
+										onSelect={() => handleExpand(realIndex)}
+										className="w-[160px] h-[200px] cursor-pointer"
+									/>
+								</motion.div>
+							);
+						})}
+					</motion.div>
+				</div>
+			</div>
 		</div>
 	);
 };
