@@ -16,7 +16,7 @@ export interface RouteCarouselProps {
 	className?: string;
 }
 
-const ANIMATION_DURATION_MS = 500; // keep at 500 ms
+const ANIMATION_DURATION_MS = 700; // animation duration for previous card cleanup
 
 const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	routes,
@@ -39,7 +39,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 		}
 	}, [routes]);
 
-	// Compute which cards should be in the “dock” (exclude both current and previous expanded)
+	// Compute which cards should be in the "dock" (exclude both current and previous expanded)
 	const dockRoutes = useMemo(() => {
 		return routes.filter(
 			(_, idx) => idx !== expandedIndex && idx !== previousExpandedIndex,
@@ -51,6 +51,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	// We useLayoutEffect so measurements happen after DOM is laid out,
 	// ensuring offsetWidth/scrollWidth reflect final sizes (including gap-6 and pr-1).
 	//
+	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useLayoutEffect(() => {
 		const calculateConstraints = () => {
 			if (
@@ -82,13 +83,13 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	}, [dockRoutes]); // re-run whenever `dockRoutes` (the thumbnail list) changes
 
 	//
-	// ─────────────── HANDLE “EXPAND A THUMBNAIL” ───────────────
+	// ─────────────── HANDLE "EXPAND A THUMBNAIL" ───────────────
 	//
 	const handleExpand = useCallback(
 		(index: number) => {
 			if (index === expandedIndex) return;
 
-			// 1) Remember the old expanded as “previousExpandedIndex”:
+			// 1) Remember the old expanded as "previousExpandedIndex":
 			setPreviousExpandedIndex(expandedIndex);
 
 			// 2) Immediately set the new expandedIndex:
@@ -129,12 +130,13 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 				{/* ─── Previously Expanded (underneath, for 500 ms) ─── */}
 				{previousExpandedRoute !== null && (
 					<motion.div
-						key={`expanded-prev-${previousExpandedRoute.modelRouteId}`}
+						key={`expanded-prev-${previousExpandedRoute?.modelRouteId}`}
 						className="absolute inset-0 w-full h-full rounded-3xl z-10"
 					>
 						<RouteCard
-							route={previousExpandedRoute}
-							routeIndex={previousExpandedIndex!}
+							// biome-ignore lint/style/noNonNullAssertion: <explanation>
+							route={previousExpandedRoute!}
+							routeIndex={previousExpandedIndex ?? 0}
 							isExpanded={true}
 						/>
 					</motion.div>
@@ -155,8 +157,8 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 			</motion.div>
 
 			{/* ───────── Docked Carousel (thumbnails) ───────── */}
-			<div className="absolute bottom-8 right-8 z-50">
-				<div ref={carouselWrapperRef} className="max-w-[700px] overflow-hidden">
+			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50">
+				<div ref={carouselWrapperRef} className="max-w-[800px] overflow-hidden">
 					<motion.div
 						ref={draggableContentRef}
 						className="flex flex-row gap-6 pr-1"
@@ -175,6 +177,9 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 									layout
 									key={route.modelRouteId}
 									className="flex-shrink-0"
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.3 }} // Follows route name animation
 								>
 									<RouteCard
 										route={route}

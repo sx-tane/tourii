@@ -33,7 +33,7 @@ const mockRoute: ModelRouteResponseDto = {
 			touristSpotHashtag: ["#shrine", "#torii", "#mountain"],
 			storyChapterLink: "https://example.com/chapter/1",
 			imageSet: {
-				main: "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=400&h=300&fit=crop",
+				main: "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=1920&h=1080&fit=crop",
 				small: [
 					"https://picsum.photos/200/150?random=shrine1",
 					"https://picsum.photos/200/150?random=shrine2",
@@ -63,7 +63,7 @@ const mockRoute: ModelRouteResponseDto = {
 			touristSpotHashtag: ["#temple", "#views", "#historic"],
 			storyChapterLink: "https://example.com/chapter/2",
 			imageSet: {
-				main: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400&h=300&fit=crop",
+				main: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1920&h=1080&fit=crop",
 				small: [
 					"https://picsum.photos/200/150?random=temple1",
 					"https://picsum.photos/200/150?random=temple2",
@@ -153,14 +153,7 @@ const meta = {
 			description: "Whether the card is in expanded state",
 			control: "boolean",
 		},
-		onExpand: {
-			description: "Callback when card should expand",
-			action: "expand",
-		},
-		onCollapse: {
-			description: "Callback when card should collapse",
-			action: "collapse",
-		},
+
 		className: {
 			description: "Additional CSS classes for the card",
 			control: "text",
@@ -297,12 +290,6 @@ export const Interactive: ComponentStory = {
 	args: {
 		route: mockRoute,
 		routeIndex: 6,
-		onExpand: () =>
-			console.log("Card expand requested - should trigger container expansion"),
-		onCollapse: () =>
-			console.log(
-				"Card collapse requested - should trigger container collapse",
-			),
 	},
 	parameters: {
 		docs: {

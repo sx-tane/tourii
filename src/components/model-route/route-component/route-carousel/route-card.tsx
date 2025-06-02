@@ -3,9 +3,16 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import type React from "react";
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
-import { WeatherDisplay } from "@/components/model-route/common";
+// import { WeatherDisplay } from "@/components/model-route/common"; // No longer directly used
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import {
+	downToUpVariants,
+	upToDownVariants,
+} from "@/lib/animation/variants-settings";
+// import { ActionButton, MotionButton } from "@/components/common"; // MotionButton no longer directly used
+// import router from "next/router"; // No longer directly used
+import LocationInfo from "@/components/model-route/route-component/hero-section/location-info";
 
 export interface RouteCardProps {
 	route: ModelRouteResponseDto;
@@ -46,10 +53,10 @@ const RouteCard: React.FC<RouteCardProps> = ({
 			onClick={handleClick}
 			initial={false}
 			animate={{
-				width: isExpanded ? "" : "280px",
-				height: isExpanded ? "90vh" : "400px",
+				width: isExpanded ? "100%" : "280px",
+				height: isExpanded ? "100%" : "400px",
 			}}
-			transition={{ duration: 0.5, ease: "easeInOut" }}
+			transition={{ type: "spring", stiffness: 230, damping: 30 }}
 			onAnimationComplete={() => {
 				if (isAnimatingToExpanded && isExpanded) {
 					onExpansionAnimationComplete?.();
@@ -84,89 +91,72 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 			{/* ─── Gradient overlay ─── */}
 			<motion.div
-				className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+				className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/50 to-transparent before:absolute before:inset-0 before:bg-gradient-to-b before:from-charcoal/20 before:to-transparent"
 				layout
 			/>
 
-			{/* ─── Weather Display ─── */}
-			<motion.div
-				className="absolute top-4 right-4 z-40"
-				layout="position"
-				transition={{ duration: 0.5, ease: "easeOut" }}
-			>
-				<WeatherDisplay
-					weatherInfo={{
-						weatherName: route.regionWeatherInfo?.weatherName,
-					}}
-					className="text-right flex flex-col text-sm text-warmGrey"
-					iconSize={{
-						small: "w-8 h-8",
-						large: "lg:w-12 lg:h-12",
-					}}
-					needTemperature={false}
-				/>
-			</motion.div>
-
 			{/* ─── Route Number ─── */}
 			<motion.div
-				className="absolute top-4 left-4 text-white/90 font-bold tracking-wider text-base"
+				className={`absolute top-4 right-4 text-warmGrey font-bold tracking-widest  ${
+					isExpanded ? "text-6xl" : "text-2xl"
+				}`}
 				layout="position"
-				transition={{ duration: 0.5, ease: "easeOut" }}
+				variants={upToDownVariants}
+				initial="hidden"
+				animate="visible"
+				exit="hidden"
+				transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
 			>
-				#{String(routeIndex + 1).padStart(2, "0")}
+				{String(routeIndex + 1).padStart(2, "0")}
 			</motion.div>
 
 			{/* ─── Text content ─── */}
 			<motion.div
 				className="absolute bottom-4 left-4 right-4 text-white max-w-md"
 				layout="position"
-				transition={{ duration: 0.5, ease: "easeOut" }}
+				transition={{ duration: 0.5, ease: "easeInOut" }}
 			>
 				{/* Region Tag */}
-				<motion.div
-					className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-medium rounded-full mb-3 text-sm"
-					layout="position"
-					transition={{ duration: 0.5, ease: "easeOut" }}
-				>
-					{route.region}
-				</motion.div>
+				{isExpanded === false && (
+					<motion.div
+						className="inline-block px-3 py-1 bg-red text-warmGrey uppercase tracking-widest font-normal rounded-full mb-3 text-xs"
+						layout="position"
+						variants={downToUpVariants}
+						initial="hidden"
+						animate="visible"
+						exit="hidden"
+						transition={{ duration: 0.5, ease: "easeInOut" }}
+					>
+						{route.region}
+					</motion.div>
+				)}
 
 				{/* Route Name */}
 				<motion.h3
-					className="font-bold text-white mb-2 line-clamp-2 text-lg"
+					className="font-semibold text-warmGrey tracking-widest uppercase line-clamp-2 text-lg"
+					style={{
+						display: isExpanded ? "none" : "block",
+					}}
 					layout="position"
-					transition={{ duration: 0.5, ease: "easeOut" }}
+					variants={downToUpVariants}
+					initial="hidden"
+					animate="visible"
+					exit="hidden"
+					transition={{ duration: 0.5, ease: "easeInOut" }}
 				>
 					{route.routeName}
 				</motion.h3>
-
-				{/* Description (only when expanded) */}
-				{isExpanded && route.regionDesc && (
-					<motion.p
-						className="text-white/90 text-base leading-relaxed mt-4 max-w-2xl"
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ delay: 0.4, duration: 0.5 }}
-					>
-						{route.regionDesc}
-					</motion.p>
-				)}
-
-				{/* Expand indicator (only when not expanded) */}
-				{!isExpanded && (
-					<motion.div
-						className="flex items-center justify-center w-6 h-6 bg-white/20 rounded-full mt-2"
-						layout="position"
-						whileHover={{ scale: 1.1 }}
-						transition={{ duration: 0.2 }}
-					>
-						<motion.div
-							className="w-2 h-2 bg-white rounded-full"
-							animate={{ scale: [1, 1.2, 1] }}
-							transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-						/>
-					</motion.div>
-				)}
+				<motion.div
+					className="w-full ml-5 mb-5"
+					style={{
+						display: isExpanded ? "block" : "none",
+					}}
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.4, duration: 0.3 }}
+				>
+					{isExpanded && <LocationInfo route={route} />}
+				</motion.div>
 			</motion.div>
 		</motion.div>
 	);

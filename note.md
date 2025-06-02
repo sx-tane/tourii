@@ -49,10 +49,14 @@ Model Route Response Dto
       - [X] Split Component based on the sample image
       - [X] Check is the properties for model route is enough
 
-## TODO Next Time
+## 2025-06-02
 - [ ] Animation for Model Route Selection Page
-      - [ ] Make the animation expand work
-      - [ ] Only Image Expand and not word expand
-      - [ ] The Weather icon got some problem as well
-      - [ ] CreateLocation Info
-      - [ ] Navigation Banner to change
+      - [X] Make the animation expand work
+      - [X] Only Image Expand and not word expand
+      - [X] Fix the Route Card first
+      - [X] Create Location Info
+
+## 2025-06-03
+- [ ] Navigation Banner to change the route card
+- [ ] Phone Size
+- [ ] Release PR

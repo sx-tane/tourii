@@ -1,6 +1,10 @@
+"use client";
+
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
+import { WeatherDisplay } from "@/components/model-route/common";
+import { MotionButton } from "@/components/common";
 import { motion } from "framer-motion";
-import { MapPin, Users, Star } from "lucide-react";
+import { useRouter } from "next/navigation"; // Changed to next/navigation
 import type React from "react";
 
 export interface LocationInfoProps {
@@ -12,68 +16,104 @@ const LocationInfo: React.FC<LocationInfoProps> = ({
 	route,
 	className = "",
 }) => {
-	return (
-		<motion.div
-			className={`text-white space-y-3 ${className}`}
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.4 }}
-		>
-			{/* Region */}
-			<motion.div
-				className="flex items-center gap-2 text-white/80"
-				initial={{ opacity: 0, x: -20 }}
-				animate={{ opacity: 1, x: 0 }}
-				transition={{ delay: 0.1, duration: 0.3 }}
-			>
-				<MapPin className="w-4 h-4" />
-				<span className="text-sm font-medium">{route.region}</span>
-			</motion.div>
+	const router = useRouter(); // Initialize router using the hook
 
-			{/* Route Name */}
-			<motion.h1
-				className="text-3xl lg:text-4xl font-bold leading-tight"
-				initial={{ opacity: 0, y: 10 }}
+	return (
+		<div
+			className={`flex flex-col items-start justify-center gap-4 ${className}`}
+		>
+			<motion.div className="flex flex-col items-start justify-center">
+				<motion.div
+					className="inline-block italic text-warmGrey font-semibold rounded-full tracking-widest uppercase text-lg"
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.2, duration: 0.3 }}
+				>
+					{route.region}
+				</motion.div>
+			</motion.div>
+			<motion.div
+				className="font-semibold text-warmGrey tracking-widest uppercase text-7xl"
+				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 0.2, duration: 0.4 }}
+				transition={{ delay: 0.3, duration: 0.3 }}
 			>
 				{route.routeName}
-			</motion.h1>
-
-			{/* Route Description */}
-			<motion.p
-				className="text-white/90 text-base lg:text-lg max-w-2xl leading-relaxed"
-				initial={{ opacity: 0, y: 10 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 0.3, duration: 0.4 }}
-			>
-				{route.regionDesc}
-			</motion.p>
-
-			{/* Route Stats */}
-			<motion.div
-				className="flex items-center gap-6 pt-2"
-				initial={{ opacity: 0, y: 10 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 0.4, duration: 0.4 }}
-			>
-				{/* Tourist Spots Count */}
-				<div className="flex items-center gap-2 text-white/80">
-					<Star className="w-4 h-4" />
-					<span className="text-sm">
-						{route.touristSpotList?.length || 0} spots
-					</span>
-				</div>
-
-				{/* Recommendations Count */}
-				{route.recommendation && route.recommendation.length > 0 && (
-					<div className="flex items-center gap-2 text-white/80">
-						<Users className="w-4 h-4" />
-						<span className="text-sm">{route.recommendation.length} tips</span>
-					</div>
-				)}
 			</motion.div>
-		</motion.div>
+
+			{/* ─── Weather Info ─── */}
+			{route.regionWeatherInfo && (
+				<motion.div
+					className="flex flex-row items-center gap-2 text-warmGrey"
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.35, duration: 0.3 }}
+				>
+					<WeatherDisplay
+						weatherInfo={{
+							weatherName: route.regionWeatherInfo.weatherName,
+						}}
+						iconSize={{ small: "w-5 h-5", large: "w-8 h-8" }}
+						needTemperature={false}
+						className="flex items-center"
+					/>
+					{typeof route.regionWeatherInfo.temperatureCelsius === "number" && (
+						<span className="text-sm font-medium text-warmGrey">
+							{Math.ceil(route.regionWeatherInfo.temperatureCelsius)}°C
+						</span>
+					)}
+					{route.regionWeatherInfo.weatherDesc && (
+						<span className="text-xs text-warmGrey/80 capitalize tracking-wider">
+							({route.regionWeatherInfo.weatherDesc})
+						</span>
+					)}
+				</motion.div>
+			)}
+
+			{/* ─── Recommended for ─── */}
+			{route.recommendation && route.recommendation.length > 0 && (
+				<motion.div
+					className="w-full"
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.4, duration: 0.3 }}
+				>
+					<div className="flex flex-row flex-wrap justify-start gap-2 items-center">
+						{route.recommendation.slice(0, 3).map((rec, index) => (
+							<motion.div
+								key={index + rec}
+								className="bg-red text-warmGrey text-xs font-medium px-3 py-1.5 rounded-full shadow-sm"
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ delay: 0.5 + index * 0.1, duration: 0.2 }}
+							>
+								{rec}
+							</motion.div>
+						))}
+					</div>
+				</motion.div>
+			)}
+			<motion.div
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ delay: 0.5, duration: 0.3 }}
+			>
+				<MotionButton
+					className="mt-2"
+					hoverText="See More"
+					onClick={() => {
+						router.push(`/model-route/${route.modelRouteId}`);
+					}}
+					size={{
+						collapsedWidth: "52px",
+						height: "h-[52px]",
+						expandedWidth: "180px",
+						textSize: "text-base",
+						iconSize: "text-base",
+					}}
+				/>
+			</motion.div>
+		</div>
 	);
 };
 
