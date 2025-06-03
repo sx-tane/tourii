@@ -58,7 +58,10 @@ Model Route Response Dto
 
 ## 2025-06-03
 - [X] Navigation Banner to change the route card
+- [X] Phone size first prototype
 
 ## 2025-06-04
 - [ ] Phone Size
+- [ ] minor adjust on phone size which in on the part of the route card too big, make it smaller and the carousel side no need to cut jhust let w-full
+- [ ] Table Size all fuck up
 - [ ] Release PR

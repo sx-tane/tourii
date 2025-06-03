@@ -95,7 +95,7 @@ const RegionModelRoutesPage: NextPage = () => {
 				initial={{ opacity: 0, scale: 0.95 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.8, delay: 0.2 }}
-				className="px-4"
+				className="px-0 md:px-4"
 			>
 				<RouteCarousel routes={regionModelRoutes} className="" />
 			</motion.div>

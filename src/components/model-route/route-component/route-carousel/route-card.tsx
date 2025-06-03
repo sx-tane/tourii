@@ -91,7 +91,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 			{/* ─── Gradient overlay ─── */}
 			<motion.div
-				className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/50 to-transparent before:absolute before:inset-0 before:bg-gradient-to-b before:from-charcoal/20 before:to-transparent"
+				className={`absolute inset-0 bg-gradient-to-t to-transparent before:absolute before:inset-0 before:bg-gradient-to-b before:from-charcoal/10 before:to-transparent ${isExpanded ? "from-charcoal/40 via-charcoal/40" : "from-charcoal/40 via-charcoal/40 "}`}
 				layout
 			/>
 

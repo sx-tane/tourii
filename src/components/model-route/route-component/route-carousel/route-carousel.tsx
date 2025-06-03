@@ -31,6 +31,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 
 	const carouselWrapperRef = useRef<HTMLDivElement>(null);
 	const draggableContentRef = useRef<HTMLDivElement>(null);
+	const [isMobileLayout, setIsMobileLayout] = useState(false); // State to track layout
 
 	// Whenever `routes` changes, reset to the first card expanded
 	React.useEffect(() => {
@@ -46,6 +47,16 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 			(_, idx) => idx !== expandedIndex && idx !== previousExpandedIndex,
 		);
 	}, [routes, expandedIndex, previousExpandedIndex]);
+
+	// Update isMobileLayout based on window width
+	useLayoutEffect(() => {
+		const checkMobile = () => {
+			setIsMobileLayout(window.innerWidth < 768); // md breakpoint
+		};
+		checkMobile();
+		window.addEventListener("resize", checkMobile);
+		return () => window.removeEventListener("resize", checkMobile);
+	}, []);
 
 	//
 	// ─────────────── MEASURE & SET DRAG CONSTRAINTS ───────────────
@@ -81,7 +92,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 		return () => {
 			window.removeEventListener("resize", calculateConstraints);
 		};
-	}, [dockRoutes]); // re-run whenever `dockRoutes` (the thumbnail list) changes
+	}, [dockRoutes, isMobileLayout]); // re-run whenever `dockRoutes` (the thumbnail list) changes
 
 	//
 	// ─────────────── HANDLE "EXPAND A THUMBNAIL" ───────────────
@@ -131,10 +142,9 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	// Safeguard: if expandedIndex is out of range
 	if (!expandedRoute) return null;
 
-	return (
-		<div
-			className={`relative w-full h-full flex items-start justify-center ${className}`}
-		>
+	// Layout for desktop/large tablets
+	const DesktopLayout = () => (
+		<>
 			{/* ───────── Expanded Card Container ───────── */}
 			<motion.div
 				layout
@@ -215,6 +225,100 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 					/>
 				)}
 			</div>
+		</>
+	);
+
+	// Layout for mobile/small tablets
+	const MobileLayout = () => (
+		<div className="w-full flex flex-col items-center">
+			{/* ───────── Expanded Card Container ───────── */}
+			<motion.div
+				layout
+				className="relative w-full h-[70vh] sm:h-[75vh] rounded-b-3xl md:rounded-3xl z-20 mb-4" // Adjusted height, rounded corners for mobile
+			>
+				{/* ─── Previously Expanded (underneath, for 500 ms) ─── */}
+				{previousExpandedRoute !== null && (
+					<motion.div
+						key={`expanded-prev-${previousExpandedRoute?.modelRouteId}`}
+						className="absolute inset-0 w-full h-full rounded-b-3xl md:rounded-3xl z-10"
+					>
+						<RouteCard
+							// biome-ignore lint/style/noNonNullAssertion: <explanation>
+							route={previousExpandedRoute!}
+							routeIndex={previousExpandedIndex ?? 0}
+							isExpanded={true}
+						/>
+					</motion.div>
+				)}
+
+				{/* ─── Current Expanded (on top) ─── */}
+				<motion.div
+					layout
+					key={`expanded-curr-${expandedRoute.modelRouteId}`}
+					className="absolute inset-0 w-full h-full rounded-b-3xl md:rounded-3xl z-20"
+				>
+					<RouteCard
+						route={expandedRoute}
+						routeIndex={expandedIndex}
+						isExpanded={true}
+					/>
+				</motion.div>
+			</motion.div>
+
+			{/* ───────── Docked Carousel (thumbnails) & Navigation (Below) ───────── */}
+			<div className="w-full flex flex-col items-center px-4">
+				{dockRoutes.length > 0 && (
+					<div ref={carouselWrapperRef} className="w-full overflow-x-auto mb-3">
+						<motion.div
+							ref={draggableContentRef}
+							className="flex flex-row gap-3 p-1" // Smaller gap for mobile
+							drag="x"
+							dragConstraints={dragConstraints}
+							dragElastic={0.1}
+							style={{ cursor: "grab" }}
+							whileTap={{ cursor: "grabbing" }}
+						>
+							{dockRoutes.map((route) => {
+								const realIndex = routes.findIndex(
+									(r) => r.modelRouteId === route.modelRouteId,
+								);
+								return (
+									<motion.div
+										layout
+										key={route.modelRouteId}
+										className="flex-shrink-0"
+										initial={{ opacity: 0, x: -20 }}
+										animate={{ opacity: 1, x: 0 }}
+										transition={{ duration: 0.3 }}
+									>
+										<RouteCard // Smaller thumbnails for mobile
+											route={route}
+											routeIndex={realIndex}
+											isExpanded={false}
+											onSelect={() => handleExpand(realIndex)}
+											className="w-[120px] h-[160px] sm:w-[140px] sm:h-[180px] cursor-pointer"
+										/>
+									</motion.div>
+								);
+							})}
+						</motion.div>
+					</div>
+				)}
+				{routes && routes.length > 1 && (
+					<CarouselNavigationButtons
+						onPrevious={handlePrevious}
+						onNext={handleNext}
+					/>
+				)}
+			</div>
+		</div>
+	);
+
+	return (
+		<div
+			className={`relative w-full h-full flex items-start ${isMobileLayout ? "flex-col" : "justify-center"} ${className}`}
+		>
+			{isMobileLayout ? <MobileLayout /> : <DesktopLayout />}
 		</div>
 	);
 };

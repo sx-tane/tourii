@@ -23,7 +23,7 @@ const CarouselNavigationButtons: React.FC<CarouselNavigationButtonsProps> = ({
 
 	return (
 		<motion.div
-			className="flex space-x-5 mt-5"
+			className="flex space-x-3 md:space-x-5 mt-3 md:mt-5"
 			initial="hidden"
 			animate="visible"
 			variants={downToUpVariants}
@@ -31,7 +31,7 @@ const CarouselNavigationButtons: React.FC<CarouselNavigationButtonsProps> = ({
 			<motion.button
 				type="button"
 				onClick={onPrevious}
-				className="bg-transparent border-warmGrey border-[1px] text-warmGrey p-4 rounded-full transition-all duration-300 ease-in-out hover:bg-warmGrey/20"
+				className="bg-transparent border-warmGrey border-[1px] text-warmGrey p-3 md:p-4 rounded-full transition-all duration-300 ease-in-out hover:bg-warmGrey/20"
 				aria-label="Previous route"
 				whileHover="hover"
 				whileTap="tap"
@@ -43,7 +43,7 @@ const CarouselNavigationButtons: React.FC<CarouselNavigationButtonsProps> = ({
 					viewBox="0 0 24 24"
 					strokeWidth={2}
 					stroke="currentColor"
-					className="w-5 h-5"
+					className="w-4 h-4 md:w-5 md:h-5"
 					aria-hidden="true"
 				>
 					<title>Previous</title>
@@ -57,7 +57,7 @@ const CarouselNavigationButtons: React.FC<CarouselNavigationButtonsProps> = ({
 			<motion.button
 				type="button"
 				onClick={onNext}
-				className="bg-transparent border-warmGrey border-[1px] text-warmGrey p-4 rounded-full transition-all duration-300 ease-in-out hover:bg-warmGrey/20"
+				className="bg-transparent border-warmGrey border-[1px] text-warmGrey p-3 md:p-4 rounded-full transition-all duration-300 ease-in-out hover:bg-warmGrey/20"
 				aria-label="Next route"
 				whileHover="hover"
 				whileTap="tap"
@@ -69,7 +69,7 @@ const CarouselNavigationButtons: React.FC<CarouselNavigationButtonsProps> = ({
 					viewBox="0 0 24 24"
 					strokeWidth={2}
 					stroke="currentColor"
-					className="w-5 h-5"
+					className="w-4 h-4 md:w-5 md:h-5"
 					aria-hidden="true"
 				>
 					<title>Next</title>
