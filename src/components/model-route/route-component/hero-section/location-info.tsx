@@ -6,6 +6,7 @@ import { MotionButton } from "@/components/common";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation"; // Changed to next/navigation
 import type React from "react";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 
 export interface LocationInfoProps {
 	route: ModelRouteResponseDto;
@@ -104,6 +105,7 @@ const LocationInfo: React.FC<LocationInfoProps> = ({
 					onClick={() => {
 						router.push(`/model-route/${route.modelRouteId}`);
 					}}
+					icon={<ArrowRightIcon className="w-5 h-5" />}
 					size={{
 						collapsedWidth: "52px",
 						height: "h-[52px]",

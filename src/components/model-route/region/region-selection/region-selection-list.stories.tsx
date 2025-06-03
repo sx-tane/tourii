@@ -9,18 +9,21 @@ const mockSelectionsThree: RegionSelection[] = [
 		temperatureCelsius: 25,
 		weatherName: "Clear",
 		isSelected: false,
+		routeCount: 0,
 	},
 	{
 		region: "Kyoto",
 		temperatureCelsius: 22,
 		weatherName: "Clouds",
 		isSelected: true,
+		routeCount: 0,
 	},
 	{
 		region: "Tokyo",
 		temperatureCelsius: 18,
 		weatherName: "Rain",
 		isSelected: false,
+		routeCount: 0,
 	},
 ];
 
@@ -30,36 +33,42 @@ const mockSelectionsMany: RegionSelection[] = [
 		temperatureCelsius: 25,
 		weatherName: "Clear",
 		isSelected: false,
+		routeCount: 0,
 	},
 	{
 		region: "Kyoto",
 		temperatureCelsius: 22,
 		weatherName: "Clouds",
 		isSelected: true,
+		routeCount: 0,
 	},
 	{
 		region: "Tokyo",
 		temperatureCelsius: 18,
 		weatherName: "Rain",
 		isSelected: false,
+		routeCount: 0,
 	},
 	{
 		region: "Kanagawa",
 		temperatureCelsius: 23,
 		weatherName: "Clear",
 		isSelected: false,
+		routeCount: 0,
 	},
 	{
 		region: "Hiroshima",
 		temperatureCelsius: 26,
 		weatherName: "Sunny",
 		isSelected: false,
+		routeCount: 0,
 	},
 	{
 		region: "Hokkaido",
 		temperatureCelsius: 15,
 		weatherName: "Snow",
 		isSelected: false,
+		routeCount: 0,
 	},
 ];
 
@@ -69,6 +78,7 @@ const mockSelectionsOne: RegionSelection[] = [
 		temperatureCelsius: 28,
 		weatherName: "Sunny",
 		isSelected: true,
+		routeCount: 0,
 	},
 ];
 
@@ -96,10 +106,6 @@ const meta: Meta<typeof RegionSelectionList> = {
 			control: "object",
 			description: "Array of region selection objects",
 		},
-		modelRouteCount: {
-			control: "number",
-			description: "Number of routes available",
-		},
 		onSelect: {
 			action: "selected",
 			description: "Callback function called when a region is selected",
@@ -121,7 +127,6 @@ type Story = StoryObj<typeof RegionSelectionList>;
 export const Default: Story = {
 	args: {
 		selectionData: mockSelectionsThree,
-		modelRouteCount: 5,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };
@@ -129,7 +134,6 @@ export const Default: Story = {
 export const ManyRegions: Story = {
 	args: {
 		selectionData: mockSelectionsMany,
-		modelRouteCount: 8,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };
@@ -137,7 +141,6 @@ export const ManyRegions: Story = {
 export const SingleRegion: Story = {
 	args: {
 		selectionData: mockSelectionsOne,
-		modelRouteCount: 3,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };
@@ -145,7 +148,6 @@ export const SingleRegion: Story = {
 export const EmptyList: Story = {
 	args: {
 		selectionData: [],
-		modelRouteCount: 0,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };
@@ -158,21 +160,23 @@ export const FirstSelected: Story = {
 				temperatureCelsius: 25,
 				weatherName: "Clear",
 				isSelected: true,
+				routeCount: 0,
 			},
 			{
 				region: "Kyoto",
 				temperatureCelsius: 22,
 				weatherName: "Clouds",
 				isSelected: false,
+				routeCount: 0,
 			},
 			{
 				region: "Tokyo",
 				temperatureCelsius: 18,
 				weatherName: "Rain",
 				isSelected: false,
+				routeCount: 0,
 			},
 		],
-		modelRouteCount: 12,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };
@@ -185,21 +189,23 @@ export const LastSelected: Story = {
 				temperatureCelsius: 25,
 				weatherName: "Clear",
 				isSelected: false,
+				routeCount: 0,
 			},
 			{
 				region: "Kyoto",
 				temperatureCelsius: 22,
 				weatherName: "Clouds",
 				isSelected: false,
+				routeCount: 0,
 			},
 			{
 				region: "Tokyo",
 				temperatureCelsius: 18,
 				weatherName: "Rain",
 				isSelected: true,
+				routeCount: 0,
 			},
 		],
-		modelRouteCount: 7,
 		onSelect: (region: string) => console.log(`Selected: ${region}`),
 	},
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface MotionButtonProps {
 	/** The icon to display when not hovered (default: ➞) */
-	icon?: string;
+	icon?: React.ReactNode;
 	/** The text to display when hovered */
 	hoverText: string;
 	/** Additional className for the button */

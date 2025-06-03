@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ModelRouteCardImage from "./model-route-card-image";
 
 const meta = {
-	title: "Model Route/RouteDetails/ModelRouteCardImage",
+	title: "Model Route/Route/RouteDetails/ModelRouteCardImage",
 	component: ModelRouteCardImage,
 	parameters: {
 		backgrounds: {

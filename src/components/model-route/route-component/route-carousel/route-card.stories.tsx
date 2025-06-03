@@ -128,7 +128,7 @@ const mockRouteWithLongContent: ModelRouteResponseDto = {
 };
 
 const meta = {
-	title: "Model Route/RouteCard",
+	title: "Model Route/Route/RouteCard",
 	component: RouteCard,
 	parameters: {
 		layout: "centered",

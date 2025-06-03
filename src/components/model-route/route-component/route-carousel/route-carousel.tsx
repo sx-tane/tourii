@@ -10,6 +10,7 @@ import React, {
 	useMemo,
 } from "react";
 import RouteCard from "./route-card";
+import CarouselNavigationButtons from "./carousel-navigation-buttons";
 
 export interface RouteCarouselProps {
 	routes: ModelRouteResponseDto[];
@@ -103,6 +104,18 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 		[expandedIndex],
 	);
 
+	const handlePrevious = useCallback(() => {
+		if (!routes || routes.length <= 1) return;
+		const newIndex = (expandedIndex - 1 + routes.length) % routes.length;
+		handleExpand(newIndex);
+	}, [expandedIndex, routes, handleExpand]);
+
+	const handleNext = useCallback(() => {
+		if (!routes || routes.length <= 1) return;
+		const newIndex = (expandedIndex + 1) % routes.length;
+		handleExpand(newIndex);
+	}, [expandedIndex, routes, handleExpand]);
+
 	if (!routes || routes.length === 0) {
 		return (
 			<div className="flex items-center justify-center h-64 text-charcoal">
@@ -156,8 +169,8 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 				</motion.div>
 			</motion.div>
 
-			{/* ───────── Docked Carousel (thumbnails) ───────── */}
-			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50">
+			{/* ───────── Docked Carousel (thumbnails) & Navigation ───────── */}
+			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50 flex flex-col items-end">
 				<div ref={carouselWrapperRef} className="max-w-[800px] overflow-hidden">
 					<motion.div
 						ref={draggableContentRef}
@@ -193,6 +206,14 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 						})}
 					</motion.div>
 				</div>
+
+				{/* ───────── Navigation Buttons (New Position) ───────── */}
+				{routes && routes.length > 1 && (
+					<CarouselNavigationButtons
+						onPrevious={handlePrevious}
+						onNext={handleNext}
+					/>
+				)}
 			</div>
 		</div>
 	);

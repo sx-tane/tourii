@@ -24,9 +24,9 @@ Model Route Response Dto
 ```
 ### TODO
   - [x] list need to show out how many tourist spot, style just all same like story, but just different color then is ok
-  - [ ] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
-  - [ ] use lucide react and create helper for it
-  - [ ] Region page only shows the region name, region background media, region weather info
+  - [x] Clear, Clouds, Rain, Drizzle, Thunderstorm, Snow for weatherName
+  - [x] use lucide react and create helper for it
+  - [x] Region page only shows the region name, region background media, region weather info
 
 ## 2025-05-29
 - [x] Done basic logic of region page
@@ -50,13 +50,15 @@ Model Route Response Dto
       - [X] Check is the properties for model route is enough
 
 ## 2025-06-02
-- [ ] Animation for Model Route Selection Page
+- [X] Animation for Model Route Selection Page
       - [X] Make the animation expand work
       - [X] Only Image Expand and not word expand
       - [X] Fix the Route Card first
       - [X] Create Location Info
 
 ## 2025-06-03
-- [ ] Navigation Banner to change the route card
+- [X] Navigation Banner to change the route card
+
+## 2025-06-04
 - [ ] Phone Size
 - [ ] Release PR

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ModelRouteSelectionCard from "./model-route-selection-card";
 
 const meta = {
-	title: "Model Route/ModelRouteSelectionCard",
+	title: "Model Route/Route/ModelRouteSelectionCard",
 	component: ModelRouteSelectionCard,
 	parameters: {
 		backgrounds: {

@@ -6,8 +6,8 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
-import { RegionButton } from "@/components/model-route/region";
 import { WeatherDisplay } from "@/components/model-route/common";
+import RegionButton from "./region-button";
 
 const RegionComponent: React.FC<{ region: ModelRouteResponseDto }> = ({
 	region,

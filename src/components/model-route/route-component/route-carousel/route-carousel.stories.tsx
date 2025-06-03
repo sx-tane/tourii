@@ -157,7 +157,7 @@ const routeWithLongContent: ModelRouteResponseDto[] = [
 const emptyRoutes: ModelRouteResponseDto[] = [];
 
 const meta = {
-	title: "Model Route/RouteCarousel",
+	title: "Model Route/Route/RouteCarousel",
 	component: RouteCarousel,
 	parameters: {
 		layout: "fullscreen",
