@@ -114,7 +114,7 @@ export const Empty: Story = {
 export const SingleQuest: Story = {
 	args: {
 		quests: {
-			quests: [mockQuests.quests[0]!],
+			quests: [mockQuests.quests[0]],
 			pagination: {
 				currentPage: 1,
 				totalPages: 1,
