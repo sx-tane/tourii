@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { env } from "@/env.js";
 import { OpenAPI, ApiError, type CancelablePromise } from "@/api/generated";
 import { logger } from "@/utils/logger";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 // Standardized JSON error response helper
 export function touriiErrorResponse(
@@ -32,7 +34,16 @@ export async function executeValidatedServiceCall<T>(
 	serviceCall: (apiKey: string, apiVersion: string) => CancelablePromise<T>,
 	routeNameForLogging: string,
 ): Promise<NextResponse> {
+	// TODO: Uncomment this when we have a valid session
+	// Cannot Request API without a valid session
+	// const session = await getServerSession(authOptions);
+	// if (!session || !session.accessToken) {
+	//   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+	// }
+
 	OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Set this for the scope of the SDK call
+	// Attach user JWT to SDK calls TODO: Uncomment this when we have a valid session
+	// OpenAPI.TOKEN = `Bearer ${session.accessToken}`;  // attach user JWT to SDK calls
 	const apiKey = env.BACKEND_API_KEY;
 	const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
 
