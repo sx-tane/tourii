@@ -1,26 +1,28 @@
 "use client";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
-import { characters } from "@/lib/data/character/character-data";
-import type { CharacterProps } from "@/types/character-type";
+import { setSelectedCharacter } from "@/lib/redux/features/character/character-slice";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
-import type React from "react";
 import { useState } from "react";
 import CharacterCard from "./character-card/character-card";
 import CharacterModal from "./character-card/character-modal/character-modal";
 
 const CharacterList: React.FC = () => {
-	const [selectedCharacter, setSelectedCharacter] =
-		useState<CharacterProps | null>(null);
+	const dispatch = useAppDispatch();
+	const { characters, selectedCharacter } = useAppSelector(
+		(state) => state.character,
+	);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleCardClick = (character: CharacterProps) => {
-		setSelectedCharacter(character);
+		dispatch(setSelectedCharacter(character));
 		setIsModalOpen(true);
 	};
 
 	const handleCloseModal = () => {
+		dispatch(setSelectedCharacter(null));
 		setIsModalOpen(false);
-		setSelectedCharacter(null);
 	};
 
 	return (
@@ -28,7 +30,7 @@ const CharacterList: React.FC = () => {
 			<div className="gap-5 grid grid-cols-2 lg:grid-cols-4 md:gap-10">
 				{characters.map((char, index) => (
 					<motion.div
-						key={char.name}
+						key={char.id}
 						variants={downToUpVariants}
 						initial="hidden"
 						animate="visible"
@@ -40,10 +42,9 @@ const CharacterList: React.FC = () => {
 					>
 						<CharacterCard
 							id={char.id}
-							key={char.name}
 							name={char.name}
-							thumbnailImage={char.thumbnailImage}
 							kanjiname={char.kanjiname}
+							thumbnailImage={char.thumbnailImage}
 							onClick={() => handleCardClick(char)}
 						/>
 					</motion.div>

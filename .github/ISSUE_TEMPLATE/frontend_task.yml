@@ -1,0 +1,44 @@
+name: 💻 Frontend Task
+description: Track UI/UX feature or bug for Tourii frontend
+title: "[FE] <Short title here>"
+labels: ["frontend", "type: task"]
+
+body:
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      value: |  
+        Provide a concise task description here, e.g., implement feature X, build page Y.
+        
+        ### Tasks
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+        
+        ### Props
+        - None (or list props if applicable)
+        
+        ### Pseudocode
+        ```tsx
+        // Add pseudocode or an example code snippet here
+        ```
+
+  - type: textarea
+    id: additional_acceptance
+    attributes:
+      label: Additional Acceptance Criteria
+      value: |
+        - [ ] Component renders correctly
+        - [ ] Mobile responsive
+        - [ ] Connected to backend via API
+
+  - type: checkboxes
+    id: dependencies
+    attributes:
+      label: Dependencies
+      options:
+        - label: Waiting for backend endpoint
+        - label: Blocked by design
+        - label: None

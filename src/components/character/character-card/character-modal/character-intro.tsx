@@ -3,7 +3,7 @@ import {
 	downToUpVariants,
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
-import type { CharacterProps } from "@/types/character-type";
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";

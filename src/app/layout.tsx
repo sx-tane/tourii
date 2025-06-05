@@ -1,12 +1,13 @@
 // app/layout.tsx
 import { Suspense } from "react";
 import "@/styles/globals.css";
-import { Toaster } from "@/lib/ui/toast";
+import { Toaster } from "@/components/ui/toast";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import Loading from "./loading";
+import { Providers } from "./providers";
 
 const montserrat = Montserrat({
 	subsets: ["latin"],
@@ -14,9 +15,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-	title: "Tourii",
+	title: "Tourii - Your Travel Quest Companion",
 	description:
-		"Unveiling Japan's mystical realms through narrative storytelling & Web 3.0 tourism.",
+		"Complete quests, earn rewards, and discover amazing places with Tourii.",
 	openGraph: {
 		title: "Tourii - Unveiling Japan's Mystical Realms",
 		description:
@@ -37,7 +38,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-}: { children: React.ReactNode }) {
+}: {
+	children: React.ReactNode;
+}) {
 	return (
 		<html lang="en" className={montserrat.className}>
 			<head>
@@ -73,12 +76,14 @@ export default function RootLayout({
 				<meta name="theme-color" content="#ffffff" />
 			</head>
 			<body>
-				<Suspense fallback={<Loading />}>
-					{children}
-					<Toaster />
-					<SpeedInsights />
-					<Analytics />
-				</Suspense>
+				<Providers>
+					<Suspense fallback={<Loading />}>
+						{children}
+						<Toaster />
+						<SpeedInsights />
+						<Analytics />
+					</Suspense>
+				</Providers>
 			</body>
 		</html>
 	);

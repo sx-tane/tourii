@@ -82,12 +82,14 @@ export const bungoOnoChapterData: Chapter[] = [
 		chapterNumber: "Chapter 3",
 		image: "/image/touriiverse/bungo-ono/chapter3.png",
 		realImage: "/image/touriiverse/bungo-ono-real/chapter3.jpg",
-		title: "Buddhas of Past, Present, and Future",
+		title: "The Path of Destiny",
 		content:
 			"Ninigi and his companions stood at the ast cliff, where two powerful guardians of Daichi Nyorai awaited them. Their presence was strong, their eyes gleaming with an ageless wisdom. A moment of tense silence passed before Ninigi stepped forward.",
-		videoLink: "https://tanejp.com/miyazako-stone-carved-buddha-cliff/",
-		videoMobileLink: "https://tanejp.com/miyazako-stone-carved-buddha-cliff/",
-		storyUnlocked: false,
+		videoLink:
+			"https://www.youtube.com/embed/BzH2wE51lkY?si=Tn-YiIRli_AnQW9P&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/BzH2wE51lkY?si=Tn-YiIRli_AnQW9P&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
 	},
 	{
 		chapterId: bungoOnoChapterGenerator.generateChapterId(),
@@ -100,8 +102,11 @@ export const bungoOnoChapterData: Chapter[] = [
 		title: "The Healing Ritual",
 		content:
 			"The scent of damp earth and ancient stone lingered as Ninigi knelt beside Sarutahiko, his wounds deep, his breath shallow. The path ahead could wait—he had made his choice. Healing came first.",
-		videoLink: "",
-		storyUnlocked: false,
+		videoLink:
+			"https://www.youtube.com/embed/c0nTJHvkPuI?si=egJ_JuMvPpZW1kfn&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		videoMobileLink:
+			"https://www.youtube.com/embed/c0nTJHvkPuI?si=egJ_JuMvPpZW1kfn&autoplay=1&enablejsapi=1&controls=0&showinfo=0&modestbranding=1&rel=0",
+		storyUnlocked: true,
 	},
 ];
 
