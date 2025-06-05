@@ -3,10 +3,10 @@
 import type { StoryChapterResponseDto } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
-import ChapterComponent from "@/components/Story/ChapterPage-page/chapter-component";
-import ChapterSelectionComponent from "@/components/Story/ChapterPage-page/chapter-selection";
-import ChapterSelectionMobileComponent from "@/components/Story/ChapterPage-page/chapter-selection-mobile";
-import IntroComponent from "@/components/Story/ChapterPage-page/intro-component";
+import ChapterComponent from "@/components/story/chapter-page/chapter-component";
+import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
+import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
+import IntroComponent from "@/components/story/chapter-page/intro-component";
 import { getSagaById } from "@/hooks/stories/getSagaById";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
