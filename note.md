@@ -61,8 +61,11 @@ Model Route Response Dto
 - [X] Phone size first prototype
 
 ## 2025-06-05
-- [ ] Phone Size
-- [ ] minor adjust on phone size which in on the part of the route card too big, make it smaller and the carousel side no need to cut jhust let w-full
-- [ ] Tablet Size all fuck up
-- [ ] Release PR
+- [X] Phone Size
+- [X] minor adjust on phone size which in on the part of the route card too big, make it smaller and the carousel side no need to cut just let w-full
+- [X] Tablet Size all fuck up
+- [X] Release PR
+
+## 2025-06-06
 - [ ] Model Route Page
+- [ ] Separate Component with Page first

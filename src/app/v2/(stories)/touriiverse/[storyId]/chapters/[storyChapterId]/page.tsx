@@ -4,7 +4,7 @@ import type { StoryChapterResponseDto } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
+import { ChapterTabs } from "@/components/Story/ChapterPage-page/chapter-tabs";
 import Title from "@/components/world/text/title";
 import { getSagaById } from "@/hooks/stories/getSagaById";
 import { downToUpVariants } from "@/lib/animation/variants-settings";

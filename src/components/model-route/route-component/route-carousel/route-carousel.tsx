@@ -17,100 +17,124 @@ export interface RouteCarouselProps {
 	className?: string;
 }
 
-const ANIMATION_DURATION_MS = 700; // animation duration for previous card cleanup
-
 const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	routes,
 	className = "",
 }) => {
 	const [expandedIndex, setExpandedIndex] = useState<number>(0);
-	const [previousExpandedIndex, setPreviousExpandedIndex] = useState<
-		number | null
-	>(null);
 	const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
 	const carouselWrapperRef = useRef<HTMLDivElement>(null);
 	const draggableContentRef = useRef<HTMLDivElement>(null);
-	const [isMobileLayout, setIsMobileLayout] = useState(false); // State to track layout
+	const [screenSize, setScreenSize] = useState<"mobile" | "tablet" | "desktop">(
+		"mobile",
+	);
 
 	// Whenever `routes` changes, reset to the first card expanded
 	React.useEffect(() => {
 		if (routes && routes.length > 0) {
 			setExpandedIndex(0);
-			setPreviousExpandedIndex(null);
 		}
 	}, [routes]);
 
-	// Compute which cards should be in the "dock" (exclude both current and previous expanded)
+	// Dock = all routes except the current expanded
 	const dockRoutes = useMemo(() => {
-		return routes.filter(
-			(_, idx) => idx !== expandedIndex && idx !== previousExpandedIndex,
-		);
-	}, [routes, expandedIndex, previousExpandedIndex]);
+		return routes.filter((_, idx) => idx !== expandedIndex);
+	}, [routes, expandedIndex]);
 
-	// Update isMobileLayout based on window width
+	// Track screen size changes with three breakpoints
 	useLayoutEffect(() => {
-		const checkMobile = () => {
-			setIsMobileLayout(window.innerWidth < 768); // md breakpoint
+		const checkScreenSize = () => {
+			const width = window.innerWidth;
+			if (width < 768) {
+				setScreenSize("mobile");
+			} else if (width < 1024) {
+				setScreenSize("tablet");
+			} else {
+				setScreenSize("desktop");
+			}
 		};
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
+		checkScreenSize();
+		window.addEventListener("resize", checkScreenSize);
+		return () => window.removeEventListener("resize", checkScreenSize);
 	}, []);
 
+	// Dynamic card sizes and layout configurations
+	const layoutConfig = useMemo(() => {
+		switch (screenSize) {
+			case "mobile":
+				return {
+					cardSizes: {
+						expanded: { width: "100%", height: "100%" },
+						collapsed: { width: "120px", height: "25vh" },
+					},
+					expandedContainer: {
+						className: "relative w-[90vw] h-[75vh] rounded-b-3xl z-20 mb-2",
+					},
+					dockContainer: {
+						className: "w-[90vw] overflow-hidden mb-3",
+					},
+				};
+			case "tablet":
+				return {
+					cardSizes: {
+						expanded: { width: "100%", height: "100%" },
+						collapsed: { width: "180px", height: "280px" },
+					},
+					expandedContainer: {
+						className: "relative w-full h-[90vh] rounded-3xl z-20 mb-4",
+					},
+					dockContainer: {
+						className: "w-full overflow-hidden mb-4",
+					},
+				};
+			case "desktop":
+				return {
+					cardSizes: {
+						expanded: { width: "100%", height: "100%" },
+						collapsed: { width: "280px", height: "400px" },
+					},
+					expandedContainer: {
+						className: "relative w-screen h-[90vh] rounded-3xl z-20",
+					},
+					dockContainer: {
+						className: "max-w-[700px] overflow-hidden",
+					},
+				};
+		}
+	}, [screenSize]);
+
 	//
-	// ─────────────── MEASURE & SET DRAG CONSTRAINTS ───────────────
-	// We useLayoutEffect so measurements happen after DOM is laid out,
-	// ensuring offsetWidth/scrollWidth reflect final sizes (including gap-6 and pr-1).
+	// ─── Measure & set drag‐constraints on the thumbnail row ───
 	//
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
 	useLayoutEffect(() => {
 		const calculateConstraints = () => {
 			if (
 				carouselWrapperRef.current instanceof HTMLElement &&
 				draggableContentRef.current instanceof HTMLElement
 			) {
-				// 1) Visible width of the wrapper:
 				const containerWidth = carouselWrapperRef.current.offsetWidth;
-
-				// 2) Total scrollable width of the inner flex (all thumbnails + gap + pr-1):
 				const contentWidth = draggableContentRef.current.scrollWidth;
-
-				// 3) If contentWidth > containerWidth, leftValue is negative; otherwise 0.
 				const leftValue =
 					contentWidth > containerWidth ? containerWidth - contentWidth : 0;
-
 				setDragConstraints({ left: leftValue, right: 0 });
 			}
 		};
 
-		// Measure immediately after paint:
+		// measure once
 		calculateConstraints();
-
-		// And re-measure on window resize:
+		// re‐measure on resize
 		window.addEventListener("resize", calculateConstraints);
-		return () => {
-			window.removeEventListener("resize", calculateConstraints);
-		};
-	}, [dockRoutes, isMobileLayout]); // re-run whenever `dockRoutes` (the thumbnail list) changes
+		return () => window.removeEventListener("resize", calculateConstraints);
+	}, []);
 
 	//
-	// ─────────────── HANDLE "EXPAND A THUMBNAIL" ───────────────
+	// ─── Handle "click a thumbnail to expand" ───
 	//
 	const handleExpand = useCallback(
 		(index: number) => {
 			if (index === expandedIndex) return;
-
-			// 1) Remember the old expanded as "previousExpandedIndex":
-			setPreviousExpandedIndex(expandedIndex);
-
-			// 2) Immediately set the new expandedIndex:
 			setExpandedIndex(index);
-
-			// 3) After 500 ms, clear previousExpandedIndex so the old card docks:
-			setTimeout(() => {
-				setPreviousExpandedIndex(null);
-			}, ANIMATION_DURATION_MS);
 		},
 		[expandedIndex],
 	);
@@ -136,52 +160,38 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 	}
 
 	const expandedRoute = routes[expandedIndex];
-	const previousExpandedRoute =
-		previousExpandedIndex !== null ? routes[previousExpandedIndex] : null;
-
-	// Safeguard: if expandedIndex is out of range
 	if (!expandedRoute) return null;
 
-	// Layout for desktop/large tablets
+	//
+	// ─── Desktop Layout ───
+	//
 	const DesktopLayout = () => (
 		<>
-			{/* ───────── Expanded Card Container ───────── */}
-			<motion.div
-				layout
-				className="relative w-screen h-[90vh] rounded-3xl z-20"
-			>
-				{/* ─── Previously Expanded (underneath, for 500 ms) ─── */}
-				{previousExpandedRoute !== null && (
-					<motion.div
-						key={`expanded-prev-${previousExpandedRoute?.modelRouteId}`}
-						className="absolute inset-0 w-full h-full rounded-3xl z-10"
-					>
-						<RouteCard
-							// biome-ignore lint/style/noNonNullAssertion: <explanation>
-							route={previousExpandedRoute!}
-							routeIndex={previousExpandedIndex ?? 0}
-							isExpanded={true}
-						/>
-					</motion.div>
-				)}
-
-				{/* ─── Current Expanded (on top) ─── */}
+			{/* ─── Expanded card container ─── */}
+			<motion.div layout className={layoutConfig.expandedContainer.className}>
 				<motion.div
 					layout
-					key={`expanded-curr-${expandedRoute.modelRouteId}`}
+					key={expandedRoute.modelRouteId}
 					className="absolute inset-0 w-full h-full rounded-3xl z-20"
 				>
 					<RouteCard
 						route={expandedRoute}
 						routeIndex={expandedIndex}
 						isExpanded={true}
+						sizeConfig={{
+							collapsed: layoutConfig.cardSizes.collapsed,
+							expanded: layoutConfig.cardSizes.expanded,
+						}}
 					/>
 				</motion.div>
 			</motion.div>
 
-			{/* ───────── Docked Carousel (thumbnails) & Navigation ───────── */}
+			{/* ─── Dock row + nav buttons ─── */}
 			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50 flex flex-col items-end">
-				<div ref={carouselWrapperRef} className="max-w-[800px] overflow-hidden">
+				<div
+					ref={carouselWrapperRef}
+					className={layoutConfig.dockContainer.className}
+				>
 					<motion.div
 						ref={draggableContentRef}
 						className="flex flex-row gap-6 pr-1"
@@ -200,16 +210,18 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 									layout
 									key={route.modelRouteId}
 									className="flex-shrink-0"
-									initial={{ opacity: 0, y: 20 }}
-									animate={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.3 }} // Follows route name animation
+									initial={false}
 								>
 									<RouteCard
 										route={route}
 										routeIndex={realIndex}
 										isExpanded={false}
 										onSelect={() => handleExpand(realIndex)}
-										className="w-[160px] h-[200px] cursor-pointer"
+										className="cursor-pointer"
+										sizeConfig={{
+											collapsed: layoutConfig.cardSizes.collapsed,
+											expanded: layoutConfig.cardSizes.expanded,
+										}}
 									/>
 								</motion.div>
 							);
@@ -217,8 +229,8 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 					</motion.div>
 				</div>
 
-				{/* ───────── Navigation Buttons (New Position) ───────── */}
-				{routes && routes.length > 1 && (
+				{/* ─── Navigation buttons ─── */}
+				{routes.length > 1 && (
 					<CarouselNavigationButtons
 						onPrevious={handlePrevious}
 						onNext={handleNext}
@@ -228,50 +240,40 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 		</>
 	);
 
-	// Layout for mobile/small tablets
+	//
+	// ─── Mobile Layout ───
+	//
 	const MobileLayout = () => (
 		<div className="w-full flex flex-col items-center">
-			{/* ───────── Expanded Card Container ───────── */}
-			<motion.div
-				layout
-				className="relative w-full h-[70vh] sm:h-[75vh] rounded-b-3xl md:rounded-3xl z-20 mb-4" // Adjusted height, rounded corners for mobile
-			>
-				{/* ─── Previously Expanded (underneath, for 500 ms) ─── */}
-				{previousExpandedRoute !== null && (
-					<motion.div
-						key={`expanded-prev-${previousExpandedRoute?.modelRouteId}`}
-						className="absolute inset-0 w-full h-full rounded-b-3xl md:rounded-3xl z-10"
-					>
-						<RouteCard
-							// biome-ignore lint/style/noNonNullAssertion: <explanation>
-							route={previousExpandedRoute!}
-							routeIndex={previousExpandedIndex ?? 0}
-							isExpanded={true}
-						/>
-					</motion.div>
-				)}
-
-				{/* ─── Current Expanded (on top) ─── */}
+			{/* Expanded card container */}
+			<motion.div layout className={layoutConfig.expandedContainer.className}>
 				<motion.div
 					layout
-					key={`expanded-curr-${expandedRoute.modelRouteId}`}
+					key={expandedRoute.modelRouteId}
 					className="absolute inset-0 w-full h-full rounded-b-3xl md:rounded-3xl z-20"
 				>
 					<RouteCard
 						route={expandedRoute}
 						routeIndex={expandedIndex}
 						isExpanded={true}
+						sizeConfig={{
+							collapsed: layoutConfig.cardSizes.collapsed,
+							expanded: layoutConfig.cardSizes.expanded,
+						}}
 					/>
 				</motion.div>
 			</motion.div>
 
-			{/* ───────── Docked Carousel (thumbnails) & Navigation (Below) ───────── */}
+			{/* Dock row + nav buttons */}
 			<div className="w-full flex flex-col items-center px-4">
 				{dockRoutes.length > 0 && (
-					<div ref={carouselWrapperRef} className="w-full overflow-x-auto mb-3">
+					<div
+						ref={carouselWrapperRef}
+						className={layoutConfig.dockContainer.className}
+					>
 						<motion.div
 							ref={draggableContentRef}
-							className="flex flex-row gap-3 p-1" // Smaller gap for mobile
+							className="flex flex-row gap-3 p-1"
 							drag="x"
 							dragConstraints={dragConstraints}
 							dragElastic={0.1}
@@ -287,16 +289,18 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 										layout
 										key={route.modelRouteId}
 										className="flex-shrink-0"
-										initial={{ opacity: 0, x: -20 }}
-										animate={{ opacity: 1, x: 0 }}
-										transition={{ duration: 0.3 }}
+										initial={false}
 									>
-										<RouteCard // Smaller thumbnails for mobile
+										<RouteCard
 											route={route}
 											routeIndex={realIndex}
 											isExpanded={false}
 											onSelect={() => handleExpand(realIndex)}
-											className="w-[120px] h-[160px] sm:w-[140px] sm:h-[180px] cursor-pointer"
+											className="cursor-pointer"
+											sizeConfig={{
+												collapsed: layoutConfig.cardSizes.collapsed,
+												expanded: layoutConfig.cardSizes.expanded,
+											}}
 										/>
 									</motion.div>
 								);
@@ -304,21 +308,17 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 						</motion.div>
 					</div>
 				)}
-				{routes && routes.length > 1 && (
-					<CarouselNavigationButtons
-						onPrevious={handlePrevious}
-						onNext={handleNext}
-					/>
-				)}
 			</div>
 		</div>
 	);
 
 	return (
 		<div
-			className={`relative w-full h-full flex items-start ${isMobileLayout ? "flex-col" : "justify-center"} ${className}`}
+			className={`relative w-full h-full flex items-start ${
+				screenSize === "mobile" ? "flex-col" : "justify-center"
+			} ${className}`}
 		>
-			{isMobileLayout ? <MobileLayout /> : <DesktopLayout />}
+			{screenSize === "mobile" ? <MobileLayout /> : <DesktopLayout />}
 		</div>
 	);
 };

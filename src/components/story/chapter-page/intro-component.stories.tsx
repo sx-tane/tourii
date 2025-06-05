@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import IntroComponent from "./intro-component";
 
 const meta = {
-	title: "Story/Chapter/Intro",
+	title: "Story/ChapterPage/Intro",
 	component: IntroComponent,
 	tags: ["autodocs"],
 	parameters: {

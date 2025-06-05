@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ChapterSelectionMobile from "./chapter-selection-mobile";
 
 const meta = {
-	title: "Story/Chapter/MobileSelection",
+	title: "Story/ChapterPage/MobileSelection",
 	component: ChapterSelectionMobile,
 	tags: ["autodocs"],
 	parameters: {

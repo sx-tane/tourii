@@ -79,7 +79,7 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 };
 
 const meta: Meta<typeof RegionComponent> = {
-	title: "Model Route/Region/RegionComponent",
+	title: "Model Route/RegionPage/RegionComponent",
 	component: RegionComponent,
 	parameters: {
 		layout: "fullscreen",

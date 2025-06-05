@@ -83,7 +83,7 @@ const mockSelectionsOne: RegionSelection[] = [
 ];
 
 const meta: Meta<typeof RegionSelectionList> = {
-	title: "Model Route/Region/RegionSelectionList",
+	title: "Model Route/RegionPage/RegionSelectionList",
 	component: RegionSelectionList,
 	parameters: {
 		layout: "centered",

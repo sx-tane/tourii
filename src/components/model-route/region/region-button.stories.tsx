@@ -61,7 +61,7 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 };
 
 const meta: Meta<typeof RegionButton> = {
-	title: "Model Route/Region/RegionButton",
+	title: "Model Route/RegionPage/RegionButton",
 	component: RegionButton,
 	parameters: {
 		layout: "centered",

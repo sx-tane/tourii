@@ -70,7 +70,7 @@ const mockChapters: StoryChapterResponseDto[] = [
 ];
 
 const meta: Meta<typeof StoryTabContent> = {
-	title: "Story/Chapter/StoryTabContent",
+	title: "Story/ChapterPage/StoryTabContent",
 	component: StoryTabContent,
 	tags: ["autodocs"],
 	parameters: {

@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type React from "react";
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 // import { WeatherDisplay } from "@/components/model-route/common"; // No longer directly used
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useLayoutEffect, useMemo } from "react";
 import Image from "next/image";
 import {
 	downToUpVariants,
@@ -14,6 +14,18 @@ import {
 // import router from "next/router"; // No longer directly used
 import LocationInfo from "@/components/model-route/route-component/hero-section/location-info";
 
+// Add this interface before RouteCardProps
+interface CardSizeConfig {
+	collapsed: {
+		width: string | number;
+		height: string | number;
+	};
+	expanded: {
+		width: string | number;
+		height: string | number;
+	};
+}
+
 export interface RouteCardProps {
 	route: ModelRouteResponseDto;
 	routeIndex: number;
@@ -21,6 +33,13 @@ export interface RouteCardProps {
 	onSelect?: () => void;
 	className?: string;
 	onExpansionAnimationComplete?: () => void;
+	// Dynamic size props
+	collapsedWidth?: string | number;
+	collapsedHeight?: string | number;
+	expandedWidth?: string | number;
+	expandedHeight?: string | number;
+	// Alternative: size configuration object
+	sizeConfig?: CardSizeConfig;
 }
 
 const RouteCard: React.FC<RouteCardProps> = ({
@@ -30,6 +49,11 @@ const RouteCard: React.FC<RouteCardProps> = ({
 	onSelect,
 	className = "",
 	onExpansionAnimationComplete,
+	collapsedWidth = "280px",
+	collapsedHeight = "400px",
+	expandedWidth = "100%",
+	expandedHeight = "100%",
+	sizeConfig,
 }) => {
 	const handleClick = () => {
 		onSelect?.();
@@ -37,6 +61,79 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 	const [isAnimatingToExpanded, setIsAnimatingToExpanded] = useState(false);
 	const prevIsExpanded = useRef(isExpanded);
+	const [screenSize, setScreenSize] = useState<"mobile" | "tablet" | "desktop">(
+		"mobile",
+	);
+
+	// Track screen size changes
+	useLayoutEffect(() => {
+		const checkScreenSize = () => {
+			const width = window.innerWidth;
+			if (width < 768) {
+				setScreenSize("mobile");
+			} else if (width < 1024) {
+				setScreenSize("tablet");
+			} else {
+				setScreenSize("desktop");
+			}
+		};
+		checkScreenSize();
+		window.addEventListener("resize", checkScreenSize);
+		return () => window.removeEventListener("resize", checkScreenSize);
+	}, []);
+
+	// Dynamic styling based on screen size and expansion state
+	const dynamicStyles = useMemo(() => {
+		const baseConfig = {
+			mobile: {
+				routeNumber: {
+					expanded: "text-4xl md:text-5xl",
+					collapsed: "text-lg",
+				},
+				regionTag: "text-[10px] px-2 py-0.5 mb-2",
+				routeName: "text-xs",
+				spacing: {
+					top: "top-2",
+					right: "right-2",
+					bottom: "bottom-2",
+					left: "left-3",
+					padding: "px-2 py-0.5",
+				},
+			},
+			tablet: {
+				routeNumber: {
+					expanded: "text-5xl md:text-6xl",
+					collapsed: "text-xl",
+				},
+				regionTag: "text-xs px-3 py-1 mb-3",
+				routeName: "text-base",
+				spacing: {
+					top: "top-3",
+					right: "right-3",
+					bottom: "bottom-3",
+					left: "left-3",
+					padding: "px-3 py-1",
+				},
+			},
+			desktop: {
+				routeNumber: {
+					expanded: "text-6xl",
+					collapsed: "text-2xl",
+				},
+				regionTag: "text-xs px-3 py-1 mb-3",
+				routeName: "text-lg",
+				spacing: {
+					top: "top-4",
+					right: "right-4",
+					bottom: "bottom-4",
+					left: "left-4",
+					padding: "px-3 py-1",
+				},
+			},
+		};
+
+		return baseConfig[screenSize];
+	}, [screenSize]);
 
 	useEffect(() => {
 		if (isExpanded && !prevIsExpanded.current) {
@@ -53,8 +150,12 @@ const RouteCard: React.FC<RouteCardProps> = ({
 			onClick={handleClick}
 			initial={false}
 			animate={{
-				width: isExpanded ? "100%" : "280px",
-				height: isExpanded ? "100%" : "400px",
+				width: isExpanded
+					? sizeConfig?.expanded.width || expandedWidth
+					: sizeConfig?.collapsed.width || collapsedWidth,
+				height: isExpanded
+					? sizeConfig?.expanded.height || expandedHeight
+					: sizeConfig?.collapsed.height || collapsedHeight,
 			}}
 			transition={{ type: "spring", stiffness: 230, damping: 30 }}
 			onAnimationComplete={() => {
@@ -97,8 +198,10 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 			{/* ─── Route Number ─── */}
 			<motion.div
-				className={`absolute top-4 right-4 text-warmGrey font-bold tracking-widest  ${
-					isExpanded ? "text-6xl" : "text-2xl"
+				className={`absolute ${dynamicStyles.spacing.top} ${dynamicStyles.spacing.right} text-warmGrey font-bold tracking-widest ${
+					isExpanded
+						? dynamicStyles.routeNumber.expanded
+						: dynamicStyles.routeNumber.collapsed
 				}`}
 				layout="position"
 				variants={upToDownVariants}
@@ -112,14 +215,14 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 			{/* ─── Text content ─── */}
 			<motion.div
-				className="absolute bottom-4 left-4 right-4 text-white max-w-md"
+				className={`absolute ${dynamicStyles.spacing.bottom} ${dynamicStyles.spacing.left} ${dynamicStyles.spacing.right} text-white max-w-md`}
 				layout="position"
 				transition={{ duration: 0.5, ease: "easeInOut" }}
 			>
 				{/* Region Tag */}
 				{isExpanded === false && (
 					<motion.div
-						className="inline-block px-3 py-1 bg-red text-warmGrey uppercase tracking-widest font-normal rounded-full mb-3 text-xs"
+						className={`${dynamicStyles.regionTag} inline-block bg-red text-warmGrey uppercase tracking-widest font-normal rounded-full`}
 						layout="position"
 						variants={downToUpVariants}
 						initial="hidden"
@@ -133,7 +236,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
 
 				{/* Route Name */}
 				<motion.h3
-					className="font-semibold text-warmGrey tracking-widest uppercase line-clamp-2 text-lg"
+					className={`${dynamicStyles.routeName} font-semibold text-warmGrey tracking-widest uppercase line-clamp-2`}
 					style={{
 						display: isExpanded ? "none" : "block",
 					}}

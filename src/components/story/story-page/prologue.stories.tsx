@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Prologue from "./prologue";
 
 const meta = {
-	title: "Story/Prologue",
+	title: "Story/StoryPage/Prologue",
 	component: Prologue,
 	parameters: {
 		layout: "fullscreen",

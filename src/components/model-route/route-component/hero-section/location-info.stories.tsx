@@ -33,7 +33,7 @@ const mockRoute: ModelRouteResponseDto = {
 };
 
 const meta = {
-	title: "Model Route/Route/Hero Section/LocationInfo",
+	title: "Model Route/RoutePage/Hero Section/LocationInfo",
 	component: LocationInfo,
 	parameters: {
 		layout: "centered",

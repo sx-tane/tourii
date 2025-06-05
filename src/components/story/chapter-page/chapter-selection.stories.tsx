@@ -4,7 +4,7 @@ import { useRef } from "react";
 import ChapterSelectionComponent from "./chapter-selection";
 
 const meta = {
-	title: "Story/Chapter/ChapterSelection",
+	title: "Story/ChapterPage/ChapterSelection",
 	component: ChapterSelectionComponent,
 	parameters: {
 		backgrounds: {

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ModelRouteLocation from "./model-route-location";
 
 const meta = {
-	title: "Model Route/Route/RouteDetails/ModelRouteLocation",
+	title: "Model Route/RoutePage/RouteDetails/ModelRouteLocation",
 	component: ModelRouteLocation,
 	parameters: {
 		backgrounds: {

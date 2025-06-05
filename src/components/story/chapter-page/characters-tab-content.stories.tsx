@@ -9,7 +9,7 @@ const oneCharacter: CharacterProps[] = allCharacters.slice(2, 3); // e.g., Sarut
 const noCharacters: CharacterProps[] = [];
 
 const meta: Meta<typeof CharactersTabContent> = {
-	title: "Story/Chapter/CharactersTabContent",
+	title: "Story/ChapterPage/CharactersTabContent",
 	component: CharactersTabContent,
 	tags: ["autodocs"],
 	parameters: {

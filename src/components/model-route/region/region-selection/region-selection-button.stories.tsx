@@ -28,7 +28,7 @@ const mockSelections: RegionSelection[] = [
 ];
 
 const meta: Meta<typeof RegionSelectionButton> = {
-	title: "Model Route/Region/RegionSelectionButton",
+	title: "Model Route/RegionPage/RegionSelectionButton",
 	component: RegionSelectionButton,
 	parameters: {
 		layout: "centered",

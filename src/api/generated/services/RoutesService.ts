@@ -38,6 +38,10 @@ export class RoutesService {
              */
             regionDesc: string;
             /**
+             * Background media of the region
+             */
+            regionBackgroundMedia: string;
+            /**
              * Recommendation of the model route
              */
             recommendation: Array<string>;

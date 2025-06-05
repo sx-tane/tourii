@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { WeatherDisplay } from "@/components/model-route/common";
 
 const meta: Meta<typeof WeatherDisplay> = {
-	title: "Model Route/Region/WeatherDisplay",
+	title: "Model Route/RegionPage/WeatherDisplay",
 	component: WeatherDisplay,
 	parameters: {
 		layout: "centered",

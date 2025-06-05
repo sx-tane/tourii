@@ -9,7 +9,7 @@ const logAction =
 		console.log(`Action: ${name}`, ...args);
 
 const meta = {
-	title: "Model Route/Route/CarouselNavigationButtons",
+	title: "Model Route/RoutePage/CarouselNavigationButtons",
 	component: CarouselNavigationButtons,
 	parameters: {
 		layout: "centered",
