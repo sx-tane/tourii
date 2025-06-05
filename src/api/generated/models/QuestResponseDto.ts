@@ -2,47 +2,100 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type ModelRouteResponseDto = {
+export type QuestResponseDto = {
     /**
-     * Unique identifier for the model route
+     * Unique identifier for the quest
      */
-    modelRouteId: string;
+    questId: string;
     /**
-     * Unique identifier for the story
+     * Name of the quest
      */
-    storyId: string;
+    questName: string;
     /**
-     * Name of the model route
+     * Description of the quest
      */
-    routeName: string;
+    questDesc: string;
     /**
-     * Region of the model route
+     * URL to the quest image
      */
-    region: string;
+    questImage?: string;
     /**
-     * Description of the region
+     * Quest type
      */
-    regionDesc: string;
+    questType: QuestResponseDto.questType;
     /**
-     * Recommendation of the model route
+     * Whether quest is unlocked
      */
-    recommendation: Array<string>;
+    isUnlocked: boolean;
     /**
-     * Latitude of the region
+     * Whether quest is premium
      */
-    regionLatitude: number;
+    isPremium: boolean;
     /**
-     * Longitude of the region
+     * Total Magatama points awarded
      */
-    regionLongitude: number;
+    totalMagatamaPointAwarded: number;
     /**
-     * URL to the region's cover media
+     * Tasks associated with this quest
      */
-    regionBackgroundMedia: string;
+    tasks?: Array<{
+        /**
+         * Unique identifier for the task
+         */
+        taskId: string;
+        /**
+         * ID of the parent quest
+         */
+        questId: string;
+        /**
+         * Theme of the task
+         */
+        taskTheme: 'STORY' | 'LOCAL_CULTURE' | 'FOOD' | 'URBAN_EXPLORE' | 'NATURE';
+        /**
+         * Type of the task
+         */
+        taskType: 'VISIT_LOCATION' | 'PHOTO_UPLOAD' | 'ANSWER_TEXT' | 'SELECT_OPTION' | 'SHARE_SOCIAL' | 'CHECK_IN' | 'GROUP_ACTIVITY' | 'LOCAL_INTERACTION';
+        /**
+         * Name of the task
+         */
+        taskName: string;
+        /**
+         * Description of the task
+         */
+        taskDesc: string;
+        /**
+         * Whether task is unlocked
+         */
+        isUnlocked: boolean;
+        /**
+         * Action required to complete the task
+         */
+        requiredAction: string;
+        /**
+         * Members for group activities
+         */
+        groupActivityMembers?: Array<any>;
+        /**
+         * Options for selection tasks
+         */
+        selectOptions?: Array<any>;
+        /**
+         * Rules to prevent cheating
+         */
+        antiCheatRules: any;
+        /**
+         * Magatama points awarded for this task
+         */
+        magatamaPointAwarded: number;
+        /**
+         * Total Magatama points awarded
+         */
+        totalMagatamaPointAwarded: number;
+    }>;
     /**
-     * List of tourist spots in the model route
+     * Tourist spot associated with this quest
      */
-    touristSpotList: Array<{
+    touristSpot?: {
         /**
          * Unique identifier for the tourist spot
          */
@@ -133,47 +186,18 @@ export type ModelRouteResponseDto = {
          * Timestamp of last record update
          */
         updDateTime?: string;
-    }>;
-    /**
-     * Current weather info for the region
-     */
-    regionWeatherInfo: {
-        /**
-         * Temperature of the weather
-         */
-        temperatureCelsius: number;
-        /**
-         * Name of the weather
-         */
-        weatherName: string;
-        /**
-         * Description of the weather
-         */
-        weatherDesc: string;
-        /**
-         * Name of the region
-         */
-        regionName: string;
     };
-    /**
-     * Flag to indicate if the record is deleted
-     */
-    delFlag?: boolean;
-    /**
-     * ID of user who created this record
-     */
-    insUserId?: string;
-    /**
-     * Timestamp of record creation
-     */
-    insDateTime?: string;
-    /**
-     * ID of user who last updated this record
-     */
-    updUserId?: string;
-    /**
-     * Timestamp of last record update
-     */
-    updDateTime?: string;
 };
+export namespace QuestResponseDto {
+    /**
+     * Quest type
+     */
+    export enum questType {
+        UNKNOWN = 'UNKNOWN',
+        TRAVEL_TO_EARN = 'TRAVEL_TO_EARN',
+        EARN_TO_TRAVEL = 'EARN_TO_TRAVEL',
+        CAMPAIGN = 'CAMPAIGN',
+        COMMUNITY_EVENT = 'COMMUNITY_EVENT',
+    }
+}
 

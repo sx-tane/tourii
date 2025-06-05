@@ -62,28 +62,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Health Check",
@@ -451,28 +430,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Create Story Saga",
@@ -723,28 +681,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Create Story Chapter",
@@ -1126,28 +1063,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Update Story Saga",
@@ -1404,28 +1320,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Update Story Chapter",
@@ -1676,28 +1571,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Get All Story Sagas",
@@ -1871,28 +1745,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Get Story Chapters",
@@ -1943,6 +1796,10 @@
                   },
                   "region": {
                     "description": "Region of the model route",
+                    "type": "string"
+                  },
+                  "regionDesc": {
+                    "description": "Description of the region",
                     "type": "string"
                   },
                   "recommendation": {
@@ -2017,6 +1874,7 @@
                   "storyId",
                   "routeName",
                   "region",
+                  "regionDesc",
                   "recommendation",
                   "touristSpotList"
                 ]
@@ -2044,6 +1902,10 @@
                 },
                 "region": {
                   "description": "Region of the model route",
+                  "type": "string"
+                },
+                "regionDesc": {
+                  "description": "Description of the region",
                   "type": "string"
                 },
                 "recommendation": {
@@ -2207,12 +2069,17 @@
                     "weatherDesc": {
                       "description": "Description of the weather",
                       "type": "string"
+                    },
+                    "regionName": {
+                      "description": "Name of the region",
+                      "type": "string"
                     }
                   },
                   "required": [
                     "temperatureCelsius",
                     "weatherName",
-                    "weatherDesc"
+                    "weatherDesc",
+                    "regionName"
                   ]
                 },
                 "delFlag": {
@@ -2241,6 +2108,7 @@
                 "storyId",
                 "routeName",
                 "region",
+                "regionDesc",
                 "recommendation",
                 "regionLatitude",
                 "regionLongitude",
@@ -2282,28 +2150,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Create Model Route",
@@ -2567,28 +2414,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Create Tourist Spot",
@@ -2668,28 +2494,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           }
         },
         "summary": "Create User",
@@ -2758,28 +2563,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
+            "description": ""
           },
           "404": {
             "description": "User not found",
@@ -2809,6 +2593,1437 @@
         "summary": "Get User by ID",
         "tags": [
           "User"
+        ]
+      }
+    },
+    "/quests": {
+      "get": {
+        "description": "Get quest with pagination",
+        "operationId": "TouriiBackendController_getQuestList",
+        "parameters": [
+          {
+            "name": "questType",
+            "required": false,
+            "in": "query",
+            "description": "Filter by quest type",
+            "schema": {
+              "enum": [
+                "UNKNOWN",
+                "TRAVEL_TO_EARN",
+                "EARN_TO_TRAVEL",
+                "CAMPAIGN",
+                "COMMUNITY_EVENT"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "isUnlocked",
+            "required": false,
+            "in": "query",
+            "description": "Filter by unlocked status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isPremium",
+            "required": false,
+            "in": "query",
+            "description": "Filter by premium status",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of quests per page (default: 20, max: 100)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination (default: 1)",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fetch quests successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "quests": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "questId": {
+                        "description": "Unique identifier for the quest",
+                        "type": "string"
+                      },
+                      "questName": {
+                        "description": "Name of the quest",
+                        "type": "string"
+                      },
+                      "questDesc": {
+                        "description": "Description of the quest",
+                        "type": "string"
+                      },
+                      "questImage": {
+                        "description": "URL to the quest image",
+                        "type": "string"
+                      },
+                      "questType": {
+                        "description": "Quest type",
+                        "type": "string",
+                        "enum": [
+                          "UNKNOWN",
+                          "TRAVEL_TO_EARN",
+                          "EARN_TO_TRAVEL",
+                          "CAMPAIGN",
+                          "COMMUNITY_EVENT"
+                        ],
+                        "x-enumNames": [
+                          "UNKNOWN",
+                          "TRAVEL_TO_EARN",
+                          "EARN_TO_TRAVEL",
+                          "CAMPAIGN",
+                          "COMMUNITY_EVENT"
+                        ]
+                      },
+                      "isUnlocked": {
+                        "description": "Whether quest is unlocked",
+                        "type": "boolean"
+                      },
+                      "isPremium": {
+                        "description": "Whether quest is premium",
+                        "type": "boolean"
+                      },
+                      "totalMagatamaPointAwarded": {
+                        "description": "Total Magatama points awarded",
+                        "type": "number"
+                      },
+                      "tasks": {
+                        "description": "Tasks associated with this quest",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "taskId": {
+                              "description": "Unique identifier for the task",
+                              "type": "string"
+                            },
+                            "questId": {
+                              "description": "ID of the parent quest",
+                              "type": "string"
+                            },
+                            "taskTheme": {
+                              "description": "Theme of the task",
+                              "type": "string",
+                              "enum": [
+                                "STORY",
+                                "LOCAL_CULTURE",
+                                "FOOD",
+                                "URBAN_EXPLORE",
+                                "NATURE"
+                              ],
+                              "x-enumNames": [
+                                "STORY",
+                                "LOCAL_CULTURE",
+                                "FOOD",
+                                "URBAN_EXPLORE",
+                                "NATURE"
+                              ]
+                            },
+                            "taskType": {
+                              "description": "Type of the task",
+                              "type": "string",
+                              "enum": [
+                                "VISIT_LOCATION",
+                                "PHOTO_UPLOAD",
+                                "ANSWER_TEXT",
+                                "SELECT_OPTION",
+                                "SHARE_SOCIAL",
+                                "CHECK_IN",
+                                "GROUP_ACTIVITY",
+                                "LOCAL_INTERACTION"
+                              ],
+                              "x-enumNames": [
+                                "VISIT_LOCATION",
+                                "PHOTO_UPLOAD",
+                                "ANSWER_TEXT",
+                                "SELECT_OPTION",
+                                "SHARE_SOCIAL",
+                                "CHECK_IN",
+                                "GROUP_ACTIVITY",
+                                "LOCAL_INTERACTION"
+                              ]
+                            },
+                            "taskName": {
+                              "description": "Name of the task",
+                              "type": "string"
+                            },
+                            "taskDesc": {
+                              "description": "Description of the task",
+                              "type": "string"
+                            },
+                            "isUnlocked": {
+                              "description": "Whether task is unlocked",
+                              "type": "boolean"
+                            },
+                            "requiredAction": {
+                              "description": "Action required to complete the task",
+                              "type": "string"
+                            },
+                            "groupActivityMembers": {
+                              "description": "Members for group activities",
+                              "type": "array",
+                              "items": {}
+                            },
+                            "selectOptions": {
+                              "description": "Options for selection tasks",
+                              "type": "array",
+                              "items": {}
+                            },
+                            "antiCheatRules": {
+                              "description": "Rules to prevent cheating"
+                            },
+                            "magatamaPointAwarded": {
+                              "description": "Magatama points awarded for this task",
+                              "type": "number"
+                            },
+                            "totalMagatamaPointAwarded": {
+                              "description": "Total Magatama points awarded",
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "taskId",
+                            "questId",
+                            "taskTheme",
+                            "taskType",
+                            "taskName",
+                            "taskDesc",
+                            "isUnlocked",
+                            "requiredAction",
+                            "antiCheatRules",
+                            "magatamaPointAwarded",
+                            "totalMagatamaPointAwarded"
+                          ]
+                        }
+                      },
+                      "touristSpot": {
+                        "description": "Tourist spot associated with this quest",
+                        "type": "object",
+                        "properties": {
+                          "touristSpotId": {
+                            "description": "Unique identifier for the tourist spot",
+                            "type": "string"
+                          },
+                          "storyChapterId": {
+                            "description": "Unique identifier for the story chapter",
+                            "type": "string"
+                          },
+                          "touristSpotName": {
+                            "description": "Name of the tourist spot",
+                            "type": "string"
+                          },
+                          "touristSpotDesc": {
+                            "description": "Description of the tourist spot",
+                            "type": "string"
+                          },
+                          "bestVisitTime": {
+                            "description": "Best visit time of the tourist spot",
+                            "type": "string"
+                          },
+                          "address": {
+                            "description": "Address of the tourist spot",
+                            "type": "string"
+                          },
+                          "touristSpotLatitude": {
+                            "description": "Latitude of the tourist spot",
+                            "type": "number"
+                          },
+                          "touristSpotLongitude": {
+                            "description": "Longitude of the tourist spot",
+                            "type": "number"
+                          },
+                          "touristSpotHashtag": {
+                            "description": "Hashtags associated with this location",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "storyChapterLink": {
+                            "description": "Link to the related story chapter",
+                            "type": "string"
+                          },
+                          "imageSet": {
+                            "description": "Image set for the tourist spot",
+                            "type": "object",
+                            "properties": {
+                              "main": {
+                                "description": "Main image of the tourist spot",
+                                "type": "string"
+                              },
+                              "small": {
+                                "description": "Small images of the tourist spot",
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            },
+                            "required": [
+                              "main",
+                              "small"
+                            ]
+                          },
+                          "weatherInfo": {
+                            "description": "Weather info for the tourist spot",
+                            "type": "object",
+                            "properties": {
+                              "temperatureCelsius": {
+                                "description": "Temperature of the weather",
+                                "type": "number"
+                              },
+                              "weatherName": {
+                                "description": "Name of the weather",
+                                "type": "string"
+                              },
+                              "weatherDesc": {
+                                "description": "Description of the weather",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "temperatureCelsius",
+                              "weatherName",
+                              "weatherDesc"
+                            ]
+                          },
+                          "delFlag": {
+                            "description": "Flag to indicate if the record is deleted",
+                            "type": "boolean"
+                          },
+                          "insUserId": {
+                            "description": "ID of user who created this record",
+                            "type": "string"
+                          },
+                          "insDateTime": {
+                            "description": "Timestamp of record creation",
+                            "type": "string"
+                          },
+                          "updUserId": {
+                            "description": "ID of user who last updated this record",
+                            "type": "string"
+                          },
+                          "updDateTime": {
+                            "description": "Timestamp of last record update",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "touristSpotId",
+                          "storyChapterId",
+                          "touristSpotName",
+                          "touristSpotDesc",
+                          "bestVisitTime",
+                          "address",
+                          "touristSpotLatitude",
+                          "touristSpotLongitude",
+                          "touristSpotHashtag"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "questId",
+                      "questName",
+                      "questDesc",
+                      "questType",
+                      "isUnlocked",
+                      "isPremium",
+                      "totalMagatamaPointAwarded"
+                    ]
+                  }
+                },
+                "pagination": {
+                  "type": "object",
+                  "properties": {
+                    "currentPage": {
+                      "type": "number"
+                    },
+                    "totalPages": {
+                      "type": "number"
+                    },
+                    "totalQuests": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "currentPage",
+                    "totalPages",
+                    "totalQuests"
+                  ]
+                }
+              },
+              "required": [
+                "quests",
+                "pagination"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Get quest with pagination",
+        "tags": [
+          "Quest"
+        ]
+      }
+    },
+    "/quests/{questId}": {
+      "get": {
+        "description": "Get quest by ID",
+        "operationId": "TouriiBackendController_getQuestById",
+        "parameters": [
+          {
+            "name": "questId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quest found successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "questId": {
+                  "description": "Unique identifier for the quest",
+                  "type": "string"
+                },
+                "questName": {
+                  "description": "Name of the quest",
+                  "type": "string"
+                },
+                "questDesc": {
+                  "description": "Description of the quest",
+                  "type": "string"
+                },
+                "questImage": {
+                  "description": "URL to the quest image",
+                  "type": "string"
+                },
+                "questType": {
+                  "description": "Quest type",
+                  "type": "string",
+                  "enum": [
+                    "UNKNOWN",
+                    "TRAVEL_TO_EARN",
+                    "EARN_TO_TRAVEL",
+                    "CAMPAIGN",
+                    "COMMUNITY_EVENT"
+                  ],
+                  "x-enumNames": [
+                    "UNKNOWN",
+                    "TRAVEL_TO_EARN",
+                    "EARN_TO_TRAVEL",
+                    "CAMPAIGN",
+                    "COMMUNITY_EVENT"
+                  ]
+                },
+                "isUnlocked": {
+                  "description": "Whether quest is unlocked",
+                  "type": "boolean"
+                },
+                "isPremium": {
+                  "description": "Whether quest is premium",
+                  "type": "boolean"
+                },
+                "totalMagatamaPointAwarded": {
+                  "description": "Total Magatama points awarded",
+                  "type": "number"
+                },
+                "tasks": {
+                  "description": "Tasks associated with this quest",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "taskId": {
+                        "description": "Unique identifier for the task",
+                        "type": "string"
+                      },
+                      "questId": {
+                        "description": "ID of the parent quest",
+                        "type": "string"
+                      },
+                      "taskTheme": {
+                        "description": "Theme of the task",
+                        "type": "string",
+                        "enum": [
+                          "STORY",
+                          "LOCAL_CULTURE",
+                          "FOOD",
+                          "URBAN_EXPLORE",
+                          "NATURE"
+                        ],
+                        "x-enumNames": [
+                          "STORY",
+                          "LOCAL_CULTURE",
+                          "FOOD",
+                          "URBAN_EXPLORE",
+                          "NATURE"
+                        ]
+                      },
+                      "taskType": {
+                        "description": "Type of the task",
+                        "type": "string",
+                        "enum": [
+                          "VISIT_LOCATION",
+                          "PHOTO_UPLOAD",
+                          "ANSWER_TEXT",
+                          "SELECT_OPTION",
+                          "SHARE_SOCIAL",
+                          "CHECK_IN",
+                          "GROUP_ACTIVITY",
+                          "LOCAL_INTERACTION"
+                        ],
+                        "x-enumNames": [
+                          "VISIT_LOCATION",
+                          "PHOTO_UPLOAD",
+                          "ANSWER_TEXT",
+                          "SELECT_OPTION",
+                          "SHARE_SOCIAL",
+                          "CHECK_IN",
+                          "GROUP_ACTIVITY",
+                          "LOCAL_INTERACTION"
+                        ]
+                      },
+                      "taskName": {
+                        "description": "Name of the task",
+                        "type": "string"
+                      },
+                      "taskDesc": {
+                        "description": "Description of the task",
+                        "type": "string"
+                      },
+                      "isUnlocked": {
+                        "description": "Whether task is unlocked",
+                        "type": "boolean"
+                      },
+                      "requiredAction": {
+                        "description": "Action required to complete the task",
+                        "type": "string"
+                      },
+                      "groupActivityMembers": {
+                        "description": "Members for group activities",
+                        "type": "array",
+                        "items": {}
+                      },
+                      "selectOptions": {
+                        "description": "Options for selection tasks",
+                        "type": "array",
+                        "items": {}
+                      },
+                      "antiCheatRules": {
+                        "description": "Rules to prevent cheating"
+                      },
+                      "magatamaPointAwarded": {
+                        "description": "Magatama points awarded for this task",
+                        "type": "number"
+                      },
+                      "totalMagatamaPointAwarded": {
+                        "description": "Total Magatama points awarded",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "taskId",
+                      "questId",
+                      "taskTheme",
+                      "taskType",
+                      "taskName",
+                      "taskDesc",
+                      "isUnlocked",
+                      "requiredAction",
+                      "antiCheatRules",
+                      "magatamaPointAwarded",
+                      "totalMagatamaPointAwarded"
+                    ]
+                  }
+                },
+                "touristSpot": {
+                  "description": "Tourist spot associated with this quest",
+                  "type": "object",
+                  "properties": {
+                    "touristSpotId": {
+                      "description": "Unique identifier for the tourist spot",
+                      "type": "string"
+                    },
+                    "storyChapterId": {
+                      "description": "Unique identifier for the story chapter",
+                      "type": "string"
+                    },
+                    "touristSpotName": {
+                      "description": "Name of the tourist spot",
+                      "type": "string"
+                    },
+                    "touristSpotDesc": {
+                      "description": "Description of the tourist spot",
+                      "type": "string"
+                    },
+                    "bestVisitTime": {
+                      "description": "Best visit time of the tourist spot",
+                      "type": "string"
+                    },
+                    "address": {
+                      "description": "Address of the tourist spot",
+                      "type": "string"
+                    },
+                    "touristSpotLatitude": {
+                      "description": "Latitude of the tourist spot",
+                      "type": "number"
+                    },
+                    "touristSpotLongitude": {
+                      "description": "Longitude of the tourist spot",
+                      "type": "number"
+                    },
+                    "touristSpotHashtag": {
+                      "description": "Hashtags associated with this location",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "storyChapterLink": {
+                      "description": "Link to the related story chapter",
+                      "type": "string"
+                    },
+                    "imageSet": {
+                      "description": "Image set for the tourist spot",
+                      "type": "object",
+                      "properties": {
+                        "main": {
+                          "description": "Main image of the tourist spot",
+                          "type": "string"
+                        },
+                        "small": {
+                          "description": "Small images of the tourist spot",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "main",
+                        "small"
+                      ]
+                    },
+                    "weatherInfo": {
+                      "description": "Weather info for the tourist spot",
+                      "type": "object",
+                      "properties": {
+                        "temperatureCelsius": {
+                          "description": "Temperature of the weather",
+                          "type": "number"
+                        },
+                        "weatherName": {
+                          "description": "Name of the weather",
+                          "type": "string"
+                        },
+                        "weatherDesc": {
+                          "description": "Description of the weather",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "temperatureCelsius",
+                        "weatherName",
+                        "weatherDesc"
+                      ]
+                    },
+                    "delFlag": {
+                      "description": "Flag to indicate if the record is deleted",
+                      "type": "boolean"
+                    },
+                    "insUserId": {
+                      "description": "ID of user who created this record",
+                      "type": "string"
+                    },
+                    "insDateTime": {
+                      "description": "Timestamp of record creation",
+                      "type": "string"
+                    },
+                    "updUserId": {
+                      "description": "ID of user who last updated this record",
+                      "type": "string"
+                    },
+                    "updDateTime": {
+                      "description": "Timestamp of last record update",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "touristSpotId",
+                    "storyChapterId",
+                    "touristSpotName",
+                    "touristSpotDesc",
+                    "bestVisitTime",
+                    "address",
+                    "touristSpotLatitude",
+                    "touristSpotLongitude",
+                    "touristSpotHashtag"
+                  ]
+                }
+              },
+              "required": [
+                "questId",
+                "questName",
+                "questDesc",
+                "questType",
+                "isUnlocked",
+                "isPremium",
+                "totalMagatamaPointAwarded"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Get quest by ID",
+        "tags": [
+          "Quest"
+        ]
+      }
+    },
+    "/routes": {
+      "get": {
+        "description": "Retrieve a list of all available model routes with their details.",
+        "operationId": "TouriiBackendController_getRoutes",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all model routes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "modelRouteId": {
+                    "description": "Unique identifier for the model route",
+                    "type": "string"
+                  },
+                  "storyId": {
+                    "description": "Unique identifier for the story",
+                    "type": "string"
+                  },
+                  "routeName": {
+                    "description": "Name of the model route",
+                    "type": "string"
+                  },
+                  "region": {
+                    "description": "Region of the model route",
+                    "type": "string"
+                  },
+                  "regionDesc": {
+                    "description": "Description of the region",
+                    "type": "string"
+                  },
+                  "recommendation": {
+                    "description": "Recommendation of the model route",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "regionLatitude": {
+                    "description": "Latitude of the region",
+                    "type": "number"
+                  },
+                  "regionLongitude": {
+                    "description": "Longitude of the region",
+                    "type": "number"
+                  },
+                  "regionBackgroundMedia": {
+                    "description": "URL to the region's cover media",
+                    "type": "string"
+                  },
+                  "touristSpotList": {
+                    "description": "List of tourist spots in the model route",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "touristSpotId": {
+                          "description": "Unique identifier for the tourist spot",
+                          "type": "string"
+                        },
+                        "storyChapterId": {
+                          "description": "Unique identifier for the story chapter",
+                          "type": "string"
+                        },
+                        "touristSpotName": {
+                          "description": "Name of the tourist spot",
+                          "type": "string"
+                        },
+                        "touristSpotDesc": {
+                          "description": "Description of the tourist spot",
+                          "type": "string"
+                        },
+                        "bestVisitTime": {
+                          "description": "Best visit time of the tourist spot",
+                          "type": "string"
+                        },
+                        "address": {
+                          "description": "Address of the tourist spot",
+                          "type": "string"
+                        },
+                        "touristSpotLatitude": {
+                          "description": "Latitude of the tourist spot",
+                          "type": "number"
+                        },
+                        "touristSpotLongitude": {
+                          "description": "Longitude of the tourist spot",
+                          "type": "number"
+                        },
+                        "touristSpotHashtag": {
+                          "description": "Hashtags associated with this location",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "storyChapterLink": {
+                          "description": "Link to the related story chapter",
+                          "type": "string"
+                        },
+                        "imageSet": {
+                          "description": "Image set for the tourist spot",
+                          "type": "object",
+                          "properties": {
+                            "main": {
+                              "description": "Main image of the tourist spot",
+                              "type": "string"
+                            },
+                            "small": {
+                              "description": "Small images of the tourist spot",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "required": [
+                            "main",
+                            "small"
+                          ]
+                        },
+                        "weatherInfo": {
+                          "description": "Weather info for the tourist spot",
+                          "type": "object",
+                          "properties": {
+                            "temperatureCelsius": {
+                              "description": "Temperature of the weather",
+                              "type": "number"
+                            },
+                            "weatherName": {
+                              "description": "Name of the weather",
+                              "type": "string"
+                            },
+                            "weatherDesc": {
+                              "description": "Description of the weather",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "temperatureCelsius",
+                            "weatherName",
+                            "weatherDesc"
+                          ]
+                        },
+                        "delFlag": {
+                          "description": "Flag to indicate if the record is deleted",
+                          "type": "boolean"
+                        },
+                        "insUserId": {
+                          "description": "ID of user who created this record",
+                          "type": "string"
+                        },
+                        "insDateTime": {
+                          "description": "Timestamp of record creation",
+                          "type": "string"
+                        },
+                        "updUserId": {
+                          "description": "ID of user who last updated this record",
+                          "type": "string"
+                        },
+                        "updDateTime": {
+                          "description": "Timestamp of last record update",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "touristSpotId",
+                        "storyChapterId",
+                        "touristSpotName",
+                        "touristSpotDesc",
+                        "bestVisitTime",
+                        "address",
+                        "touristSpotLatitude",
+                        "touristSpotLongitude",
+                        "touristSpotHashtag"
+                      ]
+                    }
+                  },
+                  "regionWeatherInfo": {
+                    "description": "Current weather info for the region",
+                    "type": "object",
+                    "properties": {
+                      "temperatureCelsius": {
+                        "description": "Temperature of the weather",
+                        "type": "number"
+                      },
+                      "weatherName": {
+                        "description": "Name of the weather",
+                        "type": "string"
+                      },
+                      "weatherDesc": {
+                        "description": "Description of the weather",
+                        "type": "string"
+                      },
+                      "regionName": {
+                        "description": "Name of the region",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "temperatureCelsius",
+                      "weatherName",
+                      "weatherDesc",
+                      "regionName"
+                    ]
+                  },
+                  "delFlag": {
+                    "description": "Flag to indicate if the record is deleted",
+                    "type": "boolean"
+                  },
+                  "insUserId": {
+                    "description": "ID of user who created this record",
+                    "type": "string"
+                  },
+                  "insDateTime": {
+                    "description": "Timestamp of record creation",
+                    "type": "string"
+                  },
+                  "updUserId": {
+                    "description": "ID of user who last updated this record",
+                    "type": "string"
+                  },
+                  "updDateTime": {
+                    "description": "Timestamp of last record update",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "modelRouteId",
+                  "storyId",
+                  "routeName",
+                  "region",
+                  "regionDesc",
+                  "recommendation",
+                  "regionLatitude",
+                  "regionLongitude",
+                  "regionBackgroundMedia",
+                  "touristSpotList",
+                  "regionWeatherInfo"
+                ]
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ModelRouteResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Get All Model Routes",
+        "tags": [
+          "Routes"
+        ]
+      }
+    },
+    "/routes/{id}": {
+      "get": {
+        "description": "Retrieve a specific model route by its ID, including tourist spots and weather data.",
+        "operationId": "TouriiBackendController_getRouteById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the model route",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "modelRouteId": {
+                  "description": "Unique identifier for the model route",
+                  "type": "string"
+                },
+                "storyId": {
+                  "description": "Unique identifier for the story",
+                  "type": "string"
+                },
+                "routeName": {
+                  "description": "Name of the model route",
+                  "type": "string"
+                },
+                "region": {
+                  "description": "Region of the model route",
+                  "type": "string"
+                },
+                "regionDesc": {
+                  "description": "Description of the region",
+                  "type": "string"
+                },
+                "recommendation": {
+                  "description": "Recommendation of the model route",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "regionLatitude": {
+                  "description": "Latitude of the region",
+                  "type": "number"
+                },
+                "regionLongitude": {
+                  "description": "Longitude of the region",
+                  "type": "number"
+                },
+                "regionBackgroundMedia": {
+                  "description": "URL to the region's cover media",
+                  "type": "string"
+                },
+                "touristSpotList": {
+                  "description": "List of tourist spots in the model route",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "touristSpotId": {
+                        "description": "Unique identifier for the tourist spot",
+                        "type": "string"
+                      },
+                      "storyChapterId": {
+                        "description": "Unique identifier for the story chapter",
+                        "type": "string"
+                      },
+                      "touristSpotName": {
+                        "description": "Name of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotDesc": {
+                        "description": "Description of the tourist spot",
+                        "type": "string"
+                      },
+                      "bestVisitTime": {
+                        "description": "Best visit time of the tourist spot",
+                        "type": "string"
+                      },
+                      "address": {
+                        "description": "Address of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotLatitude": {
+                        "description": "Latitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotLongitude": {
+                        "description": "Longitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotHashtag": {
+                        "description": "Hashtags associated with this location",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "storyChapterLink": {
+                        "description": "Link to the related story chapter",
+                        "type": "string"
+                      },
+                      "imageSet": {
+                        "description": "Image set for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "main": {
+                            "description": "Main image of the tourist spot",
+                            "type": "string"
+                          },
+                          "small": {
+                            "description": "Small images of the tourist spot",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "main",
+                          "small"
+                        ]
+                      },
+                      "weatherInfo": {
+                        "description": "Weather info for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "temperatureCelsius": {
+                            "description": "Temperature of the weather",
+                            "type": "number"
+                          },
+                          "weatherName": {
+                            "description": "Name of the weather",
+                            "type": "string"
+                          },
+                          "weatherDesc": {
+                            "description": "Description of the weather",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "temperatureCelsius",
+                          "weatherName",
+                          "weatherDesc"
+                        ]
+                      },
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
+                        "type": "boolean"
+                      },
+                      "insUserId": {
+                        "description": "ID of user who created this record",
+                        "type": "string"
+                      },
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
+                      },
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
+                      },
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "touristSpotId",
+                      "storyChapterId",
+                      "touristSpotName",
+                      "touristSpotDesc",
+                      "bestVisitTime",
+                      "address",
+                      "touristSpotLatitude",
+                      "touristSpotLongitude",
+                      "touristSpotHashtag"
+                    ]
+                  }
+                },
+                "regionWeatherInfo": {
+                  "description": "Current weather info for the region",
+                  "type": "object",
+                  "properties": {
+                    "temperatureCelsius": {
+                      "description": "Temperature of the weather",
+                      "type": "number"
+                    },
+                    "weatherName": {
+                      "description": "Name of the weather",
+                      "type": "string"
+                    },
+                    "weatherDesc": {
+                      "description": "Description of the weather",
+                      "type": "string"
+                    },
+                    "regionName": {
+                      "description": "Name of the region",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "temperatureCelsius",
+                    "weatherName",
+                    "weatherDesc",
+                    "regionName"
+                  ]
+                },
+                "delFlag": {
+                  "description": "Flag to indicate if the record is deleted",
+                  "type": "boolean"
+                },
+                "insUserId": {
+                  "description": "ID of user who created this record",
+                  "type": "string"
+                },
+                "insDateTime": {
+                  "description": "Timestamp of record creation",
+                  "type": "string"
+                },
+                "updUserId": {
+                  "description": "ID of user who last updated this record",
+                  "type": "string"
+                },
+                "updDateTime": {
+                  "description": "Timestamp of last record update",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "modelRouteId",
+                "storyId",
+                "routeName",
+                "region",
+                "regionDesc",
+                "recommendation",
+                "regionLatitude",
+                "regionLongitude",
+                "regionBackgroundMedia",
+                "touristSpotList",
+                "regionWeatherInfo"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelRouteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Get Model Route by ID",
+        "tags": [
+          "Routes"
         ]
       }
     },
@@ -3397,6 +4612,10 @@
             "description": "Region of the model route",
             "type": "string"
           },
+          "regionDesc": {
+            "description": "Description of the region",
+            "type": "string"
+          },
           "recommendation": {
             "description": "Recommendation of the model route",
             "type": "array",
@@ -3469,6 +4688,7 @@
           "storyId",
           "routeName",
           "region",
+          "regionDesc",
           "recommendation",
           "touristSpotList"
         ]
@@ -4033,6 +5253,10 @@
             "description": "Region of the model route",
             "type": "string"
           },
+          "regionDesc": {
+            "description": "Description of the region",
+            "type": "string"
+          },
           "recommendation": {
             "description": "Recommendation of the model route",
             "type": "array",
@@ -4194,12 +5418,17 @@
               "weatherDesc": {
                 "description": "Description of the weather",
                 "type": "string"
+              },
+              "regionName": {
+                "description": "Name of the region",
+                "type": "string"
               }
             },
             "required": [
               "temperatureCelsius",
               "weatherName",
-              "weatherDesc"
+              "weatherDesc",
+              "regionName"
             ]
           },
           "delFlag": {
@@ -4228,6 +5457,7 @@
           "storyId",
           "routeName",
           "region",
+          "regionDesc",
           "recommendation",
           "regionLatitude",
           "regionLongitude",
@@ -4362,6 +5592,623 @@
       "UserEntity": {
         "type": "object",
         "properties": {}
+      },
+      "QuestListResponseDto": {
+        "type": "object",
+        "properties": {
+          "quests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "questId": {
+                  "description": "Unique identifier for the quest",
+                  "type": "string"
+                },
+                "questName": {
+                  "description": "Name of the quest",
+                  "type": "string"
+                },
+                "questDesc": {
+                  "description": "Description of the quest",
+                  "type": "string"
+                },
+                "questImage": {
+                  "description": "URL to the quest image",
+                  "type": "string"
+                },
+                "questType": {
+                  "description": "Quest type",
+                  "type": "string",
+                  "enum": [
+                    "UNKNOWN",
+                    "TRAVEL_TO_EARN",
+                    "EARN_TO_TRAVEL",
+                    "CAMPAIGN",
+                    "COMMUNITY_EVENT"
+                  ],
+                  "x-enumNames": [
+                    "UNKNOWN",
+                    "TRAVEL_TO_EARN",
+                    "EARN_TO_TRAVEL",
+                    "CAMPAIGN",
+                    "COMMUNITY_EVENT"
+                  ]
+                },
+                "isUnlocked": {
+                  "description": "Whether quest is unlocked",
+                  "type": "boolean"
+                },
+                "isPremium": {
+                  "description": "Whether quest is premium",
+                  "type": "boolean"
+                },
+                "totalMagatamaPointAwarded": {
+                  "description": "Total Magatama points awarded",
+                  "type": "number"
+                },
+                "tasks": {
+                  "description": "Tasks associated with this quest",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "taskId": {
+                        "description": "Unique identifier for the task",
+                        "type": "string"
+                      },
+                      "questId": {
+                        "description": "ID of the parent quest",
+                        "type": "string"
+                      },
+                      "taskTheme": {
+                        "description": "Theme of the task",
+                        "type": "string",
+                        "enum": [
+                          "STORY",
+                          "LOCAL_CULTURE",
+                          "FOOD",
+                          "URBAN_EXPLORE",
+                          "NATURE"
+                        ],
+                        "x-enumNames": [
+                          "STORY",
+                          "LOCAL_CULTURE",
+                          "FOOD",
+                          "URBAN_EXPLORE",
+                          "NATURE"
+                        ]
+                      },
+                      "taskType": {
+                        "description": "Type of the task",
+                        "type": "string",
+                        "enum": [
+                          "VISIT_LOCATION",
+                          "PHOTO_UPLOAD",
+                          "ANSWER_TEXT",
+                          "SELECT_OPTION",
+                          "SHARE_SOCIAL",
+                          "CHECK_IN",
+                          "GROUP_ACTIVITY",
+                          "LOCAL_INTERACTION"
+                        ],
+                        "x-enumNames": [
+                          "VISIT_LOCATION",
+                          "PHOTO_UPLOAD",
+                          "ANSWER_TEXT",
+                          "SELECT_OPTION",
+                          "SHARE_SOCIAL",
+                          "CHECK_IN",
+                          "GROUP_ACTIVITY",
+                          "LOCAL_INTERACTION"
+                        ]
+                      },
+                      "taskName": {
+                        "description": "Name of the task",
+                        "type": "string"
+                      },
+                      "taskDesc": {
+                        "description": "Description of the task",
+                        "type": "string"
+                      },
+                      "isUnlocked": {
+                        "description": "Whether task is unlocked",
+                        "type": "boolean"
+                      },
+                      "requiredAction": {
+                        "description": "Action required to complete the task",
+                        "type": "string"
+                      },
+                      "groupActivityMembers": {
+                        "description": "Members for group activities",
+                        "type": "array",
+                        "items": {}
+                      },
+                      "selectOptions": {
+                        "description": "Options for selection tasks",
+                        "type": "array",
+                        "items": {}
+                      },
+                      "antiCheatRules": {
+                        "description": "Rules to prevent cheating"
+                      },
+                      "magatamaPointAwarded": {
+                        "description": "Magatama points awarded for this task",
+                        "type": "number"
+                      },
+                      "totalMagatamaPointAwarded": {
+                        "description": "Total Magatama points awarded",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "taskId",
+                      "questId",
+                      "taskTheme",
+                      "taskType",
+                      "taskName",
+                      "taskDesc",
+                      "isUnlocked",
+                      "requiredAction",
+                      "antiCheatRules",
+                      "magatamaPointAwarded",
+                      "totalMagatamaPointAwarded"
+                    ]
+                  }
+                },
+                "touristSpot": {
+                  "description": "Tourist spot associated with this quest",
+                  "type": "object",
+                  "properties": {
+                    "touristSpotId": {
+                      "description": "Unique identifier for the tourist spot",
+                      "type": "string"
+                    },
+                    "storyChapterId": {
+                      "description": "Unique identifier for the story chapter",
+                      "type": "string"
+                    },
+                    "touristSpotName": {
+                      "description": "Name of the tourist spot",
+                      "type": "string"
+                    },
+                    "touristSpotDesc": {
+                      "description": "Description of the tourist spot",
+                      "type": "string"
+                    },
+                    "bestVisitTime": {
+                      "description": "Best visit time of the tourist spot",
+                      "type": "string"
+                    },
+                    "address": {
+                      "description": "Address of the tourist spot",
+                      "type": "string"
+                    },
+                    "touristSpotLatitude": {
+                      "description": "Latitude of the tourist spot",
+                      "type": "number"
+                    },
+                    "touristSpotLongitude": {
+                      "description": "Longitude of the tourist spot",
+                      "type": "number"
+                    },
+                    "touristSpotHashtag": {
+                      "description": "Hashtags associated with this location",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "storyChapterLink": {
+                      "description": "Link to the related story chapter",
+                      "type": "string"
+                    },
+                    "imageSet": {
+                      "description": "Image set for the tourist spot",
+                      "type": "object",
+                      "properties": {
+                        "main": {
+                          "description": "Main image of the tourist spot",
+                          "type": "string"
+                        },
+                        "small": {
+                          "description": "Small images of the tourist spot",
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "main",
+                        "small"
+                      ]
+                    },
+                    "weatherInfo": {
+                      "description": "Weather info for the tourist spot",
+                      "type": "object",
+                      "properties": {
+                        "temperatureCelsius": {
+                          "description": "Temperature of the weather",
+                          "type": "number"
+                        },
+                        "weatherName": {
+                          "description": "Name of the weather",
+                          "type": "string"
+                        },
+                        "weatherDesc": {
+                          "description": "Description of the weather",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "temperatureCelsius",
+                        "weatherName",
+                        "weatherDesc"
+                      ]
+                    },
+                    "delFlag": {
+                      "description": "Flag to indicate if the record is deleted",
+                      "type": "boolean"
+                    },
+                    "insUserId": {
+                      "description": "ID of user who created this record",
+                      "type": "string"
+                    },
+                    "insDateTime": {
+                      "description": "Timestamp of record creation",
+                      "type": "string"
+                    },
+                    "updUserId": {
+                      "description": "ID of user who last updated this record",
+                      "type": "string"
+                    },
+                    "updDateTime": {
+                      "description": "Timestamp of last record update",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "touristSpotId",
+                    "storyChapterId",
+                    "touristSpotName",
+                    "touristSpotDesc",
+                    "bestVisitTime",
+                    "address",
+                    "touristSpotLatitude",
+                    "touristSpotLongitude",
+                    "touristSpotHashtag"
+                  ]
+                }
+              },
+              "required": [
+                "questId",
+                "questName",
+                "questDesc",
+                "questType",
+                "isUnlocked",
+                "isPremium",
+                "totalMagatamaPointAwarded"
+              ]
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "currentPage": {
+                "type": "number"
+              },
+              "totalPages": {
+                "type": "number"
+              },
+              "totalQuests": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "currentPage",
+              "totalPages",
+              "totalQuests"
+            ]
+          }
+        },
+        "required": [
+          "quests",
+          "pagination"
+        ]
+      },
+      "QuestResponseDto": {
+        "type": "object",
+        "properties": {
+          "questId": {
+            "description": "Unique identifier for the quest",
+            "type": "string"
+          },
+          "questName": {
+            "description": "Name of the quest",
+            "type": "string"
+          },
+          "questDesc": {
+            "description": "Description of the quest",
+            "type": "string"
+          },
+          "questImage": {
+            "description": "URL to the quest image",
+            "type": "string"
+          },
+          "questType": {
+            "description": "Quest type",
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "TRAVEL_TO_EARN",
+              "EARN_TO_TRAVEL",
+              "CAMPAIGN",
+              "COMMUNITY_EVENT"
+            ],
+            "x-enumNames": [
+              "UNKNOWN",
+              "TRAVEL_TO_EARN",
+              "EARN_TO_TRAVEL",
+              "CAMPAIGN",
+              "COMMUNITY_EVENT"
+            ]
+          },
+          "isUnlocked": {
+            "description": "Whether quest is unlocked",
+            "type": "boolean"
+          },
+          "isPremium": {
+            "description": "Whether quest is premium",
+            "type": "boolean"
+          },
+          "totalMagatamaPointAwarded": {
+            "description": "Total Magatama points awarded",
+            "type": "number"
+          },
+          "tasks": {
+            "description": "Tasks associated with this quest",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "taskId": {
+                  "description": "Unique identifier for the task",
+                  "type": "string"
+                },
+                "questId": {
+                  "description": "ID of the parent quest",
+                  "type": "string"
+                },
+                "taskTheme": {
+                  "description": "Theme of the task",
+                  "type": "string",
+                  "enum": [
+                    "STORY",
+                    "LOCAL_CULTURE",
+                    "FOOD",
+                    "URBAN_EXPLORE",
+                    "NATURE"
+                  ],
+                  "x-enumNames": [
+                    "STORY",
+                    "LOCAL_CULTURE",
+                    "FOOD",
+                    "URBAN_EXPLORE",
+                    "NATURE"
+                  ]
+                },
+                "taskType": {
+                  "description": "Type of the task",
+                  "type": "string",
+                  "enum": [
+                    "VISIT_LOCATION",
+                    "PHOTO_UPLOAD",
+                    "ANSWER_TEXT",
+                    "SELECT_OPTION",
+                    "SHARE_SOCIAL",
+                    "CHECK_IN",
+                    "GROUP_ACTIVITY",
+                    "LOCAL_INTERACTION"
+                  ],
+                  "x-enumNames": [
+                    "VISIT_LOCATION",
+                    "PHOTO_UPLOAD",
+                    "ANSWER_TEXT",
+                    "SELECT_OPTION",
+                    "SHARE_SOCIAL",
+                    "CHECK_IN",
+                    "GROUP_ACTIVITY",
+                    "LOCAL_INTERACTION"
+                  ]
+                },
+                "taskName": {
+                  "description": "Name of the task",
+                  "type": "string"
+                },
+                "taskDesc": {
+                  "description": "Description of the task",
+                  "type": "string"
+                },
+                "isUnlocked": {
+                  "description": "Whether task is unlocked",
+                  "type": "boolean"
+                },
+                "requiredAction": {
+                  "description": "Action required to complete the task",
+                  "type": "string"
+                },
+                "groupActivityMembers": {
+                  "description": "Members for group activities",
+                  "type": "array",
+                  "items": {}
+                },
+                "selectOptions": {
+                  "description": "Options for selection tasks",
+                  "type": "array",
+                  "items": {}
+                },
+                "antiCheatRules": {
+                  "description": "Rules to prevent cheating"
+                },
+                "magatamaPointAwarded": {
+                  "description": "Magatama points awarded for this task",
+                  "type": "number"
+                },
+                "totalMagatamaPointAwarded": {
+                  "description": "Total Magatama points awarded",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "taskId",
+                "questId",
+                "taskTheme",
+                "taskType",
+                "taskName",
+                "taskDesc",
+                "isUnlocked",
+                "requiredAction",
+                "antiCheatRules",
+                "magatamaPointAwarded",
+                "totalMagatamaPointAwarded"
+              ]
+            }
+          },
+          "touristSpot": {
+            "description": "Tourist spot associated with this quest",
+            "type": "object",
+            "properties": {
+              "touristSpotId": {
+                "description": "Unique identifier for the tourist spot",
+                "type": "string"
+              },
+              "storyChapterId": {
+                "description": "Unique identifier for the story chapter",
+                "type": "string"
+              },
+              "touristSpotName": {
+                "description": "Name of the tourist spot",
+                "type": "string"
+              },
+              "touristSpotDesc": {
+                "description": "Description of the tourist spot",
+                "type": "string"
+              },
+              "bestVisitTime": {
+                "description": "Best visit time of the tourist spot",
+                "type": "string"
+              },
+              "address": {
+                "description": "Address of the tourist spot",
+                "type": "string"
+              },
+              "touristSpotLatitude": {
+                "description": "Latitude of the tourist spot",
+                "type": "number"
+              },
+              "touristSpotLongitude": {
+                "description": "Longitude of the tourist spot",
+                "type": "number"
+              },
+              "touristSpotHashtag": {
+                "description": "Hashtags associated with this location",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "storyChapterLink": {
+                "description": "Link to the related story chapter",
+                "type": "string"
+              },
+              "imageSet": {
+                "description": "Image set for the tourist spot",
+                "type": "object",
+                "properties": {
+                  "main": {
+                    "description": "Main image of the tourist spot",
+                    "type": "string"
+                  },
+                  "small": {
+                    "description": "Small images of the tourist spot",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "main",
+                  "small"
+                ]
+              },
+              "weatherInfo": {
+                "description": "Weather info for the tourist spot",
+                "type": "object",
+                "properties": {
+                  "temperatureCelsius": {
+                    "description": "Temperature of the weather",
+                    "type": "number"
+                  },
+                  "weatherName": {
+                    "description": "Name of the weather",
+                    "type": "string"
+                  },
+                  "weatherDesc": {
+                    "description": "Description of the weather",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "temperatureCelsius",
+                  "weatherName",
+                  "weatherDesc"
+                ]
+              },
+              "delFlag": {
+                "description": "Flag to indicate if the record is deleted",
+                "type": "boolean"
+              },
+              "insUserId": {
+                "description": "ID of user who created this record",
+                "type": "string"
+              },
+              "insDateTime": {
+                "description": "Timestamp of record creation",
+                "type": "string"
+              },
+              "updUserId": {
+                "description": "ID of user who last updated this record",
+                "type": "string"
+              },
+              "updDateTime": {
+                "description": "Timestamp of last record update",
+                "type": "string"
+              }
+            },
+            "required": [
+              "touristSpotId",
+              "storyChapterId",
+              "touristSpotName",
+              "touristSpotDesc",
+              "bestVisitTime",
+              "address",
+              "touristSpotLatitude",
+              "touristSpotLongitude",
+              "touristSpotHashtag"
+            ]
+          }
+        },
+        "required": [
+          "questId",
+          "questName",
+          "questDesc",
+          "questType",
+          "isUnlocked",
+          "isPremium",
+          "totalMagatamaPointAwarded"
+        ]
       }
     }
   }
