@@ -1,10 +1,10 @@
-# 🌏 Tourii Frontend
+# 🌏 Tourii
 
 ---
 
 ## 📘 About Tourii
 
-Tourii is a gamified Web3 tourism platform that combines Japanese mythology, real-world exploration, and digital collectibles.
+Tourii is a gamified tourism platform that combines Japanese mythology, real-world exploration, and digital collectibles.
 
 This frontend app, built with **Next.js App Router**, powers an immersive user journey through story chapters, quests, and interactive check-ins — with a focus on social sharing and reward redemption.
 
@@ -37,18 +37,18 @@ This frontend app, built with **Next.js App Router**, powers an immersive user j
 
 ## 🧱 Tech Stack
 
-| Layer              | Technology                                                                      |
-| ------------------ | ------------------------------------------------------------------------------- |
-| Frontend Framework | [Next.js 14 (App Router)](https://nextjs.org)                                   |
-| Styling            | [Tailwind CSS](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com)     |
-| Animations         | [Framer Motion](https://www.framer.com/motion)                                  |
-| State Management   | [Redux Toolkit + createSlice](https://redux-toolkit.js.org)                     |
-| Data Fetching      | [React Query](https://tanstack.com/query), SWR                                  |
+| Layer              | Technology                                                                                                        |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Frontend Framework | [Next.js 14 (App Router)](https://nextjs.org)                                                                     |
+| Styling            | [Tailwind CSS](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com)                                       |
+| Animations         | [Framer Motion](https://www.framer.com/motion)                                                                    |
+| State Management   | [Redux Toolkit + createSlice](https://redux-toolkit.js.org)                                                       |
+| Data Fetching      | [React Query](https://tanstack.com/query), SWR                                                                    |
 | API Client         | Generated via [openapi-typescript-codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) using Fetch |
-| Web3 Integration   | [viem](https://viem.sh), [WalletConnect/Web3Modal](https://web3modal.com)       |
-| Mapping            | [Leaflet](https://leafletjs.com), [React Leaflet](https://react-leaflet.js.org) |
-| File Storage       | [NFT.Storage](https://nft.storage), IPFS                                        |
-| Realtime Events    | WebSocket with custom event types                                               |
+| Web3 Integration   | [viem](https://viem.sh), [WalletConnect/Web3Modal](https://web3modal.com)                                         |
+| Mapping            | [Leaflet](https://leafletjs.com), [React Leaflet](https://react-leaflet.js.org)                                   |
+| File Storage       | [NFT.Storage](https://nft.storage), IPFS                                                                          |
+| Realtime Events    | WebSocket with custom event types                                                                                 |
 
 ---
 
