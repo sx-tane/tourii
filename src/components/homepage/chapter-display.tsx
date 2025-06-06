@@ -2,11 +2,10 @@ import type { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { MotionButton } from "@/components/common";
 
 const ChapterDisplay: React.FC = () => {
-	const [isHovered, setIsHovered] = useState(false);
 	const { chapterNumber, storyTitle, imageUrl } = useSelector(
 		(state: RootState) => state.chapter,
 	);
@@ -62,50 +61,16 @@ const ChapterDisplay: React.FC = () => {
 								delay: 0.2,
 								ease: [0.6, 0.05, 0.01, 0.9],
 							}}
-							onHoverStart={() => setIsHovered(true)}
-							onHoverEnd={() => setIsHovered(false)}
 						>
-							<motion.button
-								className="border-[1px] border-warmGrey rounded-full font-medium overflow-hidden whitespace-nowrap text-lg"
-								initial={{
-									width: "52px",
-									paddingLeft: "0",
-									paddingRight: "0",
-									backgroundColor: "transparent",
+							<MotionButton
+								hoverText="READ NOW"
+								colors={{
+									borderColor: "border-warmGrey",
+									hoverBgColor: "#ECECDC",
+									defaultTextColor: "#ECECDC",
+									hoverTextColor: "#21211B",
 								}}
-								animate={{
-									width: isHovered ? "200px" : "52px",
-									paddingLeft: isHovered ? "20px" : "0",
-									paddingRight: isHovered ? "20px" : "0",
-									backgroundColor: isHovered ? "#ECECDC" : "transparent",
-								}}
-								transition={{ duration: 0.3, ease: "easeInOut" }}
-							>
-								<div className="h-12 flex items-center justify-center relative">
-									<motion.span
-										className="absolute text-xl"
-										animate={{
-											opacity: isHovered ? 0 : 1,
-											scale: isHovered ? 0.5 : 1,
-											color: isHovered ? "#21211B" : "#ECECDC",
-										}}
-										transition={{ duration: 0.2 }}
-									>
-										➞
-									</motion.span>
-									<motion.span
-										className="absolute font-light tracking-widest italic"
-										animate={{
-											opacity: isHovered ? 1 : 0,
-											scale: isHovered ? 1 : 0.5,
-											color: isHovered ? "#21211B" : "#ECECDC",
-										}}
-										transition={{ duration: 0.2 }}
-									>
-										READ NOW
-									</motion.span>
-								</div>
-							</motion.button>
+							/>
 						</motion.div>
 					</div>
 				</motion.div>

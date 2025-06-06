@@ -14,55 +14,64 @@ import {
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
 	const { selectedStory, selectionData } = useAppSelector(selectStories);
+	const initializedRef = useRef(false);
+	const sagasProcessedRef = useRef<string[]>([]);
 
-	const { sagas, isLoading, isError: error, mutateSagas } = getSagas();
+	const { sagas, isLoadingSagas, isErrorSagas, mutateSagas } = getSagas();
 
 	useEffect(() => {
 		if (sagas !== undefined) {
-			dispatch(setStories(sagas));
+			// Create a key for this saga set to avoid reprocessing the same data
+			const sagasKey = sagas.map((s) => s.storyId).join(",");
 
-			if (sagas.length > 0 && !selectedStory) {
-				const firstStory = sagas[0];
-				if (firstStory) {
-					dispatch(setSelectedStory(firstStory.storyId));
+			if (!sagasProcessedRef.current.includes(sagasKey)) {
+				dispatch(setStories(sagas));
+				sagasProcessedRef.current.push(sagasKey);
+
+				if (sagas.length > 0 && !initializedRef.current) {
+					const firstStory = sagas[0];
+					if (firstStory) {
+						dispatch(setSelectedStory(firstStory.storyId));
+						initializedRef.current = true;
+					}
 				}
 			}
 		}
-	}, [sagas, dispatch, selectedStory]);
+	}, [sagas, dispatch]);
 
 	const handleSelectStory = (selectedStoryId: string) => {
 		dispatch(setSelectedStory(selectedStoryId));
 	};
 
-	if (isLoading) {
+	if (isLoadingSagas) {
 		return <Loading />;
 	}
 
-	if (error) {
+	if (isErrorSagas) {
 		let errorMessage = "An unexpected error occurred while loading stories.";
 		let errorStatus: number | undefined = undefined;
 
-		if (error instanceof ApiError) {
-			errorMessage = error.message;
-			errorStatus = error.status;
+		if (isErrorSagas instanceof ApiError) {
+			errorMessage = isErrorSagas.message;
+			errorStatus = isErrorSagas.status;
 			logger.error("API Error loading sagas:", {
-				status: error.status,
-				message: error.message,
-				context: error.context,
+				status: isErrorSagas.status,
+				message: isErrorSagas.message,
+				context: isErrorSagas.context,
 			});
-		} else if (error instanceof Error) {
-			errorMessage = error.message;
+		} else if (isErrorSagas instanceof Error) {
+			errorMessage = isErrorSagas.message;
 			logger.error("Generic Error loading sagas:", {
-				message: error.message,
-				stack: error.stack,
+				message: isErrorSagas.message,
+				stack: isErrorSagas.stack,
 			});
 		} else {
-			logger.error("Unknown Error loading sagas:", { error });
+			logger.error("Unknown Error loading sagas:", { isErrorSagas });
 		}
 
 		return (
@@ -74,7 +83,7 @@ const Touriiverse: NextPage = () => {
 		);
 	}
 
-	if (!isLoading && sagas && sagas.length === 0) {
+	if (!isLoadingSagas && sagas && sagas.length === 0) {
 		return (
 			<TouriiError
 				errorMessage="No stories are currently available."
@@ -83,7 +92,7 @@ const Touriiverse: NextPage = () => {
 		);
 	}
 
-	if (!selectedStory && !isLoading && sagas && sagas.length > 0) {
+	if (!selectedStory && !isLoadingSagas && sagas && sagas.length > 0) {
 		return <Loading />;
 	}
 
@@ -92,10 +101,21 @@ const Touriiverse: NextPage = () => {
 		return <div>Please select a story.</div>;
 	}
 
+	// Ensure selectedStory has the required isSelected property
+	const storyWithIsSelected = selectedStory
+		? {
+				...selectedStory,
+				isSelected: selectedStory.isSelected ?? false,
+			}
+		: undefined;
+
 	return (
 		<div className="h-[90vh] w-full z-20">
 			<div className="flex flex-col items-center justify-center h-full">
-				<StoryComponent key={selectedStory.storyId} story={selectedStory} />
+				<StoryComponent
+					key={selectedStory.storyId}
+					story={storyWithIsSelected}
+				/>
 				<StorySelectionList
 					selectionData={selectionData}
 					onSelect={handleSelectStory}

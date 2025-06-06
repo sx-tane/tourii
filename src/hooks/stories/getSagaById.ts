@@ -24,9 +24,9 @@ export const getSagaById = (storyId: string | undefined) => {
 	);
 
 	return {
-		storyChapter: data,
-		isLoadingSaga: isLoading,
-		isErrorSaga: error, // error is StructuredError or undefined
-		mutateSaga: mutate,
+		storyChapterList: data,
+		isLoadingStoryChapterList: isLoading,
+		isErrorStoryChapterList: error, // error is StructuredError or undefined
+		mutateStoryChapterList: mutate,
 	};
 };

@@ -30,9 +30,9 @@ const ChapterPage: React.FC = () => {
 
 	// Get data directly (if accessed via URL)
 	const {
-		storyChapter: directChapters,
-		isLoadingSaga,
-		isErrorSaga,
+		storyChapterList: directChapters,
+		isLoadingStoryChapterList,
+		isErrorStoryChapterList,
 	} = getSagaById(storyId);
 
 	const [chapter, setChapter] = useState<StoryChapterResponseDto | null>(null);
@@ -79,12 +79,15 @@ const ChapterPage: React.FC = () => {
 	}, [chapter]);
 
 	// Loading states
-	if (isLoadingSaga || (!chapter && !isErrorSaga && !selectedStory)) {
+	if (
+		isLoadingStoryChapterList ||
+		(!chapter && !isErrorStoryChapterList && !selectedStory)
+	) {
 		return <Loading />;
 	}
 
 	// Error states
-	if (isErrorSaga && !selectedStory?.chapterList?.length) {
+	if (isErrorStoryChapterList && !selectedStory?.chapterList?.length) {
 		// If API fetch failed AND we don't have data from Redux
 		return <TouriiError />;
 	}
@@ -128,7 +131,7 @@ const ChapterPage: React.FC = () => {
 				animate="visible"
 				variants={downToUpVariants}
 				transition={{ duration: 0.5, delay: 0.3 }}
-				className="my-5"
+				className="mt-5 mb-20"
 			>
 				<Link
 					href={`/v2/touriiverse/${storyId}`}

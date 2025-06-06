@@ -21,7 +21,7 @@ const mockStory: StoryResponseDto = {
 };
 
 const meta = {
-	title: "Story/StoryButton",
+	title: "Story/Common/StoryButton",
 	component: StoryButton,
 	parameters: {
 		layout: "centered",

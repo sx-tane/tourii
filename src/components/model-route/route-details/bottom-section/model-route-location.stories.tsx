@@ -1,10 +1,10 @@
 import type { RouteDetails } from "@/types/model-route-type";
 import type { Meta, StoryObj } from "@storybook/react";
-import IntroUpperSection from "./intro-upper-section";
+import ModelRouteLocation from "./model-route-location";
 
 const meta = {
-	title: "ModelRoute/RouteDetails/IntroUpperSection",
-	component: IntroUpperSection,
+	title: "Model Route/RoutePage/RouteDetails/ModelRouteLocation",
+	component: ModelRouteLocation,
 	parameters: {
 		backgrounds: {
 			default: "light",
@@ -17,7 +17,7 @@ const meta = {
 		},
 	},
 	tags: ["autodocs"],
-} satisfies Meta<typeof IntroUpperSection>;
+} satisfies Meta<typeof ModelRouteLocation>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -27,7 +27,7 @@ const mockRouteDetails: RouteDetails = {
 	stop: "STOP 1",
 	routeDetailTime: "30 mins",
 	routeDetailName: "Harajiri Waterfall",
-	routeDetailStoryTitle: "The Majestic Falls",
+	routeDetailStoryTitle: "Nature's Power",
 	routeDetailBigImage: "/image/model-route/1/harajiri-fall/1.jpg",
 	routeDetailDescription: "A stunning waterfall in Bungo Ono City",
 	routeDetailLocation: "Bungo Ono City, Oita Prefecture",
@@ -48,22 +48,30 @@ export const Default: Story = {
 	},
 };
 
-export const LongTitle: Story = {
+export const LongLocation: Story = {
 	args: {
 		routeDetails: {
 			...mockRouteDetails,
-			routeDetailName: "The Historic Harajiri Waterfall Nature Reserve",
-			routeDetailStoryTitle: "A Journey Through Time and Nature",
+			routeDetailLocation:
+				"Bungo Ono City Historical District, Oita Prefecture, Kyushu Region",
+			routeDetailAddress:
+				"Harajiri Falls Historical Park, 1648-1 Ogata, Bungo Ono City, Oita Prefecture 879-7111",
 		},
 	},
 };
 
-export const LastStop: Story = {
+export const WithMultipleHashtags: Story = {
 	args: {
 		routeDetails: {
 			...mockRouteDetails,
-			stop: "FINAL STOP",
-			routeDetailTime: "1 hour",
+			routeHashtag: [
+				"#HarajiriFalls",
+				"#BungoOno",
+				"#JapaneseNiagara",
+				"#OitaPrefecture",
+				"#JapanTravel",
+				"#WaterfallLovers",
+			],
 		},
 	},
 };

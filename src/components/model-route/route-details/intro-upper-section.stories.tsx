@@ -1,10 +1,10 @@
 import type { RouteDetails } from "@/types/model-route-type";
 import type { Meta, StoryObj } from "@storybook/react";
-import ModelRouteLocation from "./model-route-location";
+import IntroUpperSection from "./intro-upper-section";
 
 const meta = {
-	title: "ModelRoute/RouteDetails/ModelRouteLocation",
-	component: ModelRouteLocation,
+	title: "Model Route/RoutePage/RouteDetails/IntroUpperSection",
+	component: IntroUpperSection,
 	parameters: {
 		backgrounds: {
 			default: "light",
@@ -17,7 +17,7 @@ const meta = {
 		},
 	},
 	tags: ["autodocs"],
-} satisfies Meta<typeof ModelRouteLocation>;
+} satisfies Meta<typeof IntroUpperSection>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -27,7 +27,7 @@ const mockRouteDetails: RouteDetails = {
 	stop: "STOP 1",
 	routeDetailTime: "30 mins",
 	routeDetailName: "Harajiri Waterfall",
-	routeDetailStoryTitle: "Nature's Power",
+	routeDetailStoryTitle: "The Majestic Falls",
 	routeDetailBigImage: "/image/model-route/1/harajiri-fall/1.jpg",
 	routeDetailDescription: "A stunning waterfall in Bungo Ono City",
 	routeDetailLocation: "Bungo Ono City, Oita Prefecture",
@@ -48,30 +48,22 @@ export const Default: Story = {
 	},
 };
 
-export const LongLocation: Story = {
+export const LongTitle: Story = {
 	args: {
 		routeDetails: {
 			...mockRouteDetails,
-			routeDetailLocation:
-				"Bungo Ono City Historical District, Oita Prefecture, Kyushu Region",
-			routeDetailAddress:
-				"Harajiri Falls Historical Park, 1648-1 Ogata, Bungo Ono City, Oita Prefecture 879-7111",
+			routeDetailName: "The Historic Harajiri Waterfall Nature Reserve",
+			routeDetailStoryTitle: "A Journey Through Time and Nature",
 		},
 	},
 };
 
-export const WithMultipleHashtags: Story = {
+export const LastStop: Story = {
 	args: {
 		routeDetails: {
 			...mockRouteDetails,
-			routeHashtag: [
-				"#HarajiriFalls",
-				"#BungoOno",
-				"#JapaneseNiagara",
-				"#OitaPrefecture",
-				"#JapanTravel",
-				"#WaterfallLovers",
-			],
+			stop: "FINAL STOP",
+			routeDetailTime: "1 hour",
 		},
 	},
 };

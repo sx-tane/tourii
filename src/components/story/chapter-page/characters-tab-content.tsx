@@ -1,3 +1,4 @@
+import type { CharacterProps } from "@/app/v2/(stories)/types";
 import CharacterCard from "@/components/character/character-card/character-card";
 import {
 	Card,
@@ -5,7 +6,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { motion } from "framer-motion";
 import type React from "react";
 

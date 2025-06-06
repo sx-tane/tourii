@@ -41,7 +41,7 @@ const mockVideoStory: StoryResponseDto = {
 };
 
 const meta = {
-	title: "Story/StoryComponent",
+	title: "Story/StoryPage/StoryComponent",
 	component: StoryComponent,
 	parameters: {
 		layout: "fullscreen",

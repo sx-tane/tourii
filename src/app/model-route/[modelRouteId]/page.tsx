@@ -5,8 +5,8 @@ import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import ModelRouteIntro from "@/components/model-route/route-component/model-route-intro";
 import RouteDestination from "@/components/model-route/route-component/route-destination";
-import BottomSection from "@/components/model-route/route-component/route-details/bottom-section/bottom-section";
-import IntroUpperSection from "@/components/model-route/route-component/route-details/intro-upper-section";
+import BottomSection from "@/components/model-route/route-details/bottom-section/bottom-section";
+import IntroUpperSection from "@/components/model-route/route-details/intro-upper-section";
 import { modelRouteData } from "@/lib/data/model-route/bungo-ono/model-route-selection-data";
 import type { ModelRoute } from "@/types/model-route-type";
 import { useParams } from "next/navigation"; // Import useParams

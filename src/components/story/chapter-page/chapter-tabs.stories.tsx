@@ -197,7 +197,7 @@ const mockChapters: StoryChapterResponseDto[] = [
 ];
 
 const meta: Meta<typeof ChapterTabs> = {
-	title: "Story/Chapter/ChapterTabs", // Adjusted title based on path
+	title: "Story/ChapterPage/ChapterTabs", // Adjusted title based on path
 	component: ChapterTabs,
 	tags: ["autodocs"], // Optional: enables automatic documentation generation
 	parameters: {

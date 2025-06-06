@@ -28,7 +28,7 @@ const mockSelections = [
 ];
 
 const meta = {
-	title: "Story/StorySelection",
+	title: "Story/StoryPage/StorySelection",
 	parameters: {
 		layout: "centered",
 		backgrounds: {

@@ -4,9 +4,14 @@ import type { StorySelection } from "@/app/v2/(stories)/types";
 import type { RootState } from "../../store";
 import { StoryResponseDto } from "@/api/generated";
 
+// Create a serializable type that extends the API response
+interface SerializableStory extends Omit<StoryResponseDto, 'isSelected'> {
+	isSelected?: boolean;
+}
+
 interface StoriesState {
-	stories: StoryResponseDto[];
-	selectedStory: StoryResponseDto | null;
+	stories: SerializableStory[];
+	selectedStory: SerializableStory | null;
 }
 
 const initialState: StoriesState = {
@@ -14,6 +19,9 @@ const initialState: StoriesState = {
 	selectedStory: null,
 };
 
+/**
+ * Slice for managing stories state.
+ */
 const storiesSlice = createSlice({
 	name: "stories",
 	initialState,
@@ -31,17 +39,30 @@ const storiesSlice = createSlice({
 				: null;
 		},
 		setStories: (state, action: PayloadAction<StoryResponseDto[]>) => {
-			state.stories = action.payload;
+			// Create serializable copies of the API response objects
+			const serializedStories: SerializableStory[] = action.payload.map(story => ({
+				...story,
+				isSelected: false
+			}));
+			
+			state.stories = serializedStories;
 			const currentSelectedId = state.selectedStory?.storyId;
-			state.selectedStory =
-				state.stories.find((s) => s.storyId === currentSelectedId) ||
+			
+			// Find the selected story but don't modify it yet
+			const newSelectedStory = state.stories.find((s) => s.storyId === currentSelectedId) ||
 				state.stories[1] ||
 				null;
-
-			state.stories = state.stories.map((story) => ({
-				...story,
-				isSelected: story.storyId === state.selectedStory?.storyId,
-			}));
+			
+			// Only update if there's a change to prevent unnecessary re-renders
+			if (state.selectedStory?.storyId !== newSelectedStory?.storyId) {
+				state.selectedStory = newSelectedStory;
+				
+				// Update the selected state only if selection changed
+				state.stories = state.stories.map((story) => ({
+					...story,
+					isSelected: story.storyId === newSelectedStory?.storyId,
+				}));
+			}
 		},
 	},
 });
@@ -50,6 +71,11 @@ export const { setSelectedStory, setStories } = storiesSlice.actions;
 
 const selectStoriesState = (state: RootState) => state.stories;
 
+/**
+ * Selector to get the stories and selected story data.
+ * @param state - The root state.
+ * @returns The stories and selected story data.
+ */
 export const selectStories = createSelector(
 	[selectStoriesState],
 	(storiesState) => ({

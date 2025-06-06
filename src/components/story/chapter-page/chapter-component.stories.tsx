@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ChapterComponent from "./chapter-component";
 
 const meta = {
-	title: "Story/Chapter/Content",
+	title: "Story/ChapterPage/Content",
 	component: ChapterComponent,
 	tags: ["autodocs"],
 	parameters: {

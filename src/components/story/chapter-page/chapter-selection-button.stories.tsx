@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import ChapterSelectionButton from "./chapter-selection-button";
 
 const meta = {
-	title: "Story/Chapter/SelectionButton",
+	title: "Story/ChapterPage/SelectionButton",
 	component: ChapterSelectionButton,
 	tags: ["autodocs"],
 	parameters: {

@@ -1,24 +1,20 @@
-import type { ReactNode } from "react";
+import Loading from "@/app/loading";
+import HeaderApp from "@/components/header/header-component/header-launch-app";
+import { type ReactNode, Suspense } from "react";
 
-interface RoutesLayoutProps {
+interface StoriesLayoutProps {
 	children: ReactNode;
 }
 
-const RoutesLayout = ({ children }: RoutesLayoutProps) => {
+const StoriesLayout = ({ children }: StoriesLayoutProps) => {
 	return (
-		<div className="min-h-screen bg-gray-50">
-			<div className="bg-white shadow-sm">
-				<div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-					<h1 className="text-2xl font-bold text-gray-900">Routes</h1>
-					<p className="mt-1 text-sm text-gray-500">
-						Discover curated walking, cycling, and public transport routes
-						through Japan's most beautiful locations
-					</p>
-				</div>
+		<div className="min-h-screen animate-fadeIn overflow-hidden before:fixed before:inset-0 before:z-[-1] before:bg-warmGrey">
+			<div className="mx-6">
+				<HeaderApp theme={"white"} />
 			</div>
-			<main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">{children}</main>
+			<Suspense fallback={<Loading />}>{children}</Suspense>
 		</div>
 	);
 };
 
-export default RoutesLayout;
+export default StoriesLayout;

@@ -1,8 +1,8 @@
+import type { StoryChapterResponseDto } from "@/api/generated";
 import type { Meta, StoryObj } from "@storybook/react";
 import ChapterButton from "./chapter-button";
-import type { StoryChapterResponseDto } from "@/api/generated";
 const meta = {
-	title: "Story/Chapter/Button",
+	title: "Story/ChapterPage/Button",
 	component: ChapterButton,
 	tags: ["autodocs"],
 	parameters: {
