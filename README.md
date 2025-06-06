@@ -40,7 +40,7 @@ This frontend app, built with **Next.js App Router**, powers an immersive user j
 | Layer              | Technology                                                                                                        |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------- |
 | Frontend Framework | [Next.js 14 (App Router)](https://nextjs.org)                                                                     |
-| Styling            | [Tailwind CSS](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com)                                       |
+| Styling            | [Tailwind CSS v4](https://tailwindcss.com), [shadcn/ui](https://ui.shadcn.com)                                       |
 | Animations         | [Framer Motion](https://www.framer.com/motion)                                                                    |
 | State Management   | [Redux Toolkit + createSlice](https://redux-toolkit.js.org)                                                       |
 | Data Fetching      | [React Query](https://tanstack.com/query), SWR                                                                    |
