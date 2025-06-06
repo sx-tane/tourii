@@ -2,7 +2,7 @@
 
 import QuestFilterBar from "./quest-filter-bar";
 import QuestPagination from "./quest-pagination";
-import { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
+import type { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
 
 interface QuestListProps {
 	quests: QuestListResponseDto;
@@ -18,7 +18,7 @@ interface QuestListProps {
 	}) => void;
 	onPageChange: (page: number) => void;
 	isLoading?: boolean;
-	error?: any;
+        error?: unknown;
 	onQuestClick?: (questId: string) => void;
 }
 
@@ -51,14 +51,15 @@ const QuestList = ({
 			{!isLoading && !error && (
 				<>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-						{questList.map((quest: any) => {
+                                                {questList.map((quest: QuestListResponseDto["quests"][number]) => {
 							const isLocked = !quest.isUnlocked;
 							return (
-								<div
-									key={quest.questId}
-									className={`bg-[#fdfaf6] border border-[#e0d7c6] rounded-xl shadow-md p-4 flex flex-col items-stretch min-h-[370px] relative ${isLocked ? "opacity-60 pointer-events-none" : "cursor-pointer"}`}
-									onClick={() => !isLocked && onQuestClick?.(quest.questId)}
-								>
+                                                                <button
+                                                                        key={quest.questId}
+                                                                        type="button"
+                                                                        className={`bg-[#fdfaf6] border border-[#e0d7c6] rounded-xl shadow-md p-4 flex flex-col items-stretch min-h-[370px] relative ${isLocked ? "opacity-60 pointer-events-none" : "cursor-pointer"}`}
+                                                                        onClick={() => !isLocked && onQuestClick?.(quest.questId)}
+                                                                >
 									<div className="relative">
 										<img
 											src={quest.questImage}
@@ -89,13 +90,13 @@ const QuestList = ({
 										<span>★ {quest.totalMagatamaPointAwarded} PTS</span>
 										<span className="ml-2">{quest.questType}</span>
 									</div>
-									<button
-										className="mt-auto bg-[#a89c87] text-white rounded-md py-2 font-semibold text-base hover:bg-[#8c7c65] transition-colors duration-150"
-										disabled={isLocked}
-									>
-										{isLocked ? "Locked" : "Start Quest"}
-									</button>
-								</div>
+                                                                        <span
+                                                                               className="mt-auto bg-[#a89c87] text-white rounded-md py-2 font-semibold text-base hover:bg-[#8c7c65] transition-colors duration-150 text-center"
+                                                                               aria-disabled={isLocked}
+                                                                        >
+                                                                               {isLocked ? "Locked" : "Start Quest"}
+                                                                        </span>
+                                                                </button>
 							);
 						})}
 					</div>
