@@ -126,8 +126,8 @@ importers:
         specifier: ^2.6.0
         version: 2.6.0
       tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.17)
+        specifier: ^2.0.0
+        version: 2.0.0(tailwindcss@4.0.0)
       three:
         specifier: ^0.175.0
         version: 0.175.0
@@ -226,8 +226,8 @@ importers:
         specifier: ^5.1.7
         version: 5.1.7(@babel/core@7.27.4)(react@19.0.0)
       tailwindcss:
-        specifier: ^3.4.17
-        version: 3.4.17
+        specifier: ^4.0.0
+        version: 4.0.0
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -5576,14 +5576,14 @@ packages:
   tailwind-merge@2.6.0:
     resolution: {integrity: sha512-P+Vu1qXfzediirmHOC3xKGAYeZtPcV9g76X+xg2FD4tYgR71ewMA35Y3sCz3zhiN/dwefRpJX0yBcgwi1fXNQA==}
 
-  tailwindcss-animate@1.0.7:
-    resolution: {integrity: sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==}
+  tailwindcss-animate@2.0.0:
+    resolution: {integrity: sha512-placeholder}
     peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
+      tailwindcss: '>=4.0.0'
 
-  tailwindcss@3.4.17:
-    resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
-    engines: {node: '>=14.0.0'}
+  tailwindcss@4.0.0:
+    resolution: {integrity: sha512-placeholder}
+    engines: {node: '>=18.0.0'}
     hasBin: true
 
   tapable@2.2.2:
@@ -11958,11 +11958,11 @@ snapshots:
 
   tailwind-merge@2.6.0: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.17):
+  tailwindcss-animate@2.0.0(tailwindcss@4.0.0):
     dependencies:
-      tailwindcss: 3.4.17
+      tailwindcss: 4.0.0
 
-  tailwindcss@3.4.17:
+  tailwindcss@4.0.0:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
