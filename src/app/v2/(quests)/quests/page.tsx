@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
 
-
 export default function QuestsPage() {
 	const [filters, setFilters] = useState({
 		questType: "all",
@@ -16,18 +15,17 @@ export default function QuestsPage() {
 	const [page, setPage] = useState(1);
 	const router = useRouter();
 
-        const query = [
-                "/api/quests?",
-                filters.questType !== "all" ? `type=${filters.questType}` : null,
-                filters.unlockStatus !== "all" ? `unlocked=${filters.unlockStatus}` : null,
-                filters.premiumStatus !== "all" ? `premium=${filters.premiumStatus}` : null,
+	const query = [
+		"/api/quests?",
+		filters.questType !== "all" ? `type=${filters.questType}` : null,
+		filters.unlockStatus !== "all" ? `unlocked=${filters.unlockStatus}` : null,
+		filters.premiumStatus !== "all" ? `premium=${filters.premiumStatus}` : null,
 		`page=${page}`,
 	]
 		.filter(Boolean)
 		.join("&");
 
-        const { data, error, isLoading } =
-                useProxySWR<QuestListResponseDto>(query);
+	const { data, error, isLoading } = useProxySWR<QuestListResponseDto>(query);
 
 	const handleQuestClick = (questId: string) => {
 		router.push(`/v2/(quests)/quests/${questId}`);
