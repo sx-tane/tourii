@@ -10,7 +10,7 @@ The main way the frontend interacts with the backend API involves three key part
 
 1.  **Client-Side SWR Hooks (e.g., in `src/hooks/`)**:
     *   These hooks (like `getSagas.ts` or `getSagaById.ts`) are used in UI components.
-    *   They use a fetcher function (e.g., `proxyFetcher` from `src/lib/swr/fetcher.ts`) to make requests to internal Next.js API routes (e.g., `/api/stories/sagas`).
+    *   They call internal Next.js API routes (e.g., `/api/stories/sagas`) using the `useProxySWR` helper which wraps a `proxyFetcher` for standardized error handling.
 
 2.  **Next.js API Routes (Proxy Routes - e.g., in `src/app/api/`)**:
     *   These server-side routes (e.g., `src/app/api/stories/sagas/route.ts`) receive requests from the client-side hooks.
@@ -40,17 +40,14 @@ This example demonstrates fetching all story sagas using a custom SWR hook (`get
 **1. Client-Side SWR Hook:**
 ```tsx
 // src/hooks/stories/getSagas.ts
-import useSWR from "swr";
-import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
 export function getSagas() {
   const swrKey = "/api/stories/sagas"; // Calls the Next.js API proxy route
 
-  const { data, error, isLoading, mutate } = useSWR<
-    StoryResponseDto[],
-    StructuredError
-  >(swrKey, proxyFetcher<StoryResponseDto[]>); // proxyFetcher defined in src/lib/swr/fetcher.ts
+  const { data, error, isLoading, mutate } =
+    useProxySWR<StoryResponseDto[]>(swrKey);
 
   return {
     sagas: data, // Data is typed by the SDK according to openapi.json (via the proxy)
@@ -138,20 +135,13 @@ This follows the same pattern. The client-side hook `getSagaById` (from `src/hoo
 **Client-Side SWR Hook:**
 ```tsx
 // src/hooks/stories/getSagaById.ts
-import useSWR from "swr";
-import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { StoryChapterResponseDto } from "@/api/generated";
 
 export const getSagaById = (storyId: string | undefined) => {
   const swrKey = storyId ? `/api/stories/${storyId}/chapters` : null;
-  const { data, error, isLoading, mutate } = useSWR<
-    StoryChapterResponseDto[],
-    StructuredError
-  >(
-    swrKey,
-    storyId ? proxyFetcher<StoryChapterResponseDto[]> : null,
-    { shouldRetryOnError: false }
-  );
+  const { data, error, isLoading, mutate } =
+    useProxySWR<StoryChapterResponseDto[]>(swrKey, { shouldRetryOnError: false });
 
   return {
     storyChapter: data,
@@ -217,7 +207,7 @@ export async function GET(
 ## 💥 Error Handling
 
 When using the proxy pattern:
-- **Client-Side**: The `proxyFetcher` is responsible for attempting to parse errors from the Next.js API route. The `error` object returned by SWR will be the `StructuredError` (defined in `src/lib/swr/fetcher.ts`) if the proxy route returns an error.
+- **Client-Side**: The `useProxySWR` hook wraps a `proxyFetcher` that parses errors from the Next.js API route. The `error` object returned by SWR will be the `StructuredError` (defined in `src/lib/swr/fetcher.ts`) if the proxy route returns an error.
 - **Server-Side (in API Route)**: The `executeValidatedServiceCall` helper catches errors from the SDK call (e.g., `ApiError` from `@/api/generated/core/ApiError.ts`). It then transforms these into a standardized JSON response (e.g., using `touriiErrorResponse`).
 
 ```ts
@@ -229,7 +219,7 @@ When using the proxy pattern:
 //   // Display user-friendly message based on error.message or error.code
 // }
 ```
-Your `src/lib/errors.ts` utilities might be used by the `proxyFetcher` or for other client-side error handling needs if necessary, but primary SDK errors are handled server-side first.
+Your `src/lib/errors.ts` utilities might be used by the `proxyFetcher` (via `useProxySWR`) or for other client-side error handling needs if necessary, but primary SDK errors are handled server-side first.
 
 ---
 

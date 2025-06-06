@@ -1,15 +1,11 @@
 "use client";
 
-import useSWR from "swr";
 import { useState } from "react";
 import QuestList from "@/components/quest/quest-list";
 import { useRouter } from "next/navigation";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
+import type { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
 
-const fetcher = async (url: string) => {
-	const res = await fetch(url);
-	if (!res.ok) throw new Error("Failed to fetch quests");
-	return res.json();
-};
 
 export default function QuestsPage() {
 	const [filters, setFilters] = useState({
@@ -20,17 +16,18 @@ export default function QuestsPage() {
 	const [page, setPage] = useState(1);
 	const router = useRouter();
 
-	const query = [
-		`/api/quests?`,
-		filters.questType !== "all" ? `type=${filters.questType}` : null,
-		filters.unlockStatus !== "all" ? `unlocked=${filters.unlockStatus}` : null,
-		filters.premiumStatus !== "all" ? `premium=${filters.premiumStatus}` : null,
+        const query = [
+                "/api/quests?",
+                filters.questType !== "all" ? `type=${filters.questType}` : null,
+                filters.unlockStatus !== "all" ? `unlocked=${filters.unlockStatus}` : null,
+                filters.premiumStatus !== "all" ? `premium=${filters.premiumStatus}` : null,
 		`page=${page}`,
 	]
 		.filter(Boolean)
 		.join("&");
 
-	const { data, error, isLoading } = useSWR(query, fetcher);
+        const { data, error, isLoading } =
+                useProxySWR<QuestListResponseDto>(query);
 
 	const handleQuestClick = (questId: string) => {
 		router.push(`/v2/(quests)/quests/${questId}`);

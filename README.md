@@ -77,16 +77,13 @@ Client-side SWR hooks call Next.js API routes. The API routes then use the SDK.
 
 ```typescript
 // Example: src/hooks/stories/getSagas.ts (Client-Side)
-import useSWR from "swr";
-import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher"; // Your custom fetcher
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { StoryResponseDto } from "@/api/generated/models/StoryResponseDto";
 
 export function getSagas() {
   const swrKey = "/api/stories/sagas"; // Points to your Next.js API proxy
-  const { data, error, isLoading, mutate } = useSWR<
-    StoryResponseDto[],
-    StructuredError
-  >(swrKey, proxyFetcher);
+  const { data, error, isLoading, mutate } =
+    useProxySWR<StoryResponseDto[]>(swrKey);
 
   return {
     sagas: data, // Data is typed via the proxy
@@ -128,7 +125,7 @@ src/
 ├── components/               ← UI modules by domain
 ├── hooks/                    ← Custom React hooks (calling proxy API routes)
 ├── lib/
-│   ├── swr/                  ← SWR utilities like proxyFetcher
+│   ├── swr/                  ← SWR utilities (`useProxySWR`, `proxyFetcher`)
 │   ├── websocket.ts          ← WebSocket wrapper
 │   ├── blockchain/           ← EVM wallet logic
 │   └── redux/                ← Redux Toolkit store, with features/slices in ./features/
