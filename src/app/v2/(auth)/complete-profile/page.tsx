@@ -2,12 +2,14 @@
 
 import Loading from "@/app/loading";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { logger } from "../../../../utils/logger";
 
 export default function CompleteProfilePage() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const { data: session } = useSession();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [formData, setFormData] = useState({
@@ -21,32 +23,30 @@ export default function CompleteProfilePage() {
 		setError(null);
 
 		try {
-			// Temporary: Since API is not ready, just log and proceed
-			logger.info("Profile update requested with data:", formData);
+			const socialProvider = session?.user?.provider;
+			const socialId = session?.user?.providerAccountId || session?.user?.id;
 
-			// TODO: Once API is ready, uncomment this section
-			// const response = await fetch('/api/auth/complete-profile', {
-			//     method: 'POST',
-			//     headers: {
-			//         'Content-Type': 'application/json',
-			//     },
-			//     body: JSON.stringify(formData),
-			// });
-			//
-			// if (!response.ok) {
-			//     throw new Error('Failed to update profile');
-			// }
+			const response = await fetch("/api/auth/signup", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					email: formData.email,
+					username: formData.username,
+					socialProvider,
+					socialId,
+				}),
+			});
 
-			// For now, just proceed to dashboard
+			if (!response.ok) {
+				throw new Error("Failed to complete signup");
+			}
+
 			router.push("/v2/quests");
 		} catch (error) {
-			// For now, just log the error and proceed anyway
 			const errorMessage =
 				error instanceof Error ? error.message : "Unknown error occurred";
-			logger.error("Failed to update profile:", errorMessage);
-
-			// Still redirect to quests page since API isn't ready
-			router.push("/v2/quests");
+			setError(errorMessage);
+			logger.error("Failed to complete signup:", errorMessage);
 		} finally {
 			setIsLoading(false);
 		}

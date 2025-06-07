@@ -6,12 +6,16 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     accessToken?: string;
     refreshToken?: string;
+    provider?: string;
+    providerAccountId?: string;
   }
 
   interface Session extends DefaultSession {
     accessToken?: string;
     user?: {
       id?: string;
+      provider?: string;
+      providerAccountId?: string;
     } & DefaultSession['user'];
   }
 }
@@ -21,5 +25,7 @@ declare module 'next-auth/jwt' {
     accessToken?: string;
     refreshToken?: string;
     // id is typically stored in 'sub' (subject) claim
+    provider?: string;
+    providerAccountId?: string;
   }
-} 
+}
