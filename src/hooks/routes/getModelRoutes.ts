@@ -1,5 +1,4 @@
-import useSWR from "swr";
-import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 
 /**
@@ -7,17 +6,13 @@ import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteRes
  * @returns SWR response object containing the model routes data, loading state, error state, and mutation function.
  */
 export function getModelRoutes() {
-    const swrKey = "/api/routes/model-routes";
-
-    const { data, error, isLoading, mutate } = useSWR<
-        ModelRouteResponseDto[],
-        StructuredError
-    >(swrKey, proxyFetcher<ModelRouteResponseDto[]>);
-
-    return {
-        modelRoutes: data,
-        isLoadingModelRoutes: isLoading,
-        isErrorModelRoutes: error,
-        mutateModelRoutes: mutate,
-    };
+	const swrKey = "/api/routes/model-routes";
+	const { data, error, isLoading, mutate } =
+		useProxySWR<ModelRouteResponseDto[]>(swrKey);
+	return {
+		modelRoutes: data,
+		isLoadingModelRoutes: isLoading,
+		isErrorModelRoutes: error,
+		mutateModelRoutes: mutate,
+	};
 }

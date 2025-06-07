@@ -1,34 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import QuestOverview from "@/components/quest/quest-overview";
-import { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
-
-const fetchQuestById = async (questId: string) => {
-	const res = await fetch(`/api/quests/${questId}`);
-	if (!res.ok) throw new Error("Failed to fetch quest");
-	return res.json();
-};
+import { useProxySWR } from "@/lib/swr/useProxySWR";
+import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 
 export default function QuestDetailPage() {
 	const { questId } = useParams() as { questId: string };
-	const [quest, setQuest] = useState<QuestResponseDto | null>(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+	const swrKey = questId ? `/api/quests/${questId}` : null;
+	const { data, error, isLoading } = useProxySWR<QuestResponseDto>(swrKey);
 
-	useEffect(() => {
-		if (!questId) return;
-		setLoading(true);
-		fetchQuestById(questId)
-			.then((data) => setQuest(data.quest))
-			.catch((err) => setError(err.message))
-			.finally(() => setLoading(false));
-	}, [questId]);
+	if (isLoading) return <div className="p-8 text-center">Loading quest...</div>;
+	if (error)
+		return <div className="p-8 text-center text-red-600">{error.message}</div>;
+	if (!data) return <div className="p-8 text-center">Quest not found.</div>;
 
-	if (loading) return <div className="p-8 text-center">Loading quest...</div>;
-	if (error) return <div className="p-8 text-center text-red-600">{error}</div>;
-	if (!quest) return <div className="p-8 text-center">Quest not found.</div>;
-
-	return <QuestOverview quest={quest} />;
+	return <QuestOverview quest={data} />;
 }

@@ -38,7 +38,14 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 					</h1>
 					<div className="flex items-center text-[#7c6f57] text-sm mb-4 gap-4">
 						<span className="flex items-center gap-1">
-							<svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+							<svg
+								width="16"
+								height="16"
+								fill="none"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<title>Location</title>
 								<path
 									d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
 									fill="#7c6f57"
@@ -47,7 +54,14 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 							San Francisco, CA
 						</span>
 						<span className="flex items-center gap-1">
-							<svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+							<svg
+								width="16"
+								height="16"
+								fill="none"
+								viewBox="0 0 24 24"
+								aria-hidden="true"
+							>
+								<title>Duration</title>
 								<path
 									d="M12 8V4m0 0C7.03 4 3 8.03 3 13c0 2.21 1.79 4 4 4h10c2.21 0 4-1.79 4-4 0-4.97-4.03-9-9-9z"
 									stroke="#7c6f57"
@@ -93,7 +107,14 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 						<div className="font-semibold mb-1 text-[#3d2c13]">Rewards</div>
 						<div className="flex flex-col gap-1">
 							<span className="flex items-center gap-2 text-[#a88c2c] font-medium">
-								<svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+								<svg
+									width="18"
+									height="18"
+									fill="none"
+									viewBox="0 0 24 24"
+									aria-hidden="true"
+								>
+									<title>Points</title>
 									<path
 										d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
 										fill="#a88c2c"

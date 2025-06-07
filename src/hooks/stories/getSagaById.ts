@@ -1,5 +1,4 @@
-import useSWR from "swr";
-import { proxyFetcher, type StructuredError } from "@/lib/swr/fetcher";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { StoryChapterResponseDto } from "@/api/generated";
 
 /**
@@ -10,19 +9,8 @@ import type { StoryChapterResponseDto } from "@/api/generated";
  */
 export const getSagaById = (storyId: string | undefined) => {
 	const swrKey = storyId ? `/api/stories/${storyId}/chapters` : null;
-
-	const { data, error, isLoading, mutate } = useSWR<
-		StoryChapterResponseDto[],
-		StructuredError
-	>(
-		swrKey,
-		storyId ? proxyFetcher<StoryChapterResponseDto[]> : null, // Use imported proxyFetcher
-		{
-			shouldRetryOnError: false,
-			// suspense: true, // Optional
-		},
-	);
-
+	const { data, error, isLoading, mutate } =
+		useProxySWR<StoryChapterResponseDto[]>(swrKey, { shouldRetryOnError: false });
 	return {
 		storyChapterList: data,
 		isLoadingStoryChapterList: isLoading,
