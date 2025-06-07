@@ -100,13 +100,17 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     /** JWT callback fires when a token is created or updated */
     async jwt({ token, user, account }: { token: JWT; user: User; account: Account | null; profile?: Profile; trigger?: "signIn" | "signUp" | "update"; isNewUser?: boolean; session?: any; }) {
-      // On initial sign-in, attach returned tokens to the JWT
+      // On initial sign-in, attach returned tokens and provider info to the JWT
       if (user) {
         token.sub = user.id;
         token.name = user.name;
         token.email = user.email;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+      }
+      if (account) {
+        token.provider = account.provider;
+        token.providerAccountId = account.providerAccountId;
       }
       // If the JWT is expired or nearing expiry, attempt to refresh (using refreshToken)
       const accessToken = token.accessToken as string | undefined;
@@ -155,6 +159,8 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub as string;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.provider = token.provider as string | undefined;
+        session.user.providerAccountId = token.providerAccountId as string | undefined;
         session.accessToken = token.accessToken as string;
         // (Optionally include refresh token in session if needed on client; usually we keep it server-side only)
       }
