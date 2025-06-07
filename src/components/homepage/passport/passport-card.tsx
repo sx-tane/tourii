@@ -1,14 +1,8 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 import type React from "react";
 
-const notoSerifJP = Noto_Serif_JP({
-	subsets: ["latin"],
-	weight: ["700"],
-	preload: true,
-	display: "block",
-});
+const notoSerifJP = { className: "" };
 
 interface PassportCardProps {
 	passportType: string;

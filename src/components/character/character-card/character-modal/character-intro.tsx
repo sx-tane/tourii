@@ -5,17 +5,13 @@ import {
 	upToDownVariants,
 } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
-import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 import type React from "react";
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import InfoTable from "./info-table";
 
-export const notoSerifJP = Noto_Serif_JP({
-	subsets: ["latin"],
-	display: "swap",
-});
+export const notoSerifJP = { className: "" };
 
 export interface CharacterModalLeftProps {
 	character: CharacterProps;
