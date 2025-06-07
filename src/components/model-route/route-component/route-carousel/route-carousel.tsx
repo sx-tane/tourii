@@ -95,7 +95,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 						collapsed: { width: "280px", height: "400px" },
 					},
 					expandedContainer: {
-						className: "relative w-screen h-[90vh] rounded-3xl z-20",
+						className: "relative w-screen h-[85vh] rounded-3xl z-20",
 					},
 					dockContainer: {
 						className: "max-w-[700px] overflow-hidden",

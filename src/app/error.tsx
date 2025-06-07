@@ -10,6 +10,8 @@ interface TouriiErrorProps {
 	errorMessage?: string;
 	status?: number;
 	onRetry?: () => void;
+	titleTextColor?: string;
+	textColor?: string;
 	isEmpty?: boolean; // To handle the "no stories" case slightly differently
 }
 
@@ -18,6 +20,8 @@ const TouriiError: React.FC<TouriiErrorProps> = ({
 	status,
 	onRetry,
 	isEmpty = false,
+	titleTextColor = "text-red",
+	textColor = "text-charcoal",
 }) => {
 	// Determine the title based on status or if it's an empty state
 	const title = isEmpty ? "No Content" : status ? `${status} ERROR` : "Error";
@@ -41,10 +45,14 @@ const TouriiError: React.FC<TouriiErrorProps> = ({
 					className={`h-32 w-32 ${!isEmpty ? "animate-spin" : ""} md:h-48 md:w-48 xl:h-60 xl:w-60`}
 					priority={true}
 				/>
-				<h1 className="py-5 text-4xl font-extrabold tracking-widest text-red md:text-6xl">
+				<h1
+					className={`py-5 text-4xl font-extrabold tracking-widest ${titleTextColor} md:text-6xl`}
+				>
 					{title}
 				</h1>
-				<h2 className="text-center text-base font-bold uppercase tracking-wider text-warmGrey md:text-lg">
+				<h2
+					className={`text-center text-base font-bold uppercase tracking-wider ${textColor} md:text-lg`}
+				>
 					{errorMessage}
 				</h2>
 				{onRetry && (

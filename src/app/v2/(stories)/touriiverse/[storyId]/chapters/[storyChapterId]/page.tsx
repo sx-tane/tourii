@@ -89,7 +89,13 @@ const ChapterPage: React.FC = () => {
 	// Error states
 	if (isErrorStoryChapterList && !selectedStory?.chapterList?.length) {
 		// If API fetch failed AND we don't have data from Redux
-		return <TouriiError />;
+		return (
+			<TouriiError
+				errorMessage="Failed to load story data."
+				textColor="text-warmGrey"
+				titleTextColor="text-warmGrey"
+			/>
+		);
 	}
 
 	// Determine the final chapter and list to use

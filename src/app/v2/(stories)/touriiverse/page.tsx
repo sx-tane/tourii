@@ -79,6 +79,8 @@ const Touriiverse: NextPage = () => {
 				errorMessage={errorMessage}
 				status={errorStatus}
 				onRetry={mutateSagas}
+				textColor="text-warmGrey"
+				titleTextColor="text-warmGrey"
 			/>
 		);
 	}
@@ -88,6 +90,8 @@ const Touriiverse: NextPage = () => {
 			<TouriiError
 				errorMessage="No stories are currently available."
 				isEmpty={true}
+				textColor="text-warmGrey"
+				titleTextColor="text-warmGrey"
 			/>
 		);
 	}

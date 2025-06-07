@@ -63,6 +63,8 @@ const RegionModelRoutesPage: NextPage = () => {
 				errorMessage={errorMessage}
 				status={errorStatus}
 				onRetry={mutateModelRoutes}
+				textColor="text-charcoal"
+				titleTextColor="text-red"
 			/>
 		);
 	}
@@ -89,7 +91,7 @@ const RegionModelRoutesPage: NextPage = () => {
 	}
 
 	return (
-		<div className="w-full">
+		<div className="w-[95vw] mx-auto py-5">
 			{/* Route Carousel */}
 			<motion.div
 				initial={{ opacity: 0, scale: 0.95 }}

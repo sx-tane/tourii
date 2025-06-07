@@ -264,6 +264,8 @@ const SagaChapterPage: NextPage = () => {
 					isErrorStoryChapterList.message || "Failed to load story data."
 				}
 				onRetry={mutateStoryChapterList}
+				textColor="text-warmGrey"
+				titleTextColor="text-warmGrey"
 			/>
 		);
 	}
@@ -282,7 +284,12 @@ const SagaChapterPage: NextPage = () => {
 			`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list.`,
 		);
 		return (
-			<TouriiError errorMessage="This story has no chapters." isEmpty={true} />
+			<TouriiError
+				errorMessage="This story has no chapters."
+				isEmpty={true}
+				textColor="text-warmGrey"
+				titleTextColor="text-warmGrey"
+			/>
 		);
 	}
 
