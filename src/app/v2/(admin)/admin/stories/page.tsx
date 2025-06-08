@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { getSagas } from "@/hooks/stories/getSagas";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type { StoryCreateRequestDto, StoryResponseDto } from "@/api/generated";
-import { Edit, Plus, Eye } from "lucide-react";
+import { Edit, Plus, Eye, Trash2 } from "lucide-react";
 
 export default function AdminStories() {
 	const { sagas, isLoadingSagas, mutateSagas } = getSagas();
@@ -12,6 +12,7 @@ export default function AdminStories() {
 		null,
 	);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [deletingStoryId, setDeletingStoryId] = useState<string | null>(null);
 
 	const [form, setForm] = useState<StoryCreateRequestDto>({
 		sagaName: "",
@@ -116,6 +117,29 @@ export default function AdminStories() {
 		setShowCreateModal(true);
 	};
 
+	const handleDelete = async (storyId: string, sagaName: string) => {
+		if (
+			!confirm(
+				`Are you sure you want to delete the story "${sagaName}" and all its chapters? This action cannot be undone.`,
+			)
+		) {
+			return;
+		}
+
+		setDeletingStoryId(storyId);
+		try {
+			await makeApiRequest(`/api/stories/${storyId}`, {}, "DELETE");
+			await mutateSagas();
+		} catch (error) {
+			console.error("Failed to delete story:", error);
+			alert(
+				`Failed to delete story: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		} finally {
+			setDeletingStoryId(null);
+		}
+	};
+
 	if (isLoadingSagas) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
@@ -208,16 +232,36 @@ export default function AdminStories() {
 													onClick={() => handleEdit(story)}
 													className="rounded-lg bg-warmGrey2 p-2 text-charcoal hover:bg-warmGrey3 transition-all"
 													title="Edit Story"
+													disabled={deletingStoryId !== null}
 												>
 													<Edit size={16} />
 												</button>
 												<a
 													href={`/v2/admin/stories/${story.storyId}`}
-													className="rounded-lg bg-mustard p-2 text-charcoal hover:bg-opacity-80 transition-all"
+													className={`rounded-lg bg-mustard p-2 text-charcoal hover:bg-opacity-80 transition-all ${
+														deletingStoryId !== null
+															? "pointer-events-none opacity-50"
+															: ""
+													}`}
 													title="View Chapters"
 												>
 													<Eye size={16} />
 												</a>
+												<button
+													type="button"
+													onClick={() =>
+														handleDelete(story.storyId, story.sagaName)
+													}
+													className={`rounded-lg p-2 transition-all ${
+														deletingStoryId === story.storyId
+															? "bg-red-200 text-red-600 cursor-not-allowed"
+															: "bg-red-100 text-red-700 hover:bg-red-200"
+													}`}
+													title="Delete Story"
+													disabled={deletingStoryId !== null}
+												>
+													<Trash2 size={16} />
+												</button>
 											</div>
 										</td>
 									</tr>

@@ -6,7 +6,7 @@ import type {
 	ModelRouteCreateRequestDto,
 	ModelRouteResponseDto,
 } from "@/api/generated";
-import { Edit, Plus, Eye, MapPin } from "lucide-react";
+import { Edit, Plus, Eye, MapPin, Trash2 } from "lucide-react";
 
 export default function AdminModelRoutes() {
 	const { modelRoutes, isLoadingModelRoutes, mutateModelRoutes } =
@@ -15,6 +15,7 @@ export default function AdminModelRoutes() {
 	const [editingRoute, setEditingRoute] =
 		useState<ModelRouteResponseDto | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [deletingRouteId, setDeletingRouteId] = useState<string | null>(null);
 
 	const [form, setForm] = useState<ModelRouteCreateRequestDto>({
 		storyId: "",
@@ -134,6 +135,29 @@ export default function AdminModelRoutes() {
 		setShowCreateModal(true);
 	};
 
+	const handleDelete = async (modelRouteId: string, routeName: string) => {
+		if (
+			!confirm(
+				`Are you sure you want to delete the route "${routeName}" and all its tourist spots? This action cannot be undone.`,
+			)
+		) {
+			return;
+		}
+
+		setDeletingRouteId(modelRouteId);
+		try {
+			await makeApiRequest(`/api/routes/${modelRouteId}`, {}, "DELETE");
+			await mutateModelRoutes();
+		} catch (error) {
+			console.error("Failed to delete model route:", error);
+			alert(
+				`Failed to delete model route: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		} finally {
+			setDeletingRouteId(null);
+		}
+	};
+
 	if (isLoadingModelRoutes) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
@@ -230,16 +254,36 @@ export default function AdminModelRoutes() {
 													onClick={() => handleEdit(route)}
 													className="rounded-lg bg-warmGrey2 p-2 text-charcoal hover:bg-warmGrey3 transition-all"
 													title="Edit Route"
+													disabled={deletingRouteId !== null}
 												>
 													<Edit size={16} />
 												</button>
 												<a
 													href={`/v2/admin/model-routes/${route.modelRouteId}`}
-													className="rounded-lg bg-mustard p-2 text-charcoal hover:bg-opacity-80 transition-all"
+													className={`rounded-lg bg-mustard p-2 text-charcoal hover:bg-opacity-80 transition-all ${
+														deletingRouteId !== null
+															? "pointer-events-none opacity-50"
+															: ""
+													}`}
 													title="View Tourist Spots"
 												>
 													<Eye size={16} />
 												</a>
+												<button
+													type="button"
+													onClick={() =>
+														handleDelete(route.modelRouteId, route.routeName)
+													}
+													className={`rounded-lg p-2 transition-all ${
+														deletingRouteId === route.modelRouteId
+															? "bg-red-200 text-red-600 cursor-not-allowed"
+															: "bg-red-100 text-red-700 hover:bg-red-200"
+													}`}
+													title="Delete Route"
+													disabled={deletingRouteId !== null}
+												>
+													<Trash2 size={16} />
+												</button>
 											</div>
 										</td>
 									</tr>

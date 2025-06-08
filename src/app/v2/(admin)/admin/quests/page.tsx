@@ -6,8 +6,7 @@ import type { QuestCreateRequestDto, QuestResponseDto } from "@/api/generated";
 import { Edit, Plus, Eye, MapPin, Star, Trophy, Users } from "lucide-react";
 
 export default function AdminQuests() {
-	const { quests, isLoadingQuests, mutateQuests } =
-		getQuests("/api/quests?page=1");
+	const { quests, isLoadingQuests, mutateQuests } = getQuests("/api/quests");
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingQuest, setEditingQuest] = useState<QuestResponseDto | null>(
 		null,
@@ -89,6 +88,7 @@ export default function AdminQuests() {
 			const updateData = {
 				...form,
 				questId: editingQuest.questId,
+				updUserId: "admin-user", // TODO: Replace with actual user ID from auth
 			};
 			await makeApiRequest(
 				"/api/quests/update-quest",

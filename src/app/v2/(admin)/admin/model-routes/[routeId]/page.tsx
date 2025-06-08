@@ -7,7 +7,15 @@ import type {
 	TouristSpotCreateRequestDto,
 	TouristSpotResponseDto,
 } from "@/api/generated";
-import { ArrowLeft, Edit, Plus, MapPin, Camera, Tag } from "lucide-react";
+import {
+	ArrowLeft,
+	Edit,
+	Plus,
+	MapPin,
+	Camera,
+	Tag,
+	Trash2,
+} from "lucide-react";
 
 interface Props {
 	params: Promise<{ routeId: string }>;
@@ -33,6 +41,7 @@ export default function TouristSpotManagement({ params }: Props) {
 		null,
 	);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [deletingSpotId, setDeletingSpotId] = useState<string | null>(null);
 
 	const [form, setForm] = useState<TouristSpotCreateRequestDto>({
 		storyChapterId: "",
@@ -184,6 +193,33 @@ export default function TouristSpotManagement({ params }: Props) {
 		setShowCreateModal(true);
 	};
 
+	const handleDelete = async (touristSpotId: string, spotName: string) => {
+		if (
+			!confirm(
+				`Are you sure you want to delete the tourist spot "${spotName}"? This action cannot be undone.`,
+			)
+		) {
+			return;
+		}
+
+		setDeletingSpotId(touristSpotId);
+		try {
+			await makeApiRequest(
+				`/api/routes/delete-tourist-spot/${touristSpotId}`,
+				{},
+				"DELETE",
+			);
+			await mutateModelRoute();
+		} catch (error) {
+			console.error("Failed to delete tourist spot:", error);
+			alert(
+				`Failed to delete tourist spot: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		} finally {
+			setDeletingSpotId(null);
+		}
+	};
+
 	if (!isParamsLoaded || isLoadingModelRoute) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
@@ -314,8 +350,27 @@ export default function TouristSpotManagement({ params }: Props) {
 													onClick={() => handleEdit(spot)}
 													className="rounded-lg bg-warmGrey2 p-2 text-charcoal hover:bg-warmGrey3 transition-all"
 													title="Edit Tourist Spot"
+													disabled={deletingSpotId !== null}
 												>
 													<Edit size={16} />
+												</button>
+												<button
+													type="button"
+													onClick={() =>
+														handleDelete(
+															spot.touristSpotId,
+															spot.touristSpotName,
+														)
+													}
+													className={`rounded-lg p-2 transition-all ${
+														deletingSpotId === spot.touristSpotId
+															? "bg-red-200 text-red-600 cursor-not-allowed"
+															: "bg-red-100 text-red-700 hover:bg-red-200"
+													}`}
+													title="Delete Tourist Spot"
+													disabled={deletingSpotId !== null}
+												>
+													<Trash2 size={16} />
 												</button>
 											</div>
 										</td>

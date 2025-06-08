@@ -22,6 +22,9 @@ export default function SagaDetail() {
 	const [editingChapter, setEditingChapter] =
 		useState<StoryChapterResponseDto | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [deletingChapterId, setDeletingChapterId] = useState<string | null>(
+		null,
+	);
 
 	const [form, setForm] = useState<StoryChapterCreateRequestDto>({
 		touristSpotId: "",
@@ -146,6 +149,33 @@ export default function SagaDetail() {
 		setForm({ ...form, characterNameList: characters });
 	};
 
+	const handleDelete = async (chapterId: string, chapterTitle: string) => {
+		if (
+			!confirm(
+				`Are you sure you want to delete the chapter "${chapterTitle}"? This action cannot be undone.`,
+			)
+		) {
+			return;
+		}
+
+		setDeletingChapterId(chapterId);
+		try {
+			await makeApiRequest(
+				`/api/stories/delete-chapter/${chapterId}`,
+				{},
+				"DELETE",
+			);
+			await mutateStoryChapterList();
+		} catch (error) {
+			console.error("Failed to delete chapter:", error);
+			alert(
+				`Failed to delete chapter: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		} finally {
+			setDeletingChapterId(null);
+		}
+	};
+
 	if (isLoadingStoryChapterList) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
@@ -250,8 +280,27 @@ export default function SagaDetail() {
 													onClick={() => handleEdit(chapter)}
 													className="rounded-lg bg-warmGrey2 p-2 text-charcoal hover:bg-warmGrey3 transition-all"
 													title="Edit Chapter"
+													disabled={deletingChapterId !== null}
 												>
 													<Edit size={16} />
+												</button>
+												<button
+													type="button"
+													onClick={() =>
+														handleDelete(
+															chapter.storyChapterId,
+															chapter.chapterTitle,
+														)
+													}
+													className={`rounded-lg p-2 transition-all ${
+														deletingChapterId === chapter.storyChapterId
+															? "bg-red-200 text-red-600 cursor-not-allowed"
+															: "bg-red-100 text-red-700 hover:bg-red-200"
+													}`}
+													title="Delete Chapter"
+													disabled={deletingChapterId !== null}
+												>
+													<Trash2 size={16} />
 												</button>
 											</div>
 										</td>

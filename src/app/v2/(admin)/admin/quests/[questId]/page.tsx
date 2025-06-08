@@ -12,6 +12,7 @@ import {
 	Award,
 	Users,
 	Target,
+	Trash2,
 } from "lucide-react";
 
 interface Props {
@@ -51,8 +52,10 @@ export default function QuestTaskManagement({ params }: Props) {
 
 	const { quest, isLoadingQuest, mutateQuest } = getQuestById(questId);
 	const [showCreateModal, setShowCreateModal] = useState(false);
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const [editingTask, setEditingTask] = useState<any | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [deletingTaskId, setDeletingTaskId] = useState<string | null>(null);
 
 	const [form, setForm] = useState<TaskFormData>({
 		taskTheme: "STORY",
@@ -127,6 +130,7 @@ export default function QuestTaskManagement({ params }: Props) {
 		}
 	};
 
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const handleEdit = (task: any) => {
 		setEditingTask(task);
 		setForm({
@@ -144,6 +148,29 @@ export default function QuestTaskManagement({ params }: Props) {
 	const openCreateModal = () => {
 		resetForm();
 		setShowCreateModal(true);
+	};
+
+	const handleDelete = async (taskId: string, taskName: string) => {
+		if (
+			!confirm(
+				`Are you sure you want to delete the task "${taskName}"? This action cannot be undone.`,
+			)
+		) {
+			return;
+		}
+
+		setDeletingTaskId(taskId);
+		try {
+			await makeApiRequest(`/api/quests/delete-task/${taskId}`, {}, "DELETE");
+			await mutateQuest();
+		} catch (error) {
+			console.error("Failed to delete task:", error);
+			alert(
+				`Failed to delete task: ${error instanceof Error ? error.message : String(error)}`,
+			);
+		} finally {
+			setDeletingTaskId(null);
+		}
 	};
 
 	const getThemeColor = (theme: string) => {
@@ -346,8 +373,24 @@ export default function QuestTaskManagement({ params }: Props) {
 													onClick={() => handleEdit(task)}
 													className="rounded-lg bg-warmGrey2 p-2 text-charcoal hover:bg-warmGrey3 transition-all"
 													title="Edit Task"
+													disabled={isSubmitting || deletingTaskId !== null}
 												>
 													<Edit size={16} />
+												</button>
+												<button
+													type="button"
+													onClick={() =>
+														handleDelete(task.taskId, task.taskName)
+													}
+													className={`rounded-lg p-2 transition-all ${
+														deletingTaskId === task.taskId
+															? "bg-red-200 text-red-600 cursor-not-allowed"
+															: "bg-red-100 text-red-700 hover:bg-red-200"
+													}`}
+													title="Delete Task"
+													disabled={deletingTaskId !== null}
+												>
+													<Trash2 size={16} />
 												</button>
 											</div>
 										</td>
