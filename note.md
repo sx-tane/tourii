@@ -66,6 +66,9 @@ Model Route Response Dto
 - [X] Tablet Size all fuck up
 - [X] Release PR
 
-## 2025-06-06
-- [ ] Model Route Page
-- [ ] Separate Component with Page first
+## 2025-06-07
+- [X] Model Route Page
+- [X] Separate Component with Page first
+- [ ] Add the Route Destination Page
+- [ ] Add the Route Details Component
+- [ ] Add the Route Destination Component

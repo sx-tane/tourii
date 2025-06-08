@@ -63,6 +63,8 @@ const RegionModelRoutesPage: NextPage = () => {
 				errorMessage={errorMessage}
 				status={errorStatus}
 				onRetry={mutateModelRoutes}
+				textColor="text-charcoal"
+				titleTextColor="text-red"
 			/>
 		);
 	}
@@ -73,14 +75,14 @@ const RegionModelRoutesPage: NextPage = () => {
 
 	if (regionModelRoutes.length === 0) {
 		return (
-			<div className="flex flex-col items-center justify-center h-[90vh] text-warmGrey">
+			<div className="flex flex-col items-center justify-center h-[90vh] text-charcoal">
 				<h1 className="text-2xl font-bold mb-4">No Routes Found</h1>
 				<p className="text-lg mb-8">
 					No model routes available for {decodeURIComponent(regionName)}
 				</p>
 				<Link
 					href="/v2/region"
-					className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors"
+					className="px-6 py-3 bg-primary text-charcoal rounded-lg hover:bg-primary/80 transition-colors"
 				>
 					Back to Regions
 				</Link>
@@ -89,7 +91,7 @@ const RegionModelRoutesPage: NextPage = () => {
 	}
 
 	return (
-		<div className="w-full">
+		<div className="w-[95vw] mx-auto py-5">
 			{/* Route Carousel */}
 			<motion.div
 				initial={{ opacity: 0, scale: 0.95 }}

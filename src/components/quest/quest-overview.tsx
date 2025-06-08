@@ -11,8 +11,8 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 			{/* Background image */}
 			<div className="absolute inset-0 h-[340px] w-full overflow-hidden rounded-b-3xl">
 				<img
-					src={quest.quest.questImage}
-					alt={quest.quest.questName}
+					src={quest.questImage}
+					alt={quest.questName}
 					className="w-full h-full object-cover object-center opacity-90"
 				/>
 				<div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#f7f4ee]" />
@@ -22,19 +22,19 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 				{/* Left: Quest Info */}
 				<div className="bg-white/90 rounded-2xl shadow-lg p-8 flex-1 min-w-0 mr-0 md:mr-8">
 					<div className="flex gap-2 mb-2">
-						{quest.quest.isUnlocked && (
+						{quest.isUnlocked && (
 							<span className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
 								Available
 							</span>
 						)}
-						{quest.quest.isPremium && (
+						{quest.isPremium && (
 							<span className="bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 rounded-full">
 								Premium
 							</span>
 						)}
 					</div>
 					<h1 className="text-3xl font-bold text-[#1a140a] mb-2">
-						{quest.quest.questName}
+						{quest.questName}
 					</h1>
 					<div className="flex items-center text-[#7c6f57] text-sm mb-4 gap-4">
 						<span className="flex items-center gap-1">
@@ -74,7 +74,7 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 						</span>
 					</div>
 					<p className="text-[#4b3c1a] mb-4 text-base leading-relaxed">
-						{quest.quest.questDesc}
+						{quest.questDesc}
 					</p>
 					<div className="flex flex-wrap gap-2 mt-2">
 						{/* Example tags, replace with quest.tags if available */}
@@ -95,7 +95,7 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 						Quest Progress
 					</h2>
 					<div className="text-sm text-[#7c6f57] mb-2">
-						0 of {quest.quest.tasks?.length || 0} tasks completed
+						0 of {quest.tasks?.length || 0} tasks completed
 					</div>
 					<div className="h-2 w-full bg-[#ece5d6] rounded-full mb-4">
 						<div
@@ -120,7 +120,7 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 										fill="#a88c2c"
 									/>
 								</svg>
-								{quest.quest.totalMagatamaPointAwarded} points
+								{quest.totalMagatamaPointAwarded} points
 							</span>
 							<span className="flex items-center gap-2 text-[#7c6f57] font-medium">
 								<span className="text-xs font-bold text-purple-700">NFT</span>{" "}

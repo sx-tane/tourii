@@ -1,14 +1,18 @@
-import type { IntroUpperSectionProps } from "@/types/model-route-type";
+import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import Image from "next/image";
 import Link from "next/link";
 
+interface IntroUpperSectionProps {
+	modelRoute: ModelRouteResponseDto;
+}
+
 const IntroUpperSection: React.FC<IntroUpperSectionProps> = ({
-	routeDetails,
+	modelRoute,
 }) => {
 	return (
 		<div className="mt-20">
 			<div className="mb-2 text-sm font-medium uppercase tracking-widest">
-				{routeDetails.stop}
+				{modelRoute.routeDetailList[0].stop}
 			</div>
 			{/* <Markdown className="mx-auto mb-5 flex h-16 w-16 items-center justify-center whitespace-pre-wrap rounded-full border-[1.5px] border-red text-sm font-bold leading-none text-red">
         {routeDetails.routeDetailTime}

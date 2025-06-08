@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import IntroUpperSection from "./intro-upper-section";
 
 const meta = {
-	title: "Model Route/RoutePage/RouteDetails/IntroUpperSection",
+	title: "Model Route/RouteDetailPage/RouteDetails/IntroUpperSection",
 	component: IntroUpperSection,
 	parameters: {
 		backgrounds: {

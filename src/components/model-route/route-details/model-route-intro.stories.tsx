@@ -1,9 +1,9 @@
-import type { ModelRoute } from "@/types/model-route-type";
+import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import type { Meta, StoryObj } from "@storybook/react";
 import ModelRouteIntro from "./model-route-intro";
 
 const meta = {
-	title: "Model Route/RoutePage/ModelRouteIntro",
+	title: "Model Route/RouteDetailPage/ModelRouteIntro",
 	component: ModelRouteIntro,
 	parameters: {
 		backgrounds: {
@@ -22,13 +22,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const mockModelRoute: ModelRoute = {
+const mockModelRoute: ModelRouteResponseDto = {
 	modelRouteId: "route1",
-	placeName: "Bungo Ono",
-	modelRouteName: "Historical Journey Through Time",
+	storyId: "story1",
+	regionDesc: "Historical Journey Through Time",
+	regionLatitude: 35.0116,
+	regionLongitude: 135.7681,
+	regionBackgroundMedia: "/images/kyoto.jpg",
+	touristSpotList: [],
+	regionWeatherInfo: {
+		weatherName: "Clear",
+		temperatureCelsius: 25,
+		weatherDesc: "Clear skies",
+		regionName: "Bungo Ono",
+	},
+	region: "Bungo Ono",
+	routeName: "Historical Journey Through Time",
 	recommendation: ["History Lovers", "Nature Enthusiasts"],
-	routeDestinations: [],
-	routeDetails: [],
 };
 
 export const Default: Story = {
@@ -41,8 +51,7 @@ export const WithLongName: Story = {
 	args: {
 		modelRoute: {
 			...mockModelRoute,
-			modelRouteName:
-				"A Historical Journey Through Time and Culture in Bungo Ono",
+			routeName: "A Historical Journey Through Time and Culture in Bungo Ono",
 		},
 	},
 };
@@ -66,7 +75,7 @@ export const WithShortName: Story = {
 	args: {
 		modelRoute: {
 			...mockModelRoute,
-			modelRouteName: "Quick Tour",
+			routeName: "Quick Tour",
 			recommendation: ["Beginners", "Families"],
 		},
 	},

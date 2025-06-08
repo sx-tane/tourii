@@ -7,6 +7,9 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
+export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
+export type { LoginRequestDto } from './models/LoginRequestDto';
 export type { ModelRouteCreateRequestDto } from './models/ModelRouteCreateRequestDto';
 export type { ModelRouteResponseDto } from './models/ModelRouteResponseDto';
 export type { QuestListResponseDto } from './models/QuestListResponseDto';
@@ -17,10 +20,12 @@ export type { StoryChapterUpdateRequestDto } from './models/StoryChapterUpdateRe
 export type { StoryCreateRequestDto } from './models/StoryCreateRequestDto';
 export type { StoryResponseDto } from './models/StoryResponseDto';
 export type { StoryUpdateRequestDto } from './models/StoryUpdateRequestDto';
+export { TaskResponseDto } from './models/TaskResponseDto';
 export type { TouristSpotCreateRequestDto } from './models/TouristSpotCreateRequestDto';
 export type { TouristSpotResponseDto } from './models/TouristSpotResponseDto';
 export type { UserEntity } from './models/UserEntity';
 
+export { AuthService } from './services/AuthService';
 export { HealthCheckService } from './services/HealthCheckService';
 export { QuestService } from './services/QuestService';
 export { RoutesService } from './services/RoutesService';

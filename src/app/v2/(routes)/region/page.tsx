@@ -67,6 +67,8 @@ const RegionPage: NextPage = () => {
 				errorMessage={errorMessage}
 				status={errorStatus}
 				onRetry={mutateModelRoutes}
+				textColor="text-charcoal"
+				titleTextColor="text-red"
 			/>
 		);
 	}
@@ -77,12 +79,26 @@ const RegionPage: NextPage = () => {
 		modelRoutes &&
 		modelRoutes.length > 0
 	) {
-		return <Loading />;
+		return (
+			<TouriiError
+				errorMessage="No Model Route are currently available."
+				isEmpty={true}
+				textColor="text-charcoal"
+				titleTextColor="text-red"
+			/>
+		);
 	}
 
 	if (!selectedRoute) {
 		logger.warn("RegionPage rendered without a selected route.");
-		return <div>Please select a route.</div>;
+		return (
+			<TouriiError
+				errorMessage="No Model Route are currently available."
+				isEmpty={true}
+				textColor="text-charcoal"
+				titleTextColor="text-red"
+			/>
+		);
 	}
 
 	return (

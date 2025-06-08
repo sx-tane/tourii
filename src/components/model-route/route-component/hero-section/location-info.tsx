@@ -4,7 +4,7 @@ import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteRes
 import { WeatherDisplay } from "@/components/model-route/common";
 import { MotionButton } from "@/components/common";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation"; // Changed to next/navigation
+import { useRouter } from "next/navigation";
 import type React from "react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useState, useLayoutEffect, useMemo } from "react";
@@ -203,7 +203,7 @@ const LocationInfo: React.FC<LocationInfoProps> = ({
 					className="mt-2 w-full sm:w-auto"
 					hoverText="See More"
 					onClick={() => {
-						router.push(`/model-route/${route.modelRouteId}`);
+						router.push(`/v2/region/${route.region}/${route.modelRouteId}`);
 					}}
 					icon={<ArrowRightIcon className="w-4 h-4" />}
 					size={{

@@ -408,4 +408,46 @@ export class StoriesService {
             },
         });
     }
+    /**
+     * Save chapter reading progress
+     * Track user reading progress for a story chapter
+     * @param chapterId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Progress request
+     * @returns any Progress recorded
+     * @throws ApiError
+     */
+    public static touriiBackendControllerMarkChapterProgress(
+        chapterId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * ID of the user reading the chapter
+             */
+            userId: string;
+            /**
+             * Current story status
+             */
+            status: 'UNREAD' | 'IN_PROGRESS' | 'COMPLETED';
+        },
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/stories/chapters/{chapterId}/progress',
+            path: {
+                'chapterId': chapterId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
 }

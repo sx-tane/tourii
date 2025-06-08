@@ -95,7 +95,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 						collapsed: { width: "280px", height: "400px" },
 					},
 					expandedContainer: {
-						className: "relative w-screen h-[90vh] rounded-3xl z-20",
+						className: "relative w-screen h-[85vh] rounded-3xl z-20",
 					},
 					dockContainer: {
 						className: "max-w-[700px] overflow-hidden",
@@ -187,7 +187,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 			</motion.div>
 
 			{/* ─── Dock row + nav buttons ─── */}
-			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50 flex flex-col items-end">
+			<div className="absolute top-40 translate-y-1/4 right-8 z-50 flex flex-col items-end">
 				<div
 					ref={carouselWrapperRef}
 					className={layoutConfig.dockContainer.className}
