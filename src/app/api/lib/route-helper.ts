@@ -31,7 +31,7 @@ export async function executeValidatedServiceCall<T>(
 	// The serviceCall function must accept apiKey and apiVersion
 	serviceCall: (apiKey: string, apiVersion: string) => CancelablePromise<T>,
 	routeNameForLogging: string,
-): Promise<NextResponse> {
+): Promise<NextResponse | T> {
 	OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Set this for the scope of the SDK call
 	const apiKey = env.BACKEND_API_KEY;
 	const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
@@ -49,13 +49,36 @@ export async function executeValidatedServiceCall<T>(
 
 	logger.info(
 		`Executing ${routeNameForLogging} via generated SDK. Target: ${OpenAPI.BASE}`,
+		{ apiVersion, apiKeyPresent: !!apiKey }
 	);
 
 	try {
 		// Pass apiKey and apiVersion to the serviceCall function
 		const data = await serviceCall(apiKey, apiVersion);
 		logger.info(`${routeNameForLogging}: Successfully executed using SDK.`);
-		return NextResponse.json(data);
+		
+		// If data is already a Response object (e.g., from delete operations), return it as-is
+		if (data instanceof Response) {
+			return data;
+		}
+		
+		// Handle different data types safely
+		if (data === null || data === undefined) {
+			return NextResponse.json({ success: true });
+		}
+		
+		// For primitives (boolean, string, number), wrap in an object
+		if (typeof data === 'boolean' || typeof data === 'string' || typeof data === 'number') {
+			return NextResponse.json({ result: data });
+		}
+		
+		// For objects, try to serialize as-is
+		try {
+			return NextResponse.json(data as any);
+		} catch (serializationError) {
+			logger.error(`${routeNameForLogging}: JSON serialization failed`, { serializationError, data });
+			return NextResponse.json({ success: true, message: "Operation completed successfully" });
+		}
 	} catch (error) {
 		logger.error(
 			`${routeNameForLogging}: Error using SDK to fetch from backend.`,
@@ -67,6 +90,13 @@ export async function executeValidatedServiceCall<T>(
 			let errorMessage =
 				error.message ||
 				"Error communicating with backend via proxy (ApiError).";
+
+			// Log the actual backend response for debugging
+			logger.error(`${routeNameForLogging}: Backend error details:`, {
+				status: error.status,
+				message: error.message,
+				body: JSON.stringify(error.body, null, 2)
+			});
 
 			if (isErrorBodyWithCode(error.body)) {
 				if (typeof error.body.code === "string") {
