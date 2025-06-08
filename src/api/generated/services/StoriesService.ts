@@ -279,6 +279,64 @@ export class StoriesService {
         });
     }
     /**
+     * Delete Story
+     * Delete a story saga.
+     * @param storyId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteStory(
+        storyId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/stories/{storyId}',
+            path: {
+                'storyId': storyId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Delete Story Chapter
+     * Delete a story chapter.
+     * @param chapterId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteStoryChapter(
+        chapterId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/stories/chapters/{chapterId}',
+            path: {
+                'chapterId': chapterId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
      * Get All Story Sagas
      * Retrieve all available story sagas.
      * @param acceptVersion API version (e.g., 1.0.0)

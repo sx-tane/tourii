@@ -17,4 +17,21 @@ export async function GET(
             QuestService.touriiBackendControllerGetQuestById(questId, apiVersion, apiKey),
         `GET /api/quests/${questId}`
     );
+}
+
+export async function DELETE(
+    _request: NextRequest,
+    { params }: { params: Promise<{ questId: string }> }
+) {
+    const { questId } = await params;
+
+    if (!questId) {
+        return NextResponse.json({ error: "Missing questId" }, { status: 400 });
+    }
+
+    return executeValidatedServiceCall(
+        (apiKey: string, apiVersion: string) =>
+            QuestService.touriiBackendControllerDeleteQuest(questId, apiVersion, apiKey),
+        `DELETE /api/quests/${questId}`
+    );
 } 

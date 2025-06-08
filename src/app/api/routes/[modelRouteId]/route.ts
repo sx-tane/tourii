@@ -28,3 +28,27 @@ export async function GET(
         `GET /api/routes/${modelRouteId}/tourist-spot`,
     );
 }
+
+export async function DELETE(
+    _request: Request,
+    { params }: { params: Promise<{ modelRouteId: string }> }
+) {
+    const { modelRouteId } = await params;
+
+    if (!modelRouteId) {
+        logger.warn(
+            "API DELETE /api/routes/[modelRouteId]: Missing modelRouteId parameter",
+        );
+        return touriiErrorResponse("Missing modelRouteId", 400, "BadRequest");
+    }
+
+    return executeValidatedServiceCall(
+        (apiKey: string, apiVersion: string) =>
+            RoutesService.touriiBackendControllerDeleteModelRoute(
+                modelRouteId,
+                apiVersion,
+                apiKey,
+            ),
+        `DELETE /api/routes/${modelRouteId}`,
+    );
+}
