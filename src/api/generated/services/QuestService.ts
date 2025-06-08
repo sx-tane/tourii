@@ -80,6 +80,35 @@ export class QuestService {
         });
     }
     /**
+     * Delete Quest
+     * Delete a quest and its tasks.
+     * @param questId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteQuest(
+        questId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/quests/{questId}',
+            path: {
+                'questId': questId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
      * Create Quest
      * Create a new quest.
      * @param acceptVersion API version (e.g., 1.0.0)
@@ -456,6 +485,35 @@ export class QuestService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Delete Quest Task
+     * Delete an individual quest task.
+     * @param taskId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteQuestTask(
+        taskId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/quests/tasks/{taskId}',
+            path: {
+                'taskId': taskId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
             errors: {
                 400: `Bad Request - Invalid version format`,
             },

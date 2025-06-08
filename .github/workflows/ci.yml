@@ -1,8 +1,8 @@
-name: CI
+name: Tourii Test CI
 
 on:
   push:
-    branches: [main, develop, work]
+    branches: [main, develop]
   pull_request:
 
 jobs:

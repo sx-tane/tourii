@@ -344,6 +344,93 @@ export class RoutesService {
         });
     }
     /**
+     * Delete Model Route
+     * Delete an existing model route.
+     * @param modelRouteId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteModelRoute(
+        modelRouteId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/routes/{modelRouteId}',
+            path: {
+                'modelRouteId': modelRouteId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Delete Tourist Spot
+     * Delete a tourist spot.
+     * @param touristSpotId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns void
+     * @throws ApiError
+     */
+    public static touriiBackendControllerDeleteTouristSpot(
+        touristSpotId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<void> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/routes/tourist-spot/{touristSpotId}',
+            path: {
+                'touristSpotId': touristSpotId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get Tourist Spots by Story Chapter
+     * Retrieve tourist spot information linked to a story chapter.
+     * @param storyChapterId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns TouristSpotResponseDto Successfully retrieved tourist spots
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetTouristSpotsByChapterId(
+        storyChapterId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<Array<TouristSpotResponseDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/routes/tourist-spots/{storyChapterId}',
+            path: {
+                'storyChapterId': storyChapterId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
      * Get All Model Routes
      * Retrieve a list of all available model routes with their details.
      * @param acceptVersion API version (e.g., 1.0.0)
