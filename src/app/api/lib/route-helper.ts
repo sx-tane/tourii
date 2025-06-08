@@ -30,20 +30,22 @@ export function isErrorBodyWithCode(body: unknown): body is ErrorBodyWithCode {
  * The serviceCall function will be provided with the apiKey and apiVersion.
  */
 export async function executeValidatedServiceCall<T>(
-	// The serviceCall function must accept apiKey and apiVersion
-	serviceCall: (apiKey: string, apiVersion: string) => CancelablePromise<T>,
-	routeNameForLogging: string,
+        // The serviceCall function must accept apiKey and apiVersion
+        serviceCall: (apiKey: string, apiVersion: string) => CancelablePromise<T>,
+        routeNameForLogging: string,
+        requiredRole?: string,
 ): Promise<NextResponse> {
-	// TODO: Uncomment this when we have a valid session
-	// Cannot Request API without a valid session
-	// const session = await getServerSession(authOptions);
-	// if (!session || !session.accessToken) {
-	//   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-	// }
+        // Require a valid session for all proxy calls
+        const session = await getServerSession(authOptions);
+        if (!session || !session.accessToken) {
+                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+        if (requiredRole && session.user?.role !== requiredRole) {
+                return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+        }
 
-	OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Set this for the scope of the SDK call
-	// Attach user JWT to SDK calls TODO: Uncomment this when we have a valid session
-	// OpenAPI.TOKEN = `Bearer ${session.accessToken}`;  // attach user JWT to SDK calls
+        OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Set this for the scope of the SDK call
+        OpenAPI.TOKEN = `Bearer ${session.accessToken}`;  // attach user JWT to SDK calls
 	const apiKey = env.BACKEND_API_KEY;
 	const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
 

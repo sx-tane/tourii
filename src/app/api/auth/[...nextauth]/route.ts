@@ -107,6 +107,9 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
+        // Include role from backend user info
+        // @ts-ignore - user may include custom role property
+        token.role = (user as any).role;
       }
       if (account) {
         token.provider = account.provider;
@@ -162,6 +165,7 @@ export const authOptions: NextAuthOptions = {
         session.user.provider = token.provider as string | undefined;
         session.user.providerAccountId = token.providerAccountId as string | undefined;
         session.accessToken = token.accessToken as string;
+        session.user.role = token.role as string | undefined;
         // (Optionally include refresh token in session if needed on client; usually we keep it server-side only)
       }
       return session;
