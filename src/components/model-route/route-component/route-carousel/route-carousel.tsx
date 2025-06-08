@@ -187,7 +187,7 @@ const RouteCarousel: React.FC<RouteCarouselProps> = ({
 			</motion.div>
 
 			{/* ─── Dock row + nav buttons ─── */}
-			<div className="absolute top-1/4 translate-y-1/4 right-8 z-50 flex flex-col items-end">
+			<div className="absolute top-40 translate-y-1/4 right-8 z-50 flex flex-col items-end">
 				<div
 					ref={carouselWrapperRef}
 					className={layoutConfig.dockContainer.className}

@@ -245,12 +245,7 @@ const SagaChapterPage: NextPage = () => {
 	const selectedButtonRef = useRef<HTMLDivElement | null>(null);
 
 	if (isLoadingStoryChapterList) {
-		console.log("[SagaChapterPage] Render: isLoadingStoryChapterList is true.");
-		return (
-			<div className="flex justify-center items-center h-screen">
-				<Loading />
-			</div>
-		);
+		return <Loading />;
 	}
 
 	if (isErrorStoryChapterList) {

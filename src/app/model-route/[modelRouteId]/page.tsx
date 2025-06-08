@@ -3,8 +3,8 @@
 import { ErrorComponent } from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
-import ModelRouteIntro from "@/components/model-route/route-component/model-route-intro";
-import RouteDestination from "@/components/model-route/route-component/route-destination";
+import ModelRouteIntro from "@/components/model-route/route-details/model-route-intro";
+import RouteDestination from "@/components/model-route/route-details/route-destination";
 import BottomSection from "@/components/model-route/route-details/bottom-section/bottom-section";
 import IntroUpperSection from "@/components/model-route/route-details/intro-upper-section";
 import { modelRouteData } from "@/lib/data/model-route/bungo-ono/model-route-selection-data";
@@ -68,9 +68,7 @@ const Route: NextPage = () => {
 	return (
 		<div className="absolute -right-0 mt-10 w-[95vw] animate-fadeIn space-y-2 py-10">
 			<ModelRouteIntro modelRoute={modelRoute} />
-			<RouteDestination
-				routeDestinations={modelRoute.routeDestinations ?? []}
-			/>
+			<RouteDestination touristSpotList={modelRoute.routeDestinations ?? []} />
 			<div className="h-fit w-[95vw] rounded-bl-xl rounded-tl-xl bg-warmGrey py-8 text-center">
 				<span className="mx-4 text-sm font-bold capitalize tracking-wider text-charcoal">
 					route details

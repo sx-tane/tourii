@@ -38,14 +38,7 @@ const RegionPage: NextPage = () => {
 	};
 
 	if (isLoadingModelRoutes) {
-		return (
-			<TouriiError
-				errorMessage="No Model Route are currently available."
-				isEmpty={true}
-				textColor="text-charcoal"
-				titleTextColor="text-red"
-			/>
-		);
+		return <Loading />;
 	}
 
 	if (isErrorModelRoutes) {

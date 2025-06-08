@@ -68,7 +68,7 @@ const RegionComponent: React.FC<{ region: ModelRouteResponseDto }> = ({
 
 			{/* Weather Info - Bottom Right */}
 			<motion.div
-				className="absolute right-10 bottom-0 z-30"
+				className="absolute right-5 bottom-2 z-30"
 				variants={downToUpVariants}
 				initial="hidden"
 				animate="visible"
