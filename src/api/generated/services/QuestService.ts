@@ -80,6 +80,157 @@ export class QuestService {
         });
     }
     /**
+     * Create Quest
+     * Create a new quest.
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Quest create request
+     * @returns QuestResponseDto Successfully created quest
+     * @throws ApiError
+     */
+    public static touriiBackendControllerCreateQuest(
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * Unique identifier for the tourist spot
+             */
+            touristSpotId: string;
+            /**
+             * Name of the quest
+             */
+            questName: string;
+            /**
+             * Description of the quest
+             */
+            questDesc: string;
+            /**
+             * URL to the quest image
+             */
+            questImage?: string;
+            /**
+             * Quest type
+             */
+            questType: 'UNKNOWN' | 'TRAVEL_TO_EARN' | 'EARN_TO_TRAVEL' | 'CAMPAIGN' | 'COMMUNITY_EVENT';
+            /**
+             * Whether quest is unlocked
+             */
+            isUnlocked: boolean;
+            /**
+             * Whether quest is premium
+             */
+            isPremium: boolean;
+            /**
+             * Total Magatama points awarded
+             */
+            totalMagatamaPointAwarded: number;
+            /**
+             * Reward type
+             */
+            rewardType: 'UNKNOWN' | 'LOCAL_EXPERIENCES' | 'CULINARY' | 'ADVENTURE_NATURE' | 'CULTURAL_COMMUNITY' | 'HIDDEN_PERKS' | 'SURPRISE_TREATS' | 'BONUS_UPGRADES' | 'SOCIAL_RECOGNITION' | 'RETURNING_VISITOR_BONUS' | 'ELITE_EXPERIENCES' | 'WELLNESS' | 'SHOPPING' | 'ENTERTAINMENT' | 'TRANSPORT_CONNECTIVITY' | 'LOCAL_PARTNERSHIPS';
+            /**
+             * Flag to indicate if the quest is deleted
+             */
+            delFlag: boolean;
+        },
+    ): CancelablePromise<QuestResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/quests/create-quest',
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Create Quest Task
+     * Create a new quest task.
+     * @param questId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Quest task create request
+     * @returns TaskResponseDto Successfully created quest task
+     * @throws ApiError
+     */
+    public static touriiBackendControllerCreateQuestTask(
+        questId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * Theme of the task
+             */
+            taskTheme: 'STORY' | 'LOCAL_CULTURE' | 'FOOD' | 'URBAN_EXPLORE' | 'NATURE';
+            /**
+             * Type of the task
+             */
+            taskType: 'VISIT_LOCATION' | 'PHOTO_UPLOAD' | 'ANSWER_TEXT' | 'SELECT_OPTION' | 'SHARE_SOCIAL' | 'CHECK_IN' | 'GROUP_ACTIVITY' | 'LOCAL_INTERACTION';
+            /**
+             * Name of the task
+             */
+            taskName: string;
+            /**
+             * Description of the task
+             */
+            taskDesc: string;
+            /**
+             * Whether task is unlocked
+             */
+            isUnlocked: boolean;
+            /**
+             * Action required to complete the task
+             */
+            requiredAction: string;
+            /**
+             * Members for group activities
+             */
+            groupActivityMembers?: Array<any>;
+            /**
+             * Options for selection tasks
+             */
+            selectOptions?: Array<any>;
+            /**
+             * Rules to prevent cheating
+             */
+            antiCheatRules: any;
+            /**
+             * Magatama points awarded for this task
+             */
+            magatamaPointAwarded: number;
+            /**
+             * Total Magatama points awarded
+             */
+            totalMagatamaPointAwarded: number;
+            /**
+             * Flag to indicate if the task is deleted
+             */
+            delFlag: boolean;
+        },
+    ): CancelablePromise<TaskResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/quests/create-task/{questId}',
+            path: {
+                'questId': questId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
      * Update Quest
      * Update an existing quest.
      * @param acceptVersion API version (e.g., 1.0.0)

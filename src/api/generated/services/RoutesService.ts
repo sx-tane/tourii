@@ -167,6 +167,183 @@ export class RoutesService {
         });
     }
     /**
+     * Update Model Route
+     * Update an existing model route.
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Model Route update request
+     * @returns ModelRouteResponseDto Successfully updated model route
+     * @throws ApiError
+     */
+    public static touriiBackendControllerUpdateModelRoute(
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * Unique identifier for the story
+             */
+            storyId: string;
+            /**
+             * Name of the model route
+             */
+            routeName: string;
+            /**
+             * Region of the model route
+             */
+            region: string;
+            /**
+             * Description of the region
+             */
+            regionDesc: string;
+            /**
+             * Background media of the region
+             */
+            regionBackgroundMedia: string;
+            /**
+             * Recommendation of the model route
+             */
+            recommendation: Array<string>;
+            /**
+             * List of tourist spots in the model route
+             */
+            touristSpotList: Array<{
+                /**
+                 * Unique identifier for the story chapter
+                 */
+                storyChapterId: string;
+                /**
+                 * Name of the tourist spot
+                 */
+                touristSpotName: string;
+                /**
+                 * Description of the tourist spot
+                 */
+                touristSpotDesc: string;
+                /**
+                 * Best visit time of the tourist spot
+                 */
+                bestVisitTime: string;
+                /**
+                 * Hashtags associated with this location
+                 */
+                touristSpotHashtag: Array<string>;
+                /**
+                 * Image set for the tourist spot
+                 */
+                imageSet?: {
+                    /**
+                     * Main image of the tourist spot
+                     */
+                    main: string;
+                    /**
+                     * Small images of the tourist spot
+                     */
+                    small: Array<string>;
+                };
+            }>;
+            /**
+             * Unique identifier for the model route
+             */
+            modelRouteId: string;
+            /**
+             * Flag to indicate if the model route is deleted
+             */
+            delFlag: boolean;
+            /**
+             * Unique identifier for the user who updated the model route
+             */
+            updUserId: string;
+        },
+    ): CancelablePromise<ModelRouteResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/routes/update-model-route',
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Update Tourist Spot
+     * Update an existing tourist spot.
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Tourist Spot update request
+     * @returns TouristSpotResponseDto Successfully updated tourist spot
+     * @throws ApiError
+     */
+    public static touriiBackendControllerUpdateTouristSpot(
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * Unique identifier for the story chapter
+             */
+            storyChapterId: string;
+            /**
+             * Name of the tourist spot
+             */
+            touristSpotName: string;
+            /**
+             * Description of the tourist spot
+             */
+            touristSpotDesc: string;
+            /**
+             * Best visit time of the tourist spot
+             */
+            bestVisitTime: string;
+            /**
+             * Hashtags associated with this location
+             */
+            touristSpotHashtag: Array<string>;
+            /**
+             * Image set for the tourist spot
+             */
+            imageSet?: {
+                /**
+                 * Main image of the tourist spot
+                 */
+                main: string;
+                /**
+                 * Small images of the tourist spot
+                 */
+                small: Array<string>;
+            };
+            /**
+             * Unique identifier for the tourist spot
+             */
+            touristSpotId: string;
+            /**
+             * Flag to indicate if the tourist spot is deleted
+             */
+            delFlag: boolean;
+            /**
+             * Unique identifier for the user who updated the tourist spot
+             */
+            updUserId: string;
+        },
+    ): CancelablePromise<TouristSpotResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/routes/update-tourist-spot',
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
      * Get All Model Routes
      * Retrieve a list of all available model routes with their details.
      * @param acceptVersion API version (e.g., 1.0.0)
