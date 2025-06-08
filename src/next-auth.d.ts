@@ -8,6 +8,7 @@ declare module 'next-auth' {
     refreshToken?: string;
     provider?: string;
     providerAccountId?: string;
+    role?: string;
   }
 
   interface Session extends DefaultSession {
@@ -16,6 +17,7 @@ declare module 'next-auth' {
       id?: string;
       provider?: string;
       providerAccountId?: string;
+      role?: string;
     } & DefaultSession['user'];
   }
 }
@@ -27,5 +29,6 @@ declare module 'next-auth/jwt' {
     // id is typically stored in 'sub' (subject) claim
     provider?: string;
     providerAccountId?: string;
+    role?: string;
   }
 }
