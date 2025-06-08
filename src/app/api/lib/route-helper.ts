@@ -31,7 +31,7 @@ export async function executeValidatedServiceCall<T>(
 	// The serviceCall function must accept apiKey and apiVersion
 	serviceCall: (apiKey: string, apiVersion: string) => CancelablePromise<T>,
 	routeNameForLogging: string,
-): Promise<NextResponse | T> {
+): Promise<NextResponse> {
 	OpenAPI.BASE = env.NEXT_PUBLIC_BACKEND_URL; // Set this for the scope of the SDK call
 	const apiKey = env.BACKEND_API_KEY;
 	const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
@@ -56,11 +56,6 @@ export async function executeValidatedServiceCall<T>(
 		// Pass apiKey and apiVersion to the serviceCall function
 		const data = await serviceCall(apiKey, apiVersion);
 		logger.info(`${routeNameForLogging}: Successfully executed using SDK.`);
-		
-		// If data is already a Response object (e.g., from delete operations), return it as-is
-		if (data instanceof Response) {
-			return data;
-		}
 		
 		// Handle different data types safely
 		if (data === null || data === undefined) {
