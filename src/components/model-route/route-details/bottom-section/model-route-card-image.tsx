@@ -1,4 +1,3 @@
-import type { ModelRouteCardImageProps } from "@/types/model-route-type";
 import Image from "next/image";
 
 const ModelRouteCardImage: React.FC<ModelRouteCardImageProps> = ({

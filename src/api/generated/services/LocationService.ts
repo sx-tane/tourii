@@ -2,25 +2,23 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { LocationInfoResponseDto } from '../models/LocationInfoResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class LocationService {
     /**
      * Get Location Info
-     * Retrieve basic location details using Google Places.
+     * Retrieve basic location details with thumbnail images using Google Places.
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @returns any Successfully retrieved location info
+     * @returns LocationInfoResponseDto Successfully retrieved location info with images
      * @throws ApiError
      */
     public static touriiBackendControllerGetLocationInfo(
         acceptVersion: string,
         xApiKey: string,
-    ): CancelablePromise<{
-        name?: string;
-        formattedAddress?: string;
-    }> {
+    ): CancelablePromise<LocationInfoResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/location-info',

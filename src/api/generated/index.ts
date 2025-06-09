@@ -10,6 +10,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
 export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
 export type { GroupMembersResponseDto } from './models/GroupMembersResponseDto';
+export type { LocationInfoResponseDto } from './models/LocationInfoResponseDto';
 export type { LocationQueryDto } from './models/LocationQueryDto';
 export type { LoginRequestDto } from './models/LoginRequestDto';
 export type { ModelRouteCreateRequestDto } from './models/ModelRouteCreateRequestDto';

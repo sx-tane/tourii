@@ -55,6 +55,26 @@ export type TaskResponseDto = {
      * Total Magatama points awarded
      */
     totalMagatamaPointAwarded: number;
+    /**
+     * Flag to indicate if the record is deleted
+     */
+    delFlag?: boolean;
+    /**
+     * ID of user who created this record
+     */
+    insUserId?: string;
+    /**
+     * Timestamp of record creation
+     */
+    insDateTime?: string;
+    /**
+     * ID of user who last updated this record
+     */
+    updUserId?: string;
+    /**
+     * Timestamp of last record update
+     */
+    updDateTime?: string;
 };
 export namespace TaskResponseDto {
     /**
