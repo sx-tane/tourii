@@ -3,6 +3,7 @@ import { ApiError } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import ModelRouteIntro from "@/components/model-route/route-details/model-route-intro";
+import ModelRouteMapWrapper from "@/components/model-route/route-details/model-route-map-wrapper/model-route-map-wrapper";
 import RouteDestination from "@/components/model-route/route-details/route-destination";
 import { getModelRouteById } from "@/hooks/routes/getModelRouteById";
 import { logger } from "@/utils/logger";
@@ -71,6 +72,7 @@ const RegionRoutesPage = () => {
 	return (
 		<div className="absolute md:-right-0 mt-5 md:mt-10 md:w-[95vw] w-screen animate-fadeIn md:space-y-2 space-y-3">
 			<ModelRouteIntro modelRoute={modelRoute} />
+			<ModelRouteMapWrapper modelRoute={modelRoute} className="h-full" />
 			<RouteDestination touristSpotList={modelRoute.touristSpotList} />
 		</div>
 	);
