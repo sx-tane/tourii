@@ -180,6 +180,10 @@ const distance = calculateDistanceKm(
 const minutes = estimateWalkingMinutes(distance);
 ```
 
+When viewing a route page, `<ModelRouteMapWrapper>` renders a list of tourist
+spots via `<RouteDestination>`. The component uses these helpers to display the
+distance and walking time between each stop on the connecting lines.
+
 ---
 
 ## ✨ Feature Details
