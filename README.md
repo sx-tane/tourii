@@ -130,7 +130,7 @@ src/
 │   ├── blockchain/           ← EVM wallet logic
 │   └── redux/                ← Redux Toolkit store, with features/slices in ./features/
 ├── types/                    ← Global type declarations
-├── utils/                    ← Utility functions like logger
+├── utils/                    ← Utility helpers (logger, geo utils)
 └── public/                   ← Static assets
 ```
 
@@ -167,6 +167,22 @@ pnpm test
 ```bash
 pnpm test:e2e
 ```
+
+### Geo Utilities
+
+```ts
+import { calculateDistanceKm, estimateWalkingMinutes } from '@/utils/geo-utils';
+
+const distance = calculateDistanceKm(
+  { latitude: 35.6895, longitude: 139.6917 },
+  { latitude: 34.6937, longitude: 135.5023 },
+);
+const minutes = estimateWalkingMinutes(distance);
+```
+
+When viewing a route page, `<ModelRouteMapWrapper>` renders a list of tourist
+spots via `<RouteDestination>`. The component uses these helpers to display the
+distance and walking time between each stop on the connecting lines.
 
 ---
 
