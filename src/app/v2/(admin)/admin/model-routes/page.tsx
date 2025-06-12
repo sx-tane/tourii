@@ -56,7 +56,7 @@ export default function AdminModelRoutes() {
 
 	// Filtered and searched routes
 	const filteredRoutes = useMemo(() => {
-		if (!modelRoutes) return [];
+		if (!modelRoutes || !Array.isArray(modelRoutes)) return [];
 
 		let filtered = [...modelRoutes];
 
@@ -104,7 +104,7 @@ export default function AdminModelRoutes() {
 
 	// Summary statistics
 	const stats = useMemo(() => {
-		if (!modelRoutes)
+		if (!modelRoutes || !Array.isArray(modelRoutes))
 			return {
 				total: 0,
 				withSpots: 0,

@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { getModelRouteById } from "@/hooks/routes/getModelRouteById";
 import { makeApiRequest } from "@/utils/api-helpers";
+import { mutate } from "swr";
 import type {
 	TouristSpotCreateRequestDto,
 	TouristSpotResponseDto,
@@ -39,6 +40,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 	const { modelRoute, isLoadingModelRoute, mutateModelRoute } =
 		getModelRouteById(routeId);
+
+	// Add a refresh trigger as fallback
+	const [refreshTrigger, setRefreshTrigger] = useState(0);
+	const forceRefresh = useCallback(() => {
+		setRefreshTrigger((prev) => prev + 1);
+		mutateModelRoute();
+	}, [mutateModelRoute]);
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingSpot, setEditingSpot] = useState<TouristSpotResponseDto | null>(
 		null,
@@ -214,7 +222,18 @@ export default function TouristSpotManagement({ params }: Props) {
 			);
 			resetForm();
 			setShowCreateModal(false);
+
+			// Multiple approaches to force cache refresh
+			// 1. Global mutate to invalidate the specific route cache
+			await mutate(`/api/routes/${routeId}`);
+
+			// 2. Local mutate with forced revalidation
 			await mutateModelRoute();
+
+			// 3. Small delay then another revalidation to ensure backend processing is complete
+			setTimeout(async () => {
+				await mutateModelRoute();
+			}, 500);
 		} catch (error) {
 			console.error("Failed to create tourist spot:", error);
 			alert("Failed to create tourist spot. Please try again.");
@@ -258,10 +277,65 @@ export default function TouristSpotManagement({ params }: Props) {
 				updUserId: "admin",
 			};
 
-			await makeApiRequest("/api/routes/update-tourist-spot", spotData, "POST");
+			const updateResult = await makeApiRequest(
+				"/api/routes/update-tourist-spot",
+				spotData,
+				"POST",
+			);
+			console.log("✅ Update API response:", updateResult);
 			resetForm();
 			setShowCreateModal(false);
+
+			// Multiple approaches to force cache refresh
+			console.log("🔄 Attempting to refresh data after update...");
+
+			// 1. Global mutate to invalidate the specific route cache
+			console.log("🔄 Step 1: Global mutate");
+			await mutate(`/api/routes/${routeId}`);
+
+			// 2. Local mutate with forced revalidation
+			console.log("🔄 Step 2: Local mutate");
 			await mutateModelRoute();
+
+			// 3. Clear all cache entries for this route pattern
+			console.log("🔄 Step 3: Clear cache pattern");
+			await mutate(
+				(key) =>
+					typeof key === "string" && key.includes(`/api/routes/${routeId}`),
+				undefined,
+				{ revalidate: false },
+			);
+
+			// 4. Force a fresh fetch
+			console.log("🔄 Step 4: Force fresh fetch");
+			await mutateModelRoute(undefined, { revalidate: true });
+
+			// 5. Small delay then another revalidation to ensure backend processing is complete
+			setTimeout(async () => {
+				console.log("🔄 Step 5: Delayed revalidation");
+				await mutateModelRoute();
+			}, 500);
+
+			// 6. Manual fetch as a fallback
+			setTimeout(async () => {
+				console.log("🔄 Step 6: Manual fallback fetch");
+				try {
+					const response = await fetch(`/api/routes/${routeId}`);
+					if (response.ok) {
+						const freshData = await response.json();
+						await mutateModelRoute(freshData, { revalidate: false });
+						console.log("✅ Manual fetch successful");
+					}
+				} catch (error) {
+					console.log("❌ Manual fetch failed:", error);
+				}
+			}, 1000);
+
+			// 7. Force refresh as final fallback
+			setTimeout(() => {
+				console.log("🔄 Step 7: Force refresh trigger");
+				forceRefresh();
+			}, 1500);
 		} catch (error) {
 			console.error("Failed to update tourist spot:", error);
 			alert("Failed to update tourist spot. Please try again.");
@@ -307,7 +381,18 @@ export default function TouristSpotManagement({ params }: Props) {
 				{},
 				"DELETE",
 			);
+
+			// Multiple approaches to force cache refresh
+			// 1. Global mutate to invalidate the specific route cache
+			await mutate(`/api/routes/${routeId}`);
+
+			// 2. Local mutate with forced revalidation
 			await mutateModelRoute();
+
+			// 3. Small delay then another revalidation to ensure backend processing is complete
+			setTimeout(async () => {
+				await mutateModelRoute();
+			}, 500);
 		} catch (error) {
 			console.error("Failed to delete tourist spot:", error);
 			alert(
@@ -369,7 +454,18 @@ export default function TouristSpotManagement({ params }: Props) {
 				),
 			);
 			setSelectedSpots([]);
+
+			// Multiple approaches to force cache refresh
+			// 1. Global mutate to invalidate the specific route cache
+			await mutate(`/api/routes/${routeId}`);
+
+			// 2. Local mutate with forced revalidation
 			await mutateModelRoute();
+
+			// 3. Small delay then another revalidation to ensure backend processing is complete
+			setTimeout(async () => {
+				await mutateModelRoute();
+			}, 500);
 		} catch (error) {
 			console.error("Failed to delete tourist spots:", error);
 			alert("Failed to delete some tourist spots. Please try again.");

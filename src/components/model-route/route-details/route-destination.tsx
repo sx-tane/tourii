@@ -2,13 +2,10 @@ import type { TouristSpotResponseDto } from "@/api/generated";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React, { useRef } from "react";
-import {
-        calculateDistanceKm,
-        estimateWalkingMinutes,
-} from "@/utils/geo-utils";
+import { calculateDistanceKm, estimateWalkingMinutes } from "@/utils/geo-utils";
 
 const RouteDestination: React.FC<{
-        touristSpotList: TouristSpotResponseDto[];
+	touristSpotList: TouristSpotResponseDto[];
 }> = ({ touristSpotList }) => {
 	const titleWords = "route destinations".split(" ");
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -42,30 +39,30 @@ const RouteDestination: React.FC<{
 		}
 	};
 
-        const handleMouseLeave = () => {
-                isDragging.current = false;
-                if (scrollContainerRef.current && window.innerWidth < 768) {
-                        scrollContainerRef.current.style.cursor = "grab";
-                }
-        };
+	const handleMouseLeave = () => {
+		isDragging.current = false;
+		if (scrollContainerRef.current && window.innerWidth < 768) {
+			scrollContainerRef.current.style.cursor = "grab";
+		}
+	};
 
-        const segmentInfo = touristSpotList.slice(0, -1).map((spot, idx) => {
-                const next = touristSpotList[idx + 1];
-                const from = {
-                        latitude: spot.touristSpotLatitude,
-                        longitude: spot.touristSpotLongitude,
-                };
-                const to = {
-                        latitude: next.touristSpotLatitude,
-                        longitude: next.touristSpotLongitude,
-                };
-                const distance = calculateDistanceKm(from, to);
-                const minutes = estimateWalkingMinutes(distance);
-                return {
-                        distance,
-                        minutes,
-                };
-        });
+	const segmentInfo = touristSpotList.slice(0, -1).map((spot, idx) => {
+		const next = touristSpotList[idx + 1];
+		const from = {
+			latitude: spot.touristSpotLatitude,
+			longitude: spot.touristSpotLongitude,
+		};
+		const to = {
+			latitude: next?.touristSpotLatitude ?? 0,
+			longitude: next?.touristSpotLongitude ?? 0,
+		};
+		const distance = calculateDistanceKm(from, to);
+		const minutes = estimateWalkingMinutes(distance);
+		return {
+			distance,
+			minutes,
+		};
+	});
 
 	return (
 		<div className="h-fit md:rounded-l-3xl md:rounded-r-none rounded-3xl bg-warmGrey2 py-8 text-center">
@@ -171,30 +168,37 @@ const RouteDestination: React.FC<{
 									</motion.div>
 								</motion.div>
 
-                                                                {/* Simple Straight Line */}
-                                                                {index !== touristSpotList.length - 1 && (
-                                                                        <div className="flex flex-col items-center">
-                                                                                <motion.div
-                                                                                        className="w-8 sm:w-12 lg:w-16 h-0.5 bg-charcoal -mt-8 sm:-mt-10 lg:-mt-12"
-                                                                                        initial={{ scaleX: 0 }}
-                                                                                        whileInView={{ scaleX: 1 }}
-                                                                                        viewport={{ once: false }}
-                                                                                        transition={{
-                                                                                                duration: 0.5,
-                                                                                                delay: 0.3 + index * 0.05,
-                                                                                                ease: [0.6, 0.05, 0.01, 0.9],
-                                                                                        }}
-                                                                                />
-                                                                                <span className="text-[8px] text-charcoal mt-1 whitespace-nowrap">
-                                                                                        {segmentInfo[index].distance.toFixed(1)} km • {segmentInfo[index].minutes} min
-                                                                                </span>
-                                                                        </div>
-                                                                )}
-                                                        </React.Fragment>
-                                                ))}
-                                        </div>
-                                </div>
-                        </div>
+								{/* Simple Straight Line */}
+								{index !== touristSpotList.length - 1 && (
+									<div className="flex flex-col items-center justify-center">
+										{/* Connecting line */}
+										<motion.div
+											className="w-8 sm:w-12 lg:w-20 h-0.5 bg-charcoal -mt-8 sm:-mt-10 lg:-mt-8"
+											initial={{ scaleX: 0 }}
+											whileInView={{ scaleX: 1 }}
+											viewport={{ once: false }}
+											transition={{
+												duration: 0.5,
+												delay: 0.3 + index * 0.05,
+												ease: [0.6, 0.05, 0.01, 0.9],
+											}}
+										/>
+
+										{/* Minutes at bottom */}
+										{segmentInfo[index] && (
+											<span className="text-[10px] text-charcoal mt-1 whitespace-nowrap tracking-wider">
+												{segmentInfo[index]?.distance.toFixed(1)} km
+												<br />
+												{segmentInfo[index]?.minutes} min
+											</span>
+										)}
+									</div>
+								)}
+							</React.Fragment>
+						))}
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };
