@@ -28,6 +28,7 @@ const mockQuest: QuestResponseDto = {
 			antiCheatRules: {},
 			magatamaPointAwarded: 100,
 			totalMagatamaPointAwarded: 100,
+			isCompleted: true,
 		},
 		{
 			taskId: "t2",
@@ -43,6 +44,7 @@ const mockQuest: QuestResponseDto = {
 			antiCheatRules: {},
 			magatamaPointAwarded: 50,
 			totalMagatamaPointAwarded: 50,
+			isCompleted: false,
 		},
 	],
 };
