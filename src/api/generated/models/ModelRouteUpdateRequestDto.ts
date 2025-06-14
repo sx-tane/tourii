@@ -64,6 +64,22 @@ export type ModelRouteUpdateRequestDto = {
              */
             small: Array<string>;
         };
+        /**
+         * Address for enhanced search accuracy
+         */
+        address?: string;
+        /**
+         * Unique identifier for the tourist spot
+         */
+        touristSpotId: string;
+        /**
+         * Flag to indicate if the tourist spot is deleted
+         */
+        delFlag: boolean;
+        /**
+         * Unique identifier for the user who updated the tourist spot
+         */
+        updUserId: string;
     }>;
     /**
      * Unique identifier for the model route

@@ -72,8 +72,8 @@ const RegionRoutesPage = () => {
 	return (
 		<div className="absolute md:-right-0 mt-5 md:mt-10 md:w-[95vw] w-screen animate-fadeIn md:space-y-2 space-y-3">
 			<ModelRouteIntro modelRoute={modelRoute} />
-			<ModelRouteMapWrapper modelRoute={modelRoute} className="h-full" />
 			<RouteDestination touristSpotList={modelRoute.touristSpotList} />
+			<ModelRouteMapWrapper modelRoute={modelRoute} className="h-full" />
 		</div>
 	);
 };

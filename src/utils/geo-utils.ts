@@ -34,7 +34,7 @@ export function calculateDistanceKm(from: Coordinates, to: Coordinates): number 
  */
 export function estimateWalkingMinutes(
   distanceKm: number,
-  speedKmh = 60,
+  speedKmh = 5,
 ): number {
   if (speedKmh <= 0) {
     throw new Error('Speed must be positive');

@@ -2,8 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { GroupMembersResponseDto } from '../models/GroupMembersResponseDto';
 import type { QuestListResponseDto } from '../models/QuestListResponseDto';
 import type { QuestResponseDto } from '../models/QuestResponseDto';
+import type { QuestTaskPhotoUploadResponseDto } from '../models/QuestTaskPhotoUploadResponseDto';
+import type { StartGroupQuestResponseDto } from '../models/StartGroupQuestResponseDto';
 import type { TaskResponseDto } from '../models/TaskResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -14,6 +17,7 @@ export class QuestService {
      * Get quest with pagination
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
+     * @param userId User ID
      * @param questType Filter by quest type
      * @param isUnlocked Filter by unlocked status
      * @param isPremium Filter by premium status
@@ -25,6 +29,7 @@ export class QuestService {
     public static touriiBackendControllerGetQuestList(
         acceptVersion: string,
         xApiKey: string,
+        userId?: string,
         questType?: 'UNKNOWN' | 'TRAVEL_TO_EARN' | 'EARN_TO_TRAVEL' | 'CAMPAIGN' | 'COMMUNITY_EVENT',
         isUnlocked?: boolean,
         isPremium?: boolean,
@@ -39,6 +44,7 @@ export class QuestService {
                 'x-api-key': xApiKey,
             },
             query: {
+                'userId': userId,
                 'questType': questType,
                 'isUnlocked': isUnlocked,
                 'isPremium': isPremium,
@@ -56,6 +62,7 @@ export class QuestService {
      * @param questId
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
+     * @param userId User ID
      * @returns QuestResponseDto Quest found successfully
      * @throws ApiError
      */
@@ -63,6 +70,7 @@ export class QuestService {
         questId: string,
         acceptVersion: string,
         xApiKey: string,
+        userId?: string,
     ): CancelablePromise<QuestResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -73,6 +81,9 @@ export class QuestService {
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
+            },
+            query: {
+                'userId': userId,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
@@ -102,6 +113,40 @@ export class QuestService {
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get Quests by Tourist Spot
+     * Retrieve quests linked to a tourist spot. Provide a userId to include completion status.
+     * @param touristSpotId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param userId User ID
+     * @returns QuestResponseDto Quests found successfully
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetQuestByTouristSpotId(
+        touristSpotId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        userId?: string,
+    ): CancelablePromise<Array<QuestResponseDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/quests/tourist-spot/{touristSpotId}',
+            path: {
+                'touristSpotId': touristSpotId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            query: {
+                'userId': userId,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
@@ -233,13 +278,9 @@ export class QuestService {
              */
             magatamaPointAwarded: number;
             /**
-             * Total Magatama points awarded
+             * Reward earned for this task
              */
-            totalMagatamaPointAwarded: number;
-            /**
-             * Flag to indicate if the task is deleted
-             */
-            delFlag: boolean;
+            rewardEarned?: string;
         },
     ): CancelablePromise<TaskResponseDto> {
         return __request(OpenAPI, {
@@ -272,10 +313,6 @@ export class QuestService {
         acceptVersion: string,
         xApiKey: string,
         requestBody: {
-            /**
-             * Unique identifier for the quest
-             */
-            questId: string;
             /**
              * Unique identifier for the tourist spot
              */
@@ -317,6 +354,10 @@ export class QuestService {
              */
             delFlag: boolean;
             /**
+             * Unique identifier for the quest
+             */
+            questId: string;
+            /**
              * Unique identifier for the user who updated the quest
              */
             updUserId: string;
@@ -324,14 +365,6 @@ export class QuestService {
              * List of tasks for the quest
              */
             taskList?: Array<{
-                /**
-                 * Unique identifier for the task
-                 */
-                taskId: string;
-                /**
-                 * ID of the parent quest
-                 */
-                questId: string;
                 /**
                  * Theme of the task
                  */
@@ -373,9 +406,13 @@ export class QuestService {
                  */
                 magatamaPointAwarded: number;
                 /**
-                 * Total Magatama points awarded
+                 * Reward earned for this task
                  */
-                totalMagatamaPointAwarded: number;
+                rewardEarned?: string;
+                /**
+                 * Unique identifier for the task
+                 */
+                taskId: string;
                 /**
                  * Flag to indicate if the task is deleted
                  */
@@ -414,14 +451,6 @@ export class QuestService {
         acceptVersion: string,
         xApiKey: string,
         requestBody: {
-            /**
-             * Unique identifier for the task
-             */
-            taskId: string;
-            /**
-             * ID of the parent quest
-             */
-            questId: string;
             /**
              * Theme of the task
              */
@@ -463,9 +492,13 @@ export class QuestService {
              */
             magatamaPointAwarded: number;
             /**
-             * Total Magatama points awarded
+             * Reward earned for this task
              */
-            totalMagatamaPointAwarded: number;
+            rewardEarned?: string;
+            /**
+             * Unique identifier for the task
+             */
+            taskId: string;
             /**
              * Flag to indicate if the task is deleted
              */
@@ -514,6 +547,107 @@ export class QuestService {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
             },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get Group Members
+     * Return current members of the group quest.
+     * @param questId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns GroupMembersResponseDto Member list
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetGroupMembers(
+        questId: string,
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<GroupMembersResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/quests/{questId}/group/members',
+            path: {
+                'questId': questId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Start Group Quest
+     * Leader starts the quest for all members.
+     * @param questId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Start group quest request
+     * @returns StartGroupQuestResponseDto Group quest started
+     * @throws ApiError
+     */
+    public static touriiBackendControllerStartGroupQuest(
+        questId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            /**
+             * User ID of the quest leader starting the quest
+             */
+            userId: string;
+        },
+    ): CancelablePromise<StartGroupQuestResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/quests/{questId}/group/start',
+            path: {
+                'questId': questId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Upload task photo
+     * @param taskId
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param formData Photo upload payload
+     * @returns QuestTaskPhotoUploadResponseDto Photo submitted successfully
+     * @throws ApiError
+     */
+    public static touriiBackendControllerUploadTaskPhoto(
+        taskId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        formData: {
+            file?: Blob;
+        },
+    ): CancelablePromise<QuestTaskPhotoUploadResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/quests/tasks/{taskId}/photo-upload',
+            path: {
+                'taskId': taskId,
+            },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            formData: formData,
+            mediaType: 'multipart/form-data',
             errors: {
                 400: `Bad Request - Invalid version format`,
             },

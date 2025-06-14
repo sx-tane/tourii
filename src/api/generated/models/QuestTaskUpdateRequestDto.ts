@@ -4,14 +4,6 @@
 /* eslint-disable */
 export type QuestTaskUpdateRequestDto = {
     /**
-     * Unique identifier for the task
-     */
-    taskId: string;
-    /**
-     * ID of the parent quest
-     */
-    questId: string;
-    /**
      * Theme of the task
      */
     taskTheme: QuestTaskUpdateRequestDto.taskTheme;
@@ -52,9 +44,13 @@ export type QuestTaskUpdateRequestDto = {
      */
     magatamaPointAwarded: number;
     /**
-     * Total Magatama points awarded
+     * Reward earned for this task
      */
-    totalMagatamaPointAwarded: number;
+    rewardEarned?: string;
+    /**
+     * Unique identifier for the task
+     */
+    taskId: string;
     /**
      * Flag to indicate if the task is deleted
      */

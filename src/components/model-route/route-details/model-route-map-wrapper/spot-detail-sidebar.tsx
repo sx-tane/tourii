@@ -1,5 +1,6 @@
 "use client";
 import type { TouristSpotResponseDto } from "@/api/generated";
+import { getLocationInfo } from "@/hooks/routes/getLocationInfo";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin, Clock, Thermometer, Book, ArrowRight } from "lucide-react";
@@ -14,6 +15,25 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 	selectedSpot,
 	className = "",
 }) => {
+	// Get location info for Google Places images
+	const { locationInfo, hasLocationInfo } = getLocationInfo({
+		query: selectedSpot?.touristSpotName ?? "",
+		latitude: selectedSpot?.touristSpotLatitude?.toString(),
+		longitude: selectedSpot?.touristSpotLongitude?.toString(),
+		address: selectedSpot?.address ?? "",
+	});
+
+	// Use Google Places images if available, otherwise fall back to local images
+	const googleImages = locationInfo?.images || [];
+	const hasGoogleImages = googleImages.length > 0 && hasLocationInfo;
+	const mainImageSrc = selectedSpot?.imageSet?.main;
+	const hasValidMainImage = mainImageSrc && mainImageSrc.trim() !== "";
+
+	// Helper function to validate image URLs
+	const isValidImageUrl = (url: string | undefined | null): url is string => {
+		return typeof url === "string" && url.trim() !== "";
+	};
+
 	if (!selectedSpot) {
 		return (
 			<motion.div
@@ -39,20 +59,35 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 			className={`bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${className}`}
 		>
 			{/* Main Image */}
-			{selectedSpot.imageSet?.main && (
+			{(hasGoogleImages || hasValidMainImage) && (
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.1 }}
 					className="relative h-48 w-full"
 				>
-					<Image
-						src={selectedSpot.imageSet.main}
-						alt={selectedSpot.touristSpotName}
-						fill
-						className="object-cover"
-						priority
-					/>
+					{hasGoogleImages
+						? googleImages[0]?.url &&
+							isValidImageUrl(googleImages[0]?.url) && (
+								<Image
+									src={googleImages[0].url}
+									alt={selectedSpot.touristSpotName}
+									fill
+									className="object-cover"
+									priority
+									unoptimized // Disable optimization for Google Photos API URLs
+								/>
+							)
+						: hasValidMainImage &&
+							isValidImageUrl(mainImageSrc) && (
+								<Image
+									src={mainImageSrc}
+									alt={selectedSpot.touristSpotName}
+									fill
+									className="object-cover"
+									priority
+								/>
+							)}
 				</motion.div>
 			)}
 
@@ -207,34 +242,55 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 				</motion.div>
 
 				{/* Small Images */}
-				{selectedSpot.imageSet?.small &&
-					selectedSpot.imageSet.small.length > 0 && (
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.55 }}
-							className="mt-6"
-						>
-							<span className="text-xs font-medium text-gray-500 uppercase tracking-wide block mb-3">
-								More Photos
-							</span>
-							<div className="grid grid-cols-3 gap-2">
-								{selectedSpot.imageSet.small.slice(0, 3).map((image, index) => (
-									<div
-										key={image}
-										className="relative h-16 rounded-md overflow-hidden"
-									>
-										<Image
-											src={image}
-											alt={`${selectedSpot.touristSpotName} ${index + 1}`}
-											fill
-											className="object-cover hover:scale-105 transition-transform cursor-pointer"
-										/>
-									</div>
-								))}
-							</div>
-						</motion.div>
-					)}
+				{((hasGoogleImages && googleImages.length > 1) ||
+					(selectedSpot.imageSet?.small &&
+						selectedSpot.imageSet.small.length > 0)) && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 0.55 }}
+						className="mt-6"
+					>
+						<span className="text-xs font-medium text-gray-500 uppercase tracking-wide block mb-3">
+							More Photos
+						</span>
+						<div className="grid grid-cols-3 gap-2">
+							{hasGoogleImages
+								? googleImages.slice(1, 4).map((image, index) =>
+										image.url && isValidImageUrl(image.url) ? (
+											<div
+												key={image.url}
+												className="relative h-16 rounded-md overflow-hidden"
+											>
+												<Image
+													src={image.url}
+													alt={`${selectedSpot.touristSpotName} ${index + 2}`}
+													fill
+													className="object-cover hover:scale-105 transition-transform cursor-pointer"
+													unoptimized // Disable optimization for Google Photos API URLs
+												/>
+											</div>
+										) : null,
+									)
+								: selectedSpot.imageSet?.small
+										?.slice(0, 3)
+										.filter((image) => isValidImageUrl(image))
+										.map((image, index) => (
+											<div
+												key={image}
+												className="relative h-16 rounded-md overflow-hidden"
+											>
+												<Image
+													src={image}
+													alt={`${selectedSpot.touristSpotName} ${index + 1}`}
+													fill
+													className="object-cover hover:scale-105 transition-transform cursor-pointer"
+												/>
+											</div>
+										))}
+						</div>
+					</motion.div>
+				)}
 			</div>
 		</motion.div>
 	);

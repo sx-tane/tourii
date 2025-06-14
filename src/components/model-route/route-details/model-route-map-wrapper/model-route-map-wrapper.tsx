@@ -163,8 +163,9 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 								map={map}
 							/>
 						)}
-						<LocationInfoPanel selectedSpot={displayedSelectedSpot} />
 					</LeafletMapView>
+					{/* Position LocationInfoPanel outside the map but within the relative container */}
+					<LocationInfoPanel selectedSpot={displayedSelectedSpot} />
 				</motion.div>
 
 				{/* Sidebar */}

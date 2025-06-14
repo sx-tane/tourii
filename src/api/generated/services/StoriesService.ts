@@ -117,9 +117,9 @@ export class StoriesService {
              */
             isSelected: boolean;
             /**
-             * List of chapters in the saga
+             * List of chapters
              */
-            chapterList?: Array<{
+            chapterList: Array<{
                 /**
                  * Unique identifier for the tourist spot
                  */
@@ -164,6 +164,18 @@ export class StoriesService {
                  * Whether the chapter is available to users without prerequisites
                  */
                 isUnlocked: boolean;
+                /**
+                 * Unique identifier for the story chapter
+                 */
+                storyChapterId: string;
+                /**
+                 * Flag to indicate if the story chapter is deleted
+                 */
+                delFlag: boolean;
+                /**
+                 * Unique identifier for the user who updated the story chapter
+                 */
+                updUserId: string;
             }>;
             /**
              * Unique identifier for the story saga

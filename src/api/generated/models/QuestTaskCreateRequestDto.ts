@@ -44,13 +44,9 @@ export type QuestTaskCreateRequestDto = {
      */
     magatamaPointAwarded: number;
     /**
-     * Total Magatama points awarded
+     * Reward earned for this task
      */
-    totalMagatamaPointAwarded: number;
-    /**
-     * Flag to indicate if the task is deleted
-     */
-    delFlag: boolean;
+    rewardEarned?: string;
 };
 export namespace QuestTaskCreateRequestDto {
     /**

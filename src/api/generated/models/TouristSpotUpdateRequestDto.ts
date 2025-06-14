@@ -37,6 +37,10 @@ export type TouristSpotUpdateRequestDto = {
         small: Array<string>;
     };
     /**
+     * Address for enhanced search accuracy
+     */
+    address?: string;
+    /**
      * Unique identifier for the tourist spot
      */
     touristSpotId: string;

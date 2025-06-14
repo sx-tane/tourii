@@ -72,3 +72,15 @@ Model Route Response Dto
 - [ ] Add the Route Destination Page
 - [ ] Add the Route Details Component
 - [ ] Add the Route Destination Component
+
+## 2025-06-14
+- [X] Add the Location Info Panel
+  - [X] Make the Location Info API and SWR
+  - [X] Make the Component Show Up Every Basic Data
+- [X] BE Create Photo Upload API
+- [X] BE Get Latest Chapter API and Popular Quest API
+
+### 2025-06-15
+- [#40](https://github.com/sx-tane/tourii/issues/40)
+  - [ ] Finish this and make sure it works
+  - [ ] Style the Location Info Panel

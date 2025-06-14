@@ -36,5 +36,9 @@ export type TouristSpotCreateRequestDto = {
          */
         small: Array<string>;
     };
+    /**
+     * Address for enhanced search accuracy
+     */
+    address?: string;
 };
 

@@ -64,6 +64,10 @@ export type ModelRouteCreateRequestDto = {
              */
             small: Array<string>;
         };
+        /**
+         * Address for enhanced search accuracy
+         */
+        address?: string;
     }>;
 };
 

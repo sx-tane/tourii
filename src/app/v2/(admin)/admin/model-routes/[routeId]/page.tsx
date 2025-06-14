@@ -62,6 +62,7 @@ export default function TouristSpotManagement({ params }: Props) {
 	const [form, setForm] = useState<TouristSpotCreateRequestDto>({
 		storyChapterId: "",
 		touristSpotName: "",
+		address: "",
 		touristSpotDesc: "",
 		bestVisitTime: "",
 		touristSpotHashtag: [],
@@ -98,6 +99,7 @@ export default function TouristSpotManagement({ params }: Props) {
 				(spot) =>
 					spot.touristSpotName?.toLowerCase().includes(query) ||
 					spot.touristSpotDesc?.toLowerCase().includes(query) ||
+					spot.address?.toLowerCase().includes(query) ||
 					spot.bestVisitTime?.toLowerCase().includes(query) ||
 					spot.touristSpotHashtag?.some((tag) =>
 						tag.toLowerCase().includes(query),
@@ -186,7 +188,8 @@ export default function TouristSpotManagement({ params }: Props) {
 		if (
 			!form.storyChapterId.trim() ||
 			!form.touristSpotName.trim() ||
-			!form.touristSpotDesc.trim()
+			!form.touristSpotDesc.trim() ||
+			!form.address?.trim()
 		) {
 			alert(
 				"Please fill in required fields: Story Chapter ID, Spot Name, and Description",
@@ -349,10 +352,14 @@ export default function TouristSpotManagement({ params }: Props) {
 		setForm({
 			storyChapterId: spot.storyChapterId || "",
 			touristSpotName: spot.touristSpotName || "",
+			address: spot.address || "",
 			touristSpotDesc: spot.touristSpotDesc || "",
 			bestVisitTime: spot.bestVisitTime || "",
 			touristSpotHashtag: spot.touristSpotHashtag || [],
-			imageSet: spot.imageSet || { main: "", small: [] },
+			imageSet: {
+				main: spot.imageSet?.main || "",
+				small: spot.imageSet?.small || [],
+			},
 		});
 		// Set text fields for editing
 		setHashtagText(spot.touristSpotHashtag?.join(", ") || "");
@@ -1031,7 +1038,7 @@ export default function TouristSpotManagement({ params }: Props) {
 										<input
 											id="storyChapterId"
 											type="text"
-											value={form.storyChapterId}
+											value={form.storyChapterId || ""}
 											onChange={(e) =>
 												setForm({ ...form, storyChapterId: e.target.value })
 											}
@@ -1050,7 +1057,7 @@ export default function TouristSpotManagement({ params }: Props) {
 										<input
 											id="touristSpotName"
 											type="text"
-											value={form.touristSpotName}
+											value={form.touristSpotName || ""}
 											onChange={(e) =>
 												setForm({ ...form, touristSpotName: e.target.value })
 											}
@@ -1061,6 +1068,24 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
+											htmlFor="address"
+											className="block text-sm font-medium text-charcoal mb-2"
+										>
+											Address *
+										</label>
+										<input
+											id="address"
+											type="text"
+											value={form.address || ""}
+											onChange={(e) =>
+												setForm({ ...form, address: e.target.value })
+											}
+											className="w-full rounded-lg border border-warmGrey2 px-4 py-2 focus:border-red focus:outline-none"
+											placeholder="Enter address"
+										/>
+									</div>
+									<div>
+										<label
 											htmlFor="touristSpotDesc"
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
@@ -1068,7 +1093,7 @@ export default function TouristSpotManagement({ params }: Props) {
 										</label>
 										<textarea
 											id="touristSpotDesc"
-											value={form.touristSpotDesc}
+											value={form.touristSpotDesc || ""}
 											onChange={(e) =>
 												setForm({ ...form, touristSpotDesc: e.target.value })
 											}
@@ -1088,7 +1113,7 @@ export default function TouristSpotManagement({ params }: Props) {
 										<input
 											id="bestVisitTime"
 											type="text"
-											value={form.bestVisitTime}
+											value={form.bestVisitTime || ""}
 											onChange={(e) =>
 												setForm({ ...form, bestVisitTime: e.target.value })
 											}

@@ -1,7 +1,8 @@
 import type { TouristSpotResponseDto } from "@/api/generated";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
+import { useRef } from "react";
 import { calculateDistanceKm, estimateWalkingMinutes } from "@/utils/geo-utils";
 
 const RouteDestination: React.FC<{
@@ -142,14 +143,23 @@ const RouteDestination: React.FC<{
 											ease: [0.6, 0.05, 0.01, 0.9],
 										}}
 									>
-										<Image
-											src={touristSpot.imageSet?.main ?? ""}
-											alt="destination"
-											width={300}
-											height={300}
-											priority
-											className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 rounded-full border-2 border-charcoal object-cover"
-										/>
+										{touristSpot.imageSet?.main &&
+										touristSpot.imageSet.main.trim() !== "" ? (
+											<Image
+												src={touristSpot.imageSet.main}
+												alt="destination"
+												width={300}
+												height={300}
+												priority
+												className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 rounded-full border-2 border-charcoal object-cover"
+											/>
+										) : (
+											<div className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 rounded-full border-2 border-charcoal bg-warmGrey flex items-center justify-center">
+												<span className="text-charcoal text-xs uppercase">
+													No Image
+												</span>
+											</div>
+										)}
 									</motion.div>
 
 									{/* Tourist Spot Name */}
@@ -170,10 +180,26 @@ const RouteDestination: React.FC<{
 
 								{/* Simple Straight Line */}
 								{index !== touristSpotList.length - 1 && (
-									<div className="flex flex-col items-center justify-center">
+									<div className="relative flex flex-col items-center w-20 sm:w-24 lg:w-32 -mt-8 sm:-mt-10 lg:-mt-10 text-center">
+										{/* KM on top */}
+										{segmentInfo[index] && (
+											<motion.div
+												className="absolute bottom-full mb-1 text-[8px] md:text-xs text-charcoal whitespace-nowrap tracking-widest font-medium italic leading-relaxed"
+												initial={{ opacity: 0, y: 10 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: false }}
+												transition={{
+													duration: 0.3,
+													delay: 0.35 + index * 0.05,
+													ease: [0.6, 0.05, 0.01, 0.9],
+												}}
+											>
+												{segmentInfo[index]?.distance.toFixed(1)} km
+											</motion.div>
+										)}
 										{/* Connecting line */}
 										<motion.div
-											className="w-8 sm:w-12 lg:w-20 h-0.5 bg-charcoal -mt-8 sm:-mt-10 lg:-mt-8"
+											className="w-full h-0.5 bg-charcoal"
 											initial={{ scaleX: 0 }}
 											whileInView={{ scaleX: 1 }}
 											viewport={{ once: false }}
@@ -183,14 +209,21 @@ const RouteDestination: React.FC<{
 												ease: [0.6, 0.05, 0.01, 0.9],
 											}}
 										/>
-
 										{/* Minutes at bottom */}
 										{segmentInfo[index] && (
-											<span className="text-[10px] text-charcoal mt-1 whitespace-nowrap tracking-wider">
-												{segmentInfo[index]?.distance.toFixed(1)} km
-												<br />
-												{segmentInfo[index]?.minutes} min
-											</span>
+											<motion.div
+												className="absolute top-full mt-1 text-[8px] md:text-xs text-charcoal whitespace-nowrap tracking-widest font-medium italic leading-relaxed"
+												initial={{ opacity: 0, y: -10 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: false }}
+												transition={{
+													duration: 0.3,
+													delay: 0.35 + index * 0.05,
+													ease: [0.6, 0.05, 0.01, 0.9],
+												}}
+											>
+												{segmentInfo[index]?.minutes} min walk
+											</motion.div>
 										)}
 									</div>
 								)}

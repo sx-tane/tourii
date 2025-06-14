@@ -12,6 +12,11 @@ export default {
                 protocol: 'https',
                 hostname: 'images.unsplash.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'maps.googleapis.com',
+                pathname: '/maps/api/place/photo**',
+            },
         ],
     },
 };

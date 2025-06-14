@@ -1,22 +1,16 @@
 "use client";
 import type { TouristSpotResponseDto } from "@/api/generated";
-import { useEffect, useRef } from "react";
+import type { Map as LeafletMap } from "leaflet";
+import { useEffect, useRef, useState } from "react";
 
 // Import Leaflet dynamically
-// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-let L: any;
-if (typeof window !== "undefined") {
-	import("leaflet").then((leaflet) => {
-		L = leaflet.default;
-	});
-}
+type LeafletType = typeof import("leaflet");
 
 interface TouristSpotMarkersProps {
 	touristSpots: TouristSpotResponseDto[];
 	selectedSpotId?: string;
 	onSpotSelect: (spotId: string) => void;
-	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-	map?: any;
+	map?: LeafletMap;
 }
 
 const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
@@ -25,14 +19,25 @@ const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
 	onSpotSelect,
 	map,
 }) => {
-	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
+	const [L, setL] = useState<LeafletType | null>(null);
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const markersRef = useRef<any[]>([]);
 
-	// Create custom marker icon
-	const createCustomIcon = (index: number, isSelected: boolean) => {
-		if (!L) return null;
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			import("leaflet").then((leaflet) => {
+				setL(leaflet);
+			});
+		}
+	}, []);
 
-		return L.divIcon({
+	// Create custom marker icon
+	const createCustomIcon = (
+		leaflet: LeafletType,
+		index: number,
+		isSelected: boolean,
+	) => {
+		return leaflet.divIcon({
 			className: "custom-div-icon",
 			html: `
 				<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 ${
@@ -63,7 +68,11 @@ const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
 			const marker = L.marker(
 				[spot.touristSpotLatitude, spot.touristSpotLongitude],
 				{
-					icon: createCustomIcon(index, selectedSpotId === spot.touristSpotId),
+					icon: createCustomIcon(
+						L,
+						index,
+						selectedSpotId === spot.touristSpotId,
+					),
 				},
 			);
 
@@ -110,7 +119,7 @@ const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
 			}
 			markersRef.current = [];
 		};
-	}, [map, touristSpots, selectedSpotId, onSpotSelect]);
+	}, [map, L, touristSpots, selectedSpotId, onSpotSelect]);
 
 	// Update marker styles when selection changes
 	// biome-ignore lint/correctness/useExhaustiveDependencies: useEffect dependencies are intentionally not exhaustive
@@ -120,9 +129,9 @@ const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
 		markersRef.current.forEach((marker, index) => {
 			const spot = touristSpots[index];
 			const isSelected = selectedSpotId === spot?.touristSpotId;
-			marker.setIcon(createCustomIcon(index, isSelected));
+			marker.setIcon(createCustomIcon(L, index, isSelected));
 		});
-	}, [selectedSpotId, touristSpots]);
+	}, [selectedSpotId, L, touristSpots]);
 
 	return null;
 };
