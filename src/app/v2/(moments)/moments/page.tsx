@@ -4,7 +4,13 @@ import { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeftIcon, ChevronRightIcon, SearchIcon, FilterIcon, AlertCircleIcon } from "lucide-react";
+import {
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	SearchIcon,
+	FilterIcon,
+	AlertCircleIcon,
+} from "lucide-react";
 import { getMoments } from "@/hooks/moments/getMoments";
 import type { Moment, MomentsResponse, MomentsFilters } from "../types";
 
@@ -14,7 +20,8 @@ const mockMomentsData: MomentsResponse = {
 		{
 			id: "1",
 			title: "Temple Visit Memory",
-			description: "Beautiful golden hour at Kiyomizu Temple. The cherry blossoms were in full bloom and the view of Kyoto from the wooden stage was breathtaking.",
+			description:
+				"Beautiful golden hour at Kiyomizu Temple. The cherry blossoms were in full bloom and the view of Kyoto from the wooden stage was breathtaking.",
 			imageUrl: "/image/model-route/1/kashima-shrine/1.jpg",
 			rewardText: "Earned 50 Tourii Points + Temple Explorer Badge",
 			questName: "Temple Discovery Quest",
@@ -22,12 +29,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-15T10:30:00Z",
 			userId: "user1",
 			userName: "Sakura Explorer",
-			userAvatar: "/image/profile/nft/100.png"
+			userAvatar: "/image/profile/nft/100.png",
 		},
 		{
 			id: "2",
 			title: "Shrine Ceremony Experience",
-			description: "Witnessed a traditional wedding ceremony at Meiji Shrine. The peaceful atmosphere and traditional music created an unforgettable moment.",
+			description:
+				"Witnessed a traditional wedding ceremony at Meiji Shrine. The peaceful atmosphere and traditional music created an unforgettable moment.",
 			imageUrl: "/image/model-route/1/anamori-shrine/1.jpg",
 			rewardText: "Earned 75 Tourii Points + Cultural Observer Badge",
 			questName: "Cultural Immersion Quest",
@@ -35,12 +43,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-14T15:45:00Z",
 			userId: "user2",
 			userName: "Tradition Seeker",
-			userAvatar: "/image/profile/nft/171.png"
+			userAvatar: "/image/profile/nft/171.png",
 		},
 		{
 			id: "3",
 			title: "Waterfall Meditation",
-			description: "Found inner peace at Harajiri Falls. The sound of cascading water and the misty atmosphere provided the perfect setting for reflection.",
+			description:
+				"Found inner peace at Harajiri Falls. The sound of cascading water and the misty atmosphere provided the perfect setting for reflection.",
 			imageUrl: "/image/model-route/1/harajiri-fall/1.jpg",
 			rewardText: "Earned 60 Tourii Points + Nature Guardian Badge",
 			questName: "Natural Wonders Quest",
@@ -48,12 +57,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-13T08:20:00Z",
 			userId: "user3",
 			userName: "Mountain Walker",
-			userAvatar: "/image/profile/nft/19.png"
+			userAvatar: "/image/profile/nft/19.png",
 		},
 		{
 			id: "4",
 			title: "Ancient Cave Discovery",
-			description: "Explored the mysterious Inazumi Cave with its stunning limestone formations. Each chamber revealed new geological wonders.",
+			description:
+				"Explored the mysterious Inazumi Cave with its stunning limestone formations. Each chamber revealed new geological wonders.",
 			imageUrl: "/image/model-route/3/inazumi-cave/1.jpg",
 			rewardText: "Earned 80 Tourii Points + Cave Explorer Badge",
 			questName: "Underground Adventure Quest",
@@ -65,7 +75,8 @@ const mockMomentsData: MomentsResponse = {
 		{
 			id: "5",
 			title: "Seasonal Garden Beauty",
-			description: "Captured the essence of Japanese garden design at its finest. The carefully arranged rocks, plants, and water features create perfect harmony.",
+			description:
+				"Captured the essence of Japanese garden design at its finest. The carefully arranged rocks, plants, and water features create perfect harmony.",
 			imageUrl: "/image/model-route/2/eboshi-park/1.jpg",
 			rewardText: "Earned 55 Tourii Points + Garden Enthusiast Badge",
 			questName: "Zen Garden Quest",
@@ -73,12 +84,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-11T11:30:00Z",
 			userId: "user1",
 			userName: "Sakura Explorer",
-			userAvatar: "/image/profile/nft/100.png"
+			userAvatar: "/image/profile/nft/100.png",
 		},
 		{
 			id: "6",
 			title: "Mountain Shrine Pilgrimage",
-			description: "Completed the challenging hike to Mount Atago shrine. The panoramic views from the summit made every step worthwhile.",
+			description:
+				"Completed the challenging hike to Mount Atago shrine. The panoramic views from the summit made every step worthwhile.",
 			imageUrl: "/image/model-route/4/mount-atago/1.jpg",
 			rewardText: "Earned 100 Tourii Points + Mountain Pilgrim Badge",
 			questName: "Sacred Peak Quest",
@@ -90,7 +102,8 @@ const mockMomentsData: MomentsResponse = {
 		{
 			id: "7",
 			title: "Cultural Heritage Site",
-			description: "Discovered the historical significance of Osako Magaibutsu. These ancient stone carvings tell stories from centuries past.",
+			description:
+				"Discovered the historical significance of Osako Magaibutsu. These ancient stone carvings tell stories from centuries past.",
 			imageUrl: "/image/model-route/3/osako-magaibutsu/1.jpg",
 			rewardText: "Earned 90 Tourii Points + History Scholar Badge",
 			questName: "Ancient Artifacts Quest",
@@ -102,7 +115,8 @@ const mockMomentsData: MomentsResponse = {
 		{
 			id: "8",
 			title: "Temple Architecture Marvel",
-			description: "Amazed by the intricate woodwork and architectural details of this historic temple. Every beam and joint shows masterful craftsmanship.",
+			description:
+				"Amazed by the intricate woodwork and architectural details of this historic temple. Every beam and joint shows masterful craftsmanship.",
 			imageUrl: "/image/model-route/2/fukoji-temple/1.jpg",
 			rewardText: "Earned 70 Tourii Points + Architecture Lover Badge",
 			questName: "Architectural Wonders Quest",
@@ -110,12 +124,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-08T13:10:00Z",
 			userId: "user2",
 			userName: "Tradition Seeker",
-			userAvatar: "/image/profile/nft/171.png"
+			userAvatar: "/image/profile/nft/171.png",
 		},
 		{
 			id: "9",
 			title: "Peaceful Shrine Grounds",
-			description: "Found tranquility in the serene atmosphere of Shibayama Hachiman Shrine. The ancient trees and stone lanterns create a timeless ambiance.",
+			description:
+				"Found tranquility in the serene atmosphere of Shibayama Hachiman Shrine. The ancient trees and stone lanterns create a timeless ambiance.",
 			imageUrl: "/image/model-route/3/shibayama-hachiman-shrine/1.jpg",
 			rewardText: "Earned 65 Tourii Points + Serenity Seeker Badge",
 			questName: "Peaceful Places Quest",
@@ -123,12 +138,13 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-07T09:30:00Z",
 			userId: "user3",
 			userName: "Mountain Walker",
-			userAvatar: "/image/profile/nft/19.png"
+			userAvatar: "/image/profile/nft/19.png",
 		},
 		{
 			id: "10",
 			title: "Coastal Shrine Experience",
-			description: "Visited this beautiful seaside shrine where ocean meets spirituality. The sound of waves enhances the meditative atmosphere.",
+			description:
+				"Visited this beautiful seaside shrine where ocean meets spirituality. The sound of waves enhances the meditative atmosphere.",
 			imageUrl: "/image/model-route/4/omi-shrine/1.jpeg",
 			rewardText: "Earned 85 Tourii Points + Coastal Explorer Badge",
 			questName: "Ocean Spirits Quest",
@@ -136,7 +152,7 @@ const mockMomentsData: MomentsResponse = {
 			createdAt: "2024-06-06T17:00:00Z",
 			userId: "user4",
 			userName: "Adventure Seeker",
-		}
+		},
 	],
 	pagination: {
 		currentPage: 1,
@@ -144,8 +160,8 @@ const mockMomentsData: MomentsResponse = {
 		totalItems: 28,
 		itemsPerPage: 10,
 		hasNext: true,
-		hasPrevious: false
-	}
+		hasPrevious: false,
+	},
 };
 
 // Mock data will be used when the API endpoint is not available
@@ -156,12 +172,17 @@ const MomentsPage = () => {
 		page: 1,
 		limit: 10,
 		search: "",
-		location: ""
+		location: "",
 	});
 
 	// Use the hook to fetch moments - in production this will call the real API
 	// In development, it will fall back to the mock data when the API is not available
-	const { moments: momentsData, isLoadingMoments, isErrorMoments, mutateMoments } = getMoments(filters);
+	const {
+		moments: momentsData,
+		isLoadingMoments,
+		isErrorMoments,
+		mutateMoments,
+	} = getMoments(filters);
 
 	// Fallback to mock data when API is not available (development mode)
 	const displayData = momentsData || mockMomentsData;
@@ -184,11 +205,13 @@ const MomentsPage = () => {
 		return new Date(dateString).toLocaleDateString("en-US", {
 			month: "short",
 			day: "numeric",
-			year: "numeric"
+			year: "numeric",
 		});
 	};
 
-	const uniqueLocations = Array.from(new Set(displayData.moments.map(m => m.location).filter(Boolean)));
+	const uniqueLocations = Array.from(
+		new Set(displayData.moments.map((m) => m.location).filter(Boolean)),
+	);
 
 	return (
 		<div className="space-y-6">
@@ -229,8 +252,10 @@ const MomentsPage = () => {
 							className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
 						>
 							<option value="">All Locations</option>
-							{uniqueLocations.map(location => (
-								<option key={location} value={location}>{location}</option>
+							{uniqueLocations.map((location) => (
+								<option key={location} value={location}>
+									{location}
+								</option>
 							))}
 						</select>
 					</div>
@@ -248,7 +273,9 @@ const MomentsPage = () => {
 					<div className="flex items-center">
 						<AlertCircleIcon className="h-5 w-5 text-red-400 mr-3" />
 						<div>
-							<h3 className="text-sm font-medium text-red-800">Failed to load moments</h3>
+							<h3 className="text-sm font-medium text-red-800">
+								Failed to load moments
+							</h3>
 							<p className="text-sm text-red-700 mt-1">
 								Unable to fetch moments. Using demo data instead.
 							</p>
@@ -268,7 +295,10 @@ const MomentsPage = () => {
 			{!loading && (
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{displayData.moments.map((moment) => (
-						<Card key={moment.id} className="bg-white shadow-sm hover:shadow-md transition-shadow">
+						<Card
+							key={moment.id}
+							className="bg-white shadow-sm hover:shadow-md transition-shadow"
+						>
 							<div className="aspect-w-16 aspect-h-9">
 								<img
 									src={moment.imageUrl}
@@ -286,27 +316,39 @@ const MomentsPage = () => {
 										/>
 									)}
 									<div>
-										<p className="text-sm font-medium text-gray-900">{moment.userName}</p>
-										<p className="text-xs text-gray-500">{formatDate(moment.createdAt)}</p>
+										<p className="text-sm font-medium text-gray-900">
+											{moment.userName}
+										</p>
+										<p className="text-xs text-gray-500">
+											{formatDate(moment.createdAt)}
+										</p>
 									</div>
 								</div>
 								<CardTitle className="text-lg">{moment.title}</CardTitle>
 								{moment.location && (
-									<p className="text-sm text-indigo-600 font-medium">📍 {moment.location}</p>
+									<p className="text-sm text-indigo-600 font-medium">
+										📍 {moment.location}
+									</p>
 								)}
 							</CardHeader>
 							<CardContent className="pt-0">
-								<p className="text-gray-600 text-sm mb-3 line-clamp-3">{moment.description}</p>
-								
+								<p className="text-gray-600 text-sm mb-3 line-clamp-3">
+									{moment.description}
+								</p>
+
 								{moment.questName && (
 									<div className="mb-3">
 										<p className="text-xs text-gray-500">From quest:</p>
-										<p className="text-sm font-medium text-gray-700">{moment.questName}</p>
+										<p className="text-sm font-medium text-gray-700">
+											{moment.questName}
+										</p>
 									</div>
 								)}
-								
+
 								<div className="bg-green-50 border border-green-200 rounded-lg p-3">
-									<p className="text-sm text-green-800 font-medium">🎁 {moment.rewardText}</p>
+									<p className="text-sm text-green-800 font-medium">
+										🎁 {moment.rewardText}
+									</p>
 								</div>
 							</CardContent>
 						</Card>
@@ -318,7 +360,9 @@ const MomentsPage = () => {
 			{!loading && displayData.moments.length === 0 && (
 				<div className="text-center py-12">
 					<p className="text-gray-500 text-lg">No moments found</p>
-					<p className="text-gray-400 text-sm mt-1">Try adjusting your search or filters</p>
+					<p className="text-gray-400 text-sm mt-1">
+						Try adjusting your search or filters
+					</p>
 				</div>
 			)}
 
@@ -327,14 +371,17 @@ const MomentsPage = () => {
 				<div className="bg-white shadow-sm rounded-lg p-6">
 					<div className="flex items-center justify-between">
 						<div className="text-sm text-gray-700">
-							Showing page {displayData.pagination.currentPage} of {displayData.pagination.totalPages}
-							{" "}({displayData.pagination.totalItems} total moments)
+							Showing page {displayData.pagination.currentPage} of{" "}
+							{displayData.pagination.totalPages} (
+							{displayData.pagination.totalItems} total moments)
 						</div>
 						<div className="flex items-center gap-2">
 							<Button
 								variant="outline"
 								size="sm"
-								onClick={() => handlePageChange(displayData.pagination.currentPage - 1)}
+								onClick={() =>
+									handlePageChange(displayData.pagination.currentPage - 1)
+								}
 								disabled={!displayData.pagination.hasPrevious}
 							>
 								<ChevronLeftIcon className="h-4 w-4 mr-1" />
@@ -343,7 +390,9 @@ const MomentsPage = () => {
 							<Button
 								variant="outline"
 								size="sm"
-								onClick={() => handlePageChange(displayData.pagination.currentPage + 1)}
+								onClick={() =>
+									handlePageChange(displayData.pagination.currentPage + 1)
+								}
 								disabled={!displayData.pagination.hasNext}
 							>
 								Next

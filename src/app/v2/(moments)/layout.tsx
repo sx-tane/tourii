@@ -1,19 +1,20 @@
-"use client";
+import Loading from "@/app/loading";
+import HeaderApp from "@/components/header/header-component/header-launch-app";
+import { type ReactNode, Suspense } from "react";
 
-import { Inter } from "next/font/google";
+interface MomentsLayoutProps {
+	children: ReactNode;
+}
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function MomentsLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+const MomentsLayout = ({ children }: MomentsLayoutProps) => {
 	return (
-		<div className={`${inter.className} min-h-screen bg-gray-50`}>
-			<div className="container mx-auto px-4 py-8">
-				{children}
+		<div className="min-h-screen animate-fadeIn overflow-hidden bg-charcoal before:fixed before:inset-0 before:z-[-1] before:bg-charcoal">
+			<div className="mx-6">
+				<HeaderApp theme={"black"} />
 			</div>
+			<Suspense fallback={<Loading />}>{children} </Suspense>
 		</div>
 	);
-}
+};
+
+export default MomentsLayout;
