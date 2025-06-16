@@ -2,7 +2,7 @@
 import type { ModelRouteResponseDto } from "@/api/generated";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Map as MapIcon, Maximize2, X } from "lucide-react";
+import { Map as MapIcon, Maximize2, X, ChevronLeft, ChevronRight } from "lucide-react";
 import LeafletMapView from "./leaflet-map-view";
 import TouristSpotMarkers from "./tourist-spot-markers";
 import LocationInfoPanel from "./location-info-panel";
@@ -51,10 +51,14 @@ const useResponsiveDetection = () => {
 
 	useEffect(() => {
 		const checkDevice = () => {
-			setIsMobileTablet(window.innerWidth < DESKTOP_BREAKPOINT);
+			const isMobile = window.innerWidth < DESKTOP_BREAKPOINT;
+			setIsMobileTablet(isMobile);
 		};
 
+		// Initial check
 		checkDevice();
+		
+		// Add resize listener
 		window.addEventListener("resize", checkDevice);
 		return () => window.removeEventListener("resize", checkDevice);
 	}, []);
@@ -188,10 +192,21 @@ const FullscreenMapView: React.FC<{
 }) => {
 	const displayedSelectedSpot = selectedSpot || touristSpotList[0];
 	
-	// Debug logging
-	console.log('FullscreenMapView - selectedSpot:', selectedSpot);
-	console.log('FullscreenMapView - displayedSelectedSpot:', displayedSelectedSpot);
-	console.log('FullscreenMapView - touristSpotList length:', touristSpotList.length);
+	// Navigation functions
+	const goToPreviousSpot = () => {
+		const currentIndex = touristSpotList.findIndex(spot => spot.touristSpotId === selectedSpot?.touristSpotId);
+		const previousIndex = currentIndex > 0 ? currentIndex - 1 : touristSpotList.length - 1;
+		onSpotSelect(touristSpotList[previousIndex]?.touristSpotId);
+	};
+
+	const goToNextSpot = () => {
+		const currentIndex = touristSpotList.findIndex(spot => spot.touristSpotId === selectedSpot?.touristSpotId);
+		const nextIndex = currentIndex < touristSpotList.length - 1 ? currentIndex + 1 : 0;
+		onSpotSelect(touristSpotList[nextIndex]?.touristSpotId);
+	};
+
+	const currentSpotIndex = touristSpotList.findIndex(spot => spot.touristSpotId === selectedSpot?.touristSpotId);
+	const currentSpotNumber = currentSpotIndex >= 0 ? currentSpotIndex + 1 : 1;
 
 	return (
 		<AnimatePresence>
@@ -234,8 +249,55 @@ const FullscreenMapView: React.FC<{
 							)}
 						</LeafletMapView>
 						
+						{/* Navigation Buttons */}
+						{touristSpotList.length > 1 && (
+							<>
+								{/* Previous Button */}
+								<motion.button
+									initial={{ opacity: 0, x: -20 }}
+									animate={{ opacity: 1, x: 0 }}
+									exit={{ opacity: 0, x: -20 }}
+									transition={{ delay: 0.3 }}
+									type="button"
+									onClick={goToPreviousSpot}
+									className="absolute bottom-[50vh] left-4 z-[9999] bg-white/95 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-white hover:shadow-2xl transition-all duration-200"
+									aria-label="Previous tourist spot"
+								>
+									<ChevronLeft className="w-6 h-6 text-gray-700" />
+								</motion.button>
+
+								{/* Next Button */}
+								<motion.button
+									initial={{ opacity: 0, x: 20 }}
+									animate={{ opacity: 1, x: 0 }}
+									exit={{ opacity: 0, x: 20 }}
+									transition={{ delay: 0.3 }}
+									type="button"
+									onClick={goToNextSpot}
+									className="absolute bottom-[50vh] right-4 z-[9999] bg-white/95 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-white hover:shadow-2xl transition-all duration-200"
+									aria-label="Next tourist spot"
+								>
+									<ChevronRight className="w-6 h-6 text-gray-700" />
+								</motion.button>
+							</>
+						)}
+
 						{/* Enhanced Location Info Panel - Bigger and Better Positioned */}
 						<div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 z-[9999] pointer-events-auto">
+							{/* Spot Counter */}
+							{touristSpotList.length > 1 && (
+								<motion.div
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ delay: 0.4 }}
+									className="absolute -top-12 left-0 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg border border-gray-200"
+								>
+									<span className="text-sm font-medium text-gray-700">
+										{currentSpotNumber} of {touristSpotList.length}
+									</span>
+								</motion.div>
+							)}
+							
 							{displayedSelectedSpot ? (
 								<LocationInfoPanel 
 									selectedSpot={displayedSelectedSpot} 
@@ -338,6 +400,17 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 	const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
 	const isMobileTablet = useResponsiveDetection();
+	
+	// Ensure modal starts closed on mount and debug
+	useEffect(() => {
+		console.log('Component mounted, setting isMapModalOpen to false');
+		setIsMapModalOpen(false);
+	}, []);
+
+	// Debug when isMapModalOpen changes
+	useEffect(() => {
+		console.log('isMapModalOpen changed to:', isMapModalOpen);
+	}, [isMapModalOpen]);
 	const {
 		selectedTouristSpotId,
 		setSelectedTouristSpotId,
@@ -350,11 +423,15 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 
 	// Mobile/Tablet View - Show spot details with fullscreen map
 	if (isMobileTablet) {
+		console.log('Rendering mobile/tablet view, isMapModalOpen:', isMapModalOpen);
 		return (
 			<>
 				<MobileTabletView
 					modelRoute={modelRoute}
-					onOpenModal={() => setIsMapModalOpen(true)}
+					onOpenModal={() => {
+						console.log('onOpenModal called, setting to true');
+						setIsMapModalOpen(true);
+					}}
 					selectedSpot={selectedSpot}
 					touristSpotList={modelRoute.touristSpotList}
 					onSpotSelect={setSelectedTouristSpotId}
@@ -362,7 +439,10 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 				/>
 				<FullscreenMapView
 					isOpen={isMapModalOpen}
-					onClose={() => setIsMapModalOpen(false)}
+					onClose={() => {
+						console.log('onClose called, setting to false');
+						setIsMapModalOpen(false);
+					}}
 					modelRoute={modelRoute}
 					selectedSpot={selectedSpot}
 					touristSpotList={modelRoute.touristSpotList}
@@ -375,6 +455,8 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 			</>
 		);
 	}
+
+	console.log('Rendering desktop view');
 
 	// Desktop View - Full map layout
 	return (
