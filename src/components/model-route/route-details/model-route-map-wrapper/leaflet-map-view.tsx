@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 // Constants
 const TILE_LAYER_CONFIG = {
@@ -150,20 +151,66 @@ const LeafletMapView: React.FC<LeafletMapViewProps> = ({
 	}, [center, zoom, updateMapView]);
 
 	return (
-		<div className={className}>
-			<div
+		<motion.div
+			className={className}
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			viewport={{ once: false }}
+			transition={{
+				duration: 0.5,
+				ease: [0.6, 0.05, 0.01, 0.9],
+			}}
+		>
+			<motion.div
 				ref={mapRef}
 				className="h-full w-full rounded-lg bg-warmGrey flex items-center justify-center"
+				initial={{ opacity: 0, scale: 0.95 }}
+				whileInView={{ opacity: 1, scale: 1 }}
+				viewport={{ once: false }}
+				transition={{
+					duration: 0.6,
+					delay: 0.2,
+					ease: [0.6, 0.05, 0.01, 0.9],
+				}}
 			>
 				{!L && (
-					<div className="text-gray-500 text-center">
-						<div className="text-2xl mb-2">🗺️</div>
-						<div>Loading map...</div>
-					</div>
+					<motion.div
+						className="text-gray-500 text-center"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{
+							duration: 0.4,
+							ease: [0.6, 0.05, 0.01, 0.9],
+						}}
+					>
+						<motion.div
+							className="text-2xl mb-2"
+							initial={{ scale: 0.8 }}
+							animate={{ scale: 1 }}
+							transition={{
+								duration: 0.5,
+								delay: 0.1,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							🗺️
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{
+								duration: 0.4,
+								delay: 0.3,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							Loading map...
+						</motion.div>
+					</motion.div>
 				)}
-			</div>
+			</motion.div>
 			{children}
-		</div>
+		</motion.div>
 	);
 };
 

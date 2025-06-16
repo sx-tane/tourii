@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
 /**
@@ -49,10 +49,13 @@ export const {
 export const selectSelectedRouteId = (state: RootState) => state.routes.selectedRouteId;
 export const selectSelectedRegion = (state: RootState) => state.routes.selectedRegion;
 
-// Legacy selector for backward compatibility (but returns computed data from SWR)
-export const selectRoutes = (state: RootState) => ({
-    selectedRouteId: state.routes.selectedRouteId,
-    selectedRegion: state.routes.selectedRegion,
-});
+// Memoized selector for backward compatibility
+export const selectRoutes = createSelector(
+    [selectSelectedRouteId, selectSelectedRegion],
+    (selectedRouteId, selectedRegion) => ({
+        selectedRouteId,
+        selectedRegion,
+    })
+);
 
 export default routesSlice.reducer;

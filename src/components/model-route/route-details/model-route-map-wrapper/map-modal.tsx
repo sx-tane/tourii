@@ -68,21 +68,58 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 					>
 						{/* Header */}
 						<div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
-							<h2 className="text-lg font-bold text-charcoal">
-								{modelRoute.routeName}
-							</h2>
-							<button
+							<motion.h2
+								className="text-lg font-bold text-charcoal"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.5 }}
+							>
+								{modelRoute.routeName.split(" ").map((word, i) => (
+									<motion.span
+										key={`modal-title-${word}`}
+										className="inline-block mr-[0.25em]"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.4,
+											delay: 0.1 + i * 0.05,
+											ease: [0.6, 0.05, 0.01, 0.9],
+										}}
+									>
+										{word}
+									</motion.span>
+								))}
+							</motion.h2>
+							<motion.button
 								type="button"
 								onClick={onClose}
 								className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+								initial={{ opacity: 0, scale: 0.8 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{
+									duration: 0.4,
+									delay: 0.3,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+								whileHover={{ scale: 1.1 }}
+								whileTap={{ scale: 0.9 }}
 							>
 								<X className="w-5 h-5 text-gray-500" />
-							</button>
+							</motion.button>
 						</div>
 
 						{/* Tab Navigation */}
-						<div className="flex border-b border-gray-200 bg-white">
-							<button
+						<motion.div
+							className="flex border-b border-gray-200 bg-white"
+							initial={{ opacity: 0, y: -10 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{
+								duration: 0.4,
+								delay: 0.4,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							<motion.button
 								type="button"
 								onClick={() => setActiveTab("map")}
 								className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
@@ -90,11 +127,20 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 										? "text-charcoal border-b-2 border-charcoal bg-gray-50"
 										: "text-gray-600 hover:text-charcoal hover:bg-gray-50"
 								}`}
+								initial={{ opacity: 0, x: -20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{
+									duration: 0.4,
+									delay: 0.5,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}
 							>
 								<MapIcon className="w-4 h-4" />
 								<span>Map View</span>
-							</button>
-							<button
+							</motion.button>
+							<motion.button
 								type="button"
 								onClick={() => setActiveTab("details")}
 								className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
@@ -102,11 +148,20 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 										? "text-charcoal border-b-2 border-charcoal bg-gray-50"
 										: "text-gray-600 hover:text-charcoal hover:bg-gray-50"
 								}`}
+								initial={{ opacity: 0, x: 20 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{
+									duration: 0.4,
+									delay: 0.6,
+									ease: [0.6, 0.05, 0.01, 0.9],
+								}}
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}
 							>
 								<List className="w-4 h-4" />
 								<span>Details ({modelRoute.touristSpotList.length})</span>
-							</button>
-						</div>
+							</motion.button>
+						</motion.div>
 
 						{/* Content */}
 						<div className="relative h-[calc(100%-140px)]">

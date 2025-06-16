@@ -154,36 +154,66 @@ const SpotHeader: React.FC<{
 	spotName: string;
 	chapterTitle?: string;
 	spotDesc: string;
-}> = ({ stopNumber, spotName, chapterTitle, spotDesc }) => (
-	<>
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ delay: 0.1 }}
-			className="mb-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-600"
-		>
-			STOP {stopNumber}
-		</motion.div>
+}> = ({ stopNumber, spotName, chapterTitle, spotDesc }) => {
+	const spotNameWords = spotName.split(" ");
 
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ delay: 0.15 }}
-			className="text-lg sm:text-xl font-bold uppercase tracking-widest text-charcoal mb-1"
-		>
-			{spotName}
-		</motion.div>
+	return (
+		<>
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={{ once: false }}
+				transition={{
+					duration: 0.4,
+					delay: 0.1,
+					ease: [0.6, 0.05, 0.01, 0.9],
+				}}
+				className="mb-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-600"
+			>
+				STOP {stopNumber}
+			</motion.div>
 
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			transition={{ delay: 0.2 }}
-			className="text-xs sm:text-sm font-medium tracking-widest text-gray-700 mb-3"
-		>
-			{chapterTitle || spotDesc}
-		</motion.div>
-	</>
-);
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={{ once: false }}
+				transition={{ duration: 0.5 }}
+				className="text-lg sm:text-xl font-bold uppercase tracking-widest text-charcoal mb-1"
+			>
+				{spotNameWords.map((word, i) => (
+					<motion.span
+						key={`spot-name-${word}`}
+						className="inline-block mr-[0.25em]"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: false }}
+						transition={{
+							duration: 0.4,
+							delay: 0.15 + i * 0.05,
+							ease: [0.6, 0.05, 0.01, 0.9],
+						}}
+					>
+						{word}
+					</motion.span>
+				))}
+			</motion.div>
+
+			<motion.div
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={{ once: false }}
+				transition={{
+					duration: 0.4,
+					delay: 0.3,
+					ease: [0.6, 0.05, 0.01, 0.9],
+				}}
+				className="text-xs sm:text-sm font-medium tracking-widest text-gray-700 mb-3"
+			>
+				{chapterTitle || spotDesc}
+			</motion.div>
+		</>
+	);
+};
 
 const SpotImage: React.FC<{
 	chapterImage?: string;

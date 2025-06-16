@@ -89,19 +89,49 @@ const MobileTabletView: React.FC<{
 		<div className="px-4 py-3 bg-white border-b border-gray-200/50 flex items-center justify-between">
 			<motion.div
 				className="text-xs sm:text-sm font-bold tracking-widest text-charcoal uppercase"
-				{...ANIMATIONS.header}
+				initial={{ opacity: 0 }}
+				whileInView={{ opacity: 1 }}
+				viewport={{ once: false }}
+				transition={{ duration: 0.5 }}
 			>
-				Route Details ({touristSpotList.length} stops)
+				{`Route Details (${touristSpotList.length} stops)`
+					.split(" ")
+					.map((word, i) => (
+						<motion.span
+							key={`mobile-header-${word}`}
+							className="inline-block mr-[0.25em]"
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: false }}
+							transition={{
+								duration: 0.4,
+								delay: 0.05 + i * 0.05,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							{word}
+						</motion.span>
+					))}
 			</motion.div>
-			<button
+			<motion.button
 				type="button"
 				onClick={onOpenModal}
 				className="inline-flex items-center gap-2 bg-charcoal hover:bg-charcoal/90 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+				initial={{ opacity: 0, scale: 0.8 }}
+				whileInView={{ opacity: 1, scale: 1 }}
+				viewport={{ once: false }}
+				transition={{
+					duration: 0.4,
+					delay: 0.3,
+					ease: [0.6, 0.05, 0.01, 0.9],
+				}}
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
 			>
 				<MapIcon className="w-4 h-4" />
 				<span className="hidden sm:inline">View Map</span>
 				<Maximize2 className="w-3 h-3" />
-			</button>
+			</motion.button>
 		</div>
 
 		{/* Spot Details */}
@@ -176,8 +206,6 @@ const FullscreenMapView: React.FC<{
 			]
 		: mapCenter; // Show all markers when no spot is selected
 
-	console.log('FullscreenMapView render - isOpen:', isOpen);
-	
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -198,94 +226,132 @@ const FullscreenMapView: React.FC<{
 						padding: 0,
 					}}
 				>
-						{/* Cross Button */}
-						<motion.button
-							initial={{ opacity: 0, scale: 0.8 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0.8 }}
-							transition={{ delay: 0.2 }}
-							type="button"
-							onClick={onClose}
-							className="absolute top-4 right-4 z-[99999] bg-white/95 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-white hover:shadow-2xl transition-all duration-200"
-							aria-label="Close map"
-						>
-							<X className="w-6 h-6 text-gray-700" />
-						</motion.button>
+					{/* Cross Button */}
+					<motion.button
+						initial={{ opacity: 0, scale: 0.8 }}
+						animate={{ opacity: 1, scale: 1 }}
+						exit={{ opacity: 0, scale: 0.8 }}
+						transition={{ delay: 0.2 }}
+						type="button"
+						onClick={onClose}
+						className="absolute top-4 right-4 z-[99999] bg-white/95 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-white hover:shadow-2xl transition-all duration-200"
+						aria-label="Close map"
+					>
+						<X className="w-6 h-6 text-gray-700" />
+					</motion.button>
 
-						{/* Fullscreen Map */}
-						<div
-							className="relative w-full h-full z-0"
-							style={{ width: "100vw", height: "100vh" }}
+					{/* Fullscreen Map */}
+					<div
+						className="relative w-full h-full z-0"
+						style={{ width: "100vw", height: "100vh" }}
+					>
+						<LeafletMapView
+							center={adjustedMapCenter}
+							zoom={12}
+							onMapReady={handleMapReady}
+							className="h-full w-full relative z-0"
 						>
-							<LeafletMapView
-								center={adjustedMapCenter}
-								zoom={12}
-								onMapReady={handleMapReady}
-								className="h-full w-full relative z-0"
-							>
-								{isMapReady && (
-									<TouristSpotMarkers
-										touristSpots={touristSpotList}
-										selectedSpotId={selectedSpot?.touristSpotId}
-										onSpotSelect={onSpotSelect}
-										map={map || undefined}
-									/>
-								)}
-							</LeafletMapView>
+							{isMapReady && (
+								<TouristSpotMarkers
+									touristSpots={touristSpotList}
+									selectedSpotId={selectedSpot?.touristSpotId}
+									onSpotSelect={onSpotSelect}
+									map={map || undefined}
+								/>
+							)}
+						</LeafletMapView>
 
-							{/* Enhanced Location Info Panel */}
-							<div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 z-[9999] pointer-events-auto">
-								{displayedSelectedSpot ? (
-									<LocationInfoPanel
-										selectedSpot={displayedSelectedSpot}
-										isStatic={true}
-										className="max-w-none shadow-2xl"
-										touristSpotList={touristSpotList}
-										onPreviousSpot={goToPreviousSpot}
-										onNextSpot={goToNextSpot}
-										showNavigation={touristSpotList.length > 1}
-									/>
-								) : (
-									<motion.div
-										initial={{ opacity: 0, y: 10 }}
-										animate={{ opacity: 1, y: 0 }}
-										className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-gray-200"
-									>
-										<div className="text-center text-gray-600">
-											<div className="text-lg font-medium mb-2">
-												Select a Tourist Spot
-											</div>
-											<div className="text-sm">
-												Tap on any marker to see details
-											</div>
+						{/* Enhanced Location Info Panel */}
+						<div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 z-[9999] pointer-events-auto">
+							{displayedSelectedSpot ? (
+								<LocationInfoPanel
+									selectedSpot={displayedSelectedSpot}
+									isStatic={true}
+									className="max-w-none shadow-2xl"
+									touristSpotList={touristSpotList}
+									onPreviousSpot={goToPreviousSpot}
+									onNextSpot={goToNextSpot}
+									showNavigation={touristSpotList.length > 1}
+								/>
+							) : (
+								<motion.div
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-gray-200"
+								>
+									<div className="text-center text-gray-600">
+										<div className="text-lg font-medium mb-2">
+											Select a Tourist Spot
 										</div>
-									</motion.div>
-								)}
-							</div>
+										<div className="text-sm">
+											Tap on any marker to see details
+										</div>
+									</div>
+								</motion.div>
+							)}
 						</div>
-					</motion.div>
-				)}
+					</div>
+				</motion.div>
+			)}
 		</AnimatePresence>
 	);
 };
 
 const DesktopMapHeader: React.FC<{
 	touristSpotCount: number;
-}> = ({ touristSpotCount }) => (
-	<motion.div
-		className="px-6 py-4 border-b border-gray-200/50"
-		{...ANIMATIONS.header}
-	>
-		<div className="flex items-center justify-between">
-			<h2 className="text-sm font-bold tracking-widest text-charcoal uppercase">
-				Interactive Route Map
-			</h2>
-			<span className="text-xs text-gray-600">
-				{touristSpotCount} Destinations
-			</span>
-		</div>
-	</motion.div>
-);
+}> = ({ touristSpotCount }) => {
+	const titleWords = "Interactive Route Map".split(" ");
+
+	return (
+		<motion.div
+			className="px-6 py-4 border-b border-gray-200/50"
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 1 }}
+			viewport={{ once: false, amount: 0.5 }}
+			transition={{ duration: 0.5 }}
+		>
+			<div className="flex items-center justify-between">
+				<motion.div
+					className="text-sm font-bold tracking-widest text-charcoal uppercase"
+					initial={{ opacity: 0 }}
+					whileInView={{ opacity: 1 }}
+					viewport={{ once: false }}
+					transition={{ duration: 0.5 }}
+				>
+					{titleWords.map((word, i) => (
+						<motion.span
+							key={`header-${word}`}
+							className="inline-block mr-[0.25em]"
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: false }}
+							transition={{
+								duration: 0.4,
+								delay: 0.05 + i * 0.05,
+								ease: [0.6, 0.05, 0.01, 0.9],
+							}}
+						>
+							{word}
+						</motion.span>
+					))}
+				</motion.div>
+				<motion.span
+					className="text-xs text-gray-600"
+					initial={{ opacity: 0, x: 20 }}
+					whileInView={{ opacity: 1, x: 0 }}
+					viewport={{ once: false }}
+					transition={{
+						duration: 0.4,
+						delay: 0.2,
+						ease: [0.6, 0.05, 0.01, 0.9],
+					}}
+				>
+					{touristSpotCount} Destinations
+				</motion.span>
+			</div>
+		</motion.div>
+	);
+};
 
 const MapContainer: React.FC<{
 	mapCenter: [number, number];
@@ -426,18 +492,13 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 
 	const mapCenter = getMapCenter(modelRoute);
 
-	console.log('ModelRouteMapWrapper - isMobileTablet:', isMobileTablet, 'isMapModalOpen:', isMapModalOpen);
-
 	// Mobile/Tablet View - Show spot details with fullscreen map
 	if (isMobileTablet) {
 		return (
 			<>
 				<MobileTabletView
 					modelRoute={modelRoute}
-					onOpenModal={() => {
-						console.log('Opening map modal...');
-						setIsMapModalOpen(true);
-					}}
+					onOpenModal={() => setIsMapModalOpen(true)}
 					selectedSpot={selectedSpot}
 					touristSpotList={modelRoute.touristSpotList}
 					onSpotSelect={setSelectedTouristSpotId}

@@ -18,11 +18,17 @@ import {
 	ChevronRight,
 } from "lucide-react";
 import type React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLocationInfo } from "@/hooks";
 
 // Constants
+const SWIPE_CONFIG = {
+	minSwipeDistance: 50, // Minimum distance for a swipe
+	maxSwipeTime: 300, // Maximum time for a swipe (ms)
+	preventScroll: true,
+};
+
 const ANIMATIONS = {
 	panel: {
 		initial: { opacity: 0, y: 20 },
@@ -56,6 +62,165 @@ interface LocationInfoPanelProps {
 }
 
 // Custom hooks
+const useSwipeDetection = (
+	onSwipeLeft: () => void,
+	onSwipeRight: () => void,
+	enabled = true,
+) => {
+	const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(
+		null,
+	);
+	const elementRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const element = elementRef.current;
+		if (!element || !enabled) return;
+
+		const handleTouchStart = (e: TouchEvent) => {
+			const touch = e.touches[0];
+			if (!touch) return;
+			touchStartRef.current = {
+				x: touch.clientX,
+				y: touch.clientY,
+				time: Date.now(),
+			};
+		};
+
+		const handleTouchEnd = (e: TouchEvent) => {
+			if (!touchStartRef.current) return;
+
+			const touch = e.changedTouches[0];
+			if (!touch) return;
+			const deltaX = touch.clientX - touchStartRef.current.x;
+			const deltaY = touch.clientY - touchStartRef.current.y;
+			const deltaTime = Date.now() - touchStartRef.current.time;
+
+			// Check if it's a valid swipe
+			const absDeltaX = Math.abs(deltaX);
+			const absDeltaY = Math.abs(deltaY);
+
+			if (
+				absDeltaX > SWIPE_CONFIG.minSwipeDistance &&
+				absDeltaX > absDeltaY * 2 && // Ensure horizontal swipe
+				deltaTime < SWIPE_CONFIG.maxSwipeTime
+			) {
+				if (deltaX > 0) {
+					onSwipeRight();
+				} else {
+					onSwipeLeft();
+				}
+
+				// Prevent default behavior
+				e.preventDefault();
+			}
+
+			touchStartRef.current = null;
+		};
+
+		const handleTouchMove = (e: TouchEvent) => {
+			if (SWIPE_CONFIG.preventScroll && touchStartRef.current) {
+				// Only prevent scroll for horizontal movements
+				const touch = e.touches[0];
+				if (!touch) return;
+				const deltaX = Math.abs(touch.clientX - touchStartRef.current.x);
+				const deltaY = Math.abs(touch.clientY - touchStartRef.current.y);
+
+				if (deltaX > deltaY) {
+					e.preventDefault();
+				}
+			}
+		};
+
+		element.addEventListener("touchstart", handleTouchStart, {
+			passive: false,
+		});
+		element.addEventListener("touchend", handleTouchEnd, { passive: false });
+		element.addEventListener("touchmove", handleTouchMove, { passive: false });
+
+		return () => {
+			element.removeEventListener("touchstart", handleTouchStart);
+			element.removeEventListener("touchend", handleTouchEnd);
+			element.removeEventListener("touchmove", handleTouchMove);
+		};
+	}, [onSwipeLeft, onSwipeRight, enabled]);
+
+	return elementRef;
+};
+
+const useDragDetection = (
+	activeImages: Array<{ url: string }>,
+	currentImageIndex: number,
+	nextImage: () => void,
+	prevImage: () => void,
+	enabled = true,
+) => {
+	const [dragState, setDragState] = useState({
+		isDragging: false,
+		startX: 0,
+		dragOffset: 0,
+	});
+
+	const handleDragStart = (
+		event: MouseEvent | TouchEvent | PointerEvent,
+		info: { point: { x: number; y: number } },
+	) => {
+		if (!enabled || activeImages.length <= 1) return;
+		setDragState({
+			isDragging: true,
+			startX: info.point.x,
+			dragOffset: 0,
+		});
+	};
+
+	const handleDrag = (
+		event: MouseEvent | TouchEvent | PointerEvent,
+		info: { point: { x: number; y: number } },
+	) => {
+		if (!enabled || activeImages.length <= 1 || !dragState.isDragging) return;
+		const offset = info.point.x - dragState.startX;
+		setDragState((prev) => ({
+			...prev,
+			dragOffset: offset,
+		}));
+	};
+
+	const handleDragEnd = (
+		event: MouseEvent | TouchEvent | PointerEvent,
+		info: {
+			point: { x: number; y: number };
+			velocity: { x: number; y: number };
+		},
+	) => {
+		if (!enabled || activeImages.length <= 1) {
+			setDragState({ isDragging: false, startX: 0, dragOffset: 0 });
+			return;
+		}
+
+		const threshold = 100; // Minimum drag distance to trigger swipe
+		const velocity = info.velocity.x;
+		const offset = dragState.dragOffset;
+
+		// Determine if we should swipe based on drag distance or velocity
+		const shouldSwipeRight = offset > threshold || velocity > 500;
+		const shouldSwipeLeft = offset < -threshold || velocity < -500;
+
+		if (shouldSwipeRight) {
+			prevImage(); // Swipe right shows previous image
+		} else if (shouldSwipeLeft) {
+			nextImage(); // Swipe left shows next image
+		}
+
+		setDragState({ isDragging: false, startX: 0, dragOffset: 0 });
+	};
+
+	return {
+		dragState,
+		handleDragStart,
+		handleDrag,
+		handleDragEnd,
+	};
+};
+
 const useImageGallery = (
 	selectedSpot: TouristSpotResponseDto | undefined,
 	locationInfo: LocationInfoResponseDto | undefined,
@@ -167,118 +332,149 @@ const ImageGallery: React.FC<{
 	locationInfo,
 	selectedSpot,
 	mainImageSrc,
-}) => (
-	<AnimatePresence mode="wait">
-		{isLoading ? (
-			<motion.div
-				{...ANIMATIONS.loading}
-				className="relative h-[25vh] sm:h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center"
-			>
-				<Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
-				<span className="ml-2 text-sm text-blue-600">
-					Loading location info...
-				</span>
-			</motion.div>
-		) : hasGoogleImages || hasValidMainImage ? (
-			<motion.div
-				{...ANIMATIONS.image}
-				className="relative h-[25vh] sm:h-48 group"
-			>
-				{hasGoogleImages
-					? activeImages[currentImageIndex]?.url &&
-						isValidImageUrl(activeImages[currentImageIndex]?.url) && (
-							<Image
-								src={activeImages[currentImageIndex].url}
-								alt={locationInfo?.name || selectedSpot.touristSpotName}
-								fill
-								className="object-cover"
-								sizes="(max-width: 380px) 100vw, 380px"
-								unoptimized
-							/>
-						)
-					: hasValidMainImage &&
-						isValidImageUrl(mainImageSrc) && (
-							<Image
-								src={mainImageSrc}
-								alt={selectedSpot.touristSpotName}
-								fill
-								className="object-cover"
-								sizes="(max-width: 380px) 100vw, 380px"
-							/>
-						)}
+}) => {
+	// Add drag detection for mobile/tablet
+	const { dragState, handleDragStart, handleDrag, handleDragEnd } =
+		useDragDetection(
+			activeImages,
+			currentImageIndex,
+			nextImage,
+			prevImage,
+			activeImages.length > 1, // Only enable if multiple images
+		);
 
-				{/* Navigation buttons */}
-				{activeImages.length > 1 && (
-					<>
-						<button
-							type="button"
-							onClick={prevImage}
-							className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
-							aria-label="Previous image"
-						>
-							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								aria-hidden="true"
-							>
-								<polyline points="15,18 9,12 15,6" />
-							</svg>
-						</button>
-						<button
-							type="button"
-							onClick={nextImage}
-							className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
-							aria-label="Next image"
-						>
-							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="2"
-								aria-hidden="true"
-							>
-								<polyline points="9,18 15,12 9,6" />
-							</svg>
-						</button>
-
-						{/* Image indicators */}
-						<div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-							{activeImages.map((image, index) => (
-								<button
-									key={hasGoogleImages ? `google-${index}` : `local-${index}`}
-									type="button"
-									onClick={() => setCurrentImageIndex(index)}
-									className={`w-2 h-2 rounded-full transition-colors ${
-										index === currentImageIndex ? "bg-white" : "bg-white/50"
-									}`}
-									aria-label={`Go to image ${index + 1}`}
+	return (
+		<AnimatePresence mode="wait">
+			{isLoading ? (
+				<motion.div
+					{...ANIMATIONS.loading}
+					className="relative h-[25vh] sm:h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center"
+				>
+					<Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+					<span className="ml-2 text-sm text-blue-600">
+						Loading location info...
+					</span>
+				</motion.div>
+			) : hasGoogleImages || hasValidMainImage ? (
+				<motion.div
+					{...ANIMATIONS.image}
+					className="relative h-[25vh] sm:h-48 group overflow-hidden"
+					drag="x"
+					dragConstraints={{ left: 0, right: 0 }}
+					dragElastic={0.2}
+					onDragStart={handleDragStart}
+					onDrag={handleDrag}
+					onDragEnd={handleDragEnd}
+					style={{
+						x: dragState.dragOffset,
+					}}
+					animate={{
+						x: dragState.isDragging ? dragState.dragOffset : 0,
+					}}
+					transition={{
+						type: "spring",
+						damping: 30,
+						stiffness: 300,
+					}}
+				>
+					{hasGoogleImages
+						? activeImages[currentImageIndex]?.url &&
+							isValidImageUrl(activeImages[currentImageIndex]?.url) && (
+								<Image
+									src={activeImages[currentImageIndex].url}
+									alt={locationInfo?.name || selectedSpot.touristSpotName}
+									fill
+									className="object-cover pointer-events-none"
+									sizes="(max-width: 380px) 100vw, 380px"
+									unoptimized
+									draggable={false}
 								/>
-							))}
-						</div>
-					</>
-				)}
+							)
+						: hasValidMainImage &&
+							isValidImageUrl(mainImageSrc) && (
+								<Image
+									src={mainImageSrc}
+									alt={selectedSpot.touristSpotName}
+									fill
+									className="object-cover pointer-events-none"
+									sizes="(max-width: 380px) 100vw, 380px"
+									draggable={false}
+								/>
+							)}
 
-				<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-			</motion.div>
-		) : (
-			<motion.div
-				{...ANIMATIONS.image}
-				className="relative h-[20vh] sm:h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
-			>
-				<div className="text-center">
-					<AlertCircle className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-					<span className="text-xs text-gray-500">No images available</span>
-				</div>
-			</motion.div>
-		)}
-	</AnimatePresence>
-);
+					{/* Navigation buttons */}
+					{activeImages.length > 1 && (
+						<>
+							<button
+								type="button"
+								onClick={prevImage}
+								className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
+								aria-label="Previous image"
+							>
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									aria-hidden="true"
+								>
+									<polyline points="15,18 9,12 15,6" />
+								</svg>
+							</button>
+							<button
+								type="button"
+								onClick={nextImage}
+								className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
+								aria-label="Next image"
+							>
+								<svg
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									aria-hidden="true"
+								>
+									<polyline points="9,18 15,12 9,6" />
+								</svg>
+							</button>
+
+							{/* Image indicators */}
+							<div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+								{activeImages.map((image, index) => (
+									<button
+										key={hasGoogleImages ? `google-${index}` : `local-${index}`}
+										type="button"
+										onClick={() => setCurrentImageIndex(index)}
+										className={`w-2 h-2 rounded-full transition-colors ${
+											index === currentImageIndex ? "bg-white" : "bg-white/50"
+										}`}
+										aria-label={`Go to image ${index + 1}`}
+									/>
+								))}
+							</div>
+						</>
+					)}
+
+					<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+				</motion.div>
+			) : (
+				<motion.div
+					{...ANIMATIONS.image}
+					className="relative h-[20vh] sm:h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
+				>
+					<div className="text-center">
+						<AlertCircle className="w-6 h-6 text-gray-400 mx-auto mb-2" />
+						<span className="text-xs text-gray-500">No images available</span>
+					</div>
+				</motion.div>
+			)}
+		</AnimatePresence>
+	);
+};
 
 const LocationDetails: React.FC<{
 	locationInfo: LocationInfoResponseDto | undefined;
