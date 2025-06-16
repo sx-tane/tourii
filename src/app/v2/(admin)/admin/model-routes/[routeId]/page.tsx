@@ -1,7 +1,7 @@
 "use client";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { getModelRouteById } from "@/hooks/routes/getModelRouteById";
+import { useModelRouteById } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
 import { mutate } from "swr";
 import type {
@@ -38,8 +38,11 @@ export default function TouristSpotManagement({ params }: Props) {
 		});
 	}, [params]);
 
-	const { modelRoute, isLoadingModelRoute, mutateModelRoute } =
-		getModelRouteById(routeId);
+	const {
+		data: modelRoute,
+		isLoading,
+		mutate: mutateModelRoute,
+	} = useModelRouteById(routeId);
 
 	// Add a refresh trigger as fallback
 	const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -311,7 +314,7 @@ export default function TouristSpotManagement({ params }: Props) {
 
 			// 4. Force a fresh fetch
 			console.log("🔄 Step 4: Force fresh fetch");
-			await mutateModelRoute(undefined, { revalidate: true });
+			await mutate(undefined, { revalidate: true });
 
 			// 5. Small delay then another revalidation to ensure backend processing is complete
 			setTimeout(async () => {
@@ -326,7 +329,7 @@ export default function TouristSpotManagement({ params }: Props) {
 					const response = await fetch(`/api/routes/${routeId}`);
 					if (response.ok) {
 						const freshData = await response.json();
-						await mutateModelRoute(freshData, { revalidate: false });
+						await mutate(freshData, { revalidate: false });
 						console.log("✅ Manual fetch successful");
 					}
 				} catch (error) {
@@ -479,7 +482,7 @@ export default function TouristSpotManagement({ params }: Props) {
 		}
 	};
 
-	if (!isParamsLoaded || isLoadingModelRoute) {
+	if (!isParamsLoaded || isLoading) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
 				<div className="mx-auto max-w-7xl">

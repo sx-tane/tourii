@@ -5,33 +5,51 @@ import {
 	RegionComponent,
 	RegionSelectionList,
 } from "@/components/model-route/region";
-import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
+import { useModelRoutes } from "@/hooks";
 import { ApiError } from "@/lib/errors";
 import {
 	selectRoutes,
-	setRoutes,
 	setSelectedRouteByRegion,
 } from "@/lib/redux/features/routes/routes-slice";
-import { useAppDispatch } from "@/lib/redux/hooks";
-import { useAppSelector } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import { useMemo } from "react";
 const RegionPage: NextPage = () => {
 	const dispatch = useAppDispatch();
-	const { selectedRoute, selectionData } = useAppSelector(selectRoutes);
+	const { selectedRoute } = useAppSelector(selectRoutes);
+	
+	// ✅ Use SWR for server data - don't duplicate in Redux
 	const {
-		modelRoutes,
-		isLoadingModelRoutes,
-		isErrorModelRoutes,
-		mutateModelRoutes,
-	} = getModelRoutes();
+		data: modelRoutes,
+		isLoading: isLoadingModelRoutes,
+		isError: isErrorModelRoutes,
+		error,
+		mutate: mutateModelRoutes,
+	} = useModelRoutes();
 
-	useEffect(() => {
-		if (modelRoutes !== undefined) {
-			dispatch(setRoutes(modelRoutes));
-		}
-	}, [modelRoutes, dispatch]);
+	// ✅ Compute selection data from server data, store only UI state in Redux
+	const selectionData = useMemo(() => {
+		if (!modelRoutes) return [];
+		
+		const regionMap = new Map();
+		modelRoutes.forEach(route => {
+			if (!regionMap.has(route.region)) {
+				regionMap.set(route.region, {
+					region: route.region,
+					regionDesc: route.regionDesc,
+					regionLatitude: route.regionLatitude,
+					regionLongitude: route.regionLongitude,
+					regionBackgroundMedia: route.regionBackgroundMedia,
+					regionWeatherInfo: route.regionWeatherInfo,
+					routeCount: 0,
+				});
+			}
+			regionMap.get(route.region).routeCount++;
+		});
+		
+		return Array.from(regionMap.values());
+	}, [modelRoutes]);
 
 	const handleSelectRoute = (regionName: string) => {
 		dispatch(setSelectedRouteByRegion(regionName));
@@ -46,19 +64,19 @@ const RegionPage: NextPage = () => {
 			"An unexpected error occurred while loading model routes.";
 		let errorStatus: number | undefined = undefined;
 
-		if (isErrorModelRoutes instanceof ApiError) {
-			errorMessage = isErrorModelRoutes.message;
-			errorStatus = isErrorModelRoutes.status;
+		if (error instanceof ApiError) {
+			errorMessage = error.message;
+			errorStatus = error.status;
 			logger.error("API Error loading model routes:", {
-				status: isErrorModelRoutes.status,
-				message: isErrorModelRoutes.message,
-				context: isErrorModelRoutes.context,
+				status: error.status,
+				message: error.message,
+				context: error.context,
 			});
-		} else if (isErrorModelRoutes instanceof Error) {
-			errorMessage = isErrorModelRoutes.message;
+		} else if (error instanceof Error) {
+			errorMessage = error.message;
 		} else {
 			logger.error("Unknown error loading model routes:", {
-				isErrorModelRoutes,
+				error,
 			});
 		}
 

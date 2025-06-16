@@ -3,7 +3,6 @@ import type {
 	LocationInfoResponseDto,
 	TouristSpotResponseDto,
 } from "@/api/generated";
-import { getLocationInfo } from "@/hooks/routes/getLocationInfo";
 import { motion, AnimatePresence } from "framer-motion";
 import {
 	MapPin,
@@ -15,11 +14,13 @@ import {
 	ExternalLink,
 	Loader2,
 	AlertCircle,
+	ChevronLeft,
+	ChevronRight,
 } from "lucide-react";
 import type React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { logger } from "@/utils/logger";
+import { useLocationInfo } from "@/hooks";
 
 // Constants
 const ANIMATIONS = {
@@ -47,6 +48,11 @@ interface LocationInfoPanelProps {
 	selectedSpot?: TouristSpotResponseDto;
 	className?: string;
 	isStatic?: boolean; // For use in scrollable containers (phone/tablet)
+	// Navigation props
+	touristSpotList?: TouristSpotResponseDto[];
+	onPreviousSpot?: () => void;
+	onNextSpot?: () => void;
+	showNavigation?: boolean;
 }
 
 // Custom hooks
@@ -117,18 +123,19 @@ const useImageGallery = (
 };
 
 const useLocationData = (selectedSpot: TouristSpotResponseDto | undefined) => {
-	const locationData = getLocationInfo({
+	const locationData = useLocationInfo({
 		query: selectedSpot?.touristSpotName ?? "",
 		latitude: selectedSpot?.touristSpotLatitude?.toString(),
 		longitude: selectedSpot?.touristSpotLongitude?.toString(),
 		address: selectedSpot?.address ?? "",
+		enabled: Boolean(selectedSpot?.touristSpotName), // Only call API when we have a valid spot
 	});
 
-	logger.info(
-		locationData.locationInfo
-			? JSON.stringify(locationData.locationInfo)
-			: "No location info",
-	);
+	// logger.info(
+	// 	locationData.locationInfo
+	// 		? JSON.stringify(locationData.locationInfo)
+	// 		: "No location info",
+	// );
 
 	return locationData;
 };
@@ -165,7 +172,7 @@ const ImageGallery: React.FC<{
 		{isLoading ? (
 			<motion.div
 				{...ANIMATIONS.loading}
-				className="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center"
+				className="relative h-[25vh] sm:h-48 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center"
 			>
 				<Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
 				<span className="ml-2 text-sm text-blue-600">
@@ -173,7 +180,10 @@ const ImageGallery: React.FC<{
 				</span>
 			</motion.div>
 		) : hasGoogleImages || hasValidMainImage ? (
-			<motion.div {...ANIMATIONS.image} className="relative h-48 group">
+			<motion.div
+				{...ANIMATIONS.image}
+				className="relative h-[25vh] sm:h-48 group"
+			>
 				{hasGoogleImages
 					? activeImages[currentImageIndex]?.url &&
 						isValidImageUrl(activeImages[currentImageIndex]?.url) && (
@@ -259,7 +269,7 @@ const ImageGallery: React.FC<{
 		) : (
 			<motion.div
 				{...ANIMATIONS.image}
-				className="relative h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
+				className="relative h-[20vh] sm:h-32 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center"
 			>
 				<div className="text-center">
 					<AlertCircle className="w-6 h-6 text-gray-400 mx-auto mb-2" />
@@ -409,14 +419,13 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 	selectedSpot,
 	className = "",
 	isStatic = false,
+	touristSpotList = [],
+	onPreviousSpot,
+	onNextSpot,
+	showNavigation = false,
 }) => {
-	const {
-		locationInfo,
-		isLoadingLocationInfo,
-		isErrorLocationInfo,
-		errorLocationInfo,
-		hasLocationInfo,
-	} = useLocationData(selectedSpot);
+	const { locationInfo, isLoading, isError, error, hasLocationInfo } =
+		useLocationData(selectedSpot);
 
 	const {
 		currentImageIndex,
@@ -431,10 +440,20 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 
 	const mainImageSrc = selectedSpot?.imageSet?.main;
 
+	// Calculate current spot position for navigation
+	const currentSpotIndex = touristSpotList.findIndex(
+		(spot) => spot.touristSpotId === selectedSpot?.touristSpotId,
+	);
+	const currentSpotNumber = currentSpotIndex >= 0 ? currentSpotIndex + 1 : 1;
+	const hasMultipleSpots = touristSpotList.length > 1;
+
 	if (!selectedSpot) {
-		const baseClasses = "bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200";
-		const positionClasses = isStatic ? "relative" : "absolute bottom-4 left-4 z-[1000]";
-		
+		const baseClasses =
+			"bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200";
+		const positionClasses = isStatic
+			? "relative"
+			: "absolute bottom-4 left-4 z-[1000]";
+
 		return (
 			<motion.div
 				{...ANIMATIONS.panel}
@@ -448,14 +467,15 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 		);
 	}
 
-	const baseClasses = "bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden";
-	const positionClasses = isStatic 
-		? "relative w-full" 
+	const baseClasses =
+		"bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden";
+	const positionClasses = isStatic
+		? "relative w-full"
 		: "absolute bottom-4 left-4 z-[1000] min-w-[320px] max-w-[380px]";
 
-	// For mobile fullscreen, limit height and enable scrolling
-	const heightClasses = isStatic 
-		? "max-h-[50vh] flex flex-col" 
+	// For mobile fullscreen, limit height and enable scrolling - adjusted for bigger images
+	const heightClasses = isStatic
+		? "max-h-[50vh] flex flex-col"
 		: "max-h-[60vh] flex flex-col";
 
 	return (
@@ -463,8 +483,39 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 			{...ANIMATIONS.panel}
 			className={`${positionClasses} ${baseClasses} ${heightClasses} ${className}`}
 		>
+			{/* Navigation Controls - Only show if enabled and multiple spots */}
+			{showNavigation && hasMultipleSpots && (
+				<div className="px-4 py-3 border-b border-gray-200/50 bg-white/95">
+					<div className="flex items-center justify-between">
+						<button
+							type="button"
+							onClick={onPreviousSpot}
+							className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+							aria-label="Previous tourist spot"
+							disabled={!onPreviousSpot}
+						>
+							<ChevronLeft className="w-5 h-5 text-gray-700" />
+						</button>
+
+						<span className="text-sm font-medium text-gray-700 px-3">
+							{currentSpotNumber} of {touristSpotList.length}
+						</span>
+
+						<button
+							type="button"
+							onClick={onNextSpot}
+							className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+							aria-label="Next tourist spot"
+							disabled={!onNextSpot}
+						>
+							<ChevronRight className="w-5 h-5 text-gray-700" />
+						</button>
+					</div>
+				</div>
+			)}
+
 			<ImageGallery
-				isLoading={isLoadingLocationInfo}
+				isLoading={isLoading}
 				activeImages={activeImages}
 				currentImageIndex={currentImageIndex}
 				setCurrentImageIndex={setCurrentImageIndex}

@@ -13,9 +13,10 @@ const TILE_LAYER_CONFIG = {
 
 const MAP_CONFIG = {
 	defaultZoom: 13,
-	zoomControl: true,
+	zoomControl: false, // Remove zoom control buttons
 	attributionControl: false,
 	initDelay: 50,
+	scrollWheelZoom: false, // Completely disable scroll wheel zoom
 };
 
 // Import Leaflet dynamically to avoid SSR issues
@@ -68,6 +69,7 @@ const useLeafletMap = (
 					zoom,
 					zoomControl: MAP_CONFIG.zoomControl,
 					attributionControl: MAP_CONFIG.attributionControl,
+					scrollWheelZoom: MAP_CONFIG.scrollWheelZoom,
 				});
 
 				// Add tile layer

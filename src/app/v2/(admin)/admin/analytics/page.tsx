@@ -1,8 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
-import { getQuests } from "@/hooks/quests/getQuests";
-import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
-import { getSagas } from "@/hooks/stories/getSagas";
+import { useQuests, useModelRoutes } from "@/hooks";
+import { useSagas } from "@/hooks";
 import {
 	BarChart3,
 	TrendingUp,
@@ -20,9 +19,9 @@ import {
 } from "lucide-react";
 
 export default function AnalyticsDashboard() {
-	const { sagas, isLoadingSagas } = getSagas();
-	const { quests, isLoadingQuests } = getQuests("/api/quests");
-	const { modelRoutes, isLoadingModelRoutes } = getModelRoutes();
+	const { data: sagas, isLoading: isLoadingSagas } = useSagas();
+	const { data: quests, isLoading: isLoadingQuests } = useQuests();
+	const { data: modelRoutes, isLoading: isLoadingModelRoutes } = useModelRoutes();
 
 	const [expandedSections, setExpandedSections] = useState<string[]>([
 		"overview",

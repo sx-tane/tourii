@@ -125,7 +125,7 @@ const useLeafletMarkers = (
 			markersRef.current.push(marker);
 		});
 
-		// Only fit map to show all markers if no specific spot is selected initially
+		// Auto-fit bounds to show all markers when no spot is selected
 		if (touristSpots.length > 1 && !selectedSpotId) {
 			const group = L.featureGroup(markersRef.current);
 			map.fitBounds(group.getBounds().pad(MAP_CONFIG.boundsPadding));
@@ -135,8 +135,6 @@ const useLeafletMarkers = (
 	const updateMarkerStyles = () => {
 		if (!L || !markersRef.current.length || !map) return;
 
-		console.log("Selected spot ID changed to:", selectedSpotId);
-
 		// Update marker icons
 		markersRef.current.forEach((marker, index) => {
 			const spot = touristSpots[index];
@@ -144,17 +142,12 @@ const useLeafletMarkers = (
 			marker.setIcon(createMarkerIcon(L, index, isSelected));
 		});
 
-		// Auto-center and zoom to selected spot
+		// Auto-center and zoom to selected spot when user selects a spot
 		if (selectedSpotId) {
 			const selectedSpot = touristSpots.find(
 				(spot) => spot.touristSpotId === selectedSpotId,
 			);
 			if (selectedSpot) {
-				console.log("Centering map on:", selectedSpot.touristSpotName, [
-					selectedSpot.touristSpotLatitude,
-					selectedSpot.touristSpotLongitude,
-				]);
-
 				// Use setTimeout to ensure map is ready
 				setTimeout(() => {
 					// Smooth pan and zoom to the selected spot

@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useState, useCallback, useMemo } from "react";
-import { getSagaById } from "@/hooks/stories/getSagaById";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type {
 	StoryChapterCreateRequestDto,
@@ -18,14 +17,11 @@ import {
 	X,
 	BarChart3,
 } from "lucide-react";
+import { useSagaById } from "@/hooks";
 
 export default function SagaDetail() {
 	const { storyId } = useParams() as { storyId: string };
-	const {
-		storyChapterList,
-		mutateStoryChapterList,
-		isLoadingStoryChapterList,
-	} = getSagaById(storyId);
+	const { storyChapterList, mutate, isLoading } = useSagaById(storyId);
 
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingChapter, setEditingChapter] =
@@ -192,7 +188,7 @@ export default function SagaDetail() {
 			await makeApiRequest(`/api/stories/create-chapter/${storyId}`, form);
 			resetForm();
 			setShowCreateModal(false);
-			await mutateStoryChapterList();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to create chapter:", error);
 			alert("Failed to create chapter. Please try again.");
@@ -227,7 +223,7 @@ export default function SagaDetail() {
 			);
 			resetForm();
 			setShowCreateModal(false);
-			await mutateStoryChapterList();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to update chapter:", error);
 			alert("Failed to update chapter. Please try again.");
@@ -283,7 +279,7 @@ export default function SagaDetail() {
 				{},
 				"DELETE",
 			);
-			await mutateStoryChapterList();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete chapter:", error);
 			alert(
@@ -345,14 +341,14 @@ export default function SagaDetail() {
 				),
 			);
 			setSelectedChapters([]);
-			await mutateStoryChapterList();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete chapters:", error);
 			alert("Failed to delete some chapters. Please try again.");
 		}
 	};
 
-	if (isLoadingStoryChapterList) {
+	if (isLoading) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
 				<div className="mx-auto max-w-7xl">

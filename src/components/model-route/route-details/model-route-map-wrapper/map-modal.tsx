@@ -1,7 +1,7 @@
 "use client";
 import type { ModelRouteResponseDto } from "@/api/generated";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Map, List } from "lucide-react";
+import { X, MapIcon, List } from "lucide-react";
 import { useState, useEffect } from "react";
 import LeafletMapView from "./leaflet-map-view";
 import TouristSpotMarkers from "./tourist-spot-markers";
@@ -91,7 +91,7 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 										: "text-gray-600 hover:text-charcoal hover:bg-gray-50"
 								}`}
 							>
-								<Map className="w-4 h-4" />
+								<MapIcon className="w-4 h-4" />
 								<span>Map View</span>
 							</button>
 							<button
@@ -128,11 +128,14 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 											/>
 										</LeafletMapView>
 									</div>
-									
+
 									{/* Location Info Panel - 1/4 of the height (bottom), scrollable */}
 									<div className="h-1/4 bg-white border-t border-gray-200 overflow-hidden">
 										<div className="h-full overflow-y-auto p-3">
-											<LocationInfoPanel selectedSpot={displayedSelectedSpot} isStatic={true} />
+											<LocationInfoPanel
+												selectedSpot={displayedSelectedSpot}
+												isStatic={true}
+											/>
 										</div>
 									</div>
 								</div>

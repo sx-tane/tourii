@@ -7,7 +7,8 @@ import ChapterComponent from "@/components/story/chapter-page/chapter-component"
 import ChapterSelectionComponent from "@/components/story/chapter-page/chapter-selection";
 import ChapterSelectionMobileComponent from "@/components/story/chapter-page/chapter-selection-mobile";
 import IntroComponent from "@/components/story/chapter-page/intro-component";
-import { getSagaById } from "@/hooks/stories/getSagaById";
+import { useSagaById } from "@/hooks";
+import { logger } from "@/utils/logger";
 import { AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useParams } from "next/navigation";
@@ -20,20 +21,7 @@ const SagaChapterPage: NextPage = () => {
 		: params.storyId;
 
 	// Use the original hook signature, expecting combined saga object
-	const {
-		storyChapterList,
-		isLoadingStoryChapterList,
-		isErrorStoryChapterList,
-		mutateStoryChapterList,
-	} = getSagaById(storyId);
-
-	// Log hook output directly
-	console.log("[SagaChapterPage] Hook Output:", {
-		storyId,
-		storyChapterList,
-		isLoadingStoryChapterList,
-		isErrorStoryChapterList,
-	});
+	const { storyChapterList, isLoading, isError, mutate } = useSagaById(storyId);
 
 	const [currentChapter, setCurrentChapter] =
 		useState<StoryChapterResponseDto | null>(null);
@@ -117,7 +105,7 @@ const SagaChapterPage: NextPage = () => {
 				setCurrentChapter(null);
 				setCurrentIndex(0);
 			}
-		} else if (chapters.length === 0 && !isLoadingStoryChapterList) {
+		} else if (chapters.length === 0 && !isLoading) {
 			console.warn(
 				`[SagaChapterPage] Init Effect: Chapter list is empty for storyId: ${storyId}`,
 			);
@@ -128,7 +116,7 @@ const SagaChapterPage: NextPage = () => {
 				`[SagaChapterPage] Init Effect: Waiting for saga data or saga is null/undefined for storyId: ${storyId}`,
 			);
 		}
-	}, [chapters, storyId, isLoadingStoryChapterList]); // Use memoized chapters
+	}, [chapters, storyId, isLoading]); // Use memoized chapters
 
 	const handleSelectChapter = useCallback(
 		(selectedChapterId: string) => {
@@ -234,31 +222,26 @@ const SagaChapterPage: NextPage = () => {
 	);
 
 	useEffect(() => {
-		if (currentChapter && !isLoadingStoryChapterList) {
+		if (currentChapter && !isLoading) {
 			window.addEventListener("keydown", handleKeyDown);
 			return () => {
 				window.removeEventListener("keydown", handleKeyDown);
 			};
 		}
-	}, [currentChapter, isLoadingStoryChapterList, handleKeyDown]);
+	}, [currentChapter, isLoading, handleKeyDown]);
 
 	const selectedButtonRef = useRef<HTMLDivElement | null>(null);
 
-	if (isLoadingStoryChapterList) {
+	if (isLoading) {
 		return <Loading />;
 	}
 
-	if (isErrorStoryChapterList) {
-		console.error(
-			"[SagaChapterPage] Render: isErrorStoryChapterList is true. Error:",
-			isErrorStoryChapterList,
-		);
+	if (isError) {
+		console.error("[SagaChapterPage] Render: isError is true. Error:", isError);
 		return (
 			<TouriiError
-				errorMessage={
-					isErrorStoryChapterList.message || "Failed to load story data."
-				}
-				onRetry={mutateStoryChapterList}
+				errorMessage={isError ? "Failed to load story data." : "Unknown error"}
+				onRetry={mutate}
 				textColor="text-warmGrey"
 				titleTextColor="text-warmGrey"
 			/>
@@ -267,7 +250,7 @@ const SagaChapterPage: NextPage = () => {
 
 	// Check if saga object itself is missing after loading/no error
 	if (!storyChapterList) {
-		console.error(
+		logger.error(
 			`[SagaChapterPage] Render: Saga object is missing for storyId: ${storyId} after loading.`,
 		);
 		return <TouriiError errorMessage="Story data not found or is invalid." />;
@@ -275,7 +258,7 @@ const SagaChapterPage: NextPage = () => {
 
 	// Check if chapterList is missing or empty on the saga object
 	if (!Array.isArray(chapters) || chapters.length === 0) {
-		console.warn(
+		logger.warn(
 			`[SagaChapterPage] Render: Story ${storyId} has an empty or invalid chapter list.`,
 		);
 		return (
@@ -290,7 +273,7 @@ const SagaChapterPage: NextPage = () => {
 
 	// Check if currentChapter hasn't been set by the useEffect yet
 	if (!currentChapter) {
-		console.log(
+		logger.info(
 			"[SagaChapterPage] Render: currentChapter is still null, waiting for initialization effect.",
 		);
 		return (

@@ -1,7 +1,6 @@
 "use client";
 import type { TouristSpotResponseDto } from "@/api/generated";
-import { getLocationInfo } from "@/hooks/routes/getLocationInfo";
-import { getSagaById } from "@/hooks/stories/getSagaById";
+import { useSagaById } from "@/hooks";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
@@ -84,12 +83,6 @@ const useIntersectionObserver = (
 					visibleSpotId !== selectedSpot?.touristSpotId &&
 					isUserScrollingRef.current
 				) {
-					console.log(
-						"Auto-selecting spot:",
-						visibleSpotId,
-						"maxRatio:",
-						maxRatio,
-					);
 					onSpotSelect?.(visibleSpotId);
 				}
 			}, INTERSECTION_CONFIG.debounceDelay);
@@ -265,8 +258,9 @@ const SpotCard: React.FC<{
 }) => {
 	const spotStopNumber = index + 1;
 	const spotStorySagaId = extractStorySagaId(spot.storyChapterLink);
-	const { storyChapterList: spotStoryChapterList } =
-		getSagaById(spotStorySagaId);
+	const { storyChapterList: spotStoryChapterList } = useSagaById(
+		spotStorySagaId ?? "",
+	);
 	const spotChapterId = extractChapterId(spot.storyChapterLink);
 	const spotCurrentChapter = spotStoryChapterList?.find(
 		(chapter) => chapter.storyChapterId === spotChapterId,
@@ -286,7 +280,9 @@ const SpotCard: React.FC<{
 			}}
 			data-spot-index={index}
 			className={`border-b border-gray-200 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors ${
-				selectedSpot?.touristSpotId === spot.touristSpotId ? "bg-blue-50 border-blue-200" : ""
+				selectedSpot?.touristSpotId === spot.touristSpotId
+					? "bg-blue-50 border-blue-200"
+					: ""
 			}`}
 			onClick={() => onSpotSelect?.(spot.touristSpotId)}
 			onKeyDown={(e) => {

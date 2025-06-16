@@ -14,16 +14,16 @@ This document defines the key integration logic between Tourii's frontend and ba
 
 
 | Domain          | Endpoint Prefix (relative to `OpenAPI.BASE`) | Notes                            |
-| --------------- | --------------------------------------------- | -------------------------------- |
-| Auth & Profile  | `/auth/*`                                     | OAuth + Wallet login             |
-| User & Passport | `/users/*`                                    | Profile + NFT minting & metadata |
-| Stories         | `/stories/*`                                  | Saga, Chapter, Lore              |
-| Routes & Spots  | `/routes/*`                                   | Model route & linked locations   |
-| Quests          | `/quests/*`                                   | Parent quest, task submission    |
-| Memory Wall     | `/memories/*`                                 | Memory wall logs only            |
-| Rewards & Perks | `/perks/*`                                    | NFT-based perks + shop logic     |
-| Check-in Map    | `/checkin/*`                                  | GPS + QR logic                   |
-| Admin           | `/admin/*`                                    | CRUD: quests, routes, stories    |
+| --------------- | -------------------------------------------- | -------------------------------- |
+| Auth & Profile  | `/auth/*`                                    | OAuth + Wallet login             |
+| User & Passport | `/users/*`                                   | Profile + NFT minting & metadata |
+| Stories         | `/stories/*`                                 | Saga, Chapter, Lore              |
+| Routes & Spots  | `/routes/*`                                  | Model route & linked locations   |
+| Quests          | `/quests/*`                                  | Parent quest, task submission    |
+| Memory Wall     | `/memories/*`                                | Memory wall logs only            |
+| Rewards & Perks | `/perks/*`                                   | NFT-based perks + shop logic     |
+| Check-in Map    | `/checkin/*`                                 | GPS + QR logic                   |
+| Admin           | `/admin/*`                                   | CRUD: quests, routes, stories    |
 
 ---
 
@@ -57,22 +57,22 @@ This section maps frontend features to the relevant backend API path groupings. 
 
 This table maps conceptual frontend features/pages (and the SWR hooks they might use) to the backend API paths. Frontend paths are now generally prefixed with `/v2/` or have specific names like `/profile-dev`. API calls are made via Next.js proxy routes.
 
-| Feature/Page (Example Frontend Path) | Backend Endpoint (Path targeted by SDK from proxy) | Purpose                          |
-| ------------------------------------ | ----------------------------------------------- | -------------------------------- |
-| Login/Auth (`/v2/auth/...`)          | `/auth/login`, `/auth/register`, `/auth/wallet` | OAuth + wallet login             |
-| Session Management (`AuthProvider`)  | `/auth/refresh`, `/auth/logout`                 | Persist session, auto-refresh    |
-| Story Browser (`/v2/stories`)        | `/stories/sagas`                                | Browse all sagas                 |
-| Story Viewer (`/v2/stories/...`)     | `/stories/chapters/{id}`                        | View chapter + content           |
-| Model Route Viewer (`/v2/routes/{id}` or `/model-route/{id}`) | `/routes/{id}`, `/routes/{id}/spots`            | View route with spot map         |
-| Route Map Weather (`/v2/routes/...`) | `/routes/{id}/weather`                          | Region or route weather          |
-| Quest Browser (`/v2/quests`)         | `/quests/`, `/quests/{id}`                      | List or explore quests           |
-| Quest Tracker (`/v2/quests/...`)     | `/tasks/{id}/submit`, `/tasks/{id}/verify`      | Active quest progression         |
-| Achievements (`/profile-dev` or other) | `/achievements`, `/achievements/milestones`     | User achievement board           |
-| Digital Passport (`/profile-dev`)    | `/assets/passport`, `/assets/stamps`            | NFT passport + stamps            |
-| Item Inventory (`/v2/shop/inventory`)| `/assets/perks`, `/assets/perks/history`        | List all owned perks             |
-| Memory Wall (`/memory-wall` - *Route not found, TBD*) | `/social/feed`, `/social/memory-wall`           | Feed view, post/comment          |
-| Profile Overview (`/profile-dev`)    | `/users/me`, `/logs/*`, `/wallet`               | Self profile dashboard           |
-| Admin Panel (`/admin` - *Route not found, TBD*) | `/admin/*`                                      | All backend CRUD/admin endpoints |
+| Feature/Page (Example Frontend Path)                                             | Backend Endpoint (Path targeted by SDK from proxy) | Purpose                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------- | -------------------------------- |
+| Login/Auth (`/v2/auth/...`)                                                      | `/auth/login`, `/auth/register`, `/auth/wallet`    | OAuth + wallet login             |
+| Session Management (`AuthProvider`)                                              | `/auth/refresh`, `/auth/logout`                    | Persist session, auto-refresh    |
+| Story Browser (`/v2/stories`)                                                    | `/stories/sagas`                                   | Browse all sagas                 |
+| Story Viewer (`/v2/stories/...`)                                                 | `/stories/chapters/{id}`                           | View chapter + content           |
+| Model Route Viewer (`/v2/region/{region}/{modelRouteId}` or `/model-route/{id}`) | `/routes/{id}`, `/routes/{id}/spots`               | View route with spot map         |
+| Route Map Weather (`/v2/region/...`)                                             | `/routes/{id}/weather`                             | Region or route weather          |
+| Quest Browser (`/v2/quests`)                                                     | `/quests/`, `/quests/{id}`                         | List or explore quests           |
+| Quest Tracker (`/v2/quests/...`)                                                 | `/tasks/{id}/submit`, `/tasks/{id}/verify`         | Active quest progression         |
+| Achievements (`/profile-dev` or other)                                           | `/achievements`, `/achievements/milestones`        | User achievement board           |
+| Digital Passport (`/profile-dev`)                                                | `/assets/passport`, `/assets/stamps`               | NFT passport + stamps            |
+| Item Inventory (`/v2/shop/inventory`)                                            | `/assets/perks`, `/assets/perks/history`           | List all owned perks             |
+| Memory Wall (`/memory-wall` - *Route not found, TBD*)                            | `/social/feed`, `/social/memory-wall`              | Feed view, post/comment          |
+| Profile Overview (`/profile-dev`)                                                | `/users/me`, `/logs/*`, `/wallet`                  | Self profile dashboard           |
+| Admin Panel (`/admin` - *Route not found, TBD*)                                  | `/admin/*`                                         | All backend CRUD/admin endpoints |
 
 ### `/v2/auth/...` (formerly /launch-app)
 
@@ -95,12 +95,13 @@ This table maps conceptual frontend features/pages (and the SWR hooks they might
 - `GET /stories/chapters/{id}`
 - `POST /stories/chapters/{id}/progress`
 
-### `/v2/routes/[regionId]/[routeId]` (and potentially `/model-route/[routeId]`)
+### `/v2/region/[region]/[modelRouteId]` (and `/model-route/[routeId]`)
 
 - `GET /routes/{id}`
 - `GET /routes/{id}/spots`
 - `GET /routes/{id}/recommendations`
 - `GET /routes/{id}/weather`
+- `GET /routes/location-info-panel` (location details)
 
 ### `/v2/quests/[questId]`
 
@@ -159,4 +160,4 @@ This table maps conceptual frontend features/pages (and the SWR hooks they might
 ✅ DB schema reference: `schema.prisma`
 ✅ Component usage examples: see `/components/*` and API usage examples in `FRONTEND_API_EXAMPLE.md`
 
-_Last Updated: May 8 2025_
+_Last Updated: June 16 2025_ 

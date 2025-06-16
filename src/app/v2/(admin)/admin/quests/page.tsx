@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback, useMemo } from "react";
-import { getQuests } from "@/hooks/quests/getQuests";
+import { useQuests } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type { QuestCreateRequestDto, QuestResponseDto } from "@/api/generated";
 import {
@@ -19,7 +19,11 @@ import {
 } from "lucide-react";
 
 export default function AdminQuests() {
-	const { quests, isLoadingQuests, mutateQuests } = getQuests("/api/quests");
+	const {
+		data: quests,
+		isLoading: isLoadingQuests,
+		mutate: mutateQuests,
+	} = useQuests("/api/quests?page=1&limit=100");
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingQuest, setEditingQuest] = useState<QuestResponseDto | null>(
 		null,

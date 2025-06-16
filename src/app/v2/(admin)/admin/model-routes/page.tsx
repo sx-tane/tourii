@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback, useMemo } from "react";
-import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
+import { useModelRoutes } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type {
 	ModelRouteCreateRequestDto,
@@ -18,8 +18,7 @@ import {
 } from "lucide-react";
 
 export default function AdminModelRoutes() {
-	const { modelRoutes, isLoadingModelRoutes, mutateModelRoutes } =
-		getModelRoutes();
+	const { data: modelRoutes, isLoading, mutate } = useModelRoutes();
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingRoute, setEditingRoute] =
 		useState<ModelRouteResponseDto | null>(null);
@@ -168,7 +167,7 @@ export default function AdminModelRoutes() {
 			});
 			resetForm();
 			setShowCreateModal(false);
-			await mutateModelRoutes();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to create model route:", error);
 			alert("Failed to create model route. Please try again.");
@@ -209,7 +208,7 @@ export default function AdminModelRoutes() {
 			);
 			resetForm();
 			setShowCreateModal(false);
-			await mutateModelRoutes();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to update model route:", error);
 			alert("Failed to update model route. Please try again.");
@@ -251,7 +250,7 @@ export default function AdminModelRoutes() {
 		setDeletingRouteId(modelRouteId);
 		try {
 			await makeApiRequest(`/api/routes/${modelRouteId}`, {}, "DELETE");
-			await mutateModelRoutes();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete model route:", error);
 			alert(
@@ -309,14 +308,14 @@ export default function AdminModelRoutes() {
 				),
 			);
 			setSelectedRoutes([]);
-			await mutateModelRoutes();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete routes:", error);
 			alert("Failed to delete some routes. Please try again.");
 		}
 	};
 
-	if (isLoadingModelRoutes) {
+	if (isLoading) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
 				<div className="mx-auto max-w-7xl">

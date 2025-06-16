@@ -80,7 +80,7 @@ Model Route Response Dto
 - [X] BE Create Photo Upload API
 - [X] BE Get Latest Chapter API and Popular Quest API
 
-### 2025-06-15
+### 2025-06-16
 - [#40](https://github.com/sx-tane/tourii/issues/40)
   - [ ] Finish this and make sure it works
   - [ ] Style the Location Info Panel

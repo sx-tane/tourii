@@ -1,7 +1,6 @@
 "use client";
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getQuestById } from "@/hooks/quests/getQuestById";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type { QuestResponseDto, TaskResponseDto } from "@/api/generated";
 
@@ -22,7 +21,6 @@ type TaskCreateRequestDto = {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	antiCheatRules: any;
 	magatamaPointAwarded: number;
-	totalMagatamaPointAwarded: number;
 	delFlag: boolean;
 };
 import {
@@ -38,6 +36,8 @@ import {
 	X,
 	BarChart3,
 } from "lucide-react";
+import { Task } from "vitest";
+import { useQuestById } from "@/hooks/api";
 
 interface Props {
 	params: Promise<{ questId: string }>;
@@ -89,7 +89,7 @@ export default function QuestTaskManagement({ params }: Props) {
 		}
 	};
 
-	const { quest, isLoadingQuest, mutateQuest } = getQuestById(questId);
+	const { quest, isLoading, mutate } = useQuestById(questId);
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingTask, setEditingTask] = useState<TaskData | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,7 +110,6 @@ export default function QuestTaskManagement({ params }: Props) {
 		requiredAction: "",
 		antiCheatRules: {},
 		magatamaPointAwarded: 0,
-		totalMagatamaPointAwarded: 0,
 		delFlag: false,
 	});
 
@@ -203,7 +202,6 @@ export default function QuestTaskManagement({ params }: Props) {
 			requiredAction: "",
 			antiCheatRules: {},
 			magatamaPointAwarded: 0,
-			totalMagatamaPointAwarded: 0,
 			delFlag: false,
 		});
 		setEditingTask(null);
@@ -223,7 +221,7 @@ export default function QuestTaskManagement({ params }: Props) {
 			});
 			resetForm();
 			setShowCreateModal(false);
-			await mutateQuest();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to create task:", error);
 			alert("Failed to create task. Please try again.");
@@ -248,7 +246,7 @@ export default function QuestTaskManagement({ params }: Props) {
 			await makeApiRequest("/api/quests/update-task", updateData, "POST");
 			resetForm();
 			setShowCreateModal(false);
-			await mutateQuest();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to update task:", error);
 			alert("Failed to update task. Please try again.");
@@ -260,7 +258,7 @@ export default function QuestTaskManagement({ params }: Props) {
 	const handleEdit = (task: TaskData) => {
 		setEditingTask(task);
 		setForm({
-			questId: task.questId || questId,
+			questId: task.taskId || questId,
 			taskTheme: task.taskTheme || "STORY",
 			taskType: task.taskType || "VISIT_LOCATION",
 			taskName: task.taskName || "",
@@ -269,7 +267,6 @@ export default function QuestTaskManagement({ params }: Props) {
 			requiredAction: task.requiredAction || "",
 			antiCheatRules: task.antiCheatRules || {},
 			magatamaPointAwarded: task.magatamaPointAwarded || 0,
-			totalMagatamaPointAwarded: task.totalMagatamaPointAwarded || 0,
 			delFlag: false,
 		});
 		setShowCreateModal(true);
@@ -292,7 +289,7 @@ export default function QuestTaskManagement({ params }: Props) {
 		setDeletingTaskId(taskId);
 		try {
 			await makeApiRequest(`/api/quests/delete-task/${taskId}`, {}, "DELETE");
-			await mutateQuest();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete task:", error);
 			alert(
@@ -350,14 +347,14 @@ export default function QuestTaskManagement({ params }: Props) {
 				),
 			);
 			setSelectedTasks([]);
-			await mutateQuest();
+			await mutate();
 		} catch (error) {
 			console.error("Failed to delete tasks:", error);
 			alert("Failed to delete some tasks. Please try again.");
 		}
 	};
 
-	if (!isParamsLoaded || isLoadingQuest) {
+	if (!isParamsLoaded || isLoading) {
 		return (
 			<div className="min-h-screen bg-warmGrey p-6">
 				<div className="mx-auto max-w-7xl">
@@ -581,7 +578,10 @@ export default function QuestTaskManagement({ params }: Props) {
 								Total Points
 							</h3>
 							<p className="text-lg font-semibold text-charcoal">
-								{quest?.totalMagatamaPointAwarded || 0}
+								{quest?.tasks?.reduce(
+									(acc, task) => acc + task.magatamaPointAwarded,
+									0,
+								) || 0}
 							</p>
 						</div>
 						<div>
@@ -736,7 +736,7 @@ export default function QuestTaskManagement({ params }: Props) {
 												</div>
 												<div>
 													<span className="font-medium">Quest ID:</span>{" "}
-													{editingTask.questId}
+													{editingTask.taskId}
 												</div>
 												<div>
 													<span className="font-medium">Theme:</span>{" "}
@@ -811,7 +811,7 @@ export default function QuestTaskManagement({ params }: Props) {
 												<div>
 													<span className="font-medium">Total Points:</span>{" "}
 													<span className="font-bold text-blue-600">
-														{editingTask.totalMagatamaPointAwarded || 0}
+														{editingTask.magatamaPointAwarded || 0}
 													</span>
 												</div>
 												{editingTask.selectOptions &&
@@ -1115,7 +1115,7 @@ export default function QuestTaskManagement({ params }: Props) {
 												</div>
 												<div>
 													<span className="font-medium">Quest ID:</span>{" "}
-													{editingTask.questId || "N/A"}
+													{editingTask.taskId || "N/A"}
 												</div>
 												<div>
 													<span className="font-medium">Task Theme:</span>{" "}

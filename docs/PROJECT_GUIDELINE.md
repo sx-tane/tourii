@@ -63,11 +63,11 @@ Tourii combines mythology, real-world travel, and digital collectibles into a so
 | Completion Trigger | ⏳      | Unlock new location + related quests upon finish           |
 
 ### 🧱 Model Route
-| Page            | Status | Description                                      |
-| --------------- | ------ | ------------------------------------------------ |
-| Region Selector | ⭕️      | Display weather, region intro                    |
-| Route Overview  | ⏳      | Map of spots, description, unlock gating         |
-| Route Detail    | ⏳      | Tourist spot cards (linked to quests), GPS logic |
+| Page            | Status | Description                                    |
+| --------------- | ------ | ---------------------------------------------- |
+| Region Selector | ✅      | Display weather, region intro                  |
+| Route Overview  | ✅      | Route carousel with route cards and navigation |
+| Route Detail    | ✅      | Route intro, destinations, interactive map     |
 
 ### 🤩 Quest System
 | Page              | Status | Description                                                |
@@ -148,9 +148,10 @@ This reflects the observed structure. Note the `v2/` prefix for many primary fea
 │   │   └── [sagaId]/[chapterId]/page.tsx ← Chapter Page
 │   ├── (routes)/
 │   │   ├── layout.tsx
-│   │   ├── page.tsx            ← Region Selector Page (path: /v2/routes)
-│   │   ├── [regionId]/page.tsx ← Model Route List
-│   │   └── [regionId]/[routeId]/page.tsx ← Model Route Detail
+│   │   ├── region/
+│   │   │   ├── page.tsx        ← Region Selector Page (path: /v2/region)
+│   │   │   ├── [region]/page.tsx ← Model Route List
+│   │   │   └── [region]/[modelRouteId]/page.tsx ← Model Route Detail
 │   ├── (quests)/
 │   │   ├── page.tsx            ← All Quests List (path: /v2/quests)
 │   │   ├── [questId]/page.tsx  ← Quest Parent Page
@@ -171,13 +172,16 @@ This reflects the observed structure. Note the `v2/` prefix for many primary fea
 ## 📊 Dev System & Standards
 
 ### Frontend Stack
-- `Next.js 14`
+- `Next.js 15` with App Router
 - `TypeScript`
-- `TailwindCSS`
-- `Redux` with `createSlice`
-- `ethers.js` or `viem` (Web3 interaction)
+- `TailwindCSS` with `shadcn/ui`
+- `Redux Toolkit` with `createSlice`
+- `SWR` for data fetching
+- `Biome` for linting and formatting
+- `Vitest` for testing
+- `Storybook` for component development
 - **API Client**: OpenAPI-generated client (`openapi-typescript-codegen` with Fetch) for type-safe backend communication. See `src/api/generated/`.
-- `framer-motion`, `lucide-react`, `shadcn/ui`
+- `framer-motion`, `lucide-react`, `Leaflet` for maps
 
 ### Design System
 - Base typography: Japanese serif + modern sans-serif
@@ -204,5 +208,5 @@ This reflects the observed structure. Note the `v2/` prefix for many primary fea
 
 ---
 
-_Last Updated: May 8 2025_
+_Last Updated: June 16 2025_
 

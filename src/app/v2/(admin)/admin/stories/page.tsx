@@ -1,6 +1,6 @@
 "use client";
 import { useState, useCallback, useMemo } from "react";
-import { getSagas } from "@/hooks/stories/getSagas";
+import { useSagas } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
 import type { StoryCreateRequestDto, StoryResponseDto } from "@/api/generated";
 import {
@@ -16,7 +16,11 @@ import {
 } from "lucide-react";
 
 export default function AdminStories() {
-	const { sagas, isLoadingSagas, mutateSagas } = getSagas();
+	const { 
+		data: sagas, 
+		isLoading: isLoadingSagas, 
+		mutate: mutateSagas 
+	} = useSagas();
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingStory, setEditingStory] = useState<StoryResponseDto | null>(
 		null,
