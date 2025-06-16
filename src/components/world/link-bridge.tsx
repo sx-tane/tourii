@@ -5,7 +5,7 @@ import type React from "react";
 const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
 	return (
 		<div className="relative flex justify-center align-middle">
-			<div className="absolute left-[58%] top-[50%] z-10  -translate-y-1/2 transform text-left 2xl:left-[55%]">
+			<div className="absolute left-[58%] top-[50%] z-10  -translate-y-1/2 text-left 2xl:left-[55%]">
 				<div className="text-[8px] font-bold uppercase leading-loose tracking-widest text-[#64645F] md:text-xs 2xl:text-base">
 					{japaneseTitle}
 				</div>

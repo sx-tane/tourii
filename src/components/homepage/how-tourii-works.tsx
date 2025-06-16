@@ -311,7 +311,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 												</motion.div>
 											</motion.div>
 										))}
-										<div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full" />
+										<div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full" />
 									</div>
 								</Iphone15>
 							</div>

@@ -94,7 +94,7 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({
 			</AnimatePresence>
 			{/* Navigation Buttons */}
 			<button
-				className={`absolute -left-5 top-1/2 transform -translate-y-1/2 z-50 transition-opacity duration-300 ${showButtons ? "opacity-100 visible" : "opacity-0 invisible"}`}
+				className={`absolute -left-5 top-1/2 -translate-y-1/2 z-50 transition-opacity duration-300 ${showButtons ? "opacity-100 visible" : "opacity-0 invisible"}`}
 				onClick={onPrevious}
 				type="button"
 			>
@@ -109,7 +109,7 @@ const CharacterIntro: React.FC<CharacterModalLeftProps> = ({
 				</div>
 			</button>
 			<button
-				className={`absolute right-8 top-1/2 transform -translate-y-1/2 z-50 transition-opacity duration-300 ${showButtons ? "opacity-100 visible" : "opacity-0 invisible"}`}
+				className={`absolute right-8 top-1/2 -translate-y-1/2 z-50 transition-opacity duration-300 ${showButtons ? "opacity-100 visible" : "opacity-0 invisible"}`}
 				onClick={onNext}
 				type="button"
 			>

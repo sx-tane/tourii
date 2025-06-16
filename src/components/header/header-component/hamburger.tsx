@@ -60,11 +60,11 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 				<Transition
 					as={Fragment}
 					enter="transition ease-out duration-100"
-					enterFrom="transform opacity-0 scale-95"
-					enterTo="transform opacity-100 scale-100"
+					enterFrom="opacity-0 scale-95"
+					enterTo="opacity-100 scale-100"
 					leave="transition ease-in duration-75"
-					leaveFrom="transform opacity-100 scale-100"
-					leaveTo="transform opacity-0 scale-95"
+					leaveFrom="opacity-100 scale-100"
+					leaveTo="opacity-0 scale-95"
 				>
 					<MenuItems
 						className={`absolute -right-7 z-50 mt-10 w-44 rounded-md ${
@@ -110,11 +110,11 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
                     <Transition
                         as={Fragment}
                         enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
                         leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
                     >
                         <Menu.Items className={`absolute -right-7 z-10 mt-10 w-44 rounded-md ${isBlackTheme ? "bg-warmGrey" : "bg-charcoal"} px-8 py-4 shadow-lg`}>
                             <div className="mr-0 space-y-2 text-right">
