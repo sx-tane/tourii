@@ -1,40 +1,365 @@
 "use client";
 import type { TouristSpotResponseDto } from "@/api/generated";
 import { getLocationInfo } from "@/hooks/routes/getLocationInfo";
+import { getSagaById } from "@/hooks/stories/getSagaById";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { MapPin, Clock, Thermometer, Book, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef, useCallback } from "react";
+
+// Constants
+const INTERSECTION_CONFIG = {
+	root: null,
+	rootMargin: "-25% 0px -25% 0px",
+	threshold: 0.6,
+	debounceDelay: 300,
+	minRatio: 0.5,
+	scrollDelay: 800,
+};
 
 interface SpotDetailSidebarProps {
 	selectedSpot?: TouristSpotResponseDto;
+	touristSpotList?: TouristSpotResponseDto[];
+	onSpotSelect?: (spotId: string) => void;
 	className?: string;
 }
 
+// Utility functions
+const isValidImageUrl = (url: string | undefined | null): url is string => {
+	return typeof url === "string" && url.trim() !== "";
+};
+
+const extractStorySagaId = (
+	storyChapterLink: string | undefined,
+): string | undefined => {
+	if (!storyChapterLink) return undefined;
+	const match = storyChapterLink.match(/\/v2\/touriiverse\/(STO[^\/]+)\//);
+	return match ? match[1] : undefined;
+};
+
+const extractChapterId = (
+	storyChapterLink: string | undefined,
+): string | undefined => {
+	if (!storyChapterLink) return undefined;
+	const match = storyChapterLink.match(/\/chapters\/(SCT[^\/]+)/);
+	return match ? match[1] : undefined;
+};
+
+// Custom hooks
+const useIntersectionObserver = (
+	touristSpotList: TouristSpotResponseDto[],
+	selectedSpot: TouristSpotResponseDto | undefined,
+	onSpotSelect: ((spotId: string) => void) | undefined,
+) => {
+	const spotRefs = useRef<(HTMLDivElement | null)[]>([]);
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const isUserScrollingRef = useRef<boolean>(false);
+
+	const handleIntersection = useCallback(
+		(entries: IntersectionObserverEntry[]) => {
+			if (debounceTimeoutRef.current) {
+				clearTimeout(debounceTimeoutRef.current);
+			}
+
+			debounceTimeoutRef.current = setTimeout(() => {
+				let maxRatio = INTERSECTION_CONFIG.minRatio;
+				let visibleSpotId: string | null = null;
+
+				for (const entry of entries) {
+					if (entry.intersectionRatio > maxRatio) {
+						maxRatio = entry.intersectionRatio;
+						const spotIndex = Number(
+							entry.target.getAttribute("data-spot-index"),
+						);
+						if (spotIndex >= 0 && spotIndex < touristSpotList.length) {
+							visibleSpotId = touristSpotList[spotIndex]?.touristSpotId || null;
+						}
+					}
+				}
+
+				if (
+					visibleSpotId &&
+					visibleSpotId !== selectedSpot?.touristSpotId &&
+					isUserScrollingRef.current
+				) {
+					console.log(
+						"Auto-selecting spot:",
+						visibleSpotId,
+						"maxRatio:",
+						maxRatio,
+					);
+					onSpotSelect?.(visibleSpotId);
+				}
+			}, INTERSECTION_CONFIG.debounceDelay);
+		},
+		[touristSpotList, selectedSpot?.touristSpotId, onSpotSelect],
+	);
+
+	useEffect(() => {
+		if (observerRef.current) {
+			observerRef.current.disconnect();
+		}
+
+		isUserScrollingRef.current = true;
+
+		observerRef.current = new IntersectionObserver(handleIntersection, {
+			root: INTERSECTION_CONFIG.root,
+			rootMargin: INTERSECTION_CONFIG.rootMargin,
+			threshold: INTERSECTION_CONFIG.threshold,
+		});
+
+		for (const ref of spotRefs.current) {
+			if (ref && observerRef.current) {
+				observerRef.current.observe(ref);
+			}
+		}
+
+		return () => {
+			if (observerRef.current) {
+				observerRef.current.disconnect();
+			}
+			if (debounceTimeoutRef.current) {
+				clearTimeout(debounceTimeoutRef.current);
+			}
+		};
+	}, [handleIntersection]);
+
+	return {
+		spotRefs,
+		isUserScrollingRef,
+	};
+};
+
+const useSpotSelection = (
+	selectedSpot: TouristSpotResponseDto | undefined,
+	spotRefs: React.MutableRefObject<(HTMLDivElement | null)[]>,
+	isUserScrollingRef: React.MutableRefObject<boolean>,
+) => {
+	const selectedSpotRef = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		if (selectedSpot && selectedSpotRef.current) {
+			isUserScrollingRef.current = false;
+			selectedSpotRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+			});
+			setTimeout(() => {
+				isUserScrollingRef.current = true;
+			}, INTERSECTION_CONFIG.scrollDelay);
+		}
+	}, [selectedSpot, isUserScrollingRef]);
+
+	return { selectedSpotRef };
+};
+
+// Sub-components
+const SpotHeader: React.FC<{
+	stopNumber: number;
+	spotName: string;
+	chapterTitle?: string;
+	spotDesc: string;
+}> = ({ stopNumber, spotName, chapterTitle, spotDesc }) => (
+	<>
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ delay: 0.1 }}
+			className="mb-2 text-sm font-medium uppercase tracking-widest text-gray-600"
+		>
+			STOP {stopNumber}
+		</motion.div>
+
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ delay: 0.15 }}
+			className="text-xl font-bold uppercase tracking-widest text-charcoal mb-1"
+		>
+			{spotName}
+		</motion.div>
+
+		<motion.div
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition={{ delay: 0.2 }}
+			className="text-sm font-medium tracking-widest text-gray-700 mb-3"
+		>
+			{chapterTitle || spotDesc}
+		</motion.div>
+	</>
+);
+
+const SpotImage: React.FC<{
+	chapterImage?: string;
+	mainImageSrc?: string;
+	chapterTitle?: string;
+	spotName: string;
+	storyChapterLink?: string;
+}> = ({
+	chapterImage,
+	mainImageSrc,
+	chapterTitle,
+	spotName,
+	storyChapterLink,
+}) => (
+	<motion.div
+		initial={{ opacity: 0 }}
+		animate={{ opacity: 1 }}
+		transition={{ delay: 0.25 }}
+		className="relative mb-3"
+	>
+		{chapterImage || (mainImageSrc && isValidImageUrl(mainImageSrc)) ? (
+			<div className="relative">
+				{chapterImage && isValidImageUrl(chapterImage) ? (
+					<Image
+						src={chapterImage}
+						alt={chapterTitle || spotName}
+						width={300}
+						height={300}
+						className="mx-auto h-[15vh] w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+					/>
+				) : mainImageSrc && isValidImageUrl(mainImageSrc) ? (
+					<Image
+						src={mainImageSrc}
+						alt={spotName}
+						width={300}
+						height={300}
+						className="mx-auto h-[15vh] w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+					/>
+				) : null}
+				{storyChapterLink && (
+					<Link
+						className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-3 py-1 text-xs font-semibold tracking-widest text-white transition-all duration-300 hover:bg-red"
+						href={storyChapterLink}
+						onClick={(e) => e.stopPropagation()}
+					>
+						Revisit the story
+					</Link>
+				)}
+			</div>
+		) : (
+			<div className="mx-auto h-[15vh] w-6/12 rounded-full bg-gray-200 flex items-center justify-center xl:w-8/12">
+				<span className="text-gray-400 text-sm">No Image</span>
+			</div>
+		)}
+	</motion.div>
+);
+
+const SpotCard: React.FC<{
+	spot: TouristSpotResponseDto;
+	index: number;
+	selectedSpot?: TouristSpotResponseDto;
+	onSpotSelect?: (spotId: string) => void;
+	selectedSpotRef: React.MutableRefObject<HTMLDivElement | null>;
+	spotRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+}> = ({
+	spot,
+	index,
+	selectedSpot,
+	onSpotSelect,
+	selectedSpotRef,
+	spotRefs,
+}) => {
+	const spotStopNumber = index + 1;
+	const spotStorySagaId = extractStorySagaId(spot.storyChapterLink);
+	const { storyChapterList: spotStoryChapterList } =
+		getSagaById(spotStorySagaId);
+	const spotChapterId = extractChapterId(spot.storyChapterLink);
+	const spotCurrentChapter = spotStoryChapterList?.find(
+		(chapter) => chapter.storyChapterId === spotChapterId,
+	);
+	const spotMainImageSrc = spot.imageSet?.main;
+	const spotHasValidMainImage =
+		spotMainImageSrc && spotMainImageSrc.trim() !== "";
+
+	return (
+		<div
+			key={spot.touristSpotId}
+			ref={(el) => {
+				if (selectedSpot?.touristSpotId === spot.touristSpotId) {
+					selectedSpotRef.current = el;
+				}
+				spotRefs.current[index] = el;
+			}}
+			data-spot-index={index}
+			className={`border-b border-gray-200 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors ${
+				selectedSpot?.touristSpotId === spot.touristSpotId ? "bg-blue-50" : ""
+			}`}
+			onClick={() => onSpotSelect?.(spot.touristSpotId)}
+			onKeyDown={(e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					onSpotSelect?.(spot.touristSpotId);
+				}
+			}}
+			aria-label={`Select ${spot.touristSpotName}`}
+		>
+			<div className="p-4">
+				<SpotHeader
+					stopNumber={spotStopNumber}
+					spotName={spot.touristSpotName}
+					chapterTitle={spotCurrentChapter?.chapterTitle}
+					spotDesc={spot.touristSpotDesc}
+				/>
+
+				<SpotImage
+					chapterImage={spotCurrentChapter?.chapterImage}
+					mainImageSrc={spotHasValidMainImage ? spotMainImageSrc : undefined}
+					chapterTitle={spotCurrentChapter?.chapterTitle}
+					spotName={spot.touristSpotName}
+					storyChapterLink={spot.storyChapterLink}
+				/>
+
+				{/* Tourist Spot Description */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 0.3 }}
+					className="text-sm text-gray-700 leading-relaxed mb-3"
+				>
+					{spot.touristSpotDesc}
+				</motion.div>
+
+				{/* Quest Button */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ delay: 0.35 }}
+				>
+					<button
+						type="button"
+						className="w-full bg-red hover:bg-red/90 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<span>View Quests</span>
+						<ArrowRight className="w-4 h-4" />
+					</button>
+				</motion.div>
+			</div>
+		</div>
+	);
+};
+
 const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 	selectedSpot,
+	touristSpotList = [],
+	onSpotSelect,
 	className = "",
 }) => {
-	// Get location info for Google Places images
-	const { locationInfo, hasLocationInfo } = getLocationInfo({
-		query: selectedSpot?.touristSpotName ?? "",
-		latitude: selectedSpot?.touristSpotLatitude?.toString(),
-		longitude: selectedSpot?.touristSpotLongitude?.toString(),
-		address: selectedSpot?.address ?? "",
-	});
+	const { spotRefs, isUserScrollingRef } = useIntersectionObserver(
+		touristSpotList,
+		selectedSpot,
+		onSpotSelect,
+	);
+	const { selectedSpotRef } = useSpotSelection(
+		selectedSpot,
+		spotRefs,
+		isUserScrollingRef,
+	);
 
-	// Use Google Places images if available, otherwise fall back to local images
-	const googleImages = locationInfo?.images || [];
-	const hasGoogleImages = googleImages.length > 0 && hasLocationInfo;
-	const mainImageSrc = selectedSpot?.imageSet?.main;
-	const hasValidMainImage = mainImageSrc && mainImageSrc.trim() !== "";
-
-	// Helper function to validate image URLs
-	const isValidImageUrl = (url: string | undefined | null): url is string => {
-		return typeof url === "string" && url.trim() !== "";
-	};
-
-	if (!selectedSpot) {
+	if (touristSpotList.length === 0) {
 		return (
 			<motion.div
 				initial={{ opacity: 0, x: 20 }}
@@ -44,7 +369,7 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 				<div className="flex items-center justify-center h-64 text-gray-500">
 					<div className="text-center">
 						<MapPin className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-						<p className="text-sm">Select a tourist spot to view details</p>
+						<p className="text-sm">No tourist spots available</p>
 					</div>
 				</div>
 			</motion.div>
@@ -56,241 +381,20 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 			initial={{ opacity: 0, x: 20 }}
 			animate={{ opacity: 1, x: 0 }}
 			transition={{ duration: 0.3 }}
-			className={`bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${className}`}
+			className={`h-full ${className}`}
 		>
-			{/* Main Image */}
-			{(hasGoogleImages || hasValidMainImage) && (
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.1 }}
-					className="relative h-48 w-full"
-				>
-					{hasGoogleImages
-						? googleImages[0]?.url &&
-							isValidImageUrl(googleImages[0]?.url) && (
-								<Image
-									src={googleImages[0].url}
-									alt={selectedSpot.touristSpotName}
-									fill
-									className="object-cover"
-									priority
-									unoptimized // Disable optimization for Google Photos API URLs
-								/>
-							)
-						: hasValidMainImage &&
-							isValidImageUrl(mainImageSrc) && (
-								<Image
-									src={mainImageSrc}
-									alt={selectedSpot.touristSpotName}
-									fill
-									className="object-cover"
-									priority
-								/>
-							)}
-				</motion.div>
-			)}
-
-			<div className="p-6">
-				{/* Spot Name */}
-				<motion.h2
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.15 }}
-					className="text-2xl font-bold text-charcoal mb-3"
-				>
-					{selectedSpot.touristSpotName}
-				</motion.h2>
-
-				{/* Description */}
-				<motion.p
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.2 }}
-					className="text-gray-700 text-sm leading-relaxed mb-4"
-				>
-					{selectedSpot.touristSpotDesc}
-				</motion.p>
-
-				{/* Details Grid */}
-				<div className="space-y-3 mb-6">
-					{/* Address */}
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.25 }}
-						className="flex items-start gap-3"
-					>
-						<MapPin className="w-5 h-5 text-gray-500 mt-0.5 flex-shrink-0" />
-						<div>
-							<span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-								Address
-							</span>
-							<p className="text-sm text-gray-700">{selectedSpot.address}</p>
-						</div>
-					</motion.div>
-
-					{/* Best Visit Time */}
-					{selectedSpot.bestVisitTime && (
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.3 }}
-							className="flex items-start gap-3"
-						>
-							<Clock className="w-5 h-5 text-gray-500 mt-0.5" />
-							<div>
-								<span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-									Best Visit Time
-								</span>
-								<p className="text-sm text-gray-700">
-									{selectedSpot.bestVisitTime}
-								</p>
-							</div>
-						</motion.div>
-					)}
-
-					{/* Weather */}
-					{selectedSpot.weatherInfo && (
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.35 }}
-							className="flex items-start gap-3"
-						>
-							<Thermometer className="w-5 h-5 text-blue-500 mt-0.5" />
-							<div>
-								<span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-									Current Weather
-								</span>
-								<p className="text-sm text-gray-700">
-									{selectedSpot.weatherInfo.temperatureCelsius}°C -{" "}
-									{selectedSpot.weatherInfo.weatherName}
-								</p>
-								<p className="text-xs text-gray-500">
-									{selectedSpot.weatherInfo.weatherDesc}
-								</p>
-							</div>
-						</motion.div>
-					)}
-				</div>
-
-				{/* Hashtags */}
-				{selectedSpot.touristSpotHashtag &&
-					selectedSpot.touristSpotHashtag.length > 0 && (
-						<motion.div
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ delay: 0.4 }}
-							className="mb-6"
-						>
-							<span className="text-xs font-medium text-gray-500 uppercase tracking-wide block mb-2">
-								Tags
-							</span>
-							<div className="flex flex-wrap gap-2">
-								{selectedSpot.touristSpotHashtag.map((tag, index) => (
-									<span
-										key={tag}
-										className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
-									>
-										#{tag}
-									</span>
-								))}
-							</div>
-						</motion.div>
-					)}
-
-				{/* Story Chapter Link */}
-				{selectedSpot.storyChapterLink && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.45 }}
-						className="mb-4"
-					>
-						<Link
-							href={selectedSpot.storyChapterLink}
-							className="flex items-center gap-2 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
-						>
-							<Book className="w-5 h-5 text-blue-600" />
-							<div className="flex-1">
-								<span className="text-sm font-medium text-blue-900">
-									Related Story Chapter
-								</span>
-								<p className="text-xs text-blue-600">
-									Learn more about this location
-								</p>
-							</div>
-							<ArrowRight className="w-4 h-4 text-blue-600 group-hover:translate-x-1 transition-transform" />
-						</Link>
-					</motion.div>
-				)}
-
-				{/* Quest Button Placeholder */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.5 }}
-				>
-					<button
-						type="button"
-						className="w-full bg-red hover:bg-red/90 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-					>
-						<span>View Quests</span>
-						<ArrowRight className="w-4 h-4" />
-					</button>
-				</motion.div>
-
-				{/* Small Images */}
-				{((hasGoogleImages && googleImages.length > 1) ||
-					(selectedSpot.imageSet?.small &&
-						selectedSpot.imageSet.small.length > 0)) && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 0.55 }}
-						className="mt-6"
-					>
-						<span className="text-xs font-medium text-gray-500 uppercase tracking-wide block mb-3">
-							More Photos
-						</span>
-						<div className="grid grid-cols-3 gap-2">
-							{hasGoogleImages
-								? googleImages.slice(1, 4).map((image, index) =>
-										image.url && isValidImageUrl(image.url) ? (
-											<div
-												key={image.url}
-												className="relative h-16 rounded-md overflow-hidden"
-											>
-												<Image
-													src={image.url}
-													alt={`${selectedSpot.touristSpotName} ${index + 2}`}
-													fill
-													className="object-cover hover:scale-105 transition-transform cursor-pointer"
-													unoptimized // Disable optimization for Google Photos API URLs
-												/>
-											</div>
-										) : null,
-									)
-								: selectedSpot.imageSet?.small
-										?.slice(0, 3)
-										.filter((image) => isValidImageUrl(image))
-										.map((image, index) => (
-											<div
-												key={image}
-												className="relative h-16 rounded-md overflow-hidden"
-											>
-												<Image
-													src={image}
-													alt={`${selectedSpot.touristSpotName} ${index + 1}`}
-													fill
-													className="object-cover hover:scale-105 transition-transform cursor-pointer"
-												/>
-											</div>
-										))}
-						</div>
-					</motion.div>
-				)}
+			<div className="overflow-y-auto h-full bg-white scrollbar-hide">
+				{touristSpotList.map((spot, index) => (
+					<SpotCard
+						key={spot.touristSpotId}
+						spot={spot}
+						index={index}
+						selectedSpot={selectedSpot}
+						onSpotSelect={onSpotSelect}
+						selectedSpotRef={selectedSpotRef}
+						spotRefs={spotRefs}
+					/>
+				))}
 			</div>
 		</motion.div>
 	);

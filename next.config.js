@@ -17,6 +17,10 @@ export default {
                 hostname: 'maps.googleapis.com',
                 pathname: '/maps/api/place/photo**',
             },
+            {
+                protocol: 'https',
+                hostname: 'pub-ff346cb892954c35be4cd7939d054cd1.r2.dev',
+            },
         ],
     },
 };

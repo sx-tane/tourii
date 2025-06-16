@@ -2,6 +2,22 @@
 import { useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 
+// Constants
+const TILE_LAYER_CONFIG = {
+	url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+	attribution:
+		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: "abcd",
+	maxZoom: 20,
+};
+
+const MAP_CONFIG = {
+	defaultZoom: 13,
+	zoomControl: true,
+	attributionControl: false,
+	initDelay: 50,
+};
+
 // Import Leaflet dynamically to avoid SSR issues
 // biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
 let L: any;
@@ -24,28 +40,24 @@ interface LeafletMapViewProps {
 	zoom?: number;
 	children?: ReactNode;
 	className?: string;
-	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-	onMapReady?: (map: any) => void;
+	onMapReady?: (map: L.Map) => void;
 }
 
-const LeafletMapView: React.FC<LeafletMapViewProps> = ({
-	center,
-	zoom = 13,
-	children,
-	className = "h-full w-full",
-	onMapReady,
-}) => {
+// Custom hooks
+const useLeafletMap = (
+	center: [number, number],
+	zoom: number,
+	onMapReady?: (map: L.Map) => void,
+) => {
 	const mapRef = useRef<HTMLDivElement>(null);
-	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-	const mapInstanceRef = useRef<any>(null);
-	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally avoiding recreation
-	useEffect(() => {
+	const mapInstanceRef = useRef<L.Map | null>(null);
+
+	const initializeMap = useCallback(() => {
 		if (!mapRef.current || mapInstanceRef.current) return;
 
-		// Wait for Leaflet to be available
 		const initMapWhenReady = () => {
 			if (!L) {
-				setTimeout(initMapWhenReady, 50);
+				setTimeout(initMapWhenReady, MAP_CONFIG.initDelay);
 				return;
 			}
 
@@ -54,20 +66,16 @@ const LeafletMapView: React.FC<LeafletMapViewProps> = ({
 				const map = L.map(mapRef.current, {
 					center,
 					zoom,
-					zoomControl: true,
-					attributionControl: false,
+					zoomControl: MAP_CONFIG.zoomControl,
+					attributionControl: MAP_CONFIG.attributionControl,
 				});
 
-				// Add CartoDB Positron tile layer
-				L.tileLayer(
-					"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-					{
-						attribution:
-							'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-						subdomains: "abcd",
-						maxZoom: 20,
-					},
-				).addTo(map);
+				// Add tile layer
+				L.tileLayer(TILE_LAYER_CONFIG.url, {
+					attribution: TILE_LAYER_CONFIG.attribution,
+					subdomains: TILE_LAYER_CONFIG.subdomains,
+					maxZoom: TILE_LAYER_CONFIG.maxZoom,
+				}).addTo(map);
 
 				mapInstanceRef.current = map;
 
@@ -80,24 +88,10 @@ const LeafletMapView: React.FC<LeafletMapViewProps> = ({
 			}
 		};
 
-		// Start initialization
 		initMapWhenReady();
+	}, [center, zoom, onMapReady]);
 
-		// Cleanup function
-		return () => {
-			if (mapInstanceRef.current) {
-				try {
-					mapInstanceRef.current.remove();
-				} catch (error) {
-					console.warn("Error cleaning up map:", error);
-				}
-				mapInstanceRef.current = null;
-			}
-		};
-	}, []); // Remove dependencies to avoid recreation
-
-	// Update map center when prop changes
-	useEffect(() => {
+	const updateMapView = useCallback(() => {
 		if (mapInstanceRef.current && L) {
 			try {
 				mapInstanceRef.current.setView(center, zoom);
@@ -106,6 +100,52 @@ const LeafletMapView: React.FC<LeafletMapViewProps> = ({
 			}
 		}
 	}, [center, zoom]);
+
+	const cleanupMap = useCallback(() => {
+		if (mapInstanceRef.current) {
+			try {
+				mapInstanceRef.current.remove();
+			} catch (error) {
+				console.warn("Error cleaning up map:", error);
+			}
+			mapInstanceRef.current = null;
+		}
+	}, []);
+
+	return {
+		mapRef,
+		mapInstanceRef,
+		initializeMap,
+		updateMapView,
+		cleanupMap,
+	};
+};
+
+const LeafletMapView: React.FC<LeafletMapViewProps> = ({
+	center,
+	zoom = MAP_CONFIG.defaultZoom,
+	children,
+	className = "h-full w-full",
+	onMapReady,
+}) => {
+	const { mapRef, initializeMap, updateMapView, cleanupMap } = useLeafletMap(
+		center,
+		zoom,
+		onMapReady,
+	);
+
+	// Initialize map
+	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally avoiding recreation
+	useEffect(() => {
+		initializeMap();
+		return cleanupMap;
+	}, []);
+
+	// Update map view when center or zoom changes
+	// biome-ignore lint/correctness/useExhaustiveDependencies: intentionally avoiding recreation
+	useEffect(() => {
+		updateMapView();
+	}, [center, zoom, updateMapView]);
 
 	return (
 		<div className={className}>
