@@ -46,6 +46,7 @@ const ANIMATIONS = {
 interface LocationInfoPanelProps {
 	selectedSpot?: TouristSpotResponseDto;
 	className?: string;
+	isStatic?: boolean; // For use in scrollable containers (phone/tablet)
 }
 
 // Custom hooks
@@ -407,6 +408,7 @@ const OpeningHours: React.FC<{
 const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 	selectedSpot,
 	className = "",
+	isStatic = false,
 }) => {
 	const {
 		locationInfo,
@@ -430,10 +432,13 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 	const mainImageSrc = selectedSpot?.imageSet?.main;
 
 	if (!selectedSpot) {
+		const baseClasses = "bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200";
+		const positionClasses = isStatic ? "relative" : "absolute bottom-4 left-4 z-[1000]";
+		
 		return (
 			<motion.div
 				{...ANIMATIONS.panel}
-				className={`absolute bottom-4 left-4 z-[1000] bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-gray-200 ${className}`}
+				className={`${positionClasses} ${baseClasses} ${className}`}
 			>
 				<div className="flex items-center gap-2 text-sm text-gray-500">
 					<MapPin className="w-4 h-4" />
@@ -443,10 +448,20 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 		);
 	}
 
+	const baseClasses = "bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden";
+	const positionClasses = isStatic 
+		? "relative w-full" 
+		: "absolute bottom-4 left-4 z-[1000] min-w-[320px] max-w-[380px]";
+
+	// For mobile fullscreen, limit height and enable scrolling
+	const heightClasses = isStatic 
+		? "max-h-[50vh] flex flex-col" 
+		: "max-h-[60vh] flex flex-col";
+
 	return (
 		<motion.div
 			{...ANIMATIONS.panel}
-			className={`absolute bottom-4 left-4 z-[1000] bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 min-w-[320px] max-w-[380px] overflow-hidden ${className}`}
+			className={`${positionClasses} ${baseClasses} ${heightClasses} ${className}`}
 		>
 			<ImageGallery
 				isLoading={isLoadingLocationInfo}
@@ -463,8 +478,8 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 				mainImageSrc={mainImageSrc}
 			/>
 
-			{/* Content Section */}
-			<div className="p-4 space-y-3">
+			{/* Content Section - Scrollable */}
+			<div className="p-4 space-y-3 overflow-y-auto flex-1 scrollbar-hide">
 				<LocationDetails
 					locationInfo={locationInfo}
 					hasLocationInfo={hasLocationInfo}

@@ -167,7 +167,7 @@ const SpotHeader: React.FC<{
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ delay: 0.1 }}
-			className="mb-2 text-sm font-medium uppercase tracking-widest text-gray-600"
+			className="mb-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-600"
 		>
 			STOP {stopNumber}
 		</motion.div>
@@ -176,7 +176,7 @@ const SpotHeader: React.FC<{
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ delay: 0.15 }}
-			className="text-xl font-bold uppercase tracking-widest text-charcoal mb-1"
+			className="text-lg sm:text-xl font-bold uppercase tracking-widest text-charcoal mb-1"
 		>
 			{spotName}
 		</motion.div>
@@ -185,7 +185,7 @@ const SpotHeader: React.FC<{
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			transition={{ delay: 0.2 }}
-			className="text-sm font-medium tracking-widest text-gray-700 mb-3"
+			className="text-xs sm:text-sm font-medium tracking-widest text-gray-700 mb-3"
 		>
 			{chapterTitle || spotDesc}
 		</motion.div>
@@ -219,7 +219,7 @@ const SpotImage: React.FC<{
 						alt={chapterTitle || spotName}
 						width={300}
 						height={300}
-						className="mx-auto h-[15vh] w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+						className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
 					/>
 				) : mainImageSrc && isValidImageUrl(mainImageSrc) ? (
 					<Image
@@ -227,7 +227,7 @@ const SpotImage: React.FC<{
 						alt={spotName}
 						width={300}
 						height={300}
-						className="mx-auto h-[15vh] w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+						className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
 					/>
 				) : null}
 				{storyChapterLink && (
@@ -241,8 +241,8 @@ const SpotImage: React.FC<{
 				)}
 			</div>
 		) : (
-			<div className="mx-auto h-[15vh] w-6/12 rounded-full bg-gray-200 flex items-center justify-center xl:w-8/12">
-				<span className="text-gray-400 text-sm">No Image</span>
+			<div className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full bg-gray-200 flex items-center justify-center xl:w-8/12">
+				<span className="text-gray-400 text-xs sm:text-sm">No Image</span>
 			</div>
 		)}
 	</motion.div>
@@ -286,7 +286,7 @@ const SpotCard: React.FC<{
 			}}
 			data-spot-index={index}
 			className={`border-b border-gray-200 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors ${
-				selectedSpot?.touristSpotId === spot.touristSpotId ? "bg-blue-50" : ""
+				selectedSpot?.touristSpotId === spot.touristSpotId ? "bg-blue-50 border-blue-200" : ""
 			}`}
 			onClick={() => onSpotSelect?.(spot.touristSpotId)}
 			onKeyDown={(e) => {
@@ -296,7 +296,7 @@ const SpotCard: React.FC<{
 			}}
 			aria-label={`Select ${spot.touristSpotName}`}
 		>
-			<div className="p-4">
+			<div className="p-3 sm:p-4">
 				<SpotHeader
 					stopNumber={spotStopNumber}
 					spotName={spot.touristSpotName}
@@ -330,11 +330,11 @@ const SpotCard: React.FC<{
 				>
 					<button
 						type="button"
-						className="w-full bg-red hover:bg-red/90 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+						className="w-full bg-red hover:bg-red/90 text-white font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
 						onClick={(e) => e.stopPropagation()}
 					>
 						<span>View Quests</span>
-						<ArrowRight className="w-4 h-4" />
+						<ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
 					</button>
 				</motion.div>
 			</div>

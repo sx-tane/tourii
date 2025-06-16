@@ -1,16 +1,15 @@
 "use client";
 import type { ModelRouteResponseDto } from "@/api/generated";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Map as MapIcon, Maximize2 } from "lucide-react";
+import { Map as MapIcon, Maximize2, X } from "lucide-react";
 import LeafletMapView from "./leaflet-map-view";
 import TouristSpotMarkers from "./tourist-spot-markers";
 import LocationInfoPanel from "./location-info-panel";
 import SpotDetailSidebar from "./spot-detail-sidebar";
-import MapModal from "./map-modal";
 
 // Constants
-const MOBILE_BREAKPOINT = 768;
+const DESKTOP_BREAKPOINT = 1024; // Tailwind lg breakpoint
 const DEFAULT_ZOOM = 12;
 
 // Animation configurations
@@ -47,20 +46,20 @@ interface ModelRouteMapWrapperProps {
 }
 
 // Custom hooks
-const useMobileDetection = () => {
-	const [isMobile, setIsMobile] = useState(false);
+const useResponsiveDetection = () => {
+	const [isMobileTablet, setIsMobileTablet] = useState(false);
 
 	useEffect(() => {
-		const checkMobile = () => {
-			setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+		const checkDevice = () => {
+			setIsMobileTablet(window.innerWidth < DESKTOP_BREAKPOINT);
 		};
 
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
+		checkDevice();
+		window.addEventListener("resize", checkDevice);
+		return () => window.removeEventListener("resize", checkDevice);
 	}, []);
 
-	return isMobile;
+	return isMobileTablet;
 };
 
 const useTouristSpotSelection = (
@@ -114,40 +113,147 @@ const getMapCenter = (modelRoute: ModelRouteResponseDto): [number, number] => {
 };
 
 // Sub-components
-const MobileMapButton: React.FC<{
+const MobileTabletView: React.FC<{
 	modelRoute: ModelRouteResponseDto;
 	onOpenModal: () => void;
+	selectedSpot: ModelRouteResponseDto["touristSpotList"][number] | undefined;
+	touristSpotList: ModelRouteResponseDto["touristSpotList"];
+	onSpotSelect: (id: string | undefined) => void;
 	className?: string;
-}> = ({ modelRoute, onOpenModal, className }) => (
+}> = ({
+	modelRoute,
+	onOpenModal,
+	selectedSpot,
+	touristSpotList,
+	onSpotSelect,
+	className,
+}) => (
 	<motion.div
 		{...ANIMATIONS.main}
-		className={`bg-warmGrey2 rounded-3xl p-6 ${className}`}
+		className={`bg-warmGrey2 rounded-3xl overflow-hidden ${className}`}
 	>
-		<div className="text-center">
+		{/* Header with Map Button */}
+		<div className="px-4 py-3 bg-white border-b border-gray-200/50 flex items-center justify-between">
 			<motion.div
-				className="mx-4 text-xs sm:text-sm lg:text-sm font-bold tracking-widest text-charcoal uppercase mb-6"
+				className="text-xs sm:text-sm font-bold tracking-widest text-charcoal uppercase"
 				{...ANIMATIONS.header}
 			>
-				Interactive Map
+				Route Details ({touristSpotList.length} stops)
 			</motion.div>
-
 			<button
 				type="button"
 				onClick={onOpenModal}
-				className="inline-flex items-center gap-3 bg-charcoal hover:bg-charcoal/90 text-white px-6 py-4 rounded-full font-medium transition-colors"
+				className="inline-flex items-center gap-2 bg-charcoal hover:bg-charcoal/90 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
 			>
-				<MapIcon className="w-5 h-5" />
-				<span>Explore Route Map</span>
-				<Maximize2 className="w-4 h-4" />
+				<MapIcon className="w-4 h-4" />
+				<span className="hidden sm:inline">View Map</span>
+				<Maximize2 className="w-3 h-3" />
 			</button>
+		</div>
 
-			<p className="text-sm text-gray-600 mt-3">
-				View all {modelRoute.touristSpotList.length} tourist spots on an
-				interactive map
-			</p>
+		{/* Spot Details */}
+		<div className="h-[70vh] sm:h-[60vh]">
+			<SpotDetailSidebar
+				selectedSpot={selectedSpot}
+				touristSpotList={touristSpotList}
+				onSpotSelect={onSpotSelect}
+				className="border-0 shadow-none rounded-none h-full"
+			/>
 		</div>
 	</motion.div>
 );
+
+const FullscreenMapView: React.FC<{
+	isOpen: boolean;
+	onClose: () => void;
+	modelRoute: ModelRouteResponseDto;
+	selectedSpot: ModelRouteResponseDto["touristSpotList"][number] | undefined;
+	touristSpotList: ModelRouteResponseDto["touristSpotList"];
+	onSpotSelect: (id: string | undefined) => void;
+	map: any;
+	isMapReady: boolean;
+	handleMapReady: (mapInstance: any) => void;
+	mapCenter: [number, number];
+}> = ({ 
+	isOpen, 
+	onClose, 
+	modelRoute, 
+	selectedSpot, 
+	touristSpotList, 
+	onSpotSelect, 
+	map, 
+	isMapReady, 
+	handleMapReady, 
+	mapCenter 
+}) => {
+	const displayedSelectedSpot = selectedSpot || touristSpotList[0];
+	
+	// Debug logging
+	console.log('FullscreenMapView - selectedSpot:', selectedSpot);
+	console.log('FullscreenMapView - displayedSelectedSpot:', displayedSelectedSpot);
+	console.log('FullscreenMapView - touristSpotList length:', touristSpotList.length);
+
+	return (
+		<AnimatePresence>
+			{isOpen && (
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					className="fixed inset-0 z-50 bg-white"
+				>
+					{/* Cross Button */}
+					<motion.button
+						initial={{ opacity: 0, scale: 0.8 }}
+						animate={{ opacity: 1, scale: 1 }}
+						exit={{ opacity: 0, scale: 0.8 }}
+						transition={{ delay: 0.2 }}
+						type="button"
+						onClick={onClose}
+						className="absolute top-4 right-4 z-[9999] bg-white/95 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-white hover:shadow-2xl transition-all duration-200"
+						aria-label="Close map"
+					>
+						<X className="w-6 h-6 text-gray-700" />
+					</motion.button>
+
+					{/* Fullscreen Map */}
+					<div className="relative h-full w-full z-0">
+						<LeafletMapView
+							center={mapCenter}
+							zoom={12}
+							onMapReady={handleMapReady}
+							className="h-full w-full relative z-0"
+						>
+							{isMapReady && (
+								<TouristSpotMarkers
+									touristSpots={touristSpotList}
+									selectedSpotId={selectedSpot?.touristSpotId}
+									onSpotSelect={onSpotSelect}
+									map={map}
+								/>
+							)}
+						</LeafletMapView>
+						
+						{/* Enhanced Location Info Panel - Bigger and Better Positioned */}
+						<div className="absolute bottom-4 left-4 right-4 sm:left-6 sm:right-6 z-[9999] pointer-events-auto">
+							{displayedSelectedSpot ? (
+								<LocationInfoPanel 
+									selectedSpot={displayedSelectedSpot} 
+									isStatic={true}
+									className="max-w-none shadow-2xl"
+								/>
+							) : (
+								<div className="bg-red-500 text-white p-4 rounded-xl">
+									DEBUG: No spot selected, touristSpotList: {touristSpotList.length}
+								</div>
+							)}
+						</div>
+					</div>
+				</motion.div>
+			)}
+		</AnimatePresence>
+	);
+};
 
 const DesktopMapHeader: React.FC<{
 	touristSpotCount: number;
@@ -229,9 +335,9 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 	modelRoute,
 	className = "",
 }) => {
-	const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
+	const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-	const isMobile = useMobileDetection();
+	const isMobileTablet = useResponsiveDetection();
 	const {
 		selectedTouristSpotId,
 		setSelectedTouristSpotId,
@@ -242,19 +348,29 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 
 	const mapCenter = getMapCenter(modelRoute);
 
-	// Mobile View - Show button to open modal
-	if (isMobile) {
+	// Mobile/Tablet View - Show spot details with fullscreen map
+	if (isMobileTablet) {
 		return (
 			<>
-				<MobileMapButton
+				<MobileTabletView
 					modelRoute={modelRoute}
-					onOpenModal={() => setIsMobileModalOpen(true)}
+					onOpenModal={() => setIsMapModalOpen(true)}
+					selectedSpot={selectedSpot}
+					touristSpotList={modelRoute.touristSpotList}
+					onSpotSelect={setSelectedTouristSpotId}
 					className={className}
 				/>
-				<MapModal
-					isOpen={isMobileModalOpen}
-					onClose={() => setIsMobileModalOpen(false)}
+				<FullscreenMapView
+					isOpen={isMapModalOpen}
+					onClose={() => setIsMapModalOpen(false)}
 					modelRoute={modelRoute}
+					selectedSpot={selectedSpot}
+					touristSpotList={modelRoute.touristSpotList}
+					onSpotSelect={setSelectedTouristSpotId}
+					map={map}
+					isMapReady={isMapReady}
+					handleMapReady={handleMapReady}
+					mapCenter={mapCenter}
 				/>
 			</>
 		);

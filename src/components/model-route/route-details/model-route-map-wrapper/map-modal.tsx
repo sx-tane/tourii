@@ -1,11 +1,12 @@
 "use client";
 import type { ModelRouteResponseDto } from "@/api/generated";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { useState } from "react";
+import { X, Map, List } from "lucide-react";
+import { useState, useEffect } from "react";
 import LeafletMapView from "./leaflet-map-view";
 import TouristSpotMarkers from "./tourist-spot-markers";
 import LocationInfoPanel from "./location-info-panel";
+import SpotDetailSidebar from "./spot-detail-sidebar";
 
 interface MapModalProps {
 	isOpen: boolean;
@@ -19,15 +20,33 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 	>();
 	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
 	const [map, setMap] = useState<any>(null);
+	const [activeTab, setActiveTab] = useState<"map" | "details">("map");
+
+	// Auto-select first tourist spot when modal opens
+	useEffect(() => {
+		if (
+			isOpen &&
+			modelRoute.touristSpotList.length > 0 &&
+			!selectedTouristSpotId
+		) {
+			setSelectedTouristSpotId(modelRoute.touristSpotList[0]?.touristSpotId);
+		}
+	}, [isOpen, modelRoute.touristSpotList, selectedTouristSpotId]);
 
 	const selectedSpot = modelRoute.touristSpotList.find(
 		(spot) => spot.touristSpotId === selectedTouristSpotId,
 	);
 
-	const mapCenter: [number, number] = [
-		modelRoute.regionLatitude,
-		modelRoute.regionLongitude,
-	];
+	const displayedSelectedSpot = selectedSpot || modelRoute.touristSpotList[0];
+	const mapCenter: [number, number] =
+		modelRoute.touristSpotList.length > 0 && modelRoute.touristSpotList[0]
+			? [
+					modelRoute.touristSpotList[0]?.touristSpotLatitude ??
+						modelRoute.regionLatitude,
+					modelRoute.touristSpotList[0]?.touristSpotLongitude ??
+						modelRoute.regionLongitude,
+				]
+			: [modelRoute.regionLatitude, modelRoute.regionLongitude];
 
 	return (
 		<AnimatePresence>
@@ -50,7 +69,7 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 						{/* Header */}
 						<div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
 							<h2 className="text-lg font-bold text-charcoal">
-								{modelRoute.routeName} - Map View
+								{modelRoute.routeName}
 							</h2>
 							<button
 								type="button"
@@ -61,22 +80,72 @@ const MapModal: React.FC<MapModalProps> = ({ isOpen, onClose, modelRoute }) => {
 							</button>
 						</div>
 
-						{/* Map Container */}
-						<div className="relative h-[calc(100%-80px)]">
-							<LeafletMapView
-								center={mapCenter}
-								zoom={12}
-								onMapReady={setMap}
-								className="h-full w-full"
+						{/* Tab Navigation */}
+						<div className="flex border-b border-gray-200 bg-white">
+							<button
+								type="button"
+								onClick={() => setActiveTab("map")}
+								className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
+									activeTab === "map"
+										? "text-charcoal border-b-2 border-charcoal bg-gray-50"
+										: "text-gray-600 hover:text-charcoal hover:bg-gray-50"
+								}`}
 							>
-								<TouristSpotMarkers
-									touristSpots={modelRoute.touristSpotList}
-									selectedSpotId={selectedTouristSpotId}
-									onSpotSelect={setSelectedTouristSpotId}
-									map={map}
-								/>
-								<LocationInfoPanel selectedSpot={selectedSpot} />
-							</LeafletMapView>
+								<Map className="w-4 h-4" />
+								<span>Map View</span>
+							</button>
+							<button
+								type="button"
+								onClick={() => setActiveTab("details")}
+								className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${
+									activeTab === "details"
+										? "text-charcoal border-b-2 border-charcoal bg-gray-50"
+										: "text-gray-600 hover:text-charcoal hover:bg-gray-50"
+								}`}
+							>
+								<List className="w-4 h-4" />
+								<span>Details ({modelRoute.touristSpotList.length})</span>
+							</button>
+						</div>
+
+						{/* Content */}
+						<div className="relative h-[calc(100%-140px)]">
+							{activeTab === "map" ? (
+								<div className="flex flex-col h-full">
+									{/* Map - 3/4 of the height (top) */}
+									<div className="h-3/4 relative">
+										<LeafletMapView
+											center={mapCenter}
+											zoom={12}
+											onMapReady={setMap}
+											className="h-full w-full"
+										>
+											<TouristSpotMarkers
+												touristSpots={modelRoute.touristSpotList}
+												selectedSpotId={selectedTouristSpotId}
+												onSpotSelect={setSelectedTouristSpotId}
+												map={map}
+											/>
+										</LeafletMapView>
+									</div>
+									
+									{/* Location Info Panel - 1/4 of the height (bottom), scrollable */}
+									<div className="h-1/4 bg-white border-t border-gray-200 overflow-hidden">
+										<div className="h-full overflow-y-auto p-3">
+											<LocationInfoPanel selectedSpot={displayedSelectedSpot} isStatic={true} />
+										</div>
+									</div>
+								</div>
+							) : (
+								<div className="h-full bg-white">
+									<SpotDetailSidebar
+										selectedSpot={selectedSpot}
+										touristSpotList={modelRoute.touristSpotList}
+										onSpotSelect={setSelectedTouristSpotId}
+										className="border-0 shadow-none rounded-none h-full"
+									/>
+								</div>
+							)}
 						</div>
 					</motion.div>
 				</motion.div>
