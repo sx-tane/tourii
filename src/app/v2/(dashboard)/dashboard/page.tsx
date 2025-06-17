@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { MomentsSection } from "@/components/dashboard/moments-section";
 
 // Mock data for development
 const mockDashboardData = {
@@ -139,6 +140,9 @@ const DashboardPage = () => {
 					))}
 				</div>
 			</div>
+
+			{/* Latest Moments */}
+			<MomentsSection />
 
 			{/* Recommended Next Steps */}
 			<div className="bg-white shadow-sm rounded-lg p-6">
