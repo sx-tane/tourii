@@ -6,24 +6,40 @@ import { Plus, Minus } from "lucide-react";
 import { logger } from "@/utils/logger";
 import type { CheckinResponseDto } from "@/hooks/api/useCheckins";
 
-// Import Leaflet dynamically to avoid SSR issues
+// Fix 4: Improved Leaflet import pattern with proper hook
 type LeafletType = typeof import("leaflet");
-let L: LeafletType | null = null;
-if (typeof window !== "undefined") {
-  import("leaflet").then((leaflet) => {
-    L = leaflet;
-    // Fix default markers
-    interface IconDefaultPrototype {
-      _getIconUrl?: () => string;
+
+const useLeaflet = () => {
+  const [leaflet, setLeaflet] = useState<LeafletType | null>(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      import("leaflet").then((L) => {
+        // Fix default markers
+        interface IconDefaultPrototype {
+          _getIconUrl?: () => string;
+        }
+        (L.Icon.Default.prototype as IconDefaultPrototype)._getIconUrl = undefined;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+          iconUrl: require("leaflet/dist/images/marker-icon.png"),
+          shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+        });
+        
+        setLeaflet(L);
+        setLoading(false);
+      }).catch((error) => {
+        logger.error("Failed to load Leaflet", { error });
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
     }
-    (L.Icon.Default.prototype as IconDefaultPrototype)._getIconUrl = undefined;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-      iconUrl: require("leaflet/dist/images/marker-icon.png"),
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-    });
-  });
-}
+  }, []);
+  
+  return { leaflet, loading };
+};
 
 export interface InteractiveMapProps {
   checkins: CheckinResponseDto[];
@@ -56,7 +72,7 @@ const TILE_LAYER_CONFIG = {
 };
 
 // Custom marker icons for different checkin types
-const createCustomIcon = (type: CheckinResponseDto['type']) => {
+const createCustomIcon = (type: CheckinResponseDto['type'], L: LeafletType | null) => {
   if (!L) return null;
   
   const iconMap = {
@@ -107,6 +123,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
   const markersRef = useRef<import("leaflet").Marker[]>([]);
+  const { leaflet: L, loading: leafletLoading } = useLeaflet();
   const [isLoading, setIsLoading] = useState(true);
 
   // Initialize map
@@ -186,7 +203,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
 
     // Add new markers
     checkins.forEach(checkin => {
-      const icon = createCustomIcon(checkin.type);
+      const icon = createCustomIcon(checkin.type, L);
       if (!icon) return;
 
       const marker = L.marker([checkin.latitude, checkin.longitude], { icon })
@@ -218,16 +235,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     }
   };
 
-  // Initialize map when component mounts
+  // Fix 2: Initialize map when component mounts - wait for Leaflet to load
   useEffect(() => {
-    const initWhenReady = () => {
-      if (L) {
-        initializeMap();
-      } else {
-        setTimeout(initWhenReady, 50);
-      }
-    };
-    initWhenReady();
+    if (L && !leafletLoading) {
+      initializeMap();
+    }
 
     return () => {
       if (mapInstanceRef.current) {
@@ -235,7 +247,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
         mapInstanceRef.current = null;
       }
     };
-  }, [initializeMap]);
+  }, [L, leafletLoading, initializeMap]); // Include L and leafletLoading in dependencies
 
   // Update markers when checkins change
   useEffect(() => {
@@ -255,11 +267,11 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
       />
 
       {/* Loading state */}
-      {isLoading && (
+      {(isLoading || leafletLoading) && (
         <motion.div
           className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg"
           initial={{ opacity: 1 }}
-          animate={{ opacity: isLoading ? 1 : 0 }}
+          animate={{ opacity: (isLoading || leafletLoading) ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
           <div className="text-center">

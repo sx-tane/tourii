@@ -1,7 +1,8 @@
 import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { UseApiHookResult } from "../types";
+import type { UserTravelLogListResponseDto } from "@/api/generated";
 
-// Checkin data structure based on the API spec in the issue
+// Frontend-friendly checkin data structure for components
 export interface CheckinResponseDto {
   id: string;
   latitude: number;
@@ -38,6 +39,35 @@ export interface CheckinsListResponseDto {
   total: number;
   page: number;
   limit: number;
+}
+
+// Transform backend API response to frontend format
+function transformBackendResponse(backendData: UserTravelLogListResponseDto): CheckinsListResponseDto {
+  const transformedCheckins: CheckinResponseDto[] = backendData.checkins.map((checkin) => ({
+    id: checkin.userTravelLogId,
+    latitude: checkin.userLatitude,
+    longitude: checkin.userLongitude,
+    touristSpot: {
+      id: checkin.touristSpotId,
+      name: `Tourist Spot ${checkin.touristSpotId}`, // We'll need to fetch more data for names
+      latitude: checkin.userLatitude, // Using user location as fallback
+      longitude: checkin.userLongitude,
+    },
+    quest: checkin.questId ? {
+      id: checkin.questId,
+      name: `Quest ${checkin.questId}`, // We'll need to fetch more data for names
+    } : undefined,
+    timestamp: checkin.insDateTime || new Date().toISOString(),
+    rewards: [], // Empty for now - would need separate API calls
+    type: 'route' as const, // Default type - could be enhanced with quest/story detection logic
+  }));
+
+  return {
+    checkins: transformedCheckins,
+    total: backendData.pagination.totalItems,
+    page: backendData.pagination.currentPage,
+    limit: Math.ceil(backendData.pagination.totalItems / backendData.pagination.totalPages) || 20,
+  };
 }
 
 export interface CheckinsQuery {
@@ -77,16 +107,19 @@ export function useCheckins(
   const queryString = queryParams.toString();
   const endpoint = `/api/checkins${queryString ? `?${queryString}` : ''}`;
   
-  const { data, error, isLoading, mutate } = useProxySWR<CheckinsListResponseDto>(endpoint);
+  const { data: backendData, error, isLoading, mutate } = useProxySWR<UserTravelLogListResponseDto>(endpoint);
+  
+  // Transform backend data to frontend format
+  const transformedData = backendData ? transformBackendResponse(backendData) : undefined;
   
   return {
     // Standardized properties
-    data,
+    data: transformedData,
     isLoading,
     isError: !!error,
     error,
     mutate,
     // Convenience property for checkins array
-    checkins: data?.checkins,
+    checkins: transformedData?.checkins,
   };
 }
