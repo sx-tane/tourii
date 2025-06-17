@@ -46,7 +46,12 @@ const mockMoments = [
 
 export function MomentsSection() {
   // Use API hook with fallback to mock data
-  const { data: momentsData, isLoading, isError } = useMoments("/api/moments?page=1&limit=5");
+  const { data: momentsData, isLoading, isError, error } = useMoments("/api/moments?page=1&limit=5");
+
+  // Log API errors for debugging while using fallback data
+  if (isError && error) {
+    console.warn('Moments API failed, using fallback data:', error);
+  }
 
   // Use mock data if API fails or is unavailable
   const moments = momentsData?.moments || mockMoments;

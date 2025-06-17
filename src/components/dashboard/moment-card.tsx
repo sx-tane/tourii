@@ -1,22 +1,35 @@
 import type { MomentListResponseDto } from "@/api/generated";
 import Image from "next/image";
+import { useMemo } from "react";
 
 interface MomentCardProps {
-  moment: MomentListResponseDto['moments'][0];
+  moment: NonNullable<MomentListResponseDto['moments']>[0];
 }
 
 export function MomentCard({ moment }: MomentCardProps) {
-  const formatTimeAgo = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-    
-    if (diffInHours < 1) return "Just now";
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) return `${diffInDays}d ago`;
-    return date.toLocaleDateString();
-  };
+  // Memoize time formatting for better performance with many cards
+  const formattedTime = useMemo(() => {
+    const formatTimeAgo = (timestamp: string) => {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+      
+      if (diffInHours < 1) return "Just now";
+      if (diffInHours < 24) return `${diffInHours}h ago`;
+      const diffInDays = Math.floor(diffInHours / 24);
+      if (diffInDays < 7) return `${diffInDays}d ago`;
+      return date.toLocaleDateString();
+    };
+    return formatTimeAgo(moment.insDateTime);
+  }, [moment.insDateTime]);
+
+  // Memoize alt text for accessibility
+  const imageAltText = useMemo(() => {
+    if (moment.description) {
+      return `Moment: ${moment.description.slice(0, 100)}${moment.description.length > 100 ? '...' : ''}`;
+    }
+    return "Travel moment";
+  }, [moment.description]);
 
   return (
     <div className="flex-shrink-0 w-72 bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -25,9 +38,11 @@ export function MomentCard({ moment }: MomentCardProps) {
         {moment.imageUrl ? (
           <Image
             src={moment.imageUrl}
-            alt={moment.description || "Moment"}
+            alt={imageAltText}
             fill
             className="object-cover"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-100">
@@ -49,7 +64,7 @@ export function MomentCard({ moment }: MomentCardProps) {
             {moment.username || "Anonymous"}
           </span>
           <span className="text-xs text-gray-500 ml-auto">
-            {formatTimeAgo(moment.insDateTime)}
+            {formattedTime}
           </span>
         </div>
 
