@@ -5,26 +5,27 @@ import type { UseApiHookResult } from "../types";
 /**
  * Hook to fetch a specific model route by ID using SWR.
  * Standardized API hook following the consistent pattern.
- * 
+ *
  * @param modelRouteId - The ID of the model route to fetch
  * @returns Standardized hook result with model route data
  */
 export function useModelRouteById(
-  modelRouteId: string | undefined
+	modelRouteId: string | undefined,
 ): UseApiHookResult<ModelRouteResponseDto> & {
-  modelRoute: ModelRouteResponseDto | undefined;
+	modelRoute: ModelRouteResponseDto | undefined;
 } {
-  const swrKey = modelRouteId ? `/api/routes/${modelRouteId}` : null;
-  const { data, error, isLoading, mutate } = useProxySWR<ModelRouteResponseDto>(swrKey);
-  
-  return {
-    // Standardized properties
-    data,
-    isLoading,
-    isError: !!error,
-    error,
-    mutate,
-    // Legacy property for backward compatibility
-    modelRoute: data,
-  };
+	const swrKey = modelRouteId ? `/api/routes/${modelRouteId}` : null;
+	const { data, error, isLoading, mutate } =
+		useProxySWR<ModelRouteResponseDto>(swrKey);
+
+	return {
+		// Standardized properties
+		data,
+		isLoading,
+		isError: Boolean(error),
+		error: (error as Error) || null,
+		mutate,
+		// Legacy property for backward compatibility
+		modelRoute: data,
+	};
 }

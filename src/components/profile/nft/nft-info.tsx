@@ -1,6 +1,6 @@
 import type { NFT } from "@/types/profile-type";
 import Image from "next/image";
-import type React from "react";
+
 
 interface NftInfoProps {
 	selectedNFT: NFT | undefined;

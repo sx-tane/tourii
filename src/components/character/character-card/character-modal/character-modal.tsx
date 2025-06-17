@@ -4,7 +4,7 @@ import {
 	modalVariants,
 } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
-import type React from "react";
+
 import { useEffect, useState } from "react";
 import CharacterIntro from "./character-intro";
 import CharacterIntroMobile from "./character-intro-mobile";

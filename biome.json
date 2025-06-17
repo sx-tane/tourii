@@ -7,9 +7,18 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [],
-		"include": ["**/*.tsx"],
-		"maxSize": 5000000
+		"ignore": [
+			"node_modules/**",
+			"dist/**",
+			"build/**"
+		],
+		"include": [
+			"**/*.js",
+			"**/*.jsx",
+			"**/*.ts",
+			"**/*.tsx"
+		],
+		"maxSize": 1000000
 	},
 	"formatter": {
 		"enabled": true,
@@ -21,7 +30,20 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "error"
+			},
+			"a11y": {
+				"useAltText": "error",
+				"useButtonType": "error"
+			},
+			"performance": {
+				"noAccumulatingSpread": "error"
+			},
+			"style": {
+				"useConsistentArrayType": "error"
+			}
 		}
 	},
 	"javascript": {

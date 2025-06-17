@@ -3,7 +3,7 @@ import type { StoryVideoNavigationButtonsProps } from "@/types/story-type";
 import { Button } from "@headlessui/react";
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
-import type React from "react";
+
 
 const StoryVideoNavigationButtons: React.FC<
 	Pick<StoryVideoNavigationButtonsProps, "isMuted" | "toggleSound">

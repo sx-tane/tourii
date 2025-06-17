@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type React from "react";
+
 import { useEffect, useRef, useState } from "react";
 import Line from "../about/divider-line/line";
 import { SectionTitle } from "../common/section-title";

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import type React from "react";
+
 import { useState } from "react";
 
 const BigSection: React.FC = () => {
