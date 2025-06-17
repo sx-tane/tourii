@@ -34,19 +34,24 @@ const MAP_CONFIG = {
 type LeafletType = typeof import("leaflet");
 let L: LeafletType | null = null;
 if (typeof window !== "undefined") {
-	import("leaflet").then((leaflet) => {
-		L = leaflet;
-		// Fix default markers - Leaflet internal API requires any type
-		interface IconDefaultPrototype {
-			_getIconUrl?: () => string;
-		}
-		(L.Icon.Default.prototype as IconDefaultPrototype)._getIconUrl = undefined;
-		L.Icon.Default.mergeOptions({
-			iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-			iconUrl: require("leaflet/dist/images/marker-icon.png"),
-			shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+	import("leaflet")
+		.then((leaflet) => {
+			L = leaflet;
+			// Fix default markers - Leaflet internal API requires any type
+			interface IconDefaultPrototype {
+				_getIconUrl?: () => string;
+			}
+			(L.Icon.Default.prototype as IconDefaultPrototype)._getIconUrl =
+				undefined;
+			L.Icon.Default.mergeOptions({
+				iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+				iconUrl: require("leaflet/dist/images/marker-icon.png"),
+				shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+			});
+		})
+		.catch((error) => {
+			console.error("Failed to load Leaflet:", error);
 		});
-	});
 }
 
 interface LeafletMapViewProps {

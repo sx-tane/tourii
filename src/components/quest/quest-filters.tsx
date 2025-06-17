@@ -1,4 +1,5 @@
-import type React from "react";
+
+import { useCallback, memo } from "react";
 
 interface QuestFiltersProps {
 	filters: {
@@ -36,13 +37,34 @@ const premiumStatusOptions = [
 	{ value: "false", label: "Free" },
 ];
 
-const QuestFilters: React.FC<QuestFiltersProps> = ({
+const QuestFilters: React.FC<QuestFiltersProps> = memo(({
 	filters,
 	onFilterChange,
 	currentPage,
 	totalPages,
 	onPageChange,
-}) => (
+}) => {
+	const handleQuestTypeChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+		onFilterChange({ ...filters, questType: e.target.value });
+	}, [filters, onFilterChange]);
+
+	const handleUnlockStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+		onFilterChange({ ...filters, unlockStatus: e.target.value });
+	}, [filters, onFilterChange]);
+
+	const handlePremiumStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+		onFilterChange({ ...filters, premiumStatus: e.target.value });
+	}, [filters, onFilterChange]);
+
+	const handlePreviousPage = useCallback(() => {
+		onPageChange(currentPage - 1);
+	}, [currentPage, onPageChange]);
+
+	const handleNextPage = useCallback(() => {
+		onPageChange(currentPage + 1);
+	}, [currentPage, onPageChange]);
+
+	return (
 	<>
 		<div className="bg-[#fdfaf6] border border-[#e0d7c6] shadow-sm rounded-lg p-4 mb-8">
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -56,9 +78,7 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 					<select
 						id="type"
 						value={filters.questType}
-						onChange={(e) =>
-							onFilterChange({ ...filters, questType: e.target.value })
-						}
+						onChange={handleQuestTypeChange}
 						className="block w-full pl-3 pr-10 py-2 text-base border border-[#e0d7c6] focus:outline-none focus:ring-[#a89c87] focus:border-[#a89c87] rounded-md bg-[#f7f4ee] text-[#5c4a1c]"
 					>
 						{questTypeOptions.map((opt) => (
@@ -78,9 +98,7 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 					<select
 						id="unlocked"
 						value={filters.unlockStatus}
-						onChange={(e) =>
-							onFilterChange({ ...filters, unlockStatus: e.target.value })
-						}
+						onChange={handleUnlockStatusChange}
 						className="block w-full pl-3 pr-10 py-2 text-base border border-[#e0d7c6] focus:outline-none focus:ring-[#a89c87] focus:border-[#a89c87] rounded-md bg-[#f7f4ee] text-[#5c4a1c]"
 					>
 						{unlockStatusOptions.map((opt) => (
@@ -100,9 +118,7 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 					<select
 						id="premium"
 						value={filters.premiumStatus}
-						onChange={(e) =>
-							onFilterChange({ ...filters, premiumStatus: e.target.value })
-						}
+						onChange={handlePremiumStatusChange}
 						className="block w-full pl-3 pr-10 py-2 text-base border border-[#e0d7c6] focus:outline-none focus:ring-[#a89c87] focus:border-[#a89c87] rounded-md bg-[#f7f4ee] text-[#5c4a1c]"
 					>
 						{premiumStatusOptions.map((opt) => (
@@ -117,7 +133,7 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 		<div className="flex justify-center items-center gap-4 mt-8">
 			<button
 				type="button"
-				onClick={() => onPageChange(currentPage - 1)}
+				onClick={handlePreviousPage}
 				disabled={currentPage === 1}
 				className="px-4 py-2 rounded bg-[#e0d7c6] text-[#5c4a1c] font-semibold disabled:opacity-50"
 			>
@@ -128,7 +144,7 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 			</span>
 			<button
 				type="button"
-				onClick={() => onPageChange(currentPage + 1)}
+				onClick={handleNextPage}
 				disabled={currentPage === totalPages}
 				className="px-4 py-2 rounded bg-[#e0d7c6] text-[#5c4a1c] font-semibold disabled:opacity-50"
 			>
@@ -136,6 +152,9 @@ const QuestFilters: React.FC<QuestFiltersProps> = ({
 			</button>
 		</div>
 	</>
-);
+	);
+});
+
+QuestFilters.displayName = "QuestFilters";
 
 export default QuestFilters;

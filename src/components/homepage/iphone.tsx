@@ -1,4 +1,4 @@
-import type React from "react";
+
 
 interface Iphone15Props {
 	children: React.ReactNode;

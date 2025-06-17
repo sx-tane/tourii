@@ -84,5 +84,6 @@ Model Route Response Dto
 - [#40](https://github.com/sx-tane/tourii/issues/40)
   - [ ] Finish this and make sure it works
   - [ ] Style the Location Info Panel
+  - [ ] Check Quest List Style and task style in Japanese style
 - [X] finish dashboard backend API and make it work
   - [X] Finish Moment API and Check In MAP API

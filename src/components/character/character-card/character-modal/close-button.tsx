@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import type React from "react";
+
 
 export interface CloseButtonProps {
 	onClose: () => void;

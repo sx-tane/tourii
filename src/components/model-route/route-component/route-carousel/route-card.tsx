@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import type React from "react";
+
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 // import { WeatherDisplay } from "@/components/model-route/common"; // No longer directly used
 import { useRef, useEffect, useState, useLayoutEffect, useMemo } from "react";

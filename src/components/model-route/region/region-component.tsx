@@ -5,7 +5,7 @@ import {
 } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { WeatherDisplay } from "@/components/model-route/common";
 import RegionButton from "./region-button";
 

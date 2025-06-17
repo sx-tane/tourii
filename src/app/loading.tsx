@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 
 const Loading: React.FC = () => {
 	return (

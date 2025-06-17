@@ -6,7 +6,7 @@ export interface UseApiHookResult<T> {
   data: T | undefined;
   isLoading: boolean;
   isError: boolean;
-  error: any;
+  error: Error | null;
   mutate: () => Promise<T | undefined>;
 }
 
@@ -30,7 +30,7 @@ export interface UseIntersectionObserverOptions {
 }
 
 export interface UseMapInitializationResult {
-  map: any; // L.Map type
+  map: L.Map | null;
   isMapReady: boolean;
-  handleMapReady: (mapInstance: any) => void;
+  handleMapReady: (mapInstance: L.Map) => void;
 }

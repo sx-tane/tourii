@@ -2,7 +2,7 @@ import type { CharacterProps } from "@/app/v2/(stories)/types";
 import { Button } from "@headlessui/react";
 import { BookOpen, MapPin } from "lucide-react";
 import Image from "next/image";
-import type React from "react";
+
 import Markdown from "react-markdown";
 
 interface CharacterCardProps extends CharacterProps {

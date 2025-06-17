@@ -2,7 +2,7 @@
 
 import Header from "@/components/header/header-component/header";
 import Image from "next/image";
-import type React from "react";
+
 
 const NotFound: React.FC = () => {
 	return (

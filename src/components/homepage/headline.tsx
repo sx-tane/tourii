@@ -5,7 +5,7 @@ import {
 } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 
 const Headline: React.FC = () => {
 	return (

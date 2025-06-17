@@ -7,7 +7,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import {
