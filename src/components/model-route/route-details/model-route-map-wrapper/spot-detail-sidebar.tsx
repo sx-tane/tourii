@@ -5,17 +5,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef, useCallback } from "react";
-
-// Constants
-const INTERSECTION_CONFIG = {
-	root: null,
-	rootMargin: "-25% 0px -25% 0px",
-	threshold: 0.6,
-	debounceDelay: 300,
-	minRatio: 0.5,
-	scrollDelay: 800,
-};
+import { useEffect, useRef } from "react";
+import Line from "@/components/about/divider-line/line";
+import ReactMarkdown from "react-markdown";
 
 interface SpotDetailSidebarProps {
 	selectedSpot?: TouristSpotResponseDto;
@@ -46,104 +38,121 @@ const extractChapterId = (
 };
 
 // Custom hooks
-const useIntersectionObserver = (
-	touristSpotList: TouristSpotResponseDto[],
-	selectedSpot: TouristSpotResponseDto | undefined,
-	onSpotSelect: ((spotId: string) => void) | undefined,
-) => {
+const useSimpleSpotRefs = () => {
 	const spotRefs = useRef<(HTMLDivElement | null)[]>([]);
+	return { spotRefs };
+};
+
+const useScrollToViewDetection = (
+	spotRefs: React.MutableRefObject<(HTMLDivElement | null)[]>,
+	touristSpotList: TouristSpotResponseDto[],
+	onSpotSelect?: (spotId: string) => void,
+) => {
 	const observerRef = useRef<IntersectionObserver | null>(null);
-	const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-	const isUserScrollingRef = useRef<boolean>(false);
+	const isUserScrolling = useRef(false);
+	const lastSelectedIndex = useRef(-1);
 
-	const handleIntersection = useCallback(
-		(entries: IntersectionObserverEntry[]) => {
-			if (debounceTimeoutRef.current) {
-				clearTimeout(debounceTimeoutRef.current);
-			}
-
-			debounceTimeoutRef.current = setTimeout(() => {
-				let maxRatio = INTERSECTION_CONFIG.minRatio;
-				let visibleSpotId: string | null = null;
-
-				for (const entry of entries) {
-					if (entry.intersectionRatio > maxRatio) {
-						maxRatio = entry.intersectionRatio;
-						const spotIndex = Number(
-							entry.target.getAttribute("data-spot-index"),
-						);
-						if (spotIndex >= 0 && spotIndex < touristSpotList.length) {
-							visibleSpotId = touristSpotList[spotIndex]?.touristSpotId || null;
-						}
-					}
-				}
-
-				if (
-					visibleSpotId &&
-					visibleSpotId !== selectedSpot?.touristSpotId &&
-					isUserScrollingRef.current
-				) {
-					onSpotSelect?.(visibleSpotId);
-				}
-			}, INTERSECTION_CONFIG.debounceDelay);
-		},
-		[touristSpotList, selectedSpot?.touristSpotId, onSpotSelect],
-	);
-
+	// biome-ignore lint/correctness/useExhaustiveDependencies: spotRefs.current changes are intentionally not tracked
 	useEffect(() => {
+		if (!onSpotSelect || touristSpotList.length === 0) return;
+
+		// Clean up previous observer
 		if (observerRef.current) {
 			observerRef.current.disconnect();
 		}
 
-		isUserScrollingRef.current = true;
+		// Create intersection observer
+		observerRef.current = new IntersectionObserver(
+			(entries) => {
+				if (!isUserScrolling.current) return;
 
-		observerRef.current = new IntersectionObserver(handleIntersection, {
-			root: INTERSECTION_CONFIG.root,
-			rootMargin: INTERSECTION_CONFIG.rootMargin,
-			threshold: INTERSECTION_CONFIG.threshold,
-		});
+				// Find the entry with the highest intersection ratio that's actually visible
+				let maxRatio = 0;
+				let targetEntry = null;
 
+				for (const entry of entries) {
+					if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+						maxRatio = entry.intersectionRatio;
+						targetEntry = entry;
+					}
+				}
+
+				if (targetEntry) {
+					const spotIndex = Number.parseInt(
+						targetEntry.target.getAttribute("data-spot-index") || "-1",
+					);
+
+					if (
+						spotIndex >= 0 &&
+						spotIndex < touristSpotList.length &&
+						spotIndex !== lastSelectedIndex.current
+					) {
+						lastSelectedIndex.current = spotIndex;
+						const spot = touristSpotList[spotIndex];
+						if (spot?.touristSpotId) {
+							onSpotSelect(spot.touristSpotId);
+						}
+					}
+				}
+			},
+			{
+				root: null, // Use viewport as root
+				rootMargin: "-20% 0px -20% 0px", // Trigger when item is in middle 60% of viewport
+				threshold: [0.1, 0.3, 0.5, 0.7, 0.9], // Multiple thresholds for better detection
+			},
+		);
+
+		// Observe all spot elements
 		for (const ref of spotRefs.current) {
 			if (ref && observerRef.current) {
 				observerRef.current.observe(ref);
 			}
 		}
 
+		// Set user scrolling flag after a longer delay to reduce sensitivity
+		const timer = setTimeout(() => {
+			isUserScrolling.current = true;
+		}, 2000); // Increased from 1000ms to 2000ms
+
 		return () => {
+			clearTimeout(timer);
 			if (observerRef.current) {
 				observerRef.current.disconnect();
 			}
-			if (debounceTimeoutRef.current) {
-				clearTimeout(debounceTimeoutRef.current);
-			}
 		};
-	}, [handleIntersection]);
+	}, [touristSpotList, onSpotSelect]);
 
-	return {
-		spotRefs,
-		isUserScrollingRef,
+	// Reset scrolling flag when programmatically scrolling to selected spot
+	const disableScrollDetection = () => {
+		isUserScrolling.current = false;
+		setTimeout(() => {
+			isUserScrolling.current = true;
+		}, 1500); // Increased from 1000ms to 1500ms
 	};
+
+	return { disableScrollDetection };
 };
 
 const useSpotSelection = (
 	selectedSpot: TouristSpotResponseDto | undefined,
 	spotRefs: React.MutableRefObject<(HTMLDivElement | null)[]>,
-	isUserScrollingRef: React.MutableRefObject<boolean>,
+	disableScrollDetection?: () => void,
 ) => {
 	const selectedSpotRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
 		if (selectedSpot && selectedSpotRef.current) {
-			isUserScrollingRef.current = false;
+			// Only disable scroll detection if the function exists
+			if (disableScrollDetection) {
+				disableScrollDetection();
+			}
+
 			selectedSpotRef.current.scrollIntoView({
 				behavior: "smooth",
-				block: "center",
+				block: "start", // Changed from "center" to "start" to show the title
 			});
-			setTimeout(() => {
-				isUserScrollingRef.current = true;
-			}, INTERSECTION_CONFIG.scrollDelay);
 		}
-	}, [selectedSpot, isUserScrollingRef]);
+	}, [selectedSpot, disableScrollDetection]);
 
 	return { selectedSpotRef };
 };
@@ -158,17 +167,17 @@ const SpotHeader: React.FC<{
 	const spotNameWords = spotName.split(" ");
 
 	return (
-		<>
+		<div className="pb-5 flex flex-col gap">
 			<motion.div
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
+				initial={{ opacity: 0, x: -20 }}
+				whileInView={{ opacity: 1, x: 0 }}
 				viewport={{ once: false }}
 				transition={{
-					duration: 0.4,
+					duration: 0.6,
 					delay: 0.1,
 					ease: [0.6, 0.05, 0.01, 0.9],
 				}}
-				className="mb-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-gray-600"
+				className="mb-2 text-sm sm:text-base font-bold tracking-widest uppercase text-red "
 			>
 				STOP {stopNumber}
 			</motion.div>
@@ -184,12 +193,12 @@ const SpotHeader: React.FC<{
 					<motion.span
 						key={`spot-name-${word}`}
 						className="inline-block mr-[0.25em]"
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
+						initial={{ opacity: 0, x: -20 }}
+						whileInView={{ opacity: 1, x: 0 }}
 						viewport={{ once: false }}
 						transition={{
-							duration: 0.4,
-							delay: 0.15 + i * 0.05,
+							duration: 0.6,
+							delay: 0.2 + i * 0.1,
 							ease: [0.6, 0.05, 0.01, 0.9],
 						}}
 					>
@@ -199,19 +208,19 @@ const SpotHeader: React.FC<{
 			</motion.div>
 
 			<motion.div
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
+				initial={{ opacity: 0, x: -20 }}
+				whileInView={{ opacity: 1, x: 0 }}
 				viewport={{ once: false }}
 				transition={{
-					duration: 0.4,
+					duration: 0.6,
 					delay: 0.3,
 					ease: [0.6, 0.05, 0.01, 0.9],
 				}}
-				className="text-xs sm:text-sm font-medium tracking-widest text-gray-700 mb-3"
+				className="text-sm font-semibold tracking-widest text-charcoal italic"
 			>
 				{chapterTitle || spotDesc}
 			</motion.div>
-		</>
+		</div>
 	);
 };
 
@@ -229,10 +238,15 @@ const SpotImage: React.FC<{
 	storyChapterLink,
 }) => (
 	<motion.div
-		initial={{ opacity: 0 }}
-		animate={{ opacity: 1 }}
-		transition={{ delay: 0.25 }}
-		className="relative mb-3"
+		initial={{ opacity: 0, x: -20 }}
+		whileInView={{ opacity: 1, x: 0 }}
+		viewport={{ once: false }}
+		transition={{
+			duration: 0.6,
+			delay: 0.2,
+			ease: [0.6, 0.05, 0.01, 0.9],
+		}}
+		className="relative pb-5"
 	>
 		{chapterImage || (mainImageSrc && isValidImageUrl(mainImageSrc)) ? (
 			<div className="relative">
@@ -242,7 +256,7 @@ const SpotImage: React.FC<{
 						alt={chapterTitle || spotName}
 						width={300}
 						height={300}
-						className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+						className="mx-auto h-[20vh] sm:h-[20vh] w-full rounded-full object-cover brightness-90 "
 					/>
 				) : mainImageSrc && isValidImageUrl(mainImageSrc) ? (
 					<Image
@@ -250,12 +264,12 @@ const SpotImage: React.FC<{
 						alt={spotName}
 						width={300}
 						height={300}
-						className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-8/12"
+						className="mx-auto h-[20vh] sm:h-[20vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-full"
 					/>
 				) : null}
 				{storyChapterLink && (
 					<Link
-						className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-3 py-1 text-xs font-semibold tracking-widest text-white transition-all duration-300 hover:bg-red"
+						className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-3 py-2 text-xs font-normal tracking-widest text-warmGrey transition-all duration-300 hover:bg-red"
 						href={storyChapterLink}
 						onClick={(e) => e.stopPropagation()}
 					>
@@ -264,8 +278,8 @@ const SpotImage: React.FC<{
 				)}
 			</div>
 		) : (
-			<div className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full bg-gray-200 flex items-center justify-center xl:w-8/12">
-				<span className="text-gray-400 text-xs sm:text-sm">No Image</span>
+			<div className="mx-auto h-[12vh] sm:h-[15vh] w-8/12 sm:w-6/12 rounded-full bg-warmGrey flex items-center justify-center xl:w-8/12">
+				<span className="text-charcoal text-xs sm:text-sm">No Image</span>
 			</div>
 		)}
 	</motion.div>
@@ -275,17 +289,9 @@ const SpotCard: React.FC<{
 	spot: TouristSpotResponseDto;
 	index: number;
 	selectedSpot?: TouristSpotResponseDto;
-	onSpotSelect?: (spotId: string) => void;
 	selectedSpotRef: React.MutableRefObject<HTMLDivElement | null>;
 	spotRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
-}> = ({
-	spot,
-	index,
-	selectedSpot,
-	onSpotSelect,
-	selectedSpotRef,
-	spotRefs,
-}) => {
+}> = ({ spot, index, selectedSpot, selectedSpotRef, spotRefs }) => {
 	const spotStopNumber = index + 1;
 	const spotStorySagaId = extractStorySagaId(spot.storyChapterLink);
 	const { storyChapterList: spotStoryChapterList } = useSagaById(
@@ -309,20 +315,8 @@ const SpotCard: React.FC<{
 				spotRefs.current[index] = el;
 			}}
 			data-spot-index={index}
-			className={`border-b border-gray-200 last:border-b-0 cursor-pointer hover:bg-gray-50 transition-colors ${
-				selectedSpot?.touristSpotId === spot.touristSpotId
-					? "bg-blue-50 border-blue-200"
-					: ""
-			}`}
-			onClick={() => onSpotSelect?.(spot.touristSpotId)}
-			onKeyDown={(e) => {
-				if (e.key === "Enter" || e.key === " ") {
-					onSpotSelect?.(spot.touristSpotId);
-				}
-			}}
-			aria-label={`Select ${spot.touristSpotName}`}
 		>
-			<div className="p-3 sm:p-4">
+			<div className="px-8 sm:px-10">
 				<SpotHeader
 					stopNumber={spotStopNumber}
 					spotName={spot.touristSpotName}
@@ -340,27 +334,36 @@ const SpotCard: React.FC<{
 
 				{/* Tourist Spot Description */}
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.3 }}
-					className="text-sm text-gray-700 leading-relaxed mb-3"
+					initial={{ opacity: 0, x: -20 }}
+					whileInView={{ opacity: 1, x: 0 }}
+					viewport={{ once: false }}
+					transition={{
+						duration: 0.6,
+						delay: 0.3,
+						ease: [0.6, 0.05, 0.01, 0.9],
+					}}
+					className="text-sm text-charcoal leading-relaxed mb-3 sm:mb-10 tracking-wider font-medium text-justify whitespace-break-spaces"
 				>
-					{spot.touristSpotDesc}
+					<ReactMarkdown>{spot.touristSpotDesc}</ReactMarkdown>
 				</motion.div>
 
 				{/* Quest Button */}
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.35 }}
+					initial={{ opacity: 0, x: -20 }}
+					whileInView={{ opacity: 1, x: 0 }}
+					viewport={{ once: false }}
+					transition={{
+						duration: 0.6,
+						delay: 0.35,
+						ease: [0.6, 0.05, 0.01, 0.9],
+					}}
 				>
 					<button
 						type="button"
-						className="w-full bg-red hover:bg-red/90 text-white font-medium py-2 px-3 sm:px-4 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm"
+						className="w-full  border-red border text-red hover:bg-red tracking-widest hover:text-warmGrey uppercase font-semibold py-2 px-3 sm:px-4 rounded-full flex items-center justify-center text-sm transition-all duration-300"
 						onClick={(e) => e.stopPropagation()}
 					>
 						<span>View Quests</span>
-						<ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
 					</button>
 				</motion.div>
 			</div>
@@ -374,15 +377,17 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 	onSpotSelect,
 	className = "",
 }) => {
-	const { spotRefs, isUserScrollingRef } = useIntersectionObserver(
-		touristSpotList,
-		selectedSpot,
-		onSpotSelect,
-	);
+	const { spotRefs } = useSimpleSpotRefs();
+	// COMPLETELY DISABLED: No automatic scroll detection - makes mobile scrolling difficult
+	// const { disableScrollDetection } = useScrollToViewDetection(
+	// 	spotRefs,
+	// 	touristSpotList,
+	// 	onSpotSelect,
+	// );
 	const { selectedSpotRef } = useSpotSelection(
 		selectedSpot,
 		spotRefs,
-		isUserScrollingRef,
+		undefined, // No scroll detection
 	);
 
 	if (touristSpotList.length === 0) {
@@ -390,9 +395,9 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 			<motion.div
 				initial={{ opacity: 0, x: 20 }}
 				animate={{ opacity: 1, x: 0 }}
-				className={`bg-white rounded-lg p-6 shadow-lg border border-gray-200 ${className}`}
+				className={`rounded-lg p-6 shadow-lg border ${className}`}
 			>
-				<div className="flex items-center justify-center h-64 text-gray-500">
+				<div className="flex items-center justify-center h-64 ">
 					<div className="text-center">
 						<MapPin className="w-12 h-12 mx-auto mb-3 text-gray-300" />
 						<p className="text-sm">No tourist spots available</p>
@@ -409,17 +414,23 @@ const SpotDetailSidebar: React.FC<SpotDetailSidebarProps> = ({
 			transition={{ duration: 0.3 }}
 			className={`h-full ${className}`}
 		>
-			<div className="overflow-y-auto h-full bg-white scrollbar-hide">
+			<div className="overflow-y-auto h-full py-10 md:border-mustard md:border-2 rounded-3xl md:mx-10 scrollbar-hide md:bg-warmGrey">
 				{touristSpotList.map((spot, index) => (
-					<SpotCard
-						key={spot.touristSpotId}
-						spot={spot}
-						index={index}
-						selectedSpot={selectedSpot}
-						onSpotSelect={onSpotSelect}
-						selectedSpotRef={selectedSpotRef}
-						spotRefs={spotRefs}
-					/>
+					<div key={spot.touristSpotId}>
+						<SpotCard
+							spot={spot}
+							index={index}
+							selectedSpot={selectedSpot}
+							selectedSpotRef={selectedSpotRef}
+							spotRefs={spotRefs}
+						/>
+						{/* Add Line component between stops, but not after the last one */}
+						{index < touristSpotList.length - 1 && (
+							<div className="px-10">
+								<Line />
+							</div>
+						)}
+					</div>
 				))}
 			</div>
 		</motion.div>

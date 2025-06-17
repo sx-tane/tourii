@@ -24,8 +24,8 @@ import { useLocationInfo } from "@/hooks";
 
 // Constants
 const SWIPE_CONFIG = {
-	minSwipeDistance: 50, // Minimum distance for a swipe
-	maxSwipeTime: 300, // Maximum time for a swipe (ms)
+	minSwipeDistance: 20, // Reduced from 30 to 20 for easier swiping
+	maxSwipeTime: 800, // Increased from 500 to 800ms for more time
 	preventScroll: true,
 };
 
@@ -99,9 +99,10 @@ const useSwipeDetection = (
 			const absDeltaX = Math.abs(deltaX);
 			const absDeltaY = Math.abs(deltaY);
 
+
 			if (
 				absDeltaX > SWIPE_CONFIG.minSwipeDistance &&
-				absDeltaX > absDeltaY * 2 && // Ensure horizontal swipe
+				absDeltaX > absDeltaY && // Simplified: just need horizontal > vertical
 				deltaTime < SWIPE_CONFIG.maxSwipeTime
 			) {
 				if (deltaX > 0) {
@@ -196,13 +197,13 @@ const useDragDetection = (
 			return;
 		}
 
-		const threshold = 100; // Minimum drag distance to trigger swipe
+		const threshold = 50; // Minimum drag distance to trigger swipe
 		const velocity = info.velocity.x;
 		const offset = dragState.dragOffset;
 
 		// Determine if we should swipe based on drag distance or velocity
-		const shouldSwipeRight = offset > threshold || velocity > 500;
-		const shouldSwipeLeft = offset < -threshold || velocity < -500;
+		const shouldSwipeRight = offset > threshold || velocity > 300;
+		const shouldSwipeLeft = offset < -threshold || velocity < -300;
 
 		if (shouldSwipeRight) {
 			prevImage(); // Swipe right shows previous image
@@ -238,21 +239,21 @@ const useImageGallery = (
 		return typeof url === "string" && url.trim() !== "";
 	};
 
-	// Process images
+	// ONLY USE GOOGLE IMAGES FROM API
+	const allImages = [];
+
+	// Get Google images from location API
 	const googleImages = locationInfo?.images || [];
-	const validGoogleImages = (googleImages as Array<{ url: string }>).filter(
-		(img) => isValidImageUrl(img?.url),
-	);
-	const hasGoogleImages = validGoogleImages.length > 0;
 
-	const mainImageSrc = selectedSpot?.imageSet?.main;
-	const hasValidMainImage = mainImageSrc && mainImageSrc.trim() !== "";
+	for (const googleImg of googleImages) {
+		if (googleImg?.url && googleImg.url.trim() !== "") {
+			allImages.push({ url: googleImg.url });
+		}
+	}
 
-	const activeImages = hasGoogleImages
-		? validGoogleImages
-		: hasValidMainImage
-			? [{ url: mainImageSrc }]
-			: [];
+	const activeImages = allImages;
+	const hasGoogleImages = googleImages.length > 0;
+	const hasValidMainImage = false; // Not using tourist spot images anymore
 
 	// Reset index if out of bounds
 	useEffect(() => {
@@ -343,6 +344,14 @@ const ImageGallery: React.FC<{
 			activeImages.length > 1, // Only enable if multiple images
 		);
 
+	// Add swipe detection for mobile
+	const swipeElementRef = useSwipeDetection(
+		nextImage, // Swipe left = next image
+		prevImage, // Swipe right = previous image
+		activeImages.length > 1, // Only enable if multiple images
+	);
+
+
 	return (
 		<AnimatePresence mode="wait">
 			{isLoading ? (
@@ -355,61 +364,17 @@ const ImageGallery: React.FC<{
 						Loading location info...
 					</span>
 				</motion.div>
-			) : hasGoogleImages || hasValidMainImage ? (
-				<motion.div
-					{...ANIMATIONS.image}
-					className="relative h-[25vh] sm:h-48 group overflow-hidden"
-					drag="x"
-					dragConstraints={{ left: 0, right: 0 }}
-					dragElastic={0.2}
-					onDragStart={handleDragStart}
-					onDrag={handleDrag}
-					onDragEnd={handleDragEnd}
-					style={{
-						x: dragState.dragOffset,
-					}}
-					animate={{
-						x: dragState.isDragging ? dragState.dragOffset : 0,
-					}}
-					transition={{
-						type: "spring",
-						damping: 30,
-						stiffness: 300,
-					}}
-				>
-					{hasGoogleImages
-						? activeImages[currentImageIndex]?.url &&
-							isValidImageUrl(activeImages[currentImageIndex]?.url) && (
-								<Image
-									src={activeImages[currentImageIndex].url}
-									alt={locationInfo?.name || selectedSpot.touristSpotName}
-									fill
-									className="object-cover pointer-events-none"
-									sizes="(max-width: 380px) 100vw, 380px"
-									unoptimized
-									draggable={false}
-								/>
-							)
-						: hasValidMainImage &&
-							isValidImageUrl(mainImageSrc) && (
-								<Image
-									src={mainImageSrc}
-									alt={selectedSpot.touristSpotName}
-									fill
-									className="object-cover pointer-events-none"
-									sizes="(max-width: 380px) 100vw, 380px"
-									draggable={false}
-								/>
-							)}
-
-					{/* Navigation buttons */}
+			) : activeImages.length > 0 ? (
+				<div className="relative">
+					{/* Desktop image navigation arrows */}
 					{activeImages.length > 1 && (
 						<>
 							<button
 								type="button"
 								onClick={prevImage}
-								className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
+								className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-20 transition-all duration-200 opacity-70 hover:opacity-100 hidden lg:block"
 								aria-label="Previous image"
+								title="Previous image"
 							>
 								<svg
 									width="16"
@@ -426,7 +391,7 @@ const ImageGallery: React.FC<{
 							<button
 								type="button"
 								onClick={nextImage}
-								className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 transition-all duration-200 opacity-70 hover:opacity-100"
+								className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-20 transition-all duration-200 opacity-70 hover:opacity-100 hidden lg:block"
 								aria-label="Next image"
 							>
 								<svg
@@ -441,26 +406,43 @@ const ImageGallery: React.FC<{
 									<polyline points="9,18 15,12 9,6" />
 								</svg>
 							</button>
-
-							{/* Image indicators */}
-							<div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
-								{activeImages.map((image, index) => (
-									<button
-										key={hasGoogleImages ? `google-${index}` : `local-${index}`}
-										type="button"
-										onClick={() => setCurrentImageIndex(index)}
-										className={`w-2 h-2 rounded-full transition-colors ${
-											index === currentImageIndex ? "bg-white" : "bg-white/50"
-										}`}
-										aria-label={`Go to image ${index + 1}`}
-									/>
-								))}
-							</div>
 						</>
 					)}
 
-					<div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-				</motion.div>
+					{/* CONSISTENT SIZE IMAGE */}
+					<div ref={swipeElementRef} className="w-full h-48 sm:h-56">
+						{activeImages.length > 0 &&
+							activeImages[currentImageIndex]?.url && (
+								<Image
+									key={`img-${selectedSpot.touristSpotId}-${currentImageIndex}`}
+									src={activeImages[currentImageIndex].url}
+									alt={selectedSpot.touristSpotName}
+									width={600}
+									height={300}
+									className="w-full h-full object-cover"
+									sizes="(max-width: 640px) 100vw, 640px"
+									priority
+								/>
+							)}
+					</div>
+
+					{/* Image indicators at bottom */}
+					{activeImages.length > 1 && (
+						<div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
+							{activeImages.map((image, index) => (
+								<button
+									key={hasGoogleImages ? `google-${index}` : `local-${index}`}
+									type="button"
+									onClick={() => setCurrentImageIndex(index)}
+									className={`w-2 h-2 rounded-full transition-colors ${
+										index === currentImageIndex ? "bg-white" : "bg-white/50"
+									}`}
+									aria-label={`Go to image ${index + 1}`}
+								/>
+							))}
+						</div>
+					)}
+				</div>
 			) : (
 				<motion.div
 					{...ANIMATIONS.image}
@@ -664,142 +646,114 @@ const LocationInfoPanel: React.FC<LocationInfoPanelProps> = ({
 	}
 
 	const baseClasses =
-		"bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 overflow-hidden";
+		"bg-white/95 backdrop-blur-sm rounded-t-xl shadow-xl border border-gray-200 overflow-hidden";
 	const positionClasses = isStatic
-		? "relative w-full"
-		: "absolute bottom-4 left-4 z-[1000] min-w-[320px] max-w-[380px]";
+		? "relative w-full h-full"
+		: "absolute bottom-4 left-4 z-[1000] min-w-[320px] max-w-[min(380px,95vw)]";
 
-	// For mobile fullscreen, limit height and enable scrolling - adjusted for bigger images
+	// For mobile fullscreen, take full height when isStatic is false (half screen mode)
 	const heightClasses = isStatic
-		? "max-h-[50vh] flex flex-col"
-		: "max-h-[60vh] flex flex-col";
+		? "flex flex-col h-full"
+		: "max-h-[70vh] flex flex-col";
 
 	return (
 		<motion.div
 			{...ANIMATIONS.panel}
 			className={`${positionClasses} ${baseClasses} ${heightClasses} ${className}`}
 		>
-			{/* Navigation Controls - Only show if enabled and multiple spots */}
-			{showNavigation && hasMultipleSpots && (
-				<div className="px-4 py-3 border-b border-gray-200/50 bg-white/95">
-					<div className="flex items-center justify-between">
-						<button
-							type="button"
-							onClick={onPreviousSpot}
-							className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-							aria-label="Previous tourist spot"
-							disabled={!onPreviousSpot}
-						>
-							<ChevronLeft className="w-5 h-5 text-gray-700" />
-						</button>
-
-						<span className="text-sm font-medium text-gray-700 px-3">
-							{currentSpotNumber} of {touristSpotList.length}
-						</span>
-
-						<button
-							type="button"
-							onClick={onNextSpot}
-							className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-							aria-label="Next tourist spot"
-							disabled={!onNextSpot}
-						>
-							<ChevronRight className="w-5 h-5 text-gray-700" />
-						</button>
-					</div>
-				</div>
-			)}
-
-			<ImageGallery
-				isLoading={isLoading}
-				activeImages={activeImages}
-				currentImageIndex={currentImageIndex}
-				setCurrentImageIndex={setCurrentImageIndex}
-				nextImage={nextImage}
-				prevImage={prevImage}
-				hasGoogleImages={hasGoogleImages}
-				hasValidMainImage={!!hasValidMainImage}
-				isValidImageUrl={isValidImageUrl}
-				locationInfo={locationInfo}
-				selectedSpot={selectedSpot}
-				mainImageSrc={mainImageSrc}
-			/>
-
 			{/* Content Section - Scrollable */}
 			<div className="p-4 space-y-3 overflow-y-auto flex-1 scrollbar-hide">
-				<LocationDetails
+				{/* Image Gallery - Now scrollable with content */}
+				<ImageGallery
+					isLoading={isLoading}
+					activeImages={activeImages}
+					currentImageIndex={currentImageIndex}
+					setCurrentImageIndex={setCurrentImageIndex}
+					nextImage={nextImage}
+					prevImage={prevImage}
+					hasGoogleImages={hasGoogleImages}
+					hasValidMainImage={!!hasValidMainImage}
+					isValidImageUrl={isValidImageUrl}
 					locationInfo={locationInfo}
-					hasLocationInfo={hasLocationInfo}
 					selectedSpot={selectedSpot}
+					mainImageSrc={mainImageSrc}
 				/>
 
-				<AddressInfo
-					locationInfo={locationInfo}
-					hasLocationInfo={hasLocationInfo}
-					selectedSpot={selectedSpot}
-				/>
+				<div className="space-y-3">
+					<LocationDetails
+						locationInfo={locationInfo}
+						hasLocationInfo={hasLocationInfo}
+						selectedSpot={selectedSpot}
+					/>
 
-				<ContactInfo
-					locationInfo={locationInfo}
-					hasLocationInfo={hasLocationInfo}
-				/>
+					<AddressInfo
+						locationInfo={locationInfo}
+						hasLocationInfo={hasLocationInfo}
+						selectedSpot={selectedSpot}
+					/>
 
-				{/* Best Visit Time */}
-				{selectedSpot.bestVisitTime && (
-					<motion.div
-						{...ANIMATIONS.content}
-						transition={{ delay: 0.25 }}
-						className="flex items-center gap-2"
-					>
-						<Clock className="w-4 h-4 text-gray-500" />
-						<span className="text-sm text-gray-700">
-							Best time: {selectedSpot.bestVisitTime}
-						</span>
-					</motion.div>
-				)}
+					<ContactInfo
+						locationInfo={locationInfo}
+						hasLocationInfo={hasLocationInfo}
+					/>
 
-				{/* Weather Info */}
-				{selectedSpot.weatherInfo && (
-					<motion.div
-						{...ANIMATIONS.content}
-						transition={{ delay: 0.3 }}
-						className="flex items-center gap-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100"
-					>
-						<Thermometer className="w-4 h-4 text-blue-500" />
-						<div className="text-sm">
-							<span className="font-medium text-charcoal">
-								{selectedSpot.weatherInfo.temperatureCelsius}°C
-							</span>
-							<span className="text-gray-600 ml-2">
-								{selectedSpot.weatherInfo.weatherName}
-							</span>
-						</div>
-					</motion.div>
-				)}
-
-				<OpeningHours
-					locationInfo={locationInfo}
-					hasLocationInfo={hasLocationInfo}
-				/>
-
-				{/* Hashtags */}
-				{selectedSpot.touristSpotHashtag &&
-					selectedSpot.touristSpotHashtag.length > 0 && (
+					{/* Best Visit Time */}
+					{selectedSpot.bestVisitTime && (
 						<motion.div
 							{...ANIMATIONS.content}
-							transition={{ delay: 0.4 }}
-							className="flex flex-wrap gap-1"
+							transition={{ delay: 0.25 }}
+							className="flex items-center gap-2"
 						>
-							{selectedSpot.touristSpotHashtag.slice(0, 4).map((tag) => (
-								<span
-									key={tag}
-									className="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full border border-indigo-100"
-								>
-									#{tag}
-								</span>
-							))}
+							<Clock className="w-4 h-4 text-gray-500" />
+							<span className="text-sm text-gray-700">
+								Best time: {selectedSpot.bestVisitTime}
+							</span>
 						</motion.div>
 					)}
+
+					{/* Weather Info */}
+					{selectedSpot.weatherInfo && (
+						<motion.div
+							{...ANIMATIONS.content}
+							transition={{ delay: 0.3 }}
+							className="flex items-center gap-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100"
+						>
+							<Thermometer className="w-4 h-4 text-blue-500" />
+							<div className="text-sm">
+								<span className="font-medium text-charcoal">
+									{selectedSpot.weatherInfo.temperatureCelsius}°C
+								</span>
+								<span className="text-gray-600 ml-2">
+									{selectedSpot.weatherInfo.weatherName}
+								</span>
+							</div>
+						</motion.div>
+					)}
+
+					<OpeningHours
+						locationInfo={locationInfo}
+						hasLocationInfo={hasLocationInfo}
+					/>
+
+					{/* Hashtags */}
+					{selectedSpot.touristSpotHashtag &&
+						selectedSpot.touristSpotHashtag.length > 0 && (
+							<motion.div
+								{...ANIMATIONS.content}
+								transition={{ delay: 0.4 }}
+								className="flex flex-wrap gap-1"
+							>
+								{selectedSpot.touristSpotHashtag.slice(0, 4).map((tag) => (
+									<span
+										key={tag}
+										className="text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full border border-indigo-100"
+									>
+										#{tag}
+									</span>
+								))}
+							</motion.div>
+						)}
+				</div>
 			</div>
 		</motion.div>
 	);

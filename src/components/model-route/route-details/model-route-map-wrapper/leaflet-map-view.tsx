@@ -10,6 +10,10 @@ const TILE_LAYER_CONFIG = {
 		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: "abcd",
 	maxZoom: 20,
+	tileSize: 256,
+	zoomOffset: 0,
+	noWrap: false,
+	keepBuffer: 2,
 };
 
 const MAP_CONFIG = {
@@ -17,7 +21,12 @@ const MAP_CONFIG = {
 	zoomControl: false, // Remove zoom control buttons
 	attributionControl: false,
 	initDelay: 50,
-	scrollWheelZoom: false, // Completely disable scroll wheel zoom
+	scrollWheelZoom: true, // Enable scroll wheel zoom
+	preferCanvas: false,
+	renderer: undefined, // Let Leaflet choose the best renderer
+	fadeAnimation: true,
+	zoomAnimation: true,
+	markerZoomAnimation: true,
 };
 
 // Import Leaflet dynamically to avoid SSR issues
@@ -71,6 +80,11 @@ const useLeafletMap = (
 					zoomControl: MAP_CONFIG.zoomControl,
 					attributionControl: MAP_CONFIG.attributionControl,
 					scrollWheelZoom: MAP_CONFIG.scrollWheelZoom,
+					preferCanvas: MAP_CONFIG.preferCanvas,
+					renderer: MAP_CONFIG.renderer,
+					fadeAnimation: MAP_CONFIG.fadeAnimation,
+					zoomAnimation: MAP_CONFIG.zoomAnimation,
+					markerZoomAnimation: MAP_CONFIG.markerZoomAnimation,
 				});
 
 				// Add tile layer
@@ -78,6 +92,10 @@ const useLeafletMap = (
 					attribution: TILE_LAYER_CONFIG.attribution,
 					subdomains: TILE_LAYER_CONFIG.subdomains,
 					maxZoom: TILE_LAYER_CONFIG.maxZoom,
+					tileSize: TILE_LAYER_CONFIG.tileSize,
+					zoomOffset: TILE_LAYER_CONFIG.zoomOffset,
+					noWrap: TILE_LAYER_CONFIG.noWrap,
+					keepBuffer: TILE_LAYER_CONFIG.keepBuffer,
 				}).addTo(map);
 
 				mapInstanceRef.current = map;
@@ -163,7 +181,7 @@ const LeafletMapView: React.FC<LeafletMapViewProps> = ({
 		>
 			<motion.div
 				ref={mapRef}
-				className="h-full w-full rounded-lg bg-warmGrey flex items-center justify-center"
+				className="h-full w-full bg-warmGrey flex items-center justify-center"
 				initial={{ opacity: 0, scale: 0.95 }}
 				whileInView={{ opacity: 1, scale: 1 }}
 				viewport={{ once: false }}

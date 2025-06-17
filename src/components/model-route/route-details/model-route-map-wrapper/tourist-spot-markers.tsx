@@ -20,6 +20,7 @@ interface TouristSpotMarkersProps {
 	selectedSpotId?: string;
 	onSpotSelect: (spotId: string) => void;
 	map?: LeafletMap;
+	disableAutoCenter?: boolean; // Disable automatic centering (for mobile fullscreen)
 }
 
 // Utility functions
@@ -33,8 +34,8 @@ const createMarkerIcon = (
 		html: `
 			<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 ${
 				isSelected
-					? "bg-red border-red text-white"
-					: "bg-white border-charcoal text-charcoal"
+					? "bg-red border-mustard text-mustard"
+					: "bg-warmGrey border-charcoal text-charcoal"
 			} font-bold text-sm shadow-lg">
 				${index + 1}
 			</div>
@@ -48,15 +49,7 @@ const createMarkerPopup = (spot: TouristSpotResponseDto) => {
 	return `
 		<div class="p-2">
 			<h3 class="font-bold text-sm mb-1">${spot.touristSpotName}</h3>
-			<p class="text-xs text-gray-600">${spot.address}</p>
-			${
-				spot.weatherInfo
-					? `<div class="mt-2 text-xs">
-						<span class="font-medium">${spot.weatherInfo.temperatureCelsius}°C</span> - 
-						${spot.weatherInfo.weatherName}
-					</div>`
-					: ""
-			}
+			<p class="text-xs text-charcoal">${spot.address}</p>
 		</div>
 	`;
 };
@@ -82,6 +75,7 @@ const useLeafletMarkers = (
 	touristSpots: TouristSpotResponseDto[],
 	selectedSpotId: string | undefined,
 	onSpotSelect: (spotId: string) => void,
+	disableAutoCenter?: boolean,
 ) => {
 	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	const markersRef = useRef<any[]>([]);
@@ -142,8 +136,8 @@ const useLeafletMarkers = (
 			marker.setIcon(createMarkerIcon(L, index, isSelected));
 		});
 
-		// Auto-center and zoom to selected spot when user selects a spot
-		if (selectedSpotId) {
+		// Auto-center and zoom to selected spot when user selects a spot (only for desktop)
+		if (selectedSpotId && !disableAutoCenter) {
 			const selectedSpot = touristSpots.find(
 				(spot) => spot.touristSpotId === selectedSpotId,
 			);
@@ -189,10 +183,11 @@ const TouristSpotMarkers: React.FC<TouristSpotMarkersProps> = ({
 	selectedSpotId,
 	onSpotSelect,
 	map,
+	disableAutoCenter = false,
 }) => {
 	const L = useLeafletLoader();
 	const { createAndAddMarkers, updateMarkerStyles, cleanupMarkers } =
-		useLeafletMarkers(L, map, touristSpots, selectedSpotId, onSpotSelect);
+		useLeafletMarkers(L, map, touristSpots, selectedSpotId, onSpotSelect, disableAutoCenter);
 
 	// Create and add markers when dependencies change
 	// biome-ignore lint/correctness/useExhaustiveDependencies: useEffect dependencies are intentionally not exhaustive

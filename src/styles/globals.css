@@ -2,6 +2,46 @@
 /* Leaflet CSS for maps */
 @import 'leaflet/dist/leaflet.css';
 
+/* Fix for Leaflet tile gaps */
+.leaflet-tile-container img {
+	margin: 0 !important;
+	border: 0 !important;
+	padding: 0 !important;
+}
+
+.leaflet-tile {
+	border: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+}
+
+.leaflet-tile-pane {
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+}
+
+/* Additional fix for high-DPI displays */
+.leaflet-tile-container {
+	margin: 0 !important;
+	border: 0 !important;
+	padding: 0 !important;
+}
+
+/* Ensure proper tile rendering */
+.leaflet-layer,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	filter: none !important;
+}
+
+/* Force hardware acceleration for smoother rendering */
+.leaflet-map-pane {
+	transform: translateZ(0);
+	-webkit-transform: translateZ(0);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
