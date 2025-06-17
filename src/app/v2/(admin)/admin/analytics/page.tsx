@@ -20,8 +20,11 @@ import {
 
 export default function AnalyticsDashboard() {
 	const { data: sagas, isLoading: isLoadingSagas } = useSagas();
-	const { data: quests, isLoading: isLoadingQuests } = useQuests();
-	const { data: modelRoutes, isLoading: isLoadingModelRoutes } = useModelRoutes();
+	const { data: quests, isLoading: isLoadingQuests } = useQuests(
+		"/api/quests?page=1&limit=100",
+	);
+	const { data: modelRoutes, isLoading: isLoadingModelRoutes } =
+		useModelRoutes();
 
 	const [expandedSections, setExpandedSections] = useState<string[]>([
 		"overview",

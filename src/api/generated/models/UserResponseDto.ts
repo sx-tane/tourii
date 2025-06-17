@@ -520,7 +520,7 @@ export type UserResponseDto = {
         /**
          * Check-in method
          */
-        checkInMethod?: 'QR_CODE' | 'GPS';
+        checkInMethod?: 'QR_CODE' | 'GPS' | 'AUTO_DETECTED' | 'BACKGROUND_GPS';
         /**
          * Fraud detected
          */

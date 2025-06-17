@@ -15,7 +15,8 @@
       "Bash(timeout 10s pnpm dev 2 >& 1)",
       "Bash(node:*)",
       "Bash(timeout 30s pnpm dev --port 3002)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

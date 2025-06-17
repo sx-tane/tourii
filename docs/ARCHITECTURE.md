@@ -1,6 +1,6 @@
 # 🏗️ Tourii Frontend Architecture
 
-This document provides a comprehensive overview of the Tourii frontend architecture patterns, technical decisions, and system design.
+This document provides a high-level overview of the Tourii frontend architecture, system design decisions, and architectural patterns.
 
 ---
 
@@ -131,48 +131,23 @@ graph TB
 
 ---
 
-## 🔄 **Three-Layer API Architecture**
+## 🎯 **Architectural Principles**
 
-The project follows a sophisticated proxy pattern that ensures type safety and centralizes backend communication:
+### 1. Three-Layer API Pattern
+Components never directly call the backend. All API communication follows:
+**SWR Hooks** → **Next.js API Routes** → **Generated SDK** → **Backend**
 
-### Layer 1: Client-Side SWR Hooks (`src/hooks/api/`)
-- Custom hooks that components use for data fetching
-- Provide caching, error handling, and loading states
-- Call internal Next.js API routes (not backend directly)
-- Follow consistent naming pattern: `use*` convention
+This ensures type safety, centralized error handling, and API key protection.
 
-```typescript
-// ✅ CORRECT: Modern hook pattern
-export function useModelRoutes(): UseApiHookResult<ModelRouteResponseDto[]> {
-  const { data, error, isLoading, mutate } = useProxySWR<ModelRouteResponseDto[]>("/api/routes/model-routes");
-  return { data, error, isLoading, mutate };
-}
+### 2. State Management Strategy
+- **SWR**: Server state and caching
+- **Redux Toolkit**: UI state only (selections, modal states, filters)
+- **React Context**: App-level configuration and theme state
 
-// ❌ WRONG: Deprecated get* pattern
-export function getModelRoutes() { ... }
-```
-
-### Layer 2: Next.js API Routes (`src/app/api/`)
-- Server-side proxy routes that handle authentication and validation
-- Use the generated SDK to communicate with backend
-- Centralized error handling and response formatting
-- Protect API keys from client exposure
-
-```typescript
-export async function GET() {
-  return executeValidatedServiceCall(
-    (apiKey: string, apiVersion: string) =>
-      RoutesService.touriiBackendControllerGetModelRoutes(apiVersion, apiKey),
-    "GET /api/routes/model-routes"
-  );
-}
-```
-
-### Layer 3: Generated API Client (`src/api/generated/`)
-- Auto-generated from OpenAPI specifications
-- Provides full TypeScript coverage
-- **Never manually edit** - regenerate with `pnpm generate:api`
-- Used exclusively by Next.js API routes
+### 3. Component Architecture
+- **Domain-based organization**: Components grouped by business domain
+- **Composition over inheritance**: Flexible, reusable component patterns
+- **Mobile-first design**: Optimized for mobile with desktop enhancements
 
 ---
 
@@ -180,117 +155,47 @@ export async function GET() {
 
 ### Domain-Based Organization
 
+Components are organized by business domain rather than technical type:
+
 ```
 src/components/
-├── ui/                    # shadcn/ui base components
+├── ui/                    # Base UI components (shadcn/ui)
 ├── common/                # Shared utility components
-├── about/                 # About page components
-├── character/             # Character system components
-├── header/                # Navigation components
-├── homepage/              # Landing page components
-├── model-route/           # Route planning components
-│   ├── common/            # Shared route components
-│   ├── region/            # Region selection
-│   ├── route-component/   # Route display
-│   └── route-details/     # Route detail views
-├── profile/               # User profile components
-├── quest/                 # Quest system components
-├── story/                 # Story system components
-│   ├── chapter-page/      # Chapter navigation
-│   ├── common/            # Shared story components
-│   └── story-page/        # Story listing
-└── world/                 # World/lore components
+├── model-route/           # Route planning system
+├── story/                 # Story and chapter system
+├── quest/                 # Quest and task system
+├── profile/               # User profile and achievements
+├── header/                # Navigation and authentication
+└── homepage/              # Landing and marketing pages
 ```
 
-### Component Design Principles
+### Design Principles
 
-1. **Single Responsibility**: Each component has one clear purpose
-2. **Composition over Inheritance**: Use composition patterns for flexibility
-3. **Story-Driven Development**: Every component has a `.stories.tsx` file
-4. **Mobile-First**: Components are designed mobile-first, desktop-enhanced
-5. **Accessibility**: Components follow WCAG guidelines
-
-### Example Component Structure
-
-```typescript
-// Component Interface
-interface ModelRouteCardProps {
-  route: ModelRouteResponseDto;
-  onSelect?: (routeId: string) => void;
-  variant?: 'default' | 'compact';
-  className?: string;
-}
-
-// Component Implementation
-export function ModelRouteCard({ route, onSelect, variant = 'default', className }: ModelRouteCardProps) {
-  // Implementation
-}
-
-// Storybook Story
-export default {
-  title: 'Model Route/RouteCard',
-  component: ModelRouteCard,
-} as Meta<typeof ModelRouteCard>;
-```
+- **Single Responsibility**: Each component has one clear purpose
+- **Composition Patterns**: Components can be composed flexibly
+- **Story-Driven Development**: Every component has Storybook documentation
+- **Mobile-First Design**: Optimized for mobile with desktop enhancements
+- **TypeScript Interfaces**: Full type safety with clear prop contracts
 
 ---
 
 ## 🎣 **Hook Architecture**
 
-### Hook Organization by Purpose
+### Purpose-Based Organization
 
-```
-src/hooks/
-├── api/              # Server data fetching hooks
-│   ├── useModelRoutes.ts
-│   ├── useQuests.ts
-│   └── useSagas.ts
-├── business/         # Business logic hooks
-│   ├── useSpotImage.ts
-│   └── useTouristSpotSelection.ts
-├── map/              # Map and geolocation hooks
-│   ├── useLeafletLoader.ts
-│   └── useMapInitialization.ts
-└── ui/               # UI interaction hooks
-    ├── useImageGallery.ts
-    ├── useIntersectionObserver.ts
-    └── useResponsiveDetection.ts
-```
+Hooks are organized by their primary purpose:
 
-### Hook Design Patterns
+- **API Hooks**: Server data fetching with SWR (`src/hooks/api/`)
+- **Business Hooks**: Domain-specific logic (`src/hooks/business/`)
+- **UI Hooks**: Interface interactions (`src/hooks/ui/`)
+- **Map Hooks**: Geolocation and mapping (`src/hooks/map/`)
 
-```typescript
-// API Hook Pattern
-export function useModelRoutes(): UseApiHookResult<ModelRouteResponseDto[]> {
-  const { data, error, isLoading, mutate } = useProxySWR<ModelRouteResponseDto[]>("/api/routes/model-routes");
-  return { data, error, isLoading, mutate };
-}
+### Pattern Consistency
 
-// Business Logic Hook Pattern
-export function useTouristSpotSelection(routeId: string) {
-  const [selectedSpotId, setSelectedSpotId] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const selectSpot = useCallback((spotId: string) => {
-    setSelectedSpotId(spotId);
-    setIsModalOpen(true);
-  }, []);
-  
-  return { selectedSpotId, isModalOpen, selectSpot, setIsModalOpen };
-}
-
-// UI Hook Pattern
-export function useResponsiveDetection() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
-  
-  useEffect(() => {
-    // Implementation
-  }, []);
-  
-  return { isMobile, isTablet, isDesktop: !isMobile && !isTablet };
-}
-```
+All hooks follow consistent patterns:
+- **API Hooks**: Return `{ data, error, isLoading, mutate }`
+- **Business Hooks**: Encapsulate domain logic and state
+- **UI Hooks**: Handle interface interactions and responsive behavior
 
 ---
 
@@ -298,40 +203,16 @@ export function useResponsiveDetection() {
 
 ### Clear Separation of Concerns
 
-```typescript
-// ✅ CORRECT: Use SWR for server data
-const { data: quests, isLoading, mutate } = useQuests();
+- **SWR**: Server state, caching, and synchronization
+- **Redux Toolkit**: UI state only (modal states, selections, filters)
+- **React Context**: App-level configuration and themes
 
-// ✅ CORRECT: Use Redux only for UI state
-const selectedQuestId = useAppSelector(selectSelectedQuestId);
-dispatch(setSelectedQuest(questId));
-
-// ❌ WRONG: Don't store server data in Redux
-dispatch(setQuests(apiResponse)); // Anti-pattern!
-```
-
-### Redux Store Structure
+### Data Flow
 
 ```
-src/lib/redux/features/
-├── chapter/          # Chapter UI state
-├── character/        # Character selection state
-├── homepage/         # Homepage UI state
-├── passport/         # Passport UI state
-└── stories/          # Story navigation state
-```
-
-### SWR Configuration
-
-```typescript
-// Global SWR configuration
-export const swrConfig: SWRConfiguration = {
-  fetcher: proxyFetcher,
-  revalidateOnFocus: false,
-  revalidateOnReconnect: true,
-  dedupingInterval: 5000,
-  errorRetryCount: 3,
-};
+Server Data → SWR Hooks → Components
+UI State → Redux Store → Components
+App Config → React Context → Components
 ```
 
 ---
@@ -340,85 +221,47 @@ export const swrConfig: SWRConfiguration = {
 
 ### Next.js App Router Structure
 
+The application uses Next.js App Router with route groups for organization:
+
 ```
 src/app/
-├── (homepage)/          # Landing page (path: /)
-├── (info)/             # Info pages (/about, /world)
-├── (story)/            # Character page (/character)
-├── profile-dev/        # Profile pages
+├── (homepage)/          # Public landing page
+├── (info)/             # Static info pages (/about, /world)
+├── (story)/            # Character showcase (/character)
 └── v2/                 # Main application
-    ├── (auth)/         # Authentication (/v2/complete-profile, etc.)
-    ├── (dashboard)/    # Dashboard (/v2/dashboard)
-    ├── (admin)/        # Admin panel (/v2/admin/*)
-    ├── (homepage)/     # App homepage (/v2/)
-    ├── (quests)/       # Quest system (/v2/quests/*)
-    ├── (routes)/       # Model routes (/v2/region/*)
-    └── (stories)/      # Story system (/v2/touriiverse/*)
+    ├── (auth)/         # Authentication flow
+    ├── (dashboard)/    # User dashboard
+    ├── (admin)/        # Admin panel
+    ├── (quests)/       # Quest system
+    ├── (routes)/       # Model routes
+    └── (stories)/      # Story system
 ```
 
-### Route Groups and Layouts
+### Design Patterns
 
-- **Route Groups**: `()` syntax for organizing without affecting URL
-- **Nested Layouts**: Each route group can have its own layout
-- **Dynamic Routes**: `[param]` for dynamic segments
-- **Catch-all Routes**: `[...param]` for flexible routing
+- **Route Groups**: `()` syntax for organization without URL impact
+- **Nested Layouts**: Each route group has its own layout and navigation
+- **Dynamic Routes**: `[param]` for flexible routing patterns
+- **Type-Safe Navigation**: Full TypeScript support for routing
 
 ---
 
-## 🎨 **Styling Architecture**
+## 🎨 **Styling Strategy**
 
-### Tailwind CSS Configuration
+### Tailwind CSS Foundation
 
-```typescript
-// tailwind.config.ts - Custom theme
-theme: {
-  extend: {
-    colors: {
-      warmGrey: { /* custom warm grey palette */ },
-      charcoal: { /* custom charcoal palette */ },
-      red: { /* custom red palette */ },
-    },
-    screens: {
-      'mobile': '375px',
-      'tablet': '768px',
-      'desktop': '1024px',
-    }
-  }
-}
-```
-
-### Component Styling Patterns
-
-```typescript
-// Using clsx for conditional styles
-import { clsx } from 'clsx';
-
-export function Button({ variant, size, className, ...props }: ButtonProps) {
-  return (
-    <button
-      className={clsx(
-        'inline-flex items-center justify-center rounded-md font-medium',
-        {
-          'bg-primary text-primary-foreground': variant === 'default',
-          'border border-input': variant === 'outline',
-        },
-        {
-          'h-10 px-4 py-2': size === 'default',
-          'h-8 px-3': size === 'sm',
-        },
-        className
-      )}
-      {...props}
-    />
-  );
-}
-```
+- **Custom Design System**: Extended Tailwind with brand colors (warmGrey, charcoal, red)
+- **Mobile-First Approach**: All styles start with mobile and enhance for larger screens
+- **Component Variants**: Consistent styling patterns across all components
+- **Utility-First**: Leverage Tailwind utilities with custom component abstractions
 
 ---
 
 ## 🌐 **Web3 Integration Architecture**
 
 ### Wallet Connection Flow
+
+The application integrates with Web3 wallets for authentication and NFT functionality:
 
 ```mermaid
 sequenceDiagram
@@ -441,172 +284,56 @@ sequenceDiagram
     F->>U: Authenticated
 ```
 
-### Web3 Hook Pattern
+### Integration Strategy
 
-```typescript
-export function useWalletConnection() {
-  const [address, setAddress] = useState<string | null>(null);
-  const [isConnecting, setIsConnecting] = useState(false);
-  
-  const connect = useCallback(async () => {
-    setIsConnecting(true);
-    try {
-      // Web3 connection logic
-    } finally {
-      setIsConnecting(false);
-    }
-  }, []);
-  
-  return { address, isConnecting, connect };
-}
-```
+- **Wallet Abstraction**: Support for MetaMask, WalletConnect, and other providers
+- **Signature-Based Auth**: Users authenticate by signing messages
+- **NFT Integration**: Display and manage digital collectibles
+- **Progressive Enhancement**: Web3 features enhance but don't block core functionality
 
 ---
 
-## 📊 **Performance Architecture**
+## 📊 **Performance Strategy**
 
-### Code Splitting Strategy
+### Optimization Techniques
 
-```typescript
-// Route-based code splitting
-const QuestPage = dynamic(() => import('./quest-page'), {
-  loading: () => <QuestPageSkeleton />,
-});
+- **Code Splitting**: Route-based and component-based lazy loading
+- **Image Optimization**: Next.js Image component with responsive sizing
+- **Bundle Analysis**: Regular monitoring of bundle size and dependencies
+- **SSR/SSG**: Static generation for marketing pages, SSR for dynamic content
 
-// Component-based code splitting
-const HeavyComponent = dynamic(() => import('./heavy-component'), {
-  ssr: false,
-});
-```
+### Caching Strategy
 
-### Image Optimization
-
-```typescript
-// Next.js Image component usage
-import Image from 'next/image';
-
-<Image
-  src="/image/path.jpg"
-  alt="Description"
-  width={400}
-  height={300}
-  priority={isAboveFold}
-  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-/>
-```
-
-### Bundle Analysis
-
-```bash
-# Bundle analysis commands
-pnpm build && pnpm analyze
-```
+- **SWR Caching**: Intelligent client-side caching with revalidation
+- **Next.js Caching**: Built-in caching for API routes and static assets
+- **CDN Integration**: Global content delivery for optimal performance
 
 ---
 
-## 🔒 **Security Architecture**
+## 🔒 **Security Strategy**
 
-### API Security
+### Multi-Layer Security
 
-- **Proxy Pattern**: API keys protected in Next.js API routes
-- **Request Validation**: All inputs validated using Zod schemas
-- **CSRF Protection**: Built-in Next.js CSRF protection
-- **Rate Limiting**: Implemented at API route level
+- **API Proxy Pattern**: Backend API keys never exposed to client
+- **Input Validation**: Zod schemas validate all user inputs
+- **XSS Prevention**: DOMPurify for safe HTML rendering
+- **CSRF Protection**: Built-in Next.js security features
+- **Type Safety**: TypeScript prevents many runtime errors
 
-### XSS Prevention
+### Authentication Security
 
-```typescript
-// Safe HTML rendering
-import DOMPurify from 'dompurify';
-
-function SafeHTML({ content }: { content: string }) {
-  const sanitized = DOMPurify.sanitize(content);
-  return <div dangerouslySetInnerHTML={{ __html: sanitized }} />;
-}
-```
-
----
-
-## 🧪 **Testing Architecture**
-
-### Testing Strategy
-
-```
-tests/
-├── __tests__/           # Unit tests
-├── __e2e__/            # End-to-end tests
-├── __mocks__/          # Mock implementations
-└── utils/              # Test utilities
-```
-
-### Component Testing Pattern
-
-```typescript
-import { render, screen } from '@testing-library/react';
-import { ModelRouteCard } from './model-route-card';
-
-describe('ModelRouteCard', () => {
-  it('renders route information correctly', () => {
-    const mockRoute = { /* mock data */ };
-    render(<ModelRouteCard route={mockRoute} />);
-    
-    expect(screen.getByText(mockRoute.title)).toBeInTheDocument();
-  });
-});
-```
-
----
-
-## 📝 **Documentation Standards**
-
-### Storybook Integration
-
-Every component must have a corresponding `.stories.tsx` file:
-
-```typescript
-export default {
-  title: 'Components/ModelRoute/RouteCard',
-  component: ModelRouteCard,
-  parameters: {
-    docs: {
-      description: {
-        component: 'A card component for displaying model route information.',
-      },
-    },
-  },
-} as Meta<typeof ModelRouteCard>;
-```
-
-### TSDoc Comments
-
-```typescript
-/**
- * A reusable card component for displaying model route information.
- * 
- * @param route - The model route data to display
- * @param onSelect - Callback fired when the route is selected
- * @param variant - Visual variant of the card
- * @param className - Additional CSS classes
- * 
- * @example
- * ```tsx
- * <ModelRouteCard 
- *   route={routeData} 
- *   onSelect={(id) => console.log(id)}
- *   variant="compact" 
- * />
- * ```
- */
-export function ModelRouteCard({ route, onSelect, variant, className }: ModelRouteCardProps) {
-  // Implementation
-}
-```
+- **JWT Tokens**: Secure token-based authentication
+- **Wallet Signatures**: Cryptographic proof of wallet ownership
+- **Rate Limiting**: Protection against API abuse
+- **Environment Isolation**: Secure environment variable management
 
 ---
 
 ## 🚀 **Deployment Architecture**
 
 ### Build Process
+
+The application follows a modern JAMstack deployment pattern:
 
 ```mermaid
 graph LR
@@ -624,27 +351,40 @@ graph LR
     end
 ```
 
-### Environment Configuration
+### Environment Strategy
 
-```typescript
-// Environment validation with Zod
-export const env = createEnv({
-  server: {
-    TOURII_BACKEND_API_KEY: z.string(),
-    NODE_ENV: z.enum(['development', 'production', 'test']),
-  },
-  client: {
-    NEXT_PUBLIC_APP_URL: z.string().url(),
-    NEXT_PUBLIC_API_BASE_URL: z.string().url(),
-  },
-  runtimeEnv: {
-    TOURII_BACKEND_API_KEY: process.env.TOURII_BACKEND_API_KEY,
-    NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  },
-});
-```
+- **Environment Validation**: Zod schemas ensure all required environment variables
+- **Type-Safe Configuration**: Full TypeScript support for environment variables
+- **Secure Secrets**: API keys and sensitive data properly isolated
+- **Multi-Environment Support**: Development, staging, and production configurations
+
+### Production Considerations
+
+- **Static Generation**: Marketing pages pre-generated for optimal performance
+- **Server-Side Rendering**: Dynamic content rendered on-demand
+- **CDN Distribution**: Global content delivery for reduced latency
+- **Health Monitoring**: Application health checks and error tracking
+
+---
+
+## 📚 **Documentation & Resources**
+
+### Related Documentation
+
+- **[Complete Hook Guide](./HOOK_GUIDE.md)**: Comprehensive hook patterns and examples
+- **[API Integration Guide](./API_INTEGRATION.md)**: Complete API implementation guide
+- **[Development Guide](./DEVELOPMENT_GUIDE.md)**: Setup, workflows, and coding standards
+- **[Security Guidelines](./SECURITY_GUIDELINES.md)**: Security best practices
+
+### Architecture Decision Records
+
+Key architectural decisions are documented for future reference:
+
+- **Three-Layer API Pattern**: Ensures type safety and security
+- **Domain-Based Component Organization**: Improves maintainability
+- **SWR for Server State**: Optimizes data fetching and caching
+- **Mobile-First Design**: Prioritizes mobile user experience
+- **TypeScript-First Development**: Prevents runtime errors and improves developer experience
 
 ---
 

@@ -9,6 +9,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
 export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
+export { CheckinsFetchRequestDto } from './models/CheckinsFetchRequestDto';
 export type { GroupMembersResponseDto } from './models/GroupMembersResponseDto';
 export type { HomepageHighlightsResponseDto } from './models/HomepageHighlightsResponseDto';
 export type { LocationInfoResponseDto } from './models/LocationInfoResponseDto';
@@ -24,6 +25,7 @@ export type { QuestListResponseDto } from './models/QuestListResponseDto';
 export { QuestResponseDto } from './models/QuestResponseDto';
 export { QuestTaskCreateRequestDto } from './models/QuestTaskCreateRequestDto';
 export type { QuestTaskPhotoUploadResponseDto } from './models/QuestTaskPhotoUploadResponseDto';
+export type { QuestTaskSocialShareResponseDto } from './models/QuestTaskSocialShareResponseDto';
 export { QuestTaskUpdateRequestDto } from './models/QuestTaskUpdateRequestDto';
 export { QuestUpdateRequestDto } from './models/QuestUpdateRequestDto';
 export type { StartGroupQuestRequestDto } from './models/StartGroupQuestRequestDto';
@@ -31,7 +33,11 @@ export type { StartGroupQuestResponseDto } from './models/StartGroupQuestRespons
 export type { StoryChapterCreateRequestDto } from './models/StoryChapterCreateRequestDto';
 export type { StoryChapterResponseDto } from './models/StoryChapterResponseDto';
 export type { StoryChapterUpdateRequestDto } from './models/StoryChapterUpdateRequestDto';
+export { StoryCompletionResponseDto } from './models/StoryCompletionResponseDto';
 export type { StoryCreateRequestDto } from './models/StoryCreateRequestDto';
+export { StoryProgressResponseDto } from './models/StoryProgressResponseDto';
+export type { StoryReadingCompleteRequestDto } from './models/StoryReadingCompleteRequestDto';
+export type { StoryReadingStartRequestDto } from './models/StoryReadingStartRequestDto';
 export type { StoryResponseDto } from './models/StoryResponseDto';
 export type { StoryUpdateRequestDto } from './models/StoryUpdateRequestDto';
 export { TaskResponseDto } from './models/TaskResponseDto';
@@ -41,6 +47,7 @@ export type { TouristSpotUpdateRequestDto } from './models/TouristSpotUpdateRequ
 export type { UserEntity } from './models/UserEntity';
 export { UserResponseDto } from './models/UserResponseDto';
 export type { UserSensitiveInfoResponseDto } from './models/UserSensitiveInfoResponseDto';
+export type { UserTravelLogListResponseDto } from './models/UserTravelLogListResponseDto';
 
 export { AuthService } from './services/AuthService';
 export { HealthCheckService } from './services/HealthCheckService';

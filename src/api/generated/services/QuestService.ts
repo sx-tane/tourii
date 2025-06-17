@@ -6,6 +6,7 @@ import type { GroupMembersResponseDto } from '../models/GroupMembersResponseDto'
 import type { QuestListResponseDto } from '../models/QuestListResponseDto';
 import type { QuestResponseDto } from '../models/QuestResponseDto';
 import type { QuestTaskPhotoUploadResponseDto } from '../models/QuestTaskPhotoUploadResponseDto';
+import type { QuestTaskSocialShareResponseDto } from '../models/QuestTaskSocialShareResponseDto';
 import type { StartGroupQuestResponseDto } from '../models/StartGroupQuestResponseDto';
 import type { TaskResponseDto } from '../models/TaskResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -126,6 +127,8 @@ export class QuestService {
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param userId User ID
+     * @param latitude Latitude for location tracking
+     * @param longitude Longitude for location tracking
      * @returns QuestResponseDto Quests found successfully
      * @throws ApiError
      */
@@ -134,6 +137,8 @@ export class QuestService {
         acceptVersion: string,
         xApiKey: string,
         userId?: string,
+        latitude?: number,
+        longitude?: number,
     ): CancelablePromise<Array<QuestResponseDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -147,6 +152,8 @@ export class QuestService {
             },
             query: {
                 'userId': userId,
+                'latitude': latitude,
+                'longitude': longitude,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,
@@ -600,6 +607,14 @@ export class QuestService {
              * User ID of the quest leader starting the quest
              */
             userId: string;
+            /**
+             * Optional latitude for location tracking
+             */
+            latitude?: number;
+            /**
+             * Optional longitude for location tracking
+             */
+            longitude?: number;
         },
     ): CancelablePromise<StartGroupQuestResponseDto> {
         return __request(OpenAPI, {
@@ -648,6 +663,51 @@ export class QuestService {
             },
             formData: formData,
             mediaType: 'multipart/form-data',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Complete social sharing task
+     * @param taskId
+     * @param xUserId User ID for authentication
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody Social share proof URL
+     * @returns QuestTaskSocialShareResponseDto Social share recorded successfully
+     * @throws ApiError
+     */
+    public static touriiBackendControllerCompleteSocialShareTask(
+        taskId: string,
+        xUserId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            proofUrl: string;
+            /**
+             * Optional latitude for location tracking
+             */
+            latitude?: number;
+            /**
+             * Optional longitude for location tracking
+             */
+            longitude?: number;
+        },
+    ): CancelablePromise<QuestTaskSocialShareResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/tasks/{taskId}/share-social',
+            path: {
+                'taskId': taskId,
+            },
+            headers: {
+                'x-user-id': xUserId,
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
             },

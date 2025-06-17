@@ -501,6 +501,14 @@ export class StoriesService {
              * Current story status
              */
             status: 'UNREAD' | 'IN_PROGRESS' | 'COMPLETED';
+            /**
+             * Optional latitude for location tracking
+             */
+            latitude?: number;
+            /**
+             * Optional longitude for location tracking
+             */
+            longitude?: number;
         },
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
@@ -512,6 +520,156 @@ export class StoriesService {
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Consolidated story action endpoint
+     * Handles story start, complete, and progress actions based on X-Story-Action header
+     * @param chapterId
+     * @param xStoryAction Story action to perform: start, complete, or progress
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param userId User ID (used for progress action when body is not provided)
+     * @param requestBody Story action request (required for start/complete, optional for progress)
+     * @returns any Story action completed successfully
+     * @throws ApiError
+     */
+    public static touriiBackendControllerHandleStoryAction(
+        chapterId: string,
+        xStoryAction: 'start' | 'complete' | 'progress',
+        acceptVersion: string,
+        xApiKey: string,
+        userId?: string,
+        requestBody?: {
+            /**
+             * ID of the user performing the story action
+             */
+            userId: string;
+        },
+    ): CancelablePromise<({
+        success?: boolean;
+        message?: string;
+    } | {
+        /**
+         * Whether the story completion was successful
+         */
+        success: boolean;
+        /**
+         * Success or error message
+         */
+        message: string;
+        /**
+         * Story progress information
+         */
+        storyProgress: {
+            /**
+             * ID of the completed story chapter
+             */
+            storyChapterId: string;
+            /**
+             * Title of the completed chapter
+             */
+            chapterTitle: string;
+            /**
+             * Current story status
+             */
+            status: 'UNREAD' | 'IN_PROGRESS' | 'COMPLETED';
+            /**
+             * Timestamp when the story was completed
+             */
+            completedAt: any;
+        };
+        /**
+         * List of quests unlocked by completing this story
+         */
+        unlockedQuests: Array<{
+            /**
+             * ID of the unlocked quest
+             */
+            questId: string;
+            /**
+             * Name of the unlocked quest
+             */
+            questName: string;
+            /**
+             * Description of the unlocked quest
+             */
+            questDesc: string;
+            /**
+             * Image URL for the quest
+             */
+            questImage: string | null;
+            /**
+             * Name of the tourist spot where the quest is located
+             */
+            touristSpotName: string;
+            /**
+             * Total magatama points awarded for completing this quest
+             */
+            totalMagatamaPointAwarded: number;
+            /**
+             * Whether this is a premium quest
+             */
+            isPremium: boolean;
+        }>;
+        /**
+         * Rewards earned from story completion
+         */
+        rewards: {
+            /**
+             * Total magatama points earned from story completion and achievements
+             */
+            magatamaPointsEarned: number;
+            /**
+             * List of achievement names unlocked
+             */
+            achievementsUnlocked: Array<string>;
+        };
+    } | {
+        /**
+         * ID of the story chapter
+         */
+        storyChapterId: string;
+        /**
+         * Current reading status
+         */
+        status: 'UNREAD' | 'IN_PROGRESS' | 'COMPLETED';
+        /**
+         * Timestamp when the user started reading
+         */
+        unlockedAt: any;
+        /**
+         * Timestamp when the user finished reading
+         */
+        finishedAt: any;
+        /**
+         * Whether the user can start reading this chapter
+         */
+        canStart: boolean;
+        /**
+         * Whether the user can complete this chapter
+         */
+        canComplete: boolean;
+    })> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/stories/chapters/{chapterId}/action',
+            path: {
+                'chapterId': chapterId,
+            },
+            headers: {
+                'X-Story-Action': xStoryAction,
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            query: {
+                'userId': userId,
             },
             body: requestBody,
             mediaType: 'application/json',
