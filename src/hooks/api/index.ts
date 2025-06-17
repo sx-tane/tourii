@@ -10,3 +10,6 @@ export { useSagaById } from './useSagaById';
 // Quest hooks
 export { useQuests } from './useQuests';
 export { useQuestById } from './useQuestById';
+
+// Checkin hooks
+export { useCheckins } from './useCheckins';
