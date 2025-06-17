@@ -2,6 +2,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { logger } from "@/utils/logger";
 
 // Constants
 const TILE_LAYER_CONFIG = {
@@ -30,14 +31,16 @@ const MAP_CONFIG = {
 };
 
 // Import Leaflet dynamically to avoid SSR issues
-// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-let L: any;
+type LeafletType = typeof import("leaflet");
+let L: LeafletType | null = null;
 if (typeof window !== "undefined") {
 	import("leaflet").then((leaflet) => {
-		L = leaflet.default;
-		// Fix default markers
-		// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-		(L.Icon.Default.prototype as any)._getIconUrl = undefined;
+		L = leaflet;
+		// Fix default markers - Leaflet internal API requires any type
+		interface IconDefaultPrototype {
+			_getIconUrl?: () => string;
+		}
+		(L.Icon.Default.prototype as IconDefaultPrototype)._getIconUrl = undefined;
 		L.Icon.Default.mergeOptions({
 			iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
 			iconUrl: require("leaflet/dist/images/marker-icon.png"),
@@ -51,28 +54,46 @@ interface LeafletMapViewProps {
 	zoom?: number;
 	children?: ReactNode;
 	className?: string;
-	onMapReady?: (map: L.Map) => void;
+	onMapReady?: (map: import("leaflet").Map) => void;
 }
 
 // Custom hooks
 const useLeafletMap = (
 	center: [number, number],
 	zoom: number,
-	onMapReady?: (map: L.Map) => void,
+	onMapReady?: (map: import("leaflet").Map) => void,
 ) => {
 	const mapRef = useRef<HTMLDivElement>(null);
-	const mapInstanceRef = useRef<L.Map | null>(null);
+	const mapInstanceRef = useRef<import("leaflet").Map | null>(null);
+	const initTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const initializeMap = useCallback(() => {
 		if (!mapRef.current || mapInstanceRef.current) return;
 
+		// Clear any existing timeout to prevent race conditions
+		if (initTimeoutRef.current) {
+			clearTimeout(initTimeoutRef.current);
+			initTimeoutRef.current = null;
+		}
+
 		const initMapWhenReady = () => {
 			if (!L) {
-				setTimeout(initMapWhenReady, MAP_CONFIG.initDelay);
+				// Store timeout reference to prevent accumulation
+				initTimeoutRef.current = setTimeout(
+					initMapWhenReady,
+					MAP_CONFIG.initDelay,
+				);
 				return;
 			}
 
+			// Clear timeout once Leaflet is ready
+			if (initTimeoutRef.current) {
+				clearTimeout(initTimeoutRef.current);
+				initTimeoutRef.current = null;
+			}
+
 			try {
+				if (!mapRef.current) return;
 				// Initialize map
 				const map = L.map(mapRef.current, {
 					center,
@@ -105,7 +126,7 @@ const useLeafletMap = (
 					onMapReady(map);
 				}
 			} catch (error) {
-				console.warn("Failed to initialize Leaflet map:", error);
+				logger.error("Failed to initialize Leaflet map", { error });
 			}
 		};
 
@@ -117,17 +138,24 @@ const useLeafletMap = (
 			try {
 				mapInstanceRef.current.setView(center, zoom);
 			} catch (error) {
-				console.warn("Error updating map view:", error);
+				logger.error("Error updating map view", { error });
 			}
 		}
 	}, [center, zoom]);
 
 	const cleanupMap = useCallback(() => {
+		// Clear any pending initialization timeout
+		if (initTimeoutRef.current) {
+			clearTimeout(initTimeoutRef.current);
+			initTimeoutRef.current = null;
+		}
+
+		// Clean up map instance
 		if (mapInstanceRef.current) {
 			try {
 				mapInstanceRef.current.remove();
 			} catch (error) {
-				console.warn("Error cleaning up map:", error);
+				logger.error("Error cleaning up map", { error });
 			}
 			mapInstanceRef.current = null;
 		}

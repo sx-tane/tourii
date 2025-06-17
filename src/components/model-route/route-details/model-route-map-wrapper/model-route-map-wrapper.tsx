@@ -1,7 +1,7 @@
 "use client";
 import type { ModelRouteResponseDto } from "@/api/generated";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, type SyntheticEvent } from "react";
+import { useState, type SyntheticEvent, useEffect, useRef } from "react";
 import {
 	Map as MapIcon,
 	Maximize2,
@@ -18,6 +18,7 @@ import LeafletMapView from "./leaflet-map-view";
 import TouristSpotMarkers from "./tourist-spot-markers";
 import LocationInfoPanel from "./location-info-panel";
 import SpotDetailSidebar from "./spot-detail-sidebar";
+import MapErrorBoundary from "@/components/common/map-error-boundary";
 
 // Constants
 const DEFAULT_ZOOM = 12;
@@ -169,6 +170,18 @@ const FullscreenMapView: React.FC<{
 }) => {
 	// Only show selected spot info, don't auto-default to first spot
 	const displayedSelectedSpot = selectedSpot;
+	const dialogRef = useRef<HTMLDialogElement>(null);
+
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (dialog) {
+			if (isOpen) {
+				dialog.showModal();
+			} else {
+				dialog.close();
+			}
+		}
+	}, [isOpen]);
 
 	const handleBackgroundClick = (e: SyntheticEvent<HTMLDivElement>) => {
 		if (e.target === e.currentTarget) {
@@ -218,121 +231,118 @@ const FullscreenMapView: React.FC<{
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					className="fixed inset-0 z-[99999] bg-warmGrey"
-					style={{
-						position: "fixed",
-						top: 0,
-						left: 0,
-						right: 0,
-						bottom: 0,
-						width: "100vw",
-						height: "100vh",
-						margin: 0,
-						padding: 0,
-					}}
 				>
-					{/* Cross Button */}
-					<motion.button
-						initial={{ opacity: 0, scale: 0.8 }}
-						animate={{ opacity: 1, scale: 1 }}
-						exit={{ opacity: 0, scale: 0.8 }}
-						transition={{ delay: 0.2 }}
-						type="button"
-						onClick={onClose}
-						className="absolute top-4 right-4 z-[99999] bg-warmGrey2 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-warmGrey2 hover:shadow-2xl transition-all duration-200"
-						aria-label="Close map"
+					<dialog
+						ref={dialogRef}
+						onClose={onClose}
+						className="bg-transparent p-0 m-0 w-screen h-screen max-w-full max-h-full"
 					>
-						<X className="w-6 h-6 text-charcoal" />
-					</motion.button>
-
-					{/* Fullscreen Map */}
-					<div
-						className="relative w-full h-full z-0"
-						style={{ width: "100vw", height: "100vh" }}
-						role="button"
-						tabIndex={0}
-						onClick={handleBackgroundClick}
-						onKeyDown={(e) => {
-							if (e.key === "Enter" || e.key === " ") {
-								handleBackgroundClick(e);
-							}
-						}}
-					>
-						<LeafletMapView
-							center={adjustedMapCenter}
-							zoom={selectedSpot ? 16 : 12}
-							onMapReady={(mapInstance) => {
-								handleMapReady(mapInstance);
-							}}
-							className="h-full w-full relative z-0"
+						{/* Cross Button */}
+						<motion.button
+							initial={{ opacity: 0, scale: 0.8 }}
+							animate={{ opacity: 1, scale: 1 }}
+							exit={{ opacity: 0, scale: 0.8 }}
+							transition={{ delay: 0.2 }}
+							type="button"
+							onClick={onClose}
+							className="absolute top-4 right-4 z-[99999] bg-warmGrey2 backdrop-blur-sm shadow-xl rounded-full p-3 hover:bg-warmGrey2 hover:shadow-2xl transition-all duration-200"
+							aria-label="Close map"
 						>
-							{isMapReady && (
-								<TouristSpotMarkers
-									touristSpots={touristSpotList}
-									selectedSpotId={selectedSpot?.touristSpotId}
-									onSpotSelect={onSpotSelect}
-									map={map || undefined}
-									disableAutoCenter={true} // Disable auto-centering for mobile fullscreen
-								/>
-							)}
-						</LeafletMapView>
-						{/* Enhanced Location Info Panel - Half screen on mobile/tablet */}
-						<div className="absolute bottom-0 left-0 right-0 z-[9998] h-1/2 pointer-events-none">
-							{/* Navigation buttons above the panel */}
-							{displayedSelectedSpot && touristSpotList.length > 1 && (
-								<div className="absolute -top-12 left-4 z-10 flex gap-1 pointer-events-auto">
-									<button
-										type="button"
-										onClick={goToPreviousSpot}
-										className="bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-lg transition-colors"
-										aria-label="Previous tourist spot"
-									>
-										<ChevronLeft className="w-4 h-4" />
-									</button>
+							<X className="w-6 h-6 text-charcoal" />
+						</motion.button>
 
-									<button
-										type="button"
-										onClick={goToNextSpot}
-										className="bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-lg transition-colors"
-										aria-label="Next tourist spot"
-									>
-										<ChevronRight className="w-4 h-4" />
-									</button>
-								</div>
-							)}
-							{displayedSelectedSpot ? (
-								<LocationInfoPanel
-									selectedSpot={displayedSelectedSpot}
-									isStatic={false}
-									className="!relative !bottom-auto !left-auto !min-w-full !max-w-full h-full w-full pointer-events-auto"
-									touristSpotList={touristSpotList}
-									onPreviousSpot={goToPreviousSpot}
-									onNextSpot={goToNextSpot}
-									showNavigation={false}
-								/>
-							) : (
-								<div className="h-full flex items-center justify-center p-4 pointer-events-none">
-									<motion.div
-										initial={{ opacity: 0, y: 10 }}
-										animate={{ opacity: 1, y: 0 }}
-										className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-xl pointer-events-auto"
-										onClick={(e) => {
-											// Prevent closing when clicking on the message itself
-											e.stopPropagation();
-										}}
-									>
-										<div className="text-center text-charcoal">
-											<div className="text-lg font-medium mb-2">
-												Select a Tourist Spot
+						{/* Fullscreen Map */}
+						<div
+							className="relative w-full h-full z-0"
+							style={{ width: "100vw", height: "100vh" }}
+							onClick={handleBackgroundClick}
+							onKeyDown={(e) => {
+								if (e.key === "Escape") {
+									onClose();
+								}
+							}}
+							role="document"
+							tabIndex={-1}
+						>
+							<MapErrorBoundary>
+								<LeafletMapView
+									center={adjustedMapCenter}
+									zoom={selectedSpot ? 16 : 12}
+									onMapReady={(mapInstance) => {
+										handleMapReady(mapInstance);
+									}}
+									className="h-full w-full relative z-0"
+								>
+									{isMapReady && (
+										<TouristSpotMarkers
+											touristSpots={touristSpotList}
+											selectedSpotId={selectedSpot?.touristSpotId}
+											onSpotSelect={onSpotSelect}
+											map={map || undefined}
+											disableAutoCenter={true} // Disable auto-centering for mobile fullscreen
+										/>
+									)}
+								</LeafletMapView>
+							</MapErrorBoundary>
+							{/* Enhanced Location Info Panel - Half screen on mobile/tablet */}
+							<div className="absolute bottom-0 left-0 right-0 z-[9998] h-1/2 pointer-events-none">
+								{/* Navigation buttons above the panel */}
+								{displayedSelectedSpot && touristSpotList.length > 1 && (
+									<div className="absolute -top-12 left-4 z-10 flex gap-1 pointer-events-auto">
+										<button
+											type="button"
+											onClick={goToPreviousSpot}
+											className="bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-lg transition-colors"
+											aria-label="Previous tourist spot"
+										>
+											<ChevronLeft className="w-4 h-4" />
+										</button>
+
+										<button
+											type="button"
+											onClick={goToNextSpot}
+											className="bg-white/90 hover:bg-white text-gray-700 p-2 rounded-full shadow-lg transition-colors"
+											aria-label="Next tourist spot"
+										>
+											<ChevronRight className="w-4 h-4" />
+										</button>
+									</div>
+								)}
+								{displayedSelectedSpot ? (
+									<LocationInfoPanel
+										selectedSpot={displayedSelectedSpot}
+										isStatic={false}
+										className="!relative !bottom-auto !left-auto !min-w-full !max-w-full h-full w-full pointer-events-auto"
+										touristSpotList={touristSpotList}
+										onPreviousSpot={goToPreviousSpot}
+										onNextSpot={goToNextSpot}
+										showNavigation={false}
+									/>
+								) : (
+									<div className="h-full flex items-center justify-center p-4 pointer-events-none">
+										<motion.div
+											initial={{ opacity: 0, y: 10 }}
+											animate={{ opacity: 1, y: 0 }}
+											className="bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-xl pointer-events-auto"
+											onClick={(e) => {
+												// Prevent closing when clicking on the message itself
+												e.stopPropagation();
+											}}
+										>
+											<div className="text-center text-charcoal">
+												<div className="text-lg font-medium mb-2">
+													Select a Tourist Spot
+												</div>
+												<div className="text-sm">
+													Tap on any marker to see details
+												</div>
 											</div>
-											<div className="text-sm">
-												Tap on any marker to see details
-											</div>
-										</div>
-									</motion.div>
-								</div>
-							)}
+										</motion.div>
+									</div>
+								)}
+							</div>
 						</div>
-					</div>
+					</dialog>
 				</motion.div>
 			)}
 		</AnimatePresence>
@@ -430,21 +440,23 @@ const MapContainer: React.FC<{
 			className="lg:col-span-2 relative h-full rounded-3xl border-mustard border-2 overflow-hidden"
 			{...ANIMATIONS.map}
 		>
-			<LeafletMapView
-				center={mapCenter}
-				zoom={DEFAULT_ZOOM}
-				onMapReady={onMapReady}
-				className="h-full w-full relative z-0"
-			>
-				{isMapReady && (
-					<TouristSpotMarkers
-						touristSpots={touristSpotList}
-						selectedSpotId={selectedTouristSpotId}
-						onSpotSelect={onSpotSelect}
-						map={map}
-					/>
-				)}
-			</LeafletMapView>
+			<MapErrorBoundary>
+				<LeafletMapView
+					center={mapCenter}
+					zoom={DEFAULT_ZOOM}
+					onMapReady={onMapReady}
+					className="h-full w-full relative z-0"
+				>
+					{isMapReady && (
+						<TouristSpotMarkers
+							touristSpots={touristSpotList}
+							selectedSpotId={selectedTouristSpotId}
+							onSpotSelect={onSpotSelect}
+							map={map}
+						/>
+					)}
+				</LeafletMapView>
+			</MapErrorBoundary>
 
 			{/* Desktop Navigation Controls - Floating style like mobile */}
 			{touristSpotList.length > 1 && (
@@ -554,7 +566,7 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 	return (
 		<motion.div
 			{...ANIMATIONS.main}
-			className={`bg-warmGrey2 rounded-s-3xl overflow-hidden ${className}`}
+			className={`bg-warmGrey2 rounded-s-3xl overflow-hidden pb-10 ${className}`}
 		>
 			<DesktopMapHeader modelRoute={modelRoute} />
 

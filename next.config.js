@@ -21,6 +21,10 @@ export default {
                 protocol: 'https',
                 hostname: 'pub-ff346cb892954c35be4cd7939d054cd1.r2.dev',
             },
+            {
+                protocol: 'https',
+                hostname: 'places.googleapis.com',
+            },
         ],
     },
 };
