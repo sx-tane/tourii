@@ -27,7 +27,7 @@ graph TB
     end
     
     subgraph "External Backend"
-        BACKEND[Tourii Backend API<br/>http://localhost:4000]
+        BACKEND[Tourii Backend API<br/>https://tourii-backend.onrender.com]
     end
     
     COMP --> HOOKS
@@ -60,77 +60,77 @@ graph TB
 Based on the latest OpenAPI specification, here are the available backend endpoints:
 
 ### 🔧 Health & System
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/health-check` | API health status check |
+| Method | Endpoint        | Description             |
+| ------ | --------------- | ----------------------- |
+| `GET`  | `/health-check` | API health status check |
 
 ### 👤 User Management & Authentication
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/auth/signup` | User registration with social/wallet auth |
-| `POST` | `/login` | User authentication |
-| `POST` | `/user` | Create new user |
-| `GET` | `/user/me` | Get current user profile |
-| `GET` | `/user/sensitive-info` | Get user sensitive information |
+| Method | Endpoint               | Description                               |
+| ------ | ---------------------- | ----------------------------------------- |
+| `POST` | `/auth/signup`         | User registration with social/wallet auth |
+| `POST` | `/login`               | User authentication                       |
+| `POST` | `/user`                | Create new user                           |
+| `GET`  | `/user/me`             | Get current user profile                  |
+| `GET`  | `/user/sensitive-info` | Get user sensitive information            |
 
 ### 📚 Stories & Chapters
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/stories/create-saga` | Create new story saga |
-| `POST` | `/stories/create-chapter/{storyId}` | Create chapter for story |
-| `POST` | `/stories/update-saga` | Update existing saga |
-| `POST` | `/stories/update-chapter` | Update existing chapter |
-| `GET` | `/stories/sagas` | Get all story sagas |
-| `GET` | `/stories/sagas/{storyId}/chapters` | Get chapters by story ID |
-| `POST` | `/stories/chapters/{chapterId}/progress` | Track chapter reading progress |
-| `POST` | `/stories/chapters/{chapterId}/action` | Execute chapter action |
-| `DELETE` | `/stories/{storyId}` | Delete story saga |
-| `DELETE` | `/stories/chapters/{chapterId}` | Delete story chapter |
+| Method   | Endpoint                                 | Description                    |
+| -------- | ---------------------------------------- | ------------------------------ |
+| `POST`   | `/stories/create-saga`                   | Create new story saga          |
+| `POST`   | `/stories/create-chapter/{storyId}`      | Create chapter for story       |
+| `POST`   | `/stories/update-saga`                   | Update existing saga           |
+| `POST`   | `/stories/update-chapter`                | Update existing chapter        |
+| `GET`    | `/stories/sagas`                         | Get all story sagas            |
+| `GET`    | `/stories/sagas/{storyId}/chapters`      | Get chapters by story ID       |
+| `POST`   | `/stories/chapters/{chapterId}/progress` | Track chapter reading progress |
+| `POST`   | `/stories/chapters/{chapterId}/action`   | Execute chapter action         |
+| `DELETE` | `/stories/{storyId}`                     | Delete story saga              |
+| `DELETE` | `/stories/chapters/{chapterId}`          | Delete story chapter           |
 
 ### 🗺️ Routes & Tourist Spots
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/routes/create-model-route` | Create new model route |
-| `POST` | `/routes/create-tourist-spot/{modelRouteId}` | Add tourist spot to route |
-| `POST` | `/routes/update-model-route` | Update existing route |
-| `POST` | `/routes/update-tourist-spot` | Update tourist spot |
-| `GET` | `/routes` | Get all model routes |
-| `GET` | `/routes/{id}` | Get specific model route |
-| `GET` | `/routes/{modelRouteId}` | Get route by ID |
-| `GET` | `/routes/tourist-spots/{storyChapterId}` | Get spots by chapter |
-| `GET` | `/location-info` | Get location info with Google Places |
-| `DELETE` | `/routes/tourist-spot/{touristSpotId}` | Delete tourist spot |
+| Method   | Endpoint                                     | Description                          |
+| -------- | -------------------------------------------- | ------------------------------------ |
+| `POST`   | `/routes/create-model-route`                 | Create new model route               |
+| `POST`   | `/routes/create-tourist-spot/{modelRouteId}` | Add tourist spot to route            |
+| `POST`   | `/routes/update-model-route`                 | Update existing route                |
+| `POST`   | `/routes/update-tourist-spot`                | Update tourist spot                  |
+| `GET`    | `/routes`                                    | Get all model routes                 |
+| `GET`    | `/routes/{id}`                               | Get specific model route             |
+| `GET`    | `/routes/{modelRouteId}`                     | Get route by ID                      |
+| `GET`    | `/routes/tourist-spots/{storyChapterId}`     | Get spots by chapter                 |
+| `GET`    | `/location-info`                             | Get location info with Google Places |
+| `DELETE` | `/routes/tourist-spot/{touristSpotId}`       | Delete tourist spot                  |
 
 ### 🎯 Quests & Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/quests` | Get quests with pagination & filters |
-| `GET` | `/quests/{questId}` | Get quest by ID |
-| `GET` | `/quests/tourist-spot/{touristSpotId}` | Get quests by tourist spot |
-| `POST` | `/quests/create-quest` | Create new quest |
-| `POST` | `/quests/create-task/{questId}` | Create quest task |
-| `POST` | `/quests/update-quest` | Update existing quest |
-| `POST` | `/quests/update-task` | Update quest task |
-| `POST` | `/quests/tasks/{taskId}/photo-upload` | Upload task photo |
-| `DELETE` | `/quests/{questId}` | Delete quest |
-| `DELETE` | `/quests/tasks/{taskId}` | Delete quest task |
+| Method   | Endpoint                               | Description                          |
+| -------- | -------------------------------------- | ------------------------------------ |
+| `GET`    | `/quests`                              | Get quests with pagination & filters |
+| `GET`    | `/quests/{questId}`                    | Get quest by ID                      |
+| `GET`    | `/quests/tourist-spot/{touristSpotId}` | Get quests by tourist spot           |
+| `POST`   | `/quests/create-quest`                 | Create new quest                     |
+| `POST`   | `/quests/create-task/{questId}`        | Create quest task                    |
+| `POST`   | `/quests/update-quest`                 | Update existing quest                |
+| `POST`   | `/quests/update-task`                  | Update quest task                    |
+| `POST`   | `/quests/tasks/{taskId}/photo-upload`  | Upload task photo                    |
+| `DELETE` | `/quests/{questId}`                    | Delete quest                         |
+| `DELETE` | `/quests/tasks/{taskId}`               | Delete quest task                    |
 
 ### 👥 Group Features
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/quests/{questId}/group/members` | Get group quest members |
-| `POST` | `/quests/{questId}/group/start` | Start group quest |
+| Method | Endpoint                          | Description             |
+| ------ | --------------------------------- | ----------------------- |
+| `GET`  | `/quests/{questId}/group/members` | Get group quest members |
+| `POST` | `/quests/{questId}/group/start`   | Start group quest       |
 
 ### 📱 Check-ins & Moments
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/checkins` | Get user check-ins |
-| `GET` | `/moments` | Get latest traveler moments |
+| Method | Endpoint    | Description                 |
+| ------ | ----------- | --------------------------- |
+| `GET`  | `/checkins` | Get user check-ins          |
+| `GET`  | `/moments`  | Get latest traveler moments |
 
 ### 🏠 Homepage & Content
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/v2/homepage/highlights` | Get homepage highlights |
+| Method | Endpoint                  | Description             |
+| ------ | ------------------------- | ----------------------- |
+| `GET`  | `/v2/homepage/highlights` | Get homepage highlights |
 
 ---
 

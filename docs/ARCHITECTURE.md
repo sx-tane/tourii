@@ -50,11 +50,11 @@ graph TB
     
     subgraph "API Layer"
         subgraph "Next.js API Routes"
-            AUTH_API[/api/auth/*]
-            STORIES_API[/api/stories/*]
-            ROUTES_API[/api/routes/*]
-            QUESTS_API[/api/quests/*]
-            UPLOAD_API[/api/upload/*]
+            AUTH_API[API Auth Routes]
+            STORIES_API[API Stories Routes]
+            ROUTES_API[API Routes Routes]
+            QUESTS_API[API Quests Routes]
+            UPLOAD_API[API Upload Routes]
         end
         
         subgraph "Generated SDK"

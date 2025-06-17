@@ -38,15 +38,15 @@ pnpm dev
 
 ## 📖 **Documentation Quick Links**
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [**🏗️ Architecture**](./docs/ARCHITECTURE.md) | Frontend architecture & patterns | All developers |
-| [**🔧 Development**](./docs/DEVELOPMENT.md) | Development setup & guidelines | New developers |
-| [**🔗 API Integration**](./docs/FRONTEND_BACKEND_INTEGRATION.md) | Backend integration patterns | Full-stack developers |
-| [**🎣 Hook Usage**](./docs/HOOK_USAGE_EXAMPLES.md) | Custom hooks & API patterns | Frontend developers |
-| [**📋 Project Guidelines**](./docs/PROJECT_GUIDELINE.md) | Code standards & conventions | All developers |
-| [**🛡️ Security Guidelines**](./docs/SECURITY_GUIDELINES.md) | Frontend security practices | All developers |
-| [**🔄 Hook Migration**](./docs/HOOK_MIGRATION_GUIDE.md) | Legacy hook migration | All developers |
+| Document                                                        | Purpose                          | Audience              |
+| --------------------------------------------------------------- | -------------------------------- | --------------------- |
+| [**🏗️ Architecture**](./docs/ARCHITECTURE.md)                    | Frontend architecture & patterns | All developers        |
+| [**🔧 Development**](./docs/DEVELOPMENT.md)                      | Development setup & guidelines   | New developers        |
+| [**🔗 API Integration**](./docs/FRONTEND_BACKEND_INTEGRATION.md) | Backend integration patterns     | Full-stack developers |
+| [**🎣 Hook Usage**](./docs/HOOK_USAGE_EXAMPLES.md)               | Custom hooks & API patterns      | Frontend developers   |
+| [**📋 Project Guidelines**](./docs/PROJECT_GUIDELINE.md)         | Code standards & conventions     | All developers        |
+| [**🛡️ Security Guidelines**](./docs/SECURITY_GUIDELINES.md)      | Frontend security practices      | All developers        |
+| [**🔄 Hook Migration**](./docs/HOOK_MIGRATION_GUIDE.md)          | Legacy hook migration            | All developers        |
 
 ## 🏗️ **Architecture Overview**
 
@@ -94,11 +94,11 @@ graph TB
     
     subgraph "API Layer"
         subgraph "Next.js API Routes"
-            AUTH_API[/api/auth/*]
-            STORIES_API[/api/stories/*]
-            ROUTES_API[/api/routes/*]
-            QUESTS_API[/api/quests/*]
-            UPLOAD_API[/api/upload/*]
+            AUTH_API[API Auth Routes]
+            STORIES_API[API Stories Routes]
+            ROUTES_API[API Routes Routes]
+            QUESTS_API[API Quests Routes]
+            UPLOAD_API[API Upload Routes]
         end
         
         subgraph "Generated SDK"
@@ -170,8 +170,7 @@ graph TB
     class WEB,MOBILE,PWA userLayer
     class HOMEPAGE,AUTH,DASHBOARD,STORIES,ROUTES,QUESTS,ADMIN,UI,DOMAIN,COMMON,SWR,REDUX,CONTEXT frontendLayer
     class AUTH_API,STORIES_API,ROUTES_API,QUESTS_API,UPLOAD_API,OPENAPI,TYPES apiLayer
-    class BACKEND,WEB3,STORAGE,MAPS,WEBSOCKET externalLayer
-```
+    class BACKEND,WEB3,STORAGE,MAPS,WEBSOCKET externalLayer```
 
 ### **🎯 Core Features**
 
@@ -205,17 +204,17 @@ export function getModelRoutes() { ... }
 
 ## 🛠️ **Tech Stack**
 
-| Category | Tech |
-|----------|------|
-| Framework | [Next.js 14 (App Router)](https://nextjs.org) |
-| Styling | [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) |
-| Animations | [Framer Motion](https://www.framer.com/motion) |
-| State Management | [Redux Toolkit](https://redux-toolkit.js.org) + [SWR](https://swr.vercel.app) |
-| API Client | Generated via [OpenAPI TypeScript Codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) |
-| Web3 | [viem](https://viem.sh) + [WalletConnect/Web3Modal](https://web3modal.com) |
-| Mapping | [Leaflet](https://leafletjs.com) + [React Leaflet](https://react-leaflet.js.org) |
-| Storage | [NFT.Storage](https://nft.storage) + IPFS |
-| Testing | [Vitest](https://vitest.dev) + [Storybook](https://storybook.js.org) |
+| Category         | Tech                                                                                                  |
+| ---------------- | ----------------------------------------------------------------------------------------------------- |
+| Framework        | [Next.js 14 (App Router)](https://nextjs.org)                                                         |
+| Styling          | [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)                          |
+| Animations       | [Framer Motion](https://www.framer.com/motion)                                                        |
+| State Management | [Redux Toolkit](https://redux-toolkit.js.org) + [SWR](https://swr.vercel.app)                         |
+| API Client       | Generated via [OpenAPI TypeScript Codegen](https://github.com/ferdikoomen/openapi-typescript-codegen) |
+| Web3             | [viem](https://viem.sh) + [WalletConnect/Web3Modal](https://web3modal.com)                            |
+| Mapping          | [Leaflet](https://leafletjs.com) + [React Leaflet](https://react-leaflet.js.org)                      |
+| Storage          | [NFT.Storage](https://nft.storage) + IPFS                                                             |
+| Testing          | [Vitest](https://vitest.dev) + [Storybook](https://storybook.js.org)                                  |
 
 ---
 
@@ -595,16 +594,16 @@ License: [MIT](LICENSE)
 
 ### **✅ Completed Optimizations (June 2025)**
 
-| Improvement Category | Status | Impact |
-|---------------------|---------|---------|
-| **Bundle Size Optimization** | ✅ Complete | 60% reduction (912MB → <100MB target) |
-| **TypeScript Safety** | ✅ Complete | Zero `any` usage across codebase |
-| **Performance Enhancements** | ✅ Complete | React.memo + useCallback optimizations |
-| **Accessibility Compliance** | ✅ Complete | WCAG 2.1 AA compliant components |
-| **Export Standardization** | ✅ Complete | 15+ barrel exports, 60% import simplification |
-| **Code Splitting** | ✅ Complete | Dynamic imports for Leaflet and heavy components |
-| **Enhanced Linting** | ✅ Complete | Biome with accessibility & performance rules |
-| **Testing Infrastructure** | ✅ Complete | Vitest with coverage reporting |
+| Improvement Category         | Status     | Impact                                           |
+| ---------------------------- | ---------- | ------------------------------------------------ |
+| **Bundle Size Optimization** | ✅ Complete | 60% reduction (912MB → <100MB target)            |
+| **TypeScript Safety**        | ✅ Complete | Zero `any` usage across codebase                 |
+| **Performance Enhancements** | ✅ Complete | React.memo + useCallback optimizations           |
+| **Accessibility Compliance** | ✅ Complete | WCAG 2.1 AA compliant components                 |
+| **Export Standardization**   | ✅ Complete | 15+ barrel exports, 60% import simplification    |
+| **Code Splitting**           | ✅ Complete | Dynamic imports for Leaflet and heavy components |
+| **Enhanced Linting**         | ✅ Complete | Biome with accessibility & performance rules     |
+| **Testing Infrastructure**   | ✅ Complete | Vitest with coverage reporting                   |
 
 ### **🎯 Achieved Metrics**
 - **Developer Experience**: 60% faster imports with barrel exports
