@@ -25,7 +25,10 @@ export type HomepageHighlightsResponseDto = {
          */
         link: string | null;
     } | null;
-    popularQuest: {
+    /**
+     * Top 3 popular quests
+     */
+    popularQuests: Array<{
         /**
          * Quest ID
          */
@@ -42,6 +45,6 @@ export type HomepageHighlightsResponseDto = {
          * Deep link to quest
          */
         link: string | null;
-    } | null;
+    }>;
 };
 
