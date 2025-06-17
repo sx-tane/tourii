@@ -14,7 +14,7 @@ export interface RouteDetails {
 	modelRouteLink: string;
 	routeDetailSmallImage: {
 		image1: string;
-		image2: string;
+		image2: string | undefined;
 		image3: string | undefined;
 	};
 }
@@ -61,7 +61,7 @@ export interface ModelRouteLocationProps {
 export interface ModelRouteCardImageProps {
 	routeDetailsSmallImage: {
 		image1: string;
-		image2: string;
+		image2: string | undefined;
 		image3: string | undefined;
 	};
 	imageName: string;

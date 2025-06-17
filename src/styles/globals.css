@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @reference {
-	.bg-warmGrey { background-color: theme(colors.warmGrey); }
+	.bg-warmGrey { background-color: #e3e3dc; }
 }
 
 @layer base {
