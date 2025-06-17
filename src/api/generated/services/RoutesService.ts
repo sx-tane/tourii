@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { LocationInfoResponseDto } from '../models/LocationInfoResponseDto';
 import type { ModelRouteResponseDto } from '../models/ModelRouteResponseDto';
 import type { TouristSpotResponseDto } from '../models/TouristSpotResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -82,6 +83,10 @@ export class RoutesService {
                      */
                     small: Array<string>;
                 };
+                /**
+                 * Address for enhanced search accuracy
+                 */
+                address?: string;
             }>;
         },
     ): CancelablePromise<ModelRouteResponseDto> {
@@ -147,6 +152,10 @@ export class RoutesService {
                  */
                 small: Array<string>;
             };
+            /**
+             * Address for enhanced search accuracy
+             */
+            address?: string;
         },
     ): CancelablePromise<TouristSpotResponseDto> {
         return __request(OpenAPI, {
@@ -240,6 +249,22 @@ export class RoutesService {
                      */
                     small: Array<string>;
                 };
+                /**
+                 * Address for enhanced search accuracy
+                 */
+                address?: string;
+                /**
+                 * Unique identifier for the tourist spot
+                 */
+                touristSpotId: string;
+                /**
+                 * Flag to indicate if the tourist spot is deleted
+                 */
+                delFlag: boolean;
+                /**
+                 * Unique identifier for the user who updated the tourist spot
+                 */
+                updUserId: string;
             }>;
             /**
              * Unique identifier for the model route
@@ -315,6 +340,10 @@ export class RoutesService {
                  */
                 small: Array<string>;
             };
+            /**
+             * Address for enhanced search accuracy
+             */
+            address?: string;
             /**
              * Unique identifier for the tourist spot
              */
@@ -477,6 +506,44 @@ export class RoutesService {
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get Location Info
+     * Retrieve basic location details with thumbnail images using Google Places.
+     * @param query Place name or search query
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param address Address for enhanced search accuracy
+     * @param longitude Longitude for location bias
+     * @param latitude Latitude for location bias
+     * @returns LocationInfoResponseDto Successfully retrieved location info with images
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetLocationInfo(
+        query: string,
+        acceptVersion: string,
+        xApiKey: string,
+        address?: string,
+        longitude?: string,
+        latitude?: string,
+    ): CancelablePromise<LocationInfoResponseDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/location-info',
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            query: {
+                'address': address,
+                'longitude': longitude,
+                'latitude': latitude,
+                'query': query,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,

@@ -19,7 +19,7 @@ import type { RootState } from "@/lib/redux/store";
 
 const HomePage: NextPage = () => {
 	const dispatch = useDispatch();
-	const { currentImage, logoAnimationComplete, sections } = useSelector(
+	const { currentImage, sections } = useSelector(
 		(state: RootState) => state.homepage,
 	);
 	const mainRef = useRef<HTMLDivElement>(null);
@@ -72,7 +72,7 @@ const HomePage: NextPage = () => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 0.5, delay: 0.8 }}
-					className="relative w-10/12 mx-auto"
+					className="relative w-full mx-auto"
 				>
 					<HowTouriiWorks
 						sections={sections}
@@ -85,48 +85,8 @@ const HomePage: NextPage = () => {
 					<DigitalPassportSection />
 					<StampedItemSection />
 
-					<motion.section
-						className="bg-warmGrey/90 backdrop-blur-sm py-12 flex justify-center"
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: false, amount: 0.3 }}
-						transition={{ duration: 0.6 }}
-					>
-						<motion.div
-							className="max-w-xl bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-6"
-							whileHover={{ scale: 1.02 }}
-							transition={{ duration: 0.3 }}
-						>
-							<motion.img
-								src="/image/story_preview.png"
-								alt="Story"
-								className="w-40 h-40 object-cover rounded"
-								whileHover={{ scale: 1.05 }}
-								transition={{ duration: 0.3 }}
-							/>
-							<div>
-								<motion.h3
-									className="text-xl font-bold"
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-								>
-									The Beast's Tale
-								</motion.h3>
-								<motion.p
-									className="text-gray-600 mt-2"
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									transition={{ duration: 0.6, delay: 0.3 }}
-								>
-									Uncover mysteries behind the mountain spirits.
-								</motion.p>
-							</div>
-						</motion.div>
-					</motion.section>
-
 					<motion.footer
-						className="bg-black/90 backdrop-blur-sm text-white py-6 text-sm flex flex-col md:flex-row justify-between items-center px-6"
+						className="bg-black/90 backdrop-blur-sm text-white py-6 text-sm flex flex-col md:flex-row justify-between items-center px-6 w-full"
 						initial={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
 						viewport={{ once: true }}

@@ -6,7 +6,7 @@ import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
 import Title from "@/components/world/text/title";
-import { getSagaById } from "@/hooks/stories/getSagaById";
+import { useSagaById } from "@/hooks";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { selectStories } from "@/lib/redux/features/stories/stories-slice";
 import { useAppSelector } from "@/lib/redux/hooks";
@@ -26,14 +26,14 @@ const ChapterPage: React.FC = () => {
 		: params.storyChapterId;
 
 	// Get data from Redux store (if navigated from button)
-	const { selectedStory } = useAppSelector(selectStories);
+	const { selectedStoryId } = useAppSelector(selectStories);
 
 	// Get data directly (if accessed via URL)
 	const {
 		storyChapterList: directChapters,
-		isLoadingStoryChapterList,
-		isErrorStoryChapterList,
-	} = getSagaById(storyId);
+		isLoading,
+		isError,
+	} = useSagaById(storyId);
 
 	const [chapter, setChapter] = useState<StoryChapterResponseDto | null>(null);
 	const [chapterList, setChapterList] = useState<StoryChapterResponseDto[]>([]);
@@ -41,25 +41,21 @@ const ChapterPage: React.FC = () => {
 
 	// Try to get chapter data from both sources
 	useEffect(() => {
-		if (selectedStory?.chapterList) {
+		if (selectedStoryId) {
 			// If we have data in Redux, use it
-			setChapterList(selectedStory.chapterList);
-			const foundChapter = selectedStory.chapterList.find(
+			setChapterList(directChapters ?? []);
+			const foundChapter = directChapters?.find(
 				(c) => c.storyChapterId === chapterId,
 			);
-			if (foundChapter) {
-				setChapter(foundChapter);
-			}
+			setChapter(foundChapter ?? null);
 		} else if (directChapters) {
 			setChapterList(directChapters);
 			const foundChapter = directChapters.find(
 				(c) => c.storyChapterId === chapterId,
 			);
-			if (foundChapter) {
-				setChapter(foundChapter);
-			}
+			setChapter(foundChapter ?? null);
 		}
-	}, [selectedStory, directChapters, chapterId]);
+	}, [selectedStoryId, directChapters, chapterId]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -79,15 +75,12 @@ const ChapterPage: React.FC = () => {
 	}, [chapter]);
 
 	// Loading states
-	if (
-		isLoadingStoryChapterList ||
-		(!chapter && !isErrorStoryChapterList && !selectedStory)
-	) {
+	if (isLoading || (!chapter && !isError && !selectedStoryId)) {
 		return <Loading />;
 	}
 
 	// Error states
-	if (isErrorStoryChapterList && !selectedStory?.chapterList?.length) {
+	if (isError && !selectedStoryId) {
 		// If API fetch failed AND we don't have data from Redux
 		return (
 			<TouriiError

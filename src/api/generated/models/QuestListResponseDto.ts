@@ -45,10 +45,6 @@ export type QuestListResponseDto = {
              */
             taskId: string;
             /**
-             * ID of the parent quest
-             */
-            questId: string;
-            /**
              * Theme of the task
              */
             taskTheme: 'STORY' | 'LOCAL_CULTURE' | 'FOOD' | 'URBAN_EXPLORE' | 'NATURE';
@@ -89,9 +85,33 @@ export type QuestListResponseDto = {
              */
             magatamaPointAwarded: number;
             /**
-             * Total Magatama points awarded
+             * Reward earned for this task
              */
-            totalMagatamaPointAwarded: number;
+            rewardEarned?: string;
+            /**
+             * Whether task is completed
+             */
+            isCompleted: boolean;
+            /**
+             * Flag to indicate if the record is deleted
+             */
+            delFlag?: boolean;
+            /**
+             * ID of user who created this record
+             */
+            insUserId?: string;
+            /**
+             * Timestamp of record creation
+             */
+            insDateTime?: string;
+            /**
+             * ID of user who last updated this record
+             */
+            updUserId?: string;
+            /**
+             * Timestamp of last record update
+             */
+            updDateTime?: string;
         }>;
         /**
          * Tourist spot associated with this quest
@@ -188,6 +208,26 @@ export type QuestListResponseDto = {
              */
             updDateTime?: string;
         };
+        /**
+         * Flag to indicate if the record is deleted
+         */
+        delFlag?: boolean;
+        /**
+         * ID of user who created this record
+         */
+        insUserId?: string;
+        /**
+         * Timestamp of record creation
+         */
+        insDateTime?: string;
+        /**
+         * ID of user who last updated this record
+         */
+        updUserId?: string;
+        /**
+         * Timestamp of last record update
+         */
+        updDateTime?: string;
     }>;
     pagination: {
         currentPage: number;

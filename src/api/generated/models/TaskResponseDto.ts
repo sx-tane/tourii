@@ -8,10 +8,6 @@ export type TaskResponseDto = {
      */
     taskId: string;
     /**
-     * ID of the parent quest
-     */
-    questId: string;
-    /**
      * Theme of the task
      */
     taskTheme: TaskResponseDto.taskTheme;
@@ -52,9 +48,33 @@ export type TaskResponseDto = {
      */
     magatamaPointAwarded: number;
     /**
-     * Total Magatama points awarded
+     * Reward earned for this task
      */
-    totalMagatamaPointAwarded: number;
+    rewardEarned?: string;
+    /**
+     * Whether task is completed
+     */
+    isCompleted: boolean;
+    /**
+     * Flag to indicate if the record is deleted
+     */
+    delFlag?: boolean;
+    /**
+     * ID of user who created this record
+     */
+    insUserId?: string;
+    /**
+     * Timestamp of record creation
+     */
+    insDateTime?: string;
+    /**
+     * ID of user who last updated this record
+     */
+    updUserId?: string;
+    /**
+     * Timestamp of last record update
+     */
+    updDateTime?: string;
 };
 export namespace TaskResponseDto {
     /**

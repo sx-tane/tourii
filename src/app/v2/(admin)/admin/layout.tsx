@@ -7,10 +7,11 @@ interface AdminLayoutProps {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
 	const navItems = [
-		{ name: "Dashboard", href: "/v2/admin" },
-		{ name: "Stories", href: "/v2/admin/stories" },
-		{ name: "Model Routes", href: "/v2/admin/model-routes" },
-		{ name: "Quests", href: "/v2/admin/quests" },
+		{ name: "🏠 Home", href: "/v2/admin" },
+		{ name: "📊 Analytics", href: "/v2/admin/analytics" },
+		{ name: "📚 Stories", href: "/v2/admin/stories" },
+		{ name: "🗺️ Model Routes", href: "/v2/admin/model-routes" },
+		{ name: "🏆 Quests", href: "/v2/admin/quests" },
 	];
 
 	return (

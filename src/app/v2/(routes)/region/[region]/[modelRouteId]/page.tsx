@@ -3,8 +3,9 @@ import { ApiError } from "@/api/generated";
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import ModelRouteIntro from "@/components/model-route/route-details/model-route-intro";
+import ModelRouteMapWrapper from "@/components/model-route/route-details/model-route-map-wrapper/model-route-map-wrapper";
 import RouteDestination from "@/components/model-route/route-details/route-destination";
-import { getModelRouteById } from "@/hooks/routes/getModelRouteById";
+import { useModelRouteById } from "@/hooks";
 import { logger } from "@/utils/logger";
 import { useParams } from "next/navigation";
 
@@ -16,10 +17,11 @@ const RegionRoutesPage = () => {
 
 	const {
 		modelRoute,
-		isLoadingModelRoute,
-		isErrorModelRoute,
-		mutateModelRoute,
-	} = getModelRouteById(modelRouteId);
+		isLoading: isLoadingModelRoute,
+		isError: isErrorModelRoute,
+		mutate: mutateModelRoute,
+		error,
+	} = useModelRouteById(modelRouteId);
 
 	if (isLoadingModelRoute) {
 		return <Loading />;
@@ -29,12 +31,12 @@ const RegionRoutesPage = () => {
 		let errorMessage = "Failed to load model route.";
 		let errorStatus: number | undefined = undefined;
 
-		if (isErrorModelRoute instanceof ApiError) {
-			errorMessage = isErrorModelRoute.message;
-			errorStatus = isErrorModelRoute.status;
+		if (error instanceof ApiError) {
+			errorMessage = error.message;
+			errorStatus = error.status;
 			logger.error("API Error loading model route:", {
-				status: isErrorModelRoute.status,
-				message: isErrorModelRoute.message,
+				status: error.status,
+				message: error.message,
 			});
 		}
 		return (
@@ -72,6 +74,7 @@ const RegionRoutesPage = () => {
 		<div className="absolute md:-right-0 mt-5 md:mt-10 md:w-[95vw] w-screen animate-fadeIn md:space-y-2 space-y-3">
 			<ModelRouteIntro modelRoute={modelRoute} />
 			<RouteDestination touristSpotList={modelRoute.touristSpotList} />
+			<ModelRouteMapWrapper modelRoute={modelRoute} className="h-full" />
 		</div>
 	);
 };

@@ -4,10 +4,6 @@
 /* eslint-disable */
 export type QuestUpdateRequestDto = {
     /**
-     * Unique identifier for the quest
-     */
-    questId: string;
-    /**
      * Unique identifier for the tourist spot
      */
     touristSpotId: string;
@@ -48,6 +44,10 @@ export type QuestUpdateRequestDto = {
      */
     delFlag: boolean;
     /**
+     * Unique identifier for the quest
+     */
+    questId: string;
+    /**
      * Unique identifier for the user who updated the quest
      */
     updUserId: string;
@@ -55,14 +55,6 @@ export type QuestUpdateRequestDto = {
      * List of tasks for the quest
      */
     taskList?: Array<{
-        /**
-         * Unique identifier for the task
-         */
-        taskId: string;
-        /**
-         * ID of the parent quest
-         */
-        questId: string;
         /**
          * Theme of the task
          */
@@ -104,9 +96,13 @@ export type QuestUpdateRequestDto = {
          */
         magatamaPointAwarded: number;
         /**
-         * Total Magatama points awarded
+         * Reward earned for this task
          */
-        totalMagatamaPointAwarded: number;
+        rewardEarned?: string;
+        /**
+         * Unique identifier for the task
+         */
+        taskId: string;
         /**
          * Flag to indicate if the task is deleted
          */

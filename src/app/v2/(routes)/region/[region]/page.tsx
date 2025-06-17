@@ -2,7 +2,7 @@
 import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import RouteCarousel from "@/components/model-route/route-component/route-carousel/route-carousel";
-import { getModelRoutes } from "@/hooks/routes/getModelRoutes";
+import { useModelRoutes } from "@/hooks";
 import { ApiError } from "@/lib/errors";
 import { logger } from "@/utils/logger";
 import { motion } from "framer-motion";
@@ -16,11 +16,12 @@ const RegionModelRoutesPage: NextPage = () => {
 	const regionName = params.region as string;
 
 	const {
-		modelRoutes,
-		isLoadingModelRoutes,
-		isErrorModelRoutes,
-		mutateModelRoutes,
-	} = getModelRoutes();
+		data: modelRoutes,
+		isLoading,
+		isError,
+		error,
+		mutate,
+	} = useModelRoutes();
 
 	// Filter model routes for the specific region
 	const regionModelRoutes = useMemo(() => {
@@ -33,28 +34,28 @@ const RegionModelRoutesPage: NextPage = () => {
 		);
 	}, [modelRoutes, regionName]);
 
-	if (isLoadingModelRoutes) {
+	if (isLoading) {
 		return <Loading />;
 	}
 
-	if (isErrorModelRoutes) {
+	if (isError) {
 		let errorMessage =
 			"An unexpected error occurred while loading model routes.";
 		let errorStatus: number | undefined = undefined;
 
-		if (isErrorModelRoutes instanceof ApiError) {
-			errorMessage = isErrorModelRoutes.message;
-			errorStatus = isErrorModelRoutes.status;
+		if (error instanceof ApiError) {
+			errorMessage = error.message;
+			errorStatus = error.status;
 			logger.error("API Error loading model routes:", {
-				status: isErrorModelRoutes.status,
-				message: isErrorModelRoutes.message,
-				context: isErrorModelRoutes.context,
+				status: error.status,
+				message: error.message,
+				context: error.context,
 			});
-		} else if (isErrorModelRoutes instanceof Error) {
-			errorMessage = isErrorModelRoutes.message;
+		} else if (error instanceof Error) {
+			errorMessage = error.message;
 		} else {
 			logger.error("Unknown error loading model routes:", {
-				isErrorModelRoutes,
+				error,
 			});
 		}
 
@@ -62,7 +63,7 @@ const RegionModelRoutesPage: NextPage = () => {
 			<TouriiError
 				errorMessage={errorMessage}
 				status={errorStatus}
-				onRetry={mutateModelRoutes}
+				onRetry={mutate}
 				textColor="text-charcoal"
 				titleTextColor="text-red"
 			/>
