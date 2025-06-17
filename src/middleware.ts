@@ -18,7 +18,7 @@ export default withAuth(
       }
     },
     pages: { 
-      signIn: "/v2/auth/launch-app"       // redirect here if not authorized
+      signIn: "/auth/login"      // redirect here if not authorized
     }
   }
 );

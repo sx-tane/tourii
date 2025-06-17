@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navigationSignedOut } from "../../../lib/data/header-data";
 import Dropdown from "../dropdown";
-import LoginModal from "./login-modal";
+import LoginModal from "@/app/auth/login/page";
 
 const HeaderList: React.FC<HeaderProps> = ({ theme, textColor }) => {
 	const pathname = usePathname();

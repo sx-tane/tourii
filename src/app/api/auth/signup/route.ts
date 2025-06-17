@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": env.BACKEND_API_KEY,
-        "x-api-version": env.BACKEND_API_VERSION || "1.0",
+        "x-api-version": env.BACKEND_API_VERSION || "1.0.0",
       },
       body: JSON.stringify({ email, socialProvider, socialId, username }),
     });

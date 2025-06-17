@@ -1,5 +1,4 @@
 import type { NavItem } from "@/types/header-type";
-import type { LoginComponents } from "@/types/header-type";
 
 export const navigationSignedOut: NavItem[] = [
 	{ href: "/about", label: "ABOUT" },
@@ -58,26 +57,3 @@ export const hamburgerNavigationSignedOut: NavItem[] = [
 // 		label: "DISCORD",
 // 	},
 // ];
-
-export const walletLoginData: LoginComponents[] = [
-	{
-		loginlabel: "METAMASK",
-		image: "/image/login/metamaskIcon.png",
-	},
-
-	{
-		loginlabel: "WEB3 AUTH",
-		image: "/image/login/web3authIcon.png",
-	},
-];
-
-export const emailLoginData: LoginComponents[] = [
-	{
-		loginlabel: "LOGIN WITH EMAIL",
-		image: "/image/login/emailIcon.png",
-	},
-	{
-		loginlabel: "LOGIN WITH GOOGLE",
-		image: "/image/login/googleIcon.png",
-	},
-];

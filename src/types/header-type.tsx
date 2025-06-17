@@ -21,7 +21,3 @@ export interface HeaderProps {
 	textColor?: string;
 }
 
-export interface LoginComponents {
-	loginlabel: string;
-	image: string;
-}

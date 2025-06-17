@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { email, username, address, signature } = body;
 
-  const apiVersion = env.BACKEND_API_VERSION || "1.0";
+  const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
   const apiKey = env.BACKEND_API_KEY;
 
   if (!apiKey) {

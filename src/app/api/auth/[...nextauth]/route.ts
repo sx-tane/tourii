@@ -17,12 +17,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Call Tourii backend to verify email/password
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "x-api-key": process.env.BACKEND_API_KEY!,       // include API key for backend auth:contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-            "x-api-version": process.env.BACKEND_API_VERSION || "1.0"
+            "x-api-version": process.env.BACKEND_API_VERSION || "1.0.0"
           },
           body: JSON.stringify({
             email: credentials?.email,
@@ -67,7 +67,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Verify the wallet signature with the backend
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/verify-signature`, {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/auth/verify-signature`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -126,12 +126,12 @@ export const authOptions: NextAuthOptions = {
             const { exp } = JSON.parse(Buffer.from(payloadB64, 'base64').toString());
             if (Date.now() / 1000 > exp - 60) {
               // Token expired or about to expire, refresh it
-              const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`, {
+              const res = await fetch(`${process.env.BACKEND_URL}/auth/refresh`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                   "x-api-key": process.env.BACKEND_API_KEY!,
-                  "x-api-version": process.env.BACKEND_API_VERSION || "1.0"
+                  "x-api-version": process.env.BACKEND_API_VERSION || "1.0.0"
                 },
                 body: JSON.stringify({ refreshToken })
               });
@@ -180,7 +180,7 @@ export const authOptions: NextAuthOptions = {
   },
   // Specify custom pages if needed (we'll use our own routes)
   pages: {
-    signIn: "/v2/auth/launch-app",        // custom login/register page:contentReference[oaicite:3]{index=3}
+    signIn: "/auth/login",        // custom login/register page:contentReference[oaicite:3]{index=3}
     error: "/v2/auth/error"
   }
 };
