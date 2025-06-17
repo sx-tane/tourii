@@ -3,7 +3,7 @@ import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { crewData } from "@/lib/data/about/crew-data";
 import type { CrewInfoProps } from "@/types/about-type";
 import { motion } from "framer-motion";
-import type React from "react";
+
 import { useInView } from "react-intersection-observer";
 import CrewMemberCard from "./crew-member-card";
 

@@ -1,7 +1,7 @@
 import type { RootState } from "@/lib/redux/store";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { useSelector } from "react-redux";
 import { MotionButton } from "@/components/common";
 

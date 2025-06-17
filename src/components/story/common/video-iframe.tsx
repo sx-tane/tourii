@@ -1,5 +1,5 @@
 import type { VideoIframeProps } from "@/types/story-type";
-import type React from "react";
+
 
 const VideoIframe: React.FC<VideoIframeProps> = ({ iframeSrc, title }) => {
 	return (

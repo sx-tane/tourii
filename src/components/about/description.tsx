@@ -3,7 +3,7 @@ import { downToUpVariants } from "@/lib/animation/variants-settings";
 import type { DescriptionProps } from "@/types/about-type";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { useInView } from "react-intersection-observer";
 import ReactMarkdown from "react-markdown";
 import Line from "./divider-line/line";

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { ModelRouteResponseDto } from "@/api/generated";
 import type { UseMapInitializationResult } from "../types";
+import { logger } from "@/utils/logger";
 
 /**
  * Custom hook for Leaflet map initialization
@@ -9,13 +10,11 @@ import type { UseMapInitializationResult } from "../types";
 export const useMapInitialization = (
   touristSpotList: ModelRouteResponseDto["touristSpotList"]
 ): UseMapInitializationResult => {
-  // biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-  const [map, setMap] = useState<any>(null);
+  const [map, setMap] = useState<L.Map | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
   const [shouldFitBounds, setShouldFitBounds] = useState(false);
 
-  // biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
-  const handleMapReady = (mapInstance: any) => {
+  const handleMapReady = (mapInstance: L.Map) => {
     setMap(mapInstance);
     setIsMapReady(true);
 
@@ -25,7 +24,7 @@ export const useMapInitialization = (
       mapInstance.setMaxZoom(16);
       setShouldFitBounds(true);
     } catch (error) {
-      console.log('Map initialization error (safe to ignore):', error);
+      logger.warn('Map initialization error (safe to ignore)', { error });
     }
   };
 

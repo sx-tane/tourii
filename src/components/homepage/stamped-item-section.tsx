@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import type React from "react";
+
 import Line from "../about/divider-line/line";
 import { SectionTitle } from "../common/section-title";
 import ChapterDisplay from "./chapter-display";

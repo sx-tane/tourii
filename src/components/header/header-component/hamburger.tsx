@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type React from "react";
+
 import { Fragment, useState } from "react";
 import { hamburgerNavigationSignedOut } from "../../../lib/data/header-data";
 
@@ -25,6 +25,9 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 					<MenuButton
 						className="inline-flex w-full justify-center gap-x-1.5 rounded-md"
 						onClick={toggleMenu}
+						aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+						aria-expanded={isOpen}
+						aria-controls="hamburger-menu"
 					>
 						<AnimatePresence mode={"wait"}>
 							{isOpen ? (
@@ -67,9 +70,11 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 					leaveTo="transform opacity-0 scale-95"
 				>
 					<MenuItems
+						id="hamburger-menu"
 						className={`absolute -right-7 z-50 mt-10 w-44 rounded-md ${
 							isBlackTheme ? "bg-warmGrey" : "bg-charcoal"
 						} px-8 py-4 shadow-lg`}
+						aria-labelledby="hamburger-button"
 					>
 						<div className="mr-0 space-y-4 text-center">
 							{hamburgerNavigationSignedOut.map((item) => (

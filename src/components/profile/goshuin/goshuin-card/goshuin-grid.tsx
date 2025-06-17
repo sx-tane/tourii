@@ -7,7 +7,7 @@ import type { GoshuinGridProps } from "@/types/profile-type";
 import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import type React from "react";
+
 
 const GoshuinGrid: React.FC<GoshuinGridProps> = ({
 	goshuin,
