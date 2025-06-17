@@ -20,8 +20,8 @@ export function useMoments(
     // Standardized properties
     data,
     isLoading,
-    isError: !!error,
-    error,
+    isError: Boolean(error),
+    error: (error as Error) || null,
     mutate,
     // Legacy property for backward compatibility
     moments: data,
