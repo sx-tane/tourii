@@ -1,4 +1,4 @@
-import type React from "react";
+import { memo } from "react";
 
 interface ActionButtonProps {
 	/** The text to display on the button */
@@ -13,7 +13,7 @@ interface ActionButtonProps {
 	disabled?: boolean;
 }
 
-const ActionButton: React.FC<ActionButtonProps> = ({
+const ActionButton: React.FC<ActionButtonProps> = memo(({
 	children,
 	className = "",
 	onClick,
@@ -30,6 +30,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 			{children}
 		</button>
 	);
-};
+});
+
+ActionButton.displayName = "ActionButton";
 
 export default ActionButton;

@@ -1,7 +1,7 @@
 import type { RegionSelection } from "@/app/v2/(routes)/types";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
-import type React from "react";
+
 import { memo } from "react";
 import { RegionSelectionButton } from "@/components/model-route/region";
 

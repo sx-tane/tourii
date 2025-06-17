@@ -14,11 +14,17 @@ import {
 	useMapInitialization,
 	useTouristSpotSelection,
 } from "@/hooks";
-import LeafletMapView from "./leaflet-map-view";
+import dynamic from "next/dynamic";
 import TouristSpotMarkers from "./tourist-spot-markers";
 import LocationInfoPanel from "./location-info-panel";
 import SpotDetailSidebar from "./spot-detail-sidebar";
 import MapErrorBoundary from "@/components/common/map-error-boundary";
+import MapLoadingSkeleton from "./map-loading-skeleton";
+
+const LeafletMapView = dynamic(() => import("./leaflet-map-view"), {
+	loading: () => <MapLoadingSkeleton />,
+	ssr: false,
+});
 
 // Constants
 const DEFAULT_ZOOM = 12;
@@ -394,7 +400,7 @@ const MapContainer: React.FC<{
 	mapCenter: [number, number];
 	onMapReady: (mapInstance: L.Map) => void;
 	isMapReady: boolean;
-	map: L.Map;
+	map: L.Map | null;
 	touristSpotList: ModelRouteResponseDto["touristSpotList"];
 	selectedTouristSpotId: string | undefined;
 	onSpotSelect: (id: string | undefined) => void;
@@ -447,7 +453,7 @@ const MapContainer: React.FC<{
 					onMapReady={onMapReady}
 					className="h-full w-full relative z-0"
 				>
-					{isMapReady && (
+					{isMapReady && map && (
 						<TouristSpotMarkers
 							touristSpots={touristSpotList}
 							selectedSpotId={selectedTouristSpotId}
@@ -520,7 +526,7 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 }) => {
 	const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-	const { isMobileTablet } = useResponsiveDetection();
+	const { isMobileTablet, isInitialized } = useResponsiveDetection();
 	const {
 		selectedTouristSpotId,
 		setSelectedTouristSpotId,
@@ -535,7 +541,8 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 	const mapCenter = getMapCenter(modelRoute);
 
 	// Mobile/Tablet View - Show spot details with fullscreen map
-	if (isMobileTablet) {
+	// Only use mobile view if responsive detection is initialized and it's actually mobile/tablet
+	if (isInitialized && isMobileTablet) {
 		return (
 			<>
 				<MobileTabletView
@@ -566,12 +573,12 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 	return (
 		<motion.div
 			{...ANIMATIONS.main}
-			className={`bg-warmGrey2 rounded-s-3xl overflow-hidden pb-10 ${className}`}
+			className={`bg-warmGrey2 rounded-s-3xl overflow-hidden pb-10 min-h-[600px] ${className}`}
 		>
 			<DesktopMapHeader modelRoute={modelRoute} />
 
 			{/* Main Content */}
-			{modelRoute.touristSpotList.length > 0 && (
+			{modelRoute.touristSpotList.length > 0 ? (
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-0 h-[80vh] my-2 mx-10">
 					<MapContainer
 						mapCenter={mapCenter}
@@ -595,6 +602,28 @@ const ModelRouteMapWrapper: React.FC<ModelRouteMapWrapperProps> = ({
 							setSelectedTouristSpotId(spotId);
 						}}
 					/>
+				</div>
+			) : (
+				<div className="flex items-center justify-center h-[400px] mx-10">
+					<div className="text-center text-charcoal">
+						{modelRoute.touristSpotList.length === 0 ? (
+							<>
+								<div className="text-lg font-medium mb-2">
+									No Tourist Spots Available
+								</div>
+								<div className="text-sm opacity-70">
+									This route doesn't have any tourist spots to display.
+								</div>
+							</>
+						) : !map ? (
+							<>
+								<div className="text-lg font-medium mb-2">Loading Map...</div>
+								<div className="text-sm opacity-70">
+									Please wait while the map initializes.
+								</div>
+							</>
+						) : null}
+					</div>
 				</div>
 			)}
 		</motion.div>

@@ -4,8 +4,15 @@
  */
 await import("./src/env.js");
 
+const withBundleAnalyzer = (await import('@next/bundle-analyzer')).default({
+    enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import("next").NextConfig} */
-export default {
+const config = {
+    turbopack: {
+        resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.json'],
+    },
     images: {
         remotePatterns: [
             {
@@ -26,5 +33,14 @@ export default {
                 hostname: 'places.googleapis.com',
             },
         ],
+        formats: ['image/webp', 'image/avif'],
+    },
+    experimental: {
+        optimizePackageImports: ['leaflet', 'framer-motion', '@heroicons/react'],
+    },
+    compiler: {
+        removeConsole: process.env.NODE_ENV === 'production',
     },
 };
+
+export default withBundleAnalyzer(config);

@@ -6,7 +6,7 @@ import DividerWhite from "@/components/world/white-divider";
 import WhiteLine from "@/components/world/white-line";
 import { titleData, worldData } from "@/lib/data/world/world-data";
 import type { NextPage } from "next";
-import type React from "react";
+
 
 const World: NextPage = () => {
 	return (

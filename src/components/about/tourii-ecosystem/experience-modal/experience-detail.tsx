@@ -1,7 +1,7 @@
 "use client";
 import type { ExperienceDetailProps } from "@/types/about-type";
 import Image from "next/image";
-import type React from "react";
+
 import { useEffect, useState } from "react";
 import ExperienceCircle from "./experience-circle/experience-circle";
 

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import type React from "react";
+
 import { useState } from "react";
 
 interface MotionButtonProps {

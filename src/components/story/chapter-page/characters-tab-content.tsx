@@ -7,7 +7,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import type React from "react";
+
 
 interface CharactersTabContentProps {
 	relevantCharacters: CharacterProps[];

@@ -5,7 +5,7 @@ import {
 } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import StoryButton from "../common/story-button";
 
 const StoryComponent: React.FC<{ story: StoryResponseDto | undefined }> = ({

@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/hoverCard";
 import type { TravelGoshuin } from "@/types/profile-type";
 import Image from "next/image";
-import type React from "react";
+
 
 interface GoshuinProps {
 	goshuin: TravelGoshuin;

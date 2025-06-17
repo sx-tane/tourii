@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import type React from "react";
+
 import type { CloseButtonProps } from "./close-button";
 
 const CloseButtonMobile: React.FC<CloseButtonProps> = ({ onClose }) => {
