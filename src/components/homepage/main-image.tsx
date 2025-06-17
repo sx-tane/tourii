@@ -3,7 +3,7 @@ import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import type React from "react";
+
 
 const MainImage: React.FC = () => {
 	const videoRef = useRef<HTMLVideoElement>(null);

@@ -16,7 +16,20 @@
       "Bash(node:*)",
       "Bash(timeout 30s pnpm dev --port 3002)",
       "Bash(timeout:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(depcheck:*)",
+      "Bash(if [ -d \".next\" ])",
+      "Bash(then du -sh .next/)",
+      "Bash(else echo \"No build directory found\")",
+      "Bash(fi)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm config set:*)",
+      "Bash(pnpm install:*)",
+      "Bash(npx depcheck:*)",
+      "Bash(pnpm test:*)",
+      "Bash(npx vitest run:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

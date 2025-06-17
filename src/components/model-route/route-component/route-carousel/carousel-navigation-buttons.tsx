@@ -1,6 +1,6 @@
 "use client";
 
-import type React from "react";
+
 import { motion } from "framer-motion";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 

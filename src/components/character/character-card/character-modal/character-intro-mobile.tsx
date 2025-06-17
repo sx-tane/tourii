@@ -3,7 +3,7 @@ import Loading from "@/app/loading";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import { type CharacterModalLeftProps, notoSerifJP } from "./character-intro";

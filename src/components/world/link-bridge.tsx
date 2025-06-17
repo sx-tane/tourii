@@ -1,6 +1,6 @@
 import type { BridgeProps } from "@/types/world-type";
 import Image from "next/image";
-import type React from "react";
+
 
 const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
 	return (

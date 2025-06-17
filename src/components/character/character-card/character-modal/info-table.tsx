@@ -1,5 +1,5 @@
 import type { CharacterProps } from "@/app/v2/(stories)/types";
-import type React from "react";
+
 
 interface CharacterModalInfoTableProps {
 	character: CharacterProps;

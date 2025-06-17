@@ -1,4 +1,4 @@
-import type React from "react";
+
 import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 
 interface QuestOverviewProps {

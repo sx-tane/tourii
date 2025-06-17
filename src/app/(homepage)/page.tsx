@@ -3,7 +3,7 @@ import MainImage from "@/components/homepage/main-image";
 import NFTEmblem from "@/components/homepage/nft-emblem";
 import type { NextPage } from "next";
 import Image from "next/image";
-import type React from "react";
+
 
 const HomePage: NextPage = () => {
 	return (

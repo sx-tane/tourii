@@ -17,7 +17,6 @@ import {
 	ChevronLeft,
 	ChevronRight,
 } from "lucide-react";
-import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLocationInfo } from "@/hooks";
@@ -34,7 +33,7 @@ const ANIMATIONS = {
 		initial: { opacity: 0, y: 20 },
 		animate: { opacity: 1, y: 0 },
 		transition: { duration: 0.3 },
-	},
+	 },
 	loading: {
 		initial: { opacity: 0 },
 		animate: { opacity: 1 },
