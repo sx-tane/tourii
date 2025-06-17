@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@reference {
+	.bg-warmGrey { background-color: #e3e3dc; }
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;

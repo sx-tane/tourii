@@ -84,7 +84,7 @@ const ExperienceModal: React.FC<ModalProps> = ({ isOpen, onClose, data }) => {
 						isOpen={isOpen}
 						onRequestClose={handleClose}
 						ariaHideApp={false}
-						overlayClassName="fixed inset-0 z-20 bg-black bg-opacity-50 flex items-center justify-center"
+						overlayClassName="fixed inset-0 z-20 bg-black/50 flex items-center justify-center"
 						className="h-20vh w-25vw absolute m-10 animate-fadeIn rounded-lg bg-charcoal lg:m-0"
 					>
 						<h1 className="top-0 mx-10 mt-4 text-center text-xs font-bold uppercase tracking-widest text-warmGrey3 sm:text-base lg:mx-0 lg:mt-6">

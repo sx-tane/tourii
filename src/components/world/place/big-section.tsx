@@ -21,7 +21,7 @@ const BigSection: React.FC = () => {
 					className="relative overflow-hidden rounded-full border-2 border-warmGrey3"
 					style={{ paddingBottom: "35%" }}
 				>
-					<div className="absolute left-1/2 top-4 z-10 hidden -translate-x-1/2 -translate-y-1/2 transform text-center font-semibold italic tracking-wide text-black sm:flex sm:text-xs md:text-sm 2xl:text-lg">
+					<div className="absolute left-1/2 top-4 z-10 hidden -translate-x-1/2 -translate-y-1/2 text-center font-semibold italic tracking-wide text-black sm:flex sm:text-xs md:text-sm 2xl:text-lg">
 						Central Earth Japan
 					</div>
 					<div

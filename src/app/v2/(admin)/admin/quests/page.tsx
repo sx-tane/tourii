@@ -162,7 +162,7 @@ export default function AdminQuests() {
 					<button
 						type="button"
 						onClick={openCreateModal}
-						className="flex items-center gap-2 rounded-lg bg-red px-4 py-2 text-white hover:bg-opacity-90 transition-all"
+						className="flex items-center gap-2 rounded-lg bg-red px-4 py-2 text-white hover:bg-red/90 transition-all"
 					>
 						<Plus size={18} />
 						Create New Quest
@@ -277,7 +277,7 @@ export default function AdminQuests() {
 												{quest.tasks && quest.tasks.length > 0 && (
 													<a
 														href={`/v2/admin/quests/${quest.questId}`}
-														className="rounded-lg bg-mustard p-2 text-charcoal hover:bg-opacity-80 transition-all inline-flex items-center justify-center"
+														className="rounded-lg bg-mustard p-2 text-charcoal hover:bg-mustard/80 transition-all inline-flex items-center justify-center"
 														title="Manage Tasks"
 													>
 														<Eye size={16} />
@@ -303,7 +303,7 @@ export default function AdminQuests() {
 
 				{/* Create/Edit Modal */}
 				{showCreateModal && (
-					<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
 						<div className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white p-6 shadow-xl">
 							<div className="mb-6 flex items-center justify-between">
 								<h2 className="text-2xl font-bold text-charcoal">
@@ -563,7 +563,7 @@ export default function AdminQuests() {
 									type="button"
 									onClick={editingQuest ? handleUpdate : handleCreate}
 									disabled={isSubmitting}
-									className="rounded-lg bg-red px-6 py-2 text-white hover:bg-opacity-90 disabled:opacity-50"
+									className="rounded-lg bg-red px-6 py-2 text-white hover:bg-red/90 disabled:opacity-50"
 								>
 									{isSubmitting
 										? "Saving..."

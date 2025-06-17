@@ -260,7 +260,7 @@ export default function TouristSpotManagement({ params }: Props) {
 					<button
 						type="button"
 						onClick={openCreateModal}
-						className="flex items-center gap-2 rounded-lg bg-red px-4 py-2 text-white hover:bg-opacity-90 transition-all"
+						className="flex items-center gap-2 rounded-lg bg-red px-4 py-2 text-white hover:bg-red/90 transition-all"
 					>
 						<Plus size={18} />
 						Add Tourist Spot
@@ -393,7 +393,7 @@ export default function TouristSpotManagement({ params }: Props) {
 
 				{/* Create/Edit Modal */}
 				{showCreateModal && (
-					<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
 						<div className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white p-6 shadow-xl">
 							<div className="mb-6 flex items-center justify-between">
 								<h2 className="text-2xl font-bold text-charcoal">
@@ -573,7 +573,7 @@ export default function TouristSpotManagement({ params }: Props) {
 									type="button"
 									onClick={editingSpot ? handleUpdate : handleCreate}
 									disabled={isSubmitting}
-									className="rounded-lg bg-red px-6 py-2 text-white hover:bg-opacity-90 disabled:opacity-50"
+									className="rounded-lg bg-red px-6 py-2 text-white hover:bg-red/90 disabled:opacity-50"
 								>
 									{isSubmitting
 										? "Saving..."

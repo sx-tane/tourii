@@ -57,7 +57,7 @@ const CharacterIntroMobile: React.FC<CharacterModalLeftProps> = ({
 					/>
 
 					{/* Character Details */}
-					<div className="absolute inset-0 top-1/2 md:top-3/4 h-fit md:h-screen w-full bg-warmGrey bg-opacity-50 p-10 box-border">
+					<div className="absolute inset-0 top-1/2 md:top-3/4 h-fit md:h-screen w-full bg-warmGrey/50 p-10 box-border">
 						<p
 							className={`text-xl font-bold tracking-widest text-black my-2 ${notoSerifJP.className}`}
 						>

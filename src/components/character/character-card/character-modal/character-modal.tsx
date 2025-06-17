@@ -76,7 +76,7 @@ const CharacterModal: React.FC<CharacterModalProps> = ({
 				<>
 					{/* Backdrop */}
 					<motion.div
-						className="fixed inset-0 bg-black bg-opacity-50 z-40"
+						className="fixed inset-0 bg-black/50 z-40"
 						initial="hidden"
 						animate="visible"
 						exit="hidden"
