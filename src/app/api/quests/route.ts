@@ -14,11 +14,12 @@ export async function GET(request: NextRequest) {
             QuestService.touriiBackendControllerGetQuestList(
                 apiVersion,
                 apiKey,
+                undefined,
                 questType ?? undefined,
                 isUnlocked ?? undefined,
                 isPremium ?? undefined,
                 undefined,
-                undefined
+                page
             ),
         "GET /api/quests"
     );
