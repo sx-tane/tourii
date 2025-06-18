@@ -122,12 +122,11 @@ export function QuestCard({ quest, onSelect, variant = 'default', className }: Q
 ```bash
 # Development server with hot reload
 pnpm dev                    # Start with Turbopack (faster)
-pnpm dev:next              # Start with standard Next.js dev server
+pnpm dev:network            # Start with network access (--hostname 192.168.0.67)
 
 # Production build and preview
 pnpm build                  # Build for production
 pnpm start                  # Start production server
-pnpm preview                # Preview production build locally
 ```
 
 ### Code Quality & Testing
@@ -140,7 +139,7 @@ pnpm type-check             # TypeScript type checking
 
 # Testing
 pnpm test                   # Run unit tests with Vitest
-pnpm test:watch             # Run tests in watch mode
+pnpm test:ui                # Run tests with UI
 pnpm test:coverage          # Generate test coverage report
 
 # Storybook
@@ -551,26 +550,24 @@ export function useResponsiveDetection(): ResponsiveState {
 
 ```env
 # Core Application
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_API_BASE_URL=http://localhost:4000
 NODE_ENV=development
+NEXT_PUBLIC_BACKEND_URL=http://localhost:4000
 
 # Backend API
-TOURII_BACKEND_API_KEY=your-backend-api-key
+BACKEND_API_KEY=your-backend-api-key
+BACKEND_API_VERSION=1.0.0
 
-# Web3 Integration
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your-walletconnect-id
-NEXT_PUBLIC_CHAIN_ID=1116
-NEXT_PUBLIC_RPC_URL=https://rpc.vara.network
+# Google Services
+GOOGLE_MAPS_API_KEY=your-google-maps-api-key
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
 
-# Maps and Location
-NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your-mapbox-token
+# Authentication
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret
 
-# Storage
-NEXT_PUBLIC_NFT_STORAGE_TOKEN=your-nft-storage-token
-
-# Analytics (optional)
-NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=your-ga-id
+# Environment Validation (optional)
+SKIP_ENV_VALIDATION=false
 ```
 
 ### Environment Validation
@@ -888,12 +885,11 @@ export const QuestCard = memo(function QuestCard(props: QuestCardProps) {
 ### Bundle Analysis
 
 ```bash
-# Analyze bundle size
-pnpm build
+# Analyze bundle size  
 pnpm analyze
 
-# Check for large dependencies
-npx next-bundle-analyzer
+# Additional analysis tools
+npx depcheck                # Check for unused dependencies
 ```
 
 ---
@@ -1228,4 +1224,4 @@ function QuestCard({ quest }: QuestCardProps) {
 
 ---
 
-*Last Updated: June 17, 2025*
+*Last Updated: June 18, 2025*

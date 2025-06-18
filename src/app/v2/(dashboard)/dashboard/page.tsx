@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import CheckinMapCard from "@/components/dashboard/checkin-map-card";
+import { MomentsSection } from "@/components/dashboard/moments-section";
 
 // Mock data for development
 const mockDashboardData = {
@@ -122,7 +123,9 @@ const DashboardPage = () => {
 				{/* Check-In Map Card */}
 				<CheckinMapCard
 					userId={session?.user?.email || undefined}
-					onNavigateToStory={(storyId) => router.push(`/v2/touriiverse/${storyId}`)}
+					onNavigateToStory={(storyId) =>
+						router.push(`/v2/touriiverse/${storyId}`)
+					}
 					onNavigateToQuest={(questId) => router.push(`/v2/quests/${questId}`)}
 				/>
 			</div>
@@ -147,6 +150,9 @@ const DashboardPage = () => {
 					))}
 				</div>
 			</div>
+
+			{/* Latest Moments */}
+			<MomentsSection />
 
 			{/* Recommended Next Steps */}
 			<div className="bg-white shadow-sm rounded-lg p-6">

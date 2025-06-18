@@ -292,5 +292,5 @@ Please report all potential issues to: `security@tourii.com`
 
 **Note**: This is a living document. Update it regularly as new security measures are implemented or requirements change.
 
-*Last updated: June 16 2025*
+*Last updated: June 18, 2025*
 
