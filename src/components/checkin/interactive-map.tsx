@@ -305,7 +305,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
 				className="h-full w-full bg-gray-100 rounded-lg overflow-hidden"
 			/>
 
-			{/* Loading state */}
+			{/* Loading state or fallback */}
 			{(isLoading || leafletLoading) && (
 				<motion.div
 					className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded-lg"
@@ -326,6 +326,46 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
 							🗾
 						</motion.div>
 						<p className="text-gray-600">Loading map...</p>
+
+						{/* Fallback after timeout */}
+						{!leafletLoading && !L && (
+							<div className="mt-4 p-4 bg-white rounded-lg border border-gray-200 max-w-xs">
+								<div className="text-2xl mb-2">🗺️</div>
+								<p className="text-sm text-gray-600 mb-2">
+									Map preview unavailable
+								</p>
+								<div className="text-xs text-gray-500">
+									{checkins.length} location{checkins.length !== 1 ? "s" : ""}{" "}
+									ready to view
+								</div>
+								{checkins.length > 0 && (
+									<div className="mt-2 space-y-1">
+										{checkins.slice(0, 3).map((checkin, index) => (
+											<div
+												key={checkin.id}
+												className="flex items-center gap-2 text-xs"
+											>
+												<span className="text-base">
+													{checkin.type === "story"
+														? "⛩️"
+														: checkin.type === "quest"
+															? "🏢"
+															: "💎"}
+												</span>
+												<span className="truncate">
+													{checkin.touristSpot.name}
+												</span>
+											</div>
+										))}
+										{checkins.length > 3 && (
+											<div className="text-xs text-gray-400">
+												+{checkins.length - 3} more locations
+											</div>
+										)}
+									</div>
+								)}
+							</div>
+						)}
 					</div>
 				</motion.div>
 			)}
