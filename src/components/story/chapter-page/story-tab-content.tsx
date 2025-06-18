@@ -14,6 +14,7 @@ interface StoryTabContentProps {
 	isMuted: boolean;
 	handleSelectChapter: (chapterId: string) => void;
 	toggleSound: () => void;
+	onVideoComplete?: () => void;
 }
 
 // Helper function to extract sort key from chapter number
@@ -30,6 +31,7 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
 	isMuted,
 	handleSelectChapter,
 	toggleSound,
+	onVideoComplete,
 }) => {
 	// Memoize the sorted chapters array
 	const sortedChapters = useMemo(() => {
@@ -116,6 +118,8 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
 								<VideoIframe
 									iframeSrc={iframeSrc}
 									title={`${chapterToDisplay.sagaName} ${chapterToDisplay.chapterNumber}`}
+									onVideoComplete={onVideoComplete}
+									enableVideoTracking={Boolean(onVideoComplete)}
 								/>
 								<StoryVideoNavigationButtons
 									isMuted={isMuted}

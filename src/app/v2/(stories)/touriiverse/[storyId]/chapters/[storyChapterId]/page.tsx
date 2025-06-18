@@ -5,8 +5,10 @@ import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import { NotFoundComponent } from "@/app/not-found";
 import { ChapterTabs } from "@/components/story/chapter-page/chapter-tabs";
+import { QuestUnlockModal } from "@/components/quest/unlock-notification";
 import Title from "@/components/world/text/title";
-import { useSagaById } from "@/hooks";
+import { useSagaById, useStoryCompletion } from "@/hooks";
+import { useQuestUnlock, useVideoCompletion } from "@/hooks/business";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { selectStories } from "@/lib/redux/features/stories/stories-slice";
 import { useAppSelector } from "@/lib/redux/hooks";
@@ -35,9 +37,36 @@ const ChapterPage: React.FC = () => {
 		isError,
 	} = useSagaById(storyId);
 
+	// Story completion and quest unlock functionality
+	const { completeStoryChapter } = useStoryCompletion();
+	const questUnlock = useQuestUnlock();
+	const videoCompletion = useVideoCompletion(async () => {
+		// Auto-complete story when video ends
+		if (chapterId) {
+			await handleStoryCompletion(chapterId);
+		}
+	});
+
 	const [chapter, setChapter] = useState<StoryChapterResponseDto | null>(null);
 	const [chapterList, setChapterList] = useState<StoryChapterResponseDto[]>([]);
 	const [iframeSrc, setIframeSrc] = useState<string | undefined>(undefined);
+
+	/**
+	 * Handle story chapter completion and quest unlock
+	 */
+	const handleStoryCompletion = async (chapterIdToComplete: string) => {
+		try {
+			const completionData = await completeStoryChapter(chapterIdToComplete);
+			
+			// If there are unlocked quests, show the modal
+			if (completionData.unlockedQuests && completionData.unlockedQuests.length > 0) {
+				questUnlock.showUnlockModal(completionData);
+			}
+		} catch (error) {
+			console.error("Failed to complete story chapter:", error);
+			// Could add toast notification for error handling here
+		}
+	};
 
 	// Try to get chapter data from both sources
 	useEffect(() => {
@@ -123,6 +152,7 @@ const ChapterPage: React.FC = () => {
 				<ChapterTabs
 					chapters={currentChapterList}
 					initialSelectedChapterId={currentChapter.storyChapterId}
+					onVideoComplete={videoCompletion.handleVideoEnd}
 				/>
 			</motion.div>
 			<motion.div
@@ -140,6 +170,16 @@ const ChapterPage: React.FC = () => {
 					Back to Story
 				</Link>
 			</motion.div>
+			{/* Quest Unlock Modal */}
+			{questUnlock.questUnlockData && (
+				<QuestUnlockModal
+					isOpen={questUnlock.isModalOpen}
+					onClose={questUnlock.hideUnlockModal}
+					storyCompletionData={questUnlock.questUnlockData}
+					onStartQuest={questUnlock.handleStartQuest}
+					onViewAllQuests={questUnlock.handleViewAllQuests}
+				/>
+			)}
 		</div>
 	);
 };
