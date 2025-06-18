@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import MapFilters from './map-filters';
 
 const meta = {
@@ -14,6 +13,7 @@ const meta = {
       control: { type: 'select' },
       options: ['all', 'story', 'quest'],
     },
+    onFilterChange: { action: 'onFilterChange' },
   },
 } satisfies Meta<typeof MapFilters>;
 
@@ -23,28 +23,28 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     activeFilter: 'all',
-    onFilterChange: action('onFilterChange'),
+    onFilterChange: () => {},
   },
 };
 
 export const StorySelected: Story = {
   args: {
     activeFilter: 'story',
-    onFilterChange: action('onFilterChange'),
+    onFilterChange: () => {},
   },
 };
 
 export const QuestSelected: Story = {
   args: {
     activeFilter: 'quest',
-    onFilterChange: action('onFilterChange'),
+    onFilterChange: () => {},
   },
 };
 
 export const WithCustomClass: Story = {
   args: {
     activeFilter: 'all',
-    onFilterChange: action('onFilterChange'),
+    onFilterChange: () => {},
     className: 'max-w-md',
   },
 };

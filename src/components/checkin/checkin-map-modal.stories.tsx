@@ -50,10 +50,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  args: {
+    isOpen: false,
+    onClose: () => {},
+  },
   render: () => <ModalWrapper />,
 };
 
 export const WithUserId: Story = {
+  args: {
+    isOpen: false,
+    onClose: () => {},
+    userId: "user123",
+  },
   render: () => <ModalWrapper userId="user123" />,
 };
 
@@ -71,6 +80,11 @@ export const DirectlyOpen: Story = {
 };
 
 export const WithUsageExample: Story = {
+  args: {
+    isOpen: false,
+    onClose: () => {},
+    userId: "demo-user",
+  },
   render: () => (
     <div className="p-8 space-y-4">
       <h2 className="text-2xl font-bold">Check-In Map Modal Example</h2>

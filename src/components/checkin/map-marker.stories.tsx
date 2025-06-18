@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import MapMarker from './map-marker';
 import type { CheckinResponseDto } from '@/hooks/api/useCheckins';
 
@@ -92,6 +91,10 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  argTypes: {
+    checkin: { control: 'object' },
+    onClick: { action: 'onClick' },
+  },
   decorators: [
     (Story) => (
       <div className="p-8 bg-gray-50">
@@ -107,45 +110,49 @@ type Story = StoryObj<typeof meta>;
 export const StoryMarker: Story = {
   args: {
     checkin: mockStoryCheckin,
-    onClick: action('onMarkerClick'),
+    onClick: () => {},
   },
 };
 
 export const QuestMarker: Story = {
   args: {
     checkin: mockQuestCheckin,
-    onClick: action('onMarkerClick'),
+    onClick: () => {},
   },
 };
 
 export const RouteMarker: Story = {
   args: {
     checkin: mockRouteCheckin,
-    onClick: action('onMarkerClick'),
+    onClick: () => {},
   },
 };
 
 export const AllMarkersComparison: Story = {
+  args: {
+    checkin: mockStoryCheckin,
+    onClick: () => {},
+  },
   render: () => (
     <div className="flex items-center gap-8">
       <div className="text-center">
         <MapMarker
           checkin={mockStoryCheckin}
-          onClick={action('onStoryMarkerClick')}
+          onClick={() => {}}
         />
         <p className="mt-2 text-sm text-gray-600">Story</p>
       </div>
       <div className="text-center">
         <MapMarker
           checkin={mockQuestCheckin}
-          onClick={action('onQuestMarkerClick')}
+          onClick={() => {}}
         />
         <p className="mt-2 text-sm text-gray-600">Quest</p>
       </div>
       <div className="text-center">
         <MapMarker
           checkin={mockRouteCheckin}
-          onClick={action('onRouteMarkerClick')}
+          onClick={() => {}}
         />
         <p className="mt-2 text-sm text-gray-600">Route</p>
       </div>

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import LocationDetailsModal from './location-details-modal';
 import { Button } from '@/components/ui/button';
@@ -104,9 +103,9 @@ const ModalWrapper = ({ checkin }: { checkin: CheckinResponseDto }) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         checkin={checkin}
-        onViewStory={action('onViewStory')}
-        onReplayQuest={action('onReplayQuest')}
-        onAddToMemoryWall={action('onAddToMemoryWall')}
+        onViewStory={() => {}}
+        onReplayQuest={() => {}}
+        onAddToMemoryWall={() => {}}
       />
     </>
   );
@@ -122,6 +121,10 @@ const meta = {
   argTypes: {
     isOpen: { control: 'boolean' },
     checkin: { control: 'object' },
+    onClose: { action: 'onClose' },
+    onViewStory: { action: 'onViewStory' },
+    onReplayQuest: { action: 'onReplayQuest' },
+    onAddToMemoryWall: { action: 'onAddToMemoryWall' },
   },
 } satisfies Meta<typeof LocationDetailsModal>;
 
@@ -129,14 +132,38 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const StoryCheckin: Story = {
+  args: {
+    isOpen: false,
+    checkin: mockStoryCheckin,
+    onClose: () => {},
+    onViewStory: () => {},
+    onReplayQuest: () => {},
+    onAddToMemoryWall: () => {},
+  },
   render: () => <ModalWrapper checkin={mockStoryCheckin} />,
 };
 
 export const QuestCheckin: Story = {
+  args: {
+    isOpen: false,
+    checkin: mockQuestCheckin,
+    onClose: () => {},
+    onViewStory: () => {},
+    onReplayQuest: () => {},
+    onAddToMemoryWall: () => {},
+  },
   render: () => <ModalWrapper checkin={mockQuestCheckin} />,
 };
 
 export const RouteCheckin: Story = {
+  args: {
+    isOpen: false,
+    checkin: mockRouteCheckin,
+    onClose: () => {},
+    onViewStory: () => {},
+    onReplayQuest: () => {},
+    onAddToMemoryWall: () => {},
+  },
   render: () => <ModalWrapper checkin={mockRouteCheckin} />,
 };
 
@@ -144,10 +171,10 @@ export const DirectlyOpen: Story = {
   args: {
     isOpen: true,
     checkin: mockStoryCheckin,
-    onClose: action('onClose'),
-    onViewStory: action('onViewStory'),
-    onReplayQuest: action('onReplayQuest'),
-    onAddToMemoryWall: action('onAddToMemoryWall'),
+    onClose: () => {},
+    onViewStory: () => {},
+    onReplayQuest: () => {},
+    onAddToMemoryWall: () => {},
   },
 };
 
@@ -158,7 +185,9 @@ export const NoRewards: Story = {
       ...mockRouteCheckin,
       rewards: [],
     },
-    onClose: action('onClose'),
-    onAddToMemoryWall: action('onAddToMemoryWall'),
+    onClose: () => {},
+    onViewStory: () => {},
+    onReplayQuest: () => {},
+    onAddToMemoryWall: () => {},
   },
 };
