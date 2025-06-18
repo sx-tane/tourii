@@ -388,4 +388,4 @@ Key architectural decisions are documented for future reference:
 
 ---
 
-*Last Updated: June 17, 2025*
+*Last Updated: June 18, 2025*
