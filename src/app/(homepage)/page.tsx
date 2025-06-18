@@ -1,7 +1,6 @@
 import Headline from "@/components/homepage/headline";
 import MainImage from "@/components/homepage/main-image";
 import NFTEmblem from "@/components/homepage/nft-emblem";
-import { HighlightsSection, CTASection, Footer } from "@/components/homepage";
 import type { NextPage } from "next";
 import Image from "next/image";
 
@@ -45,10 +44,6 @@ const HomePage: NextPage = () => {
 				</div>
 			</div>
 
-			{/* Content Sections */}
-			<HighlightsSection />
-			<CTASection />
-			<Footer />
 		</div>
 	);
 };
