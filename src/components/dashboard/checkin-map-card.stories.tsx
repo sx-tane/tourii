@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import CheckinMapCard from './checkin-map-card';
 
 const meta = {
@@ -12,6 +11,8 @@ const meta = {
   argTypes: {
     userId: { control: 'text' },
     className: { control: 'text' },
+    onNavigateToStory: { action: 'onNavigateToStory' },
+    onNavigateToQuest: { action: 'onNavigateToQuest' },
   },
   decorators: [
     (Story) => (
@@ -26,25 +27,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    onNavigateToStory: action('onNavigateToStory'),
-    onNavigateToQuest: action('onNavigateToQuest'),
-  },
+  args: {},
 };
 
 export const WithUserId: Story = {
   args: {
     userId: 'user123',
-    onNavigateToStory: action('onNavigateToStory'),
-    onNavigateToQuest: action('onNavigateToQuest'),
   },
 };
 
 export const CustomClass: Story = {
   args: {
     className: 'border-l-4 border-l-indigo-500',
-    onNavigateToStory: action('onNavigateToStory'),
-    onNavigateToQuest: action('onNavigateToQuest'),
   },
 };
 
@@ -59,8 +53,8 @@ export const InDashboardGrid: Story = {
       
       <CheckinMapCard
         userId="demo-user"
-        onNavigateToStory={action('onNavigateToStory')}
-        onNavigateToQuest={action('onNavigateToQuest')}
+        onNavigateToStory={() => {}}
+        onNavigateToQuest={() => {}}
       />
       
       <div className="bg-white shadow-sm rounded-lg p-6">

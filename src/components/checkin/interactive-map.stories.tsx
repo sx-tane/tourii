@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import InteractiveMap from './interactive-map';
 import type { CheckinResponseDto } from '@/hooks/api/useCheckins';
 
@@ -123,6 +122,9 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
+  argTypes: {
+    onMarkerClick: { action: 'onMarkerClick' },
+  },
 } satisfies Meta<typeof InteractiveMap>;
 
 export default meta;
@@ -131,7 +133,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     checkins: mockCheckins,
-    onMarkerClick: action('onMarkerClick'),
   },
   decorators: [
     (Story) => (
@@ -145,7 +146,6 @@ export const Default: Story = {
 export const EmptyState: Story = {
   args: {
     checkins: [],
-    onMarkerClick: action('onMarkerClick'),
   },
   decorators: [
     (Story) => (
@@ -159,7 +159,6 @@ export const EmptyState: Story = {
 export const SingleCheckin: Story = {
   args: {
     checkins: [mockCheckins[0]],
-    onMarkerClick: action('onMarkerClick'),
   },
   decorators: [
     (Story) => (
@@ -173,7 +172,6 @@ export const SingleCheckin: Story = {
 export const CompactSize: Story = {
   args: {
     checkins: mockCheckins.slice(0, 2),
-    onMarkerClick: action('onMarkerClick'),
     className: 'h-64 w-96',
   },
   decorators: [

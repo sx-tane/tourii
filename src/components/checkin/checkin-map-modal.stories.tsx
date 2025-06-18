@@ -1,10 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { useState } from 'react';
 import CheckinMapModal from './checkin-map-modal';
 import { Button } from '@/components/ui/button';
 
-const ModalWrapper = ({ userId }: { userId?: string }) => {
+const ModalWrapper = ({ 
+  userId,
+  onNavigateToStory,
+  onNavigateToQuest,
+}: { 
+  userId?: string;
+  onNavigateToStory?: (storyId: string) => void;
+  onNavigateToQuest?: (questId: string) => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,8 +23,8 @@ const ModalWrapper = ({ userId }: { userId?: string }) => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         userId={userId}
-        onNavigateToStory={action('onNavigateToStory')}
-        onNavigateToQuest={action('onNavigateToQuest')}
+        onNavigateToStory={onNavigateToStory}
+        onNavigateToQuest={onNavigateToQuest}
       />
     </>
   );
@@ -33,6 +40,9 @@ const meta = {
   argTypes: {
     isOpen: { control: 'boolean' },
     userId: { control: 'text' },
+    onClose: { action: 'onClose' },
+    onNavigateToStory: { action: 'onNavigateToStory' },
+    onNavigateToQuest: { action: 'onNavigateToQuest' },
   },
 } satisfies Meta<typeof CheckinMapModal>;
 
@@ -50,9 +60,6 @@ export const WithUserId: Story = {
 export const DirectlyOpen: Story = {
   args: {
     isOpen: true,
-    onClose: action('onClose'),
-    onNavigateToStory: action('onNavigateToStory'),
-    onNavigateToQuest: action('onNavigateToQuest'),
   },
   decorators: [
     (Story) => (
