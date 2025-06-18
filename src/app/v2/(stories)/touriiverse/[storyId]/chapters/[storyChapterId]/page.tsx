@@ -17,6 +17,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const ChapterPage: React.FC = () => {
 	const params = useParams();
@@ -61,10 +62,13 @@ const ChapterPage: React.FC = () => {
 			// If there are unlocked quests, show the modal
 			if (completionData.unlockedQuests && completionData.unlockedQuests.length > 0) {
 				questUnlock.showUnlockModal(completionData);
+				toast.success("Story chapter completed! New quests unlocked!");
+			} else {
+				toast.success("Story chapter completed!");
 			}
 		} catch (error) {
 			console.error("Failed to complete story chapter:", error);
-			// Could add toast notification for error handling here
+			toast.error("Failed to complete story chapter. Please try again.");
 		}
 	};
 

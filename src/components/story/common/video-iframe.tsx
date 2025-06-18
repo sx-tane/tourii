@@ -1,5 +1,6 @@
 import type { VideoIframeProps } from "@/types/story-type";
 import { useEffect, useRef } from "react";
+import { YouTubeAPILoader } from "@/components/common/youtube-api-loader";
 
 interface VideoIframePropsWithCompletion extends VideoIframeProps {
 	onVideoComplete?: () => void;
@@ -17,22 +18,8 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 	useEffect(() => {
 		if (!enableVideoTracking || !onVideoComplete) return;
 
-		// Load YouTube iframe API if not already loaded
-		if (typeof window !== 'undefined' && !window.YT) {
-			const script = document.createElement('script');
-			script.src = 'https://www.youtube.com/iframe_api';
-			script.async = true;
-			document.head.appendChild(script);
-
-			window.onYouTubeIframeAPIReady = () => {
-				initializePlayer();
-			};
-		} else if (window.YT) {
-			initializePlayer();
-		}
-
 		const initializePlayer = () => {
-			if (!iframeRef.current || !iframeSrc) return;
+			if (!iframeRef.current || !iframeSrc || !enableVideoTracking) return;
 
 			try {
 				// Extract video ID from iframe src
@@ -58,22 +45,41 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 			}
 		};
 
+		// Use event-based approach to initialize player when API is ready
+		const handleAPIReady = () => {
+			if (window.YT) {
+				initializePlayer();
+			}
+		};
+
+		if (typeof window !== 'undefined') {
+			if (window.YT) {
+				// API already loaded
+				initializePlayer();
+			} else {
+				// Listen for API ready event
+				document.addEventListener('youtubeAPIReady', handleAPIReady);
+			}
+		}
+
 		return () => {
-			// Cleanup is handled by YouTube API
+			document.removeEventListener('youtubeAPIReady', handleAPIReady);
 		};
 	}, [iframeSrc, onVideoComplete, enableVideoTracking]);
 
 	return (
-		<iframe
-			ref={iframeRef}
-			id="youtube-player"
-			src={iframeSrc}
-			title={title}
-			allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-			referrerPolicy="strict-origin-when-cross-origin"
-			allowFullScreen
-			className="w-full h-full md:rounded-bl-xl md:rounded-tl-xl rounded-xl"
-		/>
+		<YouTubeAPILoader>
+			<iframe
+				ref={iframeRef}
+				id="youtube-player"
+				src={iframeSrc}
+				title={title}
+				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+				referrerPolicy="strict-origin-when-cross-origin"
+				allowFullScreen
+				className="w-full h-full md:rounded-bl-xl md:rounded-tl-xl rounded-xl"
+			/>
+		</YouTubeAPILoader>
 	);
 };
 

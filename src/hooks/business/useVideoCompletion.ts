@@ -5,6 +5,10 @@ import type {
   YouTubePlayerState 
 } from "@/types/quest-unlock-type";
 
+// Constants for video completion detection
+const VIDEO_COMPLETION_THRESHOLD = 95; // Consider 95% as completed
+const PROGRESS_UPDATE_INTERVAL = 1000; // Update progress every second
+
 /**
  * Custom hook for YouTube video completion detection
  * 
@@ -40,8 +44,8 @@ export const useVideoCompletion = (
   const handleVideoProgress = useCallback((progress: number) => {
     setVideoProgress(progress);
     
-    // Consider video completed if it reaches 95% (to account for slight timing issues)
-    if (progress >= 95 && !isVideoCompleted) {
+    // Consider video completed if it reaches threshold (to account for slight timing issues)
+    if (progress >= VIDEO_COMPLETION_THRESHOLD && !isVideoCompleted) {
       handleVideoEnd();
     }
   }, [isVideoCompleted, handleVideoEnd]);
@@ -72,14 +76,23 @@ export const useVideoCompletion = (
         if (!progressIntervalRef.current) {
           progressIntervalRef.current = setInterval(() => {
             if (playerRef.current) {
-              const currentTime = playerRef.current.getCurrentTime();
-              const duration = playerRef.current.getDuration();
-              if (duration > 0) {
-                const progress = (currentTime / duration) * 100;
-                handleVideoProgress(progress);
+              try {
+                const currentTime = playerRef.current.getCurrentTime();
+                const duration = playerRef.current.getDuration();
+                if (duration > 0) {
+                  const progress = (currentTime / duration) * 100;
+                  handleVideoProgress(progress);
+                }
+              } catch (error) {
+                console.error("Error getting video progress:", error);
+                // Clear interval if player becomes unavailable
+                if (progressIntervalRef.current) {
+                  clearInterval(progressIntervalRef.current);
+                  progressIntervalRef.current = null;
+                }
               }
             }
-          }, 1000);
+          }, PROGRESS_UPDATE_INTERVAL);
         }
         break;
         
@@ -149,25 +162,49 @@ export const useVideoCompletion = (
   }, []);
 
   /**
-   * Load YouTube iframe API if not already loaded
+   * Setup YouTube API ready event listener
    */
   useEffect(() => {
-    if (typeof window !== 'undefined' && !window.YT) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.async = true;
-      document.head.appendChild(script);
+    let eventListenerAdded = false;
 
-      // Global callback for when API is ready
-      window.onYouTubeIframeAPIReady = () => {
-        console.log("YouTube iframe API loaded");
-      };
+    const handleYouTubeAPIReady = () => {
+      console.log("YouTube iframe API loaded");
+    };
+
+    // Use event-based approach instead of global callback pollution
+    if (typeof window !== 'undefined') {
+      // Listen for custom YouTube API ready event
+      document.addEventListener('youtubeAPIReady', handleYouTubeAPIReady);
+      eventListenerAdded = true;
+
+      // Setup global callback only if it doesn't exist
+      if (!window.onYouTubeIframeAPIReady) {
+        window.onYouTubeIframeAPIReady = () => {
+          document.dispatchEvent(new CustomEvent('youtubeAPIReady'));
+        };
+      }
     }
 
     return () => {
       cleanupPlayer();
+      // Clean up event listener
+      if (eventListenerAdded) {
+        document.removeEventListener('youtubeAPIReady', handleYouTubeAPIReady);
+      }
     };
   }, [cleanupPlayer]);
+
+  /**
+   * Ensure proper cleanup on component unmount
+   */
+  useEffect(() => {
+    return () => {
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
+    };
+  }, []);
 
   return {
     isVideoCompleted,
