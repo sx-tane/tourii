@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import CheckinMapCard from "@/components/dashboard/checkin-map-card";
 import { MomentsSection } from "@/components/dashboard/moments-section";
+import BottomNavigation from "@/components/dashboard/bottom-navigation";
 
 // Mock data for development
 const mockDashboardData = {
@@ -186,6 +187,9 @@ const DashboardPage = () => {
 					</button>
 				</div>
 			</div>
+
+			{/* Bottom Navigation */}
+			<BottomNavigation />
 		</div>
 	);
 };
