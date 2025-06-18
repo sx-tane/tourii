@@ -69,6 +69,7 @@ export const WithUserId: Story = {
 export const DirectlyOpen: Story = {
   args: {
     isOpen: true,
+    onClose: () => {},
   },
   decorators: [
     (Story) => (
