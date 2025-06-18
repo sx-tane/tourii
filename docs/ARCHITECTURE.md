@@ -32,6 +32,7 @@ graph TB
             STORIES_COMP[Story Components]
             ROUTE_COMP[Route Components]
             QUEST_COMP[Quest Components]
+            CHECKIN_COMP[Checkin Components]
         end
         
         subgraph "State Management"
@@ -88,9 +89,11 @@ graph TB
     STORIES --> STORIES_COMP
     ROUTES --> ROUTE_COMP
     QUESTS --> QUEST_COMP
+    DASHBOARD --> CHECKIN_COMP
     STORIES_COMP --> UI
     ROUTE_COMP --> UI
     QUEST_COMP --> UI
+    CHECKIN_COMP --> UI
     
     %% State Management Flow
     DOMAIN --> SWR
@@ -164,6 +167,7 @@ src/components/
 ├── model-route/           # Route planning system
 ├── story/                 # Story and chapter system
 ├── quest/                 # Quest and task system
+├── checkin/               # Travel log and checkin system
 ├── profile/               # User profile and achievements
 ├── header/                # Navigation and authentication
 └── homepage/              # Landing and marketing pages

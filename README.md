@@ -41,12 +41,10 @@ pnpm dev
 | Document                                                        | Purpose                          | Audience              |
 | --------------------------------------------------------------- | -------------------------------- | --------------------- |
 | [**🏗️ Architecture**](./docs/ARCHITECTURE.md)                    | Frontend architecture & patterns | All developers        |
-| [**🔧 Development**](./docs/DEVELOPMENT.md)                      | Development setup & guidelines   | New developers        |
-| [**🔗 API Integration**](./docs/FRONTEND_BACKEND_INTEGRATION.md) | Backend integration patterns     | Full-stack developers |
-| [**🎣 Hook Usage**](./docs/HOOK_USAGE_EXAMPLES.md)               | Custom hooks & API patterns      | Frontend developers   |
-| [**📋 Project Guidelines**](./docs/PROJECT_GUIDELINE.md)         | Code standards & conventions     | All developers        |
+| [**🔧 Development**](./docs/DEVELOPMENT_GUIDE.md)                | Development setup & guidelines   | New developers        |
+| [**🔗 API Integration**](./docs/API_INTEGRATION.md)              | Backend integration patterns     | Full-stack developers |
+| [**🎣 Hook Guide**](./docs/HOOK_GUIDE.md)                        | Custom hooks & API patterns      | Frontend developers   |
 | [**🛡️ Security Guidelines**](./docs/SECURITY_GUIDELINES.md)      | Frontend security practices      | All developers        |
-| [**🔄 Hook Migration**](./docs/HOOK_MIGRATION_GUIDE.md)          | Legacy hook migration            | All developers        |
 
 ## 🏗️ **Architecture Overview**
 
@@ -324,6 +322,7 @@ tourii/
 │   │   ├── model-route/      # Route-specific components
 │   │   ├── story/            # Story-related components  
 │   │   ├── quest/            # Quest components (performance optimized)
+│   │   ├── checkin/          # Checkin/travel log components
 │   │   ├── profile/          # Profile/user components
 │   │   ├── header/           # Header/navigation components
 │   │   ├── about/            # About page components
@@ -360,6 +359,7 @@ tourii/
 ```typescript
 // 🆕 Simplified component imports
 import { QuestList, QuestFilters } from "@/components/quest";
+import { CheckinMapModal, InteractiveMap } from "@/components/checkin";
 import { Button, Dialog, Card } from "@/components/ui";
 import { HowTouriiWorks, MainImage } from "@/components/homepage";
 
@@ -456,7 +456,7 @@ import { Button, Dialog } from "@/components/ui";
 ```
 
 ### Component Organization
-- **Domain-based folders**: `model-route/`, `story/`, `quest/`, `profile/`
+- **Domain-based folders**: `model-route/`, `story/`, `quest/`, `checkin/`, `profile/`
 - **kebab-case file naming** for consistency
 - **Every component has `.stories.tsx`** file for Storybook
 - **Use barrel exports** via `index.ts` files for clean imports

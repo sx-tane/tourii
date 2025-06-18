@@ -9,6 +9,9 @@ export * from "./about";
 // Character Components
 export * from "./character";
 
+// Checkin Components
+export * from "./checkin";
+
 // Common Components
 export * from "./common";
 

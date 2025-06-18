@@ -75,6 +75,7 @@ src/hooks/
 │   ├── useModelRouteById.ts
 │   ├── useQuests.ts
 │   ├── useQuestById.ts
+│   ├── useCheckins.ts
 │   ├── useSagas.ts
 │   ├── useSagaById.ts
 │   └── index.ts
@@ -1092,6 +1093,7 @@ describe('useTouristSpotSelection', () => {
 - `useModelRouteById(id)` - Fetch specific route
 - `useQuests(filters?)` - Fetch quests with optional filters
 - `useQuestById(id)` - Fetch specific quest
+- `useCheckins(query?)` - Fetch user checkins/travel logs with filtering
 - `useSagas()` - Fetch all story sagas
 - `useSagaById(id)` - Fetch specific saga
 - `useLocationInfo(query)` - Search locations
