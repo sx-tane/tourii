@@ -179,6 +179,7 @@ tourii/
 │   │   ├── model-route/     # Route-specific components
 │   │   ├── story/           # Story-related components
 │   │   ├── quest/           # Quest-related components
+│   │   ├── checkin/         # Travel log and checkin components
 │   │   └── [domain]/        # Other domain components
 │   ├── hooks/               # Custom React hooks
 │   │   ├── api/             # Data fetching hooks

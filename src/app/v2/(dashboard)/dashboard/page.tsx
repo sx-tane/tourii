@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import CheckinMapCard from "@/components/dashboard/checkin-map-card";
 import { MomentsSection } from "@/components/dashboard/moments-section";
 
 // Mock data for development
@@ -80,7 +81,7 @@ const DashboardPage = () => {
 			</div>
 
 			{/* Stats Grid */}
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 				<div className="bg-white shadow-sm rounded-lg p-6">
 					<h3 className="text-lg font-medium text-gray-900">Current Chapter</h3>
 					<div className="mt-2">
@@ -118,6 +119,15 @@ const DashboardPage = () => {
 						</p>
 					</div>
 				</div>
+
+				{/* Check-In Map Card */}
+				<CheckinMapCard
+					userId={session?.user?.email || undefined}
+					onNavigateToStory={(storyId) =>
+						router.push(`/v2/touriiverse/${storyId}`)
+					}
+					onNavigateToQuest={(questId) => router.push(`/v2/quests/${questId}`)}
+				/>
 			</div>
 
 			{/* Recent Activity */}
