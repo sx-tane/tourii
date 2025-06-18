@@ -4,6 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
+import { env } from "@/env.js";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,12 +18,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Call Tourii backend to verify email/password
-        const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
+        const res = await fetch(`${env.BACKEND_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": process.env.BACKEND_API_KEY!,       // include API key for backend auth:contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-            "x-api-version": process.env.BACKEND_API_VERSION || "1.0.0"
+            "x-api-key": env.BACKEND_API_KEY,       // include API key for backend auth
+            "x-api-version": env.BACKEND_API_VERSION || "1.0.0"
           },
           body: JSON.stringify({
             email: credentials?.email,
@@ -43,8 +44,8 @@ export const authOptions: NextAuthOptions = {
     }),
     // 2. Google OAuth Provider
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
       authorization: {           // request offline access and prompt selection
         params: { prompt: "select_account", access_type: "offline", response_type: "code" }
       }
@@ -67,12 +68,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Verify the wallet signature with the backend
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/auth/verify-signature`, {
+        const res = await fetch(`${env.NEXTAUTH_URL}/auth/verify-signature`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": process.env.BACKEND_API_KEY!,
-            "x-api-version": process.env.BACKEND_API_VERSION || "1.0"
+            "x-api-key": env.BACKEND_API_KEY,
+            "x-api-version": env.BACKEND_API_VERSION || "1.0"
           },
           body: JSON.stringify({
             address: credentials?.address,
@@ -92,7 +93,7 @@ export const authOptions: NextAuthOptions = {
       }
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 15 * 60 // 15 minutes for access JWT (keep short, will use refresh token):contentReference[oaicite:2]{index=2}
@@ -126,12 +127,12 @@ export const authOptions: NextAuthOptions = {
             const { exp } = JSON.parse(Buffer.from(payloadB64, 'base64').toString());
             if (Date.now() / 1000 > exp - 60) {
               // Token expired or about to expire, refresh it
-              const res = await fetch(`${process.env.BACKEND_URL}/auth/refresh`, {
+              const res = await fetch(`${env.BACKEND_URL}/auth/refresh`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
-                  "x-api-key": process.env.BACKEND_API_KEY!,
-                  "x-api-version": process.env.BACKEND_API_VERSION || "1.0.0"
+                  "x-api-key": env.BACKEND_API_KEY,
+                  "x-api-version": env.BACKEND_API_VERSION || "1.0.0"
                 },
                 body: JSON.stringify({ refreshToken })
               });

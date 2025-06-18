@@ -9,6 +9,7 @@ import { logger } from "@/utils/logger";
 interface RegisterRequest {
   email?: string;
   username?: string;
+  password?: string;
   address?: string;
   signature?: string;
 }
@@ -20,41 +21,57 @@ interface VerifySignatureRequest {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { email, username, address, signature } = body;
+  const { email, username, password, address, signature } = body;
 
   const apiVersion = env.BACKEND_API_VERSION || "1.0.0";
   const apiKey = env.BACKEND_API_KEY;
 
   if (!apiKey) {
     logger.error("API POST /api/auth/register: BACKEND_API_KEY is not configured.");
-    // Consider using touriiErrorResponse if you have it standardized
     return NextResponse.json({ error: "Server configuration error." }, { status: 500 });
   }
 
   try {
-    const registerPayload: RegisterRequest = { email, username, address, signature };
-    // Call Tourii backend to register user via SDK
-    // Assumes AuthService.touriiBackendControllerRegister(payload, apiVersion, apiKey)
-    // This method should throw an error on failure (e.g., non-2xx response)
-    await AuthService.touriiBackendControllerRegister(
-      registerPayload,
-      apiVersion,
-      apiKey
-    );
+    // Handle email/password registration
+    if (email && password && username) {
+      const response = await fetch(`${env.BACKEND_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "x-api-version": apiVersion,
+        },
+        body: JSON.stringify({ email, password, username }),
+      });
 
-    // If registration is successful (no error thrown), proceed to verify signature
-    // This simulates a login to establish a session via NextAuth's mechanisms,
-    // assuming the wallet provider in NextAuth handles this post-verification.
-    const verifyPayload: VerifySignatureRequest = { address, signature };
-    // Assumes AuthService.touriiBackendControllerVerifySignature(payload, apiVersion, apiKey)
-    await AuthService.touriiBackendControllerVerifySignature(
-      verifyPayload,
-      apiVersion,
-      apiKey
-    );
+      if (!response.ok) {
+        const errorData = await response.json();
+        return NextResponse.json({ error: errorData.message || "Registration failed" }, { status: response.status });
+      }
 
-    // If both SDK calls are successful
-    return NextResponse.json({ ok: true });
+      return NextResponse.json({ ok: true });
+    }
+
+    // Handle wallet registration (existing logic)
+    if (address && signature) {
+      const registerPayload: RegisterRequest = { email, username, address, signature };
+      await AuthService.touriiBackendControllerRegister(
+        registerPayload,
+        apiVersion,
+        apiKey
+      );
+
+      const verifyPayload: VerifySignatureRequest = { address, signature };
+      await AuthService.touriiBackendControllerVerifySignature(
+        verifyPayload,
+        apiVersion,
+        apiKey
+      );
+
+      return NextResponse.json({ ok: true });
+    }
+
+    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
 
   } catch (error: any) {
     logger.error("API POST /api/auth/register: Operation failed", {

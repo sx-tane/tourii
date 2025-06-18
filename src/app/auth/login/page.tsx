@@ -9,7 +9,7 @@ import {
 	walletLoginData,
 	socialLoginData,
 } from "@/lib/data/login/login-data";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -28,7 +28,7 @@ const mockAccount = {
 };
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
-	// const router = useRouter();
+	const router = useRouter();
 	const searchParams = useSearchParams();
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -46,14 +46,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
 		try {
 			if (isRegistering) {
 				// Handle registration
-				const response = await fetch(
-					`${process.env.BACKEND_URL}/auth/register`,
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email, password, username }),
-					},
-				);
+				const response = await fetch("/api/auth/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password, username }),
+				});
 
 				if (!response.ok) {
 					throw new Error("Registration failed");
