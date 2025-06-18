@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+@theme {
+  --color-white: #EEEEFA;
+  --color-black: #1E1E29;
+  --color-charcoal: #21211b;
+  --color-red: #ae3111;
+  --color-warm-grey: #e3e3dc;
+  --color-warm-grey-2: #d6d6cc;
+  --color-warm-grey-3: #bfbfac;
+  --color-mustard: #b6ad33;
+  --color-circle-hover: rgba(49, 49, 42, 0.93);
+}
+
+@font-face {
+	font-family: "LibertinusSans-bold";
+	src: url("/fonts/LibertinusSans-Bold.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "LibertinusSans";
+	src: url("/fonts/LibertinusSans-Regular.otf") format("opentype");
+	font-weight: 200;
+	font-display: swap;
+}
+
+body {
+	background-color: theme(--color-warm-grey);
+}
+
+.header-nav-white a:hover,
+.header-nav-white button:hover,
+.header-nav-white a.active,
+.header-nav-white button.active {
+	color: theme(--color-red);
+}
+
+.header-nav-white a .upperline,
+.header-nav-white button .upperline {
+	position: absolute;
+	top: -8px;
+	height: 2px;
+	background-color: transparent;
+	transition: background-color 0.3s, width 0.3s ease-in-out;
+	width: 0;
+}
+
+.header-nav-white a:hover .upperline,
+.header-nav-white button:hover .upperline,
+.header-nav-white a.active .upperline,
+.header-nav-white button.active .upperline {
+	width: 100%;
+	background-color: theme(--color-red);
+}
+
+.header-nav-black a:hover,
+.header-nav-black button:hover,
+.header-nav-black a.active,
+.header-nav-black button.active {
+	color: theme(--color-warm-grey);
+}
+
+.header-nav-black a .upperline,
+.header-nav-black button .upperline {
+	position: absolute;
+	top: -8px;
+	height: 2px;
+	background-color: transparent;
+	transition: background-color 0.3s, width 0.3s ease-in-out;
+	width: 0;
+}
+
+.header-nav-black a:hover .upperline,
+.header-nav-black button:hover .upperline,
+.header-nav-black a.active .upperline,
+.header-nav-black button.active .upperline {
+	width: 100%;
+	background-color: theme(--color-warm-grey);
+}
+
+::selection {
+	background: theme(--color-red);
+	color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+	margin-bottom: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: theme(--color-warm-grey-3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: theme(--color-charcoal);
+	border-radius: 8px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: theme(--color-charcoal);
+}
+
+@utility scrollbar-hide {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+
+@utility scrollbar-hide::-webkit-scrollbar {
+	display: none; /* Chrome, Safari and Opera */
+}
