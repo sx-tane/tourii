@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { BookOpen, MapPin, Target, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export interface BottomNavigationProps {
 	className?: string;
@@ -26,8 +26,8 @@ const navigationButtons: NavigationButton[] = [
 		icon: BookOpen,
 		route: "/v2/touriiverse",
 		description: "Continue your mythological journey",
-		color: "text-purple-600",
-		bgColor: "bg-purple-50 hover:bg-purple-100",
+		color: "text-charcoal",
+		bgColor: "bg-warmGrey hover:bg-warmGrey2",
 	},
 	{
 		id: "route",
@@ -35,8 +35,8 @@ const navigationButtons: NavigationButton[] = [
 		icon: MapPin,
 		route: "/v2/region",
 		description: "Explore model routes and destinations",
-		color: "text-green-600",
-		bgColor: "bg-green-50 hover:bg-green-100",
+		color: "text-charcoal",
+		bgColor: "bg-warmGrey hover:bg-warmGrey2",
 	},
 	{
 		id: "quest",
@@ -44,8 +44,8 @@ const navigationButtons: NavigationButton[] = [
 		icon: Target,
 		route: "/v2/quests",
 		description: "Take on exciting challenges",
-		color: "text-blue-600",
-		bgColor: "bg-blue-50 hover:bg-blue-100",
+		color: "text-red",
+		bgColor: "bg-warmGrey hover:bg-warmGrey2",
 	},
 	{
 		id: "shop",
@@ -53,8 +53,8 @@ const navigationButtons: NavigationButton[] = [
 		icon: ShoppingBag,
 		route: "/v2/shop",
 		description: "Browse digital collectibles",
-		color: "text-indigo-600",
-		bgColor: "bg-indigo-50 hover:bg-indigo-100",
+		color: "text-charcoal",
+		bgColor: "bg-warmGrey hover:bg-warmGrey2",
 	},
 ];
 
@@ -64,8 +64,19 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 	const router = useRouter();
 	const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
+	const hoveredDescription = useMemo(() => {
+		return hoveredButton 
+			? navigationButtons.find((btn) => btn.id === hoveredButton)?.description
+			: "Choose your next adventure";
+	}, [hoveredButton]);
+
 	const handleNavigation = (route: string) => {
-		router.push(route);
+		try {
+			router.push(route);
+		} catch (error) {
+			console.error('Navigation failed:', error);
+			// Optional: Could add user-friendly error notification here
+		}
 	};
 
 	return (
@@ -76,12 +87,9 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 			transition={{ duration: 0.3 }}
 		>
 			<div className="flex items-center justify-between mb-4">
-				<h2 className="text-lg font-medium text-gray-900">Quick Actions</h2>
-				<div className="text-xs text-gray-500">
-					{hoveredButton
-						? navigationButtons.find((btn) => btn.id === hoveredButton)
-								?.description
-						: "Choose your next adventure"}
+				<h2 className="text-lg font-medium text-charcoal">Quick Actions</h2>
+				<div className="text-xs text-charcoal/70">
+					{hoveredDescription}
 				</div>
 			</div>
 
@@ -92,7 +100,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 						<motion.button
 							key={button.id}
 							type="button"
-							className={`group relative flex flex-col items-center justify-center p-6 rounded-lg border-2 border-gray-100 transition-all duration-200 hover:border-gray-200 hover:shadow-md ${button.bgColor}`}
+							className={`group relative flex flex-col items-center justify-center p-6 rounded-lg border-2 border-warmGrey2 transition-all duration-200 hover:border-warmGrey3 hover:shadow-md ${button.bgColor}`}
 							onClick={() => handleNavigation(button.route)}
 							onMouseEnter={() => setHoveredButton(button.id)}
 							onMouseLeave={() => setHoveredButton(null)}
@@ -128,13 +136,13 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 							</motion.div>
 
 							{/* Label */}
-							<h3 className="font-semibold text-gray-900 text-sm mb-1 group-hover:text-gray-700 transition-colors duration-200">
+							<h3 className="font-semibold text-charcoal text-sm mb-1 group-hover:text-charcoal/80 transition-colors duration-200">
 								{button.label}
 							</h3>
 
 							{/* Hover indicator */}
 							<motion.div
-								className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-gray-400 rounded-full"
+								className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-charcoal/50 rounded-full"
 								initial={{ width: 0, x: "-50%" }}
 								whileHover={{ 
 									width: "60%",
@@ -143,7 +151,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 							/>
 
 							{/* Active indicator for keyboard navigation */}
-							<div className="absolute inset-0 rounded-lg ring-2 ring-transparent group-focus:ring-indigo-500 group-focus:ring-offset-2 transition-all duration-200" />
+							<div className="absolute inset-0 rounded-lg ring-2 ring-transparent group-focus:ring-red group-focus:ring-offset-2 transition-all duration-200" />
 						</motion.button>
 					);
 				})}
@@ -151,12 +159,12 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 
 			{/* Footer hint */}
 			<motion.div
-				className="mt-4 pt-4 border-t border-gray-100 text-center"
+				className="mt-4 pt-4 border-t border-warmGrey2 text-center"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ delay: 0.5, duration: 0.3 }}
 			>
-				<p className="text-xs text-gray-500">
+				<p className="text-xs text-charcoal/70">
 					Quickly navigate to main sections
 				</p>
 			</motion.div>
