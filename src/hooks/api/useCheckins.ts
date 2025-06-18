@@ -93,10 +93,10 @@ export interface CheckinsQuery {
 
 /**
  * Hook to fetch user checkins using SWR.
- * Standardized API hook following the consistent pattern.
+ * Uses standardized pattern with frontend-specific data transformation.
  *
  * @param query - The checkins query parameters
- * @returns Standardized hook result with checkins data
+ * @returns Standardized hook result with transformed checkins data
  */
 export function useCheckins(
 	query: CheckinsQuery = {},
@@ -135,10 +135,10 @@ export function useCheckins(
 		// Standardized properties
 		data: transformedData,
 		isLoading,
-		isError: !!error,
+		isError: Boolean(error),
 		error: (error as Error) || null,
 		mutate: mutate as unknown as KeyedMutator<CheckinsListResponseDto>,
-		// Convenience property for checkins array
+		// Legacy property for backward compatibility
 		checkins: transformedData?.checkins,
 	};
 }

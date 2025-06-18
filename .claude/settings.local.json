@@ -29,7 +29,14 @@
       "Bash(pnpm test:*)",
       "Bash(npx vitest run:*)",
       "Bash(ls:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(pnpm exec tsc:*)",
+      "Bash(npx --yes @biomejs/biome check --help)",
+      "Bash(npx --yes @biomejs/biome check src --max-diagnostics=50)",
+      "Bash(npx --yes @biomejs/biome check src --max-diagnostics=10)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

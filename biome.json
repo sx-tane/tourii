@@ -7,12 +7,12 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [
+		"experimentalScannerIgnores": [
 			"node_modules/**",
 			"dist/**",
 			"build/**"
 		],
-		"include": [
+		"includes": [
 			"**/*.js",
 			"**/*.jsx",
 			"**/*.ts",
@@ -24,7 +24,7 @@
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
+	"assist": {
 		"enabled": true
 	},
 	"linter": {

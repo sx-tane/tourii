@@ -142,6 +142,35 @@ Components never directly call the backend. All API communication follows:
 
 This ensures type safety, centralized error handling, and API key protection.
 
+#### API Hook Patterns
+There are two standardized patterns for API hooks:
+
+**Basic Pattern** (simple data fetching):
+```typescript
+export function useQuests(query: string): UseApiHookResult<QuestListResponseDto> & {
+  quests: QuestListResponseDto | undefined;
+}
+```
+
+**Complex Pattern** (frontend-specific needs):
+```typescript
+export function useCheckins(query: CheckinsQuery): UseApiHookResult<CheckinsListResponseDto> & {
+  checkins: CheckinResponseDto[] | undefined;
+}
+```
+
+Use the Complex Pattern when:
+- Frontend needs different data structure than backend
+- Complex query parameter building required
+- Data transformation needed for UI components
+- Domain-specific filtering/sorting logic
+
+Both patterns must:
+- Return `UseApiHookResult<T>` interface
+- Include standardized properties: `data`, `isLoading`, `isError`, `error`, `mutate`
+- Include legacy property for backward compatibility
+- Use `Boolean(error)` and `(error as Error) || null` patterns
+
 ### 2. State Management Strategy
 - **SWR**: Server state and caching
 - **Redux Toolkit**: UI state only (selections, modal states, filters)

@@ -70,6 +70,54 @@ export function getModelRoutes() { ... }
 - **Map Hooks**: `src/hooks/map/` - for map functionality
 - All hooks use `use*` naming convention (not `get*`)
 
+### API Hook Patterns by Complexity
+
+**Basic Pattern** (simple data fetching):
+```typescript
+// ✅ Use for straightforward backend data
+export function useQuests(query: string): UseApiHookResult<QuestListResponseDto> & {
+  quests: QuestListResponseDto | undefined;
+} {
+  const { data, error, isLoading, mutate } = useProxySWR<QuestListResponseDto>(query);
+  return { data, isLoading, isError: Boolean(error), error: (error as Error) || null, mutate, quests: data };
+}
+```
+
+**Complex Pattern** (frontend-specific needs):
+```typescript
+// ✅ Use when frontend needs differ from backend
+export function useCheckins(
+  query: CheckinsQuery = {}
+): UseApiHookResult<CheckinsListResponseDto> & {
+  checkins: CheckinResponseDto[] | undefined;
+} {
+  // Complex query building + data transformation
+  const endpoint = buildQueryString(query);
+  const { data: backendData, error, isLoading, mutate } = useProxySWR<BackendType>(endpoint);
+  const transformedData = backendData ? transformToFrontendFormat(backendData) : undefined;
+  return { data: transformedData, isLoading, isError: Boolean(error), error: (error as Error) || null, mutate, checkins: transformedData?.checkins };
+}
+```
+
+**When to use Complex Pattern:**
+- Frontend needs different data structure than backend
+- Complex query parameter building required
+- Data transformation needed for UI components
+- Domain-specific filtering/sorting logic
+- Multiple data sources need combining
+
+**When to use Basic Pattern:**
+- Backend data structure works well for frontend
+- Simple string-based queries
+- Minimal data transformation needed
+- Direct API response mapping
+
+**Core Requirements for ALL patterns:**
+- Must return `UseApiHookResult<T>` interface
+- Must include standardized properties: `data`, `isLoading`, `isError`, `error`, `mutate`
+- Must include legacy property for backward compatibility
+- Must use `Boolean(error)` and `(error as Error) || null` patterns
+
 ### Redux vs SWR Usage Guide
 ```typescript
 // ✅ CORRECT: Use SWR for server data

@@ -96,6 +96,82 @@ src/hooks/
 
 ## 📚 **API Hooks - Complete Examples**
 
+### API Hook Patterns by Complexity
+
+#### Basic Pattern (Simple Data Fetching)
+
+```typescript
+// ✅ Use for straightforward backend data
+export function useQuests(query: string): UseApiHookResult<QuestListResponseDto> & {
+  quests: QuestListResponseDto | undefined;
+} {
+  const { data, error, isLoading, mutate } = useProxySWR<QuestListResponseDto>(query);
+  return { 
+    data, 
+    isLoading, 
+    isError: Boolean(error), 
+    error: (error as Error) || null, 
+    mutate, 
+    quests: data 
+  };
+}
+```
+
+#### Complex Pattern (Frontend-Specific Needs)
+
+```typescript
+// ✅ Use when frontend needs differ from backend
+export function useCheckins(
+  query: CheckinsQuery = {}
+): UseApiHookResult<CheckinsListResponseDto> & {
+  checkins: CheckinResponseDto[] | undefined;
+} {
+  // Complex query building
+  const queryParams = new URLSearchParams();
+  if (query.page) queryParams.append("page", query.page.toString());
+  if (query.userId) queryParams.append("userId", query.userId);
+  if (query.type && query.type !== "all") queryParams.append("type", query.type);
+  
+  const endpoint = `/api/checkins${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+  
+  // Backend data fetching
+  const { data: backendData, error, isLoading, mutate } = useProxySWR<UserTravelLogListResponseDto>(endpoint);
+  
+  // Data transformation for frontend
+  const transformedData = backendData ? transformToFrontendFormat(backendData) : undefined;
+  
+  return { 
+    data: transformedData, 
+    isLoading, 
+    isError: Boolean(error), 
+    error: (error as Error) || null, 
+    mutate, 
+    checkins: transformedData?.checkins 
+  };
+}
+```
+
+#### When to Use Each Pattern
+
+**Use Complex Pattern when:**
+- Frontend needs different data structure than backend
+- Complex query parameter building required
+- Data transformation needed for UI components
+- Domain-specific filtering/sorting logic
+- Multiple data sources need combining
+
+**Use Basic Pattern when:**
+- Backend data structure works well for frontend
+- Simple string-based queries
+- Minimal data transformation needed
+- Direct API response mapping
+
+**Core Requirements for ALL patterns:**
+- Must return `UseApiHookResult<T>` interface
+- Must include standardized properties: `data`, `isLoading`, `isError`, `error`, `mutate`
+- Must include legacy property for backward compatibility
+- Must use `Boolean(error)` and `(error as Error) || null` patterns
+
 ### Basic Data Fetching Pattern
 
 ```typescript
