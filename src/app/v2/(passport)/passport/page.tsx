@@ -1,17 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { ArrowLeft, CreditCard, Star, MapPin, Award } from "lucide-react";
-import Image from "next/image";
-import type { RootState } from "@/lib/redux/store";
+import { ArrowLeft, CreditCard, Star, MapPin, Award, Loader2 } from "lucide-react";
+import { usePassport } from "@/hooks/api";
 
 const PassportPage = () => {
 	const router = useRouter();
-	const passport = useSelector((state: RootState) => state.passport);
+	const { passport, isLoading, isError } = usePassport();
 
-	const getPassportTypeInfo = (type: string) => {
+	const getPassportTypeInfo = (type: string | null) => {
 		switch (type) {
 			case "AMATSUKAMI":
 				return { 
@@ -43,6 +41,32 @@ const PassportPage = () => {
 				};
 		}
 	};
+
+	// Show loading state
+	if (isLoading) {
+		return (
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+				<Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+			</div>
+		);
+	}
+
+	// Show error state
+	if (isError || !passport) {
+		return (
+			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+				<div className="text-center">
+					<p className="text-gray-500 mb-4">Unable to load passport data</p>
+					<button
+						onClick={() => router.back()}
+						className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+					>
+						Go Back
+					</button>
+				</div>
+			</div>
+		);
+	}
 
 	const passportInfo = getPassportTypeInfo(passport.passportType);
 
@@ -93,43 +117,38 @@ const PassportPage = () => {
 							{/* Avatar */}
 							<div className="flex justify-center mb-6">
 								<div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-gray-200">
-									{passport.userAvatar && (
-										<Image
-											src={passport.userAvatar}
-											alt="User avatar"
-											width={96}
-											height={96}
-											className="object-cover w-full h-full"
-										/>
-									)}
+									{/* Default avatar using first letter of username */}
+									<div className="w-full h-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
+										<span className="text-2xl font-bold text-indigo-600">
+											{passport.username.charAt(0).toUpperCase()}
+										</span>
+									</div>
 								</div>
 							</div>
 
-							{/* Chinese Characters */}
-							{passport.chineseCharacters.length > 0 && (
-								<div className="flex justify-center gap-3 mb-6 p-4 bg-gray-50 rounded-lg">
-									{passport.chineseCharacters.map((char, index) => (
-										<span
-											key={`${char}-${index}`}
-											className="text-2xl font-bold text-gray-700"
-										>
-											{char}
+							{/* Digital Passport Address */}
+							{passport.digitalPassportAddress && (
+								<div className="flex justify-center mb-6 p-4 bg-gray-50 rounded-lg">
+									<div className="text-center">
+										<p className="text-xs text-gray-500 mb-1">Passport Address</p>
+										<span className="text-sm font-mono text-gray-700">
+											{passport.digitalPassportAddress.slice(0, 6)}...{passport.digitalPassportAddress.slice(-4)}
 										</span>
-									))}
+									</div>
 								</div>
 							)}
 
 							{/* Status Badge */}
 							<div className="text-center mb-6">
 								<div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
-									passport.isUnlocked 
+									passport.digitalPassportAddress 
 										? "bg-green-100 text-green-800" 
 										: "bg-yellow-100 text-yellow-800"
 								}`}>
 									<div className={`w-2 h-2 rounded-full ${
-										passport.isUnlocked ? "bg-green-400" : "bg-yellow-400"
+										passport.digitalPassportAddress ? "bg-green-400" : "bg-yellow-400"
 									}`} />
-									{passport.isUnlocked ? "Active" : "Pending Verification"}
+									{passport.digitalPassportAddress ? "Active" : "Pending Verification"}
 								</div>
 							</div>
 
@@ -137,13 +156,13 @@ const PassportPage = () => {
 							<div className="grid grid-cols-2 gap-4 text-center">
 								<div className="p-3 bg-gray-50 rounded-lg">
 									<div className={`text-2xl font-bold ${passportInfo.color}`}>
-										{passport.level}
+										{passport.level || "E"}
 									</div>
 									<div className="text-xs text-gray-500">Level</div>
 								</div>
 								<div className="p-3 bg-gray-50 rounded-lg">
 									<div className={`text-2xl font-bold ${passportInfo.color}`}>
-										{passport.totalPoints}
+										{passport.magatamaPoints}
 									</div>
 									<div className="text-xs text-gray-500">Points</div>
 								</div>
@@ -174,7 +193,10 @@ const PassportPage = () => {
 										>
 											<div>
 												<h4 className="font-medium text-gray-900">{travel.location}</h4>
-												<p className="text-sm text-gray-500">{travel.date}</p>
+												<p className="text-sm text-gray-500">{new Date(travel.date).toLocaleDateString()}</p>
+												{travel.travelDistance && (
+													<p className="text-xs text-gray-400">{travel.travelDistance}km traveled</p>
+												)}
 											</div>
 											<div className={`flex items-center gap-1 ${
 												travel.verified ? "text-green-600" : "text-yellow-600"
@@ -196,7 +218,7 @@ const PassportPage = () => {
 							)}
 						</motion.div>
 
-						{/* Unlocked Perks */}
+						{/* Achievements */}
 						<motion.div
 							className="bg-white rounded-lg shadow-sm p-6"
 							initial={{ opacity: 0, y: 20 }}
@@ -205,36 +227,98 @@ const PassportPage = () => {
 						>
 							<div className="flex items-center gap-2 mb-4">
 								<Star className="w-5 h-5 text-gray-500" />
-								<h3 className="text-lg font-semibold text-gray-900">Unlocked Perks</h3>
+								<h3 className="text-lg font-semibold text-gray-900">Achievements</h3>
 							</div>
 							
-							{passport.unlockedPerks.length > 0 ? (
+							{passport.achievements.length > 0 ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-									{passport.unlockedPerks.map((perk, index) => (
+									{passport.achievements.map((achievement, index) => (
 										<div
-											key={`${perk}-${index}`}
-											className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg"
+											key={`${achievement.achievementName}-${index}`}
+											className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
 										>
-											<Star className="w-4 h-4 text-yellow-500" />
-											<span className="text-sm font-medium text-gray-900">{perk}</span>
+											{achievement.iconUrl ? (
+												<img 
+													src={achievement.iconUrl} 
+													alt={achievement.achievementName}
+													className="w-8 h-8 rounded"
+												/>
+											) : (
+												<Star className="w-8 h-8 text-yellow-500" />
+											)}
+											<div className="flex-1">
+												<h4 className="text-sm font-medium text-gray-900">
+													{achievement.achievementName}
+												</h4>
+												{achievement.achievementDesc && (
+													<p className="text-xs text-gray-500">
+														{achievement.achievementDesc}
+													</p>
+												)}
+												<p className="text-xs text-indigo-600 font-medium">
+													+{achievement.magatamaPointAwarded} points
+												</p>
+											</div>
 										</div>
 									))}
 								</div>
 							) : (
 								<div className="text-center py-8 text-gray-500">
 									<Star className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-									<p>No perks unlocked yet</p>
-									<p className="text-sm">Complete quests to unlock exclusive perks!</p>
+									<p>No achievements unlocked yet</p>
+									<p className="text-sm">Complete quests to unlock achievements!</p>
 								</div>
 							)}
 						</motion.div>
+
+						{/* Blockchain Items */}
+						{passport.onchainItems.length > 0 && (
+							<motion.div
+								className="bg-white rounded-lg shadow-sm p-6"
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.5, delay: 0.3 }}
+							>
+								<div className="flex items-center gap-2 mb-4">
+									<CreditCard className="w-5 h-5 text-gray-500" />
+									<h3 className="text-lg font-semibold text-gray-900">Blockchain Items</h3>
+								</div>
+								
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+									{passport.onchainItems.map((item, index) => (
+										<div
+											key={`${item.itemType}-${index}`}
+											className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+										>
+											<div>
+												<h4 className="text-sm font-medium text-gray-900">
+													{item.itemType.replace('_', ' ')}
+												</h4>
+												<p className="text-xs text-gray-500">
+													{item.blockchainType}
+												</p>
+											</div>
+											<div className={`text-xs px-2 py-1 rounded-full ${
+												item.status === 'ACTIVE' 
+													? 'bg-green-100 text-green-800'
+													: item.status === 'PENDING'
+													? 'bg-yellow-100 text-yellow-800'
+													: 'bg-gray-100 text-gray-800'
+											}`}>
+												{item.status}
+											</div>
+										</div>
+									))}
+								</div>
+							</motion.div>
+						)}
 
 						{/* Coming Soon */}
 						<motion.div
 							className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-sm p-6 text-white"
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5, delay: 0.3 }}
+							transition={{ duration: 0.5, delay: 0.4 }}
 						>
 							<h3 className="text-lg font-semibold mb-2">Coming Soon</h3>
 							<p className="text-indigo-100 mb-4">

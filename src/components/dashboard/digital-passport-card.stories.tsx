@@ -1,19 +1,128 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import DigitalPassportCard from "./digital-passport-card";
-import passportReducer from "@/lib/redux/features/passport/passport-slice";
+import type { PassportData } from "@/hooks/api/usePassport";
 
-// Create a mock store for Storybook
-const createMockStore = (passportState: any) =>
-	configureStore({
-		reducer: {
-			passport: passportReducer,
+// Mock the usePassport hook
+const mockUsePassport = (passport: PassportData | undefined, isLoading = false, isError = false) => {
+	return {
+		passport,
+		isLoading,
+		isError,
+		data: passport,
+		error: isError ? new Error("Failed to load passport") : null,
+		mutate: async () => passport,
+	};
+};
+
+// Mock passport data
+const mockPassportData: PassportData = {
+	passportType: "BONJIN",
+	digitalPassportAddress: null,
+	level: "E_CLASS_AMATSUKAMI",
+	magatamaPoints: 150,
+	totalQuestCompleted: 3,
+	totalTravelDistance: 25.5,
+	isPremium: false,
+	username: "TouriiExplorer",
+	userId: "user-123",
+	achievements: [
+		{
+			achievementName: "First Steps",
+			achievementDesc: "Complete your first quest",
+			iconUrl: undefined,
+			achievementType: "MILESTONE",
+			magatamaPointAwarded: 50,
 		},
-		preloadedState: {
-			passport: passportState,
+		{
+			achievementName: "Explorer",
+			achievementDesc: "Visit 5 different locations",
+			iconUrl: undefined,
+			achievementType: "TRAVEL",
+			magatamaPointAwarded: 100,
 		},
-	});
+	],
+	travelHistory: [
+		{
+			location: "Shibuya Crossing",
+			date: "2024-01-15T10:30:00Z",
+			verified: true,
+			travelDistance: 12.3,
+			checkInMethod: "GPS",
+		},
+		{
+			location: "Tokyo Tower",
+			date: "2024-01-10T14:20:00Z",
+			verified: true,
+			travelDistance: 8.7,
+			checkInMethod: "QR_CODE",
+		},
+		{
+			location: "Meiji Shrine",
+			date: "2024-01-05T09:15:00Z",
+			verified: false,
+			travelDistance: 4.5,
+			checkInMethod: "GPS",
+		},
+	],
+	onchainItems: [],
+};
+
+const amatsukamiPassportData: PassportData = {
+	...mockPassportData,
+	passportType: "AMATSUKAMI",
+	digitalPassportAddress: "0x1234567890abcdef1234567890abcdef12345678",
+	level: "A_CLASS_AMATSUKAMI",
+	magatamaPoints: 2500,
+	totalQuestCompleted: 25,
+	totalTravelDistance: 150.7,
+	isPremium: true,
+	username: "HeavenlyExplorer",
+	achievements: [
+		...mockPassportData.achievements,
+		{
+			achievementName: "Heavenly Ascension",
+			achievementDesc: "Achieve Amatsukami status",
+			iconUrl: undefined,
+			achievementType: "MILESTONE",
+			magatamaPointAwarded: 500,
+		},
+	],
+	onchainItems: [
+		{
+			itemType: "DIGITAL_PASSPORT",
+			status: "ACTIVE",
+			mintedAt: "2024-01-01T00:00:00Z",
+			blockchainType: "VARA",
+		},
+	],
+};
+
+const yokaiPassportData: PassportData = {
+	...mockPassportData,
+	passportType: "YOKAI",
+	digitalPassportAddress: "0xabcdef1234567890abcdef1234567890abcdef12",
+	level: "S_CLASS_YOKAI",
+	magatamaPoints: 5000,
+	totalQuestCompleted: 50,
+	totalTravelDistance: 300.2,
+	isPremium: true,
+	username: "MysticalWanderer",
+	achievements: [
+		...mockPassportData.achievements,
+		{
+			achievementName: "Spirit Guardian",
+			achievementDesc: "Master of mystical arts",
+			iconUrl: undefined,
+			achievementType: "COMMUNITY",
+			magatamaPointAwarded: 1000,
+		},
+	],
+};
+
+// Mock the hook module
+jest.mock("@/hooks/api", () => ({
+	usePassport: jest.fn(),
+}));
 
 const meta: Meta<typeof DigitalPassportCard> = {
 	title: "Dashboard/DigitalPassportCard",
@@ -23,9 +132,17 @@ const meta: Meta<typeof DigitalPassportCard> = {
 		docs: {
 			description: {
 				component:
-					"A clickable card component that displays user's digital passport information including passport type, avatar, points, and travel stats.",
+					"A clickable card component that displays user's digital passport information including passport type, avatar, points, and travel stats. Now integrated with backend API via SWR.",
 			},
 		},
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: mockPassportData,
+			},
+		],
 	},
 	tags: ["autodocs"],
 	argTypes: {
@@ -45,215 +162,123 @@ type Story = StoryObj<typeof meta>;
 
 // Default Bonjin passport
 export const Default: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "BONJIN",
-				userAvatar: "/image/profile/nft/19.png",
-				chineseCharacters: ["凡", "人"],
-				isUnlocked: true,
-				level: "C",
-				totalPoints: 750,
-				unlockedPerks: ["Temple Visit", "Photo Quest"],
-				travelHistory: [
-					{ location: "Kyoto Temple", date: "2024-01-15", verified: true },
-					{ location: "Osaka Castle", date: "2024-01-10", verified: true },
-				],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="w-80">
-						<Story />
-					</div>
-				</Provider>
-			);
-		},
-	],
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(mockPassportData));
+	},
 	args: {
-		className: "",
+		className: "w-80",
 	},
 };
 
-// Amatsukami passport (high-level)
+// Amatsukami passport with premium features
 export const Amatsukami: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "AMATSUKAMI",
-				userAvatar: "/image/profile/nft/100.png",
-				chineseCharacters: ["天", "津", "神"],
-				isUnlocked: true,
-				level: "S",
-				totalPoints: 2450,
-				unlockedPerks: [
-					"VIP Access",
-					"Exclusive Stories",
-					"Premium Quests",
-					"Special Events",
-				],
-				travelHistory: [
-					{ location: "Mount Fuji", date: "2024-01-20", verified: true },
-					{ location: "Ise Shrine", date: "2024-01-18", verified: true },
-					{ location: "Nikko Toshogu", date: "2024-01-15", verified: true },
-					{ location: "Kyoto Temple", date: "2024-01-12", verified: true },
-					{ location: "Nara Park", date: "2024-01-10", verified: true },
-				],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="w-80">
-						<Story />
-					</div>
-				</Provider>
-			);
-		},
-	],
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(amatsukamiPassportData));
+	},
 	args: {
-		className: "",
+		className: "w-80",
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: "Premium Amatsukami passport with active digital passport address and enhanced features.",
+			},
+		},
 	},
 };
 
-// Yokai passport (mysterious)
+// Yokai passport with mystical theme
 export const Yokai: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "YOKAI",
-				userAvatar: "/image/profile/nft/171.png",
-				chineseCharacters: ["妖", "怪"],
-				isUnlocked: true,
-				level: "A",
-				totalPoints: 1680,
-				unlockedPerks: ["Night Quests", "Hidden Stories", "Spirit Encounters"],
-				travelHistory: [
-					{ location: "Abandoned Shrine", date: "2024-01-19", verified: true },
-					{ location: "Bamboo Forest", date: "2024-01-16", verified: true },
-					{ location: "Mountain Cave", date: "2024-01-13", verified: true },
-				],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="w-80">
-						<Story />
-					</div>
-				</Provider>
-			);
-		},
-	],
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(yokaiPassportData));
+	},
 	args: {
-		className: "",
+		className: "w-80",
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: "High-level Yokai passport showcasing mystical traveler status with maximum achievements.",
+			},
+		},
 	},
 };
 
-// Pending/Locked passport
-export const Pending: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "BONJIN",
-				userAvatar: "/image/profile/nft/19.png",
-				chineseCharacters: ["新", "人"],
-				isUnlocked: false,
-				level: "E",
-				totalPoints: 50,
-				unlockedPerks: [],
-				travelHistory: [],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="w-80">
-						<Story />
-					</div>
-				</Provider>
-			);
-		},
-	],
+// Loading state
+export const Loading: Story = {
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(undefined, true, false));
+	},
 	args: {
-		className: "",
+		className: "w-80",
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: "Loading state while fetching passport data from the API.",
+			},
+		},
+	},
+};
+
+// Error state
+export const Error: Story = {
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(undefined, false, true));
+	},
+	args: {
+		className: "w-80",
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: "Error state when passport data fails to load from the API.",
+			},
+		},
 	},
 };
 
 // Custom click handler
-export const WithCustomHandler: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "KUNITSUKAMI",
-				userAvatar: "/image/profile/nft/100.png",
-				chineseCharacters: ["国", "津", "神"],
-				isUnlocked: true,
-				level: "B",
-				totalPoints: 1200,
-				unlockedPerks: ["Nature Quests", "Regional Stories"],
-				travelHistory: [
-					{ location: "Local Shrine", date: "2024-01-17", verified: true },
-					{ location: "Mountain Trail", date: "2024-01-14", verified: true },
-				],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="w-80">
-						<Story />
-					</div>
-				</Provider>
-			);
-		},
-	],
-	args: {
-		className: "",
-		onClick: () => alert("Custom passport navigation!"),
+export const CustomHandler: Story = {
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(mockPassportData));
 	},
-};
-
-// Responsive showcase
-export const ResponsiveShowcase: Story = {
-	decorators: [
-		(Story) => {
-			const mockStore = createMockStore({
-				passportType: "AMATSUKAMI",
-				userAvatar: "/image/profile/nft/100.png",
-				chineseCharacters: ["天", "津", "神"],
-				isUnlocked: true,
-				level: "S",
-				totalPoints: 2450,
-				unlockedPerks: ["VIP Access", "Exclusive Stories"],
-				travelHistory: [
-					{ location: "Mount Fuji", date: "2024-01-20", verified: true },
-					{ location: "Ise Shrine", date: "2024-01-18", verified: true },
-				],
-			});
-
-			return (
-				<Provider store={mockStore}>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl">
-						<div className="w-full">
-							<Story />
-						</div>
-						<div className="w-full">
-							<Story />
-						</div>
-						<div className="w-full">
-							<Story />
-						</div>
-					</div>
-				</Provider>
-			);
-		},
-	],
+	args: {
+		className: "w-80",
+		onClick: () => alert("Custom passport handler triggered!"),
+	},
 	parameters: {
-		layout: "fullscreen",
 		docs: {
 			description: {
-				story: "Demonstrates how the card adapts to different container sizes.",
+				story: "Digital passport card with custom click handler instead of default navigation.",
 			},
 		},
 	},
+};
+
+// Responsive demonstration
+export const Responsive: Story = {
+	beforeEach: () => {
+		const { usePassport } = require("@/hooks/api");
+		usePassport.mockReturnValue(mockUsePassport(amatsukamiPassportData));
+	},
 	args: {
-		className: "",
+		className: "w-full max-w-sm mx-auto",
+	},
+	parameters: {
+		viewport: {
+			defaultViewport: "mobile1",
+		},
+		docs: {
+			description: {
+				story: "Responsive behavior of the passport card on mobile devices.",
+			},
+		},
 	},
 };

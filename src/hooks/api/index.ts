@@ -15,3 +15,6 @@ export { useQuestById } from "./useQuestById";
 export { useCheckins } from "./useCheckins";
 // Moment hooks
 export { useMoments } from "./useMoments";
+
+// Passport hooks
+export { usePassport } from "./usePassport";
