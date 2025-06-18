@@ -4,9 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@reference {
-	.bg-warmGrey { background-color: #e3e3dc; }
-}
 
 @layer base {
 	:root {
@@ -80,7 +77,7 @@
 }
 
 body {
-	@apply bg-warmGrey;
+	background-color: #e3e3dc;
 }
 
 .header-nav-white a:hover,

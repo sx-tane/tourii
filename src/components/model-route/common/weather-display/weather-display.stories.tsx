@@ -132,7 +132,7 @@ export const LargeIcons: Story = {
 		},
 		iconSize: { small: "w-32 h-32", large: "lg:w-48 lg:h-48" },
 		className:
-			"absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 text-center flex flex-col text-2xl",
+			"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 text-center flex flex-col text-2xl",
 	},
 };
 
