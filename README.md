@@ -207,7 +207,7 @@ export function getModelRoutes() { ... }
 
 | Category         | Tech                                                                                                  |
 | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| Framework        | [Next.js 14 (App Router)](https://nextjs.org)                                                         |
+| Framework        | [Next.js 15 (App Router)](https://nextjs.org)                                                         |
 | Styling          | [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)                          |
 | Animations       | [Framer Motion](https://www.framer.com/motion)                                                        |
 | State Management | [Redux Toolkit](https://redux-toolkit.js.org) + [SWR](https://swr.vercel.app)                         |
