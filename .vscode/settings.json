@@ -1,21 +1,48 @@
 {
-	"editor.defaultFormatter": "biomejs.biome",
-	"editor.codeActionsOnSave": {
-		"source.fixAll": "explicit",
-		"quickfix.biome": "explicit"
-	},
-	"editor.formatOnSave": true,
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
-	},
-	"files.associations": {
-		"*.tsx": "typescriptreact"
-	},
-	"git.ignoreLimitWarning": true
-}
+    "editor.defaultFormatter": "biomejs.biome",
+    "[javascript]": {
+      "editor.formatOnSave": true,
+          "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": true,
+          "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[json]": {
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.formatOnSave": true,
+          "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": true,
+          "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 2
+    },
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.formatOnSave": false,
+    "eslint.packageManager": "npm",
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "editor.formatOnType": true,
+    "editor.tabSize": 2,
+    "files.autoSave": "onFocusChange",
+    "cSpell.words": ["datasource", "PAYPAY"],
+    "prettier.prettierPath": "./node_modules/prettier",
+    "biome.lspBin": "node_modules/.bin/biome",
+    "[prisma]": {
+      "editor.defaultFormatter": "Prisma.prisma"
+    },
+    /*"jest.jestCommandLine": "npm test:ci",*/
+  }
+  

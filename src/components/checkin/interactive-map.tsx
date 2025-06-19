@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
-import { motion } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
-import { logger } from "@/utils/logger";
 import type { CheckinResponseDto } from "@/hooks/api/useCheckins";
+import { logger } from "@/utils/logger";
+import { motion } from "framer-motion";
+import { Minus, Plus } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 // Fix 4: Improved Leaflet import pattern with proper hook
 type LeafletType = typeof import("leaflet");
