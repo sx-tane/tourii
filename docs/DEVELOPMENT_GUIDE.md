@@ -1225,4 +1225,4 @@ function QuestCard({ quest }: QuestCardProps) {
 
 ---
 
-*Last Updated: June 18, 2025*
+*Last Updated: June 20, 2025*

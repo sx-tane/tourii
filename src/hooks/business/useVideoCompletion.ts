@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import type { 
   UseVideoCompletionState, 
-  YouTubePlayerEvent,
-  YouTubePlayerState 
+  YouTubePlayerEvent
 } from "@/types/quest-unlock-type";
+import { YouTubePlayerState } from "@/types/quest-unlock-type";
 
 // Constants for video completion detection
 const VIDEO_COMPLETION_THRESHOLD = 95; // Consider 95% as completed

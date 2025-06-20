@@ -127,10 +127,27 @@ Based on the latest OpenAPI specification, here are the available backend endpoi
 | `GET`  | `/checkins` | Get user check-ins          |
 | `GET`  | `/moments`  | Get latest traveler moments |
 
+### 👤 User & Passport
+| Method | Endpoint    | Description                                                |
+| ------ | ----------- | ---------------------------------------------------------- |
+| `GET`  | `/passport` | Get user's digital passport data with travel history and blockchain NFTs |
+
+### 🎬 Story Actions & Completion
+| Method | Endpoint                                  | Description                          |
+| ------ | ----------------------------------------- | ------------------------------------ |
+| `POST` | `/stories/chapters/{chapterId}/complete` | Complete story chapter and unlock quests with gamification rewards |
+
 ### 🏠 Homepage & Content
-| Method | Endpoint                  | Description             |
-| ------ | ------------------------- | ----------------------- |
-| `GET`  | `/v2/homepage/highlights` | Get homepage highlights |
+| Method | Endpoint                  | Description                                |
+| ------ | ------------------------- | ------------------------------------------ |
+| `GET`  | `/homepage/highlights`    | Get homepage highlights with latest stories and popular quests |
+
+### 🎯 Task Submission System
+| Method | Endpoint                           | Description                              |
+| ------ | ---------------------------------- | ---------------------------------------- |
+| `POST` | `/tasks/submit/answer-text`        | Submit text answer for quest task        |
+| `POST` | `/tasks/submit/check-in`           | Submit GPS location check-in for task    |
+| `POST` | `/tasks/submit/select-options`     | Submit multiple choice answer for task   |
 
 ---
 
@@ -1002,4 +1019,4 @@ interface QuestFilters {
 
 ---
 
-*Last Updated: June 18, 2025*
+*Last Updated: June 20, 2025*

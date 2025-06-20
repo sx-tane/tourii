@@ -1090,27 +1090,33 @@ describe('useTouristSpotSelection', () => {
 
 ### API Hooks
 - `useModelRoutes()` - Fetch all model routes
-- `useModelRouteById(id)` - Fetch specific route
+- `useModelRouteById(id)` - Fetch specific route  
 - `useQuests(filters?)` - Fetch quests with optional filters
 - `useQuestById(id)` - Fetch specific quest
 - `useCheckins(query?)` - Fetch user checkins/travel logs with filtering
 - `useSagas()` - Fetch all story sagas
 - `useSagaById(id)` - Fetch specific saga
-- `useLocationInfo(query)` - Search locations
+- `useStoryCompletion()` - Complete story chapters and handle quest unlocks
+- `usePassport()` - Fetch user's digital passport data with achievements and travel history
+- `useLocationInfo(query)` - Search locations with Google Places integration
+- `useHomepageHighlights()` - Fetch homepage highlights and featured content
+- `useMoments()` - Fetch latest traveler moments and social content
 
 ### Business Logic Hooks
-- `useTouristSpotSelection(spots)` - Manage spot selection
-- `useSpotImage(spot)` - Handle spot image URLs
+- `useTouristSpotSelection(spots)` - Manage spot selection state
+- `useSpotImage(spot)` - Handle spot image URLs with fallback logic
+- `useQuestUnlock()` - Manage quest unlock modal state and navigation
+- `useVideoCompletion(onComplete?)` - YouTube video completion detection with progress tracking
 
 ### Map Hooks
-- `useLeafletLoader()` - Dynamic Leaflet loading
-- `useMapInitialization(options)` - Initialize Leaflet maps
+- `useLeafletLoader()` - Dynamic Leaflet loading with proper cleanup
+- `useMapInitialization(options)` - Initialize Leaflet maps with spot fitting
 
 ### UI Hooks
 - `useResponsiveDetection()` - Responsive breakpoint detection
-- `useImageGallery(images)` - Image gallery management
-- `useIntersectionObserver(options)` - Visibility detection
+- `useImageGallery(images)` - Image gallery management with navigation
+- `useIntersectionObserver(options)` - Visibility detection for lazy loading and infinite scroll
 
 ---
 
-*Last Updated: June 18, 2025*
+*Last Updated: June 20, 2025*
