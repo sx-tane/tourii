@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 		{ name: "Quests", href: "/v2/quests" },
 		{ name: "Digital Passport", href: "/v2/passport" },
 		{ name: "Check-In Map", href: "/v2/check-in" },
-		{ name: "Shop", href: "/v2/shop" },
+		{ name: "Shop", href: "/v2/shop", disabled: true, comingSoon: true },
 		{ name: "Memory Wall", href: "/v2/memory-wall" },
 		{ name: "Profile", href: "/v2/profile" },
 	];
@@ -29,13 +29,27 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 					{/* Navigation */}
 					<nav className="flex-1 px-4 py-6 space-y-1">
 						{navItems.map((item) => (
-							<Link
-								key={item.name}
-								href={item.href}
-								className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900"
-							>
-								{item.name}
-							</Link>
+							item.disabled ? (
+								<div
+									key={item.name}
+									className="flex items-center justify-between px-4 py-2 text-sm font-medium text-gray-400 rounded-md cursor-not-allowed opacity-60"
+								>
+									<span>{item.name}</span>
+									{item.comingSoon && (
+										<span className="px-2 py-1 text-xs bg-red-100 text-red-600 rounded-full">
+											Soon
+										</span>
+									)}
+								</div>
+							) : (
+								<Link
+									key={item.name}
+									href={item.href}
+									className="flex items-center px-4 py-2 text-sm font-medium text-gray-600 rounded-md hover:bg-gray-50 hover:text-gray-900"
+								>
+									{item.name}
+								</Link>
+							)
 						))}
 					</nav>
 					{/* User Profile */}
