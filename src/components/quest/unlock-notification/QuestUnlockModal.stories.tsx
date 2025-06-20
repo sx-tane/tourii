@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import QuestUnlockModal from "./QuestUnlockModal";
-import type { StoryCompletionResponseDto } from "@/api/generated";
+import { StoryCompletionResponseDto } from "@/api/generated";
 
 const meta: Meta<typeof QuestUnlockModal> = {
   title: "Quest/Unlock Notification/QuestUnlockModal", 
