@@ -1,13 +1,14 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { UserResponseDto } from "@/api/generated";
+import BottomNavigation from "@/components/dashboard/bottom-navigation";
 import CheckinMapCard from "@/components/dashboard/checkin-map-card";
 import DigitalPassportCard from "@/components/dashboard/digital-passport-card";
 import { MomentsSection } from "@/components/dashboard/moments-section";
 import { WelcomeBanner } from "@/components/dashboard/welcome-banner";
-import { UserResponseDto } from "@/api/generated";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 // Mock data for development
 const mockDashboardData = {
@@ -79,7 +80,9 @@ const DashboardPage = () => {
 			<WelcomeBanner
 				username={userData?.name || undefined}
 				userLevel={isDevelopment ? mockDashboardData.user.userLevel : undefined}
-				userStatus={isDevelopment ? mockDashboardData.user.userStatus : undefined}
+				userStatus={
+					isDevelopment ? mockDashboardData.user.userStatus : undefined
+				}
 			/>
 
 			{/* Main Dashboard Layout */}
@@ -201,6 +204,9 @@ const DashboardPage = () => {
 					</button>
 				</div>
 			</div>
+
+			{/* Bottom Navigation */}
+			<BottomNavigation />
 		</div>
 	);
 };
