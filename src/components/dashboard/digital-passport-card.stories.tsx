@@ -3,18 +3,6 @@ import DigitalPassportCard from "./digital-passport-card";
 import type { PassportData } from "@/hooks/api/usePassport";
 import { UserResponseDto } from "@/api/generated";
 
-// Mock the usePassport hook
-const mockUsePassport = (passport: PassportData | undefined, isLoading = false, isError = false) => {
-	return {
-		passport,
-		isLoading,
-		isError,
-		data: passport,
-		error: isError ? { message: "Failed to load passport" } as Error : null,
-		mutate: async () => passport,
-	};
-};
-
 // Mock passport data
 const mockPassportData: PassportData = {
 	passportType: UserResponseDto.userDigitalPassportType.BONJIN,
@@ -120,10 +108,7 @@ const yokaiPassportData: PassportData = {
 	],
 };
 
-// Mock the hook module
-jest.mock("@/hooks/api", () => ({
-	usePassport: jest.fn(),
-}));
+// Mock data configurations for different stories
 
 const meta: Meta<typeof DigitalPassportCard> = {
 	title: "Dashboard/DigitalPassportCard",
@@ -136,14 +121,6 @@ const meta: Meta<typeof DigitalPassportCard> = {
 					"A clickable card component that displays user's digital passport information including passport type, avatar, points, and travel stats. Now integrated with backend API via SWR.",
 			},
 		},
-		mockData: [
-			{
-				url: "/api/passport",
-				method: "GET",
-				status: 200,
-				response: mockPassportData,
-			},
-		],
 	},
 	tags: ["autodocs"],
 	argTypes: {
@@ -163,25 +140,35 @@ type Story = StoryObj<typeof meta>;
 
 // Default Bonjin passport
 export const Default: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(mockPassportData));
-	},
 	args: {
 		className: "w-80",
+	},
+	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: mockPassportData,
+			},
+		],
 	},
 };
 
 // Amatsukami passport with premium features
 export const Amatsukami: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(amatsukamiPassportData));
-	},
 	args: {
 		className: "w-80",
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: amatsukamiPassportData,
+			},
+		],
 		docs: {
 			description: {
 				story: "Premium Amatsukami passport with active digital passport address and enhanced features.",
@@ -192,14 +179,18 @@ export const Amatsukami: Story = {
 
 // Yokai passport with mystical theme
 export const Yokai: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(yokaiPassportData));
-	},
 	args: {
 		className: "w-80",
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: yokaiPassportData,
+			},
+		],
 		docs: {
 			description: {
 				story: "High-level Yokai passport showcasing mystical traveler status with maximum achievements.",
@@ -210,14 +201,19 @@ export const Yokai: Story = {
 
 // Loading state
 export const Loading: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(undefined, true, false));
-	},
 	args: {
 		className: "w-80",
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: mockPassportData,
+				delay: "infinite", // Simulate loading state
+			},
+		],
 		docs: {
 			description: {
 				story: "Loading state while fetching passport data from the API.",
@@ -228,14 +224,18 @@ export const Loading: Story = {
 
 // Error state
 export const Error: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(undefined, false, true));
-	},
 	args: {
 		className: "w-80",
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 500,
+				response: { error: "Failed to load passport" },
+			},
+		],
 		docs: {
 			description: {
 				story: "Error state when passport data fails to load from the API.",
@@ -246,15 +246,19 @@ export const Error: Story = {
 
 // Custom click handler
 export const CustomHandler: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(mockPassportData));
-	},
 	args: {
 		className: "w-80",
 		onClick: () => alert("Custom passport handler triggered!"),
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: mockPassportData,
+			},
+		],
 		docs: {
 			description: {
 				story: "Digital passport card with custom click handler instead of default navigation.",
@@ -265,14 +269,18 @@ export const CustomHandler: Story = {
 
 // Responsive demonstration
 export const Responsive: Story = {
-	beforeEach: () => {
-		const { usePassport } = require("@/hooks/api");
-		usePassport.mockReturnValue(mockUsePassport(amatsukamiPassportData));
-	},
 	args: {
 		className: "w-full max-w-sm mx-auto",
 	},
 	parameters: {
+		mockData: [
+			{
+				url: "/api/passport",
+				method: "GET",
+				status: 200,
+				response: amatsukamiPassportData,
+			},
+		],
 		viewport: {
 			defaultViewport: "mobile1",
 		},
