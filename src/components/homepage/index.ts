@@ -16,3 +16,12 @@ export { default as TouriiLogoAnimation } from "./tourii-logo-animation";
 // Passport Section Components
 export { DigitalPassportSection } from "./passport/digital-passport-section";
 export { PassportCard } from "./passport/passport-card";
+
+// Highlights Section Components
+export { HighlightsSection, LatestStoryChapter, PopularQuestList, QuestCard } from "./highlights";
+
+// CTA Section Component
+export { default as CTASection } from "./cta-section/cta-section";
+
+// Footer Component
+export { default as Footer } from "./footer/footer";

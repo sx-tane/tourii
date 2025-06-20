@@ -1,17 +1,23 @@
 "use client";
 
+import { UserResponseDto } from "@/api/generated";
+import BottomNavigation from "@/components/dashboard/bottom-navigation";
+import CheckinMapCard from "@/components/dashboard/checkin-map-card";
+import DigitalPassportCard from "@/components/dashboard/digital-passport-card";
+import { MomentsSection } from "@/components/dashboard/moments-section";
+import { WelcomeBanner } from "@/components/dashboard/welcome-banner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import CheckinMapCard from "@/components/dashboard/checkin-map-card";
-import { MomentsSection } from "@/components/dashboard/moments-section";
 
 // Mock data for development
 const mockDashboardData = {
 	user: {
-		name: "Test User",
+		name: "Hiroshi",
 		level: 3,
 		points: 750,
+		userLevel: UserResponseDto.level.E_CLASS_AMATSUKAMI,
+		userStatus: UserResponseDto.userDigitalPassportType.AMATSUKAMI,
 		chapter: {
 			title: "Kyoto Tales",
 			current: 2,
@@ -70,64 +76,76 @@ const DashboardPage = () => {
 
 	return (
 		<div className="space-y-6">
-			{/* Welcome Section */}
-			<div className="bg-white shadow-sm rounded-lg p-6">
-				<h1 className="text-2xl font-bold text-gray-900">
-					Welcome back, {userData?.name || "Explorer"}!
-				</h1>
-				<p className="mt-1 text-gray-500">
-					Continue your journey through Japan's mystical tales.
-				</p>
-			</div>
+			{/* Welcome Banner */}
+			<WelcomeBanner
+				username={userData?.name || undefined}
+				userLevel={isDevelopment ? mockDashboardData.user.userLevel : undefined}
+				userStatus={
+					isDevelopment ? mockDashboardData.user.userStatus : undefined
+				}
+			/>
 
-			{/* Stats Grid */}
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-				<div className="bg-white shadow-sm rounded-lg p-6">
-					<h3 className="text-lg font-medium text-gray-900">Current Chapter</h3>
-					<div className="mt-2">
-						<p className="text-3xl font-bold text-indigo-600">
-							{mockDashboardData.user.chapter.title}
-						</p>
-						<p className="text-sm text-gray-500">
-							Chapter {mockDashboardData.user.chapter.current} of{" "}
-							{mockDashboardData.user.chapter.total}
-						</p>
+			{/* Main Dashboard Layout */}
+			<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				{/* Left Column */}
+				<div className="lg:col-span-1 space-y-6">
+					{/* Digital Passport Card */}
+					<DigitalPassportCard />
+
+					{/* Current Chapter Card */}
+					<div className="bg-white shadow-sm rounded-lg p-6">
+						<h3 className="text-lg font-medium text-gray-900">Current Chapter</h3>
+						<div className="mt-2">
+							<p className="text-3xl font-bold text-indigo-600">
+								{mockDashboardData.user.chapter.title}
+							</p>
+							<p className="text-sm text-gray-500">
+								Chapter {mockDashboardData.user.chapter.current} of{" "}
+								{mockDashboardData.user.chapter.total}
+							</p>
+						</div>
 					</div>
 				</div>
 
-				<div className="bg-white shadow-sm rounded-lg p-6">
-					<h3 className="text-lg font-medium text-gray-900">Tourii Points</h3>
-					<div className="mt-2">
-						<p className="text-3xl font-bold text-indigo-600">
-							{mockDashboardData.user.points}
-						</p>
-						<p className="text-sm text-gray-500">
-							Level {mockDashboardData.user.level} Explorer
-						</p>
-					</div>
-				</div>
+				{/* Right Column */}
+				<div className="lg:col-span-2 space-y-6">
+					{/* Stats Grid */}
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="bg-white shadow-sm rounded-lg p-6">
+							<h3 className="text-lg font-medium text-gray-900">Tourii Points</h3>
+							<div className="mt-2">
+								<p className="text-3xl font-bold text-indigo-600">
+									{mockDashboardData.user.points}
+								</p>
+								<p className="text-sm text-gray-500">
+									Level {mockDashboardData.user.level} Explorer
+								</p>
+							</div>
+						</div>
 
-				<div className="bg-white shadow-sm rounded-lg p-6">
-					<h3 className="text-lg font-medium text-gray-900">Active Quests</h3>
-					<div className="mt-2">
-						<p className="text-3xl font-bold text-indigo-600">
-							{mockDashboardData.user.quests.active}
-						</p>
-						<p className="text-sm text-gray-500">
-							{mockDashboardData.user.quests.online} Online,{" "}
-							{mockDashboardData.user.quests.offline} Offline
-						</p>
+						<div className="bg-white shadow-sm rounded-lg p-6">
+							<h3 className="text-lg font-medium text-gray-900">Active Quests</h3>
+							<div className="mt-2">
+								<p className="text-3xl font-bold text-indigo-600">
+									{mockDashboardData.user.quests.active}
+								</p>
+								<p className="text-sm text-gray-500">
+									{mockDashboardData.user.quests.online} Online,{" "}
+									{mockDashboardData.user.quests.offline} Offline
+								</p>
+							</div>
+						</div>
 					</div>
-				</div>
 
-				{/* Check-In Map Card */}
-				<CheckinMapCard
-					userId={session?.user?.email || undefined}
-					onNavigateToStory={(storyId) =>
-						router.push(`/v2/touriiverse/${storyId}`)
-					}
-					onNavigateToQuest={(questId) => router.push(`/v2/quests/${questId}`)}
-				/>
+					{/* Check-In Map Card */}
+					<CheckinMapCard
+						userId={session?.user?.email || undefined}
+						onNavigateToStory={(storyId) =>
+							router.push(`/v2/touriiverse/${storyId}`)
+						}
+						onNavigateToQuest={(questId) => router.push(`/v2/quests/${questId}`)}
+					/>
+				</div>
 			</div>
 
 			{/* Recent Activity */}
@@ -186,6 +204,9 @@ const DashboardPage = () => {
 					</button>
 				</div>
 			</div>
+
+			{/* Bottom Navigation */}
+			<BottomNavigation />
 		</div>
 	);
 };

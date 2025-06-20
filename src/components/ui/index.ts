@@ -4,6 +4,7 @@
  */
 
 // Core UI Components
+export { default as ArrowRightIcon } from "./arrow-right-icon";
 export { Button, buttonVariants } from "./button";
 export { Calendar } from "./calendar";
 export {
