@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import DigitalPassportCard from "./digital-passport-card";
 import type { PassportData } from "@/hooks/api/usePassport";
+import { UserResponseDto } from "@/api/generated";
 
 // Mock the usePassport hook
 const mockUsePassport = (passport: PassportData | undefined, isLoading = false, isError = false) => {
@@ -16,9 +17,9 @@ const mockUsePassport = (passport: PassportData | undefined, isLoading = false, 
 
 // Mock passport data
 const mockPassportData: PassportData = {
-	passportType: "BONJIN",
+	passportType: UserResponseDto.userDigitalPassportType.BONJIN,
 	digitalPassportAddress: null,
-	level: "E_CLASS_AMATSUKAMI",
+	level: UserResponseDto.level.E_CLASS_AMATSUKAMI,
 	magatamaPoints: 150,
 	totalQuestCompleted: 3,
 	totalTravelDistance: 25.5,
@@ -69,9 +70,9 @@ const mockPassportData: PassportData = {
 
 const amatsukamiPassportData: PassportData = {
 	...mockPassportData,
-	passportType: "AMATSUKAMI",
+	passportType: UserResponseDto.userDigitalPassportType.AMATSUKAMI,
 	digitalPassportAddress: "0x1234567890abcdef1234567890abcdef12345678",
-	level: "A_CLASS_AMATSUKAMI",
+	level: UserResponseDto.level.A_CLASS_AMATSUKAMI,
 	magatamaPoints: 2500,
 	totalQuestCompleted: 25,
 	totalTravelDistance: 150.7,
@@ -99,9 +100,9 @@ const amatsukamiPassportData: PassportData = {
 
 const yokaiPassportData: PassportData = {
 	...mockPassportData,
-	passportType: "YOKAI",
+	passportType: UserResponseDto.userDigitalPassportType.YOKAI,
 	digitalPassportAddress: "0xabcdef1234567890abcdef1234567890abcdef12",
-	level: "S_CLASS_YOKAI",
+	level: UserResponseDto.level.S_CLASS_YOKAI,
 	magatamaPoints: 5000,
 	totalQuestCompleted: 50,
 	totalTravelDistance: 300.2,
