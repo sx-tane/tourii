@@ -1,23 +1,31 @@
 "use client";
-import { useState, useCallback, useMemo } from "react";
-import { useModelRoutes } from "@/hooks";
-import { makeApiRequest } from "@/utils/api-helpers";
 import type {
 	ModelRouteCreateRequestDto,
 	ModelRouteResponseDto,
 } from "@/api/generated";
+import { useModelRoutes } from "@/hooks";
+import { makeApiRequest } from "@/utils/api-helpers";
 import {
-	Edit,
-	Plus,
-	Eye,
-	MapPin,
-	Trash2,
-	Search,
-	X,
 	BarChart3,
+	Edit,
+	Eye,
+	ExternalLink,
+	MapPin,
+	Plus,
+	Search,
+	Trash2,
+	X,
 } from "lucide-react";
+import { useCallback, useId, useMemo, useState } from "react";
 
 export default function AdminModelRoutes() {
+	const storyIdId = useId();
+	const routeNameId = useId();
+	const regionId = useId();
+	const regionDescId = useId();
+	const regionBackgroundMediaId = useId();
+	const recommendationId = useId();
+
 	const { data: modelRoutes, isLoading, mutate } = useModelRoutes();
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingRoute, setEditingRoute] =
@@ -606,6 +614,19 @@ export default function AdminModelRoutes() {
 												>
 													<Eye size={16} />
 												</a>
+												<a
+													href={`/v2/region/${encodeURIComponent(route.region || '')}/${route.modelRouteId}`}
+													className={`rounded-lg bg-blue-100 p-2 text-blue-700 hover:bg-blue-200 transition-all ${
+														deletingRouteId !== null
+															? "pointer-events-none opacity-50"
+															: ""
+													}`}
+													title="Jump to Route Page"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<ExternalLink size={16} />
+												</a>
 												<button
 													type="button"
 													onClick={() =>
@@ -825,13 +846,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="storyId"
+											htmlFor={storyIdId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Story ID *
 										</label>
 										<input
-											id="storyId"
+											id={storyIdId}
 											type="text"
 											value={form.storyId}
 											onChange={(e) =>
@@ -844,13 +865,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="routeName"
+											htmlFor={routeNameId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Route Name *
 										</label>
 										<input
-											id="routeName"
+											id={routeNameId}
 											type="text"
 											value={form.routeName}
 											onChange={(e) =>
@@ -863,13 +884,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="region"
+											htmlFor={regionId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Region *
 										</label>
 										<input
-											id="region"
+											id={regionId}
 											type="text"
 											value={form.region}
 											onChange={(e) =>
@@ -882,13 +903,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="regionDesc"
+											htmlFor={regionDescId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Region Description
 										</label>
 										<textarea
-											id="regionDesc"
+											id={regionDescId}
 											value={form.regionDesc}
 											onChange={(e) =>
 												setForm({ ...form, regionDesc: e.target.value })
@@ -908,13 +929,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="regionBackgroundMedia"
+											htmlFor={regionBackgroundMediaId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Background Media URL
 										</label>
 										<input
-											id="regionBackgroundMedia"
+											id={regionBackgroundMediaId}
 											type="url"
 											value={form.regionBackgroundMedia}
 											onChange={(e) =>
@@ -930,13 +951,13 @@ export default function AdminModelRoutes() {
 
 									<div>
 										<label
-											htmlFor="recommendation"
+											htmlFor={recommendationId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Recommendations (comma-separated)
 										</label>
 										<textarea
-											id="recommendation"
+											id={recommendationId}
 											value={recommendationText}
 											onChange={(e) => setRecommendationText(e.target.value)}
 											rows={6}

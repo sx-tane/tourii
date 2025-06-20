@@ -1,24 +1,33 @@
 "use client";
-import { useState, useCallback, useMemo } from "react";
+import type { QuestCreateRequestDto, QuestResponseDto } from "@/api/generated";
 import { useQuests } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
-import type { QuestCreateRequestDto, QuestResponseDto } from "@/api/generated";
 import {
+	BarChart3,
 	Edit,
-	Plus,
 	Eye,
+	ExternalLink,
+	Lock,
 	MapPin,
+	Plus,
+	Search,
 	Star,
+	Trash2,
 	Trophy,
 	Users,
-	Search,
 	X,
-	BarChart3,
-	Trash2,
-	Lock,
 } from "lucide-react";
+import { useCallback, useId, useMemo, useState } from "react";
 
 export default function AdminQuests() {
+	const touristSpotIdId = useId();
+	const questNameId = useId();
+	const questDescId = useId();
+	const questImageId = useId();
+	const questTypeId = useId();
+	const rewardTypeId = useId();
+	const magatamaPointsId = useId();
+
 	const {
 		data: quests,
 		isLoading: isLoadingQuests,
@@ -632,6 +641,15 @@ export default function AdminQuests() {
 												>
 													<Eye size={16} />
 												</a>
+												<a
+													href={`/v2/quests/${quest.questId}`}
+													className="rounded-lg bg-blue-100 p-2 text-blue-700 hover:bg-blue-200 transition-all inline-flex items-center justify-center"
+													title="Jump to Quest Page"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<ExternalLink size={16} />
+												</a>
 											</div>
 										</td>
 									</tr>
@@ -889,13 +907,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="touristSpotId"
+											htmlFor={touristSpotIdId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Tourist Spot ID *
 										</label>
 										<input
-											id="touristSpotId"
+											id={touristSpotIdId}
 											type="text"
 											value={form.touristSpotId}
 											onChange={(e) =>
@@ -908,13 +926,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="questName"
+											htmlFor={questNameId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Quest Name *
 										</label>
 										<input
-											id="questName"
+											id={questNameId}
 											type="text"
 											value={form.questName}
 											onChange={(e) =>
@@ -927,13 +945,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="questDesc"
+											htmlFor={questDescId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Description *
 										</label>
 										<textarea
-											id="questDesc"
+											id={questDescId}
 											value={form.questDesc}
 											onChange={(e) =>
 												setForm({ ...form, questDesc: e.target.value })
@@ -946,13 +964,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="questImage"
+											htmlFor={questImageId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Quest Image URL
 										</label>
 										<input
-											id="questImage"
+											id={questImageId}
 											type="url"
 											value={form.questImage}
 											onChange={(e) =>
@@ -972,13 +990,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="questType"
+											htmlFor={questTypeId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Quest Type *
 										</label>
 										<select
-											id="questType"
+											id={questTypeId}
 											value={form.questType}
 											onChange={(e) =>
 												setForm({
@@ -999,13 +1017,13 @@ export default function AdminQuests() {
 
 									<div>
 										<label
-											htmlFor="rewardType"
+											htmlFor={rewardTypeId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Reward Type *
 										</label>
 										<select
-											id="rewardType"
+											id={rewardTypeId}
 											value={form.rewardType}
 											onChange={(e) =>
 												setForm({
@@ -1059,7 +1077,7 @@ export default function AdminQuests() {
 											Magatama Points Awarded
 										</label>
 										<input
-											id="magatamaPoints"
+											id={magatamaPointsId}
 											type="number"
 											value={form.totalMagatamaPointAwarded}
 											onChange={(e) =>

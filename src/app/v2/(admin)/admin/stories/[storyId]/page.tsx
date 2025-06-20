@@ -1,27 +1,38 @@
 "use client";
-import { useParams } from "next/navigation";
-import { useState, useCallback, useMemo } from "react";
-import { makeApiRequest } from "@/utils/api-helpers";
 import type {
 	StoryChapterCreateRequestDto,
-	StoryChapterUpdateRequestDto,
 	StoryChapterResponseDto,
+	StoryChapterUpdateRequestDto,
 } from "@/api/generated";
-import {
-	Edit,
-	Plus,
-	Eye,
-	ArrowLeft,
-	Trash2,
-	Search,
-	X,
-	BarChart3,
-} from "lucide-react";
 import { useSagaById } from "@/hooks";
+import { makeApiRequest } from "@/utils/api-helpers";
+import {
+	ArrowLeft,
+	BarChart3,
+	Edit,
+	ExternalLink,
+	Plus,
+	Search,
+	Trash2,
+	X,
+} from "lucide-react";
+import { useParams } from "next/navigation";
+import { useCallback, useId, useMemo, useState } from "react";
 
 export default function SagaDetail() {
 	const { storyId } = useParams() as { storyId: string };
 	const { storyChapterList, mutate, isLoading } = useSagaById(storyId);
+
+	const touristSpotIdId = useId();
+	const chapterNumberId = useId();
+	const chapterTitleId = useId();
+	const chapterDescId = useId();
+	const characterNameListId = useId();
+	const chapterImageId = useId();
+	const realWorldImageId = useId();
+	const chapterVideoUrlId = useId();
+	const chapterVideoMobileUrlId = useId();
+	const chapterPdfUrlId = useId();
 
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingChapter, setEditingChapter] =
@@ -646,6 +657,19 @@ export default function SagaDetail() {
 												>
 													<Edit size={16} />
 												</button>
+												<a
+													href={`/v2/touriiverse/${storyId}/chapters/${chapter.storyChapterId}`}
+													className={`rounded-lg bg-blue-100 p-2 text-blue-700 hover:bg-blue-200 transition-all ${
+														deletingChapterId !== null
+															? "pointer-events-none opacity-50"
+															: ""
+													}`}
+													title="Jump to Chapter Page"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<ExternalLink size={16} />
+												</a>
 												<button
 													type="button"
 													onClick={() =>
@@ -906,7 +930,7 @@ export default function SagaDetail() {
 											Tourist Spot ID *
 										</label>
 										<input
-											id="touristSpotId"
+											id={touristSpotIdId}
 											type="text"
 											value={form.touristSpotId}
 											onChange={(e) =>
@@ -919,13 +943,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="chapterNumber"
+											htmlFor={chapterNumberId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Chapter Number *
 										</label>
 										<input
-											id="chapterNumber"
+											id={chapterNumberId}
 											type="text"
 											value={form.chapterNumber}
 											onChange={(e) =>
@@ -938,13 +962,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="chapterTitle"
+											htmlFor={chapterTitleId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Chapter Title *
 										</label>
 										<input
-											id="chapterTitle"
+											id={chapterTitleId}
 											type="text"
 											value={form.chapterTitle}
 											onChange={(e) =>
@@ -957,13 +981,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="chapterDesc"
+											htmlFor={chapterDescId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Chapter Description
 										</label>
 										<textarea
-											id="chapterDesc"
+											id={chapterDescId}
 											value={form.chapterDesc}
 											onChange={(e) =>
 												setForm({ ...form, chapterDesc: e.target.value })
@@ -976,13 +1000,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="characterNameList"
+											htmlFor={characterNameListId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Characters (comma-separated)
 										</label>
 										<input
-											id="characterNameList"
+											id={characterNameListId}
 											type="text"
 											value={form.characterNameList.join(", ")}
 											onChange={(e) =>
@@ -1002,13 +1026,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="chapterImage"
+											htmlFor={chapterImageId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Chapter Image URL
 										</label>
 										<input
-											id="chapterImage"
+											id={chapterImageId}
 											type="url"
 											value={form.chapterImage}
 											onChange={(e) =>
@@ -1021,13 +1045,13 @@ export default function SagaDetail() {
 
 									<div>
 										<label
-											htmlFor="realWorldImage"
+											htmlFor={realWorldImageId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Real World Image URL
 										</label>
 										<input
-											id="realWorldImage"
+											id={realWorldImageId}
 											type="url"
 											value={form.realWorldImage}
 											onChange={(e) =>
@@ -1046,7 +1070,7 @@ export default function SagaDetail() {
 											Desktop Video URL
 										</label>
 										<input
-											id="chapterVideoUrl"
+											id={chapterVideoUrlId}
 											type="url"
 											value={form.chapterVideoUrl}
 											onChange={(e) =>
@@ -1065,7 +1089,7 @@ export default function SagaDetail() {
 											Mobile Video URL
 										</label>
 										<input
-											id="chapterVideoMobileUrl"
+											id={chapterVideoMobileUrlId}
 											type="url"
 											value={form.chapterVideoMobileUrl}
 											onChange={(e) =>
@@ -1087,7 +1111,7 @@ export default function SagaDetail() {
 											PDF URL
 										</label>
 										<input
-											id="chapterPdfUrl"
+											id={chapterPdfUrlId}
 											type="url"
 											value={form.chapterPdfUrl}
 											onChange={(e) =>
