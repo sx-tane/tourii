@@ -76,7 +76,7 @@ const DashboardPage = () => {
 		<div className="space-y-6">
 			{/* Welcome Banner */}
 			<WelcomeBanner
-				username={userData?.name}
+				username={userData?.name || undefined}
 				userLevel={isDevelopment ? mockDashboardData.user.userLevel : undefined}
 				userStatus={isDevelopment ? mockDashboardData.user.userStatus : undefined}
 			/>
