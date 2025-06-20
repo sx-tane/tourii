@@ -57,14 +57,15 @@ export default function LatestStoryChapter({ chapter }: LatestStoryChapterProps)
 						
 						{/* Chapter Badge */}
 						<div className="absolute top-6 left-6 rounded-full bg-warmGrey5/90 px-4 py-2 text-sm font-bold text-white backdrop-blur-sm">
-							CHAPTER ONE
+							{chapter.chapterId ? `CHAPTER ${chapter.chapterId.toUpperCase()}` : 'LATEST CHAPTER'}
 						</div>
 
 						{/* Play Button */}
 						<div className="absolute inset-0 flex items-center justify-center">
-							<motion.div
+							<motion.button
 								whileHover={{ scale: 1.1 }}
 								className="rounded-full bg-white/20 p-4 backdrop-blur-sm transition-all duration-300 group-hover:bg-white/30"
+								aria-label="Play chapter video"
 							>
 								<svg
 									className="h-8 w-8 text-white ml-1"
@@ -73,7 +74,7 @@ export default function LatestStoryChapter({ chapter }: LatestStoryChapterProps)
 								>
 									<path d="M8 5v14l11-7z" />
 								</svg>
-							</motion.div>
+							</motion.button>
 						</div>
 					</div>
 
