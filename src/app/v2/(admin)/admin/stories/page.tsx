@@ -1,25 +1,30 @@
 "use client";
-import { useState, useCallback, useMemo } from "react";
+import type { StoryCreateRequestDto, StoryResponseDto } from "@/api/generated";
 import { useSagas } from "@/hooks";
 import { makeApiRequest } from "@/utils/api-helpers";
-import type { StoryCreateRequestDto, StoryResponseDto } from "@/api/generated";
 import {
-	Edit,
-	Plus,
-	Eye,
-	Trash2,
-	Search,
-	Filter,
-	X,
-	Check,
 	BarChart3,
+	Edit,
+	ExternalLink,
+	Eye,
+	Plus,
+	Search,
+	Trash2,
+	X,
 } from "lucide-react";
+import { useCallback, useId, useMemo, useState } from "react";
 
 export default function AdminStories() {
-	const { 
-		data: sagas, 
-		isLoading: isLoadingSagas, 
-		mutate: mutateSagas 
+	const sagaNameId = useId();
+	const sagaDescId = useId();
+	const locationId = useId();
+	const orderId = useId();
+	const backgroundMediaId = useId();
+	const mapImageId = useId();
+	const {
+		data: sagas,
+		isLoading: isLoadingSagas,
+		mutate: mutateSagas,
 	} = useSagas();
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	const [editingStory, setEditingStory] = useState<StoryResponseDto | null>(
@@ -575,6 +580,19 @@ export default function AdminStories() {
 												>
 													<Eye size={16} />
 												</a>
+												<a
+													href={`/v2/touriiverse/${story.storyId}`}
+													className={`rounded-lg bg-blue-100 p-2 text-blue-700 hover:bg-blue-200 transition-all ${
+														deletingStoryId !== null
+															? "pointer-events-none opacity-50"
+															: ""
+													}`}
+													title="Jump to Story Page"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													<ExternalLink size={16} />
+												</a>
 												<button
 													type="button"
 													onClick={() =>
@@ -775,7 +793,7 @@ export default function AdminStories() {
 											Saga Name *
 										</label>
 										<input
-											id="sagaName"
+											id={sagaNameId}
 											type="text"
 											value={form.sagaName}
 											onChange={(e) =>
@@ -794,7 +812,7 @@ export default function AdminStories() {
 											Description *
 										</label>
 										<textarea
-											id="sagaDesc"
+											id={sagaDescId}
 											value={form.sagaDesc}
 											onChange={(e) =>
 												setForm({ ...form, sagaDesc: e.target.value })
@@ -813,7 +831,7 @@ export default function AdminStories() {
 											Location
 										</label>
 										<input
-											id="location"
+											id={locationId}
 											type="text"
 											value={form.location}
 											onChange={(e) =>
@@ -832,7 +850,7 @@ export default function AdminStories() {
 											Display Order
 										</label>
 										<input
-											id="order"
+											id={orderId}
 											type="number"
 											value={form.order}
 											onChange={(e) =>
@@ -862,7 +880,7 @@ export default function AdminStories() {
 											Background Media URL *
 										</label>
 										<input
-											id="backgroundMedia"
+											id={backgroundMediaId}
 											type="url"
 											value={form.backgroundMedia}
 											onChange={(e) =>
@@ -881,7 +899,7 @@ export default function AdminStories() {
 											Map Image URL
 										</label>
 										<input
-											id="mapImage"
+											id={mapImageId}
 											type="url"
 											value={form.mapImage}
 											onChange={(e) =>
