@@ -20,6 +20,8 @@ export type { ModelRouteResponseDto } from './models/ModelRouteResponseDto';
 export type { ModelRouteUpdateRequestDto } from './models/ModelRouteUpdateRequestDto';
 export type { MomentListResponseDto } from './models/MomentListResponseDto';
 export type { MomentResponseDto } from './models/MomentResponseDto';
+export type { QrScanRequestDto } from './models/QrScanRequestDto';
+export type { QrScanResponseDto } from './models/QrScanResponseDto';
 export { QuestCreateRequestDto } from './models/QuestCreateRequestDto';
 export type { QuestListResponseDto } from './models/QuestListResponseDto';
 export { QuestResponseDto } from './models/QuestResponseDto';

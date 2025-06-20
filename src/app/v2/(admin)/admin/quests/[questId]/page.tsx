@@ -1,8 +1,21 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
-import { useState, useCallback, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import type { QuestResponseDto } from "@/api/generated";
+import { useQuestById } from "@/hooks/api";
 import { makeApiRequest } from "@/utils/api-helpers";
-import type { QuestResponseDto, TaskResponseDto } from "@/api/generated";
+import {
+	ArrowLeft,
+	Award,
+	BarChart3,
+	Clock,
+	Edit,
+	Plus,
+	Search,
+	Trash2,
+	X,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useId, useMemo, useState } from "react";
 
 // Create proper types for task management based on the API schema
 type TaskData = NonNullable<QuestResponseDto["tasks"]>[0];
@@ -14,36 +27,25 @@ type TaskCreateRequestDto = {
 	taskDesc: string;
 	isUnlocked: boolean;
 	requiredAction: string;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	groupActivityMembers?: Array<any>;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	selectOptions?: Array<any>;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	groupActivityMembers?: any[];
+	selectOptions?: any[];
 	antiCheatRules: any;
 	magatamaPointAwarded: number;
 	delFlag: boolean;
 };
-import {
-	ArrowLeft,
-	Edit,
-	Plus,
-	Clock,
-	Award,
-	Users,
-	Target,
-	Trash2,
-	Search,
-	X,
-	BarChart3,
-} from "lucide-react";
-import { Task } from "vitest";
-import { useQuestById } from "@/hooks/api";
 
 interface Props {
 	params: Promise<{ questId: string }>;
 }
 
 export default function QuestTaskManagement({ params }: Props) {
+	const taskNameId = useId();
+	const taskDescId = useId();
+	const requiredActionId = useId();
+	const taskThemeId = useId();
+	const taskTypeId = useId();
+	const magatamaPointsId = useId();
+
 	const router = useRouter();
 	const [questId, setQuestId] = useState<string>("");
 	const [isParamsLoaded, setIsParamsLoaded] = useState(false);
@@ -928,13 +930,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="taskName"
+											htmlFor={taskNameId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Task Name *
 										</label>
 										<input
-											id="taskName"
+											id={taskNameId}
 											type="text"
 											value={form.taskName}
 											onChange={(e) =>
@@ -947,13 +949,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="taskDesc"
+											htmlFor={taskDescId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Description *
 										</label>
 										<textarea
-											id="taskDesc"
+											id={taskDescId}
 											value={form.taskDesc}
 											onChange={(e) =>
 												setForm({ ...form, taskDesc: e.target.value })
@@ -966,13 +968,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="requiredAction"
+											htmlFor={requiredActionId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Required Action *
 										</label>
 										<textarea
-											id="requiredAction"
+											id={requiredActionId}
 											value={form.requiredAction}
 											onChange={(e) =>
 												setForm({ ...form, requiredAction: e.target.value })
@@ -992,13 +994,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="taskTheme"
+											htmlFor={taskThemeId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Task Theme *
 										</label>
 										<select
-											id="taskTheme"
+											id={taskThemeId}
 											value={form.taskTheme}
 											onChange={(e) =>
 												setForm({
@@ -1019,13 +1021,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="taskType"
+											htmlFor={taskTypeId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Task Type *
 										</label>
 										<select
-											id="taskType"
+											id={taskTypeId}
 											value={form.taskType}
 											onChange={(e) =>
 												setForm({
@@ -1051,13 +1053,13 @@ export default function QuestTaskManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="magatamaPoints"
+											htmlFor={magatamaPointsId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Magatama Points Awarded
 										</label>
 										<input
-											id="magatamaPoints"
+											id={magatamaPointsId}
 											type="number"
 											value={form.magatamaPointAwarded}
 											onChange={(e) =>

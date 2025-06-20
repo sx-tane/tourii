@@ -19,3 +19,6 @@ export { useMoments } from "./useMoments";
 
 // Homepage hooks
 export { useHomepageHighlights } from "./useHomepageHighlights";
+
+// Passport hooks
+export { usePassport } from "./usePassport";

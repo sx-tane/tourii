@@ -1,25 +1,24 @@
 "use client";
-import { useState, useCallback, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import { useModelRouteById } from "@/hooks";
-import { makeApiRequest } from "@/utils/api-helpers";
-import { mutate } from "swr";
 import type {
 	TouristSpotCreateRequestDto,
 	TouristSpotResponseDto,
 } from "@/api/generated";
+import { useModelRouteById } from "@/hooks";
+import { makeApiRequest } from "@/utils/api-helpers";
 import {
 	ArrowLeft,
+	BarChart3,
+	Camera,
 	Edit,
 	Plus,
-	MapPin,
-	Camera,
+	Search,
 	Tag,
 	Trash2,
-	Search,
 	X,
-	BarChart3,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useId, useMemo, useState } from "react";
+import { mutate } from "swr";
 
 interface Props {
 	params: Promise<{ routeId: string }>;
@@ -29,6 +28,16 @@ export default function TouristSpotManagement({ params }: Props) {
 	const router = useRouter();
 	const [routeId, setRouteId] = useState<string>("");
 	const [isParamsLoaded, setIsParamsLoaded] = useState(false);
+
+	// Generate unique IDs for form fields
+	const storyChapterIdId = useId();
+	const touristSpotNameId = useId();
+	const addressId = useId();
+	const touristSpotDescId = useId();
+	const bestVisitTimeId = useId();
+	const mainImageId = useId();
+	const smallImagesId = useId();
+	const hashtagsId = useId();
 
 	// Initialize params
 	useEffect(() => {
@@ -1033,13 +1042,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="storyChapterId"
+											htmlFor={storyChapterIdId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Story Chapter ID *
 										</label>
 										<input
-											id="storyChapterId"
+											id={storyChapterIdId}
 											type="text"
 											value={form.storyChapterId || ""}
 											onChange={(e) =>
@@ -1052,13 +1061,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="touristSpotName"
+											htmlFor={touristSpotNameId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Spot Name *
 										</label>
 										<input
-											id="touristSpotName"
+											id={touristSpotNameId}
 											type="text"
 											value={form.touristSpotName || ""}
 											onChange={(e) =>
@@ -1071,13 +1080,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="address"
+											htmlFor={addressId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Address *
 										</label>
 										<input
-											id="address"
+											id={addressId}
 											type="text"
 											value={form.address || ""}
 											onChange={(e) =>
@@ -1089,13 +1098,13 @@ export default function TouristSpotManagement({ params }: Props) {
 									</div>
 									<div>
 										<label
-											htmlFor="touristSpotDesc"
+											htmlFor={touristSpotDescId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Description *
 										</label>
 										<textarea
-											id="touristSpotDesc"
+											id={touristSpotDescId}
 											value={form.touristSpotDesc || ""}
 											onChange={(e) =>
 												setForm({ ...form, touristSpotDesc: e.target.value })
@@ -1108,13 +1117,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="bestVisitTime"
+											htmlFor={bestVisitTimeId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Best Visit Time
 										</label>
 										<input
-											id="bestVisitTime"
+											id={bestVisitTimeId}
 											type="text"
 											value={form.bestVisitTime || ""}
 											onChange={(e) =>
@@ -1134,13 +1143,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="mainImage"
+											htmlFor={mainImageId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Main Image URL
 										</label>
 										<input
-											id="mainImage"
+											id={mainImageId}
 											type="url"
 											value={form.imageSet?.main || ""}
 											onChange={(e) =>
@@ -1159,13 +1168,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="smallImages"
+											htmlFor={smallImagesId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Small Images (comma-separated URLs)
 										</label>
 										<textarea
-											id="smallImages"
+											id={smallImagesId}
 											value={smallImagesText}
 											onChange={(e) => setSmallImagesText(e.target.value)}
 											rows={3}
@@ -1176,13 +1185,13 @@ export default function TouristSpotManagement({ params }: Props) {
 
 									<div>
 										<label
-											htmlFor="hashtags"
+											htmlFor={hashtagsId}
 											className="block text-sm font-medium text-charcoal mb-2"
 										>
 											Hashtags (comma-separated)
 										</label>
 										<textarea
-											id="hashtags"
+											id={hashtagsId}
 											value={hashtagText}
 											onChange={(e) => setHashtagText(e.target.value)}
 											rows={3}
