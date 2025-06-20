@@ -9,7 +9,7 @@ const mockUsePassport = (passport: PassportData | undefined, isLoading = false, 
 		isLoading,
 		isError,
 		data: passport,
-		error: isError ? new Error("Failed to load passport") : null,
+		error: isError ? { message: "Failed to load passport" } as Error : null,
 		mutate: async () => passport,
 	};
 };
