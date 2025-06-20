@@ -44,7 +44,7 @@ const mockStoryCompletionData: StoryCompletionResponseDto = {
   storyProgress: {
     storyChapterId: "chapter-001",
     chapterTitle: "The Sacred Journey Begins",
-    status: "COMPLETED" as const,
+    status: StoryCompletionResponseDto.status.COMPLETED,
     completedAt: new Date().toISOString()
   },
   unlockedQuests: [
