@@ -42,6 +42,10 @@ export type { StoryReadingCompleteRequestDto } from './models/StoryReadingComple
 export type { StoryReadingStartRequestDto } from './models/StoryReadingStartRequestDto';
 export type { StoryResponseDto } from './models/StoryResponseDto';
 export type { StoryUpdateRequestDto } from './models/StoryUpdateRequestDto';
+export type { SubmitAnswerTextRequestTaskDto } from './models/SubmitAnswerTextRequestTaskDto';
+export type { SubmitCheckInTaskRequestDto } from './models/SubmitCheckInTaskRequestDto';
+export type { SubmitSelectOptionsTaskRequestDto } from './models/SubmitSelectOptionsTaskRequestDto';
+export type { SubmitTaskResponseDto } from './models/SubmitTaskResponseDto';
 export { TaskResponseDto } from './models/TaskResponseDto';
 export type { TouristSpotCreateRequestDto } from './models/TouristSpotCreateRequestDto';
 export type { TouristSpotResponseDto } from './models/TouristSpotResponseDto';
@@ -59,4 +63,5 @@ export { QuestService } from './services/QuestService';
 export { RoutesService } from './services/RoutesService';
 export { SecurityTestsService } from './services/SecurityTestsService';
 export { StoriesService } from './services/StoriesService';
+export { TaskService } from './services/TaskService';
 export { UserService } from './services/UserService';
