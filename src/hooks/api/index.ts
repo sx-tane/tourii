@@ -13,8 +13,12 @@ export { useQuestById } from "./useQuestById";
 
 // Checkin hooks
 export { useCheckins } from "./useCheckins";
+
 // Moment hooks
 export { useMoments } from "./useMoments";
+
+// Homepage hooks
+export { useHomepageHighlights } from "./useHomepageHighlights";
 
 // Passport hooks
 export { usePassport } from "./usePassport";

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HowTouriiWorks from "@/components/homepage/how-tourii-works";
 import { DigitalPassportSection } from "@/components/homepage/passport/digital-passport-section";
 import { StampedItemSection } from "@/components/homepage/stamped-item-section";
+import { HighlightsSection, CTASection, Footer } from "@/components/homepage";
 import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
 import { defaultImage, homepageSections } from "@/lib/data/homepage";
 import {
@@ -74,6 +75,7 @@ const HomePage: NextPage = () => {
 					transition={{ duration: 0.5, delay: 0.8 }}
 					className="relative w-full mx-auto"
 				>
+					<HighlightsSection />
 					<HowTouriiWorks
 						sections={sections}
 						currentImage={currentImage}
@@ -84,42 +86,9 @@ const HomePage: NextPage = () => {
 					/>
 					<DigitalPassportSection />
 					<StampedItemSection />
+					<CTASection />
 
-					<motion.footer
-						className="bg-black/90 backdrop-blur-sm text-white py-6 text-sm flex flex-col md:flex-row justify-between items-center px-6 w-full"
-						initial={{ opacity: 0 }}
-						whileInView={{ opacity: 1 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-					>
-						<p>&copy; 2025 Tourii. All rights reserved.</p>
-						<div className="flex gap-4 mt-4 md:mt-0">
-							<motion.a
-								href="/privacy"
-								className="hover:underline"
-								whileHover={{ scale: 1.1 }}
-								transition={{ duration: 0.2 }}
-							>
-								Privacy
-							</motion.a>
-							<motion.a
-								href="/terms"
-								className="hover:underline"
-								whileHover={{ scale: 1.1 }}
-								transition={{ duration: 0.2 }}
-							>
-								Terms
-							</motion.a>
-							<motion.a
-								href="/contact"
-								className="hover:underline"
-								whileHover={{ scale: 1.1 }}
-								transition={{ duration: 0.2 }}
-							>
-								Contact
-							</motion.a>
-						</div>
-					</motion.footer>
+					<Footer />
 				</motion.div>
 			</div>
 		</div>
