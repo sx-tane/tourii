@@ -179,7 +179,7 @@ const ChapterPage: React.FC = () => {
 				<QuestUnlockModal
 					isOpen={questUnlock.isModalOpen}
 					onClose={questUnlock.hideUnlockModal}
-					storyCompletionData={questUnlock.questUnlockData}
+					storyCompletion={questUnlock.questUnlockData}
 					onStartQuest={questUnlock.handleStartQuest}
 					onViewAllQuests={questUnlock.handleViewAllQuests}
 				/>

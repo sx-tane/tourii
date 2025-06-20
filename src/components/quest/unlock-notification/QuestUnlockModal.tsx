@@ -8,12 +8,16 @@ interface QuestUnlockModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	storyCompletion: StoryCompletionResponseDto;
+	onStartQuest: (questId: string) => void;
+	onViewAllQuests: (touristSpotName: string) => void;
 }
 
 export function QuestUnlockModal({
 	isOpen,
 	onClose,
 	storyCompletion,
+	onStartQuest,
+	onViewAllQuests,
 }: QuestUnlockModalProps) {
 	return (
 		<AnimatePresence>
@@ -178,7 +182,13 @@ export function QuestUnlockModal({
 									</Button>
 									{storyCompletion.unlockedQuests.length > 0 && (
 										<Button
-											onClick={onClose}
+											onClick={() => {
+												// If there's a tourist spot, navigate to view all quests for that spot
+												if (storyCompletion.unlockedQuests[0]?.touristSpotName) {
+													onViewAllQuests(storyCompletion.unlockedQuests[0].touristSpotName);
+												}
+												onClose();
+											}}
 											className="px-6 bg-red hover:bg-red/90"
 										>
 											Start Questing
