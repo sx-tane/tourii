@@ -1,6 +1,6 @@
-import { Suspense } from "react";
-import "@/styles/globals.css";
 import Header from "@/components/header/header-component/header";
+import "@/styles/globals.css";
+import { Suspense } from "react";
 import Loading from "../loading";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

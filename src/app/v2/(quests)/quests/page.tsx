@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import QuestList from "@/components/quest/quest-list";
-import { useRouter } from "next/navigation";
-import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { QuestListResponseDto } from "@/api/generated/models/QuestListResponseDto";
+import QuestList from "@/components/quest/quest-list";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function QuestsPage() {
 	const [filters, setFilters] = useState({
@@ -28,7 +28,7 @@ export default function QuestsPage() {
 	const { data, error, isLoading } = useProxySWR<QuestListResponseDto>(query);
 
 	const handleQuestClick = (questId: string) => {
-		router.push(`/v2/(quests)/quests/${questId}`);
+		router.push(`/v2/quests/${questId}`);
 	};
 
 	return (

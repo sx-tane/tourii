@@ -1,18 +1,22 @@
 "use client";
 
+import { UserResponseDto } from "@/api/generated";
+import BottomNavigation from "@/components/dashboard/bottom-navigation";
+import CheckinMapCard from "@/components/dashboard/checkin-map-card";
+import { MomentsSection } from "@/components/dashboard/moments-section";
+import { WelcomeBanner } from "@/components/dashboard/welcome-banner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import CheckinMapCard from "@/components/dashboard/checkin-map-card";
-import { MomentsSection } from "@/components/dashboard/moments-section";
-import BottomNavigation from "@/components/dashboard/bottom-navigation";
 
 // Mock data for development
 const mockDashboardData = {
 	user: {
-		name: "Test User",
+		name: "Hiroshi",
 		level: 3,
 		points: 750,
+		userLevel: UserResponseDto.level.E_CLASS_AMATSUKAMI,
+		userStatus: UserResponseDto.userDigitalPassportType.AMATSUKAMI,
 		chapter: {
 			title: "Kyoto Tales",
 			current: 2,
@@ -71,15 +75,14 @@ const DashboardPage = () => {
 
 	return (
 		<div className="space-y-6">
-			{/* Welcome Section */}
-			<div className="bg-white shadow-sm rounded-lg p-6">
-				<h1 className="text-2xl font-bold text-gray-900">
-					Welcome back, {userData?.name || "Explorer"}!
-				</h1>
-				<p className="mt-1 text-gray-500">
-					Continue your journey through Japan's mystical tales.
-				</p>
-			</div>
+			{/* Welcome Banner */}
+			<WelcomeBanner
+				username={userData?.name || undefined}
+				userLevel={isDevelopment ? mockDashboardData.user.userLevel : undefined}
+				userStatus={
+					isDevelopment ? mockDashboardData.user.userStatus : undefined
+				}
+			/>
 
 			{/* Stats Grid */}
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

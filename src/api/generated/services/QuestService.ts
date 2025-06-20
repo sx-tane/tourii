@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { GroupMembersResponseDto } from '../models/GroupMembersResponseDto';
+import type { QrScanResponseDto } from '../models/QrScanResponseDto';
 import type { QuestListResponseDto } from '../models/QuestListResponseDto';
 import type { QuestResponseDto } from '../models/QuestResponseDto';
 import type { QuestTaskPhotoUploadResponseDto } from '../models/QuestTaskPhotoUploadResponseDto';
@@ -698,6 +699,46 @@ export class QuestService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/tasks/{taskId}/share-social',
+            path: {
+                'taskId': taskId,
+            },
+            headers: {
+                'x-user-id': xUserId,
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Complete QR scan task
+     * Validate scanned QR code and complete the task if correct
+     * @param taskId
+     * @param xUserId User ID for authentication
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @param requestBody QR scan request
+     * @returns QrScanResponseDto QR code validated and task completed
+     * @throws ApiError
+     */
+    public static touriiBackendControllerCompleteQrScanTask(
+        taskId: string,
+        xUserId: string,
+        acceptVersion: string,
+        xApiKey: string,
+        requestBody: {
+            code: string;
+            latitude?: number;
+            longitude?: number;
+        },
+    ): CancelablePromise<QrScanResponseDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/tasks/{taskId}/qr-scan',
             path: {
                 'taskId': taskId,
             },
