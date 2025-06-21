@@ -1,3 +1,4 @@
+"use client";
 import useSWR, { type SWRConfiguration } from "swr";
 import { proxyFetcher, type StructuredError } from "./fetcher";
 

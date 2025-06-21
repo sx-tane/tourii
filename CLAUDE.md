@@ -110,7 +110,7 @@ dispatch(setQuests(apiResponse)); // Anti-pattern!
 ## High-Level Architecture
 
 ### Frontend Framework & Patterns
-This is a **Next.js 14 App Router** frontend application with the following architectural patterns:
+This is a **Next.js 15 App Router** frontend application with the following architectural patterns:
 - **Domain-Driven Design**: Components organized by business domains (story, quest, model-route, profile)
 - **Three-Layer API Pattern**: SWR Hooks → Next.js API Routes → Generated Client
 - **Component-First Architecture**: Every component has a corresponding `.stories.tsx` file
@@ -140,8 +140,8 @@ This is **Tourii** - a sophisticated gamified tourism platform combining Japanes
 
 For comprehensive documentation see `docs/` folder, particularly:
 - `docs/ARCHITECTURE.md`: Complete frontend architecture patterns
-- `docs/FRONTEND_BACKEND_INTEGRATION.md`: API integration patterns
-- `docs/HOOK_USAGE_EXAMPLES.md`: Custom hook implementation examples
+- `docs/API_INTEGRATION.md`: API integration patterns and three-layer approach
+- `docs/HOOK_GUIDE.md`: Custom hook implementation examples and patterns
 
 ## Important Development Guidelines
 
@@ -179,10 +179,11 @@ When working on frontend features, follow this systematic approach:
 For new frontend developers, these resources provide fast-track onboarding:
 1. **Quick Start**: Follow README.md setup guide (5-minute setup)
 2. **Architecture Overview**: `docs/ARCHITECTURE.md` for system understanding
-3. **API Integration**: `docs/FRONTEND_BACKEND_INTEGRATION.md` for backend communication
-4. **Hook Patterns**: `docs/HOOK_USAGE_EXAMPLES.md` for data fetching patterns
-5. **Component Guidelines**: `docs/PROJECT_GUIDELINE.md` for code standards
+3. **API Integration**: `docs/API_INTEGRATION.md` for backend communication patterns
+4. **Hook Patterns**: `docs/HOOK_GUIDE.md` for data fetching and business logic patterns
+5. **Security Guidelines**: `docs/SECURITY_GUIDELINES.md` for security best practices
+6. **Development Guide**: `docs/DEVELOPMENT_GUIDE.md` for workflows and coding standards
 
 ---
 
-*Last Updated: June 17, 2025*
+*Last Updated: June 20, 2025*

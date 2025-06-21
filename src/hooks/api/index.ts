@@ -6,6 +6,7 @@ export { useLocationInfo } from "./useLocationInfo";
 // Story hooks
 export { useSagas } from "./useSagas";
 export { useSagaById } from "./useSagaById";
+export { useStoryCompletion } from "./useStoryCompletion";
 
 // Quest hooks
 export { useQuests } from "./useQuests";

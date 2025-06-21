@@ -17,8 +17,8 @@ export { default as TouriiLogoAnimation } from "./tourii-logo-animation";
 export { DigitalPassportSection } from "./passport/digital-passport-section";
 export { PassportCard } from "./passport/passport-card";
 
-// Highlights Section Components
-export { HighlightsSection, LatestStoryChapter, PopularQuestList, QuestCard } from "./highlights";
+// Popular Quest Section Component  
+export { PopularQuestSection } from "./popular-quest-section";
 
 // CTA Section Component
 export { default as CTASection } from "./cta-section/cta-section";

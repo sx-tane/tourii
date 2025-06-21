@@ -173,14 +173,16 @@ graph TB
 
 ### **🎯 Core Features**
 
-- **🔐 Multi-Provider Authentication**: Discord, Google, Twitter, Web3 wallets
-- **📚 Interactive Storytelling**: Chapter-based narratives with progress tracking
-- **🗺️ Smart Route Planning**: GPS-based travel routes with real-world locations
-- **🎮 Gamified Quests**: Location-based challenges with various task types
-- **🎫 Digital Passport NFTs**: Blockchain-verified travel credentials
-- **⚡ Real-time Features**: WebSocket-based live interactions
-- **🌍 Weather Integration**: Location-aware weather data
-- **📊 Memory Wall**: User action tracking and travel memories
+- **🔐 Multi-Provider Authentication**: Discord, Google, Twitter, Web3 wallets with signature verification
+- **📚 Interactive Storytelling**: Chapter-based narratives with progress tracking and quest unlocking
+- **🗺️ Smart Route Planning**: GPS-based travel routes with interactive tourist spots and real-time navigation
+- **🎮 Gamified Quest System**: Location-based challenges with GPS check-ins, QR scanning, photo submissions, and group activities
+- **🎫 Digital Passport NFTs**: Blockchain-verified travel credentials with achievement tracking and travel history
+- **⚡ Real-time Features**: WebSocket-based live interactions and memory wall
+- **🌍 Advanced Map Integration**: Leaflet-based interactive maps with location services and bounds fitting
+- **📊 Task Submission Engine**: Comprehensive task completion system with multiple submission types
+- **🏠 Dynamic Homepage**: Curated highlights featuring latest stories and popular quests
+- **🎬 Video Integration**: YouTube video completion tracking with progress detection
 
 ### **🏗️ Three-Layer API Pattern**
 
@@ -310,32 +312,34 @@ tourii/
 │   │   ├── (homepage)/       # Homepage (path: /)
 │   │   ├── v2/               # Main application features
 │   │   │   ├── (auth)/       # Authentication pages
-│   │   │   ├── (dashboard)/  # User dashboard
-│   │   │   ├── (stories)/    # Story system
-│   │   │   ├── (routes)/     # Model routes  
-│   │   │   ├── (quests)/     # Quest system
-│   │   │   └── (admin)/      # Admin panel
-│   │   └── api/              # Next.js API Routes (backend proxies)
-│   ├── components/           # 🆕 Barrel-exported domain components
-│   │   ├── ui/               # shadcn/ui components (barrel exported)
-│   │   ├── common/           # Shared components (memoized)
-│   │   ├── model-route/      # Route-specific components
-│   │   ├── story/            # Story-related components  
-│   │   ├── quest/            # Quest components (performance optimized)
-│   │   ├── checkin/          # Checkin/travel log components
-│   │   ├── profile/          # Profile/user components
-│   │   ├── header/           # Header/navigation components
-│   │   ├── about/            # About page components
-│   │   ├── character/        # Character system components
-│   │   ├── homepage/         # Homepage components
-│   │   ├── world/            # World/location components
-│   │   └── index.ts          # 🆕 Master barrel export
-│   ├── hooks/                # Custom React hooks (barrel exported)
-│   │   ├── api/              # SWR API hooks (standardized patterns)
-│   │   ├── ui/               # UI interaction hooks
-│   │   ├── business/         # Business logic hooks  
-│   │   ├── map/              # Map-related hooks (typed)
-│   │   └── index.ts          # Master hooks export
+│   │   │   ├── (dashboard)/  # User dashboard with digital passport
+│   │   │   ├── (stories)/    # Interactive story system with progression
+│   │   │   ├── (routes)/     # Model routes with GPS navigation  
+│   │   │   ├── (quests)/     # Quest system with task submission engine
+│   │   │   ├── (passport)/   # Digital passport page with NFT integration
+│   │   │   └── (admin)/      # Admin panel for content management
+│   │   └── api/              # Next.js API Routes (secure backend proxies)
+│   ├── components/           # 🆕 Domain-driven component architecture
+│   │   ├── ui/               # shadcn/ui components with accessibility
+│   │   ├── common/           # Shared components (React.memo optimized)
+│   │   ├── dashboard/        # Dashboard components (DigitalPassportCard, BottomNavigation)
+│   │   ├── homepage/         # Homepage system (HighlightsSection, CTASection, Footer)
+│   │   ├── model-route/      # Route planning and visualization components
+│   │   ├── story/            # Story reading and chapter navigation components  
+│   │   ├── quest/            # Quest components with unlock modal system
+│   │   ├── checkin/          # Travel log and check-in components
+│   │   ├── profile/          # User profile management components
+│   │   ├── header/           # Navigation and header components
+│   │   ├── about/            # About page and informational components
+│   │   ├── character/        # Character system and avatar components
+│   │   ├── world/            # World exploration and location components
+│   │   └── index.ts          # Master barrel export for clean imports
+│   ├── hooks/                # Custom React hooks (typed and tested)
+│   │   ├── api/              # SWR hooks (usePassport, useHomepageHighlights, useStoryCompletion)
+│   │   ├── ui/               # UI interaction hooks (useResponsiveDetection)
+│   │   ├── business/         # Business logic hooks (useQuestUnlock, useVideoCompletion)
+│   │   ├── map/              # Map and geolocation hooks (useMapInitialization)
+│   │   └── index.ts          # Organized hook exports
 │   ├── lib/                  # Utilities and providers
 │   │   ├── redux/            # Redux Toolkit store (UI state only)
 │   │   ├── swr/              # SWR configuration
@@ -345,11 +349,11 @@ tourii/
 │   ├── utils/                # 🆕 Helper functions (barrel exported)
 │   │   └── index.ts          # Utility functions export
 │   └── middleware.ts         # Next.js middleware
-├── docs/                     # Comprehensive documentation
+├── docs/                     # Comprehensive documentation (updated June 2025)
 ├── public/                   # Static assets & media
-├── .storybook/               # Storybook configuration
-├── biome.json                # 🆕 Enhanced linting with accessibility rules
-└── next.config.js            # 🆕 Optimized with bundle analyzer
+├── .storybook/               # Storybook configuration for component testing
+├── biome.json                # Enhanced linting with accessibility and security rules
+└── next.config.js            # Optimized configuration with bundle analyzer
 ```
 
 ### 🆕 **New Barrel Export System**
@@ -401,14 +405,16 @@ import { useResponsiveDetection } from "@/hooks/ui";
 
 ### 🎮 Quest & Gamification Engine
 
-- Multi-step quests with various task types:
-  - GPS location check-ins
-  - QR code scanning
-  - Photo submissions
-  - Text input and multiple choice
-  - Group activities
-- Points-based progression system
-- Achievement tracking and rewards
+- **Multi-step Quest System** with comprehensive task types:
+  - **GPS Location Check-ins**: Real-time location verification
+  - **QR Code Scanning**: Interactive marker discovery
+  - **Photo Submissions**: Visual quest completion
+  - **Text Input Tasks**: Knowledge-based challenges
+  - **Multiple Choice Questions**: Interactive learning
+  - **Group Activities**: Collaborative quest completion
+- **Quest Unlock Workflow**: Story completion automatically unlocks related quests
+- **Digital Passport Integration**: Travel achievements and blockchain verification
+- **Points-based Progression**: Gamified reward system with achievement tracking
 
 ### 🎫 Web3 & NFT Integration
 
@@ -623,5 +629,5 @@ License: [MIT](LICENSE)
 
 ---
 
-_Last Updated: June 17, 2025 - Performance Optimization Edition_
+_Last Updated: June 20, 2025 - Digital Passport & Quest System Enhancement Edition_
 

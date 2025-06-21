@@ -29,7 +29,16 @@
       "Bash(pnpm test:*)",
       "Bash(npx vitest run:*)",
       "Bash(ls:*)",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(pnpm run:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(mkdir:*)",
+      "Bash(pnpm next build:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(wc:*)",
+      "Bash(pkill:*)",
+      "Bash(curl:*)",
+      "Bash(npx next build:*)"
     ],
     "deny": []
   }

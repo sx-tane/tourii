@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { ApiError, OpenAPI, type CancelablePromise } from "@/api/generated";
 import { env } from "@/env.js";
-import { OpenAPI, ApiError, type CancelablePromise } from "@/api/generated";
 import { logger } from "@/utils/logger";
+import { NextResponse } from "next/server";
 
 // Standardized JSON error response helper
 export function touriiErrorResponse(
@@ -49,30 +49,40 @@ export async function executeValidatedServiceCall<T>(
 
 	logger.info(
 		`Executing ${routeNameForLogging} via generated SDK. Target: ${OpenAPI.BASE}`,
-		{ apiVersion, apiKeyPresent: !!apiKey }
+		{ apiVersion, apiKeyPresent: !!apiKey },
 	);
 
 	try {
 		// Pass apiKey and apiVersion to the serviceCall function
 		const data = await serviceCall(apiKey, apiVersion);
 		logger.info(`${routeNameForLogging}: Successfully executed using SDK.`);
-		
+
 		// Handle different data types safely
 		if (data === null || data === undefined) {
 			return NextResponse.json({ success: true });
 		}
-		
+
 		// For primitives (boolean, string, number), wrap in an object
-		if (typeof data === 'boolean' || typeof data === 'string' || typeof data === 'number') {
+		if (
+			typeof data === "boolean" ||
+			typeof data === "string" ||
+			typeof data === "number"
+		) {
 			return NextResponse.json({ result: data });
 		}
-		
+
 		// For objects, try to serialize as-is
 		try {
-			return NextResponse.json(data as any);
+			return NextResponse.json(data as unknown);
 		} catch (serializationError) {
-			logger.error(`${routeNameForLogging}: JSON serialization failed`, { serializationError, data });
-			return NextResponse.json({ success: true, message: "Operation completed successfully" });
+			logger.error(`${routeNameForLogging}: JSON serialization failed`, {
+				serializationError,
+				data,
+			});
+			return NextResponse.json({
+				success: true,
+				message: "Operation completed successfully",
+			});
 		}
 	} catch (error) {
 		logger.error(
@@ -90,7 +100,7 @@ export async function executeValidatedServiceCall<T>(
 			logger.error(`${routeNameForLogging}: Backend error details:`, {
 				status: error.status,
 				message: error.message,
-				body: JSON.stringify(error.body, null, 2)
+				body: JSON.stringify(error.body, null, 2),
 			});
 
 			if (isErrorBodyWithCode(error.body)) {

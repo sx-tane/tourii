@@ -256,6 +256,92 @@ function ChapterViewer({ storyId, chapterId }: { storyId: string; chapterId: str
 }
 ```
 
+### Admin User Management Hook Pattern
+
+```typescript
+// src/hooks/api/useAdminUsers.ts
+interface AdminUserFilters {
+  page?: number;
+  limit?: number;
+  searchTerm?: string;
+  role?: 'USER' | 'MODERATOR' | 'ADMIN';
+  isPremium?: string;
+  isBanned?: string;
+  startDate?: string;
+  endDate?: string;
+  sortBy?: 'username' | 'registered_at' | 'total_quest_completed' | 'total_travel_distance';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export function useAdminUsers(filters?: AdminUserFilters): UseApiHookResult<AdminUserListResponseDto> {
+  const queryParams = new URLSearchParams();
+  
+  if (filters?.page) queryParams.set('page', String(filters.page));
+  if (filters?.limit) queryParams.set('limit', String(filters.limit));
+  if (filters?.searchTerm) queryParams.set('searchTerm', filters.searchTerm);
+  if (filters?.role) queryParams.set('role', filters.role);
+  if (filters?.isPremium) queryParams.set('isPremium', filters.isPremium);
+  if (filters?.isBanned) queryParams.set('isBanned', filters.isBanned);
+  if (filters?.startDate) queryParams.set('startDate', filters.startDate);
+  if (filters?.endDate) queryParams.set('endDate', filters.endDate);
+  if (filters?.sortBy) queryParams.set('sortBy', filters.sortBy);
+  if (filters?.sortOrder) queryParams.set('sortOrder', filters.sortOrder);
+  
+  const { data, error, isLoading, mutate } = useProxySWR<AdminUserListResponseDto>(
+    `/api/admin/users?${queryParams.toString()}`
+  );
+  
+  return { data, error, isLoading, mutate };
+}
+
+// Usage in admin dashboard
+function AdminUserManagement() {
+  const [filters, setFilters] = useState<AdminUserFilters>({
+    page: 1,
+    limit: 20,
+    sortBy: 'registered_at',
+    sortOrder: 'desc',
+  });
+  
+  const { data: userData, error, isLoading, mutate } = useAdminUsers(filters);
+  
+  const handleFilterChange = (newFilters: Partial<AdminUserFilters>) => {
+    setFilters(prev => ({ ...prev, ...newFilters, page: 1 })); // Reset to page 1 on filter change
+  };
+  
+  const handleExportUsers = () => {
+    // Export filtered users to CSV
+    const csvData = generateCSV(userData?.users);
+    downloadFile(csvData, 'users-export.csv');
+  };
+  
+  if (isLoading) return <AdminUserTableSkeleton />;
+  if (error) return <ErrorDisplay error={error} retry={mutate} />;
+  
+  return (
+    <div className="admin-user-management">
+      <div className="admin-header">
+        <h1>User Management</h1>
+        <button onClick={handleExportUsers} className="export-btn">
+          Export Users
+        </button>
+      </div>
+      
+      <AdminUserFilters filters={filters} onChange={handleFilterChange} />
+      
+      <AdminUserTable 
+        users={userData?.users} 
+        totalUsers={userData?.totalUsers}
+        totalPages={userData?.totalPages}
+        currentPage={filters.page}
+        onPageChange={(page) => handleFilterChange({ page })}
+        onUserUpdate={mutate} // Refresh data after user actions
+      />
+    </div>
+  );
+}
+```
+
 ### Location Search Hook Pattern
 
 ```typescript
@@ -1089,28 +1175,40 @@ describe('useTouristSpotSelection', () => {
 ## 📚 **Hook Index**
 
 ### API Hooks
+
+#### **Core Data Hooks**
 - `useModelRoutes()` - Fetch all model routes
-- `useModelRouteById(id)` - Fetch specific route
+- `useModelRouteById(id)` - Fetch specific route  
 - `useQuests(filters?)` - Fetch quests with optional filters
 - `useQuestById(id)` - Fetch specific quest
 - `useCheckins(query?)` - Fetch user checkins/travel logs with filtering
 - `useSagas()` - Fetch all story sagas
 - `useSagaById(id)` - Fetch specific saga
-- `useLocationInfo(query)` - Search locations
+- `useStoryCompletion()` - Complete story chapters and handle quest unlocks
+- `usePassport()` - Fetch user's digital passport data with achievements and travel history
+- `useLocationInfo(query)` - Search locations with Google Places integration
+- `useHomepageHighlights()` - Fetch homepage highlights and featured content
+- `useMoments()` - Fetch latest traveler moments and social content
+
+#### **Admin Hooks**
+- `useAdminUsers(filters?)` - Fetch all users with admin filtering and pagination
+- `useAdminAnalytics()` - Fetch admin dashboard analytics and statistics
 
 ### Business Logic Hooks
-- `useTouristSpotSelection(spots)` - Manage spot selection
-- `useSpotImage(spot)` - Handle spot image URLs
+- `useTouristSpotSelection(spots)` - Manage spot selection state
+- `useSpotImage(spot)` - Handle spot image URLs with fallback logic
+- `useQuestUnlock()` - Manage quest unlock modal state and navigation
+- `useVideoCompletion(onComplete?)` - YouTube video completion detection with progress tracking
 
 ### Map Hooks
-- `useLeafletLoader()` - Dynamic Leaflet loading
-- `useMapInitialization(options)` - Initialize Leaflet maps
+- `useLeafletLoader()` - Dynamic Leaflet loading with proper cleanup
+- `useMapInitialization(options)` - Initialize Leaflet maps with spot fitting
 
 ### UI Hooks
 - `useResponsiveDetection()` - Responsive breakpoint detection
-- `useImageGallery(images)` - Image gallery management
-- `useIntersectionObserver(options)` - Visibility detection
+- `useImageGallery(images)` - Image gallery management with navigation
+- `useIntersectionObserver(options)` - Visibility detection for lazy loading and infinite scroll
 
 ---
 
-*Last Updated: June 18, 2025*
+*Last Updated: June 20, 2025*

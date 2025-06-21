@@ -7,6 +7,8 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { AdminUserListResponseDto } from './models/AdminUserListResponseDto';
+export { AdminUserQueryDto } from './models/AdminUserQueryDto';
 export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
 export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
 export { CheckinsFetchRequestDto } from './models/CheckinsFetchRequestDto';
@@ -42,6 +44,10 @@ export type { StoryReadingCompleteRequestDto } from './models/StoryReadingComple
 export type { StoryReadingStartRequestDto } from './models/StoryReadingStartRequestDto';
 export type { StoryResponseDto } from './models/StoryResponseDto';
 export type { StoryUpdateRequestDto } from './models/StoryUpdateRequestDto';
+export type { SubmitAnswerTextRequestTaskDto } from './models/SubmitAnswerTextRequestTaskDto';
+export type { SubmitCheckInTaskRequestDto } from './models/SubmitCheckInTaskRequestDto';
+export type { SubmitSelectOptionsTaskRequestDto } from './models/SubmitSelectOptionsTaskRequestDto';
+export type { SubmitTaskResponseDto } from './models/SubmitTaskResponseDto';
 export { TaskResponseDto } from './models/TaskResponseDto';
 export type { TouristSpotCreateRequestDto } from './models/TouristSpotCreateRequestDto';
 export type { TouristSpotResponseDto } from './models/TouristSpotResponseDto';
@@ -51,6 +57,7 @@ export { UserResponseDto } from './models/UserResponseDto';
 export type { UserSensitiveInfoResponseDto } from './models/UserSensitiveInfoResponseDto';
 export type { UserTravelLogListResponseDto } from './models/UserTravelLogListResponseDto';
 
+export { AdminService } from './services/AdminService';
 export { AuthService } from './services/AuthService';
 export { HealthCheckService } from './services/HealthCheckService';
 export { HomepageService } from './services/HomepageService';
@@ -59,4 +66,5 @@ export { QuestService } from './services/QuestService';
 export { RoutesService } from './services/RoutesService';
 export { SecurityTestsService } from './services/SecurityTestsService';
 export { StoriesService } from './services/StoriesService';
+export { TaskService } from './services/TaskService';
 export { UserService } from './services/UserService';

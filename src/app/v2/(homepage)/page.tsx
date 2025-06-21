@@ -2,34 +2,19 @@
 import { motion } from "framer-motion";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 
+import { CTASection, Footer } from "@/components/homepage";
 import HowTouriiWorks from "@/components/homepage/how-tourii-works";
 import { DigitalPassportSection } from "@/components/homepage/passport/digital-passport-section";
 import { StampedItemSection } from "@/components/homepage/stamped-item-section";
-import { HighlightsSection, CTASection, Footer } from "@/components/homepage";
 import TouriiAnimation from "@/components/homepage/tourii-logo-animation";
-import { defaultImage, homepageSections } from "@/lib/data/homepage";
-import {
-	setCurrentImage,
-	setLogoAnimationComplete,
-	setSections,
-} from "@/lib/redux/features/homepage/homepage-slice";
-import type { RootState } from "@/lib/redux/store";
+import { setLogoAnimationComplete } from "@/lib/redux/features/homepage/homepage-slice";
 
 const HomePage: NextPage = () => {
 	const dispatch = useDispatch();
-	const { currentImage, sections } = useSelector(
-		(state: RootState) => state.homepage,
-	);
 	const mainRef = useRef<HTMLDivElement>(null);
-	const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-	useEffect(() => {
-		dispatch(setSections(homepageSections));
-		dispatch(setCurrentImage(homepageSections[0]?.image || defaultImage));
-	}, [dispatch]);
 
 	const handleLogoAnimationComplete = () => {
 		dispatch(setLogoAnimationComplete(true));
@@ -75,19 +60,10 @@ const HomePage: NextPage = () => {
 					transition={{ duration: 0.5, delay: 0.8 }}
 					className="relative w-full mx-auto"
 				>
-					<HighlightsSection />
-					<HowTouriiWorks
-						sections={sections}
-						currentImage={currentImage}
-						setCurrentImage={(image: string) =>
-							dispatch(setCurrentImage(image))
-						}
-						sectionRefs={sectionRefs}
-					/>
+					<HowTouriiWorks />
 					<DigitalPassportSection />
 					<StampedItemSection />
 					<CTASection />
-
 					<Footer />
 				</motion.div>
 			</div>

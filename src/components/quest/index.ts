@@ -11,3 +11,6 @@ export { default as QuestOverview } from "./quest-overview";
 export { default as QuestFilterBar } from "./quest-filter-bar";
 export { default as QuestFilters } from "./quest-filters";
 export { default as QuestPagination } from "./quest-pagination";
+
+// Quest Unlock Notification Components
+export * from "./unlock-notification";
