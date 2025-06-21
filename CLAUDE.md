@@ -110,7 +110,7 @@ dispatch(setQuests(apiResponse)); // Anti-pattern!
 ## High-Level Architecture
 
 ### Frontend Framework & Patterns
-This is a **Next.js 14 App Router** frontend application with the following architectural patterns:
+This is a **Next.js 15 App Router** frontend application with the following architectural patterns:
 - **Domain-Driven Design**: Components organized by business domains (story, quest, model-route, profile)
 - **Three-Layer API Pattern**: SWR Hooks → Next.js API Routes → Generated Client
 - **Component-First Architecture**: Every component has a corresponding `.stories.tsx` file

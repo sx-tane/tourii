@@ -165,14 +165,30 @@ tourii/
 │   ├── app/                  # Next.js App Router pages
 │   │   ├── (homepage)/       # Landing page
 │   │   ├── (info)/          # Static info pages
+│   │   ├── (legal)/         # Legal pages (privacy, terms, cookies)
 │   │   ├── v2/              # Main application
 │   │   │   ├── (auth)/      # Authentication flow
 │   │   │   ├── (dashboard)/ # User dashboard
-│   │   │   ├── (admin)/     # Admin panel
+│   │   │   ├── (admin)/     # Complete admin panel system
+│   │   │   │   └── admin/   # Admin dashboard with analytics, user management
+│   │   │   │       ├── analytics/      # Admin analytics dashboard
+│   │   │   │       ├── model-routes/   # Route management interface
+│   │   │   │       ├── stories/        # Story content management
+│   │   │   │       ├── quests/         # Quest management interface
+│   │   │   │       └── users/          # User administration
 │   │   │   ├── (quests)/    # Quest system
 │   │   │   ├── (routes)/    # Model routes
 │   │   │   └── (stories)/   # Story system
 │   │   └── api/             # Next.js API routes (proxies)
+│   │       ├── admin/       # Admin API endpoints
+│   │       ├── auth/        # Authentication endpoints
+│   │       ├── checkins/    # Checkin endpoints
+│   │       ├── homepage/    # Homepage data endpoints
+│   │       ├── moments/     # Moments endpoints
+│   │       ├── passport/    # Digital passport endpoints
+│   │       ├── quests/      # Quest management endpoints
+│   │       ├── routes/      # Route endpoints
+│   │       └── stories/     # Story endpoints
 │   ├── components/          # React components (domain-organized)
 │   │   ├── ui/              # shadcn/ui base components
 │   │   ├── common/          # Shared utility components
@@ -180,9 +196,22 @@ tourii/
 │   │   ├── story/           # Story-related components
 │   │   ├── quest/           # Quest-related components
 │   │   ├── checkin/         # Travel log and checkin components
-│   │   └── [domain]/        # Other domain components
+│   │   ├── profile/         # User profile components
+│   │   ├── header/          # Navigation and header components
+│   │   ├── homepage/        # Homepage components
+│   │   ├── admin/           # Admin panel components
+│   │   ├── about/           # About page components
+│   │   ├── character/       # Character showcase components
+│   │   └── world/           # World exploration components
 │   ├── hooks/               # Custom React hooks
-│   │   ├── api/             # Data fetching hooks
+│   │   ├── api/             # Data fetching hooks (SWR)
+│   │   │   ├── useModelRoutes.ts
+│   │   │   ├── useQuests.ts
+│   │   │   ├── useSagas.ts
+│   │   │   ├── useAdminUsers.ts  # Admin user management
+│   │   │   ├── usePassport.ts
+│   │   │   ├── useHomepageHighlights.ts
+│   │   │   └── index.ts     # Barrel exports
 │   │   ├── ui/              # UI interaction hooks
 │   │   ├── business/        # Business logic hooks
 │   │   └── map/             # Map-related hooks

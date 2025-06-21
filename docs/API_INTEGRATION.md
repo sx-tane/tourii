@@ -107,6 +107,7 @@ Based on the latest OpenAPI specification, here are the available backend endpoi
 | `GET`    | `/quests`                              | Get quests with pagination & filters |
 | `GET`    | `/quests/{questId}`                    | Get quest by ID                      |
 | `GET`    | `/quests/tourist-spot/{touristSpotId}` | Get quests by tourist spot           |
+| `POST`   | `/quests/tourist-spot/{touristSpotId}` | Create quest for specific tourist spot |
 | `POST`   | `/quests/create-quest`                 | Create new quest                     |
 | `POST`   | `/quests/create-task/{questId}`        | Create quest task                    |
 | `POST`   | `/quests/update-quest`                 | Update existing quest                |
@@ -136,6 +137,11 @@ Based on the latest OpenAPI specification, here are the available backend endpoi
 | Method | Endpoint                                  | Description                          |
 | ------ | ----------------------------------------- | ------------------------------------ |
 | `POST` | `/stories/chapters/{chapterId}/complete` | Complete story chapter and unlock quests with gamification rewards |
+
+### 👥 Admin & User Management
+| Method | Endpoint               | Description                               |
+| ------ | ---------------------- | ----------------------------------------- |
+| `GET`  | `/admin/users`         | Get all users with pagination and filtering (Admin only) |
 
 ### 🏠 Homepage & Content
 | Method | Endpoint                  | Description                                |
@@ -266,7 +272,78 @@ function QuestBrowser() {
 }
 ```
 
-### 4. Location Search Hook with Debouncing
+### 4. Admin User Management Hook Pattern
+
+```typescript
+// src/hooks/api/useAdminUsers.ts
+interface AdminUserFilters {
+  page?: number;
+  limit?: number;
+  searchTerm?: string;
+  role?: 'USER' | 'MODERATOR' | 'ADMIN';
+  isPremium?: string;
+  isBanned?: string;
+  startDate?: string;
+  endDate?: string;
+  sortBy?: 'username' | 'registered_at' | 'total_quest_completed' | 'total_travel_distance';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export function useAdminUsers(filters?: AdminUserFilters): UseApiHookResult<AdminUserListResponseDto> {
+  const queryParams = new URLSearchParams();
+  
+  if (filters?.page) queryParams.set('page', String(filters.page));
+  if (filters?.limit) queryParams.set('limit', String(filters.limit));
+  if (filters?.searchTerm) queryParams.set('searchTerm', filters.searchTerm);
+  if (filters?.role) queryParams.set('role', filters.role);
+  if (filters?.isPremium) queryParams.set('isPremium', filters.isPremium);
+  if (filters?.isBanned) queryParams.set('isBanned', filters.isBanned);
+  if (filters?.startDate) queryParams.set('startDate', filters.startDate);
+  if (filters?.endDate) queryParams.set('endDate', filters.endDate);
+  if (filters?.sortBy) queryParams.set('sortBy', filters.sortBy);
+  if (filters?.sortOrder) queryParams.set('sortOrder', filters.sortOrder);
+  
+  const { data, error, isLoading, mutate } = useProxySWR<AdminUserListResponseDto>(
+    `/api/admin/users?${queryParams.toString()}`
+  );
+  
+  return { data, error, isLoading, mutate };
+}
+
+// Usage in admin dashboard
+function AdminUserManagement() {
+  const [filters, setFilters] = useState<AdminUserFilters>({
+    page: 1,
+    limit: 20,
+    sortBy: 'registered_at',
+    sortOrder: 'desc',
+  });
+  
+  const { data: userData, error, isLoading, mutate } = useAdminUsers(filters);
+  
+  const handleFilterChange = (newFilters: Partial<AdminUserFilters>) => {
+    setFilters(prev => ({ ...prev, ...newFilters, page: 1 })); // Reset to page 1 on filter change
+  };
+  
+  if (isLoading) return <AdminUserTableSkeleton />;
+  if (error) return <ErrorDisplay error={error} retry={mutate} />;
+  
+  return (
+    <div className="admin-user-management">
+      <AdminUserFilters filters={filters} onChange={handleFilterChange} />
+      <AdminUserTable 
+        users={userData?.users} 
+        totalUsers={userData?.totalUsers}
+        totalPages={userData?.totalPages}
+        currentPage={filters.page}
+        onPageChange={(page) => handleFilterChange({ page })}
+      />
+    </div>
+  );
+}
+```
+
+### 5. Location Search Hook with Debouncing
 
 ```typescript
 // src/hooks/api/useLocationInfo.ts
@@ -427,6 +504,46 @@ export async function GET(request: Request) {
 }
 ```
 
+### 5. Admin Route with Complex Filtering
+
+```typescript
+// src/app/api/admin/users/route.ts
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  
+  // Parse and validate admin-specific query parameters
+  const page = Math.max(1, Number(searchParams.get('page')) || 1);
+  const limit = Math.min(100, Math.max(1, Number(searchParams.get('limit')) || 20));
+  const searchTerm = searchParams.get('searchTerm') || undefined;
+  const role = searchParams.get('role') as 'USER' | 'MODERATOR' | 'ADMIN' || undefined;
+  const isPremium = searchParams.get('isPremium') || undefined;
+  const isBanned = searchParams.get('isBanned') || undefined;
+  const startDate = searchParams.get('startDate') || undefined;
+  const endDate = searchParams.get('endDate') || undefined;
+  const sortBy = searchParams.get('sortBy') as 'username' | 'registered_at' | 'total_quest_completed' | 'total_travel_distance' || 'registered_at';
+  const sortOrder = searchParams.get('sortOrder') as 'asc' | 'desc' || 'desc';
+  
+  return executeValidatedServiceCall(
+    (apiKey: string, apiVersion: string) =>
+      AdminService.touriiBackendControllerGetAllUsersForAdmin(
+        apiVersion,
+        apiKey,
+        sortOrder,
+        sortBy,
+        endDate,
+        startDate,
+        isBanned,
+        isPremium,
+        role,
+        searchTerm,
+        limit,
+        page
+      ),
+    "GET /api/admin/users"
+  );
+}
+```
+
 ---
 
 ## 🔒 **Authentication & Security**
@@ -499,8 +616,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string(),
     NEXTAUTH_URL: z.string(),
     NEXTAUTH_SECRET: z.string(),
-    BACKEND_API_VERSION: z.string(),
-    BACKEND_API_KEY: z.string(),
+    BACKEND_API_VERSION: z.string().default("1.0.0"),
+    TOURII_BACKEND_API_KEY: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_BACKEND_URL: z.string().url(),
@@ -514,7 +631,7 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     BACKEND_API_VERSION: process.env.BACKEND_API_VERSION,
     NEXT_PUBLIC_BACKEND_URL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    BACKEND_API_KEY: process.env.BACKEND_API_KEY,
+    TOURII_BACKEND_API_KEY: process.env.TOURII_BACKEND_API_KEY,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,

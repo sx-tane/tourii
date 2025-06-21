@@ -170,7 +170,11 @@ src/components/
 ├── checkin/               # Travel log and checkin system
 ├── profile/               # User profile and achievements
 ├── header/                # Navigation and authentication
-└── homepage/              # Landing and marketing pages
+├── homepage/              # Landing and marketing pages
+├── admin/                 # Admin panel components (user management, analytics)
+├── about/                 # About page components
+├── character/             # Character showcase components
+└── world/                 # World exploration components
 ```
 
 ### Design Principles
@@ -232,10 +236,17 @@ src/app/
 ├── (homepage)/          # Public landing page
 ├── (info)/             # Static info pages (/about, /world)
 ├── (story)/            # Character showcase (/character)
+├── (legal)/            # Legal pages (privacy, terms, cookies)
 └── v2/                 # Main application
     ├── (auth)/         # Authentication flow
     ├── (dashboard)/    # User dashboard
-    ├── (admin)/        # Admin panel
+    ├── (admin)/        # Complete admin panel system
+    │   └── admin/      # Admin dashboard with analytics, user management
+    │       ├── analytics/      # Admin analytics dashboard
+    │       ├── model-routes/   # Route management interface
+    │       ├── stories/        # Story content management
+    │       ├── quests/         # Quest management interface
+    │       └── users/          # User administration
     ├── (quests)/       # Quest system
     ├── (routes)/       # Model routes
     └── (stories)/      # Story system
@@ -294,6 +305,93 @@ sequenceDiagram
 - **Signature-Based Auth**: Users authenticate by signing messages
 - **NFT Integration**: Display and manage digital collectibles
 - **Progressive Enhancement**: Web3 features enhance but don't block core functionality
+
+---
+
+## 🔧 **Admin Panel Architecture**
+
+### Comprehensive Admin System
+
+The Tourii admin panel provides complete administrative control over the platform:
+
+```mermaid
+graph TB
+    subgraph "Admin Panel Features"
+        ANALYTICS[Analytics Dashboard]
+        USER_MGMT[User Management]
+        CONTENT[Content Management]
+        QUEST_MGMT[Quest Management]
+        ROUTE_MGMT[Route Management]
+    end
+    
+    subgraph "Admin Components"
+        FILTERS[Advanced Filtering]
+        TABLES[Data Tables]
+        EXPORT[Export Tools]
+        MODALS[Management Modals]
+    end
+    
+    subgraph "Admin Hooks"
+        ADMIN_USERS[useAdminUsers]
+        ADMIN_ANALYTICS[useAdminAnalytics]
+        ADMIN_CONTENT[useAdminContent]
+    end
+    
+    ANALYTICS --> FILTERS
+    USER_MGMT --> TABLES
+    CONTENT --> EXPORT
+    QUEST_MGMT --> MODALS
+    
+    FILTERS --> ADMIN_USERS
+    TABLES --> ADMIN_ANALYTICS
+    EXPORT --> ADMIN_CONTENT
+```
+
+### Admin Features
+
+- **User Management**: Complete user administration with filtering, banning, role management
+- **Analytics Dashboard**: Platform metrics, user statistics, quest completion rates
+- **Content Management**: Story, quest, and route content administration
+- **Export Capabilities**: CSV export for user data and analytics
+- **Advanced Filtering**: Multi-dimensional filtering with pagination and sorting
+
+### Security Architecture
+
+- **Role-Based Access**: Strict admin role verification
+- **Audit Logging**: Complete admin action tracking
+- **Data Protection**: Sensitive user data protection
+- **Rate Limiting**: Admin endpoint protection
+
+---
+
+## ⚖️ **Legal Pages Architecture**
+
+### Compliance Structure
+
+The legal pages ensure platform compliance and user protection:
+
+```
+src/app/(legal)/
+├── layout.tsx          # Legal pages layout with navigation
+├── privacy/page.tsx    # Privacy policy
+├── terms/page.tsx      # Terms of service
+└── cookies/page.tsx    # Cookie policy
+```
+
+### Legal Page Features
+
+- **Structured Content**: Clear, readable legal documentation
+- **Version Control**: Track policy changes and updates
+- **User Consent**: Integration with consent management
+- **Mobile Optimization**: Responsive legal content
+- **Accessibility**: WCAG compliant legal text
+
+### Design Principles
+
+- **Clarity**: Easy-to-understand legal language
+- **Navigation**: Clear section organization
+- **Updates**: Version tracking for policy changes
+- **Compliance**: GDPR, CCPA, and other regulatory compliance
 
 ---
 
