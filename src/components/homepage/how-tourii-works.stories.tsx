@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useRef, useState } from "react";
-import HowTouriiWorks from "./how-tourii-works";
+import { HowTouriiWorksComponent } from "./how-tourii-works";
 
 const meta = {
 	title: "Homepage/HowTouriiWorks",
-	component: HowTouriiWorks,
+	component: HowTouriiWorksComponent,
 	parameters: {
 		layout: "fullscreen",
 		backgrounds: {
@@ -12,10 +12,10 @@ const meta = {
 		},
 	},
 	tags: ["autodocs"],
-} satisfies Meta<typeof HowTouriiWorks>;
+} satisfies Meta<typeof HowTouriiWorksComponent>;
 
 export default meta;
-type Story = StoryObj<typeof HowTouriiWorks>;
+type Story = StoryObj<typeof HowTouriiWorksComponent>;
 
 const sections = [
 	{
@@ -43,7 +43,7 @@ const HowTouriiWorksWrapper = () => {
 	const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
 	return (
-		<HowTouriiWorks
+		<HowTouriiWorksComponent
 			sections={sections}
 			currentImage={currentImage}
 			setCurrentImage={setCurrentImage}

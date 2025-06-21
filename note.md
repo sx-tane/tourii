@@ -87,3 +87,15 @@ Model Route Response Dto
   - [ ] Check Quest List Style and task style in Japanese style
 - [X] finish dashboard backend API and make it work
   - [X] Finish Moment API and Check In MAP API
+
+### 2025-06-21
+- [ ] Edit the Quest Card
+- [X] Generate Image for Chapter 5
+- [ ] for Legal help me generate this 3 page         
+  - [ ] Privacy Policy
+  - [ ] Terms of Service
+  - [ ] Cookie Policy
+  - [ ] Just use the Section Title and then bra all the text in below description
+  - [ ] So SectionTitle and then Description
+- [ ] Connect just list down 4 X, DIscord, Tiktok, Instagram
+- [X] Add Backend Logic of Upload Photo, Submission Text, Share Social Link for pending and complete submission

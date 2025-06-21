@@ -1,4 +1,4 @@
-import { StoryCompletionResponseDto } from "@/api/generated/models/StoryCompletionResponseDto";
+import type { StoryCompletionResponseDto } from "@/api/generated/models/StoryCompletionResponseDto";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { StarIcon, TrophyIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -46,6 +46,7 @@ export function QuestUnlockModal({
 								<button
 									onClick={onClose}
 									className="absolute top-4 right-4 p-2 rounded-full hover:bg-warmGrey-100 transition-colors"
+									type="button"
 								>
 									<XMarkIcon className="w-5 h-5 text-charcoal" />
 								</button>
@@ -184,8 +185,12 @@ export function QuestUnlockModal({
 										<Button
 											onClick={() => {
 												// If there's a tourist spot, navigate to view all quests for that spot
-												if (storyCompletion.unlockedQuests[0]?.touristSpotName) {
-													onViewAllQuests(storyCompletion.unlockedQuests[0].touristSpotName);
+												if (
+													storyCompletion.unlockedQuests[0]?.touristSpotName
+												) {
+													onViewAllQuests(
+														storyCompletion.unlockedQuests[0].touristSpotName,
+													);
 												}
 												onClose();
 											}}
