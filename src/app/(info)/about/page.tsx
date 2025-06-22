@@ -9,7 +9,6 @@ import TouriiEcosystem from "@/components/about/tourii-ecosystem/tourii-ecosyste
 import TouriiIdentity from "@/components/about/tourii-ecosystem/tourii-identity";
 import { descriptionData } from "@/lib/data/about/description-data";
 import type { Metadata, NextPage } from "next";
-import type React from "react";
 
 export const metadata: Metadata = {
 	title: "About",

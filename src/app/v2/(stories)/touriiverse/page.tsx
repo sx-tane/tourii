@@ -4,88 +4,100 @@ import TouriiError from "@/app/error";
 import Loading from "@/app/loading";
 import StoryComponent from "@/components/story/story-page/story-component";
 import StorySelectionList from "@/components/story/story-page/story-selection/story-selection-list";
-import { getSagas } from "@/hooks/stories/getSagas";
+import { useSagas } from "@/hooks";
 import { ApiError } from "@/lib/errors";
 import {
 	selectStories,
 	setSelectedStory,
-	setStories,
 } from "@/lib/redux/features/stories/stories-slice";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { logger } from "@/utils/logger";
 import type { NextPage } from "next";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 const Touriiverse: NextPage = () => {
 	const dispatch = useAppDispatch();
-	const { selectedStory, selectionData } = useAppSelector(selectStories);
+	const { selectedStoryId } = useAppSelector(selectStories);
 	const initializedRef = useRef(false);
-	const sagasProcessedRef = useRef<string[]>([]);
 
-	const { sagas, isLoadingSagas, isErrorSagas, mutateSagas } = getSagas();
+	// ✅ Use SWR for server data - don't duplicate in Redux
+	const { data: sagas, isLoading, error, mutate } = useSagas();
+
+	// ✅ Compute selection data from server data, store only UI state in Redux
+	const selectionData = useMemo(() => {
+		if (!sagas) return [];
+
+		return sagas.map((story) => ({
+			title: story.sagaName,
+			selectedStoryId: story.storyId,
+			isSelected: selectedStoryId === story.storyId,
+			isPrologue: story.isPrologue ?? false,
+			chapterNumber: story.chapterList?.length,
+		}));
+	}, [sagas, selectedStoryId]);
+
+	const selectedStory = useMemo(() => {
+		if (!sagas || !selectedStoryId) return null;
+		return sagas.find((story) => story.storyId === selectedStoryId) || null;
+	}, [sagas, selectedStoryId]);
 
 	useEffect(() => {
-		if (sagas !== undefined) {
-			// Create a key for this saga set to avoid reprocessing the same data
-			const sagasKey = sagas.map((s) => s.storyId).join(",");
-
-			if (!sagasProcessedRef.current.includes(sagasKey)) {
-				dispatch(setStories(sagas));
-				sagasProcessedRef.current.push(sagasKey);
-
-				if (sagas.length > 0 && !initializedRef.current) {
-					const firstStory = sagas[0];
-					if (firstStory) {
-						dispatch(setSelectedStory(firstStory.storyId));
-						initializedRef.current = true;
-					}
-				}
+		if (
+			sagas &&
+			sagas.length > 0 &&
+			!selectedStoryId &&
+			!initializedRef.current
+		) {
+			const firstStory = sagas[0];
+			if (firstStory) {
+				dispatch(setSelectedStory(firstStory.storyId));
+				initializedRef.current = true;
 			}
 		}
-	}, [sagas, dispatch]);
+	}, [sagas, selectedStoryId, dispatch]);
 
 	const handleSelectStory = (selectedStoryId: string) => {
 		dispatch(setSelectedStory(selectedStoryId));
 	};
 
-	if (isLoadingSagas) {
+	if (isLoading) {
 		return <Loading />;
 	}
 
-	if (isErrorSagas) {
+	if (error) {
 		let errorMessage = "An unexpected error occurred while loading stories.";
 		let errorStatus: number | undefined = undefined;
 
-		if (isErrorSagas instanceof ApiError) {
-			errorMessage = isErrorSagas.message;
-			errorStatus = isErrorSagas.status;
+		if (error instanceof ApiError) {
+			errorMessage = error.message;
+			errorStatus = error.status;
 			logger.error("API Error loading sagas:", {
-				status: isErrorSagas.status,
-				message: isErrorSagas.message,
-				context: isErrorSagas.context,
+				status: error.status,
+				message: error.message,
+				context: error.context,
 			});
-		} else if (isErrorSagas instanceof Error) {
-			errorMessage = isErrorSagas.message;
+		} else if (error instanceof Error) {
+			errorMessage = error.message;
 			logger.error("Generic Error loading sagas:", {
-				message: isErrorSagas.message,
-				stack: isErrorSagas.stack,
+				message: error.message,
+				stack: error.stack,
 			});
 		} else {
-			logger.error("Unknown Error loading sagas:", { isErrorSagas });
+			logger.error("Unknown Error loading sagas:", { error });
 		}
 
 		return (
 			<TouriiError
 				errorMessage={errorMessage}
 				status={errorStatus}
-				onRetry={mutateSagas}
+				onRetry={mutate}
 				textColor="text-warmGrey"
 				titleTextColor="text-warmGrey"
 			/>
 		);
 	}
 
-	if (!isLoadingSagas && sagas && sagas.length === 0) {
+	if (!isLoading && sagas && sagas.length === 0) {
 		return (
 			<TouriiError
 				errorMessage="No stories are currently available."
@@ -96,7 +108,7 @@ const Touriiverse: NextPage = () => {
 		);
 	}
 
-	if (!selectedStory && !isLoadingSagas && sagas && sagas.length > 0) {
+	if (!selectedStory && !isLoading && sagas && sagas.length > 0) {
 		return <Loading />;
 	}
 

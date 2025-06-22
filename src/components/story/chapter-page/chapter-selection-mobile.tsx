@@ -2,7 +2,7 @@ import type { ChapterSelectionItem } from "@/app/v2/(stories)/types";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type React from "react";
+
 import { useRef } from "react";
 
 interface ChapterSelectionMobileComponentProps {

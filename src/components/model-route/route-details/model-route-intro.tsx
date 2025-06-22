@@ -1,7 +1,7 @@
 import type { ModelRouteResponseDto } from "@/api/generated/models/ModelRouteResponseDto";
 import { upToDownVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
-import type React from "react";
+
 
 const ModelRouteIntro: React.FC<{ modelRoute: ModelRouteResponseDto }> = ({
 	modelRoute,

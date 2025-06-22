@@ -397,13 +397,13 @@ export type UserResponseDto = {
         updDateTime?: string;
     }>;
     /**
-     * User quest logs
+     * User task logs
      */
-    userQuestLogs?: Array<{
+    userTaskLogs?: Array<{
         /**
-         * Quest log ID
+         * Task log ID
          */
-        userQuestLogId: string;
+        userTaskLogId: string;
         /**
          * User ID
          */
@@ -413,7 +413,11 @@ export type UserResponseDto = {
          */
         questId: string;
         /**
-         * Quest status
+         * Task ID
+         */
+        taskId: string;
+        /**
+         * Task status
          */
         status: 'AVAILABLE' | 'ONGOING' | 'COMPLETED' | 'FAILED';
         /**
@@ -516,7 +520,7 @@ export type UserResponseDto = {
         /**
          * Check-in method
          */
-        checkInMethod?: 'QR_CODE' | 'GPS';
+        checkInMethod?: 'QR_CODE' | 'GPS' | 'AUTO_DETECTED' | 'BACKGROUND_GPS';
         /**
          * Fraud detected
          */

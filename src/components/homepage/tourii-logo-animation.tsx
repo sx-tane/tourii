@@ -1,6 +1,7 @@
+"use client";
 import { motion, useAnimation } from "framer-motion";
-import type React from "react";
-import { useEffect, useRef } from "react";
+
+import { useEffect } from "react";
 
 interface TouriiLogoAnimationProps {
 	onAnimationComplete?: () => void;

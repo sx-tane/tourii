@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
 	"vcs": {
 		"enabled": false,
 		"clientKind": "git",
@@ -7,21 +7,34 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [],
-		"include": ["**/*.tsx"],
-		"maxSize": 5000000
+		"experimentalScannerIgnores": ["node_modules/**", "dist/**", "build/**"],
+		"includes": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+		"maxSize": 1000000
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"organizeImports": {
-		"enabled": true
+	"assist": {
+		"enabled": false
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"suspicious": {
+				"noExplicitAny": "error"
+			},
+			"a11y": {
+				"useAltText": "error",
+				"useButtonType": "error"
+			},
+			"performance": {
+				"noAccumulatingSpread": "error"
+			},
+			"style": {
+				"useConsistentArrayType": "error"
+			}
 		}
 	},
 	"javascript": {

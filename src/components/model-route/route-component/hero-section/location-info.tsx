@@ -5,7 +5,7 @@ import { WeatherDisplay } from "@/components/model-route/common";
 import { MotionButton } from "@/components/common";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import type React from "react";
+
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { useState, useLayoutEffect, useMemo } from "react";
 

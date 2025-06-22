@@ -1,7 +1,7 @@
 "use client";
 import type { TitleProps } from "@/types/world-type";
 import { motion } from "framer-motion";
-import type React from "react";
+
 
 const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
 	// Split strings into words internally
@@ -20,7 +20,7 @@ const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
 				<motion.h3 className="mb-10 text-xs uppercase tracking-widest md:mb-20 md:text-lg">
 					{smallTitleWords.map((word, i) => (
 						<motion.span
-							key={`${word}`}
+							key={`smallTitle-${word}-${i}`}
 							className="inline-block mr-[0.25em]" // Add margin for spacing between words
 							initial={{ opacity: 0, x: -20 }}
 							whileInView={{ opacity: 1, x: 0 }}
@@ -49,7 +49,7 @@ const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
 				>
 					{titleWords.map((word, i) => (
 						<motion.span
-							key={word}
+							key={`title-${word}-${i}`}
 							initial={{ opacity: 0, scale: 0.9 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							viewport={{ once: false }}

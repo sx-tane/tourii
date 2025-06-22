@@ -16,7 +16,6 @@ const mockQuest: QuestResponseDto = {
 	tasks: [
 		{
 			taskId: "t1",
-			questId: "1",
 			taskTheme: "STORY",
 			taskType: "VISIT_LOCATION",
 			taskName: "Visit the Bridge",
@@ -27,12 +26,10 @@ const mockQuest: QuestResponseDto = {
 			selectOptions: [],
 			antiCheatRules: {},
 			magatamaPointAwarded: 100,
-			totalMagatamaPointAwarded: 100,
-			isCompleted: true,
+			isCompleted: false,
 		},
 		{
 			taskId: "t2",
-			questId: "1",
 			taskTheme: "URBAN_EXPLORE",
 			taskType: "PHOTO_UPLOAD",
 			taskName: "Take a Photo",
@@ -43,7 +40,6 @@ const mockQuest: QuestResponseDto = {
 			selectOptions: [],
 			antiCheatRules: {},
 			magatamaPointAwarded: 50,
-			totalMagatamaPointAwarded: 50,
 			isCompleted: false,
 		},
 	],

@@ -1,7 +1,6 @@
+import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 import type React from "react";
 import { useState } from "react";
-import { checkInTask } from "@/app/api/tasks/checkIn";
-import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 
 export interface TaskCheckInProps {
 	task: TaskResponseDto;
@@ -26,7 +25,7 @@ const TaskCheckIn: React.FC<TaskCheckInProps> = ({ task }) => {
 				const lat = position.coords.latitude;
 				const lng = position.coords.longitude;
 				try {
-					const result = await checkInTask(task.taskId, lat, lng);
+					const result = await checkInTask(task.taskId, lat, lng, userId);
 					if (result) {
 						setSuccess(true);
 					} else {

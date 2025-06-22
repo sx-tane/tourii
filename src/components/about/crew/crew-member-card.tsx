@@ -1,7 +1,7 @@
 import type { CrewInfoProps } from "@/types/about-type";
 import Image from "next/image";
 import Link from "next/link";
-import type React from "react";
+
 
 // TODO: when hover, it will change to our NFT image
 const CrewMemberCard: React.FC<{ crewMember: CrewInfoProps }> = ({

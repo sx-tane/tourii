@@ -72,3 +72,30 @@ Model Route Response Dto
 - [ ] Add the Route Destination Page
 - [ ] Add the Route Details Component
 - [ ] Add the Route Destination Component
+
+## 2025-06-14
+- [X] Add the Location Info Panel
+  - [X] Make the Location Info API and SWR
+  - [X] Make the Component Show Up Every Basic Data
+- [X] BE Create Photo Upload API
+- [X] BE Get Latest Chapter API and Popular Quest API
+
+### 2025-06-17
+- [#40](https://github.com/sx-tane/tourii/issues/40)
+  - [ ] Finish this and make sure it works
+  - [ ] Style the Location Info Panel
+  - [ ] Check Quest List Style and task style in Japanese style
+- [X] finish dashboard backend API and make it work
+  - [X] Finish Moment API and Check In MAP API
+
+### 2025-06-21
+- [ ] Edit the Quest Card
+- [X] Generate Image for Chapter 5
+- [ ] for Legal help me generate this 3 page         
+  - [ ] Privacy Policy
+  - [ ] Terms of Service
+  - [ ] Cookie Policy
+  - [ ] Just use the Section Title and then bra all the text in below description
+  - [ ] So SectionTitle and then Description
+- [ ] Connect just list down 4 X, DIscord, Tiktok, Instagram
+- [X] Add Backend Logic of Upload Photo, Submission Text, Share Social Link for pending and complete submission

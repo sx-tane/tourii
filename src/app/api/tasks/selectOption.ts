@@ -6,7 +6,5 @@ export async function answerTaskSelectOption(taskId: string, optionId: number[])
   });
   if (!res.ok) throw new Error("Failed to submit answer");
   const data = await res.json();
-  if (typeof data === "boolean") return data;
-  if (typeof data?.result === "boolean") return data.result;
-  throw new Error("Unexpected API response");
+  return data.success;
 } 

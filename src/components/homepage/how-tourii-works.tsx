@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import type React from "react";
+
 import { useEffect, useRef, useState } from "react";
 import Line from "../about/divider-line/line";
 import { SectionTitle } from "../common/section-title";
@@ -18,13 +18,13 @@ interface HowTouriiWorksProps {
 	sectionRefs: React.RefObject<(HTMLDivElement | null)[]>;
 }
 
-const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
+const HowTouriiWorksComponent: React.FC<HowTouriiWorksProps> = ({
 	sections,
 	currentImage,
 	setCurrentImage,
 	sectionRefs,
 }) => {
-	const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+	const [, setCurrentSectionIndex] = useState(0);
 
 	// Use Intersection Observer for section detection
 	useEffect(() => {
@@ -67,7 +67,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 	}, [sections, setCurrentImage, sectionRefs]);
 
 	return (
-		<section className="relative ">
+		<section className="relative mt-20">
 			<div className="flex justify-center w-11/12 px-5 mx-auto">
 				<div className="w-full max-w-screen-md">
 					<Line />
@@ -78,15 +78,8 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 					subtitle={["HOW", "TOURII", "WORKS"]}
 					title={["IN", "THREE", "SIMPLE", "WAYS"]}
 				/>
-				<motion.div
-					className=" text-center text-red"
-					initial={{ opacity: 0 }}
-					whileInView={{ opacity: 1 }}
-					viewport={{ once: false, amount: 0.8 }}
-					transition={{ duration: 0.8 }}
-				/>
-
-				<div className="flex lg:flex-row flex-col z-20 relative">
+				<div className="mt-8">
+					<div className="flex lg:flex-row flex-col z-20 relative">
 					{/* Content Section */}
 					<div className="w-full lg:w-1/2">
 						{sections.map((section, index) => (
@@ -318,6 +311,7 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 						</div>
 					</div>
 				</div>
+				</div>
 			</div>
 			<div className="flex justify-center w-full px-5">
 				<div className="w-full max-w-screen-md">
@@ -328,4 +322,42 @@ const HowTouriiWorks: React.FC<HowTouriiWorksProps> = ({
 	);
 };
 
+// Default sections data
+const defaultSections = [
+	{
+		title: "DISCOVER",
+		subtitle: "EXPLORE INTERACTIVE STORIES",
+		description: "Immerse yourself in mythological tales that unlock real-world destinations across Japan. Each story connects you to authentic cultural experiences.",
+		image: "/image/homepage/discover.jpg",
+	},
+	{
+		title: "QUEST",
+		subtitle: "COMPLETE GAMIFIED CHALLENGES",
+		description: "Engage in GPS-based adventures, QR code hunts, photo challenges, and group activities that reward you with digital collectibles and Tourii Points.",
+		image: "/image/homepage/quest.jpg",
+	},
+	{
+		title: "CONNECT",
+		subtitle: "BUILD YOUR TRAVEL COMMUNITY",
+		description: "Share your verified adventures, connect with fellow travelers, and build a blockchain-secured passport of your journey through Japan.",
+		image: "/image/homepage/connect.jpg",
+	},
+];
+
+// Wrapper component with state management
+const HowTouriiWorks: React.FC = () => {
+	const [currentImage, setCurrentImage] = useState(defaultSections[0]?.image || "");
+	const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+	return (
+		<HowTouriiWorksComponent
+			sections={defaultSections}
+			currentImage={currentImage}
+			setCurrentImage={setCurrentImage}
+			sectionRefs={sectionRefs}
+		/>
+	);
+};
+
 export default HowTouriiWorks;
+export { HowTouriiWorksComponent };

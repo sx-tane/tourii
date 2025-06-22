@@ -1,7 +1,7 @@
 import type { StorySelection } from "@/app/v2/(stories)/types";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { motion } from "framer-motion";
-import type React from "react";
+
 import StorySelectionButton from "./story-selection-button";
 
 export interface StorySelectionListProps {

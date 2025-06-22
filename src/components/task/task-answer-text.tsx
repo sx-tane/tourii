@@ -1,8 +1,6 @@
-import type React from "react";
-import { useState } from "react";
-import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
-import { answerTaskText } from "@/app/api/tasks/answerText";
+import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
+import { useState } from "react";
 
 export interface TaskAnswerTextProps {
 	task: TaskResponseDto;
@@ -26,13 +24,25 @@ const TaskAnswerText: React.FC<TaskAnswerTextProps> = ({
 		setError(null);
 		setSuccess(false);
 		try {
-			const result = await answerTaskText(task.taskId, answer);
-			if (result === true) {
+			// TODO: Replace with actual user ID from session
+			const userId = "user-id-placeholder";
+			const res = await fetch(`/api/tasks/answer-text`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ taskId: task.taskId, answer, userId }),
+			});
+			const data = await res.json();
+
+			if (!res.ok) {
+				throw new Error(data.message || "Failed to submit answer");
+			}
+
+			if (data.success === true) {
 				setSuccess(true);
 				setAnswer("");
 				onComplete();
 			} else {
-				setError("Incorrect answer");
+				setError(data.message || "Incorrect answer");
 			}
 		} catch (err: unknown) {
 			if (err instanceof Error) {

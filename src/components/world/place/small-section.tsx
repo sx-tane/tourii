@@ -1,7 +1,7 @@
 "use client";
 import type { PlaceProps } from "@/types/world-type";
 import Image from "next/image";
-import type React from "react";
+
 import { useState } from "react";
 
 const SmallSection: React.FC<PlaceProps> = ({

@@ -11,11 +11,13 @@ import { StoryTabContent } from "./story-tab-content";
 interface ChapterTabsProps {
 	chapters: StoryChapterResponseDto[];
 	initialSelectedChapterId: string;
+	onVideoComplete?: () => void;
 }
 
 export const ChapterTabs: React.FC<ChapterTabsProps> = ({
 	chapters,
 	initialSelectedChapterId,
+	onVideoComplete,
 }) => {
 	const router = useRouter();
 	const params = useParams();
@@ -126,6 +128,7 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({
 					isMuted={isMuted}
 					handleSelectChapter={handleSelectChapter}
 					toggleSound={toggleSound}
+					onVideoComplete={onVideoComplete}
 				/>
 			</TabsContent>
 
