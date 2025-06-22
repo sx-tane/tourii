@@ -66,7 +66,7 @@ const Touriiverse: NextPage = () => {
 
 	if (error) {
 		let errorMessage = "An unexpected error occurred while loading stories.";
-		let errorStatus: number | undefined = undefined;
+		let errorStatus: number | undefined ;
 
 		if (error instanceof ApiError) {
 			errorMessage = error.message;

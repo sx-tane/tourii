@@ -1,7 +1,7 @@
-import React from "react";
+import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
+import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 import type { Meta, StoryObj } from "@storybook/react";
 import TaskSelectOptions from "./task-select-options";
-import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 
 const mockTask = {
 	taskId: "t1",
@@ -30,6 +30,38 @@ const mockTask = {
 	updDateTime: "2023-01-01T00:00:00Z",
 };
 
+const mockQuest: QuestResponseDto = {
+	questId: "q1",
+	questName: "The Fox Shrine Mystery",
+	questDesc:
+		"Discover the secrets of the ancient fox shrine and unlock its hidden powers.",
+	questImage:
+		"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+	isUnlocked: true,
+	isPremium: false,
+	totalMagatamaPointAwarded: 50,
+	touristSpot: {
+		touristSpotId: "ts1",
+		touristSpotName: "Fox Shrine",
+		touristSpotDesc: "An ancient shrine dedicated to the fox spirits",
+		touristSpotImage:
+			"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+		latitude: 35.6762,
+		longitude: 139.6503,
+		delFlag: false,
+		insUserId: "u1",
+		insDateTime: "2023-01-01T00:00:00Z",
+		updUserId: "u1",
+		updDateTime: "2023-01-01T00:00:00Z",
+	},
+	tasks: [mockTask as TaskResponseDto],
+	delFlag: false,
+	insUserId: "u1",
+	insDateTime: "2023-01-01T00:00:00Z",
+	updUserId: "u1",
+	updDateTime: "2023-01-01T00:00:00Z",
+};
+
 const meta: Meta<typeof TaskSelectOptions> = {
 	title: "Task/TaskSelectOptions",
 	component: TaskSelectOptions,
@@ -40,6 +72,45 @@ type Story = StoryObj<typeof TaskSelectOptions>;
 
 export const Default: Story = {
 	args: {
-		task: mockTask,
+		task: mockTask as TaskResponseDto,
+		quest: mockQuest,
+		isSubmitting: false,
+		error: null,
+		onSubmit: (selectedOptionIds: number[]) => {
+			console.log("Options submitted:", selectedOptionIds);
+		},
+		onComplete: () => {
+			console.log("Task completed");
+		},
+	},
+};
+
+export const Submitting: Story = {
+	args: {
+		task: mockTask as TaskResponseDto,
+		quest: mockQuest,
+		isSubmitting: true,
+		error: null,
+		onSubmit: (selectedOptionIds: number[]) => {
+			console.log("Options submitted:", selectedOptionIds);
+		},
+		onComplete: () => {
+			console.log("Task completed");
+		},
+	},
+};
+
+export const WithError: Story = {
+	args: {
+		task: mockTask as TaskResponseDto,
+		quest: mockQuest,
+		isSubmitting: false,
+		error: "Incorrect answer. Please try again.",
+		onSubmit: (selectedOptionIds: number[]) => {
+			console.log("Options submitted:", selectedOptionIds);
+		},
+		onComplete: () => {
+			console.log("Task completed");
+		},
 	},
 };

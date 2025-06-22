@@ -29,7 +29,7 @@ const RegionRoutesPage = () => {
 
 	if (isErrorModelRoute) {
 		let errorMessage = "Failed to load model route.";
-		let errorStatus: number | undefined = undefined;
+		let errorStatus: number | undefined ;
 
 		if (error instanceof ApiError) {
 			errorMessage = error.message;

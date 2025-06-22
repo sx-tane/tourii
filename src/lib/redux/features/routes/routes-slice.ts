@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
+import { createSlice, type PayloadAction, createSelector } from "@reduxjs/toolkit";
+import type { RootState } from "../../store";
 
 /**
  * ✅ PROPER REDUX USAGE: Only store UI state, not server data

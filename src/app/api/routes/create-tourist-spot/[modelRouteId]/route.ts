@@ -1,5 +1,5 @@
 import { RoutesService } from "@/api/generated";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { executeValidatedServiceCall, touriiErrorResponse } from "../../../lib/route-helper";
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ modelRouteId: string }> }) {

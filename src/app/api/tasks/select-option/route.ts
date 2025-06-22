@@ -1,6 +1,6 @@
-import { SubmitSelectOptionsTaskRequestDto } from "@/api/generated/models/SubmitSelectOptionsTaskRequestDto";
+import type { SubmitSelectOptionsTaskRequestDto } from "@/api/generated/models/SubmitSelectOptionsTaskRequestDto";
 import { TaskService } from "@/api/generated/services/TaskService";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {

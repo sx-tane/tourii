@@ -1,6 +1,6 @@
 import { StoriesService } from "@/api/generated";
 import { touriiErrorResponse, executeValidatedServiceCall } from "../../../lib/route-helper";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ chapterId: string }> }) {
     const { chapterId } = await params;
