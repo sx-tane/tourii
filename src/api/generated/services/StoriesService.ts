@@ -26,7 +26,7 @@ export class StoriesService {
     ): CancelablePromise<StoryResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/stories',
+            url: '/stories/create-saga',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
@@ -56,7 +56,7 @@ export class StoriesService {
     ): CancelablePromise<StoryChapterResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/stories/{storyId}/chapters',
+            url: '/stories/create-chapter/{storyId}',
             path: {
                 'storyId': storyId,
             },

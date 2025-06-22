@@ -1,5 +1,5 @@
 import { StoriesService } from "@/api/generated";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { executeValidatedServiceCall, touriiErrorResponse } from "../../../lib/route-helper";
 
 export async function DELETE(

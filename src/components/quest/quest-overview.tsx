@@ -1,11 +1,117 @@
-
 import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
+import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
+import { questStorage } from "@/utils/quest-storage";
+import Link from "next/link";
+
+// Type alias for tasks within a quest
+type QuestTask = NonNullable<QuestResponseDto["tasks"]>[number];
 
 interface QuestOverviewProps {
 	quest: QuestResponseDto;
 }
 
 const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
+	const handleTaskClick = (task: QuestTask, e: React.MouseEvent) => {
+		if (!task.isUnlocked || task.isCompleted) {
+			e.preventDefault(); // Prevent navigation for locked/completed tasks
+			return;
+		}
+
+		// Convert task from quest task type to TaskResponseDto type
+		const taskResponseDto: TaskResponseDto = {
+			taskId: task.taskId,
+			taskType: task.taskType as any, // Type assertion needed due to different enum types
+			taskName: task.taskName,
+			taskDesc: task.taskDesc,
+			taskTheme: task.taskTheme as any, // Type assertion needed due to different enum types
+			isUnlocked: task.isUnlocked,
+			requiredAction: task.requiredAction,
+			groupActivityMembers: task.groupActivityMembers,
+			selectOptions: task.selectOptions,
+			antiCheatRules: task.antiCheatRules,
+			magatamaPointAwarded: task.magatamaPointAwarded,
+			rewardEarned: task.rewardEarned,
+			isCompleted: task.isCompleted,
+			delFlag: task.delFlag,
+			insUserId: task.insUserId,
+			insDateTime: task.insDateTime,
+			updUserId: task.updUserId,
+			updDateTime: task.updDateTime,
+		};
+
+		// Store quest and task data using utility function
+		const success = questStorage.setQuestData(quest, taskResponseDto);
+
+		if (!success) {
+			e.preventDefault();
+			console.error("Failed to store quest data");
+			// Could show an error message to user here
+		}
+	};
+
+	const getTaskStatusIcon = (task: QuestTask) => {
+		if (!task.isUnlocked) {
+			return (
+				<svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+					<title>Locked</title>
+					<path
+						d="M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zM7 11V7a5 5 0 0 1 10 0v4"
+						stroke="#9ca3af"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+			);
+		}
+		if (task.isCompleted) {
+			return (
+				<svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+					<title>Completed</title>
+					<circle cx="12" cy="12" r="10" fill="#10b981" />
+					<path
+						d="M9 12l2 2 4-4"
+						stroke="#ffffff"
+						strokeWidth="2"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+			);
+		}
+		return (
+			<svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+				<title>Available</title>
+				<circle cx="12" cy="12" r="10" fill="#3b82f6" />
+				<path
+					d="M12 6v6l4 2"
+					stroke="#ffffff"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+			</svg>
+		);
+	};
+
+	const getTaskStatusText = (task: QuestTask) => {
+		if (!task.isUnlocked) return "Locked";
+		if (task.isCompleted) return "Completed";
+		return "Available";
+	};
+
+	const getTaskStatusColor = (task: QuestTask) => {
+		if (!task.isUnlocked) return "text-gray-500 bg-gray-100";
+		if (task.isCompleted) return "text-green-700 bg-green-100";
+		return "text-blue-700 bg-blue-100";
+	};
+
+	const completedTasksCount =
+		quest.tasks?.filter((task) => task.isCompleted).length || 0;
+	const totalTasksCount = quest.tasks?.length || 0;
+	const progressPercentage =
+		totalTasksCount > 0 ? (completedTasksCount / totalTasksCount) * 100 : 0;
+
 	return (
 		<div className="relative min-h-[400px]">
 			{/* Background image */}
@@ -51,7 +157,7 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 									fill="#7c6f57"
 								/>
 							</svg>
-							San Francisco, CA
+							{quest.touristSpot?.touristSpotName || "Unknown Location"}
 						</span>
 						<span className="flex items-center gap-1">
 							<svg
@@ -70,23 +176,89 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 									strokeLinejoin="round"
 								/>
 							</svg>
-							3-4 hours
+							{totalTasksCount} tasks
 						</span>
 					</div>
-					<p className="text-[#4b3c1a] mb-4 text-base leading-relaxed">
+					<p className="text-[#4b3c1a] mb-6 text-base leading-relaxed">
 						{quest.questDesc}
 					</p>
-					<div className="flex flex-wrap gap-2 mt-2">
-						{/* Example tags, replace with quest.tags if available */}
-						<span className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
-							Landmarks
-						</span>
-						<span className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
-							Photography
-						</span>
-						<span className="bg-gray-200 text-gray-800 text-xs px-3 py-1 rounded-full">
-							Urban
-						</span>
+
+					{/* Tasks List */}
+					<div className="space-y-3">
+						<h3 className="text-lg font-semibold text-[#1a140a] mb-3">Tasks</h3>
+						{quest.tasks && quest.tasks.length > 0 ? (
+							quest.tasks.map((task, index) => (
+								<Link
+									key={task.taskId}
+									href={`/v2/task/${task.taskId}`}
+									onClick={(e) => handleTaskClick(task, e)}
+									className={`block transition-all ${
+										task.isUnlocked && !task.isCompleted
+											? "cursor-pointer hover:bg-gray-50"
+											: "cursor-default"
+									}`}
+									aria-disabled={!task.isUnlocked || task.isCompleted}
+									aria-label={`${task.taskName} - ${getTaskStatusText(task)}`}
+								>
+									<div
+										className={`flex items-center gap-3 p-3 rounded-lg border ${
+											task.isUnlocked && !task.isCompleted
+												? "border-gray-200 hover:border-gray-300"
+												: "border-gray-100"
+										} ${
+											task.isCompleted
+												? "bg-green-50 border-green-200"
+												: !task.isUnlocked
+													? "bg-gray-50 border-gray-100"
+													: "bg-white"
+										}`}
+									>
+										<div className="flex-shrink-0">
+											{getTaskStatusIcon(task)}
+										</div>
+										<div className="flex-1 min-w-0">
+											<div className="flex items-center gap-2 mb-1">
+												<h4 className="font-medium text-[#1a140a] truncate">
+													{task.taskName}
+												</h4>
+												<span
+													className={`text-xs px-2 py-1 rounded-full ${getTaskStatusColor(task)}`}
+												>
+													{getTaskStatusText(task)}
+												</span>
+											</div>
+											<p className="text-sm text-[#7c6f57] line-clamp-2">
+												{task.taskDesc}
+											</p>
+											<div className="flex items-center gap-4 mt-2 text-xs text-[#a89c87]">
+												<span className="flex items-center gap-1">
+													<svg
+														width="12"
+														height="12"
+														fill="none"
+														viewBox="0 0 24 24"
+													>
+														<title>Points</title>
+														<path
+															d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+															fill="#a89c87"
+														/>
+													</svg>
+													{task.magatamaPointAwarded} pts
+												</span>
+												<span className="capitalize">
+													{task.taskType.toLowerCase().replace("_", " ")}
+												</span>
+											</div>
+										</div>
+									</div>
+								</Link>
+							))
+						) : (
+							<div className="text-center py-8 text-[#7c6f57]">
+								<p>No tasks available for this quest.</p>
+							</div>
+						)}
 					</div>
 				</div>
 				{/* Right: Progress & Rewards */}
@@ -95,12 +267,12 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 						Quest Progress
 					</h2>
 					<div className="text-sm text-[#7c6f57] mb-2">
-						0 of {quest.tasks?.length || 0} tasks completed
+						{completedTasksCount} of {totalTasksCount} tasks completed
 					</div>
 					<div className="h-2 w-full bg-[#ece5d6] rounded-full mb-4">
 						<div
-							className="h-2 bg-[#a89c87] rounded-full"
-							style={{ width: "0%" }}
+							className="h-2 bg-[#a89c87] rounded-full transition-all duration-300"
+							style={{ width: `${progressPercentage}%` }}
 						/>
 					</div>
 					<div className="bg-[#fdf6ee] rounded-xl p-4 mb-2">

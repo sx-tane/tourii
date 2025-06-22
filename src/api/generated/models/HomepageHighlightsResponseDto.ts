@@ -13,10 +13,6 @@ export type HomepageHighlightsResponseDto = {
          */
         chapterId: string;
         /**
-         * Chapter number (e.g., "Chapter 1", "Prologue")
-         */
-        chapterNumber: string;
-        /**
          * Chapter title
          */
         title: string;
@@ -24,10 +20,6 @@ export type HomepageHighlightsResponseDto = {
          * Cover image URL
          */
         imageUrl: string | null;
-        /**
-         * Region of the story
-         */
-        region: string | null;
         /**
          * Deep link to chapter
          */

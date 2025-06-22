@@ -18,4 +18,4 @@ export async function makeApiRequest<T = any>(
   }
 
   return response.json();
-} 
+}

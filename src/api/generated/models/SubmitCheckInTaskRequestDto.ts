@@ -4,6 +4,10 @@
 /* eslint-disable */
 export type SubmitCheckInTaskRequestDto = {
     /**
+     * ID of the task
+     */
+    taskId: string;
+    /**
      * Longitude of the user
      */
     longitude: number;
@@ -11,5 +15,9 @@ export type SubmitCheckInTaskRequestDto = {
      * Latitude of the user
      */
     latitude: number;
+    /**
+     * ID of the user
+     */
+    userId: string;
 };
 

@@ -41,7 +41,6 @@ export class AuthService {
     }
     /**
      * User signup with wallet
-     * Create user account using wallet signature verification.
      * @param requestBody Signup info
      * @returns AuthSignupResponseDto Signup success
      * @throws ApiError

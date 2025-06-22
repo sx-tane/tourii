@@ -1,5 +1,3 @@
-
-
 interface QuestPaginationProps {
 	currentPage: number;
 	totalPages: number;

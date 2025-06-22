@@ -25,7 +25,7 @@ const extractStorySagaId = (
 	storyChapterLink: string | undefined,
 ): string | undefined => {
 	if (!storyChapterLink) return undefined;
-	const match = storyChapterLink.match(/\/v2\/touriiverse\/(STO[^\/]+)\//);
+	const match = storyChapterLink.match(/\/v2\/touriiverse\/(STO[^/]+)\//);
 	return match ? match[1] : undefined;
 };
 
@@ -33,7 +33,7 @@ const extractChapterId = (
 	storyChapterLink: string | undefined,
 ): string | undefined => {
 	if (!storyChapterLink) return undefined;
-	const match = storyChapterLink.match(/\/chapters\/(SCT[^\/]+)/);
+	const match = storyChapterLink.match(/\/chapters\/(SCT[^/]+)/);
 	return match ? match[1] : undefined;
 };
 

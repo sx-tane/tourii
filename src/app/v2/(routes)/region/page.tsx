@@ -77,7 +77,7 @@ const RegionPage: NextPage = () => {
 	if (isError) {
 		let errorMessage =
 			"An unexpected error occurred while loading model routes.";
-		let errorStatus: number | undefined = undefined;
+		let errorStatus: number | undefined ;
 
 		if (error instanceof ApiError) {
 			errorMessage = error.message;
