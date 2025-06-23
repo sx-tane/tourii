@@ -76,7 +76,7 @@ const ConditionalErrorComponent = () => {
   );
 };
 
-const CustomErrorFallback = ({ error }: { error?: Error }) => (
+const CustomErrorFallbackComponent = ({ error }: { error?: Error }) => (
   <div className="h-full w-full bg-purple-100 border border-purple-300 rounded-lg flex flex-col items-center justify-center p-4">
     <div className="text-4xl mb-2">🚫</div>
     <h3 className="text-purple-800 font-semibold">Custom Error UI</h3>
@@ -120,7 +120,7 @@ export const DefaultErrorFallback: Story = {
 export const CustomErrorFallback: Story = {
   args: {
     children: <BrokenMapComponent />,
-    fallback: CustomErrorFallback,
+    fallback: CustomErrorFallbackComponent,
   },
   parameters: {
     docs: {
