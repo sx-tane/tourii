@@ -195,8 +195,8 @@ Hooks are organized by their primary purpose across 5 categories with 30 total h
 
 ```
 src/hooks/
-├── api/              # Server data fetching (SWR hooks) - 15 hooks
-├── admin/            # Admin CRUD operations (SWR mutations) - 6 hooks ✅ All working
+├── api/              # Server data fetching (SWR hooks) - 14 hooks
+├── admin/            # Admin CRUD operations + name resolution - 6 hooks ✅ All working
 ├── business/         # Business logic hooks - 4 hooks
 ├── ui/               # UI interaction hooks - 3 hooks
 └── map/              # Map and geolocation hooks - 2 hooks
@@ -204,18 +204,20 @@ src/hooks/
 
 ### Hook Categories & Functions
 
-#### **API Hooks** (15 hooks)
+#### **API Hooks** (14 hooks)
 Server data fetching with SWR for read operations:
-- `useModelRoutes()`, `useQuests()`, `useCheckins()`, `useSagas()`
-- `usePassport()`, `useHomepageHighlights()`, `useMoments()`
-- `useAdminUsers()`, `useAdminSubmissions()` (moved from `/api/` to `/admin/`)
+- `useModelRoutes()`, `useModelRouteById()`, `useQuests()`, `useQuestById()`
+- `useCheckins()`, `useSagas()`, `useSagaById()`, `useStoryCompletion()`
+- `usePassport()`, `useHomepageHighlights()`, `useMoments()`, `useLocationInfo()`
+- `useTaskSubmissions()` (task submission data)
 
 #### **Admin Hooks** (6 hooks) ✅ **All Working**
-CRUD operations for content management with proper error handling:
+CRUD operations for content management with proper error handling + comprehensive name resolution:
 - Story Management: `useCreateStory()`, `useUpdateStory()`, `useDeleteStory()`
 - Quest Management: `useCreateQuest()`, `useUpdateQuest()`, `useDeleteQuest()`
 - Route Management: `useCreateModelRoute()`, `useUpdateModelRoute()`, `useDeleteModelRoute()`
-- Name Resolution: `useQuestName()`, `useTouristSpotName()`, `useTaskName()`
+- Admin SWR Hooks: `useAdminUsers()`, `useAdminSubmissions()`
+- Name Resolution System: `useQuestName()`, `useTouristSpotName()`, `useStoryChapterName()`, `useTaskName()`, `useNameResolution()`
 
 #### **Business Hooks** (4 hooks)
 Domain-specific logic and complex state management:
@@ -532,4 +534,4 @@ Key architectural decisions are documented for future reference:
 
 ---
 
-*Last Updated: June 23, 2025 - Hooks Organization & Admin CRUD Edition*
+*Last Updated: June 23, 2025 - Admin Enhancement & Name Resolution System Edition*

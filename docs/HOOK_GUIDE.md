@@ -10,8 +10,8 @@ The Tourii frontend uses a well-organized hook structure following the three-lay
 
 ```
 src/hooks/
-├── api/              # Server data fetching (SWR hooks) - 15 hooks
-├── admin/            # Admin CRUD operations (SWR mutations) - 6 hooks ✅ All working
+├── api/              # Server data fetching (SWR hooks) - 14 hooks
+├── admin/            # Admin CRUD operations + name resolution - 6 hooks ✅ All working
 ├── business/         # Business logic hooks - 4 hooks
 ├── map/              # Map and geolocation hooks - 2 hooks
 └── ui/               # UI interaction hooks - 3 hooks
@@ -1609,4 +1609,4 @@ describe('useTouristSpotSelection', () => {
 
 ---
 
-*Last Updated: June 23, 2025 - Admin CRUD Hooks & Name Resolution Edition*
+*Last Updated: June 23, 2025 - Admin Enhancement & Name Resolution System Edition*

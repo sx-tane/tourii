@@ -65,13 +65,13 @@ export function getModelRoutes() { ... }
 - **UI components**: Use `src/components/ui/` for shadcn components
 
 ### Hook Organization ✅ **Recently Reorganized (June 2025)**
-- **API Hooks**: `src/hooks/api/` - for server data (SWR) - 15 hooks
-- **Admin Hooks**: `src/hooks/admin/` - for admin CRUD operations - 6 hooks (✅ Fixed delete operations)
+- **API Hooks**: `src/hooks/api/` - for server data (SWR) - 14 hooks
+- **Admin Hooks**: `src/hooks/admin/` - for admin CRUD operations + name resolution - 6 hooks (✅ All working)
 - **UI Hooks**: `src/hooks/ui/` - for UI interactions - 3 hooks  
 - **Business Hooks**: `src/hooks/business/` - for complex logic - 4 hooks
 - **Map Hooks**: `src/hooks/map/` - for map functionality - 2 hooks
 - All hooks use `use*` naming convention (not `get*`)
-- **Total**: 30 hooks properly categorized and fully functional
+- **Total**: 29 hooks properly categorized and fully functional
 
 ### Redux vs SWR Usage Guide
 ```typescript
@@ -286,7 +286,7 @@ Fixed inconsistent error messages:
 + "Failed to create model route"
 ```
 
-#### **4. User Activity Logs Name Resolution** ✅ **NEW**
+#### **4. User Activity Logs Name Resolution** ✅ **COMPLETE**
 **Root Issue**: Admin user logs were showing internal IDs instead of human-readable names.
 
 **Fixed name resolution for:**
@@ -296,16 +296,16 @@ Fixed inconsistent error messages:
 - ✅ **Task names**: `Task #BAAA` → `"Photo Upload Task #BAAA"`
 
 **Implementation details:**
-- Enhanced `src/utils/name-resolution.ts` with proper API calls
-- Added `useTaskName` hook for task name resolution
-- Updated `ResolvedNameDisplay` component to support all types
+- Created comprehensive `src/hooks/admin/useNameResolution.ts` hook system
+- Added specialized hooks: `useQuestName`, `useTouristSpotName`, `useStoryChapterName`, `useTaskName`
+- Implemented `ResolvedNameDisplay` component with loading states and fallbacks
 - User activity logs now show meaningful names instead of cryptic IDs
 
 #### **5. Final Hook Organization Structure**
 ```
 /src/hooks/
-├── /api/           (15 hooks) - Pure SWR hooks for server data
-├── /admin/         (6 hooks)  - Admin CRUD operations + admin SWR hooks  
+├── /api/           (14 hooks) - Pure SWR hooks for server data
+├── /admin/         (6 hooks)  - Admin CRUD operations + SWR hooks + name resolution  
 ├── /business/      (4 hooks)  - Complex business logic
 ├── /ui/            (3 hooks)  - UI interactions & states
 ├── /map/           (2 hooks)  - Map functionality
@@ -313,7 +313,7 @@ Fixed inconsistent error messages:
 └── index.ts                   - Clean barrel exports
 ```
 
-**Result**: All admin CRUD operations now work perfectly with proper error handling and consistent patterns! Admin user logs are now human-readable! 🚀
+**Result**: All admin CRUD operations now work perfectly with proper error handling and consistent patterns! Admin user logs show human-readable names via comprehensive name resolution system! 🚀
 
 ## Important Development Guidelines
 
@@ -358,4 +358,4 @@ For new frontend developers, these resources provide fast-track onboarding:
 
 ---
 
-*Last Updated: June 23, 2025 - User Activity Logs Name Resolution Fix Edition*
+*Last Updated: June 23, 2025 - Admin Enhancement & Name Resolution System Edition*
