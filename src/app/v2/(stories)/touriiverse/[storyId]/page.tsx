@@ -53,7 +53,7 @@ const SagaChapterPage: NextPage = () => {
 				return;
 			}
 
-			let initialChapter: StoryChapterResponseDto | undefined = undefined;
+			let initialChapter: StoryChapterResponseDto | undefined ;
 			const savedChapterIdKey = `selectedChapterId_${storyId}`;
 
 			if (typeof window !== "undefined") {

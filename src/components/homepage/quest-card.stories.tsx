@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuestCard } from "./quest-card";
 
-const meta = {
+const meta: Meta<typeof QuestCard> = {
 	title: "Homepage/QuestCard",
 	component: QuestCard,
 	parameters: {
@@ -9,27 +9,45 @@ const meta = {
 		backgrounds: {
 			default: "light",
 			values: [
-				{ name: "light", value: "#E3E3DC" },
-				{ name: "dark", value: "#21211B" },
+				{ name: "light", value: "#f5f5f5" },
+				{ name: "dark", value: "#333333" },
 			],
 		},
 	},
+	tags: ["autodocs"],
 	argTypes: {
-		questId: { control: "text" },
-		title: { control: "text" },
-		imageUrl: { control: "text" },
-		link: { control: "text" },
-		index: { control: "number" },
-		forceAspectRatio: {
-			control: "select",
-			options: ["normal", "wider"],
+		questId: {
+			control: "text",
+			description: "Unique quest identifier",
+		},
+		title: {
+			control: "text",
+			description: "Quest title (fallback when API data unavailable)",
+		},
+		imageUrl: {
+			control: "text",
+			description: "Quest image URL (fallback when API data unavailable)",
+		},
+		link: {
+			control: "text",
+			description: "Quest page link",
+		},
+		index: {
+			control: { type: "number", min: 0 },
+			description: "Animation delay index",
 		},
 	},
-	tags: ["autodocs"],
-} satisfies Meta<typeof QuestCard>;
+	decorators: [
+		(Story) => (
+			<div className="w-64">
+				<Story />
+			</div>
+		),
+	],
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof QuestCard>;
 
 export const Default: Story = {
 	args: {
@@ -38,56 +56,63 @@ export const Default: Story = {
 		imageUrl: "/image/touriiverse/bungo-ono/chapter1.png",
 		link: "/v2/quests/demo-quest-1",
 		index: 0,
-		forceAspectRatio: "normal",
-	},
-};
-
-export const WiderAspectRatio: Story = {
-	args: {
-		questId: "demo-quest-2",
-		title: "Cherry Blossom Hunt Adventure",
-		imageUrl: "/image/touriiverse/bungo-ono/chapter1.png",
-		link: "/v2/quests/demo-quest-2",
-		index: 0,
-		forceAspectRatio: "wider",
 	},
 };
 
 export const LongTitle: Story = {
 	args: {
-		questId: "demo-quest-3",
+		questId: "demo-quest-2",
 		title:
-			"Mountain Hiking Quest with Very Long Title That Should Be Truncated",
-		imageUrl: "/image/touriiverse/bungo-ono/chapter1.png",
-		link: "/v2/quests/demo-quest-3",
-		index: 0,
-		forceAspectRatio: "normal",
+			"Cherry Blossom Festival Photography Challenge and Cultural Experience",
+		imageUrl: "/image/touriiverse/bungo-ono/chapter2.png",
+		link: "/v2/quests/demo-quest-2",
+		index: 1,
 	},
 };
 
-export const WithoutImage: Story = {
+export const DifferentImage: Story = {
+	args: {
+		questId: "demo-quest-3",
+		title: "Mountain Hiking Quest",
+		imageUrl: "/image/touriiverse/bungo-ono/chapter3.png",
+		link: "/v2/quests/demo-quest-3",
+		index: 2,
+	},
+};
+
+export const FallbackImage: Story = {
 	args: {
 		questId: "demo-quest-4",
-		title: "Quest Without Image",
+		title: "Quest with Fallback Image",
 		imageUrl: null,
 		link: "/v2/quests/demo-quest-4",
 		index: 0,
-		forceAspectRatio: "normal",
 	},
 };
 
-export const WithDarkBackground: Story = {
+export const NoLink: Story = {
 	args: {
 		questId: "demo-quest-5",
-		title: "Dark Background Quest",
-		imageUrl: "/image/touriiverse/bungo-ono/chapter1.png",
-		link: "/v2/quests/demo-quest-5",
+		title: "Quest without Link",
+		imageUrl: "/image/touriiverse/bungo-ono/chapter4.png",
+		link: null,
 		index: 0,
-		forceAspectRatio: "normal",
+	},
+};
+
+export const WithApiData: Story = {
+	args: {
+		questId: "real-quest-1",
+		title: "Fallback Title",
+		imageUrl: "/image/touriiverse/bungo-ono/chapter1.png",
+		link: "/v2/quests/real-quest-1",
+		index: 0,
 	},
 	parameters: {
-		backgrounds: {
-			default: "dark",
+		docs: {
+			description: {
+				story: "Quest card that would fetch real data from API (in actual app)",
+			},
 		},
 	},
 };

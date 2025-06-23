@@ -1,5 +1,5 @@
 import { QuestService } from "@/api/generated/services/QuestService";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import { executeValidatedServiceCall } from "../lib/route-helper";
 
 export async function GET(request: NextRequest) {

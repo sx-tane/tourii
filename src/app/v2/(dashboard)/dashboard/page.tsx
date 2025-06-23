@@ -154,67 +154,36 @@ const DashboardPage = () => {
 						}
 					/>
 				</div>
-			</div>
 
-			{/* Recent Activity */}
-			<div className="bg-white shadow-sm rounded-lg p-6">
-				<h2 className="text-lg font-medium text-gray-900 mb-4">
-					Recent Activity
-				</h2>
-				<div className="space-y-4">
-					{mockDashboardData.user.recentActivity.map((activity) => (
-						<div
-							key={`${activity.type}-${activity.text}`}
-							className="flex items-center"
-						>
-							<div className={`w-2 h-2 ${activity.color} rounded-full`} />
-							<p className="ml-3 text-sm text-gray-500">{activity.text}</p>
-							<span className="ml-auto text-xs text-gray-400">
-								{activity.time}
-							</span>
-						</div>
-					))}
+				{/* Main Dashboard Layout - Two Column */}
+				<div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+					{/* Left Column */}
+					<div className="xl:col-span-1 space-y-6">
+						{/* Digital Passport Card */}
+						<DigitalPassportCard />
+
+						{/* Check-In Map Card */}
+						<CheckinMapCard
+							userId={session?.user?.email || undefined}
+							onNavigateToStory={(storyId) =>
+								router.push(`/v2/touriiverse/${storyId}`)
+							}
+							onNavigateToQuest={(questId) =>
+								router.push(`/v2/quests/${questId}`)
+							}
+						/>
+					</div>
+
+					{/* Right Column */}
+					<div className="xl:col-span-2 space-y-6">
+						{/* Latest Moments Section */}
+						<MomentsSection />
+
+						{/* Bottom Navigation */}
+						<BottomNavigation />
+					</div>
 				</div>
 			</div>
-
-			{/* Latest Moments */}
-			<MomentsSection />
-
-			{/* Recommended Next Steps */}
-			<div className="bg-white shadow-sm rounded-lg p-6">
-				<h2 className="text-lg font-medium text-gray-900 mb-4">
-					Recommended Next Steps
-				</h2>
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					<button
-						type="button"
-						className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
-					>
-						<div>
-							<h3 className="font-medium text-gray-900">Continue Story</h3>
-							<p className="text-sm text-gray-500">
-								Resume "The Fox's Wedding" chapter
-							</p>
-						</div>
-						<span className="text-indigo-600">→</span>
-					</button>
-					<button
-						type="button"
-						className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
-					>
-						<div>
-							<h3 className="font-medium text-gray-900">
-								Complete Daily Quest
-							</h3>
-							<p className="text-sm text-gray-500">Visit Kiyomizu Temple</p>
-						</div>
-						<span className="text-indigo-600">→</span>
-					</button>
-				</div>
-			</div>
-
-			{/* Bottom Navigation */}
-			<BottomNavigation />
 		</div>
 	);
 };

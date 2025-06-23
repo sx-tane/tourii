@@ -9,7 +9,7 @@ import { request as __request } from '../core/request';
 export class MomentService {
     /**
      * Get latest moments
-     * Retrieve latest traveler moments and activities.
+     * Latest traveler moments
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param limit Items per page

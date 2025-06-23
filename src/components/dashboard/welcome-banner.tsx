@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { UserResponseDto } from "@/api/generated";
+import type { UserResponseDto } from "@/api/generated";
 
 interface WelcomeBannerProps {
 	username?: string;

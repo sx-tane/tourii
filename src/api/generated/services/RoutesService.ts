@@ -92,7 +92,7 @@ export class RoutesService {
     ): CancelablePromise<ModelRouteResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/routes',
+            url: '/routes/create-model-route',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
@@ -105,33 +105,9 @@ export class RoutesService {
         });
     }
     /**
-     * Get All Model Routes
-     * Retrieve a list of all available model routes with their details.
-     * @param acceptVersion API version (e.g., 1.0.0)
-     * @param xApiKey API key for authentication
-     * @returns ModelRouteResponseDto Successfully retrieved all model routes
-     * @throws ApiError
-     */
-    public static touriiBackendControllerGetRoutes(
-        acceptVersion: string,
-        xApiKey: string,
-    ): CancelablePromise<Array<ModelRouteResponseDto>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/routes',
-            headers: {
-                'accept-version': acceptVersion,
-                'x-api-key': xApiKey,
-            },
-            errors: {
-                400: `Bad Request - Invalid version format`,
-            },
-        });
-    }
-    /**
      * Create Tourist Spot
      * Create a new tourist spot.
-     * @param routeId
+     * @param modelRouteId
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @param requestBody Tourist Spot creation request
@@ -139,7 +115,7 @@ export class RoutesService {
      * @throws ApiError
      */
     public static touriiBackendControllerCreateTouristSpot(
-        routeId: string,
+        modelRouteId: string,
         acceptVersion: string,
         xApiKey: string,
         requestBody: {
@@ -184,9 +160,9 @@ export class RoutesService {
     ): CancelablePromise<TouristSpotResponseDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/routes/{routeId}/tourist-spots',
+            url: '/routes/create-tourist-spot/{modelRouteId}',
             path: {
-                'routeId': routeId,
+                'modelRouteId': modelRouteId,
             },
             headers: {
                 'accept-version': acceptVersion,
@@ -399,22 +375,22 @@ export class RoutesService {
     /**
      * Delete Model Route
      * Delete an existing model route.
-     * @param routeId
+     * @param modelRouteId
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
      * @returns void
      * @throws ApiError
      */
     public static touriiBackendControllerDeleteModelRoute(
-        routeId: string,
+        modelRouteId: string,
         acceptVersion: string,
         xApiKey: string,
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/routes/{routeId}',
+            url: '/routes/{modelRouteId}',
             path: {
-                'routeId': routeId,
+                'modelRouteId': modelRouteId,
             },
             headers: {
                 'accept-version': acceptVersion,
@@ -441,7 +417,7 @@ export class RoutesService {
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/routes/tourist-spots/{touristSpotId}',
+            url: '/routes/tourist-spot/{touristSpotId}',
             path: {
                 'touristSpotId': touristSpotId,
             },
@@ -474,6 +450,30 @@ export class RoutesService {
             path: {
                 'storyChapterId': storyChapterId,
             },
+            headers: {
+                'accept-version': acceptVersion,
+                'x-api-key': xApiKey,
+            },
+            errors: {
+                400: `Bad Request - Invalid version format`,
+            },
+        });
+    }
+    /**
+     * Get All Model Routes
+     * Retrieve a list of all available model routes with their details.
+     * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xApiKey API key for authentication
+     * @returns ModelRouteResponseDto Successfully retrieved all model routes
+     * @throws ApiError
+     */
+    public static touriiBackendControllerGetRoutes(
+        acceptVersion: string,
+        xApiKey: string,
+    ): CancelablePromise<Array<ModelRouteResponseDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/routes',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
@@ -534,7 +534,7 @@ export class RoutesService {
     ): CancelablePromise<LocationInfoResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/locations/info',
+            url: '/location-info',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,

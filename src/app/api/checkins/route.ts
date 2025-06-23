@@ -2,7 +2,7 @@ import { UserService } from "@/api/generated";
 import { executeValidatedServiceCall } from "@/app/api/lib/route-helper";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
 	// Get session for user authentication

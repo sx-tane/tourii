@@ -1,9 +1,9 @@
 import { StoriesService } from "@/api/generated";
-import {
-	touriiErrorResponse,
-	executeValidatedServiceCall,
-} from "../../../lib/route-helper";
 import { NextRequest } from "next/server";
+import {
+	executeValidatedServiceCall,
+	touriiErrorResponse,
+} from "../../../lib/route-helper";
 
 export async function PUT(
 	request: NextRequest,

@@ -7,8 +7,6 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
-export type { AdminUserListResponseDto } from './models/AdminUserListResponseDto';
-export { AdminUserQueryDto } from './models/AdminUserQueryDto';
 export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
 export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
 export { CheckinsFetchRequestDto } from './models/CheckinsFetchRequestDto';
@@ -58,7 +56,6 @@ export type { UserSensitiveInfoResponseDto } from './models/UserSensitiveInfoRes
 export type { UserTravelLogListResponseDto } from './models/UserTravelLogListResponseDto';
 export { VerifySubmissionRequestDto } from './models/VerifySubmissionRequestDto';
 
-export { AdminService } from './services/AdminService';
 export { AuthService } from './services/AuthService';
 export { HealthCheckService } from './services/HealthCheckService';
 export { HomepageService } from './services/HomepageService';
