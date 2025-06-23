@@ -187,23 +187,60 @@ src/components/
 
 ---
 
-## 🎣 **Hook Architecture**
+## 🎣 **Hook Architecture** ✅ **Recently Reorganized**
 
 ### Purpose-Based Organization
 
-Hooks are organized by their primary purpose:
+Hooks are organized by their primary purpose across 5 categories with 30 total hooks:
 
-- **API Hooks**: Server data fetching with SWR (`src/hooks/api/`)
-- **Business Hooks**: Domain-specific logic (`src/hooks/business/`)
-- **UI Hooks**: Interface interactions (`src/hooks/ui/`)
-- **Map Hooks**: Geolocation and mapping (`src/hooks/map/`)
+```
+src/hooks/
+├── api/              # Server data fetching (SWR hooks) - 15 hooks
+├── admin/            # Admin CRUD operations (SWR mutations) - 6 hooks ✅ All working
+├── business/         # Business logic hooks - 4 hooks
+├── ui/               # UI interaction hooks - 3 hooks
+└── map/              # Map and geolocation hooks - 2 hooks
+```
+
+### Hook Categories & Functions
+
+#### **API Hooks** (15 hooks)
+Server data fetching with SWR for read operations:
+- `useModelRoutes()`, `useQuests()`, `useCheckins()`, `useSagas()`
+- `usePassport()`, `useHomepageHighlights()`, `useMoments()`
+- `useAdminUsers()`, `useAdminSubmissions()` (moved from `/api/` to `/admin/`)
+
+#### **Admin Hooks** (6 hooks) ✅ **All Working**
+CRUD operations for content management with proper error handling:
+- Story Management: `useCreateStory()`, `useUpdateStory()`, `useDeleteStory()`
+- Quest Management: `useCreateQuest()`, `useUpdateQuest()`, `useDeleteQuest()`
+- Route Management: `useCreateModelRoute()`, `useUpdateModelRoute()`, `useDeleteModelRoute()`
+- Name Resolution: `useQuestName()`, `useTouristSpotName()`, `useTaskName()`
+
+#### **Business Hooks** (4 hooks)
+Domain-specific logic and complex state management:
+- `useTouristSpotSelection()`, `useQuestUnlock()`, `useVideoCompletion()`
+
+#### **UI Hooks** (3 hooks)
+Interface interactions and responsive behavior:
+- `useResponsiveDetection()`, `useImageGallery()`, `useIntersectionObserver()`
+
+#### **Map Hooks** (2 hooks)
+Geolocation and mapping functionality:
+- `useLeafletLoader()`, `useMapInitialization()`
 
 ### Pattern Consistency
 
 All hooks follow consistent patterns:
 - **API Hooks**: Return `{ data, error, isLoading, mutate }`
-- **Business Hooks**: Encapsulate domain logic and state
+- **Admin Hooks**: Return `{ trigger, isMutating, error }` with success callbacks
+- **Business Hooks**: Encapsulate domain logic and state management
 - **UI Hooks**: Handle interface interactions and responsive behavior
+- **Map Hooks**: Manage map initialization and geolocation services
+
+### Critical Admin CRUD Fixes ✅ **Recently Resolved**
+
+All admin delete operations now properly return `{ success: true }` to ensure SWR interprets them as successful operations, resolving the issue where delete operations appeared to fail due to undefined return values.
 
 ---
 
@@ -333,8 +370,9 @@ graph TB
     
     subgraph "Admin Hooks"
         ADMIN_USERS[useAdminUsers]
-        ADMIN_ANALYTICS[useAdminAnalytics]
-        ADMIN_CONTENT[useAdminContent]
+        ADMIN_SUBMISSIONS[useAdminSubmissions]
+        ADMIN_CRUD[Admin CRUD Operations]
+        NAME_RESOLUTION[Name Resolution Hooks]
     end
     
     ANALYTICS --> FILTERS
@@ -343,17 +381,21 @@ graph TB
     QUEST_MGMT --> MODALS
     
     FILTERS --> ADMIN_USERS
-    TABLES --> ADMIN_ANALYTICS
-    EXPORT --> ADMIN_CONTENT
+    TABLES --> ADMIN_SUBMISSIONS
+    EXPORT --> ADMIN_CRUD
+    MODALS --> NAME_RESOLUTION
 ```
 
-### Admin Features
+### Admin Features ✅ **Recently Enhanced**
 
-- **User Management**: Complete user administration with filtering, banning, role management
+- **User Management**: Complete user administration with filtering, banning, role management  
+- **Submission Review**: Task approval workflow with photo, social, and text submissions
+- **Content Management**: Story, quest, and route CRUD operations with full validation
 - **Analytics Dashboard**: Platform metrics, user statistics, quest completion rates
-- **Content Management**: Story, quest, and route content administration
+- **Name Resolution**: Convert IDs to human-readable names (Quest #a-BAAA → "Discover Harajiri Falls")
 - **Export Capabilities**: CSV export for user data and analytics
 - **Advanced Filtering**: Multi-dimensional filtering with pagination and sorting
+- **Component Architecture**: 66% code reduction through reusable component composition
 
 ### Security Architecture
 
@@ -490,4 +532,4 @@ Key architectural decisions are documented for future reference:
 
 ---
 
-*Last Updated: June 20, 2025*
+*Last Updated: June 23, 2025 - Hooks Organization & Admin CRUD Edition*

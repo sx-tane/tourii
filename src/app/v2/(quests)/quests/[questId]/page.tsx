@@ -1,9 +1,9 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 import QuestOverview from "@/components/quest/quest-overview";
 import { useProxySWR } from "@/lib/swr/useProxySWR";
-import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
+import { useParams } from "next/navigation";
 
 export default function QuestDetailPage() {
 	const { questId } = useParams() as { questId: string };

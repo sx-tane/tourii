@@ -6,7 +6,10 @@ import { useState } from "react";
 const LeafletMapDemo = ({
 	center,
 	zoom,
-}: { center: [number, number]; zoom?: number }) => {
+}: {
+	center: [number, number];
+	zoom?: number;
+}) => {
 	// biome-ignore lint/suspicious/noExplicitAny: any is used to avoid type errors
 	const [map, setMap] = useState<any>(null);
 	const [mapInfo, setMapInfo] = useState<string>("Map loading...");

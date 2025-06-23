@@ -1,19 +1,25 @@
-import type { VideoIframeProps } from "@/types/story-type";
-import { useEffect, useRef } from "react";
 import { YouTubeAPILoader } from "@/components/common/youtube-api-loader";
+import type { VideoIframeProps } from "@/types/story-type";
+import { useEffect, useId, useRef } from "react";
 
 interface VideoIframePropsWithCompletion extends VideoIframeProps {
 	onVideoComplete?: () => void;
 	enableVideoTracking?: boolean;
 }
 
-const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({ 
-	iframeSrc, 
-	title, 
+// YouTube API type definitions
+interface YTPlayerStateChangeEvent {
+	data: number;
+}
+
+const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
+	iframeSrc,
+	title,
 	onVideoComplete,
-	enableVideoTracking = false
+	enableVideoTracking = false,
 }) => {
 	const iframeRef = useRef<HTMLIFrameElement>(null);
+	const iframeId = useId();
 
 	useEffect(() => {
 		if (!enableVideoTracking || !onVideoComplete) return;
@@ -22,17 +28,33 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 			if (!iframeRef.current || !iframeSrc || !enableVideoTracking) return;
 
 			try {
+				// Check if YouTube API is fully loaded with Player constructor
+				if (
+					!window.YT ||
+					!window.YT.Player ||
+					typeof window.YT.Player !== "function"
+				) {
+					console.warn("YouTube API not fully loaded yet");
+					return;
+				}
+
 				// Extract video ID from iframe src
 				const videoIdMatch = iframeSrc.match(/embed\/([^?&]+)/);
 				const videoId = videoIdMatch?.[1];
 
-				if (!videoId) return;
+				if (!videoId) {
+					console.warn(
+						"Could not extract video ID from iframe src:",
+						iframeSrc,
+					);
+					return;
+				}
 
 				// Create YouTube player
 				const player = new window.YT.Player(iframeRef.current, {
 					videoId,
 					events: {
-						onStateChange: (event: any) => {
+						onStateChange: (event: YTPlayerStateChangeEvent) => {
 							// Video ended
 							if (event.data === window.YT.PlayerState.ENDED) {
 								onVideoComplete?.();
@@ -47,23 +69,34 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 
 		// Use event-based approach to initialize player when API is ready
 		const handleAPIReady = () => {
-			if (window.YT) {
-				initializePlayer();
-			}
+			// Add a small delay to ensure YT.Player is fully constructed
+			setTimeout(() => {
+				if (
+					window.YT &&
+					window.YT.Player &&
+					typeof window.YT.Player === "function"
+				) {
+					initializePlayer();
+				}
+			}, 100);
 		};
 
-		if (typeof window !== 'undefined') {
-			if (window.YT) {
-				// API already loaded
+		if (typeof window !== "undefined") {
+			if (
+				window.YT &&
+				window.YT.Player &&
+				typeof window.YT.Player === "function"
+			) {
+				// API already loaded and Player constructor is available
 				initializePlayer();
 			} else {
 				// Listen for API ready event
-				document.addEventListener('youtubeAPIReady', handleAPIReady);
+				document.addEventListener("youtubeAPIReady", handleAPIReady);
 			}
 		}
 
 		return () => {
-			document.removeEventListener('youtubeAPIReady', handleAPIReady);
+			document.removeEventListener("youtubeAPIReady", handleAPIReady);
 		};
 	}, [iframeSrc, onVideoComplete, enableVideoTracking]);
 
@@ -71,7 +104,7 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 		<YouTubeAPILoader>
 			<iframe
 				ref={iframeRef}
-				id="youtube-player"
+				id={`youtube-player-${iframeId}`}
 				src={iframeSrc}
 				title={title}
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -82,13 +115,5 @@ const VideoIframe: React.FC<VideoIframePropsWithCompletion> = ({
 		</YouTubeAPILoader>
 	);
 };
-
-// Extend Window interface for YouTube API
-declare global {
-	interface Window {
-		YT: any;
-		onYouTubeIframeAPIReady: () => void;
-	}
-}
 
 export default VideoIframe;

@@ -6,7 +6,6 @@ import {
 import type { TravelGoshuin } from "@/types/profile-type";
 import Image from "next/image";
 
-
 interface GoshuinProps {
 	goshuin: TravelGoshuin;
 }

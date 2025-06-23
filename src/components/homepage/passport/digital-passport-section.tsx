@@ -8,7 +8,7 @@ export const DigitalPassportSection: React.FC = () => {
 	const passport = useSelector((state: RootState) => state.passport);
 
 	return (
-		<section className="w-11/12 mx-auto">
+		<section className="w-10/12 mx-auto">
 			<div className="container mx-auto px-4">
 				<SectionTitle
 					subtitle={["TOURII", "DIGITAL", "PASSPORT"]}

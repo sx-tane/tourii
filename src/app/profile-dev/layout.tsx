@@ -4,7 +4,6 @@ import Loading from "@/app/loading";
 import Header from "@/components/header/header-component/header";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
 	title: "Profile",
 };

@@ -38,7 +38,19 @@
       "Bash(wc:*)",
       "Bash(pkill:*)",
       "Bash(curl:*)",
-      "Bash(npx next build:*)"
+      "Bash(npx next build:*)",
+      "Bash(cat:*)",
+      "Bash(pnpm biome check:*)",
+      "Bash(pnpm biome format:*)",
+      "Bash(tail:*)",
+      "Bash(npx biome check:*)",
+      "Bash(npx biome format:*)",
+      "Bash(head:*)",
+      "Bash(sed:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(-exec npx tsc --noEmit --skipLibCheck --jsx react {})",
+      "Bash(mv:*)"
     ],
     "deny": []
   }

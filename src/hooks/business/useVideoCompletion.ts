@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import type { 
-  UseVideoCompletionState, 
-  YouTubePlayerEvent
+import type {
+	UseVideoCompletionState,
+	YouTubePlayerEvent,
 } from "@/types/quest-unlock-type";
 import { YouTubePlayerState } from "@/types/quest-unlock-type";
 
@@ -11,217 +11,226 @@ const PROGRESS_UPDATE_INTERVAL = 1000; // Update progress every second
 
 /**
  * Custom hook for YouTube video completion detection
- * 
+ *
  * Integrates with YouTube iframe API to monitor video playback progress
  * and detect when videos are completed, triggering story completion actions
  */
 export const useVideoCompletion = (
-  onVideoComplete?: () => void
+	onVideoComplete?: () => void,
 ): UseVideoCompletionState & {
-  initializePlayer: (iframe: HTMLIFrameElement) => void;
-  cleanupPlayer: () => void;
+	initializePlayer: (iframe: HTMLIFrameElement) => void;
+	cleanupPlayer: () => void;
 } => {
-  const [isVideoCompleted, setIsVideoCompleted] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  
-  const playerRef = useRef<any>(null);
-  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+	const [isVideoCompleted, setIsVideoCompleted] = useState(false);
+	const [videoProgress, setVideoProgress] = useState(0);
+	const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  /**
-   * Handle video end event
-   */
-  const handleVideoEnd = useCallback(() => {
-    setIsVideoCompleted(true);
-    setIsVideoPlaying(false);
-    setVideoProgress(100);
-    onVideoComplete?.();
-  }, [onVideoComplete]);
+	const playerRef = useRef<any>(null);
+	const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  /**
-   * Handle video progress updates
-   */
-  const handleVideoProgress = useCallback((progress: number) => {
-    setVideoProgress(progress);
-    
-    // Consider video completed if it reaches threshold (to account for slight timing issues)
-    if (progress >= VIDEO_COMPLETION_THRESHOLD && !isVideoCompleted) {
-      handleVideoEnd();
-    }
-  }, [isVideoCompleted, handleVideoEnd]);
+	/**
+	 * Handle video end event
+	 */
+	const handleVideoEnd = useCallback(() => {
+		setIsVideoCompleted(true);
+		setIsVideoPlaying(false);
+		setVideoProgress(100);
+		onVideoComplete?.();
+	}, [onVideoComplete]);
 
-  /**
-   * Reset video state
-   */
-  const resetVideoState = useCallback(() => {
-    setIsVideoCompleted(false);
-    setVideoProgress(0);
-    setIsVideoPlaying(false);
-    if (progressIntervalRef.current) {
-      clearInterval(progressIntervalRef.current);
-      progressIntervalRef.current = null;
-    }
-  }, []);
+	/**
+	 * Handle video progress updates
+	 */
+	const handleVideoProgress = useCallback(
+		(progress: number) => {
+			setVideoProgress(progress);
 
-  /**
-   * YouTube player state change handler
-   */
-  const onPlayerStateChange = useCallback((event: YouTubePlayerEvent) => {
-    const playerState = event.target.getPlayerState();
-    
-    switch (playerState) {
-      case YouTubePlayerState.PLAYING:
-        setIsVideoPlaying(true);
-        // Start progress tracking
-        if (!progressIntervalRef.current) {
-          progressIntervalRef.current = setInterval(() => {
-            if (playerRef.current) {
-              try {
-                const currentTime = playerRef.current.getCurrentTime();
-                const duration = playerRef.current.getDuration();
-                if (duration > 0) {
-                  const progress = (currentTime / duration) * 100;
-                  handleVideoProgress(progress);
-                }
-              } catch (error) {
-                console.error("Error getting video progress:", error);
-                // Clear interval if player becomes unavailable
-                if (progressIntervalRef.current) {
-                  clearInterval(progressIntervalRef.current);
-                  progressIntervalRef.current = null;
-                }
-              }
-            }
-          }, PROGRESS_UPDATE_INTERVAL);
-        }
-        break;
-        
-      case YouTubePlayerState.PAUSED:
-      case YouTubePlayerState.BUFFERING:
-        setIsVideoPlaying(false);
-        break;
-        
-      case YouTubePlayerState.ENDED:
-        handleVideoEnd();
-        if (progressIntervalRef.current) {
-          clearInterval(progressIntervalRef.current);
-          progressIntervalRef.current = null;
-        }
-        break;
-    }
-  }, [handleVideoEnd, handleVideoProgress]);
+			// Consider video completed if it reaches threshold (to account for slight timing issues)
+			if (progress >= VIDEO_COMPLETION_THRESHOLD && !isVideoCompleted) {
+				handleVideoEnd();
+			}
+		},
+		[isVideoCompleted, handleVideoEnd],
+	);
 
-  /**
-   * Initialize YouTube player with event listeners
-   */
-  const initializePlayer = useCallback((iframe: HTMLIFrameElement) => {
-    if (!iframe || !window.YT) {
-      console.warn("YouTube API not loaded or iframe not available");
-      return;
-    }
+	/**
+	 * Reset video state
+	 */
+	const resetVideoState = useCallback(() => {
+		setIsVideoCompleted(false);
+		setVideoProgress(0);
+		setIsVideoPlaying(false);
+		if (progressIntervalRef.current) {
+			clearInterval(progressIntervalRef.current);
+			progressIntervalRef.current = null;
+		}
+	}, []);
 
-    try {
-      // Extract video ID from iframe src
-      const src = iframe.src;
-      const videoIdMatch = src.match(/embed\/([^?&]+)/);
-      const videoId = videoIdMatch?.[1];
+	/**
+	 * YouTube player state change handler
+	 */
+	const onPlayerStateChange = useCallback(
+		(event: YouTubePlayerEvent) => {
+			const playerState = event.target.getPlayerState();
 
-      if (!videoId) {
-        console.warn("Could not extract video ID from iframe src");
-        return;
-      }
+			switch (playerState) {
+				case YouTubePlayerState.PLAYING:
+					setIsVideoPlaying(true);
+					// Start progress tracking
+					if (!progressIntervalRef.current) {
+						progressIntervalRef.current = setInterval(() => {
+							if (playerRef.current) {
+								try {
+									const currentTime = playerRef.current.getCurrentTime();
+									const duration = playerRef.current.getDuration();
+									if (duration > 0) {
+										const progress = (currentTime / duration) * 100;
+										handleVideoProgress(progress);
+									}
+								} catch (error) {
+									console.error("Error getting video progress:", error);
+									// Clear interval if player becomes unavailable
+									if (progressIntervalRef.current) {
+										clearInterval(progressIntervalRef.current);
+										progressIntervalRef.current = null;
+									}
+								}
+							}
+						}, PROGRESS_UPDATE_INTERVAL);
+					}
+					break;
 
-      // Create YouTube player
-      playerRef.current = new window.YT.Player(iframe, {
-        videoId,
-        events: {
-          onStateChange: onPlayerStateChange,
-        },
-      });
-    } catch (error) {
-      console.error("Error initializing YouTube player:", error);
-    }
-  }, [onPlayerStateChange]);
+				case YouTubePlayerState.PAUSED:
+				case YouTubePlayerState.BUFFERING:
+					setIsVideoPlaying(false);
+					break;
 
-  /**
-   * Cleanup player and intervals
-   */
-  const cleanupPlayer = useCallback(() => {
-    if (progressIntervalRef.current) {
-      clearInterval(progressIntervalRef.current);
-      progressIntervalRef.current = null;
-    }
-    if (playerRef.current && typeof playerRef.current.destroy === 'function') {
-      try {
-        playerRef.current.destroy();
-      } catch (error) {
-        console.error("Error destroying YouTube player:", error);
-      }
-      playerRef.current = null;
-    }
-  }, []);
+				case YouTubePlayerState.ENDED:
+					handleVideoEnd();
+					if (progressIntervalRef.current) {
+						clearInterval(progressIntervalRef.current);
+						progressIntervalRef.current = null;
+					}
+					break;
+			}
+		},
+		[handleVideoEnd, handleVideoProgress],
+	);
 
-  /**
-   * Setup YouTube API ready event listener
-   */
-  useEffect(() => {
-    let eventListenerAdded = false;
+	/**
+	 * Initialize YouTube player with event listeners
+	 */
+	const initializePlayer = useCallback(
+		(iframe: HTMLIFrameElement) => {
+			if (!iframe || !window.YT) {
+				console.warn("YouTube API not loaded or iframe not available");
+				return;
+			}
 
-    const handleYouTubeAPIReady = () => {
-      console.log("YouTube iframe API loaded");
-    };
+			try {
+				// Extract video ID from iframe src
+				const src = iframe.src;
+				const videoIdMatch = src.match(/embed\/([^?&]+)/);
+				const videoId = videoIdMatch?.[1];
 
-    // Use event-based approach instead of global callback pollution
-    if (typeof window !== 'undefined') {
-      // Listen for custom YouTube API ready event
-      document.addEventListener('youtubeAPIReady', handleYouTubeAPIReady);
-      eventListenerAdded = true;
+				if (!videoId) {
+					console.warn("Could not extract video ID from iframe src");
+					return;
+				}
 
-      // Setup global callback only if it doesn't exist
-      if (!window.onYouTubeIframeAPIReady) {
-        window.onYouTubeIframeAPIReady = () => {
-          document.dispatchEvent(new CustomEvent('youtubeAPIReady'));
-        };
-      }
-    }
+				// Create YouTube player
+				playerRef.current = new window.YT.Player(iframe, {
+					videoId,
+					events: {
+						onStateChange: onPlayerStateChange,
+					},
+				});
+			} catch (error) {
+				console.error("Error initializing YouTube player:", error);
+			}
+		},
+		[onPlayerStateChange],
+	);
 
-    return () => {
-      cleanupPlayer();
-      // Clean up event listener
-      if (eventListenerAdded) {
-        document.removeEventListener('youtubeAPIReady', handleYouTubeAPIReady);
-      }
-    };
-  }, [cleanupPlayer]);
+	/**
+	 * Cleanup player and intervals
+	 */
+	const cleanupPlayer = useCallback(() => {
+		if (progressIntervalRef.current) {
+			clearInterval(progressIntervalRef.current);
+			progressIntervalRef.current = null;
+		}
+		if (playerRef.current && typeof playerRef.current.destroy === "function") {
+			try {
+				playerRef.current.destroy();
+			} catch (error) {
+				console.error("Error destroying YouTube player:", error);
+			}
+			playerRef.current = null;
+		}
+	}, []);
 
-  /**
-   * Ensure proper cleanup on component unmount
-   */
-  useEffect(() => {
-    return () => {
-      if (progressIntervalRef.current) {
-        clearInterval(progressIntervalRef.current);
-        progressIntervalRef.current = null;
-      }
-    };
-  }, []);
+	/**
+	 * Setup YouTube API ready event listener
+	 */
+	useEffect(() => {
+		let eventListenerAdded = false;
 
-  return {
-    isVideoCompleted,
-    videoProgress,
-    isVideoPlaying,
-    handleVideoEnd,
-    handleVideoProgress,
-    resetVideoState,
-    initializePlayer,
-    cleanupPlayer,
-  };
+		const handleYouTubeAPIReady = () => {
+			console.log("YouTube iframe API loaded");
+		};
+
+		// Use event-based approach instead of global callback pollution
+		if (typeof window !== "undefined") {
+			// Listen for custom YouTube API ready event
+			document.addEventListener("youtubeAPIReady", handleYouTubeAPIReady);
+			eventListenerAdded = true;
+
+			// Setup global callback only if it doesn't exist
+			if (!window.onYouTubeIframeAPIReady) {
+				window.onYouTubeIframeAPIReady = () => {
+					document.dispatchEvent(new CustomEvent("youtubeAPIReady"));
+				};
+			}
+		}
+
+		return () => {
+			cleanupPlayer();
+			// Clean up event listener
+			if (eventListenerAdded) {
+				document.removeEventListener("youtubeAPIReady", handleYouTubeAPIReady);
+			}
+		};
+	}, [cleanupPlayer]);
+
+	/**
+	 * Ensure proper cleanup on component unmount
+	 */
+	useEffect(() => {
+		return () => {
+			if (progressIntervalRef.current) {
+				clearInterval(progressIntervalRef.current);
+				progressIntervalRef.current = null;
+			}
+		};
+	}, []);
+
+	return {
+		isVideoCompleted,
+		videoProgress,
+		isVideoPlaying,
+		handleVideoEnd,
+		handleVideoProgress,
+		resetVideoState,
+		initializePlayer,
+		cleanupPlayer,
+	};
 };
 
 // Extend Window interface for YouTube API
 declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
+	interface Window {
+		YT: any;
+		onYouTubeIframeAPIReady: () => void;
+	}
 }

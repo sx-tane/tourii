@@ -8,7 +8,8 @@ const meta: Meta<typeof BottomNavigation> = {
 		layout: "centered",
 		docs: {
 			description: {
-				component: "Bottom navigation component for quick access to main app sections from the dashboard.",
+				component:
+					"Bottom navigation component for quick access to main app sections from the dashboard.",
 			},
 		},
 	},
@@ -46,7 +47,8 @@ export const Interactive: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: "Hover over the buttons to see interactive animations and descriptions.",
+				story:
+					"Hover over the buttons to see interactive animations and descriptions.",
 			},
 		},
 	},
@@ -56,7 +58,7 @@ export const MobileView: Story = {
 	args: {},
 	parameters: {
 		viewport: {
-			defaultViewport: 'mobile1',
+			defaultViewport: "mobile1",
 		},
 		docs: {
 			description: {
@@ -80,7 +82,8 @@ export const WithCustomStyling: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: "Bottom navigation with custom styling applied via className prop.",
+				story:
+					"Bottom navigation with custom styling applied via className prop.",
 			},
 		},
 	},
@@ -91,14 +94,17 @@ export const AccessibilityFocus: Story = {
 	parameters: {
 		docs: {
 			description: {
-				story: "Test keyboard navigation by pressing Tab to focus through buttons. Focus states use semantic red color.",
+				story:
+					"Test keyboard navigation by pressing Tab to focus through buttons. Focus states use semantic red color.",
 			},
 		},
 	},
 	play: async ({ canvasElement }) => {
 		// This would be enhanced with actual accessibility testing in a real implementation
 		const canvas = canvasElement;
-		const buttons = canvas.querySelectorAll('button');
-		console.log(`Found ${buttons.length} navigation buttons for accessibility testing`);
+		const buttons = canvas.querySelectorAll("button");
+		console.log(
+			`Found ${buttons.length} navigation buttons for accessibility testing`,
+		);
 	},
 };

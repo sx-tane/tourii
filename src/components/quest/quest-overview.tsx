@@ -1,4 +1,3 @@
-
 import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 
 interface QuestOverviewProps {

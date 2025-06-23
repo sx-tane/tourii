@@ -4,7 +4,6 @@ import { Button } from "@headlessui/react";
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 
-
 const StoryVideoNavigationButtons: React.FC<
 	Pick<StoryVideoNavigationButtonsProps, "isMuted" | "toggleSound">
 > = ({ isMuted, toggleSound }) => {

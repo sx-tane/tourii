@@ -56,6 +56,7 @@ export type { UserEntity } from './models/UserEntity';
 export { UserResponseDto } from './models/UserResponseDto';
 export type { UserSensitiveInfoResponseDto } from './models/UserSensitiveInfoResponseDto';
 export type { UserTravelLogListResponseDto } from './models/UserTravelLogListResponseDto';
+export { VerifySubmissionRequestDto } from './models/VerifySubmissionRequestDto';
 
 export { AdminService } from './services/AdminService';
 export { AuthService } from './services/AuthService';

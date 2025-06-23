@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-
 const Loading: React.FC = () => {
 	return (
 		<div className="flex h-screen items-center justify-center">

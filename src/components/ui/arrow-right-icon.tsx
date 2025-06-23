@@ -2,7 +2,9 @@ interface ArrowRightIconProps {
 	className?: string;
 }
 
-export default function ArrowRightIcon({ className = "w-5 h-5" }: ArrowRightIconProps) {
+export default function ArrowRightIcon({
+	className = "w-5 h-5",
+}: ArrowRightIconProps) {
 	return (
 		<svg
 			className={className}

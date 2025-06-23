@@ -21,7 +21,7 @@ export const config = {
 	matcher: [
 		// "/v2/quests/:path*",
 		"/v2/stories/:path*",
-		"/v2/dashboard/:path*",
+		// "/v2/dashboard/:path*",
 		"/v2/routes/:path*",
 	],
 };

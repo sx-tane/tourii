@@ -171,7 +171,8 @@ export const Amatsukami: Story = {
 		],
 		docs: {
 			description: {
-				story: "Premium Amatsukami passport with active digital passport address and enhanced features.",
+				story:
+					"Premium Amatsukami passport with active digital passport address and enhanced features.",
 			},
 		},
 	},
@@ -193,7 +194,8 @@ export const Yokai: Story = {
 		],
 		docs: {
 			description: {
-				story: "High-level Yokai passport showcasing mystical traveler status with maximum achievements.",
+				story:
+					"High-level Yokai passport showcasing mystical traveler status with maximum achievements.",
 			},
 		},
 	},
@@ -261,7 +263,8 @@ export const CustomHandler: Story = {
 		],
 		docs: {
 			description: {
-				story: "Digital passport card with custom click handler instead of default navigation.",
+				story:
+					"Digital passport card with custom click handler instead of default navigation.",
 			},
 		},
 	},

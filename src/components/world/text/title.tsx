@@ -2,7 +2,6 @@
 import type { TitleProps } from "@/types/world-type";
 import { motion } from "framer-motion";
 
-
 const Title: React.FC<TitleProps> = ({ smallTitle, title }) => {
 	// Split strings into words internally
 	const smallTitleWords = smallTitle?.split(" ") ?? [];

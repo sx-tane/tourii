@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-
 interface CharactersTabContentProps {
 	relevantCharacters: CharacterProps[];
 	handleOpenModal: (character: CharacterProps) => void;

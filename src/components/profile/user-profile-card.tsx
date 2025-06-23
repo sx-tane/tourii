@@ -1,7 +1,6 @@
 import type { UserProfile } from "@/types/profile-type";
 import Image from "next/image";
 
-
 interface UserProfileCardProps {
 	userProfile: UserProfile;
 }

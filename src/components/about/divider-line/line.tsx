@@ -3,7 +3,6 @@ import { backdropVariants } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-
 const Line: React.FC = () => {
 	return (
 		<div className="my-8 w-full md:my-10">

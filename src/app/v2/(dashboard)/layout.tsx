@@ -28,7 +28,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 					</div>
 					{/* Navigation */}
 					<nav className="flex-1 px-4 py-6 space-y-1">
-						{navItems.map((item) => (
+						{navItems.map((item) =>
 							item.disabled ? (
 								<div
 									key={item.name}
@@ -49,8 +49,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 								>
 									{item.name}
 								</Link>
-							)
-						))}
+							),
+						)}
 					</nav>
 					{/* User Profile */}
 					<div className="p-4 border-t">

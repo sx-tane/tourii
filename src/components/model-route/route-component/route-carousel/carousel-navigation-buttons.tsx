@@ -1,6 +1,5 @@
 "use client";
 
-
 import { motion } from "framer-motion";
 import { downToUpVariants } from "@/lib/animation/variants-settings";
 

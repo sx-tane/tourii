@@ -1,6 +1,5 @@
 import type { CharacterProps } from "@/app/v2/(stories)/types";
 
-
 interface CharacterModalInfoTableProps {
 	character: CharacterProps;
 }

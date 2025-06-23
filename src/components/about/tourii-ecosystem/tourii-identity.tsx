@@ -1,4 +1,3 @@
-
 import { descriptionData } from "../../../lib/data/about/description-data";
 import { DescriptionWithImages } from "../description";
 import Line from "../divider-line/line";

@@ -35,3 +35,6 @@ export * from "./story";
 
 // UI Components
 export * from "./ui";
+
+// Admin Components
+export * from "./admin";

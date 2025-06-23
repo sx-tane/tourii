@@ -6,31 +6,31 @@ import type { ModelRouteResponseDto } from "@/api/generated";
  * Handles selected spot logic and provides helper functions
  */
 export const useTouristSpotSelection = (
-  touristSpotList: ModelRouteResponseDto["touristSpotList"]
+	touristSpotList: ModelRouteResponseDto["touristSpotList"],
 ) => {
-  const [selectedTouristSpotId, setSelectedTouristSpotId] = useState<
-    string | undefined
-  >();
+	const [selectedTouristSpotId, setSelectedTouristSpotId] = useState<
+		string | undefined
+	>();
 
-  // Auto-select first tourist spot only when user interacts or opens mobile modal
-  const selectFirstSpot = () => {
-    if (touristSpotList.length > 0 && !selectedTouristSpotId) {
-      setSelectedTouristSpotId(touristSpotList[0]?.touristSpotId);
-    }
-  };
+	// Auto-select first tourist spot only when user interacts or opens mobile modal
+	const selectFirstSpot = () => {
+		if (touristSpotList.length > 0 && !selectedTouristSpotId) {
+			setSelectedTouristSpotId(touristSpotList[0]?.touristSpotId);
+		}
+	};
 
-  const selectedSpot = touristSpotList.find(
-    (spot) => spot.touristSpotId === selectedTouristSpotId,
-  );
+	const selectedSpot = touristSpotList.find(
+		(spot) => spot.touristSpotId === selectedTouristSpotId,
+	);
 
-  // Ensure we always have a selected spot for the info panel
-  const displayedSelectedSpot = selectedSpot || touristSpotList[0];
+	// Ensure we always have a selected spot for the info panel
+	const displayedSelectedSpot = selectedSpot || touristSpotList[0];
 
-  return {
-    selectedTouristSpotId,
-    setSelectedTouristSpotId,
-    selectedSpot,
-    displayedSelectedSpot,
-    selectFirstSpot,
-  };
+	return {
+		selectedTouristSpotId,
+		setSelectedTouristSpotId,
+		selectedSpot,
+		displayedSelectedSpot,
+		selectFirstSpot,
+	};
 };

@@ -2,7 +2,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Noto_Serif_JP } from "next/font/google";
 import Image from "next/image";
 
-
 const notoSerifJP = Noto_Serif_JP({
 	subsets: ["latin"],
 	weight: ["700"],

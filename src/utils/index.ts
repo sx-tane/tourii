@@ -10,10 +10,10 @@ export { makeApiRequest } from "./api-helpers";
 export { default as DateUtils } from "./date-utils";
 
 // Geographic Utilities
-export { 
-  calculateDistanceKm, 
-  estimateWalkingMinutes,
-  type Coordinates 
+export {
+	calculateDistanceKm,
+	estimateWalkingMinutes,
+	type Coordinates,
 } from "./geo-utils";
 
 // ID Generation Utilities
@@ -24,10 +24,21 @@ export { logger } from "./logger";
 
 // Validation Utilities
 export {
-  isValidLatitude,
-  isValidLongitude,
-  sanitizeHtml,
-  validateTouristSpot,
-  validateTouristSpots,
-  type ValidationResult
+	isValidLatitude,
+	isValidLongitude,
+	sanitizeHtml,
+	validateTouristSpot,
+	validateTouristSpots,
+	type ValidationResult,
 } from "./validation-utils";
+
+// Name Resolution Utilities
+export {
+	resolveQuestName,
+	resolveTouristSpotName,
+	resolveStoryChapterName,
+	batchResolveQuestNames,
+	batchResolveTouristSpotNames,
+	batchResolveStoryChapterNames,
+	clearNameCache,
+} from "./name-resolution";

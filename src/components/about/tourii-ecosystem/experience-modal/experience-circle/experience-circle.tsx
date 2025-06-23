@@ -1,7 +1,6 @@
 import type { ExperienceCircleProps } from "@/types/about-type";
 import Image from "next/image";
 
-
 const ExperienceCircle: React.FC<ExperienceCircleProps> = ({
 	title,
 	image,

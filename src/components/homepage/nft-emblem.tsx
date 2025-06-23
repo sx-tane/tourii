@@ -6,7 +6,6 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-
 const NFTEmblem: React.FC = () => {
 	return (
 		<div>

@@ -11,10 +11,13 @@ interface MapErrorBoundaryState {
 
 interface MapErrorBoundaryProps {
 	children: React.ReactNode;
-	fallback?: React.ComponentType<{error?: Error}>;
+	fallback?: React.ComponentType<{ error?: Error }>;
 }
 
-class MapErrorBoundary extends React.Component<MapErrorBoundaryProps, MapErrorBoundaryState> {
+class MapErrorBoundary extends React.Component<
+	MapErrorBoundaryProps,
+	MapErrorBoundaryState
+> {
 	constructor(props: MapErrorBoundaryProps) {
 		super(props);
 		this.state = { hasError: false };
@@ -55,7 +58,7 @@ class MapErrorBoundary extends React.Component<MapErrorBoundaryProps, MapErrorBo
 }
 
 // Default fallback component for map errors
-const DefaultMapErrorFallback: React.FC<{error?: Error}> = ({ error }) => {
+const DefaultMapErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 	return (
 		<div className="h-full w-full bg-warmGrey border border-charcoal rounded-lg flex flex-col items-center justify-center p-8 text-center">
 			<div className="text-4xl mb-4">🗺️</div>
@@ -65,7 +68,7 @@ const DefaultMapErrorFallback: React.FC<{error?: Error}> = ({ error }) => {
 			<p className="text-sm text-gray-600 mb-4">
 				We're having trouble loading the map. Please try refreshing the page.
 			</p>
-			{process.env.NODE_ENV === 'development' && error && (
+			{process.env.NODE_ENV === "development" && error && (
 				<details className="text-xs text-red-600 mt-2">
 					<summary className="cursor-pointer">Error Details (Dev Only)</summary>
 					<pre className="mt-2 p-2 bg-red-50 rounded text-left overflow-auto">
@@ -73,8 +76,8 @@ const DefaultMapErrorFallback: React.FC<{error?: Error}> = ({ error }) => {
 					</pre>
 				</details>
 			)}
-			<button 
-				onClick={() => window.location.reload()} 
+			<button
+				onClick={() => window.location.reload()}
 				className="mt-4 px-4 py-2 bg-red text-white rounded hover:bg-red/90 transition-colors"
 			>
 				Refresh Page

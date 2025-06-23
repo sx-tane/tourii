@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AdminUserListResponseDto } from '../models/AdminUserListResponseDto';
+import type { VerifySubmissionRequestDto } from '../models/VerifySubmissionRequestDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -11,6 +12,7 @@ export class AdminService {
      * Get all users with pagination and filtering (Admin only)
      * Retrieve all users with comprehensive details, pagination, and advanced filtering options for admin dashboard.
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
      * @param sortOrder Sort order (default: desc)
      * @param sortBy Sort field (default: registered_at)
@@ -27,6 +29,7 @@ export class AdminService {
      */
     public static touriiBackendControllerGetAllUsersForAdmin(
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
         sortOrder?: 'asc' | 'desc',
         sortBy?: 'username' | 'registered_at' | 'total_quest_completed' | 'total_travel_distance',
@@ -44,6 +47,7 @@ export class AdminService {
             url: '/admin/users',
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
             query: {
@@ -67,6 +71,7 @@ export class AdminService {
      * Get pending task submissions for manual verification (Admin only)
      * Retrieve photo upload, social share, and text answer submissions awaiting admin approval.
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
      * @param page Page number (default: 1)
      * @param limit Submissions per page (default: 20, max: 100)
@@ -76,6 +81,7 @@ export class AdminService {
      */
     public static touriiBackendControllerGetPendingSubmissions(
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
         page?: number,
         limit?: number,
@@ -86,6 +92,7 @@ export class AdminService {
             url: '/admin/pending-submissions',
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
             query: {
@@ -103,14 +110,18 @@ export class AdminService {
      * Admin endpoint to approve or reject pending photo/social share/text answer submissions.
      * @param id
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
+     * @param requestBody Submission verification request
      * @returns any Submission verification completed
      * @throws ApiError
      */
     public static touriiBackendControllerVerifySubmission(
         id: string,
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
+        requestBody: VerifySubmissionRequestDto,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -120,8 +131,11 @@ export class AdminService {
             },
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request - Invalid version format`,
             },

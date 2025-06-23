@@ -94,7 +94,9 @@ const DashboardPage = () => {
 
 					{/* Current Chapter Card */}
 					<div className="bg-white shadow-sm rounded-lg p-6">
-						<h3 className="text-lg font-medium text-gray-900">Current Chapter</h3>
+						<h3 className="text-lg font-medium text-gray-900">
+							Current Chapter
+						</h3>
 						<div className="mt-2">
 							<p className="text-3xl font-bold text-indigo-600">
 								{mockDashboardData.user.chapter.title}
@@ -112,7 +114,9 @@ const DashboardPage = () => {
 					{/* Stats Grid */}
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div className="bg-white shadow-sm rounded-lg p-6">
-							<h3 className="text-lg font-medium text-gray-900">Tourii Points</h3>
+							<h3 className="text-lg font-medium text-gray-900">
+								Tourii Points
+							</h3>
 							<div className="mt-2">
 								<p className="text-3xl font-bold text-indigo-600">
 									{mockDashboardData.user.points}
@@ -124,7 +128,9 @@ const DashboardPage = () => {
 						</div>
 
 						<div className="bg-white shadow-sm rounded-lg p-6">
-							<h3 className="text-lg font-medium text-gray-900">Active Quests</h3>
+							<h3 className="text-lg font-medium text-gray-900">
+								Active Quests
+							</h3>
 							<div className="mt-2">
 								<p className="text-3xl font-bold text-indigo-600">
 									{mockDashboardData.user.quests.active}
@@ -139,11 +145,13 @@ const DashboardPage = () => {
 
 					{/* Check-In Map Card */}
 					<CheckinMapCard
-						userId={session?.user?.email || undefined}
+						userId={"TSU202506-ae8a85-222006-4bdd44-BAAA"}
 						onNavigateToStory={(storyId) =>
 							router.push(`/v2/touriiverse/${storyId}`)
 						}
-						onNavigateToQuest={(questId) => router.push(`/v2/quests/${questId}`)}
+						onNavigateToQuest={(questId) =>
+							router.push(`/v2/quests/${questId}`)
+						}
 					/>
 				</div>
 			</div>

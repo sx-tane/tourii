@@ -1,99 +1,357 @@
+"use client";
+import {
+	AdminStatsGrid,
+	AlertsSection,
+	QuickActionsGrid,
+} from "@/components/admin";
+import {
+	useAdminSubmissions,
+	useAdminUsers,
+	useModelRoutes,
+	useQuests,
+	useSagas,
+} from "@/hooks";
+import { BarChart3, FileCheck, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
-import { BarChart3, BookOpen, MapPin, Trophy } from "lucide-react";
+import { useMemo } from "react";
 
 export default function AdminHome() {
-	const quickActions = [
-		{
-			title: "Analytics Dashboard",
-			description: "View comprehensive insights and metrics",
-			icon: BarChart3,
-			href: "/v2/admin/analytics",
-			color: "bg-blue-100 text-blue-800",
-		},
-		{
-			title: "Manage Stories",
-			description: "Create and edit story content",
-			icon: BookOpen,
-			href: "/v2/admin/stories",
-			color: "bg-green-100 text-green-800",
-		},
-		{
-			title: "Model Routes",
-			description: "Manage tourist routes and spots",
-			icon: MapPin,
-			href: "/v2/admin/model-routes",
-			color: "bg-purple-100 text-purple-800",
-		},
-		{
-			title: "Quest Management",
-			description: "Create and manage user quests",
-			icon: Trophy,
-			href: "/v2/admin/quests",
-			color: "bg-yellow-100 text-yellow-800",
-		},
-	];
+	// Fetch all data for analytics
+	const { data: users } = useAdminUsers({ page: 1, limit: 100 });
+	const { data: submissions } = useAdminSubmissions({ page: 1, limit: 100 });
+	const { data: quests } = useQuests("/api/quests?page=1&limit=100");
+	const { data: modelRoutes } = useModelRoutes();
+	const { data: sagas } = useSagas();
+
+	// Calculate real-time statistics
+	const stats = useMemo(() => {
+		// Handle different possible response structures for users
+		let userList = [];
+		if (users?.users) {
+			userList = users.users; // Standard AdminUserListResponseDto structure
+		} else if (Array.isArray(users)) {
+			userList = users; // Direct array response
+		} else if (users && "data" in users && Array.isArray((users as any).data)) {
+			userList = (users as any).data; // Wrapped in data property
+		}
+
+		// Handle different possible response structures for submissions
+		let submissionList: any[] = [];
+		if (
+			submissions &&
+			"submissions" in submissions &&
+			Array.isArray((submissions as any).submissions)
+		) {
+			submissionList = (submissions as any).submissions; // Assuming nested structure
+		} else if (Array.isArray(submissions)) {
+			submissionList = submissions; // Direct array response
+		} else if (
+			submissions &&
+			"data" in submissions &&
+			Array.isArray((submissions as any).data)
+		) {
+			submissionList = (submissions as any).data; // Wrapped in data property
+		} else if (
+			submissions &&
+			"pendingSubmissions" in submissions &&
+			Array.isArray((submissions as any).pendingSubmissions)
+		) {
+			submissionList = (submissions as any).pendingSubmissions; // Alternative property name
+		}
+
+		const questList = quests?.quests || [];
+		const routeList = modelRoutes || [];
+		const sagaList = sagas || [];
+
+		// User statistics
+		const activeUsers = userList.filter((u: any) => !u.isBanned).length;
+		const premiumUsers = userList.filter((u: any) => u.isPremium).length;
+		const newUsersToday = userList.filter((u: any) => {
+			const registeredDate = new Date(u.registeredAt);
+			const today = new Date();
+			return registeredDate.toDateString() === today.toDateString();
+		}).length;
+
+		// Content statistics
+		const totalContent = questList.length + routeList.length + sagaList.length;
+		const unlockedQuests = questList.filter((q) => q.isUnlocked).length;
+		const totalTasks = questList.reduce(
+			(sum, q) => sum + (q.tasks?.length || 0),
+			0,
+		);
+
+		// Submission statistics
+		const pendingSubmissions = submissionList.length;
+		const photoSubmissions = submissionList.filter(
+			(s: any) => s.taskType === "PHOTO_UPLOAD",
+		).length;
+		const socialSubmissions = submissionList.filter(
+			(s: any) => s.taskType === "SHARE_SOCIAL",
+		).length;
+		const textSubmissions = submissionList.filter(
+			(s: any) => s.taskType === "ANSWER_TEXT",
+		).length;
+
+		// Engagement metrics
+		const totalQuestsCompleted = userList.reduce(
+			(sum: any, u: any) => sum + u.totalQuestCompleted,
+			0,
+		);
+		const avgQuestsPerUser =
+			activeUsers > 0 ? totalQuestsCompleted / activeUsers : 0;
+
+		return {
+			users: {
+				total: userList.length,
+				active: activeUsers,
+				premium: premiumUsers,
+				newToday: newUsersToday,
+			},
+			content: {
+				total: totalContent,
+				quests: questList.length,
+				routes: routeList.length,
+				sagas: sagaList.length,
+				tasks: totalTasks,
+				unlockedQuests,
+			},
+			submissions: {
+				pending: pendingSubmissions,
+				photo: photoSubmissions,
+				social: socialSubmissions,
+				text: textSubmissions,
+			},
+			engagement: {
+				totalQuestsCompleted,
+				avgQuestsPerUser,
+			},
+		};
+	}, [users, submissions, quests, modelRoutes, sagas]);
 
 	return (
 		<div className="space-y-8 text-charcoal">
-			<div>
-				<h1 className="text-3xl font-bold text-charcoal mb-2">
-					Admin Dashboard
-				</h1>
-				<p className="text-warmGrey3">
-					Manage your tourism content platform efficiently
-				</p>
+			<div className="flex items-center justify-between">
+				<div>
+					<h1 className="text-3xl font-bold text-charcoal mb-2">
+						Admin Dashboard
+					</h1>
+					<p className="text-warmGrey3">
+						Real-time insights and management for your tourism platform
+					</p>
+				</div>
+				<div className="text-right">
+					<div className="text-sm text-warmGrey3">Last updated</div>
+					<div className="text-lg font-semibold text-charcoal">
+						{new Date().toLocaleTimeString()}
+					</div>
+				</div>
 			</div>
+
+			{/* Real-time Statistics Overview */}
+			<AdminStatsGrid stats={stats} />
+
+			{/* Alerts and Action Items */}
+			<AlertsSection
+				pendingSubmissions={stats.submissions.pending}
+				newUsersToday={stats.users.newToday}
+			/>
 
 			{/* Quick Actions Grid */}
-			<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-				{quickActions.map((action) => (
-					<Link
-						key={action.title}
-						href={action.href}
-						className="group rounded-lg bg-white p-6 shadow hover:shadow-lg transition-all duration-200 hover:scale-105"
-					>
-						<div className="flex items-center space-x-3">
-							<div className={`rounded-lg p-3 ${action.color}`}>
-								<action.icon size={24} />
-							</div>
-							<div className="flex-1">
-								<h3 className="text-lg font-semibold text-charcoal group-hover:text-red transition-colors">
-									{action.title}
-								</h3>
-								<p className="text-sm text-warmGrey3 mt-1">
-									{action.description}
-								</p>
-							</div>
-						</div>
-					</Link>
-				))}
-			</div>
+			<QuickActionsGrid />
 
-			{/* Recent Activity Section */}
-			<div className="rounded-lg bg-white p-6 shadow">
-				<h2 className="text-xl font-semibold text-charcoal mb-4">
-					Quick Overview
-				</h2>
-				<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-					<div className="text-center p-4 rounded-lg bg-blue-50">
-						<div className="text-2xl font-bold text-blue-600">📊</div>
-						<div className="text-sm text-blue-800 mt-2">
-							View detailed analytics and performance metrics for all your
-							content
+			{/* Detailed Analytics Grid */}
+			<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+				{/* User Analytics */}
+				<div className="rounded-lg bg-white p-6 shadow">
+					<h3 className="text-lg font-semibold text-charcoal mb-4 flex items-center gap-2">
+						<Users size={18} />
+						User Analytics
+					</h3>
+					<div className="space-y-4">
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Total Users
+							</span>
+							<span className="text-lg font-bold text-charcoal">
+								{stats.users.total}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Active Users
+							</span>
+							<span className="text-lg font-bold text-green-600">
+								{stats.users.active}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Premium Users
+							</span>
+							<span className="text-lg font-bold text-yellow-600">
+								{stats.users.premium}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Total Quests Completed
+							</span>
+							<span className="text-lg font-bold text-purple-600">
+								{stats.engagement.totalQuestsCompleted}
+							</span>
 						</div>
 					</div>
-					<div className="text-center p-4 rounded-lg bg-green-50">
-						<div className="text-2xl font-bold text-green-600">🔍</div>
-						<div className="text-sm text-green-800 mt-2">
-							Enhanced data visibility in all edit modals for better content
-							management
+					<Link
+						href="/v2/admin/users"
+						className="mt-4 inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
+					>
+						View all users →
+					</Link>
+				</div>
+
+				{/* Submission Analytics */}
+				<div className="rounded-lg bg-white p-6 shadow">
+					<h3 className="text-lg font-semibold text-charcoal mb-4 flex items-center gap-2">
+						<FileCheck size={18} />
+						Submission Status
+					</h3>
+					<div className="space-y-4">
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Total Pending
+							</span>
+							<span className="text-lg font-bold text-orange-600">
+								{stats.submissions.pending}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Photo Uploads
+							</span>
+							<span className="text-lg font-bold text-green-600">
+								{stats.submissions.photo}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Social Shares
+							</span>
+							<span className="text-lg font-bold text-blue-600">
+								{stats.submissions.social}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Text Answers
+							</span>
+							<span className="text-lg font-bold text-purple-600">
+								{stats.submissions.text}
+							</span>
 						</div>
 					</div>
-					<div className="text-center p-4 rounded-lg bg-purple-50">
-						<div className="text-2xl font-bold text-purple-600">⚡</div>
-						<div className="text-sm text-purple-800 mt-2">
-							Advanced search, filtering, and bulk operations across all
-							sections
+					<Link
+						href="/v2/admin/submissions"
+						className="mt-4 inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
+					>
+						Review submissions →
+					</Link>
+				</div>
+
+				{/* Content Analytics */}
+				<div className="rounded-lg bg-white p-6 shadow">
+					<h3 className="text-lg font-semibold text-charcoal mb-4 flex items-center gap-2">
+						<BarChart3 size={18} />
+						Content Overview
+					</h3>
+					<div className="space-y-4">
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Total Content
+							</span>
+							<span className="text-lg font-bold text-charcoal">
+								{stats.content.total}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">Quests</span>
+							<span className="text-lg font-bold text-yellow-600">
+								{stats.content.quests}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">Routes</span>
+							<span className="text-lg font-bold text-purple-600">
+								{stats.content.routes}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Stories (Sagas)
+							</span>
+							<span className="text-lg font-bold text-blue-600">
+								{stats.content.sagas}
+							</span>
+						</div>
+					</div>
+					<Link
+						href="/v2/admin/analytics"
+						className="mt-4 inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
+					>
+						View detailed analytics →
+					</Link>
+				</div>
+
+				{/* Performance Metrics */}
+				<div className="rounded-lg bg-white p-6 shadow">
+					<h3 className="text-lg font-semibold text-charcoal mb-4 flex items-center gap-2">
+						<TrendingUp size={18} />
+						Platform Health
+					</h3>
+					<div className="space-y-4">
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Unlocked Quests
+							</span>
+							<div className="text-right">
+								<span className="text-lg font-bold text-green-600">
+									{stats.content.unlockedQuests}
+								</span>
+								<div className="text-xs text-warmGrey3">
+									{stats.content.quests > 0
+										? Math.round(
+												(stats.content.unlockedQuests / stats.content.quests) *
+													100,
+											)
+										: 0}
+									% of total
+								</div>
+							</div>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Avg Quests per User
+							</span>
+							<span className="text-lg font-bold text-blue-600">
+								{stats.engagement.avgQuestsPerUser.toFixed(1)}
+							</span>
+						</div>
+						<div className="flex items-center justify-between">
+							<span className="text-sm font-medium text-warmGrey3">
+								Premium Adoption
+							</span>
+							<div className="text-right">
+								<span className="text-lg font-bold text-yellow-600">
+									{stats.users.premium}
+								</span>
+								<div className="text-xs text-warmGrey3">
+									{stats.users.total > 0
+										? Math.round(
+												(stats.users.premium / stats.users.total) * 100,
+											)
+										: 0}
+									% of users
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

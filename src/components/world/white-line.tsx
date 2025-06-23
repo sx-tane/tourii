@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-
 const WhiteLine: React.FC = () => {
 	return (
 		<div className="my-8 w-full md:my-10">

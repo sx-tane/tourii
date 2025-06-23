@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import Loading from "@/app/loading";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
 	title: "Goshuin | Tourii",
 };

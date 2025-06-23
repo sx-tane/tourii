@@ -1,5 +1,3 @@
-
-
 interface QuestFilterBarProps {
 	filters: {
 		questType: string;
