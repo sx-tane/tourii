@@ -120,7 +120,7 @@ export function useQuestName(questId: string | null): {
 			return `Quest #${questId?.slice(-6) ?? ""}`;
 		}
 
-		const quest = questData.quests.find(q => q.questId === questId);
+		const quest = questData.quests.find((q) => q.questId === questId);
 		return quest?.questName || `Quest #${questId.slice(-6)}`;
 	}, [questId, questData]);
 
@@ -154,7 +154,9 @@ export function useTouristSpotName(spotId: string | null): {
 
 		// Search through all routes for the tourist spot
 		for (const route of routesData) {
-			const spot = route.touristSpotList?.find(s => s.touristSpotId === spotId);
+			const spot = route.touristSpotList?.find(
+				(s) => s.touristSpotId === spotId,
+			);
 			if (spot) {
 				return spot.touristSpotName;
 			}
@@ -176,16 +178,17 @@ export function useStoryChapterName(chapterId: string | null): {
 	name: string;
 	isLoading: boolean;
 } {
-	const { data: storiesData, isLoading } = useProxySWR<
-		Array<{
-			storyId: string;
-			sagaName: string;
-			chapterList?: Array<{
-				storyChapterId: string;
-				chapterTitle: string;
-			}>;
-		}>
-	>(`/api/stories/sagas`);
+	const { data: storiesData, isLoading } =
+		useProxySWR<
+			Array<{
+				storyId: string;
+				sagaName: string;
+				chapterList?: Array<{
+					storyChapterId: string;
+					chapterTitle: string;
+				}>;
+			}>
+		>(`/api/stories/sagas`);
 
 	const chapterName = useMemo(() => {
 		if (!chapterId || !storiesData) {
@@ -195,7 +198,9 @@ export function useStoryChapterName(chapterId: string | null): {
 		// Search through all stories for the chapter
 		for (const story of storiesData) {
 			if (story.chapterList) {
-				const chapter = story.chapterList.find(c => c.storyChapterId === chapterId);
+				const chapter = story.chapterList.find(
+					(c) => c.storyChapterId === chapterId,
+				);
 				if (chapter) {
 					return chapter.chapterTitle;
 				}
@@ -221,12 +226,14 @@ export function useTaskName(
 	// Since there's no direct task API endpoint, format the name locally
 	const name = useMemo(() => {
 		if (!taskId) return "";
-		
+
 		if (action) {
 			const formattedAction = action
 				.replace(/_/g, " ")
 				.split(" ")
-				.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+				.map(
+					(word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+				)
 				.join(" ");
 			return `${formattedAction} Task #${taskId.slice(-4)}`;
 		}

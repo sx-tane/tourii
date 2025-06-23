@@ -11,6 +11,8 @@ import {
 	useQuests,
 	useSagas,
 } from "@/hooks";
+import type { AdminUserListResponseDto } from "@/api/generated";
+import { ADMIN_CONFIG } from "@/config/admin";
 import { BarChart3, FileCheck, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -18,58 +20,57 @@ import { useEffect, useMemo, useState } from "react";
 export default function AdminHome() {
 	const [currentTime, setCurrentTime] = useState<string>("");
 
-	// Fetch all data for analytics
-	const { data: users } = useAdminUsers({ page: 1, limit: 100 });
-	const { data: submissions } = useAdminSubmissions({ page: 1, limit: 100 });
-	const { data: quests } = useQuests("/api/quests?page=1&limit=100");
+	// Fetch data for analytics with optimized initial loading using configuration
+	const { data: users } = useAdminUsers({
+		page: 1,
+		limit: ADMIN_CONFIG.DASHBOARD.INITIAL_USER_LIMIT,
+	});
+	const { data: submissions } = useAdminSubmissions({
+		page: 1,
+		limit: ADMIN_CONFIG.DASHBOARD.INITIAL_SUBMISSION_LIMIT,
+	});
+	const { data: quests } = useQuests(`/api/quests?page=1&limit=${ADMIN_CONFIG.DASHBOARD.INITIAL_QUEST_LIMIT}`);
 	const { data: modelRoutes } = useModelRoutes();
 	const { data: sagas } = useSagas();
 
-	// Calculate real-time statistics
+	// Calculate real-time statistics with proper typing
 	const stats = useMemo(() => {
-		// Handle different possible response structures for users
-		let userList = [];
-		if (users?.users) {
-			userList = users.users; // Standard AdminUserListResponseDto structure
-		} else if (Array.isArray(users)) {
-			userList = users; // Direct array response
-		} else if (users && "data" in users && Array.isArray((users as any).data)) {
-			userList = (users as any).data; // Wrapped in data property
-		}
+		// Use generated types for proper type safety
+		const adminUsers = users as AdminUserListResponseDto | undefined;
+		const userList = adminUsers?.users || [];
 
-		// Handle different possible response structures for submissions
-		let submissionList: any[] = [];
-		if (
-			submissions &&
-			"submissions" in submissions &&
-			Array.isArray((submissions as any).submissions)
-		) {
-			submissionList = (submissions as any).submissions; // Assuming nested structure
-		} else if (Array.isArray(submissions)) {
-			submissionList = submissions; // Direct array response
-		} else if (
-			submissions &&
-			"data" in submissions &&
-			Array.isArray((submissions as any).data)
-		) {
-			submissionList = (submissions as any).data; // Wrapped in data property
-		} else if (
-			submissions &&
-			"pendingSubmissions" in submissions &&
-			Array.isArray((submissions as any).pendingSubmissions)
-		) {
-			submissionList = (submissions as any).pendingSubmissions; // Alternative property name
+		// Handle submissions response structure based on API response format
+		let submissionList: Array<{
+			taskType?: string;
+			status?: string;
+			[key: string]: any;
+		}> = [];
+
+		if (submissions && typeof submissions === "object") {
+			if (
+				"submissions" in submissions &&
+				Array.isArray(submissions.submissions)
+			) {
+				submissionList = submissions.submissions;
+			} else if (
+				"pendingSubmissions" in submissions &&
+				Array.isArray(submissions.pendingSubmissions)
+			) {
+				submissionList = submissions.pendingSubmissions;
+			} else if (Array.isArray(submissions)) {
+				submissionList = submissions;
+			}
 		}
 
 		const questList = quests?.quests || [];
 		const routeList = modelRoutes || [];
 		const sagaList = sagas || [];
 
-		// User statistics
-		const activeUsers = userList.filter((u: any) => !u.isBanned).length;
-		const premiumUsers = userList.filter((u: any) => u.isPremium).length;
-		const newUsersToday = userList.filter((u: any) => {
-			const registeredDate = new Date(u.registeredAt);
+		// User statistics with proper typing
+		const activeUsers = userList.filter((user) => !user.isBanned).length;
+		const premiumUsers = userList.filter((user) => user.isPremium).length;
+		const newUsersToday = userList.filter((user) => {
+			const registeredDate = new Date(user.registeredAt);
 			const today = new Date();
 			return registeredDate.toDateString() === today.toDateString();
 		}).length;
@@ -82,21 +83,21 @@ export default function AdminHome() {
 			0,
 		);
 
-		// Submission statistics
+		// Submission statistics with proper typing
 		const pendingSubmissions = submissionList.length;
 		const photoSubmissions = submissionList.filter(
-			(s: any) => s.taskType === "PHOTO_UPLOAD",
+			(submission) => submission.taskType === "PHOTO_UPLOAD",
 		).length;
 		const socialSubmissions = submissionList.filter(
-			(s: any) => s.taskType === "SHARE_SOCIAL",
+			(submission) => submission.taskType === "SHARE_SOCIAL",
 		).length;
 		const textSubmissions = submissionList.filter(
-			(s: any) => s.taskType === "ANSWER_TEXT",
+			(submission) => submission.taskType === "ANSWER_TEXT",
 		).length;
 
-		// Engagement metrics
+		// Engagement metrics with proper typing
 		const totalQuestsCompleted = userList.reduce(
-			(sum: any, u: any) => sum + u.totalQuestCompleted,
+			(sum, user) => sum + (user.totalQuestCompleted || 0),
 			0,
 		);
 		const avgQuestsPerUser =

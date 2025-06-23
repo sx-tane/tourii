@@ -1,35 +1,61 @@
 "use client";
 import {
-	AnalyticsOverview,
-	ContentHealthSection,
-	DistributionSection,
-	ExpandableSection,
-	QualityMetricsSection,
-	RecommendedActions,
-} from "@/components/admin";
-import {
 	useAdminSubmissions,
 	useAdminUsers,
 	useModelRoutes,
 	useQuests,
 	useSagas,
 } from "@/hooks";
+import { ADMIN_CONFIG } from "@/config/admin";
 import { AlertTriangle, BarChart3, Eye, Star } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
+
+// Dynamically import heavy analytics components for better performance
+const AnalyticsOverview = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.AnalyticsOverview })), {
+	ssr: false,
+	loading: () => <div className="h-48 bg-gray-100 animate-pulse rounded-lg" />
+});
+
+const ContentHealthSection = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.ContentHealthSection })), {
+	ssr: false,
+	loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-lg" />
+});
+
+const DistributionSection = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.DistributionSection })), {
+	ssr: false,
+	loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-lg" />
+});
+
+const ExpandableSection = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.ExpandableSection })), {
+	ssr: false,
+	loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded-lg" />
+});
+
+const QualityMetricsSection = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.QualityMetricsSection })), {
+	ssr: false,
+	loading: () => <div className="h-32 bg-gray-100 animate-pulse rounded-lg" />
+});
+
+const RecommendedActions = dynamic(() => import("@/components/admin").then(mod => ({ default: mod.RecommendedActions })), {
+	ssr: false,
+	loading: () => <div className="h-24 bg-gray-100 animate-pulse rounded-lg" />
+});
 
 export default function AnalyticsDashboard() {
 	const { data: sagas, isLoading: isLoadingSagas } = useSagas();
-	const { data: quests, isLoading: isLoadingQuests } = useQuests(
-		"/api/quests?page=1&limit=100",
-	);
+	const { data: quests, isLoading: isLoadingQuests } = useQuests(`/api/quests?page=1&limit=${ADMIN_CONFIG.PAGINATION.MAX_PAGE_SIZE}`);
 	const { data: modelRoutes, isLoading: isLoadingModelRoutes } =
 		useModelRoutes();
 	const { data: users, isLoading: isLoadingUsers } = useAdminUsers({
 		page: 1,
-		limit: 100,
+		limit: ADMIN_CONFIG.PAGINATION.MAX_PAGE_SIZE,
 	});
 	const { data: submissions, isLoading: isLoadingSubmissions } =
-		useAdminSubmissions({ page: 1, limit: 100 });
+		useAdminSubmissions({ 
+			page: 1, 
+			limit: ADMIN_CONFIG.PAGINATION.MAX_PAGE_SIZE 
+		});
 
 	const [expandedSections, setExpandedSections] = useState<string[]>([
 		"overview",

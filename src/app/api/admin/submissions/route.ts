@@ -53,8 +53,8 @@ export async function GET(request: NextRequest) {
 		];
 		const questDetailsMap = new Map();
 
-		// Fetch quest details for all unique questIds using executeValidatedServiceCall
-		for (const questId of questIds) {
+		// Fetch quest details for all unique questIds in parallel using Promise.all()
+		const questPromises = questIds.map(async (questId) => {
 			try {
 				const questResponse = await executeValidatedServiceCall(
 					(apiKey: string, apiVersion: string) =>
@@ -68,9 +68,20 @@ export async function GET(request: NextRequest) {
 				);
 				// Extract JSON data from NextResponse
 				const questDetails = await questResponse.json();
-				questDetailsMap.set(questId, questDetails);
+				return { questId, questDetails };
 			} catch (error) {
 				console.warn(`Failed to fetch quest details for ${questId}:`, error);
+				return { questId, questDetails: null };
+			}
+		});
+
+		// Wait for all quest fetches to complete in parallel
+		const questResults = await Promise.all(questPromises);
+
+		// Build the map from results
+		for (const { questId, questDetails } of questResults) {
+			if (questDetails) {
+				questDetailsMap.set(questId, questDetails);
 			}
 		}
 
@@ -79,7 +90,7 @@ export async function GET(request: NextRequest) {
 			const submissionData = submission as Record<string, unknown>;
 			const questDetails = questDetailsMap.get(submissionData.questId);
 
-			let enhancedSubmission = { ...submissionData };
+			const enhancedSubmission = { ...submissionData };
 
 			// Add task details
 			if (questDetails?.tasks) {

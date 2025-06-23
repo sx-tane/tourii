@@ -50,7 +50,8 @@
       "Bash(git log:*)",
       "Bash(git show:*)",
       "Bash(-exec npx tsc --noEmit --skipLibCheck --jsx react {})",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(pnpm exec:*)"
     ],
     "deny": []
   }
