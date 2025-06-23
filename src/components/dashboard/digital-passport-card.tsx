@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { CreditCard, Star, MapPin, Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { usePassport } from "@/hooks/api";
+import { motion } from "framer-motion";
+import { CreditCard, Loader2, MapPin, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export interface DigitalPassportCardProps {
 	className?: string;
@@ -30,13 +30,29 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 	const getPassportTypeInfo = (type: string | null) => {
 		switch (type) {
 			case "AMATSUKAMI":
-				return { name: "Amatsukami", color: "text-yellow-600", bgColor: "bg-yellow-50" };
+				return {
+					name: "Amatsukami",
+					color: "text-yellow-600",
+					bgColor: "bg-yellow-50",
+				};
 			case "KUNITSUKAMI":
-				return { name: "Kunitsukami", color: "text-green-600", bgColor: "bg-green-50" };
+				return {
+					name: "Kunitsukami",
+					color: "text-green-600",
+					bgColor: "bg-green-50",
+				};
 			case "YOKAI":
-				return { name: "Yokai", color: "text-purple-600", bgColor: "bg-purple-50" };
+				return {
+					name: "Yokai",
+					color: "text-purple-600",
+					bgColor: "bg-purple-50",
+				};
 			default:
-				return { name: "Bonjin", color: "text-indigo-600", bgColor: "bg-indigo-50" };
+				return {
+					name: "Bonjin",
+					color: "text-indigo-600",
+					bgColor: "bg-indigo-50",
+				};
 		}
 	};
 
@@ -65,22 +81,15 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 	const passportInfo = getPassportTypeInfo(passport.passportType);
 
 	return (
-		<motion.div
-			className={`bg-white shadow-sm rounded-lg p-6 cursor-pointer hover:shadow-md transition-shadow ${className}`}
+		<motion.button
+			type="button"
+			className={`bg-white shadow-sm rounded-lg p-6 cursor-pointer hover:shadow-md transition-shadow ${className} w-full text-left`}
 			onClick={handleCardClick}
 			whileHover={{ y: -2 }}
 			whileTap={{ scale: 0.98 }}
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.3 }}
-			role="button"
-			tabIndex={0}
-			onKeyDown={(e) => {
-				if (e.key === "Enter" || e.key === " ") {
-					e.preventDefault();
-					handleCardClick();
-				}
-			}}
 			aria-label="View digital passport"
 		>
 			{/* Header */}
@@ -120,7 +129,7 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 					{/* Default avatar using first letter of username */}
 					<div className="w-full h-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
 						<span className="text-lg font-bold text-indigo-600">
-							{passport.username.charAt(0).toUpperCase()}
+							{passport.username?.charAt(0)?.toUpperCase() || "?"}
 						</span>
 					</div>
 				</motion.div>
@@ -134,7 +143,8 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 						{passportInfo.name}
 					</motion.div>
 					<p className="text-sm text-gray-500">
-						Level {passport.level || "Unknown"} • {passport.magatamaPoints} points
+						Level {passport.level || "Unknown"} • {passport.magatamaPoints}{" "}
+						points
 					</p>
 				</div>
 			</div>
@@ -148,7 +158,8 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 					transition={{ delay: 0.4, duration: 0.3 }}
 				>
 					<span className="text-xs font-mono text-gray-600">
-						{passport.digitalPassportAddress.slice(0, 6)}...{passport.digitalPassportAddress.slice(-4)}
+						{passport.digitalPassportAddress.slice(0, 6)}...
+						{passport.digitalPassportAddress.slice(-4)}
 					</span>
 				</motion.div>
 			)}
@@ -202,7 +213,7 @@ const DigitalPassportCard: React.FC<DigitalPassportCardProps> = ({
 					View passport →
 				</motion.div>
 			</motion.div>
-		</motion.div>
+		</motion.button>
 	);
 };
 

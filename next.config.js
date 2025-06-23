@@ -42,6 +42,31 @@ const config = {
 	experimental: {
 		optimizePackageImports: ["leaflet", "framer-motion", "@heroicons/react"],
 	},
+	// Bundle optimization for admin routes
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			// Split admin components into separate chunks
+			config.optimization.splitChunks = {
+				...config.optimization.splitChunks,
+				cacheGroups: {
+					...config.optimization.splitChunks.cacheGroups,
+					admin: {
+						name: "admin",
+						test: /[\\/]src[\\/]components[\\/]admin[\\/]/,
+						chunks: "all",
+						priority: 10,
+					},
+					adminHooks: {
+						name: "admin-hooks",
+						test: /[\\/]src[\\/]hooks[\\/]admin[\\/]/,
+						chunks: "all",
+						priority: 9,
+					},
+				},
+			};
+		}
+		return config;
+	},
 	compiler: {
 		removeConsole: process.env.NODE_ENV === "production",
 	},

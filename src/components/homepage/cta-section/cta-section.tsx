@@ -13,8 +13,6 @@ interface CTASectionProps {
 }
 
 export default function CTASection({
-	title = "EXPLORE, EARN, AND CONNECT ON EVERY JOURNEY",
-	subtitle = "JOIN THE ADVENTURE NOW",
 	buttonText = "SIGN UP NOW",
 	buttonHref = "/v2/launch-app",
 }: CTASectionProps) {

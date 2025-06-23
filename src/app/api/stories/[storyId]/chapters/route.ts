@@ -5,13 +5,12 @@ import {
 } from "@/app/api/lib/route-helper";
 import { logger } from "@/utils/logger";
 
-
 /**
  * GET handler to fetch a single story's chapters by its ID from the backend service via proxy.
  */
 export async function GET(
 	_request: Request,
-	{ params }: { params: Promise<{ storyId: string }> }
+	{ params }: { params: Promise<{ storyId: string }> },
 ) {
 	// Adjusted params for App Router convention
 	const { storyId } = await params;

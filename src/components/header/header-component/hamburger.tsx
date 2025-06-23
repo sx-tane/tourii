@@ -25,7 +25,9 @@ const Hamburger: React.FC<HeaderProps> = ({ theme }) => {
 					<MenuButton
 						className="inline-flex w-full justify-center gap-x-1.5 rounded-md"
 						onClick={toggleMenu}
-						aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+						aria-label={
+							isOpen ? "Close navigation menu" : "Open navigation menu"
+						}
 						aria-expanded={isOpen}
 						aria-controls="hamburger-menu"
 					>

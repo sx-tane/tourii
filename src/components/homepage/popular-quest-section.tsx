@@ -1,6 +1,7 @@
 "use client";
 
 import { useHomepageHighlights } from "@/hooks/api/useHomepageHighlights";
+import { motion } from "framer-motion";
 import Line from "../about/divider-line/line";
 import { SectionTitle } from "../common/section-title";
 import { QuestCard } from "./quest-card";
@@ -30,30 +31,90 @@ export const PopularQuestSection: React.FC = () => {
 		},
 	];
 
+	// Only show up to 3 quests
+	const displayQuests = popularQuests.slice(0, 3);
+
 	return (
-		<div className="flex flex-col items-center w-11/12 mx-auto mt-20">
-			<div className="flex justify-center w-full px-5">
-				<div className="w-full max-w-screen-md">
+		<div className="w-full">
+			{/* Section Header with Centered Line */}
+			<motion.div
+				className="w-full flex justify-center mb-8"
+				initial={{ opacity: 0, y: 30 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: false, amount: 0.3 }}
+				transition={{
+					duration: 0.8,
+					ease: [0.25, 0.1, 0.25, 1],
+				}}
+			>
+				<div className="w-auto">
 					<Line />
 				</div>
-			</div>
-			<div className="z-20">
-				<SectionTitle subtitle={["FEATURED"]} title={["POPULAR", "QUEST"]} />
-				<div className="w-full max-w-screen-md mx-auto">
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-						{popularQuests.slice(0, 3).map((quest, index) => (
-							<QuestCard
+			</motion.div>
+
+			{/* Section Title */}
+			<motion.div
+				className="w-full px-5 mb-12"
+				initial={{ opacity: 0, y: 30 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: false, amount: 0.3 }}
+				transition={{
+					duration: 0.8,
+					delay: 0.2,
+					ease: [0.25, 0.1, 0.25, 1],
+				}}
+			>
+				<div className="w-full max-w-screen-lg mx-auto">
+					<SectionTitle subtitle={["FEATURED"]} title={["POPULAR", "QUEST"]} />
+				</div>
+			</motion.div>
+
+			{/* Quest Cards Container */}
+			<motion.div
+				className="w-full px-5"
+				initial={{ opacity: 0, y: 40 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: false, amount: 0.3 }}
+				transition={{
+					duration: 1,
+					delay: 0.4,
+					ease: [0.25, 0.1, 0.25, 1],
+				}}
+			>
+				<div className="w-full max-w-screen-lg mx-auto">
+					<div
+						className={`grid gap-8 ${
+							displayQuests.length === 1
+								? "grid-cols-1 justify-items-center"
+								: displayQuests.length === 2
+									? "grid-cols-2 justify-items-center"
+									: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+						}`}
+					>
+						{displayQuests.map((quest, index) => (
+							<div
 								key={quest.questId}
-								questId={quest.questId}
-								title={quest.title}
-								imageUrl={quest.imageUrl}
-								link={quest.link}
-								index={index}
-							/>
+								className={
+									displayQuests.length === 1
+										? "w-full max-w-sm"
+										: displayQuests.length === 2
+											? "w-full max-w-xs"
+											: "w-full"
+								}
+							>
+								<QuestCard
+									questId={quest.questId}
+									title={quest.title}
+									imageUrl={quest.imageUrl}
+									link={quest.link}
+									index={index}
+									forceAspectRatio="normal"
+								/>
+							</div>
 						))}
 					</div>
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

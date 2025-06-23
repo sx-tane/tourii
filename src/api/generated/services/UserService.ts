@@ -14,12 +14,14 @@ export class UserService {
      * Get user sensitive info
      * Get user sensitive info
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
      * @returns UserSensitiveInfoResponseDto User sensitive info
      * @throws ApiError
      */
     public static touriiBackendControllerGetUserSensitiveInfo(
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
     ): CancelablePromise<UserSensitiveInfoResponseDto> {
         return __request(OpenAPI, {
@@ -27,6 +29,7 @@ export class UserService {
             url: '/user/sensitive-info',
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
             errors: {
@@ -64,13 +67,16 @@ export class UserService {
     }
     /**
      * Get current user's basic profile
+     * Retrieve authenticated user's profile information.
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
      * @returns UserResponseDto Current user basic profile
      * @throws ApiError
      */
     public static touriiBackendControllerMe(
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
     ): CancelablePromise<UserResponseDto> {
         return __request(OpenAPI, {
@@ -78,6 +84,7 @@ export class UserService {
             url: '/user/me',
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
             errors: {
@@ -90,6 +97,7 @@ export class UserService {
      * Get User Travel Checkins
      * Retrieve user travel checkin history with location coordinates for map rendering. Supports pagination and filtering by quest, tourist spot, and date range.
      * @param acceptVersion API version (e.g., 1.0.0)
+     * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication
      * @param endDate Filter to date (ISO format)
      * @param startDate Filter from date (ISO format)
@@ -103,6 +111,7 @@ export class UserService {
      */
     public static touriiBackendControllerGetCheckins(
         acceptVersion: string,
+        xUserId: string,
         xApiKey: string,
         endDate?: string,
         startDate?: string,
@@ -117,6 +126,7 @@ export class UserService {
             url: '/checkins',
             headers: {
                 'accept-version': acceptVersion,
+                'x-user-id': xUserId,
                 'x-api-key': xApiKey,
             },
             query: {

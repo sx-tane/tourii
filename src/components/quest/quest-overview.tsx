@@ -20,10 +20,10 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 		// Convert task from quest task type to TaskResponseDto type
 		const taskResponseDto: TaskResponseDto = {
 			taskId: task.taskId,
-			taskType: task.taskType as any, // Type assertion needed due to different enum types
+			taskType: task.taskType as TaskResponseDto.taskType, // Type assertion needed due to different enum types
 			taskName: task.taskName,
 			taskDesc: task.taskDesc,
-			taskTheme: task.taskTheme as any, // Type assertion needed due to different enum types
+			taskTheme: task.taskTheme as TaskResponseDto.taskTheme, // Type assertion needed due to different enum types
 			isUnlocked: task.isUnlocked,
 			requiredAction: task.requiredAction,
 			groupActivityMembers: task.groupActivityMembers,
@@ -190,7 +190,7 @@ const QuestOverview: React.FC<QuestOverviewProps> = ({ quest }) => {
 							quest.tasks.map((task, index) => (
 								<Link
 									key={task.taskId}
-									href={`/v2/task/${task.taskId}`}
+									href={`/v2/quests/${quest.questId}/${task.taskId}`}
 									onClick={(e) => handleTaskClick(task, e)}
 									className={`block transition-all ${
 										task.isUnlocked && !task.isCompleted

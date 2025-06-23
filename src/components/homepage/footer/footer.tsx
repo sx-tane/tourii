@@ -24,7 +24,8 @@ export default function Footer() {
 							EXPLORE. EARN. CONNECT.
 						</p>
 						<p className="text-warmGrey3 text-xs">
-							Discover Japan through immersive storytelling and gamified exploration.
+							Discover Japan through immersive storytelling and gamified
+							exploration.
 						</p>
 					</div>
 
@@ -35,17 +36,26 @@ export default function Footer() {
 						</h3>
 						<ul className="space-y-2 text-warmGrey3 text-sm">
 							<li>
-								<Link href="/terms" className="hover:text-white transition-colors">
+								<Link
+									href="/terms"
+									className="hover:text-white transition-colors"
+								>
 									Terms of Service
 								</Link>
 							</li>
 							<li>
-								<Link href="/privacy" className="hover:text-white transition-colors">
+								<Link
+									href="/privacy"
+									className="hover:text-white transition-colors"
+								>
 									Privacy Policy
 								</Link>
 							</li>
 							<li>
-								<Link href="/cookies" className="hover:text-white transition-colors">
+								<Link
+									href="/cookies"
+									className="hover:text-white transition-colors"
+								>
 									Cookie Policy
 								</Link>
 							</li>
@@ -59,17 +69,26 @@ export default function Footer() {
 						</h3>
 						<ul className="space-y-2 text-warmGrey3 text-sm">
 							<li>
-								<Link href="/about" className="hover:text-white transition-colors">
+								<Link
+									href="/about"
+									className="hover:text-white transition-colors"
+								>
 									About
 								</Link>
 							</li>
 							<li>
-								<Link href="/contact" className="hover:text-white transition-colors">
+								<Link
+									href="/contact"
+									className="hover:text-white transition-colors"
+								>
 									Contact
 								</Link>
 							</li>
 							<li>
-								<Link href="/support" className="hover:text-white transition-colors">
+								<Link
+									href="/support"
+									className="hover:text-white transition-colors"
+								>
 									Support
 								</Link>
 							</li>

@@ -33,7 +33,7 @@ const ANIMATIONS = {
 		initial: { opacity: 0, y: 20 },
 		animate: { opacity: 1, y: 0 },
 		transition: { duration: 0.3 },
-	 },
+	},
 	loading: {
 		initial: { opacity: 0 },
 		animate: { opacity: 1 },
@@ -97,7 +97,6 @@ const useSwipeDetection = (
 			// Check if it's a valid swipe
 			const absDeltaX = Math.abs(deltaX);
 			const absDeltaY = Math.abs(deltaY);
-
 
 			if (
 				absDeltaX > SWIPE_CONFIG.minSwipeDistance &&
@@ -349,7 +348,6 @@ const ImageGallery: React.FC<{
 		prevImage, // Swipe right = previous image
 		activeImages.length > 1, // Only enable if multiple images
 	);
-
 
 	return (
 		<AnimatePresence mode="wait">

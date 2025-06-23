@@ -11,5 +11,9 @@ export type SubmitTaskResponseDto = {
      * Message to the user
      */
     message: string;
+    /**
+     * Estimated time for admin review (only for manual verification tasks)
+     */
+    estimatedReviewTime?: string;
 };
 

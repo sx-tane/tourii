@@ -63,7 +63,7 @@ const ChapterPage: React.FC = () => {
 	const handleStoryCompletion = async (chapterIdToComplete: string) => {
 		try {
 			// Use real user ID for API call
-			const userId = "TSU202506-c2a35a-141639-9589c4-BAAA";
+			const userId = "TSU202506-ae8a85-222006-4bdd44-BAAA";
 
 			try {
 				// Try real API call first

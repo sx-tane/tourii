@@ -7,11 +7,15 @@ export { CancelablePromise, CancelError } from './core/CancelablePromise';
 export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
+export type { AdminUserListResponseDto } from './models/AdminUserListResponseDto';
+export { AdminUserQueryDto } from './models/AdminUserQueryDto';
 export type { AuthSignupRequestDto } from './models/AuthSignupRequestDto';
 export type { AuthSignupResponseDto } from './models/AuthSignupResponseDto';
 export { CheckinsFetchRequestDto } from './models/CheckinsFetchRequestDto';
 export type { GroupMembersResponseDto } from './models/GroupMembersResponseDto';
 export type { HomepageHighlightsResponseDto } from './models/HomepageHighlightsResponseDto';
+export { LocalInteractionResponseDto } from './models/LocalInteractionResponseDto';
+export { LocalInteractionSubmissionDto } from './models/LocalInteractionSubmissionDto';
 export type { LocationInfoResponseDto } from './models/LocationInfoResponseDto';
 export type { LocationQueryDto } from './models/LocationQueryDto';
 export type { LoginRequestDto } from './models/LoginRequestDto';
@@ -54,7 +58,9 @@ export type { UserEntity } from './models/UserEntity';
 export { UserResponseDto } from './models/UserResponseDto';
 export type { UserSensitiveInfoResponseDto } from './models/UserSensitiveInfoResponseDto';
 export type { UserTravelLogListResponseDto } from './models/UserTravelLogListResponseDto';
+export { VerifySubmissionRequestDto } from './models/VerifySubmissionRequestDto';
 
+export { AdminService } from './services/AdminService';
 export { AuthService } from './services/AuthService';
 export { HealthCheckService } from './services/HealthCheckService';
 export { HomepageService } from './services/HomepageService';

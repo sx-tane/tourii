@@ -1,15 +1,19 @@
 "use client";
-import { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
+import { QuestResponseDto } from "@/api/generated";
 import { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 import TaskAnswerText from "@/components/task/task-answer-text";
 import TaskCheckIn from "@/components/task/task-check-in";
 import TaskSelectOptions from "@/components/task/task-select-options";
-import { makeApiRequest } from "@/utils/api-helpers";
+import { useTaskSubmissions } from "@/hooks/api";
 import { questStorage } from "@/utils/quest-storage";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function TaskPage({ params }: { params: { taskId: string } }) {
+export default function TaskPage({
+	params,
+}: {
+	params: Promise<{ taskId: string }>;
+}) {
 	const [task, setTask] = useState<TaskResponseDto | null>(null);
 	const [quest, setQuest] = useState<QuestResponseDto | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -17,29 +21,35 @@ export default function TaskPage({ params }: { params: { taskId: string } }) {
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState(false);
 	const { data: session, status } = useSession();
+	const { submitTask } = useTaskSubmissions();
 
 	useEffect(() => {
-		const { quest: questData, task: taskData } =
-			questStorage.getQuestAndTaskData();
+		const initializeTask = async () => {
+			const { taskId } = await params;
+			const { quest: questData, task: taskData } =
+				questStorage.getQuestAndTaskData();
 
-		if (questData && taskData) {
-			// Verify that the taskId matches
-			if (taskData.taskId === params.taskId) {
-				setQuest(questData);
-				setTask(taskData);
+			if (questData && taskData) {
+				// Verify that the taskId matches
+				if (taskData.taskId === taskId) {
+					setQuest(questData);
+					setTask(taskData);
+				} else {
+					setError("Task ID mismatch");
+				}
 			} else {
-				setError("Task ID mismatch");
+				// Fallback: try to fetch from API if no data in session storage
+				// This would be your actual API call in a real app
+				setError(
+					"Quest and task data not found. Please return to the quest overview.",
+				);
 			}
-		} else {
-			// Fallback: try to fetch from API if no data in session storage
-			// This would be your actual API call in a real app
-			setError(
-				"Quest and task data not found. Please return to the quest overview.",
-			);
-		}
 
-		setIsLoading(false);
-	}, [params.taskId]);
+			setIsLoading(false);
+		};
+
+		initializeTask();
+	}, [params]);
 
 	const handleSubmit = async (data: any) => {
 		if (!task) return;
@@ -122,43 +132,3 @@ export default function TaskPage({ params }: { params: { taskId: string } }) {
 
 	return <div className="p-4">{renderTaskComponent()}</div>;
 }
-
-const submitTask = async (
-	task: TaskResponseDto,
-	data: any,
-	userId: string,
-): Promise<{ success: boolean; message?: string }> => {
-	let endpoint = "";
-	let body: any = {};
-
-	switch (task?.taskType) {
-		case TaskResponseDto.taskType.ANSWER_TEXT:
-			endpoint = "/api/tasks/answer-text";
-			body = { taskId: task.taskId, answer: data, userId };
-			break;
-		case TaskResponseDto.taskType.SELECT_OPTION:
-			endpoint = "/api/tasks/select-option";
-			body = { taskId: task.taskId, selectedOptionIds: data, userId };
-			break;
-		case TaskResponseDto.taskType.CHECK_IN:
-			endpoint = "/api/tasks/check-in";
-			body = {
-				taskId: task.taskId,
-				latitude: data.lat,
-				longitude: data.lng,
-				userId,
-			};
-			break;
-		default:
-			throw new Error("Unsupported task type");
-	}
-
-	const res = await makeApiRequest(endpoint, body, "POST");
-
-	const resData = await res.json();
-	if (!res.ok) {
-		throw new Error(resData.message || "Submission failed");
-	}
-
-	return { success: resData.success, message: resData.message };
-};

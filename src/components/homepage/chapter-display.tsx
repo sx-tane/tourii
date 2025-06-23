@@ -46,12 +46,12 @@ const ChapterDisplay: React.FC = () => {
 							alt={chapterData.title}
 							width={2000}
 							height={2000}
-							className="w-full h-full object-cover"
+							className="w-[80vw] lg:w-[70vw] h-full object-cover"
 							priority
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
 						<motion.div
-							className="absolute bottom-1 left-5 p-3 text-warmGrey uppercase flex flex-col gap-2"
+							className="absolute bottom-2 left-5 p-3 text-warmGrey uppercase flex flex-col gap-2"
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: false }}
@@ -72,7 +72,7 @@ const ChapterDisplay: React.FC = () => {
 							</p>
 						</motion.div>
 						<motion.div
-							className="absolute bottom-1 right-5 p-3"
+							className="absolute bottom-2 right-5 p-3"
 							initial={{ opacity: 0, y: 10 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: false }}

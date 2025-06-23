@@ -1,5 +1,3 @@
-
-
 interface Iphone15Props {
 	children: React.ReactNode;
 }

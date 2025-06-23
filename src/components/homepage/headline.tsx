@@ -6,7 +6,6 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-
 const Headline: React.FC = () => {
 	return (
 		<div>

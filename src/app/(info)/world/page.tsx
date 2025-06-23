@@ -7,7 +7,6 @@ import WhiteLine from "@/components/world/white-line";
 import { titleData, worldData } from "@/lib/data/world/world-data";
 import type { NextPage } from "next";
 
-
 const World: NextPage = () => {
 	return (
 		<div className="flex flex-col items-center justify-center xl:mx-72 2xl:mx-96">

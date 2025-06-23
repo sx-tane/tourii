@@ -8,26 +8,27 @@ const meta: Meta<typeof CTASection> = {
 		layout: "fullscreen",
 		docs: {
 			description: {
-				component: "Call-to-action section for the homepage with customizable text and links",
+				component:
+					"Call-to-action section for the homepage with customizable text and links",
 			},
 		},
 	},
 	argTypes: {
-		title: { 
+		title: {
 			control: "text",
-			description: "Main heading text"
+			description: "Main heading text",
 		},
-		subtitle: { 
+		subtitle: {
 			control: "text",
-			description: "Subtitle text"
+			description: "Subtitle text",
 		},
-		buttonText: { 
+		buttonText: {
 			control: "text",
-			description: "Button text"
+			description: "Button text",
 		},
-		buttonHref: { 
+		buttonHref: {
 			control: "text",
-			description: "Button link destination"
+			description: "Button link destination",
 		},
 	},
 };

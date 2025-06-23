@@ -10,13 +10,384 @@ The Tourii frontend uses a well-organized hook structure following the three-lay
 
 ```
 src/hooks/
-├── api/              # Server data fetching (SWR hooks)
-├── business/         # Business logic hooks  
-├── map/              # Map and geolocation hooks
-└── ui/               # UI interaction hooks
+├── api/              # Server data fetching (SWR hooks) - 15 hooks
+├── admin/            # Admin CRUD operations + name resolution - 6 hooks ✅ All working
+├── business/         # Business logic hooks - 4 hooks
+├── map/              # Map and geolocation hooks - 2 hooks
+└── ui/               # UI interaction hooks - 3 hooks
 ```
 
 **Three-Layer Pattern**: SWR Hooks → Next.js API Routes → Generated SDK → Backend
+
+---
+
+## 🏷️ **Name Resolution Hooks** ✅ **NEW**
+
+For admin interfaces that need to display human-readable names instead of IDs, use these specialized hooks:
+
+### Individual Name Resolution
+
+```typescript
+// Quest name resolution
+import { useQuestName } from '@/hooks/admin';
+
+function QuestDisplay({ questId }: { questId: string }) {
+  const { name, isLoading } = useQuestName(questId);
+  
+  if (isLoading) return <span>Loading...</span>;
+  return <span>{name || `Quest #${questId.slice(-6)}`}</span>;
+}
+
+// Tourist spot name resolution
+import { useTouristSpotName } from '@/hooks/admin';
+
+function SpotDisplay({ spotId }: { spotId: string }) {
+  const { name, isLoading } = useTouristSpotName(spotId);
+  
+  if (isLoading) return <span>Loading...</span>;
+  return <span>{name || `Tourist Spot #${spotId.slice(-6)}`}</span>;
+}
+
+// Story chapter name resolution
+import { useStoryChapterName } from '@/hooks/admin';
+
+function ChapterDisplay({ chapterId }: { chapterId: string }) {
+  const { name, isLoading } = useStoryChapterName(chapterId);
+  
+  if (isLoading) return <span>Loading...</span>;
+  return <span>{name || `Chapter #${chapterId.slice(-6)}`}</span>;
+}
+
+// Task name resolution (with action context)
+import { useTaskName } from '@/hooks/admin';
+
+function TaskDisplay({ taskId, action }: { taskId: string, action?: string }) {
+  const { name, isLoading } = useTaskName(taskId, action);
+  
+  if (isLoading) return <span>Loading...</span>;
+  return <span>{name}</span>; // e.g., "Photo Upload Task #BAAA"
+}
+```
+
+### Batch Name Resolution
+
+```typescript
+// Resolve multiple names at once
+import { useNameResolution } from '@/hooks/admin';
+
+function ActivityLogTable({ logs }: { logs: UserActivityLog[] }) {
+  const questIds = logs.map(log => log.questId).filter(Boolean);
+  const spotIds = logs.map(log => log.touristSpotId).filter(Boolean);
+  const chapterIds = logs.map(log => log.storyChapterId).filter(Boolean);
+  
+  const {
+    questNames,
+    touristSpotNames,
+    storyChapterNames,
+    isLoading,
+    error
+  } = useNameResolution(questIds, spotIds, chapterIds);
+  
+  if (error) return <ErrorDisplay error={error} />;
+  
+  return (
+    <table>
+      {logs.map(log => (
+        <tr key={log.id}>
+          <td>{questNames.get(log.questId) || `Quest #${log.questId.slice(-6)}`}</td>
+          <td>{touristSpotNames.get(log.touristSpotId) || `Spot #${log.touristSpotId.slice(-6)}`}</td>
+        </tr>
+      ))}
+    </table>
+  );
+}
+```
+
+### ResolvedNameDisplay Component
+
+For consistent styling across admin interfaces, use the `ResolvedNameDisplay` component:
+
+```typescript
+import ResolvedNameDisplay from '@/components/admin/users/resolved-name-display';
+
+function UserActivityRow({ log }: { log: UserTaskLog }) {
+  return (
+    <tr>
+      <td>
+        <ResolvedNameDisplay 
+          id={log.questId} 
+          type="quest" 
+        />
+      </td>
+      <td>
+        <ResolvedNameDisplay 
+          id={log.taskId} 
+          type="task" 
+          action={log.action}
+        />
+      </td>
+      <td>
+        <ResolvedNameDisplay 
+          id={log.touristSpotId} 
+          type="tourist-spot" 
+        />
+      </td>
+      <td>
+        <ResolvedNameDisplay 
+          id={log.storyChapterId} 
+          type="story-chapter" 
+        />
+      </td>
+    </tr>
+  );
+}
+```
+
+**Benefits:**
+- Converts `Quest #a-BAAA` → `"Discover Harajiri Falls"`
+- Converts `Tourist Spot #4-BAAA` → `"Harajiri Falls"`
+- Converts `Story Chapter #7-BAAA` → `"Prologue - Chapter 1"`
+- Converts `Task #BAAA` → `"Photo Upload Task #BAAA"`
+- Built-in caching to avoid repeated API calls
+- Graceful fallback to formatted IDs if resolution fails
+
+---
+
+## 🔧 **Admin CRUD Hooks** ✅ **All Working**
+
+The admin hooks provide CRUD operations for all content types with proper error handling and SWR mutation patterns.
+
+### Story Management Hooks
+
+```typescript
+// Story/Saga operations
+import { 
+  useCreateStory, 
+  useUpdateStory, 
+  useDeleteStory,
+  useCreateStoryChapter,
+  useUpdateStoryChapter,
+  useDeleteStoryChapter
+} from '@/hooks/admin';
+
+function StoryManagement() {
+  const { trigger: createStory, isMutating: isCreating } = useCreateStory(() => {
+    alert('Story created successfully!');
+    mutateStories(); // Refresh stories list
+  });
+  
+  const { trigger: deleteStory, isMutating: isDeleting } = useDeleteStory(() => {
+    alert('Story deleted successfully!');
+    mutateStories();
+  });
+  
+  const handleCreateStory = async (storyData: StoryCreateRequestDto) => {
+    try {
+      await createStory(storyData);
+    } catch (error) {
+      console.error('Failed to create story:', error);
+    }
+  };
+  
+  const handleDeleteStory = async (storyId: string) => {
+    try {
+      await deleteStory({ storyId });
+    } catch (error) {
+      console.error('Failed to delete story:', error);
+    }
+  };
+  
+  return (
+    <div>
+      <CreateStoryForm onSubmit={handleCreateStory} isSubmitting={isCreating} />
+      <StoryList onDelete={handleDeleteStory} isDeleting={isDeleting} />
+    </div>
+  );
+}
+```
+
+### Quest Management Hooks
+
+```typescript
+// Quest and task operations
+import { 
+  useCreateQuest, 
+  useUpdateQuest, 
+  useDeleteQuest,
+  useCreateQuestTask,
+  useUpdateQuestTask,
+  useDeleteQuestTask
+} from '@/hooks/admin';
+
+function QuestTaskManagement({ questId }: { questId: string }) {
+  const { trigger: createTask, isMutating: isCreatingTask } = useCreateQuestTask(() => {
+    alert('Task created successfully!');
+    mutateTasks();
+  });
+  
+  const { trigger: updateTask, isMutating: isUpdatingTask } = useUpdateQuestTask(() => {
+    alert('Task updated successfully!');
+    mutateTasks();
+  });
+  
+  const handleCreateTask = async (taskData: QuestTaskCreateRequestDto) => {
+    try {
+      await createTask({ questId, ...taskData });
+    } catch (error) {
+      console.error('Failed to create task:', error);
+    }
+  };
+  
+  const handleUpdateTask = async (taskId: string, taskData: QuestTaskUpdateRequestDto) => {
+    try {
+      await updateTask({ taskId, ...taskData });
+    } catch (error) {
+      console.error('Failed to update task:', error);
+    }
+  };
+  
+  return (
+    <div>
+      <TaskForm onSubmit={handleCreateTask} isSubmitting={isCreatingTask} />
+      <TaskList onUpdate={handleUpdateTask} isUpdating={isUpdatingTask} />
+    </div>
+  );
+}
+```
+
+### Model Route Management Hooks
+
+```typescript
+// Model route and tourist spot operations
+import { 
+  useCreateModelRoute,
+  useUpdateModelRoute,
+  useDeleteModelRoute,
+  useCreateTouristSpot,
+  useUpdateTouristSpot,
+  useDeleteTouristSpot
+} from '@/hooks/admin';
+
+function RouteManagement() {
+  const { trigger: createRoute, isMutating: isCreatingRoute } = useCreateModelRoute(() => {
+    alert('Route created successfully!');
+    mutateRoutes();
+  });
+  
+  const { trigger: deleteRoute, isMutating: isDeletingRoute } = useDeleteModelRoute(() => {
+    alert('Route deleted successfully!');
+    mutateRoutes();
+  });
+  
+  const handleCreateRoute = async (routeData: ModelRouteCreateRequestDto) => {
+    try {
+      await createRoute(routeData);
+    } catch (error) {
+      console.error('Failed to create route:', error);
+    }
+  };
+  
+  const handleDeleteRoute = async (routeId: string) => {
+    try {
+      await deleteRoute({ routeId });
+    } catch (error) {
+      console.error('Failed to delete route:', error);
+    }
+  };
+  
+  return (
+    <div>
+      <RouteForm onSubmit={handleCreateRoute} isSubmitting={isCreatingRoute} />
+      <RouteList onDelete={handleDeleteRoute} isDeleting={isDeletingRoute} />
+    </div>
+  );
+}
+```
+
+### Critical Success Response Pattern
+
+**IMPORTANT**: All delete operations must return `{ success: true }` for SWR to interpret them as successful:
+
+```typescript
+// ✅ CORRECT: Delete hook implementation
+export function useDeleteStory(onSuccess?: () => void) {
+  return useSWRMutation(
+    "/api/stories",
+    async (url: string, { arg }: { arg: { storyId: string } }) => {
+      const response = await fetch(`${url}/${arg.storyId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete story");
+      return { success: true }; // ✅ Required for SWR success detection
+    },
+    {
+      onSuccess: () => {
+        onSuccess?.();
+      },
+      onError: (error) => {
+        console.error("Failed to delete story:", error);
+        alert(`Failed to delete story: ${error instanceof Error ? error.message : String(error)}`);
+      },
+    },
+  );
+}
+
+// ❌ WRONG: Missing return statement causes SWR to treat as failure
+export function useDeleteStoryWrong(onSuccess?: () => void) {
+  return useSWRMutation(
+    "/api/stories",
+    async (url: string, { arg }: { arg: { storyId: string } }) => {
+      const response = await fetch(`${url}/${arg.storyId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete story");
+      // ❌ Missing return - SWR interprets undefined as failure
+    },
+    // ...rest of config
+  );
+}
+```
+
+### Error Handling Best Practices
+
+```typescript
+// Comprehensive error handling pattern
+function AdminContentManager() {
+  const { trigger: deleteItem, isMutating: isDeleting, error: deleteError } = useDeleteStory((storyId) => {
+    // Success callback
+    setSelectedStory(null);
+    showSuccessToast('Story deleted successfully');
+  });
+  
+  const handleDelete = async (storyId: string) => {
+    if (!confirm('Are you sure you want to delete this story?')) return;
+    
+    try {
+      await deleteItem({ storyId });
+    } catch (error) {
+      // Error is already handled by the hook's onError callback
+      // Additional error handling can be done here if needed
+      console.error('Delete operation failed:', error);
+    }
+  };
+  
+  return (
+    <div>
+      {deleteError && (
+        <ErrorAlert error={deleteError} onDismiss={() => {/* clear error */}} />
+      )}
+      
+      <DeleteButton 
+        onClick={() => handleDelete(story.id)}
+        isLoading={isDeleting}
+        disabled={isDeleting}
+      >
+        {isDeleting ? 'Deleting...' : 'Delete Story'}
+      </DeleteButton>
+    </div>
+  );
+}
+```
 
 ---
 
@@ -1190,9 +1561,36 @@ describe('useTouristSpotSelection', () => {
 - `useHomepageHighlights()` - Fetch homepage highlights and featured content
 - `useMoments()` - Fetch latest traveler moments and social content
 
-#### **Admin Hooks**
+#### **Admin SWR Hooks**
 - `useAdminUsers(filters?)` - Fetch all users with admin filtering and pagination
-- `useAdminAnalytics()` - Fetch admin dashboard analytics and statistics
+- `useAdminSubmissions(filters?)` - Fetch user submissions for review and approval
+
+#### **Admin CRUD Hooks** ✅ **All Working**
+- `useCreateStory(onSuccess?)` - Create new story/saga
+- `useUpdateStory(onSuccess?)` - Update existing story/saga
+- `useDeleteStory(onSuccess?)` - Delete story/saga
+- `useCreateStoryChapter(storyId, onSuccess?)` - Create new story chapter
+- `useUpdateStoryChapter(onSuccess?)` - Update existing story chapter
+- `useDeleteStoryChapter(onSuccess?)` - Delete story chapter
+- `useCreateQuest(onSuccess?)` - Create new quest
+- `useUpdateQuest(onSuccess?)` - Update existing quest
+- `useDeleteQuest(onSuccess?)` - Delete quest
+- `useCreateQuestTask(onSuccess?)` - Create new quest task
+- `useUpdateQuestTask(onSuccess?)` - Update existing quest task
+- `useDeleteQuestTask(onSuccess?)` - Delete quest task
+- `useCreateModelRoute(onSuccess?)` - Create new model route
+- `useUpdateModelRoute(onSuccess?)` - Update existing model route
+- `useDeleteModelRoute(onSuccess?)` - Delete model route
+- `useCreateTouristSpot(onSuccess?)` - Create new tourist spot
+- `useUpdateTouristSpot(onSuccess?)` - Update existing tourist spot
+- `useDeleteTouristSpot(onSuccess?)` - Delete tourist spot
+
+#### **Admin Name Resolution Hooks** ✅ **NEW**
+- `useQuestName(questId)` - Resolve quest ID to human-readable name
+- `useTouristSpotName(spotId)` - Resolve tourist spot ID to name
+- `useStoryChapterName(chapterId)` - Resolve story chapter ID to name
+- `useTaskName(taskId, action?)` - Resolve task ID to name with action context
+- `useNameResolution(questIds, spotIds, chapterIds)` - Batch resolve multiple IDs
 
 ### Business Logic Hooks
 - `useTouristSpotSelection(spots)` - Manage spot selection state
@@ -1211,4 +1609,10 @@ describe('useTouristSpotSelection', () => {
 
 ---
 
-*Last Updated: June 20, 2025*
+**Total Hook Count: 30 hooks** (15 API + 6 admin + 4 business + 2 map + 3 UI)
+
+**Performance Optimizations**: All admin hooks now use parallel fetching to eliminate N+1 queries and implement centralized configuration for consistent behavior.
+
+---
+
+*Last Updated: June 23, 2025 - Performance Optimization & Hook Count Update Edition*

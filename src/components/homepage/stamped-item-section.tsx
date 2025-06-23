@@ -12,12 +12,12 @@ export const StampedItemSection: React.FC = () => {
 						<Line />
 					</div>
 				</div>
-				<div className="z-20">
+				<div className="z-20 mb-10">
 					<SectionTitle
 						subtitle={["TOURIIVERSE"]}
 						title={["THIS", "WEEK'S", "TALE"]}
 					/>
-					<div className="mt-8">
+					<div>
 						<ChapterDisplay />
 					</div>
 				</div>

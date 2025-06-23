@@ -5,25 +5,26 @@ import type { UseApiHookResult } from "../types";
 /**
  * Hook to fetch moments using SWR.
  * Standardized API hook following the consistent pattern.
- * 
+ *
  * @param query - The API query string/endpoint
  * @returns Standardized hook result with moments data
  */
 export function useMoments(
-  query: string
+	query: string,
 ): UseApiHookResult<MomentListResponseDto> & {
-  moments: MomentListResponseDto | undefined;
+	moments: MomentListResponseDto | undefined;
 } {
-  const { data, error, isLoading, mutate } = useProxySWR<MomentListResponseDto>(query);
-  
-  return {
-    // Standardized properties
-    data,
-    isLoading,
-    isError: Boolean(error),
-    error: (error as Error) || null,
-    mutate,
-    // Legacy property for backward compatibility
-    moments: data,
-  };
+	const { data, error, isLoading, mutate } =
+		useProxySWR<MomentListResponseDto>(query);
+
+	return {
+		// Standardized properties
+		data,
+		isLoading,
+		isError: Boolean(error),
+		error: (error as Error) || null,
+		mutate,
+		// Legacy property for backward compatibility
+		moments: data,
+	};
 }

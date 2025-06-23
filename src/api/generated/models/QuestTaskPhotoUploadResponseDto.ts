@@ -11,5 +11,9 @@ export type QuestTaskPhotoUploadResponseDto = {
      * Public URL for the uploaded proof image
      */
     proofUrl: string;
+    /**
+     * Estimated time for admin review of the submission
+     */
+    estimatedReviewTime: string;
 };
 

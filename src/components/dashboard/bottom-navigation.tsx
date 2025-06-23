@@ -69,7 +69,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 	const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
 	const hoveredDescription = useMemo(() => {
-		return hoveredButton 
+		return hoveredButton
 			? navigationButtons.find((btn) => btn.id === hoveredButton)?.description
 			: "Choose your next adventure";
 	}, [hoveredButton]);
@@ -79,11 +79,11 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 			// Don't navigate if the button is disabled
 			return;
 		}
-		
+
 		try {
 			router.push(route);
 		} catch (error) {
-			console.error('Navigation failed:', error);
+			console.error("Navigation failed:", error);
 			// Optional: Could add user-friendly error notification here
 		}
 	};
@@ -97,9 +97,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 		>
 			<div className="flex items-center justify-between mb-4">
 				<h2 className="text-lg font-medium text-charcoal">Quick Actions</h2>
-				<div className="text-xs text-charcoal/70">
-					{hoveredDescription}
-				</div>
+				<div className="text-xs text-charcoal/70">{hoveredDescription}</div>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
@@ -110,41 +108,65 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 							key={button.id}
 							type="button"
 							className={`group relative flex flex-col items-center justify-center p-6 rounded-lg border-2 border-warmGrey2 transition-all duration-200 ${
-								button.disabled 
-									? 'opacity-60 cursor-not-allowed' 
-									: 'hover:border-warmGrey3 hover:shadow-md cursor-pointer'
+								button.disabled
+									? "opacity-60 cursor-not-allowed"
+									: "hover:border-warmGrey3 hover:shadow-md cursor-pointer"
 							} ${button.bgColor}`}
 							onClick={() => handleNavigation(button.route, button.disabled)}
 							onMouseEnter={() => setHoveredButton(button.id)}
 							onMouseLeave={() => setHoveredButton(null)}
-							whileHover={button.disabled ? {} : { 
-								y: -2,
-								transition: { type: "spring", stiffness: 400, damping: 25 }
-							}}
-							whileTap={button.disabled ? {} : { 
-								scale: 0.98,
-								transition: { type: "spring", stiffness: 400, damping: 25 }
-							}}
+							whileHover={
+								button.disabled
+									? {}
+									: {
+											y: -2,
+											transition: {
+												type: "spring",
+												stiffness: 400,
+												damping: 25,
+											},
+										}
+							}
+							whileTap={
+								button.disabled
+									? {}
+									: {
+											scale: 0.98,
+											transition: {
+												type: "spring",
+												stiffness: 400,
+												damping: 25,
+											},
+										}
+							}
 							initial={{ opacity: 0, scale: 0.9 }}
 							animate={{ opacity: 1, scale: 1 }}
-							transition={{ 
+							transition={{
 								delay: 0.1 * navigationButtons.indexOf(button),
 								duration: 0.3,
 								type: "spring",
 								stiffness: 300,
-								damping: 20
+								damping: 20,
 							}}
 						>
 							{/* Icon */}
 							<motion.div
-								className={`mb-3 p-3 rounded-full ${button.bgColor.replace('hover:', '')} relative`}
-								whileHover={button.disabled ? {} : { 
-									scale: 1.1,
-									transition: { type: "spring", stiffness: 400, damping: 25 }
-								}}
+								className={`mb-3 p-3 rounded-full ${button.bgColor.replace("hover:", "")} relative`}
+								whileHover={
+									button.disabled
+										? {}
+										: {
+												scale: 1.1,
+												transition: {
+													type: "spring",
+													stiffness: 400,
+													damping: 25,
+												},
+											}
+								}
 							>
-								<IconComponent 
-									className={`w-6 h-6 ${button.color} transition-colors duration-200`} 
+								<IconComponent
+									className={`w-6 h-6 ${button.color} transition-colors duration-200`}
 								/>
 								{button.comingSoon && (
 									<div className="absolute -top-1 -right-1 bg-red text-white text-xs px-1.5 py-0.5 rounded-full">
@@ -163,9 +185,9 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
 								<motion.div
 									className="absolute bottom-2 left-1/2 w-0 h-0.5 bg-charcoal/50 rounded-full"
 									initial={{ width: 0, x: "-50%" }}
-									whileHover={{ 
+									whileHover={{
 										width: "60%",
-										transition: { duration: 0.2 }
+										transition: { duration: 0.2 },
 									}}
 								/>
 							)}

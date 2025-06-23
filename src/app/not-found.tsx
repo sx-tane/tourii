@@ -3,7 +3,6 @@
 import Header from "@/components/header/header-component/header";
 import Image from "next/image";
 
-
 const NotFound: React.FC = () => {
 	return (
 		<div className="max-h-screen animate-fadeIn overflow-hidden px-6">

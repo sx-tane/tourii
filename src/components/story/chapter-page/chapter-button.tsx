@@ -2,7 +2,6 @@ import type { StoryChapterResponseDto } from "@/api/generated";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
-
 interface ChapterButtonProps {
 	chapter: StoryChapterResponseDto | undefined;
 }

@@ -1,7 +1,6 @@
 import type { NFTSelectionProps } from "@/types/profile-type";
 import Image from "next/image";
 
-
 const NFTSelection: React.FC<NFTSelectionProps> = ({
 	nftList,
 	selectedNFT,

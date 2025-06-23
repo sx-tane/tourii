@@ -1,7 +1,6 @@
 import type { BridgeProps } from "@/types/world-type";
 import Image from "next/image";
 
-
 const LinkBridge: React.FC<BridgeProps> = ({ japaneseTitle, englishTitle }) => {
 	return (
 		<div className="relative flex justify-center align-middle">

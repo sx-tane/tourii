@@ -3,7 +3,6 @@ import { downToUpVariants } from "@/lib/animation/variants-settings";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-
 const AboutImage: React.FC = () => {
 	return (
 		<AnimatePresence>

@@ -1,7 +1,7 @@
-import { useProxySWR } from "@/lib/swr/useProxySWR";
-import type { UseApiHookResult } from "../types";
 import type { UserTravelLogListResponseDto } from "@/api/generated";
+import { useProxySWR } from "@/lib/swr/useProxySWR";
 import type { KeyedMutator } from "swr";
+import type { UseApiHookResult } from "../types";
 
 // Frontend-friendly checkin data structure for components
 export interface CheckinResponseDto {
@@ -46,7 +46,7 @@ export interface CheckinsListResponseDto {
 function transformBackendResponse(
 	backendData: UserTravelLogListResponseDto,
 ): CheckinsListResponseDto {
-	const transformedCheckins: CheckinResponseDto[] = backendData.checkins.map(
+	const transformedCheckins: CheckinResponseDto[] = backendData.checkins?.map(
 		(checkin) => ({
 			id: checkin.userTravelLogId,
 			latitude: checkin.userLatitude,
@@ -71,11 +71,13 @@ function transformBackendResponse(
 
 	return {
 		checkins: transformedCheckins,
-		total: backendData.pagination.totalItems,
-		page: backendData.pagination.currentPage,
+		total: backendData.pagination?.totalItems || 0,
+		page: backendData.pagination?.currentPage || 1,
 		limit:
 			Math.ceil(
-				backendData.pagination.totalItems / backendData.pagination.totalPages,
+				backendData.pagination?.totalItems ||
+					0 / backendData.pagination?.totalPages ||
+					1,
 			) || 20,
 	};
 }

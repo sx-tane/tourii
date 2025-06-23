@@ -1,4 +1,4 @@
-import type { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
+import { QuestResponseDto } from "@/api/generated/models/QuestResponseDto";
 import type { TaskResponseDto } from "@/api/generated/models/TaskResponseDto";
 import type { Meta, StoryObj } from "@storybook/react";
 import TaskSelectOptions from "./task-select-options";
@@ -37,17 +37,24 @@ const mockQuest: QuestResponseDto = {
 		"Discover the secrets of the ancient fox shrine and unlock its hidden powers.",
 	questImage:
 		"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+	questType: QuestResponseDto.questType.TRAVEL_TO_EARN,
 	isUnlocked: true,
 	isPremium: false,
 	totalMagatamaPointAwarded: 50,
 	touristSpot: {
 		touristSpotId: "ts1",
+		storyChapterId: "sc1",
 		touristSpotName: "Fox Shrine",
 		touristSpotDesc: "An ancient shrine dedicated to the fox spirits",
-		touristSpotImage:
-			"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
-		latitude: 35.6762,
-		longitude: 139.6503,
+		bestVisitTime: "Morning",
+		address: "Tokyo, Japan",
+		touristSpotLatitude: 35.6762,
+		touristSpotLongitude: 139.6503,
+		touristSpotHashtag: ["shrine", "fox", "spiritual"],
+		imageSet: {
+			main: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+			small: []
+		},
 		delFlag: false,
 		insUserId: "u1",
 		insDateTime: "2023-01-01T00:00:00Z",

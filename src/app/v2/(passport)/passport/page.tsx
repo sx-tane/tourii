@@ -1,9 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { ArrowLeft, CreditCard, Star, MapPin, Award, Loader2 } from "lucide-react";
 import { usePassport } from "@/hooks/api";
+import { motion } from "framer-motion";
+import {
+	ArrowLeft,
+	Award,
+	CreditCard,
+	Loader2,
+	MapPin,
+	Star,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const PassportPage = () => {
 	const router = useRouter();
@@ -12,32 +19,32 @@ const PassportPage = () => {
 	const getPassportTypeInfo = (type: string | null) => {
 		switch (type) {
 			case "AMATSUKAMI":
-				return { 
-					name: "Amatsukami", 
-					color: "text-yellow-600", 
+				return {
+					name: "Amatsukami",
+					color: "text-yellow-600",
 					bgColor: "bg-yellow-50",
-					description: "Heavenly Deity - Premium Traveler Status"
+					description: "Heavenly Deity - Premium Traveler Status",
 				};
 			case "KUNITSUKAMI":
-				return { 
-					name: "Kunitsukami", 
-					color: "text-green-600", 
+				return {
+					name: "Kunitsukami",
+					color: "text-green-600",
 					bgColor: "bg-green-50",
-					description: "Earthly Deity - Regional Explorer Status"
+					description: "Earthly Deity - Regional Explorer Status",
 				};
 			case "YOKAI":
-				return { 
-					name: "Yokai", 
-					color: "text-purple-600", 
+				return {
+					name: "Yokai",
+					color: "text-purple-600",
 					bgColor: "bg-purple-50",
-					description: "Mysterious Spirit - Mystical Traveler Status"
+					description: "Mysterious Spirit - Mystical Traveler Status",
 				};
 			default:
-				return { 
-					name: "Bonjin", 
-					color: "text-indigo-600", 
+				return {
+					name: "Bonjin",
+					color: "text-indigo-600",
 					bgColor: "bg-indigo-50",
-					description: "Mortal - Explorer Status"
+					description: "Mortal - Explorer Status",
 				};
 		}
 	};
@@ -58,6 +65,7 @@ const PassportPage = () => {
 				<div className="text-center">
 					<p className="text-gray-500 mb-4">Unable to load passport data</p>
 					<button
+						type="button"
 						onClick={() => router.back()}
 						className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
 					>
@@ -77,13 +85,16 @@ const PassportPage = () => {
 				<div className="max-w-6xl mx-auto px-4 py-4">
 					<div className="flex items-center gap-4">
 						<button
+							type="button"
 							onClick={() => router.back()}
 							className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
 						>
 							<ArrowLeft className="w-5 h-5" />
 						</button>
 						<div>
-							<h1 className="text-2xl font-bold text-gray-900">Digital Passport</h1>
+							<h1 className="text-2xl font-bold text-gray-900">
+								Digital Passport
+							</h1>
 							<p className="text-gray-500">Your verified travel credentials</p>
 						</div>
 					</div>
@@ -103,7 +114,9 @@ const PassportPage = () => {
 						>
 							{/* Passport Type Header */}
 							<div className="text-center mb-6">
-								<div className={`inline-flex items-center gap-2 px-4 py-2 ${passportInfo.bgColor} rounded-lg`}>
+								<div
+									className={`inline-flex items-center gap-2 px-4 py-2 ${passportInfo.bgColor} rounded-lg`}
+								>
 									<CreditCard className={`w-5 h-5 ${passportInfo.color}`} />
 									<span className={`font-semibold ${passportInfo.color}`}>
 										{passportInfo.name}
@@ -120,7 +133,7 @@ const PassportPage = () => {
 									{/* Default avatar using first letter of username */}
 									<div className="w-full h-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
 										<span className="text-2xl font-bold text-indigo-600">
-											{passport.username.charAt(0).toUpperCase()}
+											{passport.username?.charAt(0)?.toUpperCase() || "?"}
 										</span>
 									</div>
 								</div>
@@ -130,9 +143,12 @@ const PassportPage = () => {
 							{passport.digitalPassportAddress && (
 								<div className="flex justify-center mb-6 p-4 bg-gray-50 rounded-lg">
 									<div className="text-center">
-										<p className="text-xs text-gray-500 mb-1">Passport Address</p>
+										<p className="text-xs text-gray-500 mb-1">
+											Passport Address
+										</p>
 										<span className="text-sm font-mono text-gray-700">
-											{passport.digitalPassportAddress.slice(0, 6)}...{passport.digitalPassportAddress.slice(-4)}
+											{passport.digitalPassportAddress.slice(0, 6)}...
+											{passport.digitalPassportAddress.slice(-4)}
 										</span>
 									</div>
 								</div>
@@ -140,15 +156,23 @@ const PassportPage = () => {
 
 							{/* Status Badge */}
 							<div className="text-center mb-6">
-								<div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
-									passport.digitalPassportAddress 
-										? "bg-green-100 text-green-800" 
-										: "bg-yellow-100 text-yellow-800"
-								}`}>
-									<div className={`w-2 h-2 rounded-full ${
-										passport.digitalPassportAddress ? "bg-green-400" : "bg-yellow-400"
-									}`} />
-									{passport.digitalPassportAddress ? "Active" : "Pending Verification"}
+								<div
+									className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
+										passport.digitalPassportAddress
+											? "bg-green-100 text-green-800"
+											: "bg-yellow-100 text-yellow-800"
+									}`}
+								>
+									<div
+										className={`w-2 h-2 rounded-full ${
+											passport.digitalPassportAddress
+												? "bg-green-400"
+												: "bg-yellow-400"
+										}`}
+									/>
+									{passport.digitalPassportAddress
+										? "Active"
+										: "Pending Verification"}
 								</div>
 							</div>
 
@@ -181,9 +205,11 @@ const PassportPage = () => {
 						>
 							<div className="flex items-center gap-2 mb-4">
 								<MapPin className="w-5 h-5 text-gray-500" />
-								<h3 className="text-lg font-semibold text-gray-900">Travel History</h3>
+								<h3 className="text-lg font-semibold text-gray-900">
+									Travel History
+								</h3>
 							</div>
-							
+
 							{passport.travelHistory.length > 0 ? (
 								<div className="space-y-3">
 									{passport.travelHistory.map((travel, index) => (
@@ -192,15 +218,23 @@ const PassportPage = () => {
 											className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
 										>
 											<div>
-												<h4 className="font-medium text-gray-900">{travel.location}</h4>
-												<p className="text-sm text-gray-500">{new Date(travel.date).toLocaleDateString()}</p>
+												<h4 className="font-medium text-gray-900">
+													{travel.location}
+												</h4>
+												<p className="text-sm text-gray-500">
+													{new Date(travel.date).toLocaleDateString()}
+												</p>
 												{travel.travelDistance && (
-													<p className="text-xs text-gray-400">{travel.travelDistance}km traveled</p>
+													<p className="text-xs text-gray-400">
+														{travel.travelDistance}km traveled
+													</p>
 												)}
 											</div>
-											<div className={`flex items-center gap-1 ${
-												travel.verified ? "text-green-600" : "text-yellow-600"
-											}`}>
+											<div
+												className={`flex items-center gap-1 ${
+													travel.verified ? "text-green-600" : "text-yellow-600"
+												}`}
+											>
 												<Award className="w-4 h-4" />
 												<span className="text-sm">
 													{travel.verified ? "Verified" : "Pending"}
@@ -213,7 +247,9 @@ const PassportPage = () => {
 								<div className="text-center py-8 text-gray-500">
 									<MapPin className="w-12 h-12 mx-auto mb-3 text-gray-300" />
 									<p>No travel history yet</p>
-									<p className="text-sm">Start exploring to build your passport!</p>
+									<p className="text-sm">
+										Start exploring to build your passport!
+									</p>
 								</div>
 							)}
 						</motion.div>
@@ -227,9 +263,11 @@ const PassportPage = () => {
 						>
 							<div className="flex items-center gap-2 mb-4">
 								<Star className="w-5 h-5 text-gray-500" />
-								<h3 className="text-lg font-semibold text-gray-900">Achievements</h3>
+								<h3 className="text-lg font-semibold text-gray-900">
+									Achievements
+								</h3>
 							</div>
-							
+
 							{passport.achievements.length > 0 ? (
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 									{passport.achievements.map((achievement, index) => (
@@ -238,8 +276,8 @@ const PassportPage = () => {
 											className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
 										>
 											{achievement.iconUrl ? (
-												<img 
-													src={achievement.iconUrl} 
+												<img
+													src={achievement.iconUrl}
 													alt={achievement.achievementName}
 													className="w-8 h-8 rounded"
 												/>
@@ -266,7 +304,9 @@ const PassportPage = () => {
 								<div className="text-center py-8 text-gray-500">
 									<Star className="w-12 h-12 mx-auto mb-3 text-gray-300" />
 									<p>No achievements unlocked yet</p>
-									<p className="text-sm">Complete quests to unlock achievements!</p>
+									<p className="text-sm">
+										Complete quests to unlock achievements!
+									</p>
 								</div>
 							)}
 						</motion.div>
@@ -281,9 +321,11 @@ const PassportPage = () => {
 							>
 								<div className="flex items-center gap-2 mb-4">
 									<CreditCard className="w-5 h-5 text-gray-500" />
-									<h3 className="text-lg font-semibold text-gray-900">Blockchain Items</h3>
+									<h3 className="text-lg font-semibold text-gray-900">
+										Blockchain Items
+									</h3>
 								</div>
-								
+
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-3">
 									{passport.onchainItems.map((item, index) => (
 										<div
@@ -292,19 +334,21 @@ const PassportPage = () => {
 										>
 											<div>
 												<h4 className="text-sm font-medium text-gray-900">
-													{item.itemType.replace('_', ' ')}
+													{item.itemType.replace("_", " ")}
 												</h4>
 												<p className="text-xs text-gray-500">
 													{item.blockchainType}
 												</p>
 											</div>
-											<div className={`text-xs px-2 py-1 rounded-full ${
-												item.status === 'ACTIVE' 
-													? 'bg-green-100 text-green-800'
-													: item.status === 'PENDING'
-													? 'bg-yellow-100 text-yellow-800'
-													: 'bg-gray-100 text-gray-800'
-											}`}>
+											<div
+												className={`text-xs px-2 py-1 rounded-full ${
+													item.status === "ACTIVE"
+														? "bg-green-100 text-green-800"
+														: item.status === "PENDING"
+															? "bg-yellow-100 text-yellow-800"
+															: "bg-gray-100 text-gray-800"
+												}`}
+											>
 												{item.status}
 											</div>
 										</div>
@@ -322,8 +366,8 @@ const PassportPage = () => {
 						>
 							<h3 className="text-lg font-semibold mb-2">Coming Soon</h3>
 							<p className="text-indigo-100 mb-4">
-								Enhanced passport features including NFT integration, advanced verification, 
-								and exclusive community access.
+								Enhanced passport features including NFT integration, advanced
+								verification, and exclusive community access.
 							</p>
 							<div className="text-sm text-indigo-200">
 								Stay tuned for updates! 🚀

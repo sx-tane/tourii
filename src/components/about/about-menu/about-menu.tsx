@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-
 const AboutMenu: React.FC<AboutMenuProps> = ({ onClose }) => {
 	const pathname = usePathname();
 	const handleClick = (id: string) => (event: React.MouseEvent) => {

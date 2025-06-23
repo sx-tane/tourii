@@ -12,7 +12,7 @@ import { logger } from "@/utils/logger";
  */
 export async function POST(
 	request: Request,
-	{ params }: { params: Promise<{ chapterId: string }> }
+	{ params }: { params: Promise<{ chapterId: string }> },
 ) {
 	const { chapterId } = await params;
 

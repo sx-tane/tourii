@@ -7,5 +7,9 @@ export type QuestTaskSocialShareResponseDto = {
      * Result message for social share completion
      */
     message: string;
+    /**
+     * Estimated time for admin review of the submission
+     */
+    estimatedReviewTime: string;
 };
 
