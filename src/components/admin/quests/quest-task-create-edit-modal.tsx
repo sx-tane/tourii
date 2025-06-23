@@ -9,9 +9,9 @@ type TaskCreateRequestDto = {
 	taskDesc: string;
 	isUnlocked: boolean;
 	requiredAction: string;
-	groupActivityMembers?: any[];
-	selectOptions?: any[];
-	antiCheatRules: any;
+	groupActivityMembers?: string[];
+	selectOptions?: string[];
+	antiCheatRules: string;
 	magatamaPointAwarded: number;
 	delFlag: boolean;
 };
@@ -53,7 +53,6 @@ export default function QuestTaskCreateEditModal({
 	magatamaPointsId,
 	questId,
 }: QuestTaskCreateEditModalProps) {
-
 	if (!isOpen) return null;
 
 	return (
@@ -80,18 +79,23 @@ export default function QuestTaskCreateEditModal({
 						<div className="grid grid-cols-2 gap-4 text-sm text-blue-700">
 							<div>
 								<span className="font-medium">Theme:</span>{" "}
-								<span className={`inline-block px-2 py-1 rounded-full text-xs ${getThemeColor(editingTask.taskTheme || "")}`}>
+								<span
+									className={`inline-block px-2 py-1 rounded-full text-xs ${getThemeColor(editingTask.taskTheme || "")}`}
+								>
 									{editingTask.taskTheme}
 								</span>
 							</div>
 							<div>
 								<span className="font-medium">Type:</span>{" "}
-								<span className={`inline-block px-2 py-1 rounded-full text-xs ${getTaskTypeColor(editingTask.taskType || "")}`}>
+								<span
+									className={`inline-block px-2 py-1 rounded-full text-xs ${getTaskTypeColor(editingTask.taskType || "")}`}
+								>
 									{editingTask.taskType}
 								</span>
 							</div>
 							<div>
-								<span className="font-medium">Points:</span> {editingTask.magatamaPointAwarded}
+								<span className="font-medium">Points:</span>{" "}
+								{editingTask.magatamaPointAwarded}
 							</div>
 							<div>
 								<span className="font-medium">Status:</span>{" "}
@@ -114,9 +118,7 @@ export default function QuestTaskCreateEditModal({
 								id={taskNameId}
 								type="text"
 								value={form.taskName}
-								onChange={(e) =>
-									onFormChange({ taskName: e.target.value })
-								}
+								onChange={(e) => onFormChange({ taskName: e.target.value })}
 								className="w-full rounded-lg border border-warmGrey2 px-3 py-2 focus:border-red focus:outline-none"
 								placeholder="Enter task name"
 							/>
@@ -133,12 +135,14 @@ export default function QuestTaskCreateEditModal({
 								value={form.taskType}
 								onChange={(e) =>
 									onFormChange({
-										taskType: e.target.value as TaskCreateRequestDto["taskType"],
+										taskType: e.target
+											.value as TaskCreateRequestDto["taskType"],
 									})
 								}
 								className="w-full rounded-lg border border-warmGrey2 px-3 py-2 focus:border-red focus:outline-none"
 							>
 								<option value="VISIT_LOCATION">Visit Location</option>
+								<option value="CHECK_IN">Check In</option>
 								<option value="PHOTO_UPLOAD">Photo Upload</option>
 								<option value="ANSWER_TEXT">Answer Text</option>
 								<option value="SELECT_OPTION">Select Option</option>
@@ -160,9 +164,7 @@ export default function QuestTaskCreateEditModal({
 						<textarea
 							id={taskDescId}
 							value={form.taskDesc}
-							onChange={(e) =>
-								onFormChange({ taskDesc: e.target.value })
-							}
+							onChange={(e) => onFormChange({ taskDesc: e.target.value })}
 							rows={3}
 							className="w-full rounded-lg border border-warmGrey2 px-3 py-2 focus:border-red focus:outline-none"
 							placeholder="Enter task description"
@@ -182,7 +184,8 @@ export default function QuestTaskCreateEditModal({
 								value={form.taskTheme}
 								onChange={(e) =>
 									onFormChange({
-										taskTheme: e.target.value as TaskCreateRequestDto["taskTheme"],
+										taskTheme: e.target
+											.value as TaskCreateRequestDto["taskTheme"],
 									})
 								}
 								className="w-full rounded-lg border border-warmGrey2 px-3 py-2 focus:border-red focus:outline-none"
@@ -226,9 +229,7 @@ export default function QuestTaskCreateEditModal({
 						<textarea
 							id={requiredActionId}
 							value={form.requiredAction}
-							onChange={(e) =>
-								onFormChange({ requiredAction: e.target.value })
-							}
+							onChange={(e) => onFormChange({ requiredAction: e.target.value })}
 							rows={2}
 							className="w-full rounded-lg border border-warmGrey2 px-3 py-2 focus:border-red focus:outline-none"
 							placeholder="Enter required action details"
@@ -242,7 +243,11 @@ export default function QuestTaskCreateEditModal({
 							disabled={isSubmitting}
 							className="flex items-center gap-2 rounded-lg bg-red px-4 py-2 text-white hover:bg-opacity-90 disabled:opacity-50"
 						>
-							{isSubmitting ? "Saving..." : editingTask ? "Update Task" : "Create Task"}
+							{isSubmitting
+								? "Saving..."
+								: editingTask
+									? "Update Task"
+									: "Create Task"}
 						</button>
 						<button
 							type="button"
