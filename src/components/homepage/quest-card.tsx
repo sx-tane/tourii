@@ -114,7 +114,7 @@ export const QuestCard: React.FC<QuestCardProps> = memo(
 						<div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
 
 						{/* Quest Info - Bottom */}
-						<div className="absolute bottom-0 left-0 right-0 p-4 gap-2 flex flex-col">
+						<div className="absolute bottom-1 left-0 right-0 p-4 gap-2 flex flex-col mx-2">
 							{/* Badges Row - Above Title */}
 							<motion.div
 								className="flex items-center gap-2"

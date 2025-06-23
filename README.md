@@ -21,6 +21,7 @@
 - ✅ **Name Resolution System** - Admin interfaces show human-readable names instead of IDs
 - ✅ **N+1 Query Fix** - Admin submissions now use parallel Promise.all() fetching
 - ✅ **Config Centralized** - Admin settings in dedicated config file for maintainability
+- ✅ **World Lore Tab** - Story chapters now display linked tourist spots with Google Images integration
 
 ## 🚀 **Quick Start**
 
@@ -418,9 +419,10 @@ import { useResponsiveDetection } from "@/hooks/ui";
 
 ### 📖 Interactive Story System
 
-- Saga/chapter/story progression
+- Saga/chapter/story progression with three-tab interface (Story, Characters, World Lore)
 - Media-rich storytelling (videos, images)
-- Character references and world lore
+- Character references and interactive character modals
+- **World Lore integration** - Real-world tourist spots with Google Images, weather data, and route connections
 - Location unlocking through story completion
 
 ### 🗺️ Model Routes & Tourism
@@ -496,14 +498,14 @@ import { Button, Dialog } from "@/components/ui";
 - **Accessibility-first**: Include ARIA attributes and proper semantics
 
 ### Hook Organization & Patterns ✅ **Recently Reorganized**
-- **API Hooks**: `src/hooks/api/` - SWR-based server data fetching (15 hooks)
+- **API Hooks**: `src/hooks/api/` - SWR-based server data fetching (16 hooks)
 - **Admin Hooks**: `src/hooks/admin/` - Admin CRUD operations + name resolution (6 hooks) ✅ **All working**
 - **UI Hooks**: `src/hooks/ui/` - UI interactions and responsive detection (3 hooks)
 - **Business Hooks**: `src/hooks/business/` - Complex business logic (4 hooks)
 - **Map Hooks**: `src/hooks/map/` - Geolocation and map functionality (2 hooks)
 - **Strict typing**: All hooks use proper TypeScript interfaces
 - **use\* naming convention** (never `get*`)
-- **Total**: 30 hooks properly categorized and fully functional
+- **Total**: 31 hooks properly categorized and fully functional
 
 ### 🆕 **Enhanced Redux vs SWR Usage**
 ```typescript
@@ -669,8 +671,9 @@ License: [MIT](LICENSE)
 - ❌ Corrected inconsistent error messages across admin operations
 - ❌ Fixed N+1 query problem in admin submissions with parallel Promise.all() fetching
 - ❌ Eliminated hardcoded values by centralizing admin configuration
+- ✅ **World Lore Tab Added** - Integrated tourist spot data with Google Images, weather icons, and route linking
 
 ---
 
-_Last Updated: June 23, 2025 - Admin Enhancement & Name Resolution System Edition_
+_Last Updated: June 23, 2025 - World Lore Tab Implementation Edition_
 
