@@ -23,3 +23,6 @@ export { useHomepageHighlights } from "./useHomepageHighlights";
 
 // Passport hooks
 export { usePassport } from "./usePassport";
+
+// Task hooks
+export { useTaskSubmissions } from "./useTaskSubmissions";

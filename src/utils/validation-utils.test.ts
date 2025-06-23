@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+import type { TouristSpotResponseDto } from "@/api/generated";
+import { describe, expect, it } from "vitest";
 import {
 	isValidLatitude,
 	isValidLongitude,
@@ -6,7 +7,6 @@ import {
 	validateTouristSpot,
 	validateTouristSpots,
 } from "./validation-utils";
-import type { TouristSpotResponseDto } from "@/api/generated";
 
 describe("validation-utils", () => {
 	describe("isValidLatitude", () => {
@@ -72,10 +72,19 @@ describe("validation-utils", () => {
 			address: "123 Test Street",
 			touristSpotLatitude: 35.6762,
 			touristSpotLongitude: 139.6503,
-			description: "A test spot",
-			imageUrls: [],
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
+			touristSpotDesc: "A test spot",
+			imageSet: {
+				main: "https://example.com/image.jpg",
+				small: ["https://example.com/image.jpg"],
+			},
+			weatherInfo: {
+				temperatureCelsius: 20,
+				weatherName: "Sunny",
+				weatherDesc: "A test spot",
+			},
+			storyChapterId: "",
+			bestVisitTime: "",
+			touristSpotHashtag: [],
 		};
 
 		it("should validate a correct tourist spot", () => {
@@ -140,10 +149,19 @@ describe("validation-utils", () => {
 			address: "123 Test Street",
 			touristSpotLatitude: 35.6762,
 			touristSpotLongitude: 139.6503,
-			description: "A test spot",
-			imageUrls: [],
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
+			touristSpotDesc: "A test spot",
+			imageSet: {
+				main: "https://example.com/image.jpg",
+				small: ["https://example.com/image.jpg"],
+			},
+			weatherInfo: {
+				temperatureCelsius: 20,
+				weatherName: "Sunny",
+				weatherDesc: "A test spot",
+			},
+			storyChapterId: "",
+			bestVisitTime: "",
+			touristSpotHashtag: [],
 		};
 
 		const validSpot2: TouristSpotResponseDto = {
@@ -152,10 +170,19 @@ describe("validation-utils", () => {
 			address: "456 Test Avenue",
 			touristSpotLatitude: 35.6863,
 			touristSpotLongitude: 139.6616,
-			description: "Another test spot",
-			imageUrls: [],
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
+			touristSpotDesc: "Another test spot",
+			imageSet: {
+				main: "https://example.com/image.jpg",
+				small: ["https://example.com/image.jpg"],
+			},
+			weatherInfo: {
+				temperatureCelsius: 20,
+				weatherName: "Sunny",
+				weatherDesc: "A test spot",
+			},
+			storyChapterId: "",
+			bestVisitTime: "",
+			touristSpotHashtag: [],
 		};
 
 		it("should validate an array of correct tourist spots", () => {
@@ -165,7 +192,9 @@ describe("validation-utils", () => {
 		});
 
 		it("should reject non-array input", () => {
-			const result = validateTouristSpots(null as any);
+			const result = validateTouristSpots(
+				null as unknown as TouristSpotResponseDto[],
+			);
 			expect(result.isValid).toBe(false);
 			expect(result.errors).toContain("Tourist spots data is not an array");
 		});

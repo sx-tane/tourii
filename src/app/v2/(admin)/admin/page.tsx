@@ -13,9 +13,11 @@ import {
 } from "@/hooks";
 import { BarChart3, FileCheck, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function AdminHome() {
+	const [currentTime, setCurrentTime] = useState<string>("");
+
 	// Fetch all data for analytics
 	const { data: users } = useAdminUsers({ page: 1, limit: 100 });
 	const { data: submissions } = useAdminSubmissions({ page: 1, limit: 100 });
@@ -128,6 +130,11 @@ export default function AdminHome() {
 		};
 	}, [users, submissions, quests, modelRoutes, sagas]);
 
+	// Set current time only on client to avoid hydration mismatch
+	useEffect(() => {
+		setCurrentTime(new Date().toLocaleTimeString());
+	}, []);
+
 	return (
 		<div className="space-y-8 text-charcoal">
 			<div className="flex items-center justify-between">
@@ -142,7 +149,7 @@ export default function AdminHome() {
 				<div className="text-right">
 					<div className="text-sm text-warmGrey3">Last updated</div>
 					<div className="text-lg font-semibold text-charcoal">
-						{new Date().toLocaleTimeString()}
+						{currentTime || "--:--:--"}
 					</div>
 				</div>
 			</div>
