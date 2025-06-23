@@ -67,6 +67,7 @@ export class UserService {
     }
     /**
      * Get current user's basic profile
+     * Retrieve authenticated user's profile information.
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xUserId User ID for authentication
      * @param xApiKey API key for authentication

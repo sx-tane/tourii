@@ -71,7 +71,6 @@
         ]
       }
     },
-<<<<<<< HEAD
     "/user/sensitive-info": {
       "get": {
         "description": "Get user sensitive info",
@@ -3235,7 +3234,8 @@
               "enum": [
                 "PHOTO_UPLOAD",
                 "SHARE_SOCIAL",
-                "ANSWER_TEXT"
+                "ANSWER_TEXT",
+                "LOCAL_INTERACTION"
               ],
               "type": "string"
             }
@@ -3397,9 +3397,6 @@
       }
     },
     "/stories": {
-=======
-    "/stories/create-saga": {
->>>>>>> origin/develop
       "post": {
         "description": "Create a new story saga with optional chapters.",
         "operationId": "TouriiBackendController_createStory",
@@ -7708,10 +7705,10 @@
         ]
       }
     },
-    "/user": {
-      "post": {
-        "description": "Create a new user in the system.",
-        "operationId": "TouriiBackendController_createUser",
+    "/routes/{id}": {
+      "get": {
+        "description": "Retrieve a specific model route by its ID, including tourist spots and weather data.",
+        "operationId": "TouriiBackendController_getRouteById",
         "parameters": [
           {
             "name": "id",
@@ -7740,215 +7737,239 @@
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "description": "User creation request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserEntity"
-              }
-            }
-          }
-        },
         "responses": {
-          "201": {
-            "description": "User created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserEntity"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - User already exists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_006"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "User already exists"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "BAD_REQUEST"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": ""
-          }
-        },
-        "summary": "Create User",
-        "tags": [
-          "User"
-        ]
-      }
-    },
-    "/login": {
-      "post": {
-        "description": "Login using username or other identifiers with optional wallet/social checks.",
-        "operationId": "TouriiBackendController_login",
-        "parameters": [
-          {
-            "name": "accept-version",
-            "in": "header",
-            "description": "API version (e.g., 1.0.0)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "description": "Login request",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Login successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserEntity"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Invalid version format",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_021"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid version format"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "BAD_REQUEST"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": ""
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_004"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "User is not registered"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "User Login",
-        "tags": [
-          "Auth"
-        ]
-      }
-    },
-    "/auth/signup": {
-      "post": {
-        "operationId": "TouriiBackendController_signup",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "description": "Signup info",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "socialProvider": {
-                    "type": "string"
-                  },
-                  "socialId": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "email",
-                  "socialProvider",
-                  "socialId"
-                ],
-                "$ref": "#/components/schemas/AuthSignupRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Signup success",
+          "200": {
+            "description": "Successfully retrieved the model route",
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
+                "modelRouteId": {
+                  "description": "Unique identifier for the model route",
                   "type": "string"
                 },
-                "walletAddress": {
+                "storyId": {
+                  "description": "Unique identifier for the story",
+                  "type": "string"
+                },
+                "routeName": {
+                  "description": "Name of the model route",
+                  "type": "string"
+                },
+                "region": {
+                  "description": "Region of the model route",
+                  "type": "string"
+                },
+                "regionDesc": {
+                  "description": "Description of the region",
+                  "type": "string"
+                },
+                "recommendation": {
+                  "description": "Recommendation of the model route",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "regionLatitude": {
+                  "description": "Latitude of the region",
+                  "type": "number"
+                },
+                "regionLongitude": {
+                  "description": "Longitude of the region",
+                  "type": "number"
+                },
+                "regionBackgroundMedia": {
+                  "description": "URL to the region's cover media",
+                  "type": "string"
+                },
+                "touristSpotList": {
+                  "description": "List of tourist spots in the model route",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "touristSpotId": {
+                        "description": "Unique identifier for the tourist spot",
+                        "type": "string"
+                      },
+                      "storyChapterId": {
+                        "description": "Unique identifier for the story chapter",
+                        "type": "string"
+                      },
+                      "touristSpotName": {
+                        "description": "Name of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotDesc": {
+                        "description": "Description of the tourist spot",
+                        "type": "string"
+                      },
+                      "bestVisitTime": {
+                        "description": "Best visit time of the tourist spot",
+                        "type": "string"
+                      },
+                      "address": {
+                        "description": "Address of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotLatitude": {
+                        "description": "Latitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotLongitude": {
+                        "description": "Longitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotHashtag": {
+                        "description": "Hashtags associated with this location",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "storyChapterLink": {
+                        "description": "Link to the related story chapter",
+                        "type": "string"
+                      },
+                      "imageSet": {
+                        "description": "Image set for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "main": {
+                            "description": "Main image of the tourist spot",
+                            "type": "string"
+                          },
+                          "small": {
+                            "description": "Small images of the tourist spot",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "main",
+                          "small"
+                        ]
+                      },
+                      "weatherInfo": {
+                        "description": "Weather info for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "temperatureCelsius": {
+                            "description": "Temperature of the weather",
+                            "type": "number"
+                          },
+                          "weatherName": {
+                            "description": "Name of the weather",
+                            "type": "string"
+                          },
+                          "weatherDesc": {
+                            "description": "Description of the weather",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "temperatureCelsius",
+                          "weatherName",
+                          "weatherDesc"
+                        ]
+                      },
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
+                        "type": "boolean"
+                      },
+                      "insUserId": {
+                        "description": "ID of user who created this record",
+                        "type": "string"
+                      },
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
+                      },
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
+                      },
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "touristSpotId",
+                      "storyChapterId",
+                      "touristSpotName",
+                      "touristSpotDesc",
+                      "bestVisitTime",
+                      "address",
+                      "touristSpotLatitude",
+                      "touristSpotLongitude",
+                      "touristSpotHashtag"
+                    ]
+                  }
+                },
+                "regionWeatherInfo": {
+                  "description": "Current weather info for the region",
+                  "type": "object",
+                  "properties": {
+                    "temperatureCelsius": {
+                      "description": "Temperature of the weather",
+                      "type": "number"
+                    },
+                    "weatherName": {
+                      "description": "Name of the weather",
+                      "type": "string"
+                    },
+                    "weatherDesc": {
+                      "description": "Description of the weather",
+                      "type": "string"
+                    },
+                    "regionName": {
+                      "description": "Name of the region",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "temperatureCelsius",
+                    "weatherName",
+                    "weatherDesc",
+                    "regionName"
+                  ]
+                },
+                "delFlag": {
+                  "description": "Flag to indicate if the record is deleted",
+                  "type": "boolean"
+                },
+                "insUserId": {
+                  "description": "ID of user who created this record",
+                  "type": "string"
+                },
+                "insDateTime": {
+                  "description": "Timestamp of record creation",
+                  "type": "string"
+                },
+                "updUserId": {
+                  "description": "ID of user who last updated this record",
+                  "type": "string"
+                },
+                "updDateTime": {
+                  "description": "Timestamp of last record update",
                   "type": "string"
                 }
               },
               "required": [
-                "userId",
-                "walletAddress"
+                "modelRouteId",
+                "storyId",
+                "routeName",
+                "region",
+                "regionDesc",
+                "recommendation",
+                "regionLatitude",
+                "regionLongitude",
+                "regionBackgroundMedia",
+                "touristSpotList",
+                "regionWeatherInfo"
               ]
             },
             "content": {
@@ -7993,7 +8014,7 @@
         ]
       }
     },
-    "/{userId}/user": {
+    "/locations/info": {
       "get": {
         "description": "Retrieve basic location details with thumbnail images using Google Places.",
         "operationId": "TouriiBackendController_getLocationInfo",
@@ -8395,9 +8416,33 @@
                               "description": "Magatama points awarded for this task",
                               "type": "number"
                             },
-                            "totalMagatamaPointAwarded": {
-                              "description": "Total Magatama points awarded",
-                              "type": "number"
+                            "rewardEarned": {
+                              "description": "Reward earned for this task",
+                              "type": "string"
+                            },
+                            "isCompleted": {
+                              "description": "Whether task is completed",
+                              "type": "boolean"
+                            },
+                            "delFlag": {
+                              "description": "Flag to indicate if the record is deleted",
+                              "type": "boolean"
+                            },
+                            "insUserId": {
+                              "description": "ID of user who created this record",
+                              "type": "string"
+                            },
+                            "insDateTime": {
+                              "description": "Timestamp of record creation",
+                              "type": "string"
+                            },
+                            "updUserId": {
+                              "description": "ID of user who last updated this record",
+                              "type": "string"
+                            },
+                            "updDateTime": {
+                              "description": "Timestamp of last record update",
+                              "type": "string"
                             }
                           },
                           "required": [
@@ -8410,7 +8455,7 @@
                             "requiredAction",
                             "antiCheatRules",
                             "magatamaPointAwarded",
-                            "totalMagatamaPointAwarded"
+                            "isCompleted"
                           ]
                         }
                       },
@@ -9328,9 +9373,33 @@
                         "description": "Magatama points awarded for this task",
                         "type": "number"
                       },
-                      "totalMagatamaPointAwarded": {
-                        "description": "Total Magatama points awarded",
-                        "type": "number"
+                      "rewardEarned": {
+                        "description": "Reward earned for this task",
+                        "type": "string"
+                      },
+                      "isCompleted": {
+                        "description": "Whether task is completed",
+                        "type": "boolean"
+                      },
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
+                        "type": "boolean"
+                      },
+                      "insUserId": {
+                        "description": "ID of user who created this record",
+                        "type": "string"
+                      },
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
+                      },
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
+                      },
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -9343,7 +9412,7 @@
                       "requiredAction",
                       "antiCheatRules",
                       "magatamaPointAwarded",
-                      "totalMagatamaPointAwarded"
+                      "isCompleted"
                     ]
                   }
                 },
@@ -9612,10 +9681,10 @@
         ]
       }
     },
-    "/quests/create-quest": {
-      "post": {
-        "description": "Create a new quest.",
-        "operationId": "TouriiBackendController_createQuest",
+    "/quests/tourist-spot/{touristSpotId}": {
+      "get": {
+        "description": "Retrieve quests linked to a tourist spot. Provide a userId to include completion status.",
+        "operationId": "TouriiBackendController_getQuestByTouristSpotId",
         "parameters": [
           {
             "name": "touristSpotId",
@@ -9675,297 +9744,339 @@
           "200": {
             "description": "Quests found successfully",
             "schema": {
-              "type": "object",
-              "properties": {
-                "questId": {
-                  "description": "Unique identifier for the quest",
-                  "type": "string"
-                },
-                "questName": {
-                  "description": "Name of the quest",
-                  "type": "string"
-                },
-                "questDesc": {
-                  "description": "Description of the quest",
-                  "type": "string"
-                },
-                "questImage": {
-                  "description": "URL to the quest image",
-                  "type": "string"
-                },
-                "questType": {
-                  "description": "Quest type",
-                  "type": "string",
-                  "enum": [
-                    "UNKNOWN",
-                    "TRAVEL_TO_EARN",
-                    "EARN_TO_TRAVEL",
-                    "CAMPAIGN",
-                    "COMMUNITY_EVENT"
-                  ],
-                  "x-enumNames": [
-                    "UNKNOWN",
-                    "TRAVEL_TO_EARN",
-                    "EARN_TO_TRAVEL",
-                    "CAMPAIGN",
-                    "COMMUNITY_EVENT"
-                  ]
-                },
-                "isUnlocked": {
-                  "description": "Whether quest is unlocked",
-                  "type": "boolean"
-                },
-                "isPremium": {
-                  "description": "Whether quest is premium",
-                  "type": "boolean"
-                },
-                "totalMagatamaPointAwarded": {
-                  "description": "Total Magatama points awarded",
-                  "type": "number"
-                },
-                "tasks": {
-                  "description": "Tasks associated with this quest",
-                  "type": "array",
-                  "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "questId": {
+                    "description": "Unique identifier for the quest",
+                    "type": "string"
+                  },
+                  "questName": {
+                    "description": "Name of the quest",
+                    "type": "string"
+                  },
+                  "questDesc": {
+                    "description": "Description of the quest",
+                    "type": "string"
+                  },
+                  "questImage": {
+                    "description": "URL to the quest image",
+                    "type": "string"
+                  },
+                  "questType": {
+                    "description": "Quest type",
+                    "type": "string",
+                    "enum": [
+                      "UNKNOWN",
+                      "TRAVEL_TO_EARN",
+                      "EARN_TO_TRAVEL",
+                      "CAMPAIGN",
+                      "COMMUNITY_EVENT"
+                    ],
+                    "x-enumNames": [
+                      "UNKNOWN",
+                      "TRAVEL_TO_EARN",
+                      "EARN_TO_TRAVEL",
+                      "CAMPAIGN",
+                      "COMMUNITY_EVENT"
+                    ]
+                  },
+                  "isUnlocked": {
+                    "description": "Whether quest is unlocked",
+                    "type": "boolean"
+                  },
+                  "isPremium": {
+                    "description": "Whether quest is premium",
+                    "type": "boolean"
+                  },
+                  "totalMagatamaPointAwarded": {
+                    "description": "Total Magatama points awarded",
+                    "type": "number"
+                  },
+                  "tasks": {
+                    "description": "Tasks associated with this quest",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "taskId": {
+                          "description": "Unique identifier for the task",
+                          "type": "string"
+                        },
+                        "taskTheme": {
+                          "description": "Theme of the task",
+                          "type": "string",
+                          "enum": [
+                            "STORY",
+                            "LOCAL_CULTURE",
+                            "FOOD",
+                            "URBAN_EXPLORE",
+                            "NATURE"
+                          ],
+                          "x-enumNames": [
+                            "STORY",
+                            "LOCAL_CULTURE",
+                            "FOOD",
+                            "URBAN_EXPLORE",
+                            "NATURE"
+                          ]
+                        },
+                        "taskType": {
+                          "description": "Type of the task",
+                          "type": "string",
+                          "enum": [
+                            "VISIT_LOCATION",
+                            "PHOTO_UPLOAD",
+                            "ANSWER_TEXT",
+                            "SELECT_OPTION",
+                            "SHARE_SOCIAL",
+                            "CHECK_IN",
+                            "GROUP_ACTIVITY",
+                            "LOCAL_INTERACTION"
+                          ],
+                          "x-enumNames": [
+                            "VISIT_LOCATION",
+                            "PHOTO_UPLOAD",
+                            "ANSWER_TEXT",
+                            "SELECT_OPTION",
+                            "SHARE_SOCIAL",
+                            "CHECK_IN",
+                            "GROUP_ACTIVITY",
+                            "LOCAL_INTERACTION"
+                          ]
+                        },
+                        "taskName": {
+                          "description": "Name of the task",
+                          "type": "string"
+                        },
+                        "taskDesc": {
+                          "description": "Description of the task",
+                          "type": "string"
+                        },
+                        "isUnlocked": {
+                          "description": "Whether task is unlocked",
+                          "type": "boolean"
+                        },
+                        "requiredAction": {
+                          "description": "Action required to complete the task",
+                          "type": "string"
+                        },
+                        "groupActivityMembers": {
+                          "description": "Members for group activities",
+                          "type": "array",
+                          "items": {}
+                        },
+                        "selectOptions": {
+                          "description": "Options for selection tasks",
+                          "type": "array",
+                          "items": {}
+                        },
+                        "antiCheatRules": {
+                          "description": "Rules to prevent cheating"
+                        },
+                        "magatamaPointAwarded": {
+                          "description": "Magatama points awarded for this task",
+                          "type": "number"
+                        },
+                        "rewardEarned": {
+                          "description": "Reward earned for this task",
+                          "type": "string"
+                        },
+                        "isCompleted": {
+                          "description": "Whether task is completed",
+                          "type": "boolean"
+                        },
+                        "delFlag": {
+                          "description": "Flag to indicate if the record is deleted",
+                          "type": "boolean"
+                        },
+                        "insUserId": {
+                          "description": "ID of user who created this record",
+                          "type": "string"
+                        },
+                        "insDateTime": {
+                          "description": "Timestamp of record creation",
+                          "type": "string"
+                        },
+                        "updUserId": {
+                          "description": "ID of user who last updated this record",
+                          "type": "string"
+                        },
+                        "updDateTime": {
+                          "description": "Timestamp of last record update",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "taskId",
+                        "taskTheme",
+                        "taskType",
+                        "taskName",
+                        "taskDesc",
+                        "isUnlocked",
+                        "requiredAction",
+                        "antiCheatRules",
+                        "magatamaPointAwarded",
+                        "isCompleted"
+                      ]
+                    }
+                  },
+                  "touristSpot": {
+                    "description": "Tourist spot associated with this quest",
                     "type": "object",
                     "properties": {
-                      "taskId": {
-                        "description": "Unique identifier for the task",
+                      "touristSpotId": {
+                        "description": "Unique identifier for the tourist spot",
                         "type": "string"
                       },
-                      "questId": {
-                        "description": "ID of the parent quest",
+                      "storyChapterId": {
+                        "description": "Unique identifier for the story chapter",
                         "type": "string"
                       },
-                      "taskTheme": {
-                        "description": "Theme of the task",
-                        "type": "string",
-                        "enum": [
-                          "STORY",
-                          "LOCAL_CULTURE",
-                          "FOOD",
-                          "URBAN_EXPLORE",
-                          "NATURE"
-                        ],
-                        "x-enumNames": [
-                          "STORY",
-                          "LOCAL_CULTURE",
-                          "FOOD",
-                          "URBAN_EXPLORE",
-                          "NATURE"
+                      "touristSpotName": {
+                        "description": "Name of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotDesc": {
+                        "description": "Description of the tourist spot",
+                        "type": "string"
+                      },
+                      "bestVisitTime": {
+                        "description": "Best visit time of the tourist spot",
+                        "type": "string"
+                      },
+                      "address": {
+                        "description": "Address of the tourist spot",
+                        "type": "string"
+                      },
+                      "touristSpotLatitude": {
+                        "description": "Latitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotLongitude": {
+                        "description": "Longitude of the tourist spot",
+                        "type": "number"
+                      },
+                      "touristSpotHashtag": {
+                        "description": "Hashtags associated with this location",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "storyChapterLink": {
+                        "description": "Link to the related story chapter",
+                        "type": "string"
+                      },
+                      "imageSet": {
+                        "description": "Image set for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "main": {
+                            "description": "Main image of the tourist spot",
+                            "type": "string"
+                          },
+                          "small": {
+                            "description": "Small images of the tourist spot",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "required": [
+                          "main",
+                          "small"
                         ]
                       },
-                      "taskType": {
-                        "description": "Type of the task",
-                        "type": "string",
-                        "enum": [
-                          "VISIT_LOCATION",
-                          "PHOTO_UPLOAD",
-                          "ANSWER_TEXT",
-                          "SELECT_OPTION",
-                          "SHARE_SOCIAL",
-                          "CHECK_IN",
-                          "GROUP_ACTIVITY",
-                          "LOCAL_INTERACTION"
-                        ],
-                        "x-enumNames": [
-                          "VISIT_LOCATION",
-                          "PHOTO_UPLOAD",
-                          "ANSWER_TEXT",
-                          "SELECT_OPTION",
-                          "SHARE_SOCIAL",
-                          "CHECK_IN",
-                          "GROUP_ACTIVITY",
-                          "LOCAL_INTERACTION"
+                      "weatherInfo": {
+                        "description": "Weather info for the tourist spot",
+                        "type": "object",
+                        "properties": {
+                          "temperatureCelsius": {
+                            "description": "Temperature of the weather",
+                            "type": "number"
+                          },
+                          "weatherName": {
+                            "description": "Name of the weather",
+                            "type": "string"
+                          },
+                          "weatherDesc": {
+                            "description": "Description of the weather",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "temperatureCelsius",
+                          "weatherName",
+                          "weatherDesc"
                         ]
                       },
-                      "taskName": {
-                        "description": "Name of the task",
-                        "type": "string"
-                      },
-                      "taskDesc": {
-                        "description": "Description of the task",
-                        "type": "string"
-                      },
-                      "isUnlocked": {
-                        "description": "Whether task is unlocked",
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
                         "type": "boolean"
                       },
-                      "requiredAction": {
-                        "description": "Action required to complete the task",
+                      "insUserId": {
+                        "description": "ID of user who created this record",
                         "type": "string"
                       },
-                      "groupActivityMembers": {
-                        "description": "Members for group activities",
-                        "type": "array",
-                        "items": {}
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
                       },
-                      "selectOptions": {
-                        "description": "Options for selection tasks",
-                        "type": "array",
-                        "items": {}
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
                       },
-                      "antiCheatRules": {
-                        "description": "Rules to prevent cheating"
-                      },
-                      "magatamaPointAwarded": {
-                        "description": "Magatama points awarded for this task",
-                        "type": "number"
-                      },
-                      "totalMagatamaPointAwarded": {
-                        "description": "Total Magatama points awarded",
-                        "type": "number"
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
                       }
                     },
                     "required": [
-                      "taskId",
-                      "questId",
-                      "taskTheme",
-                      "taskType",
-                      "taskName",
-                      "taskDesc",
-                      "isUnlocked",
-                      "requiredAction",
-                      "antiCheatRules",
-                      "magatamaPointAwarded",
-                      "totalMagatamaPointAwarded"
+                      "touristSpotId",
+                      "storyChapterId",
+                      "touristSpotName",
+                      "touristSpotDesc",
+                      "bestVisitTime",
+                      "address",
+                      "touristSpotLatitude",
+                      "touristSpotLongitude",
+                      "touristSpotHashtag"
                     ]
+                  },
+                  "delFlag": {
+                    "description": "Flag to indicate if the record is deleted",
+                    "type": "boolean"
+                  },
+                  "insUserId": {
+                    "description": "ID of user who created this record",
+                    "type": "string"
+                  },
+                  "insDateTime": {
+                    "description": "Timestamp of record creation",
+                    "type": "string"
+                  },
+                  "updUserId": {
+                    "description": "ID of user who last updated this record",
+                    "type": "string"
+                  },
+                  "updDateTime": {
+                    "description": "Timestamp of last record update",
+                    "type": "string"
                   }
                 },
-                "touristSpot": {
-                  "description": "Tourist spot associated with this quest",
-                  "type": "object",
-                  "properties": {
-                    "touristSpotId": {
-                      "description": "Unique identifier for the tourist spot",
-                      "type": "string"
-                    },
-                    "storyChapterId": {
-                      "description": "Unique identifier for the story chapter",
-                      "type": "string"
-                    },
-                    "touristSpotName": {
-                      "description": "Name of the tourist spot",
-                      "type": "string"
-                    },
-                    "touristSpotDesc": {
-                      "description": "Description of the tourist spot",
-                      "type": "string"
-                    },
-                    "bestVisitTime": {
-                      "description": "Best visit time of the tourist spot",
-                      "type": "string"
-                    },
-                    "address": {
-                      "description": "Address of the tourist spot",
-                      "type": "string"
-                    },
-                    "touristSpotLatitude": {
-                      "description": "Latitude of the tourist spot",
-                      "type": "number"
-                    },
-                    "touristSpotLongitude": {
-                      "description": "Longitude of the tourist spot",
-                      "type": "number"
-                    },
-                    "touristSpotHashtag": {
-                      "description": "Hashtags associated with this location",
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "storyChapterLink": {
-                      "description": "Link to the related story chapter",
-                      "type": "string"
-                    },
-                    "imageSet": {
-                      "description": "Image set for the tourist spot",
-                      "type": "object",
-                      "properties": {
-                        "main": {
-                          "description": "Main image of the tourist spot",
-                          "type": "string"
-                        },
-                        "small": {
-                          "description": "Small images of the tourist spot",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "required": [
-                        "main",
-                        "small"
-                      ]
-                    },
-                    "weatherInfo": {
-                      "description": "Weather info for the tourist spot",
-                      "type": "object",
-                      "properties": {
-                        "temperatureCelsius": {
-                          "description": "Temperature of the weather",
-                          "type": "number"
-                        },
-                        "weatherName": {
-                          "description": "Name of the weather",
-                          "type": "string"
-                        },
-                        "weatherDesc": {
-                          "description": "Description of the weather",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "temperatureCelsius",
-                        "weatherName",
-                        "weatherDesc"
-                      ]
-                    },
-                    "delFlag": {
-                      "description": "Flag to indicate if the record is deleted",
-                      "type": "boolean"
-                    },
-                    "insUserId": {
-                      "description": "ID of user who created this record",
-                      "type": "string"
-                    },
-                    "insDateTime": {
-                      "description": "Timestamp of record creation",
-                      "type": "string"
-                    },
-                    "updUserId": {
-                      "description": "ID of user who last updated this record",
-                      "type": "string"
-                    },
-                    "updDateTime": {
-                      "description": "Timestamp of last record update",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "touristSpotId",
-                    "storyChapterId",
-                    "touristSpotName",
-                    "touristSpotDesc",
-                    "bestVisitTime",
-                    "address",
-                    "touristSpotLatitude",
-                    "touristSpotLongitude",
-                    "touristSpotHashtag"
-                  ]
-                }
-              },
-              "required": [
-                "questId",
-                "questName",
-                "questDesc",
-                "questType",
-                "isUnlocked",
-                "isPremium",
-                "totalMagatamaPointAwarded"
-              ]
+                "required": [
+                  "questId",
+                  "questName",
+                  "questDesc",
+                  "questType",
+                  "isUnlocked",
+                  "isPremium",
+                  "totalMagatamaPointAwarded"
+                ]
+              }
             },
             "content": {
               "application/json": {
@@ -10231,9 +10342,33 @@
                   "description": "Magatama points awarded for this task",
                   "type": "number"
                 },
-                "totalMagatamaPointAwarded": {
-                  "description": "Total Magatama points awarded",
-                  "type": "number"
+                "rewardEarned": {
+                  "description": "Reward earned for this task",
+                  "type": "string"
+                },
+                "isCompleted": {
+                  "description": "Whether task is completed",
+                  "type": "boolean"
+                },
+                "delFlag": {
+                  "description": "Flag to indicate if the record is deleted",
+                  "type": "boolean"
+                },
+                "insUserId": {
+                  "description": "ID of user who created this record",
+                  "type": "string"
+                },
+                "insDateTime": {
+                  "description": "Timestamp of record creation",
+                  "type": "string"
+                },
+                "updUserId": {
+                  "description": "ID of user who last updated this record",
+                  "type": "string"
+                },
+                "updDateTime": {
+                  "description": "Timestamp of last record update",
+                  "type": "string"
                 }
               },
               "required": [
@@ -10246,7 +10381,7 @@
                 "requiredAction",
                 "antiCheatRules",
                 "magatamaPointAwarded",
-                "totalMagatamaPointAwarded"
+                "isCompleted"
               ]
             },
             "content": {
@@ -10689,9 +10824,33 @@
                         "description": "Magatama points awarded for this task",
                         "type": "number"
                       },
-                      "totalMagatamaPointAwarded": {
-                        "description": "Total Magatama points awarded",
-                        "type": "number"
+                      "rewardEarned": {
+                        "description": "Reward earned for this task",
+                        "type": "string"
+                      },
+                      "isCompleted": {
+                        "description": "Whether task is completed",
+                        "type": "boolean"
+                      },
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
+                        "type": "boolean"
+                      },
+                      "insUserId": {
+                        "description": "ID of user who created this record",
+                        "type": "string"
+                      },
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
+                      },
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
+                      },
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -10704,7 +10863,7 @@
                       "requiredAction",
                       "antiCheatRules",
                       "magatamaPointAwarded",
-                      "totalMagatamaPointAwarded"
+                      "isCompleted"
                     ]
                   }
                 },
@@ -11131,9 +11290,33 @@
                   "description": "Magatama points awarded for this task",
                   "type": "number"
                 },
-                "totalMagatamaPointAwarded": {
-                  "description": "Total Magatama points awarded",
-                  "type": "number"
+                "rewardEarned": {
+                  "description": "Reward earned for this task",
+                  "type": "string"
+                },
+                "isCompleted": {
+                  "description": "Whether task is completed",
+                  "type": "boolean"
+                },
+                "delFlag": {
+                  "description": "Flag to indicate if the record is deleted",
+                  "type": "boolean"
+                },
+                "insUserId": {
+                  "description": "ID of user who created this record",
+                  "type": "string"
+                },
+                "insDateTime": {
+                  "description": "Timestamp of record creation",
+                  "type": "string"
+                },
+                "updUserId": {
+                  "description": "ID of user who last updated this record",
+                  "type": "string"
+                },
+                "updDateTime": {
+                  "description": "Timestamp of last record update",
+                  "type": "string"
                 }
               },
               "required": [
@@ -11146,7 +11329,7 @@
                 "requiredAction",
                 "antiCheatRules",
                 "magatamaPointAwarded",
-                "totalMagatamaPointAwarded"
+                "isCompleted"
               ]
             },
             "content": {
@@ -11494,17 +11677,10 @@
         ]
       }
     },
-<<<<<<< HEAD
     "/tasks/{taskId}/photo-upload": {
       "post": {
         "description": "Upload photo for photo submission task completion.",
         "operationId": "TouriiBackendController_uploadTaskPhoto",
-=======
-    "/routes": {
-      "get": {
-        "description": "Retrieve a list of all available model routes with their details.",
-        "operationId": "TouriiBackendController_getRoutes",
->>>>>>> origin/develop
         "parameters": [
           {
             "name": "taskId",
@@ -11524,7 +11700,6 @@
             }
           },
           {
-<<<<<<< HEAD
             "name": "accept-version",
             "in": "header",
             "description": "API version (e.g., 1.0.0)",
@@ -11538,27 +11713,11 @@
             "in": "header",
             "description": "API key for authentication",
             "required": true,
-=======
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "description": "Items per page",
-            "schema": {
-              "type": "number"
-            }
-          },
-          {
-            "name": "page",
-            "required": false,
-            "in": "query",
-            "description": "Page number",
->>>>>>> origin/develop
             "schema": {
               "type": "string"
             }
           }
         ],
-<<<<<<< HEAD
         "requestBody": {
           "required": true,
           "description": "Photo upload payload",
@@ -11590,11 +11749,16 @@
                   "description": "Public URL for the uploaded proof image",
                   "type": "string",
                   "format": "uri"
+                },
+                "estimatedReviewTime": {
+                  "description": "Estimated time for admin review of the submission",
+                  "type": "string"
                 }
               },
               "required": [
                 "message",
-                "proofUrl"
+                "proofUrl",
+                "estimatedReviewTime"
               ]
             },
             "content": {
@@ -11718,262 +11882,21 @@
                 "message": {
                   "description": "Result message for social share completion",
                   "type": "string"
+                },
+                "estimatedReviewTime": {
+                  "description": "Estimated time for admin review of the submission",
+                  "type": "string"
                 }
               },
               "required": [
-                "message"
+                "message",
+                "estimatedReviewTime"
               ]
-=======
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved all model routes",
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "modelRouteId": {
-                    "description": "Unique identifier for the model route",
-                    "type": "string"
-                  },
-                  "storyId": {
-                    "description": "Unique identifier for the story",
-                    "type": "string"
-                  },
-                  "routeName": {
-                    "description": "Name of the model route",
-                    "type": "string"
-                  },
-                  "region": {
-                    "description": "Region of the model route",
-                    "type": "string"
-                  },
-                  "regionDesc": {
-                    "description": "Description of the region",
-                    "type": "string"
-                  },
-                  "recommendation": {
-                    "description": "Recommendation of the model route",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "regionLatitude": {
-                    "description": "Latitude of the region",
-                    "type": "number"
-                  },
-                  "regionLongitude": {
-                    "description": "Longitude of the region",
-                    "type": "number"
-                  },
-                  "regionBackgroundMedia": {
-                    "description": "URL to the region's cover media",
-                    "type": "string"
-                  },
-                  "touristSpotList": {
-                    "description": "List of tourist spots in the model route",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "touristSpotId": {
-                          "description": "Unique identifier for the tourist spot",
-                          "type": "string"
-                        },
-                        "storyChapterId": {
-                          "description": "Unique identifier for the story chapter",
-                          "type": "string"
-                        },
-                        "touristSpotName": {
-                          "description": "Name of the tourist spot",
-                          "type": "string"
-                        },
-                        "touristSpotDesc": {
-                          "description": "Description of the tourist spot",
-                          "type": "string"
-                        },
-                        "bestVisitTime": {
-                          "description": "Best visit time of the tourist spot",
-                          "type": "string"
-                        },
-                        "address": {
-                          "description": "Address of the tourist spot",
-                          "type": "string"
-                        },
-                        "touristSpotLatitude": {
-                          "description": "Latitude of the tourist spot",
-                          "type": "number"
-                        },
-                        "touristSpotLongitude": {
-                          "description": "Longitude of the tourist spot",
-                          "type": "number"
-                        },
-                        "touristSpotHashtag": {
-                          "description": "Hashtags associated with this location",
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "storyChapterLink": {
-                          "description": "Link to the related story chapter",
-                          "type": "string"
-                        },
-                        "imageSet": {
-                          "description": "Image set for the tourist spot",
-                          "type": "object",
-                          "properties": {
-                            "main": {
-                              "description": "Main image of the tourist spot",
-                              "type": "string"
-                            },
-                            "small": {
-                              "description": "Small images of the tourist spot",
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "required": [
-                            "main",
-                            "small"
-                          ]
-                        },
-                        "weatherInfo": {
-                          "description": "Weather info for the tourist spot",
-                          "type": "object",
-                          "properties": {
-                            "temperatureCelsius": {
-                              "description": "Temperature of the weather",
-                              "type": "number"
-                            },
-                            "weatherName": {
-                              "description": "Name of the weather",
-                              "type": "string"
-                            },
-                            "weatherDesc": {
-                              "description": "Description of the weather",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "temperatureCelsius",
-                            "weatherName",
-                            "weatherDesc"
-                          ]
-                        },
-                        "delFlag": {
-                          "description": "Flag to indicate if the record is deleted",
-                          "type": "boolean"
-                        },
-                        "insUserId": {
-                          "description": "ID of user who created this record",
-                          "type": "string"
-                        },
-                        "insDateTime": {
-                          "description": "Timestamp of record creation",
-                          "type": "string"
-                        },
-                        "updUserId": {
-                          "description": "ID of user who last updated this record",
-                          "type": "string"
-                        },
-                        "updDateTime": {
-                          "description": "Timestamp of last record update",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "touristSpotId",
-                        "storyChapterId",
-                        "touristSpotName",
-                        "touristSpotDesc",
-                        "bestVisitTime",
-                        "address",
-                        "touristSpotLatitude",
-                        "touristSpotLongitude",
-                        "touristSpotHashtag"
-                      ]
-                    }
-                  },
-                  "regionWeatherInfo": {
-                    "description": "Current weather info for the region",
-                    "type": "object",
-                    "properties": {
-                      "temperatureCelsius": {
-                        "description": "Temperature of the weather",
-                        "type": "number"
-                      },
-                      "weatherName": {
-                        "description": "Name of the weather",
-                        "type": "string"
-                      },
-                      "weatherDesc": {
-                        "description": "Description of the weather",
-                        "type": "string"
-                      },
-                      "regionName": {
-                        "description": "Name of the region",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "temperatureCelsius",
-                      "weatherName",
-                      "weatherDesc",
-                      "regionName"
-                    ]
-                  },
-                  "delFlag": {
-                    "description": "Flag to indicate if the record is deleted",
-                    "type": "boolean"
-                  },
-                  "insUserId": {
-                    "description": "ID of user who created this record",
-                    "type": "string"
-                  },
-                  "insDateTime": {
-                    "description": "Timestamp of record creation",
-                    "type": "string"
-                  },
-                  "updUserId": {
-                    "description": "ID of user who last updated this record",
-                    "type": "string"
-                  },
-                  "updDateTime": {
-                    "description": "Timestamp of last record update",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "modelRouteId",
-                  "storyId",
-                  "routeName",
-                  "region",
-                  "regionDesc",
-                  "recommendation",
-                  "regionLatitude",
-                  "regionLongitude",
-                  "regionBackgroundMedia",
-                  "touristSpotList",
-                  "regionWeatherInfo"
-                ]
-              }
->>>>>>> origin/develop
             },
             "content": {
               "application/json": {
                 "schema": {
-<<<<<<< HEAD
                   "$ref": "#/components/schemas/QuestTaskSocialShareResponseDto"
-=======
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ModelRouteResponseDto"
-                  }
->>>>>>> origin/develop
                 }
               }
             }
@@ -12006,7 +11929,6 @@
             "description": ""
           }
         },
-<<<<<<< HEAD
         "summary": "Complete social sharing task",
         "tags": [
           "Task"
@@ -12020,21 +11942,6 @@
         "parameters": [
           {
             "name": "taskId",
-=======
-        "summary": "Get All Model Routes",
-        "tags": [
-          "Routes"
-        ]
-      }
-    },
-    "/routes/{id}": {
-      "get": {
-        "description": "Retrieve a specific model route by its ID, including tourist spots and weather data.",
-        "operationId": "TouriiBackendController_getRouteById",
-        "parameters": [
-          {
-            "name": "id",
->>>>>>> origin/develop
             "required": true,
             "in": "path",
             "schema": {
@@ -12042,7 +11949,6 @@
             }
           },
           {
-<<<<<<< HEAD
             "name": "x-user-id",
             "in": "header",
             "description": "User ID for authentication",
@@ -12052,8 +11958,6 @@
             }
           },
           {
-=======
->>>>>>> origin/develop
             "name": "accept-version",
             "in": "header",
             "description": "API version (e.g., 1.0.0)",
@@ -12072,7 +11976,6 @@
             }
           }
         ],
-<<<<<<< HEAD
         "requestBody": {
           "required": true,
           "description": "QR scan request",
@@ -12229,247 +12132,45 @@
                 "properties": {
                   "answer": {
                     "description": "Answer to the task",
-=======
-        "responses": {
-          "200": {
-            "description": "Fetch moments successfully",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "modelRouteId": {
-                  "description": "Unique identifier for the model route",
-                  "type": "string"
-                },
-                "storyId": {
-                  "description": "Unique identifier for the story",
-                  "type": "string"
-                },
-                "routeName": {
-                  "description": "Name of the model route",
-                  "type": "string"
-                },
-                "region": {
-                  "description": "Region of the model route",
-                  "type": "string"
-                },
-                "regionDesc": {
-                  "description": "Description of the region",
-                  "type": "string"
-                },
-                "recommendation": {
-                  "description": "Recommendation of the model route",
-                  "type": "array",
-                  "items": {
->>>>>>> origin/develop
                     "type": "string"
                   }
                 },
-                "regionLatitude": {
-                  "description": "Latitude of the region",
-                  "type": "number"
-                },
-                "regionLongitude": {
-                  "description": "Longitude of the region",
-                  "type": "number"
-                },
-                "regionBackgroundMedia": {
-                  "description": "URL to the region's cover media",
-                  "type": "string"
-                },
-                "touristSpotList": {
-                  "description": "List of tourist spots in the model route",
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "touristSpotId": {
-                        "description": "Unique identifier for the tourist spot",
-                        "type": "string"
-                      },
-                      "storyChapterId": {
-                        "description": "Unique identifier for the story chapter",
-                        "type": "string"
-                      },
-                      "touristSpotName": {
-                        "description": "Name of the tourist spot",
-                        "type": "string"
-                      },
-                      "touristSpotDesc": {
-                        "description": "Description of the tourist spot",
-                        "type": "string"
-                      },
-                      "bestVisitTime": {
-                        "description": "Best visit time of the tourist spot",
-                        "type": "string"
-                      },
-                      "address": {
-                        "description": "Address of the tourist spot",
-                        "type": "string"
-                      },
-                      "touristSpotLatitude": {
-                        "description": "Latitude of the tourist spot",
-                        "type": "number"
-                      },
-                      "touristSpotLongitude": {
-                        "description": "Longitude of the tourist spot",
-                        "type": "number"
-                      },
-                      "touristSpotHashtag": {
-                        "description": "Hashtags associated with this location",
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "storyChapterLink": {
-                        "description": "Link to the related story chapter",
-                        "type": "string"
-                      },
-                      "imageSet": {
-                        "description": "Image set for the tourist spot",
-                        "type": "object",
-                        "properties": {
-                          "main": {
-                            "description": "Main image of the tourist spot",
-                            "type": "string"
-                          },
-                          "small": {
-                            "description": "Small images of the tourist spot",
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "required": [
-                          "main",
-                          "small"
-                        ]
-                      },
-                      "weatherInfo": {
-                        "description": "Weather info for the tourist spot",
-                        "type": "object",
-                        "properties": {
-                          "temperatureCelsius": {
-                            "description": "Temperature of the weather",
-                            "type": "number"
-                          },
-                          "weatherName": {
-                            "description": "Name of the weather",
-                            "type": "string"
-                          },
-                          "weatherDesc": {
-                            "description": "Description of the weather",
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "temperatureCelsius",
-                          "weatherName",
-                          "weatherDesc"
-                        ]
-                      },
-                      "delFlag": {
-                        "description": "Flag to indicate if the record is deleted",
-                        "type": "boolean"
-                      },
-                      "insUserId": {
-                        "description": "ID of user who created this record",
-                        "type": "string"
-                      },
-                      "insDateTime": {
-                        "description": "Timestamp of record creation",
-                        "type": "string"
-                      },
-                      "updUserId": {
-                        "description": "ID of user who last updated this record",
-                        "type": "string"
-                      },
-                      "updDateTime": {
-                        "description": "Timestamp of last record update",
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "touristSpotId",
-                      "storyChapterId",
-                      "touristSpotName",
-                      "touristSpotDesc",
-                      "bestVisitTime",
-                      "address",
-                      "touristSpotLatitude",
-                      "touristSpotLongitude",
-                      "touristSpotHashtag"
-                    ]
-                  }
-                },
-                "regionWeatherInfo": {
-                  "description": "Current weather info for the region",
-                  "type": "object",
-                  "properties": {
-                    "temperatureCelsius": {
-                      "description": "Temperature of the weather",
-                      "type": "number"
-                    },
-                    "weatherName": {
-                      "description": "Name of the weather",
-                      "type": "string"
-                    },
-                    "weatherDesc": {
-                      "description": "Description of the weather",
-                      "type": "string"
-                    },
-                    "regionName": {
-                      "description": "Name of the region",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "temperatureCelsius",
-                    "weatherName",
-                    "weatherDesc",
-                    "regionName"
-                  ]
-                },
-                "delFlag": {
-                  "description": "Flag to indicate if the record is deleted",
+                "required": [
+                  "answer"
+                ],
+                "$ref": "#/components/schemas/SubmitAnswerTextRequestTaskDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Submit answer text task successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "description": "Whether the answer is correct",
                   "type": "boolean"
                 },
-                "insUserId": {
-                  "description": "ID of user who created this record",
+                "message": {
+                  "description": "Message to the user",
                   "type": "string"
                 },
-                "insDateTime": {
-                  "description": "Timestamp of record creation",
-                  "type": "string"
-                },
-                "updUserId": {
-                  "description": "ID of user who last updated this record",
-                  "type": "string"
-                },
-                "updDateTime": {
-                  "description": "Timestamp of last record update",
+                "estimatedReviewTime": {
+                  "description": "Estimated time for admin review (only for manual verification tasks)",
                   "type": "string"
                 }
               },
               "required": [
-                "modelRouteId",
-                "storyId",
-                "routeName",
-                "region",
-                "regionDesc",
-                "recommendation",
-                "regionLatitude",
-                "regionLongitude",
-                "regionBackgroundMedia",
-                "touristSpotList",
-                "regionWeatherInfo"
+                "success",
+                "message"
               ]
             },
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ModelRouteResponseDto"
+                  "$ref": "#/components/schemas/SubmitTaskResponseDto"
                 }
               }
             }
@@ -12502,17 +12203,34 @@
             "description": ""
           }
         },
-        "summary": "Get Model Route by ID",
+        "summary": "Submit answer text task",
         "tags": [
-          "Routes"
+          "Task"
         ]
       }
     },
-    "/location-info": {
-      "get": {
-        "description": "Retrieve basic location details using Google Places.",
-        "operationId": "TouriiBackendController_getLocationInfo",
+    "/tasks/{taskId}/select-option": {
+      "post": {
+        "description": "Submit selected options for multiple choice task completion.",
+        "operationId": "TouriiBackendController_submitSelectOptionTask",
         "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "description": "User ID for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "accept-version",
             "in": "header",
@@ -12532,21 +12250,58 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "description": "Submit select option task request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "selectedOptionIds": {
+                    "description": "IDs of the selected options",
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "selectedOptionIds"
+                ],
+                "$ref": "#/components/schemas/SubmitSelectOptionsTaskRequestDto"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Successfully retrieved location info",
+            "description": "Submit select option task successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "description": "Whether the answer is correct",
+                  "type": "boolean"
+                },
+                "message": {
+                  "description": "Message to the user",
+                  "type": "string"
+                },
+                "estimatedReviewTime": {
+                  "description": "Estimated time for admin review (only for manual verification tasks)",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "success",
+                "message"
+              ]
+            },
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "formattedAddress": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/SubmitTaskResponseDto"
                 }
               }
             }
@@ -12579,9 +12334,408 @@
             "description": ""
           }
         },
-        "summary": "Get Location Info",
+        "summary": "Submit select option task",
         "tags": [
-          "Location"
+          "Task"
+        ]
+      }
+    },
+    "/tasks/{taskId}/checkin": {
+      "post": {
+        "description": "Submit location coordinates for check-in task completion.",
+        "operationId": "TouriiBackendController_submitCheckInTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "description": "User ID for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Submit checkin task request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "description": "Longitude of the user",
+                    "type": "number"
+                  },
+                  "latitude": {
+                    "description": "Latitude of the user",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "longitude",
+                  "latitude"
+                ],
+                "$ref": "#/components/schemas/SubmitCheckInTaskRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Submit checkin task successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "description": "Whether the answer is correct",
+                  "type": "boolean"
+                },
+                "message": {
+                  "description": "Message to the user",
+                  "type": "string"
+                },
+                "estimatedReviewTime": {
+                  "description": "Estimated time for admin review (only for manual verification tasks)",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "success",
+                "message"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitTaskResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Submit checkin task",
+        "tags": [
+          "Task"
+        ]
+      }
+    },
+    "/tasks/{taskId}/local-interaction": {
+      "post": {
+        "description": "Submit text, photo, or audio content for local interaction tasks. Supports both JSON (with base64) and multipart file uploads.",
+        "operationId": "TouriiBackendController_submitLocalInteraction",
+        "parameters": [
+          {
+            "name": "taskId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "in": "header",
+            "description": "User ID for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Local interaction submission - supports JSON with base64 or multipart file upload",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "description": "Type of interaction content",
+                        "type": "string",
+                        "enum": [
+                          "text",
+                          "photo",
+                          "audio"
+                        ]
+                      },
+                      "content": {
+                        "description": "Text content or base64 encoded file",
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "description": "Optional latitude for anti-cheat verification",
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "description": "Optional longitude for anti-cheat verification",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "interactionType",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "type": "string",
+                        "enum": [
+                          "text",
+                          "photo",
+                          "audio"
+                        ],
+                        "description": "Type of interaction content"
+                      },
+                      "content": {
+                        "type": "string",
+                        "description": "Text content (for text type)"
+                      },
+                      "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "Photo or audio file (for photo/audio types)"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "description": "Optional latitude for anti-cheat verification"
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "description": "Optional longitude for anti-cheat verification"
+                      }
+                    },
+                    "required": [
+                      "interactionType"
+                    ]
+                  }
+                ]
+              }
+            },
+            "multipart/form-data": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "description": "Type of interaction content",
+                        "type": "string",
+                        "enum": [
+                          "text",
+                          "photo",
+                          "audio"
+                        ]
+                      },
+                      "content": {
+                        "description": "Text content or base64 encoded file",
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "description": "Optional latitude for anti-cheat verification",
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "description": "Optional longitude for anti-cheat verification",
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "interactionType",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "type": "string",
+                        "enum": [
+                          "text",
+                          "photo",
+                          "audio"
+                        ],
+                        "description": "Type of interaction content"
+                      },
+                      "content": {
+                        "type": "string",
+                        "description": "Text content (for text type)"
+                      },
+                      "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "Photo or audio file (for photo/audio types)"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "description": "Optional latitude for anti-cheat verification"
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "description": "Optional longitude for anti-cheat verification"
+                      }
+                    },
+                    "required": [
+                      "interactionType"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Local interaction submitted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "description": "Status message",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Task status after submission",
+                  "type": "string",
+                  "enum": [
+                    "AVAILABLE",
+                    "ONGOING",
+                    "COMPLETED",
+                    "FAILED"
+                  ],
+                  "x-enumNames": [
+                    "AVAILABLE",
+                    "ONGOING",
+                    "COMPLETED",
+                    "FAILED"
+                  ]
+                },
+                "estimatedReviewTime": {
+                  "description": "Expected review timeframe",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "status",
+                "estimatedReviewTime"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocalInteractionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": ""
+          }
+        },
+        "summary": "Submit local interaction task",
+        "tags": [
+          "Task"
         ]
       }
     },
@@ -15037,9 +15191,33 @@
                         "description": "Magatama points awarded for this task",
                         "type": "number"
                       },
-                      "totalMagatamaPointAwarded": {
-                        "description": "Total Magatama points awarded",
-                        "type": "number"
+                      "rewardEarned": {
+                        "description": "Reward earned for this task",
+                        "type": "string"
+                      },
+                      "isCompleted": {
+                        "description": "Whether task is completed",
+                        "type": "boolean"
+                      },
+                      "delFlag": {
+                        "description": "Flag to indicate if the record is deleted",
+                        "type": "boolean"
+                      },
+                      "insUserId": {
+                        "description": "ID of user who created this record",
+                        "type": "string"
+                      },
+                      "insDateTime": {
+                        "description": "Timestamp of record creation",
+                        "type": "string"
+                      },
+                      "updUserId": {
+                        "description": "ID of user who last updated this record",
+                        "type": "string"
+                      },
+                      "updDateTime": {
+                        "description": "Timestamp of last record update",
+                        "type": "string"
                       }
                     },
                     "required": [
@@ -15052,7 +15230,7 @@
                       "requiredAction",
                       "antiCheatRules",
                       "magatamaPointAwarded",
-                      "totalMagatamaPointAwarded"
+                      "isCompleted"
                     ]
                   }
                 },
@@ -15371,9 +15549,33 @@
                   "description": "Magatama points awarded for this task",
                   "type": "number"
                 },
-                "totalMagatamaPointAwarded": {
-                  "description": "Total Magatama points awarded",
-                  "type": "number"
+                "rewardEarned": {
+                  "description": "Reward earned for this task",
+                  "type": "string"
+                },
+                "isCompleted": {
+                  "description": "Whether task is completed",
+                  "type": "boolean"
+                },
+                "delFlag": {
+                  "description": "Flag to indicate if the record is deleted",
+                  "type": "boolean"
+                },
+                "insUserId": {
+                  "description": "ID of user who created this record",
+                  "type": "string"
+                },
+                "insDateTime": {
+                  "description": "Timestamp of record creation",
+                  "type": "string"
+                },
+                "updUserId": {
+                  "description": "ID of user who last updated this record",
+                  "type": "string"
+                },
+                "updDateTime": {
+                  "description": "Timestamp of last record update",
+                  "type": "string"
                 }
               },
               "required": [
@@ -15386,7 +15588,7 @@
                 "requiredAction",
                 "antiCheatRules",
                 "magatamaPointAwarded",
-                "totalMagatamaPointAwarded"
+                "isCompleted"
               ]
             }
           },
@@ -15627,9 +15829,33 @@
             "description": "Magatama points awarded for this task",
             "type": "number"
           },
-          "totalMagatamaPointAwarded": {
-            "description": "Total Magatama points awarded",
-            "type": "number"
+          "rewardEarned": {
+            "description": "Reward earned for this task",
+            "type": "string"
+          },
+          "isCompleted": {
+            "description": "Whether task is completed",
+            "type": "boolean"
+          },
+          "delFlag": {
+            "description": "Flag to indicate if the record is deleted",
+            "type": "boolean"
+          },
+          "insUserId": {
+            "description": "ID of user who created this record",
+            "type": "string"
+          },
+          "insDateTime": {
+            "description": "Timestamp of record creation",
+            "type": "string"
+          },
+          "updUserId": {
+            "description": "ID of user who last updated this record",
+            "type": "string"
+          },
+          "updDateTime": {
+            "description": "Timestamp of last record update",
+            "type": "string"
           }
         },
         "required": [
@@ -15642,7 +15868,7 @@
           "requiredAction",
           "antiCheatRules",
           "magatamaPointAwarded",
-          "totalMagatamaPointAwarded"
+          "isCompleted"
         ]
       },
       "QuestCreateRequestDto": {
@@ -16345,7 +16571,6 @@
         "required": [
           "query"
         ]
-<<<<<<< HEAD
       },
       "LocationInfoResponseDto": {
         "type": "object",
@@ -17748,11 +17973,16 @@
             "description": "Public URL for the uploaded proof image",
             "type": "string",
             "format": "uri"
+          },
+          "estimatedReviewTime": {
+            "description": "Estimated time for admin review of the submission",
+            "type": "string"
           }
         },
         "required": [
           "message",
-          "proofUrl"
+          "proofUrl",
+          "estimatedReviewTime"
         ]
       },
       "QrScanRequestDto": {
@@ -19110,6 +19340,70 @@
           }
         }
       },
+      "LocalInteractionSubmissionDto": {
+        "type": "object",
+        "properties": {
+          "interactionType": {
+            "description": "Type of interaction content",
+            "type": "string",
+            "enum": [
+              "text",
+              "photo",
+              "audio"
+            ]
+          },
+          "content": {
+            "description": "Text content or base64 encoded file",
+            "type": "string"
+          },
+          "latitude": {
+            "description": "Optional latitude for anti-cheat verification",
+            "type": "number"
+          },
+          "longitude": {
+            "description": "Optional longitude for anti-cheat verification",
+            "type": "number"
+          }
+        },
+        "required": [
+          "interactionType",
+          "content"
+        ]
+      },
+      "LocalInteractionResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "Status message",
+            "type": "string"
+          },
+          "status": {
+            "description": "Task status after submission",
+            "type": "string",
+            "enum": [
+              "AVAILABLE",
+              "ONGOING",
+              "COMPLETED",
+              "FAILED"
+            ],
+            "x-enumNames": [
+              "AVAILABLE",
+              "ONGOING",
+              "COMPLETED",
+              "FAILED"
+            ]
+          },
+          "estimatedReviewTime": {
+            "description": "Expected review timeframe",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "status",
+          "estimatedReviewTime"
+        ]
+      },
       "VerifySubmissionRequestDto": {
         "type": "object",
         "properties": {
@@ -19168,10 +19462,15 @@
           "message": {
             "description": "Result message for social share completion",
             "type": "string"
+          },
+          "estimatedReviewTime": {
+            "description": "Estimated time for admin review of the submission",
+            "type": "string"
           }
         },
         "required": [
-          "message"
+          "message",
+          "estimatedReviewTime"
         ]
       },
       "SubmitAnswerTextRequestTaskDto": {
@@ -19195,6 +19494,10 @@
           },
           "message": {
             "description": "Message to the user",
+            "type": "string"
+          },
+          "estimatedReviewTime": {
+            "description": "Estimated time for admin review (only for manual verification tasks)",
             "type": "string"
           }
         },
@@ -19234,8 +19537,6 @@
           "longitude",
           "latitude"
         ]
-=======
->>>>>>> origin/develop
       }
     }
   }

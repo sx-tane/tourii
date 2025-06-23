@@ -85,7 +85,7 @@ export class AdminService {
         xApiKey: string,
         page?: number,
         limit?: number,
-        taskType?: 'PHOTO_UPLOAD' | 'SHARE_SOCIAL' | 'ANSWER_TEXT',
+        taskType?: 'PHOTO_UPLOAD' | 'SHARE_SOCIAL' | 'ANSWER_TEXT' | 'LOCAL_INTERACTION',
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
