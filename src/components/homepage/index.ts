@@ -24,4 +24,4 @@ export { PopularQuestSection } from "./popular-quest-section";
 export { default as CTASection } from "./cta-section/cta-section";
 
 // Footer Component
-export { default as Footer } from "./footer/footer";
+export { default as Footer } from "../common/footer/footer";

@@ -1,9 +1,7 @@
-import { SectionTitle } from "@/components/common/section-title";
-import Header from "@/components/header/header-component/header";
 import { Footer } from "@/components/homepage";
+import { LegalPageHero, LegalPageSection } from "@/components/legal";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { useId } from "react";
 
 export const metadata: Metadata = {
 	title: "Terms of Service",
@@ -14,200 +12,255 @@ export default function TermsOfServicePage() {
 	const lastUpdated = "June 21, 2025";
 
 	return (
-		<>
-			<Header theme="white" />
-			<div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-				<article className="prose prose-warmGrey max-w-none">
-					<div className="mb-8">
-						<SectionTitle
-							subtitle={["LEGAL", "INFORMATION"]}
-							title={["Terms", "of", "Service"]}
-						/>
-					</div>
-					<p className="text-warmGrey3 mb-8">Last updated: {lastUpdated}</p>
+		<div className="bg-warmGrey">
+			<div className="min-h-screen bg-warmGrey">
+				<LegalPageHero title="Terms of Service" lastUpdated={lastUpdated} />
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							1. Acceptance of Terms
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							By accessing or using Tourii ("the Service"), you agree to be
-							bound by these Terms of Service ("Terms"). If you do not agree to
-							these Terms, please do not use our Service.
-						</p>
-						<p className="text-warmGrey4">
-							We may update these Terms from time to time. We will notify you of
-							any changes by posting the new Terms on this page and updating the
-							"Last updated" date.
-						</p>
-					</section>
+				{/* Content Section */}
+				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+					<div className="space-y-16">
+						<LegalPageSection title="Acceptance of Terms">
+							<p>
+								By accessing or using Tourii ("the Service"), you agree to be
+								bound by these Terms of Service ("Terms"). If you do not agree
+								to these Terms, please do not use our Service.
+							</p>
+							<p>
+								We may update these Terms from time to time. We will notify
+								you of any changes by posting the new Terms on this page and
+								updating the "Created at" date.
+							</p>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							2. Eligibility
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							You must be at least 13 years old to use our Service. By using the
-							Service, you represent and warrant that you meet this age
-							requirement.
-						</p>
-						<p className="text-warmGrey4">
-							If you are under 18 years old, you must have your parent or
-							guardian's permission to use the Service.
-						</p>
-					</section>
+						<LegalPageSection title="Eligibility">
+							<p>
+								You must be at least 13 years old to use our Service. By using
+								the Service, you represent and warrant that you meet this age
+								requirement.
+							</p>
+							<p>
+								If you are under 18 years old, you must have your parent or
+								guardian's permission to use the Service.
+							</p>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							3. Account Registration
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							To access certain features of our Service, you may need to create
-							an account. When creating an account, you must:
-						</p>
-						<ul className="list-disc pl-6 space-y-2 text-warmGrey4 mb-4">
-							<li>Provide accurate and complete information</li>
-							<li>Maintain the security of your account credentials</li>
-							<li>Promptly update any changes to your information</li>
-							<li>
-								Accept responsibility for all activities under your account
-							</li>
-						</ul>
-						<p className="text-warmGrey4">
-							You may not transfer your account to another person without our
-							prior written consent.
-						</p>
-					</section>
+						<LegalPageSection title="Account Registration">
+							<p>
+								To access certain features of our Service, you may need to
+								create an account. When creating an account, you must:
+							</p>
+							<ul className="space-y-2 ml-6">
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>Provide accurate and complete information</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Maintain the security of your account credentials
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>Promptly update any changes to your information</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Accept responsibility for all activities under your
+										account
+									</span>
+								</li>
+							</ul>
+							<p>
+								You may not transfer your account to another person without
+								our prior written consent.
+							</p>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							4. Use of Services
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							Tourii provides a gamified tourism platform that includes:
-						</p>
-						<ul className="list-disc pl-6 space-y-2 text-warmGrey4 mb-4">
-							<li>Interactive storytelling experiences</li>
-							<li>Location-based quests and challenges</li>
-							<li>Digital passport and collectibles</li>
-							<li>Social features and community interactions</li>
-						</ul>
-						<h3 className="text-xl font-semibold text-charcoal mb-3 mt-6">
-							Prohibited Uses
-						</h3>
-						<p className="text-warmGrey4 mb-4">You agree not to:</p>
-						<ul className="list-disc pl-6 space-y-2 text-warmGrey4">
-							<li>Violate any laws or regulations</li>
-							<li>Infringe on intellectual property rights</li>
-							<li>Harass, abuse, or harm other users</li>
-							<li>Attempt to gain unauthorized access to the Service</li>
-							<li>Use the Service for any fraudulent or illegal purpose</li>
-							<li>Interfere with the proper functioning of the Service</li>
-						</ul>
-					</section>
+						<LegalPageSection title="Use of Services">
+							<div className="space-y-6">
+								<p>
+									Tourii provides a gamified tourism platform that includes:
+								</p>
+								<ul className="space-y-2 ml-6">
+									<li className="flex items-start space-x-3">
+										<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+										<span>Interactive storytelling experiences</span>
+									</li>
+									<li className="flex items-start space-x-3">
+										<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+										<span>Location-based quests and challenges</span>
+									</li>
+									<li className="flex items-start space-x-3">
+										<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+										<span>Digital passport and collectibles</span>
+									</li>
+									<li className="flex items-start space-x-3">
+										<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+										<span>Social features and community interactions</span>
+									</li>
+								</ul>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							5. User Content
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							You retain ownership of any content you submit to our Service
-							("User Content"). By submitting User Content, you grant us a
-							worldwide, non-exclusive, royalty-free license to use, reproduce,
-							modify, and display your content for the purpose of operating and
-							promoting the Service.
-						</p>
-						<p className="text-warmGrey4 mb-4">
-							You represent and warrant that:
-						</p>
-						<ul className="list-disc pl-6 space-y-2 text-warmGrey4">
-							<li>You own or have the necessary rights to your User Content</li>
-							<li>Your User Content does not infringe on third-party rights</li>
-							<li>Your User Content complies with our community guidelines</li>
-						</ul>
-					</section>
+								<div className="mt-8">
+									<h4 className="text-xl tracking-wider font-semibold text-charcoal mb-4">
+										Prohibited Uses
+									</h4>
+									<p className="mb-4">You agree not to:</p>
+									<ul className="space-y-2 ml-6">
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>Violate any laws or regulations</span>
+										</li>
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>Infringe on intellectual property rights</span>
+										</li>
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>Harass, abuse, or harm other users</span>
+										</li>
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>
+												Attempt to gain unauthorized access to the Service
+											</span>
+										</li>
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>
+												Use the Service for any fraudulent or illegal purpose
+											</span>
+										</li>
+										<li className="flex items-start space-x-3">
+											<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+											<span>
+												Interfere with the proper functioning of the Service
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							6. Digital Collectibles (NFTs)
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							Tourii may offer digital collectibles in the form of non-fungible
-							tokens (NFTs). These digital collectibles:
-						</p>
-						<ul className="list-disc pl-6 space-y-2 text-warmGrey4 mb-4">
-							<li>
-								Are subject to additional terms specific to each collectible
-							</li>
-							<li>
-								May have associated benefits or utilities within the platform
-							</li>
-							<li>
-								Are stored on blockchain networks and subject to their rules
-							</li>
-							<li>May have value that can fluctuate</li>
-						</ul>
-						<p className="text-warmGrey4">
-							We make no guarantees about the future value or utility of any
-							digital collectibles.
-						</p>
-					</section>
+						<LegalPageSection title="User Content">
+							<p>
+								You retain ownership of any content you submit to our Service
+								("User Content"). By submitting User Content, you grant us a
+								worldwide, non-exclusive, royalty-free license to use,
+								reproduce, modify, and display your content for the purpose of
+								operating and promoting the Service.
+							</p>
+							<p>You represent and warrant that:</p>
+							<ul className="space-y-2 ml-6">
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										You own or have the necessary rights to your User Content
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Your User Content does not infringe on third-party rights
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Your User Content complies with our community guidelines
+									</span>
+								</li>
+							</ul>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							7. Privacy
-						</h2>
-						<p className="text-warmGrey4">
-							Your use of our Service is also governed by our{" "}
-							<Link
-								href="/privacy"
-								className="text-red hover:text-red2 underline"
-							>
-								Privacy Policy
-							</Link>
-							. Please review our Privacy Policy to understand how we collect,
-							use, and protect your information.
-						</p>
-					</section>
+						<LegalPageSection title="Digital Collectibles (NFTs)">
+							<p>
+								Tourii may offer digital collectibles in the form of
+								non-fungible tokens (NFTs). These digital collectibles:
+							</p>
+							<ul className="space-y-2 ml-6">
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Are subject to additional terms specific to each
+										collectible
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										May have associated benefits or utilities within the
+										platform
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>
+										Are stored on blockchain networks and subject to their
+										rules
+									</span>
+								</li>
+								<li className="flex items-start space-x-3">
+									<span className="w-1.5 h-1.5 bg-charcoal rounded-full mt-2 flex-shrink-0"></span>
+									<span>May have value that can fluctuate</span>
+								</li>
+							</ul>
+							<p>
+								We make no guarantees about the future value or utility of any
+								digital collectibles.
+							</p>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							8. Termination
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							We may terminate or suspend your account at any time for
-							violations of these Terms or for any other reason at our sole
-							discretion.
-						</p>
-						<p className="text-warmGrey4">
-							You may terminate your account at any time by contacting us. Upon
-							termination, your right to use the Service will immediately cease.
-						</p>
-					</section>
+						<LegalPageSection title="Privacy">
+							<p>
+								Your use of our Service is also governed by our{" "}
+								<Link
+									href="/privacy"
+									className="text-red hover:text-red/80 underline"
+								>
+									Privacy Policy
+								</Link>
+								. Please review our Privacy Policy to understand how we
+								collect, use, and protect your information.
+							</p>
+						</LegalPageSection>
 
-					<section id={useId()} className="mb-12">
-						<h2 className="text-2xl font-semibold text-charcoal mb-4">
-							9. Contact Information
-						</h2>
-						<p className="text-warmGrey4 mb-4">
-							If you have any questions about these Terms, please contact us at:
-						</p>
-						<div className="bg-warmGrey1 rounded-lg p-4 text-warmGrey4">
-							<p className="font-semibold">Tourii Support</p>
-							<p>Email: legal@tourii.com</p>
-							<p>Address: [Company Address]</p>
+						<LegalPageSection title="Termination">
+							<p>
+								We may terminate or suspend your account at any time for
+								violations of these Terms or for any other reason at our sole
+								discretion.
+							</p>
+							<p>
+								You may terminate your account at any time by contacting us.
+								Upon termination, your right to use the Service will
+								immediately cease.
+							</p>
+						</LegalPageSection>
+
+						<LegalPageSection title="Contact Information">
+							<p>
+								If you have any questions about these Terms, please contact us
+								at:
+							</p>
+							<div className="space-y-2">
+								<p className="font-medium">Tourii Support</p>
+								<p>Email: legal@tourii.com</p>
+								<p>Address: [Company Address]</p>
+							</div>
+						</LegalPageSection>
+
+						<div className="pt-8 border-t border-charcoal/20">
+							<p className="text-charcoal text-center tracking-wider">
+								By using Tourii, you acknowledge that you have read, understood,
+								and agree to be bound by these Terms of Service.
+							</p>
 						</div>
-					</section>
-
-					<div className="mt-12 pt-8 border-t border-warmGrey2">
-						<p className="text-sm text-warmGrey3">
-							By using Tourii, you acknowledge that you have read, understood,
-							and agree to be bound by these Terms of Service.
-						</p>
 					</div>
-				</article>
+				</div>
 			</div>
 			<Footer />
-		</>
+		</div>
 	);
 }

@@ -65,13 +65,13 @@ export function getModelRoutes() { ... }
 - **UI components**: Use `src/components/ui/` for shadcn components
 
 ### Hook Organization ✅ **Recently Reorganized (June 2025)**
-- **API Hooks**: `src/hooks/api/` - for server data (SWR) - 15 hooks
+- **API Hooks**: `src/hooks/api/` - for server data (SWR) - 16 hooks
 - **Admin Hooks**: `src/hooks/admin/` - for admin CRUD operations + name resolution - 6 hooks (✅ All working)
 - **UI Hooks**: `src/hooks/ui/` - for UI interactions - 3 hooks  
 - **Business Hooks**: `src/hooks/business/` - for complex logic - 4 hooks
 - **Map Hooks**: `src/hooks/map/` - for map functionality - 2 hooks
 - All hooks use `use*` naming convention (not `get*`)
-- **Total**: 30 hooks properly categorized and fully functional
+- **Total**: 31 hooks properly categorized and fully functional
 
 ### Redux vs SWR Usage Guide
 ```typescript
@@ -304,7 +304,7 @@ Fixed inconsistent error messages:
 #### **5. Final Hook Organization Structure**
 ```
 /src/hooks/
-├── /api/           (15 hooks) - Pure SWR hooks for server data
+├── /api/           (16 hooks) - Pure SWR hooks for server data
 ├── /admin/         (6 hooks)  - Admin CRUD operations + SWR hooks + name resolution  
 ├── /business/      (4 hooks)  - Complex business logic
 ├── /ui/            (3 hooks)  - UI interactions & states
@@ -389,4 +389,44 @@ For new frontend developers, these resources provide fast-track onboarding:
 
 ---
 
-*Last Updated: June 23, 2025 - Performance Optimization & Configuration Management Edition*
+#### **7. World Lore Tab Implementation (June 23, 2025)** ✅ **COMPLETE**
+**Major new feature added to story chapter system:**
+
+**World Lore Integration:**
+- ✅ **Tourist Spot Data Integration** - Story chapters now display linked tourist spots with real-world information
+- ✅ **Google Images API Integration** - Real images fetched via location-info API for each tourist spot
+- ✅ **Interactive Image Gallery** - Left/right navigation with smooth Framer Motion transitions
+- ✅ **Weather Icons & Data** - Smart weather icon selection with temperature display (22.5°C format)
+- ✅ **Model Route Integration** - Direct links to explore full routes containing tourist spots
+
+**New API Infrastructure:**
+- Created `useTouristSpotsByChapter` hook for fetching tourist spots by story chapter ID
+- Added `/api/routes/tourist-spots/[storyChapterId]` Next.js API route
+- Integrated with existing `useLocationInfo` hook for Google Images and location data
+- Added `useModelRoutes` integration to find containing routes for "Explore Route" links
+
+**UI/UX Enhancements:**
+- **Japanese aesthetic design** - Uses `warmGrey3`, `charcoal` color scheme with uppercase tracking
+- **Mobile-responsive layout** - Image gallery on left (1/3), content on right (2/3)
+- **Smooth animations** - Entry/exit transitions with scale and slide effects
+- **Red accent counter** - Image navigation counter with `bg-red` styling
+- **Bottom-aligned content** - Address, weather, hashtags, and buttons properly aligned
+- **Character-style button** - "Explore Route" button matches existing character card styling
+
+**Component Structure:**
+```
+src/components/story/chapter-page/
+├── world-lore-tab-content.tsx          # Main World Lore tab component
+├── world-lore-tab-content.stories.tsx  # Storybook documentation
+└── chapter-tabs.tsx                    # Updated to include World Lore tab
+```
+
+**Performance Features:**
+- Lazy loading of location data only when tab is active
+- Optimized image transitions with AnimatePresence
+- Smart weather icon rendering with React.createElement
+- Parallel API calls for tourist spot and model route data
+
+---
+
+*Last Updated: June 23, 2025 - World Lore Tab Implementation Edition*

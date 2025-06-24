@@ -6,7 +6,7 @@ import { PopularQuestSection } from "./popular-quest-section";
 export const StampedItemSection: React.FC = () => {
 	return (
 		<>
-			<div className="flex flex-col items-center w-11/12 mx-auto mt-20">
+			<div className="flex flex-col items-center w-11/12 mx-auto md:mt-20 mt-0">
 				<div className="flex justify-center w-full px-5">
 					<div className="w-full max-w-screen-md">
 						<Line />

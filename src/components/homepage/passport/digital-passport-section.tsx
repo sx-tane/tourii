@@ -27,7 +27,7 @@ export const DigitalPassportSection: React.FC = () => {
 						}}
 					>
 						{/* Passport card - appears first on mobile */}
-						<div className="mb-8 lg:mb-0 lg:mr-2 z-30 relative">
+						<div className="md:mb-8 mb-0 lg:mr-2 z-30 relative">
 							<PassportCard
 								passportType={passport.passportType}
 								characters={passport.chineseCharacters}

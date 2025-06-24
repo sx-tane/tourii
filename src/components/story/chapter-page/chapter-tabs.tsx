@@ -7,6 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CharactersTabContent } from "./characters-tab-content";
 import { StoryTabContent } from "./story-tab-content";
+import { WorldLoreTabContent } from "./world-lore-tab-content";
 
 interface ChapterTabsProps {
 	chapters: StoryChapterResponseDto[];
@@ -99,24 +100,25 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({
 
 	return (
 		<Tabs defaultValue="story" className="w-full">
-			<TabsList className="grid grid-cols-2 md:w-1/3 w-full border border-warmGrey3 justify-between p-1 h-auto rounded-md mb-6 bg-transparent">
+			<TabsList className="grid grid-cols-3 md:w-1/2 w-full border border-warmGrey3 justify-between p-1 h-auto rounded-md mb-6 bg-transparent">
 				<TabsTrigger
 					value="story"
-					className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-warmGrey3"
+					className=" px-5 py-2 uppercase tracking-[0.15rem] md:text-xs text-[10px] font-medium text-warmGrey3"
 				>
 					Story
 				</TabsTrigger>
 				<TabsTrigger
 					value="characters"
-					className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-warmGrey3"
+					className=" px-5 py-2 uppercase tracking-[0.15rem] md:text-xs text-[10px] font-medium text-warmGrey3"
 				>
 					Characters
 				</TabsTrigger>
-				{/* <TabsTrigger
-                    value="world-lore"
-                    className=" px-5 py-2 uppercase tracking-[0.15rem] text-xs font-medium text-charcoal">
-                    World Lore
-                </TabsTrigger> */}
+				<TabsTrigger
+					value="world-lore"
+					className=" px-5 py-2 uppercase tracking-[0.15rem] md:text-xs text-[10px] font-medium text-warmGrey3"
+				>
+					World Lore
+				</TabsTrigger>
 			</TabsList>
 
 			<TabsContent value="story" className="w-full">
@@ -139,17 +141,11 @@ export const ChapterTabs: React.FC<ChapterTabsProps> = ({
 				/>
 			</TabsContent>
 
-			{/* <TabsContent value="world-lore">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>World Lore</CardTitle>
-                        <CardDescription>World lore details will be displayed here.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <p>This section will delve into the world and lore surrounding the story.</p>
-                    </CardContent>
-                </Card>
-            </TabsContent> */}
+			<TabsContent value="world-lore" className="w-full">
+				<WorldLoreTabContent
+					storyChapterId={chapterToDisplay?.storyChapterId}
+				/>
+			</TabsContent>
 
 			<CharacterModal
 				isOpen={isModalOpen}

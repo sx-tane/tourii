@@ -28,10 +28,10 @@ const ChapterDisplay: React.FC = () => {
 	};
 
 	return (
-		<div className="w-full">
+		<div className="md:w-8/12  mx-auto w-full">
 			<div className="px-4">
 				<motion.div
-					className="w-full relative overflow-hidden rounded-[50px]"
+					className="w-full relative overflow-hidden rounded-3xl md:rounded-[50px] cursor-pointer md:cursor-default"
 					initial={{ opacity: 0, y: 40, scale: 0.98 }}
 					whileInView={{ opacity: 1, y: 0, scale: 1 }}
 					viewport={{ once: false, amount: 0.3 }}
@@ -39,8 +39,14 @@ const ChapterDisplay: React.FC = () => {
 						duration: 1,
 						ease: [0.25, 0.1, 0.25, 1],
 					}}
+					onClick={() => {
+						// Make entire container clickable on mobile/tablet
+						if (window.innerWidth < 768) {
+							handleReadNow();
+						}
+					}}
 				>
-					<div className="aspect-video relative">
+					<div className="aspect-video relative h-full">
 						<Image
 							src={chapterData.imageUrl || ""}
 							alt={chapterData.title}
@@ -51,7 +57,7 @@ const ChapterDisplay: React.FC = () => {
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent" />
 						<motion.div
-							className="absolute bottom-2 left-5 p-3 text-warmGrey uppercase flex flex-col gap-2"
+							className="absolute md:bottom-2 bottom-0 md:left-5 left-1 p-3 text-warmGrey uppercase flex flex-col md:gap-2 gap-1"
 							initial={{ opacity: 0, y: 30 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: false }}
@@ -61,18 +67,18 @@ const ChapterDisplay: React.FC = () => {
 								ease: [0.6, 0.05, 0.01, 0.9],
 							}}
 						>
-							<p className="text-sm tracking-widest font-semibold italic ">
+							<p className="text-sm tracking-widest font-semibold italic md:text-sm">
 								{chapterData.region || "Aomori"}
 							</p>
-							<h2 className="tracking-widest font-bold lg:text-2xl">
+							<h2 className="tracking-widest font-bold lg:text-2xl text-sm">
 								{chapterData.chapterNumber || "Chapter 3"}
 							</h2>
-							<p className="text-base italic tracking-widest">
+							<p className="text-sm italic tracking-widest md:text-base">
 								{chapterData.title}
 							</p>
 						</motion.div>
 						<motion.div
-							className="absolute bottom-2 right-5 p-3"
+							className="absolute bottom-2 right-5 p-3 hidden md:block"
 							initial={{ opacity: 0, y: 10 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: false }}

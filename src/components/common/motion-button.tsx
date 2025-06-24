@@ -101,7 +101,9 @@ const MotionButton: React.FC<MotionButtonProps> = ({
 			type={type}
 			disabled={disabled}
 		>
-			<div className={`${height} flex items-center justify-center relative`}>
+			<div
+				className={`${height} flex items-center justify-center relative h-10`}
+			>
 				<motion.span
 					className={`absolute ${iconSize}`}
 					animate={{
@@ -114,7 +116,7 @@ const MotionButton: React.FC<MotionButtonProps> = ({
 					{icon}
 				</motion.span>
 				<motion.span
-					className="absolute font-light tracking-widest italic"
+					className="absolute font-light tracking-widest italic md:text-lg text-sm"
 					animate={{
 						opacity: isHovered ? 1 : 0,
 						scale: isHovered ? 1 : 0.5,
