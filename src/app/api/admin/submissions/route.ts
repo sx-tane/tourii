@@ -1,8 +1,25 @@
 import { AdminService, QuestService } from "@/api/generated";
-import type { NextRequest } from "next/server";
+import type { NextRequest, NextResponse } from "next/server";
 import { executeValidatedServiceCall } from "../../lib/route-helper";
+import { validateUserAccess } from "@/lib/auth/utils";
 
+/**
+ * GET /api/admin/submissions
+ * 
+ * Admin endpoint to fetch pending submissions with enhanced details
+ * SECURITY: Requires ADMIN role authentication
+ */
 export async function GET(request: NextRequest) {
+	// Validate admin authentication
+	const { success, user, error } = await validateUserAccess("ADMIN");
+	
+	if (!success || !user) {
+		return NextResponse.json(
+			{ error: error || "Admin access required" },
+			{ status: 403 }
+		);
+	}
+
 	const { searchParams } = new URL(request.url);
 
 	const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
@@ -15,15 +32,13 @@ export async function GET(request: NextRequest) {
 		| "ANSWER_TEXT"
 		| undefined;
 
-	const userId = "TSU202506-614e2f-211442-172685-KAAA"; // TODO: Get from session/auth
-
 	try {
 		// Fetch submissions using executeValidatedServiceCall
 		const submissionsResponse = await executeValidatedServiceCall(
 			(apiKey: string, apiVersion: string) =>
 				AdminService.touriiBackendControllerGetPendingSubmissions(
 					apiVersion,
-					userId,
+					user.id,
 					apiKey,
 					page,
 					limit,
@@ -62,7 +77,7 @@ export async function GET(request: NextRequest) {
 							String(questId),
 							apiVersion,
 							apiKey,
-							userId,
+							user.id,
 						),
 					"QuestService.getQuestById",
 				);

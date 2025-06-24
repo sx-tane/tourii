@@ -1,21 +1,28 @@
 import { UserService } from "@/api/generated";
 import { executeValidatedServiceCall } from "@/app/api/lib/route-helper";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { validateUserAccess } from "@/lib/auth/utils";
 import { type NextRequest, NextResponse } from "next/server";
 
+/**
+ * GET /api/checkins
+ * 
+ * Fetches user check-ins with filtering and pagination
+ * SECURITY: Now uses proper session-based authentication
+ */
 export async function GET(request: NextRequest) {
-	// Get session for user authentication
-	const session = await getServerSession(authOptions);
-
-	// Fix 1: Improved authentication check - only bypass in development
-	if (!session?.user && process.env.NODE_ENV !== "development") {
-		return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+	// Validate user authentication
+	const { success, user, error } = await validateUserAccess("USER");
+	
+	if (!success || !user) {
+		return NextResponse.json(
+			{ error: error || "Authentication required" },
+			{ status: 401 }
+		);
 	}
 
 	const { searchParams } = new URL(request.url);
 
-	// Fix 3: Add input validation for query parameters
+	// Input validation for query parameters
 	const page = Math.max(
 		1,
 		Number.parseInt(searchParams.get("page") || "1", 10),
@@ -30,7 +37,7 @@ export async function GET(request: NextRequest) {
 	const startDate = searchParams.get("startDate");
 	const endDate = searchParams.get("endDate");
 
-	// Use the real backend API
+	// Use authenticated user's ID for check-ins
 	return executeValidatedServiceCall((apiKey: string, apiVersion: string) => {
 		return UserService.touriiBackendControllerGetCheckins(
 			apiVersion,
@@ -39,7 +46,7 @@ export async function GET(request: NextRequest) {
 			startDate || "",
 			touristSpotId || undefined,
 			questId || undefined,
-			"TSU202506-ae8a85-222006-4bdd44-BAAA",
+			user.id, // Use authenticated user's ID
 			limit.toString(),
 			page,
 		);

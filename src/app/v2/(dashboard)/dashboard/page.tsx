@@ -145,7 +145,7 @@ const DashboardPage = () => {
 
 					{/* Check-In Map Card */}
 					<CheckinMapCard
-						userId={"TSU202506-ae8a85-222006-4bdd44-BAAA"}
+						userId={session?.user?.id || undefined}
 						onNavigateToStory={(storyId) =>
 							router.push(`/v2/touriiverse/${storyId}`)
 						}
@@ -164,7 +164,7 @@ const DashboardPage = () => {
 
 						{/* Check-In Map Card */}
 						<CheckinMapCard
-							userId={session?.user?.email || undefined}
+							userId={session?.user?.id || undefined}
 							onNavigateToStory={(storyId) =>
 								router.push(`/v2/touriiverse/${storyId}`)
 							}

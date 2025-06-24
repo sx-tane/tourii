@@ -1,8 +1,25 @@
 import { AdminService } from "@/api/generated";
 import { executeValidatedServiceCall } from "@/app/api/lib/route-helper";
-import { NextRequest } from "next/server";
+import { validateUserAccess } from "@/lib/auth/utils";
+import { NextRequest, NextResponse } from "next/server";
 
+/**
+ * GET /api/admin/users
+ * 
+ * Admin endpoint to fetch all users with filtering and pagination
+ * SECURITY: Requires ADMIN role authentication
+ */
 export async function GET(request: NextRequest) {
+	// Validate admin authentication
+	const { success, user, error } = await validateUserAccess("ADMIN");
+	
+	if (!success || !user) {
+		return NextResponse.json(
+			{ error: error || "Admin access required" },
+			{ status: 403 }
+		);
+	}
+
 	const { searchParams } = new URL(request.url);
 
 	const page = searchParams.get("page") ? Number(searchParams.get("page")) : 1;
@@ -27,15 +44,13 @@ export async function GET(request: NextRequest) {
 		| undefined;
 	const searchTerm = searchParams.get("searchTerm") || undefined;
 
-	const userId = "TSU202506-ae8a85-222006-4bdd44-BAAA"; // TODO: Get from session/auth
-
 	try {
-		// Use the generated AdminService - executeValidatedServiceCall returns NextResponse
+		// Use authenticated user's ID for admin operations
 		return await executeValidatedServiceCall(
 			(apiKey: string, apiVersion: string) =>
 				AdminService.touriiBackendControllerGetAllUsersForAdmin(
 					apiVersion,
-					userId,
+					user.id,
 					apiKey,
 					sortOrder,
 					sortBy,
@@ -52,6 +67,6 @@ export async function GET(request: NextRequest) {
 		);
 	} catch (error) {
 		console.error("🔍 Admin Users API - Error:", error);
-		return Response.json({ error: "Failed to fetch users" }, { status: 500 });
+		return NextResponse.json({ error: "Failed to fetch users" }, { status: 500 });
 	}
 }

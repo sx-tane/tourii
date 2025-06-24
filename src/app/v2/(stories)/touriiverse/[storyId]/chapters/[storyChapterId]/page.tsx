@@ -62,8 +62,13 @@ const ChapterPage: React.FC = () => {
 	 */
 	const handleStoryCompletion = async (chapterIdToComplete: string) => {
 		try {
-			// Use real user ID for API call
-			const userId = "TSU202506-ae8a85-222006-4bdd44-BAAA";
+			// Use authenticated user ID for API call
+			const userId = session?.user?.id;
+			
+			if (!userId) {
+				toast.error("Please sign in to complete story chapters");
+				return;
+			}
 
 			try {
 				// Try real API call first
