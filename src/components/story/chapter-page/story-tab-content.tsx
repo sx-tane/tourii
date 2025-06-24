@@ -17,6 +17,30 @@ interface StoryTabContentProps {
 	onVideoComplete?: () => void;
 }
 
+// Simple animations - no lag
+const SIMPLE_ANIMATIONS = {
+	container: {
+		initial: { opacity: 0 },
+		animate: { 
+			opacity: 1,
+			transition: {
+				duration: 0.5,
+				staggerChildren: 0.1
+			}
+		}
+	},
+	item: {
+		initial: { opacity: 0, y: 20 },
+		animate: { 
+			opacity: 1, 
+			y: 0,
+			transition: {
+				duration: 0.4
+			}
+		}
+	}
+};
+
 // Helper function to extract sort key from chapter number
 const getChapterSortKey = (chapter: StoryChapterResponseDto): number => {
 	const numberPart = chapter.chapterNumber?.split(" ")[1];
@@ -45,21 +69,27 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
 	return (
 		<motion.div
 			className="grid grid-cols-1 md:grid-cols-4 gap-6"
-			initial={{ opacity: 0, y: 15 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.5, delay: 0.1 }}
+			variants={SIMPLE_ANIMATIONS.container}
+			initial="initial"
+			animate="animate"
 		>
 			{/* Chapter List Column */}
-			<div className="md:col-span-1 p-4 rounded-lg overflow-y-auto bg-warmGrey3 max-h-[70vh]">
+			<motion.div 
+				className="md:col-span-1 p-4 rounded-lg overflow-y-auto bg-warmGrey3 max-h-[70vh]"
+				variants={SIMPLE_ANIMATIONS.item}
+			>
 				<h3 className="text-sm font-semibold uppercase tracking-widest">
 					Chapters
 				</h3>
-				<div className=" mt-5" />
+				<div className="mt-5" />
 				<ul>
-					{sortedChapters.map((chapter) => (
-						<li
+					{sortedChapters.map((chapter, index) => (
+						<motion.li
 							key={chapter.storyChapterId}
 							className="list-none border-b border-charcoal last:border-b-0"
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.4, delay: index * 0.15 }}
 						>
 							<button
 								type="button"
@@ -104,13 +134,16 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
 									</div>
 								)}
 							</button>
-						</li>
+						</motion.li>
 					))}
 				</ul>
-			</div>
+			</motion.div>
 
 			{/* Video/Description Column */}
-			<div className="md:col-span-3 rounded-lg max-h-[70vh] overflow-y-auto ">
+			<motion.div 
+				className="md:col-span-3 rounded-lg max-h-[70vh] overflow-y-auto"
+				variants={SIMPLE_ANIMATIONS.item}
+			>
 				{chapterToDisplay ? (
 					<div>
 						{iframeSrc && (
@@ -127,14 +160,11 @@ export const StoryTabContent: FC<StoryTabContentProps> = ({
 								/>
 							</div>
 						)}
-						{/* TODO: Add description display back if needed */}
-						{/* <h3 className="text-sm font-bold uppercase tracking-widest py-2">Description</h3> */}
-						{/* <p>{chapterToDisplay.chapterDesc}</p> */}
 					</div>
 				) : (
 					<p>No chapter selected or chapter data missing.</p>
 				)}
-			</div>
+			</motion.div>
 		</motion.div>
 	);
 };

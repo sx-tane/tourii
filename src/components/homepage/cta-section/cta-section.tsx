@@ -38,12 +38,12 @@ export default function CTASection({
 				/>
 
 				{/* CTA Button */}
-				<div className="text-center mt-8 mb-20">
+				<div className="text-center mt-0 mb-20 md:mt-8">
 					<Link href={buttonHref}>
 						<motion.button
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
-							className="inline-flex items-center gap-3 bg-red hover:bg-red text-charcoal bg-transparent border border-charcoal font-medium py-4 px-8 rounded-full text-lg transition-colors duration-300 tracking-widest hover:text-warmGrey hover:shadow-xl hover:border-transparent"
+							className="inline-flex items-center gap-3 bg-red hover:bg-red text-charcoal bg-transparent border border-charcoal font-medium py-2 px-4 sm:py-3 md:py-4 px-6 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition-colors duration-300 tracking-widest hover:text-warmGrey hover:shadow-xl hover:border-transparent"
 						>
 							{buttonText}
 							{/* <ArrowRightIcon className="w-5 h-5" /> */}

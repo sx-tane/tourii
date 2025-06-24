@@ -7,21 +7,14 @@ import {
 } from "@/hooks/api";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-	ChevronLeft,
-	ChevronRight,
-	Clock,
 	Cloud,
 	CloudDrizzle,
 	CloudRain,
 	CloudSnow,
 	Cloudy,
-	ExternalLink,
 	Loader2,
-	MapPin,
 	Mountain,
-	Route,
 	Sun,
-	Thermometer,
 } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -34,12 +27,24 @@ const ANIMATIONS = {
 	container: {
 		initial: { opacity: 0, y: 15 },
 		animate: { opacity: 1, y: 0 },
-		transition: { duration: 0.5, delay: 0.1 },
+		transition: { 
+			duration: 0.8, 
+			delay: 0.1,
+			type: "spring",
+			stiffness: 100,
+			damping: 15
+		},
 	},
 	spot: {
-		initial: { opacity: 0, y: 20, scale: 0.95 },
-		animate: { opacity: 1, y: 0, scale: 1 },
-		transition: { duration: 0.6, type: "spring", bounce: 0.3 },
+		initial: { opacity: 0, y: 40, scale: 0.9, rotateX: 15 },
+		animate: { opacity: 1, y: 0, scale: 1, rotateX: 0 },
+		transition: { 
+			duration: 0.8, 
+			type: "spring", 
+			bounce: 0.2,
+			stiffness: 80,
+			damping: 12
+		},
 	},
 	loading: {
 		initial: { opacity: 0 },
@@ -47,35 +52,59 @@ const ANIMATIONS = {
 		exit: { opacity: 0 },
 	},
 	image: {
-		initial: { opacity: 0, scale: 1.1 },
-		animate: { opacity: 1, scale: 1 },
-		transition: { duration: 0.5 },
+		initial: { opacity: 0 },
+		animate: { opacity: 1 },
+		transition: { duration: 0.6, ease: "easeOut" },
 	},
 	content: {
-		initial: { opacity: 0, x: 20 },
-		animate: { opacity: 1, x: 0 },
-		transition: { duration: 0.4, delay: 0.2 },
+		initial: { opacity: 0, x: 30, y: 20 },
+		animate: { opacity: 1, x: 0, y: 0 },
+		transition: { duration: 0.8, delay: 0.3, type: "spring" },
 	},
 	weather: {
-		initial: { opacity: 0, rotate: -10, scale: 0.8 },
-		animate: { opacity: 1, rotate: 0, scale: 1 },
-		transition: { duration: 0.5, delay: 0.3, type: "spring" },
+		initial: { opacity: 0, scale: 0.8 },
+		animate: { opacity: 1, scale: 1 },
+		transition: { 
+			duration: 0.6, 
+			delay: 0.5, 
+			type: "spring"
+		},
 	},
 	button: {
-		initial: { opacity: 0, y: 10 },
+		initial: { opacity: 0, y: 20, scale: 0.9 },
+		animate: { opacity: 1, y: 0, scale: 1 },
+		transition: { duration: 0.6, delay: 0.6, type: "spring" },
+	},
+	title: {
+		initial: { opacity: 0, y: 30, rotateX: 90 },
+		animate: { opacity: 1, y: 0, rotateX: 0 },
+		transition: { 
+			duration: 0.8, 
+			delay: 0.4,
+			type: "spring",
+			stiffness: 100
+		},
+	},
+	description: {
+		initial: { opacity: 0, y: 20, x: -10 },
+		animate: { opacity: 1, y: 0, x: 0 },
+		transition: { duration: 0.6, delay: 0.5 },
+	},
+	footer: {
+		initial: { opacity: 0, y: 15 },
 		animate: { opacity: 1, y: 0 },
-		transition: { duration: 0.3, delay: 0.4 },
+		transition: { duration: 0.5, delay: 0.7 },
 	},
 };
 
 // Weather icon helper function
 const getWeatherIcon = (weatherName: string) => {
 	const weather = weatherName.toLowerCase();
-	if (weather.includes('rain') || weather.includes('rainy')) return CloudRain;
-	if (weather.includes('drizzle')) return CloudDrizzle;
-	if (weather.includes('snow') || weather.includes('snowy')) return CloudSnow;
-	if (weather.includes('cloud') || weather.includes('overcast')) return Cloudy;
-	if (weather.includes('clear') || weather.includes('sunny')) return Sun;
+	if (weather.includes("rain") || weather.includes("rainy")) return CloudRain;
+	if (weather.includes("drizzle")) return CloudDrizzle;
+	if (weather.includes("snow") || weather.includes("snowy")) return CloudSnow;
+	if (weather.includes("cloud") || weather.includes("overcast")) return Cloudy;
+	if (weather.includes("clear") || weather.includes("sunny")) return Sun;
 	return Cloud; // default
 };
 
@@ -129,7 +158,10 @@ export const WorldLoreTabContent: React.FC<WorldLoreTabContentProps> = ({
 	}
 
 	return (
-		<motion.div {...ANIMATIONS.container} className="space-y-4">
+		<motion.div
+			{...ANIMATIONS.container}
+			className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
+		>
 			{touristSpots.map((spot, index) => (
 				<motion.div
 					key={spot.touristSpotId}
@@ -166,200 +198,134 @@ const TouristSpotCard: React.FC<{ spot: TouristSpotResponseDto }> = ({
 	// Get Google images from location API
 	const googleImages = locationInfo?.images || [];
 	const hasImages = googleImages.length > 0;
-
-	// Image navigation state
-	const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-
-	const nextImage = () => {
-		if (googleImages.length > 1) {
-			setCurrentImageIndex((prev) => (prev + 1) % googleImages.length);
-		}
-	};
-
-	const prevImage = () => {
-		if (googleImages.length > 1) {
-			setCurrentImageIndex(
-				(prev) => (prev - 1 + googleImages.length) % googleImages.length,
-			);
-		}
-	};
+	const firstImage = googleImages[0]?.url;
 
 	return (
-		<div className="bg-warmGrey3 rounded-lg overflow-hidden hover:bg-warmGrey/80 transition-colors duration-150">
-			<div className="flex flex-col md:flex-row">
-				{/* Image Section - Left Side */}
-				<div className="md:w-1/3 flex-shrink-0">
-					{hasImages ? (
-						<div className="relative h-48 md:h-full md:min-h-[480px] bg-warmGrey4 group overflow-hidden">
-							<AnimatePresence mode="wait">
-								<motion.div
-									key={currentImageIndex}
-									initial={{ opacity: 0, scale: 1.1, x: 50 }}
-									animate={{ opacity: 1, scale: 1, x: 0 }}
-									exit={{ opacity: 0, scale: 0.95, x: -50 }}
-									transition={{ 
-										duration: 0.6,
-										ease: [0.4, 0, 0.2, 1],
-										scale: { duration: 0.8 }
-									}}
-									className="absolute inset-0"
-								>
-									<Image
-										src={googleImages[currentImageIndex]?.url ?? ""}
-										alt={spot.touristSpotName}
-										fill
-										className="object-cover opacity-90"
-										sizes="(max-width: 768px) 100vw, 33vw"
-										priority
-									/>
-								</motion.div>
-							</AnimatePresence>
-
-							{/* Navigation arrows - only show if multiple images */}
-							{googleImages.length > 1 && (
-								<>
-									<button
-										type="button"
-										onClick={prevImage}
-										className="absolute left-2 top-1/2 -translate-y-1/2 bg-charcoal/70 hover:bg-charcoal/90 text-warmGrey p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-										aria-label="Previous image"
-									>
-										<ChevronLeft className="w-3 h-3" />
-									</button>
-									<button
-										type="button"
-										onClick={nextImage}
-										className="absolute right-2 top-1/2 -translate-y-1/2 bg-charcoal/70 hover:bg-charcoal/90 text-warmGrey p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-										aria-label="Next image"
-									>
-										<ChevronRight className="w-3 h-3" />
-									</button>
-								</>
-							)}
-
-							{/* Image count indicator */}
-							{googleImages.length > 1 && (
-								<motion.div 
-									{...ANIMATIONS.image}
-									key={currentImageIndex}
-									className="absolute bottom-2 right-2 bg-red text-warmGrey px-2 py-1 rounded text-xs tracking-wider font-medium"
-								>
-									{currentImageIndex + 1}/{googleImages.length}
-								</motion.div>
-							)}
-						</div>
-					) : locationLoading ? (
-						<div className="h-48 md:h-full md:min-h-[280px] bg-warmGrey4 flex items-center justify-center">
-							<Loader2 className="w-4 h-4 text-charcoal animate-spin opacity-60" />
-						</div>
-					) : (
-						<div className="h-48 md:h-full md:min-h-[280px] bg-warmGrey4 flex items-center justify-center">
-							<Mountain className="w-6 h-6 text-charcoal opacity-40" />
-						</div>
-					)}
-				</div>
-
-				{/* Content Section - Right Side */}
-				<motion.div 
-					{...ANIMATIONS.content}
-					className="md:w-2/3 p-4 flex flex-col h-full"
-				>
-					{/* Title */}
-					<div className="flex-grow">
-						<h3 className="text-base lg:text-xl font-bold text-charcoal uppercase tracking-widest mb-2">
-							{spot.touristSpotName}
-						</h3>
-						{spot.touristSpotDesc && (
-							<p className="text-sm text-charcoal opacity-90 leading-relaxed text-pretty">
-								{spot.touristSpotDesc}
-							</p>
-						)}
-
-						{/* Weather Info */}
-						{spot.weatherInfo && (
-							<motion.div 
-								{...ANIMATIONS.weather}
-								className="flex items-center gap-3 p-3 bg-warmGrey4 rounded border border-warmGrey mt-4"
-							>
-								<div className="flex items-center gap-2">
-									<Thermometer className="w-4 h-4 text-charcoal opacity-80" />
-									<span className="font-medium text-charcoal uppercase tracking-wide text-sm">
-										{spot.weatherInfo.temperatureCelsius.toFixed(1)}°C
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									{React.createElement(getWeatherIcon(spot.weatherInfo.weatherName), {
-										className: "w-5 h-5 text-charcoal opacity-80"
-									})}
-								</div>
-							</motion.div>
-						)}
+		<div className="relative w-full max-w-sm lg:max-w-none">
+			{/* Card Container - Portrait format like reference */}
+			<div className="relative bg-charcoal rounded-3xl overflow-hidden shadow-xl border-2 border-warmGrey3 h-[60vh] w-full lg:h-[55vh] lg:w-[55vw]">
+				{/* Full Background Image */}
+				{hasImages && firstImage ? (
+					<>
+						<motion.div
+							{...ANIMATIONS.image}
+							className="absolute inset-0"
+						>
+							<Image
+								src={firstImage}
+								alt={spot.touristSpotName}
+								fill
+								className="object-cover"
+								priority={true}
+								quality={85}
+								loading="eager"
+								placeholder="blur"
+								blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R6i+gaVabwKkOH//9k="
+								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+							/>
+						</motion.div>
+						{/* Bottom gradient - solid charcoal until title area */}
+						<motion.div
+							className="absolute inset-0"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							style={{
+								background:
+									"linear-gradient(to top, #21211B 0%, #21211B 30%, #21211BE6 35%, #21211BCC 40%, #21211B80 45%, #1F1F1F33 55%, transparent 70%)",
+							}}
+						/>
+					</>
+				) : locationLoading ? (
+					<div className="absolute inset-0 bg-warmGrey4 flex flex-col items-center justify-center">
+						<Loader2 className="w-8 h-8 text-charcoal animate-spin mb-2" />
+						<p className="text-xs text-charcoal/60 tracking-wider">Loading image...</p>
 					</div>
+				) : (
+					<div className="absolute inset-0 bg-warmGrey4 flex items-center justify-center">
+						<Mountain className="w-12 h-12 text-charcoal opacity-40" />
+					</div>
+				)}
 
-					{/* Bottom Content - All aligned to bottom */}
-					<div className="space-y-3 mt-auto">
-						{/* Location */}
-						{spot.address && (
-							<div className="flex items-start gap-2">
-								<MapPin className="w-4 h-4 text-charcoal mt-0.5 flex-shrink-0 opacity-80" />
-								<div className="space-y-2">
-									<p className="text-sm text-charcoal opacity-90 leading-relaxed">
-										{spot.address}
-									</p>
-									{spot.touristSpotLatitude && spot.touristSpotLongitude && (
-										<a
-											href={`https://www.google.com/maps?q=${spot.touristSpotLatitude},${spot.touristSpotLongitude}`}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="inline-flex items-center gap-1 text-xs text-charcoal hover:text-charcoal/80 transition-colors uppercase tracking-widest underline decoration-1 underline-offset-2"
-										>
-											View Map
-											<ExternalLink className="w-3 h-3" />
-										</a>
-									)}
-								</div>
-							</div>
-						)}
+				{/* Content Overlay */}
+				<motion.div 
+					className="absolute inset-0 flex flex-col p-4"
+					{...ANIMATIONS.content}
+				>
+					{/* Weather Badge - Floating */}
+					{spot.weatherInfo && (
+						<motion.div
+							{...ANIMATIONS.weather}
+							className="absolute top-4 right-4 bg-charcoal/20 backdrop-blur-md rounded-full px-3 py-1.5 flex items-center gap-2 border border-warmGrey/30"
+						>
+							{React.createElement(
+								getWeatherIcon(spot.weatherInfo.weatherName),
+								{
+									className: "w-6 h-6 text-warmGrey",
+								},
+							)}
+							<span className="text-warmGrey text-sm font-medium tracking-wider italic">
+								{spot.weatherInfo.temperatureCelsius.toFixed(1)}°C
+							</span>
+						</motion.div>
+					)}
 
-						{/* Best Visit Time */}
-						{spot.bestVisitTime && (
-							<div className="flex items-center gap-2">
-								<Clock className="w-4 h-4 text-charcoal opacity-80" />
-								<span className="text-sm text-charcoal opacity-90 uppercase tracking-wide">
-									Best Visit: {spot.bestVisitTime}
-								</span>
-							</div>
-						)}
-
-						{/* Hashtags */}
-						{spot.touristSpotHashtag && spot.touristSpotHashtag.length > 0 && (
-							<div className="flex flex-wrap gap-1">
-								{spot.touristSpotHashtag.slice(0, 4).map((tag, index) => (
-									<span
-										key={`${spot.touristSpotId}-tag-${index}`}
-										className="text-xs text-charcoal bg-warmGrey px-2 py-1 rounded uppercase tracking-wide opacity-80"
-									>
-										#{tag}
-									</span>
-								))}
-							</div>
-						)}
-
-						{/* Model Route Link */}
-						{modelRoute && (
-							<motion.div 
-								{...ANIMATIONS.button}
-								className="pt-3 border-t border-warmGrey flex justify-end"
+					{/* Bottom Section - Main Content */}
+					<div className="mt-auto space-y-4">
+						{/* Main Heading */}
+						<motion.div {...ANIMATIONS.title}>
+							<motion.h2 
+								className="text-warmGrey text-xl md:text-2xl font-bold leading-tight mb-2 tracking-widest uppercase truncate lg:whitespace-normal"
+								whileHover={{ 
+									textShadow: "0 0 8px rgba(223, 211, 195, 0.3)",
+									transition: { duration: 0.2 }
+								}}
 							>
-								<a
-									href={`/v2/region/${modelRoute.region}/${modelRoute.modelRouteId}`}
-									className="inline-flex items-center gap-1 text-sm text-red hover:underline font-medium uppercase tracking-widest transition-all duration-300 hover:scale-110"
-								>
-									<Route size={16} />
-									Explore Route
-								</a>
-							</motion.div>
-						)}
+								{spot.touristSpotName}
+							</motion.h2>
+
+							{/* Subtext */}
+							<motion.p 
+								className="text-warmGrey text-sm leading-relaxed tracking-wider line-clamp-3"
+								{...ANIMATIONS.description}
+							>
+								{spot.touristSpotDesc
+									? spot.touristSpotDesc
+									: "From sacred sites to modern wonders. Let's explore this destination."}
+							</motion.p>
+						</motion.div>
+
+						{/* Call to Action Button */}
+						<motion.div {...ANIMATIONS.button}>
+							<a
+								href={
+									modelRoute
+										? `/v2/region/${modelRoute.region}/${modelRoute.modelRouteId}`
+										: "#"
+								}
+								className="inline-flex items-center justify-center w-full md:w-1/4 gap-2 px-5 py-2.5 border border-warmGrey/60 text-warmGrey rounded-full hover:bg-warmGrey hover:text-charcoal transition-all duration-300 text-sm font-medium tracking-wide"
+							>
+								{modelRoute ? "Explore Route" : "Learn more"}
+							</a>
+						</motion.div>
+
+						{/* Footer - Split between left and right */}
+						<motion.div 
+							className="flex justify-between items-center text-warmGrey/70 text-xs pt-2"
+							{...ANIMATIONS.footer}
+						>
+							<span className="tracking-wider truncate max-w-[120px] lg:truncate-none lg:max-w-none">
+								{spot.address ? spot.address : "tourii.jp"}
+							</span>
+							<span className="tracking-wider truncate max-w-[120px] lg:max-w-[150px]">
+								{spot.touristSpotHashtag && spot.touristSpotHashtag.length > 0
+									? spot.touristSpotHashtag
+											.slice(0, 2)
+											.map((tag) => tag.toLowerCase())
+											.join(" + ")
+									: "explore + earn"}
+							</span>
+						</motion.div>
 					</div>
 				</motion.div>
 			</div>

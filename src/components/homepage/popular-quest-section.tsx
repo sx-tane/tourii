@@ -38,7 +38,7 @@ export const PopularQuestSection: React.FC = () => {
 		<div className="w-full">
 			{/* Section Header with Centered Line */}
 			<motion.div
-				className="w-full flex justify-center mb-8"
+				className="w-full flex justify-center mb-4 sm:mb-6 md:mb-8"
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: false, amount: 0.3 }}
@@ -47,14 +47,14 @@ export const PopularQuestSection: React.FC = () => {
 					ease: [0.25, 0.1, 0.25, 1],
 				}}
 			>
-				<div className="w-auto">
+				<div className="w-10/12 md:w-auto">
 					<Line />
 				</div>
 			</motion.div>
 
 			{/* Section Title */}
 			<motion.div
-				className="w-full px-5 mb-12"
+				className="w-full px-5 mb-6 sm:mb-8 md:mb-12"
 				initial={{ opacity: 0, y: 30 }}
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: false, amount: 0.3 }}
@@ -83,12 +83,12 @@ export const PopularQuestSection: React.FC = () => {
 			>
 				<div className="w-full max-w-screen-lg mx-auto">
 					<div
-						className={`grid gap-8 ${
+						className={`grid gap-4 sm:gap-6 md:gap-8 ${
 							displayQuests.length === 1
 								? "grid-cols-1 justify-items-center"
 								: displayQuests.length === 2
-									? "grid-cols-2 justify-items-center"
-									: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+									? "grid-cols-1 sm:grid-cols-2 justify-items-center"
+									: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
 						}`}
 					>
 						{displayQuests.map((quest, index) => (

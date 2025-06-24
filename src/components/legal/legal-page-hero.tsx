@@ -14,20 +14,20 @@ export default function LegalPageHero({
 	return (
 		<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
 			<motion.div
-				className="bg-red rounded-2xl p-8 sm:p-12 border border-warmGrey2 h-72 relative overflow-hidden"
+				className="bg-red rounded-2xl p-8 sm:p-12 border border-warmGrey2 md:h-72 h-52 relative overflow-hidden"
 				initial={{ opacity: 0, scale: 0.95 }}
 				animate={{ opacity: 1, scale: 1 }}
 				transition={{ duration: 0.6, ease: "easeOut" }}
 			>
 				{/* Background decorative elements */}
 				<motion.div
-					className="absolute top-4 right-4 w-32 h-32 border border-warmGrey/20 rounded-full"
+					className="absolute top-4 right-4 w-32 h-32 rounded-full"
 					initial={{ opacity: 0, rotate: 0 }}
 					animate={{ opacity: 1, rotate: 360 }}
 					transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
 				/>
 				<motion.div
-					className="absolute top-8 right-8 w-16 h-16 border border-warmGrey/10 rounded-full"
+					className="absolute top-8 right-8 w-16 h-16  rounded-full"
 					initial={{ opacity: 0, rotate: 0 }}
 					animate={{ opacity: 1, rotate: -360 }}
 					transition={{ duration: 15, repeat: Infinity, ease: "linear" }}

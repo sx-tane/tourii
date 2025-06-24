@@ -45,9 +45,9 @@ const Badge = memo(
 		className?: string;
 	}) => (
 		<div
-			className={`bg-red rounded-full px-3 tracking-widest font-semibold  ${className}`}
+			className={`bg-red rounded-full px-2 sm:px-3 tracking-widest font-semibold  ${className}`}
 		>
-			<span className="text-warmGrey text-xs py-1 font-semibold italic">
+			<span className="text-warmGrey text-xs py-0.5 sm:py-1 font-semibold italic">
 				{children}
 			</span>
 		</div>
@@ -81,13 +81,12 @@ export const QuestCard: React.FC<QuestCardProps> = memo(
 			};
 		}, [questData, title, imageUrl]);
 
-		// Determine aspect ratio based on forceAspectRatio prop
+		// Determine aspect ratio based on forceAspectRatio prop and screen size
 		const aspectRatio = forceAspectRatio === "wider" ? "4/3" : "3/4";
 
 		return (
 			<motion.div
-				className="w-full group relative overflow-hidden rounded-[20px] shadow-lg"
-				style={{ aspectRatio }}
+				className="w-11/12  sm:max-w-sm lg:max-w-none group relative overflow-hidden rounded-[20px] shadow-lg mx-auto h-[30vh] sm:h-[45vh] lg:h-[40vh] lg:w-[300px]"
 				initial={{ opacity: 0, y: 40, scale: 0.98 }}
 				whileInView={{ opacity: 1, y: 0, scale: 1 }}
 				viewport={{ once: false, amount: 0.3 }}
@@ -114,7 +113,7 @@ export const QuestCard: React.FC<QuestCardProps> = memo(
 						<div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
 
 						{/* Quest Info - Bottom */}
-						<div className="absolute bottom-1 left-0 right-0 p-4 gap-2 flex flex-col mx-2">
+						<div className="absolute bottom-1 left-1 md:left-0 right-0 p-2 sm:p-3 md:p-4 gap-1 sm:gap-2 flex flex-col mx-1 sm:mx-2">
 							{/* Badges Row - Above Title */}
 							<motion.div
 								className="flex items-center gap-2"
@@ -145,7 +144,7 @@ export const QuestCard: React.FC<QuestCardProps> = memo(
 									ease: [0.6, 0.05, 0.01, 0.9],
 								}}
 							>
-								<h3 className="text-warmGrey text-lg font-bold tracking-widest uppercase line-clamp-2">
+								<h3 className="text-warmGrey text-sm sm:text-base md:text-lg font-bold tracking-widest uppercase line-clamp-2">
 									{computedValues.displayTitle}
 								</h3>
 								<p className="text-warmGrey/70 text-xs font-normal tracking-widest uppercase italic">

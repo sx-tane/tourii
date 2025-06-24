@@ -1,22 +1,26 @@
 "use client";
 
-import { ReactNode } from "react";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 interface LegalPageSectionProps {
 	title: string;
 	children: ReactNode;
 }
 
-export default function LegalPageSection({ title, children }: LegalPageSectionProps) {
+export default function LegalPageSection({
+	title,
+	children,
+}: LegalPageSectionProps) {
 	return (
 		<motion.section
 			initial={{ opacity: 0, y: 30 }}
 			whileInView={{ opacity: 1, y: 0 }}
 			viewport={{ once: true, margin: "-100px" }}
 			transition={{ duration: 0.6, ease: "easeOut" }}
+			className="px-4 md:px-0"
 		>
-			<motion.h3 
+			<motion.h3
 				className="text-2xl uppercase tracking-widest font-bold text-red mb-2 pb-4 border-b border-warmGrey3 relative"
 				initial={{ opacity: 0, x: -20 }}
 				whileInView={{ opacity: 1, x: 0 }}
@@ -32,7 +36,7 @@ export default function LegalPageSection({ title, children }: LegalPageSectionPr
 					transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
 				/>
 			</motion.h3>
-			<motion.div 
+			<motion.div
 				className="space-y-4 text-charcoal leading-relaxed mt-6"
 				initial={{ opacity: 0 }}
 				whileInView={{ opacity: 1 }}

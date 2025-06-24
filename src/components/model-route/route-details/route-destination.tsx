@@ -1,16 +1,15 @@
 import type { TouristSpotResponseDto } from "@/api/generated";
+import { useIntersectionObserver, useSpotImage } from "@/hooks";
+import { calculateDistanceKm, estimateWalkingMinutes } from "@/utils/geo-utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
-import { useRef, useState, useEffect } from "react";
-import { calculateDistanceKm, estimateWalkingMinutes } from "@/utils/geo-utils";
-import { useSpotImage, useIntersectionObserver } from "@/hooks";
+import React, { useRef } from "react";
 
 const RouteDestination: React.FC<{
 	touristSpotList: TouristSpotResponseDto[];
 }> = ({ touristSpotList }) => {
 	const titleWords = "route destinations".split(" ");
-	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const scrollContainerRef = useRef<HTMLButtonElement>(null);
 	const isDragging = useRef(false);
 	const startX = useRef(0);
 	const scrollLeft = useRef(0);
@@ -95,9 +94,10 @@ const RouteDestination: React.FC<{
 
 			<div className="mt-6 sm:mt-8 lg:mt-10 mx-12 md:mx-4">
 				{/* Scrollable container with hidden scrollbar */}
-				<div
+				<button
 					ref={scrollContainerRef}
-					className="overflow-x-auto overflow-y-hidden scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:cursor-auto cursor-grab select-none"
+					type="button"
+					className="overflow-x-auto overflow-y-hidden scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] md:cursor-auto cursor-grab select-none w-full text-left"
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
@@ -114,7 +114,7 @@ const RouteDestination: React.FC<{
 							/>
 						))}
 					</div>
-				</div>
+				</button>
 			</div>
 		</div>
 	);

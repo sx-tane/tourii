@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { WorldLoreTabContent } from "./world-lore-tab-content";
 import { SWRConfig } from "swr";
+import { WorldLoreTabContent } from "./world-lore-tab-content";
 
 const meta = {
 	title: "Components/Story/ChapterPage/WorldLoreTabContent",
@@ -52,13 +52,17 @@ export const WithMockData: Story = {
 									touristSpotDesc:
 										"Known as the 'Niagara of the East', Harajiri Falls is a magnificent 20-meter high, 120-meter wide waterfall located in Bungo-ono City, Oita Prefecture.",
 									bestVisitTime: "Spring and Autumn",
-									address: "Harajirinotaki, Ogata, Bungo-ono, Oita 879-6631, Japan",
+									address:
+										"Harajirinotaki, Ogata, Bungo-ono, Oita 879-6631, Japan",
 									touristSpotLatitude: 32.9833,
 									touristSpotLongitude: 131.4167,
 									touristSpotHashtag: ["waterfall", "nature", "oita", "scenic"],
 									imageSet: {
 										main: "/api/placeholder/800/400",
-										small: ["/api/placeholder/400/300", "/api/placeholder/400/300"],
+										small: [
+											"/api/placeholder/400/300",
+											"/api/placeholder/400/300",
+										],
 									},
 									weatherInfo: {
 										temperatureCelsius: 22,
@@ -76,7 +80,12 @@ export const WithMockData: Story = {
 									address: "Aso, Kumamoto Prefecture, Japan",
 									touristSpotLatitude: 32.8847,
 									touristSpotLongitude: 131.1041,
-									touristSpotHashtag: ["volcano", "nature", "kumamoto", "hiking"],
+									touristSpotHashtag: [
+										"volcano",
+										"nature",
+										"kumamoto",
+										"hiking",
+									],
 									storyChapterLink: "https://example.com/mount-aso-story",
 								},
 							]),
@@ -118,7 +127,7 @@ export const Empty: Story = {
 	},
 };
 
-export const Error: Story = {
+export const ChapterError: Story = {
 	args: {
 		storyChapterId: "chapter-error",
 	},
