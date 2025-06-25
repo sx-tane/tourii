@@ -84,8 +84,11 @@ export default function TouristSpotCreateEditModal({
 									onFormChange({ storyChapterId: e.target.value })
 								}
 								className="w-full rounded-lg border border-warmGrey2 px-4 py-2 focus:border-red focus:outline-none"
-								placeholder="Enter story chapter ID"
+								placeholder="Enter story chapter ID or 'No' if no story"
 							/>
+							<p className="mt-1 text-xs text-warmGrey3">
+								Enter "No" if this tourist spot has no associated story chapter
+							</p>
 						</div>
 
 						<div>

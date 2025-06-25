@@ -1,12 +1,12 @@
 "use client";
 import type { TouristSpotResponseDto } from "@/api/generated";
+import Line from "@/components/about/divider-line/line";
 import { useSagaById } from "@/hooks";
 import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
-import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import Line from "@/components/about/divider-line/line";
 import ReactMarkdown from "react-markdown";
 
 interface SpotDetailSidebarProps {
@@ -218,7 +218,7 @@ const SpotHeader: React.FC<{
 				}}
 				className="text-sm font-semibold tracking-widest text-charcoal italic"
 			>
-				{chapterTitle || spotDesc}
+				{chapterTitle || ""}
 			</motion.div>
 		</div>
 	);
@@ -230,12 +230,14 @@ const SpotImage: React.FC<{
 	chapterTitle?: string;
 	spotName: string;
 	storyChapterLink?: string;
+	storyChapterId?: string;
 }> = ({
 	chapterImage,
 	mainImageSrc,
 	chapterTitle,
 	spotName,
 	storyChapterLink,
+	storyChapterId,
 }) => (
 	<motion.div
 		initial={{ opacity: 0, x: -20 }}
@@ -267,7 +269,7 @@ const SpotImage: React.FC<{
 						className="mx-auto h-[20vh] sm:h-[20vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-full"
 					/>
 				) : null}
-				{storyChapterLink && (
+				{storyChapterLink && storyChapterId !== "No" && (
 					<Link
 						className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-3 py-2 text-xs font-normal tracking-widest text-warmGrey transition-all duration-300 hover:bg-red"
 						href={storyChapterLink}
@@ -324,13 +326,16 @@ const SpotCard: React.FC<{
 					spotDesc={spot.touristSpotDesc}
 				/>
 
-				<SpotImage
-					chapterImage={spotCurrentChapter?.chapterImage}
-					mainImageSrc={spotHasValidMainImage ? spotMainImageSrc : undefined}
-					chapterTitle={spotCurrentChapter?.chapterTitle}
-					spotName={spot.touristSpotName}
-					storyChapterLink={spot.storyChapterLink}
-				/>
+				{spot.storyChapterId !== "No" && (
+					<SpotImage
+						chapterImage={spotCurrentChapter?.chapterImage}
+						mainImageSrc={spotHasValidMainImage ? spotMainImageSrc : undefined}
+						chapterTitle={spotCurrentChapter?.chapterTitle}
+						spotName={spot.touristSpotName}
+						storyChapterLink={spot.storyChapterLink}
+						storyChapterId={spot.storyChapterId}
+					/>
+				)}
 
 				{/* Tourist Spot Description */}
 				<motion.div
