@@ -23,9 +23,9 @@ export class RoutesService {
         xApiKey: string,
         requestBody: {
             /**
-             * Unique identifier for the story
+             * Unique identifier for the story (optional for standalone routes)
              */
-            storyId: string;
+            storyId?: string;
             /**
              * Name of the model route
              */
@@ -51,9 +51,9 @@ export class RoutesService {
              */
             touristSpotList: Array<{
                 /**
-                 * Unique identifier for the story chapter
+                 * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
                  */
-                storyChapterId: string;
+                storyChapterId?: string;
                 /**
                  * Name of the tourist spot
                  */
@@ -144,9 +144,9 @@ export class RoutesService {
         xApiKey: string,
         requestBody: {
             /**
-             * Unique identifier for the story chapter
+             * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
              */
-            storyChapterId: string;
+            storyChapterId?: string;
             /**
              * Name of the tourist spot
              */
@@ -213,9 +213,9 @@ export class RoutesService {
         xApiKey: string,
         requestBody: {
             /**
-             * Unique identifier for the story
+             * Unique identifier for the story (optional for standalone routes)
              */
-            storyId: string;
+            storyId?: string;
             /**
              * Name of the model route
              */
@@ -241,9 +241,9 @@ export class RoutesService {
              */
             touristSpotList: Array<{
                 /**
-                 * Unique identifier for the story chapter
+                 * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
                  */
-                storyChapterId: string;
+                storyChapterId?: string;
                 /**
                  * Name of the tourist spot
                  */
@@ -332,9 +332,9 @@ export class RoutesService {
         xApiKey: string,
         requestBody: {
             /**
-             * Unique identifier for the story chapter
+             * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
              */
-            storyChapterId: string;
+            storyChapterId?: string;
             /**
              * Name of the tourist spot
              */

@@ -4,9 +4,9 @@
 /* eslint-disable */
 export type TouristSpotCreateRequestDto = {
     /**
-     * Unique identifier for the story chapter
+     * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
      */
-    storyChapterId: string;
+    storyChapterId?: string;
     /**
      * Name of the tourist spot
      */

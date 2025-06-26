@@ -57,7 +57,7 @@ export default function AdminModelRoutes() {
 	const [selectedRoutes, setSelectedRoutes] = useState<string[]>([]);
 
 	const [form, setForm] = useState<ModelRouteCreateRequestDto>({
-		storyId: "",
+		storyId: undefined,
 		routeName: "",
 		region: "",
 		regionDesc: "",
@@ -161,7 +161,7 @@ export default function AdminModelRoutes() {
 
 	const resetForm = useCallback(() => {
 		setForm({
-			storyId: "",
+			storyId: undefined,
 			routeName: "",
 			region: "",
 			regionDesc: "",
@@ -174,8 +174,8 @@ export default function AdminModelRoutes() {
 	}, []);
 
 	const handleCreate = async () => {
-		if (!form.storyId.trim() || !form.routeName.trim() || !form.region.trim()) {
-			alert("Please fill in required fields: Story ID, Route Name, and Region");
+		if (!form.routeName.trim() || !form.region.trim()) {
+			alert("Please fill in required fields: Route Name and Region");
 			return;
 		}
 
@@ -192,12 +192,7 @@ export default function AdminModelRoutes() {
 	};
 
 	const handleUpdate = async () => {
-		if (
-			!editingRoute ||
-			!form.storyId.trim() ||
-			!form.routeName.trim() ||
-			!form.region.trim()
-		) {
+		if (!editingRoute || !form.routeName.trim() || !form.region.trim()) {
 			alert("Please fill in required fields");
 			return;
 		}
@@ -220,7 +215,7 @@ export default function AdminModelRoutes() {
 	const handleEdit = (route: ModelRouteResponseDto) => {
 		setEditingRoute(route);
 		setForm({
-			storyId: route.storyId || "",
+			storyId: route.storyId || undefined,
 			routeName: route.routeName || "",
 			region: route.region || "",
 			regionDesc: route.regionDesc || "",

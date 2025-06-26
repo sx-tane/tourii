@@ -156,7 +156,7 @@ export default function ModelRouteCreateEditModal({
 								htmlFor={storyIdId}
 								className="block text-sm font-medium text-charcoal mb-2"
 							>
-								Story ID *
+								Story ID (optional)
 							</label>
 							<input
 								id={storyIdId}
@@ -164,8 +164,11 @@ export default function ModelRouteCreateEditModal({
 								value={form.storyId}
 								onChange={(e) => onFormChange({ storyId: e.target.value })}
 								className="w-full rounded-lg border border-warmGrey2 px-4 py-2 focus:border-red focus:outline-none"
-								placeholder="Enter story ID"
+								placeholder="Enter story ID or leave blank if no story"
 							/>
+							<p className="mt-1 text-xs text-warmGrey3">
+								Just leave blank if this route has no associated story
+							</p>
 						</div>
 
 						<div>

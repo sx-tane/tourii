@@ -86,7 +86,7 @@ export default function TouristSpotManagement({ params }: Props) {
 	const [selectedSpots, setSelectedSpots] = useState<string[]>([]);
 
 	const [form, setForm] = useState<TouristSpotCreateRequestDto>({
-		storyChapterId: "",
+		storyChapterId: undefined,
 		touristSpotName: "",
 		address: "",
 		touristSpotDesc: "",
@@ -213,7 +213,6 @@ export default function TouristSpotManagement({ params }: Props) {
 
 	const handleCreate = async () => {
 		if (
-			!form.storyChapterId.trim() ||
 			!form.touristSpotName.trim() ||
 			!form.touristSpotDesc.trim() ||
 			!form.address?.trim()
@@ -248,7 +247,6 @@ export default function TouristSpotManagement({ params }: Props) {
 	const handleUpdate = async () => {
 		if (
 			!editingSpot ||
-			!form.storyChapterId.trim() ||
 			!form.touristSpotName.trim() ||
 			!form.touristSpotDesc.trim() ||
 			!form.address?.trim()

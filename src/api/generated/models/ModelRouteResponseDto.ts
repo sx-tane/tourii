@@ -8,9 +8,9 @@ export type ModelRouteResponseDto = {
      */
     modelRouteId: string;
     /**
-     * Unique identifier for the story
+     * Unique identifier for the story (optional for standalone routes)
      */
-    storyId: string;
+    storyId?: string;
     /**
      * Name of the model route
      */
@@ -50,7 +50,7 @@ export type ModelRouteResponseDto = {
         /**
          * Unique identifier for the story chapter
          */
-        storyChapterId: string;
+        storyChapterId?: string;
         /**
          * Name of the tourist spot
          */

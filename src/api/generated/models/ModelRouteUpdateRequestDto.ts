@@ -4,9 +4,9 @@
 /* eslint-disable */
 export type ModelRouteUpdateRequestDto = {
     /**
-     * Unique identifier for the story
+     * Unique identifier for the story (optional for standalone routes)
      */
-    storyId: string;
+    storyId?: string;
     /**
      * Name of the model route
      */
@@ -32,9 +32,9 @@ export type ModelRouteUpdateRequestDto = {
      */
     touristSpotList: Array<{
         /**
-         * Unique identifier for the story chapter
+         * Unique identifier for the story chapter. Leave undefined to skip story chapter linking.
          */
-        storyChapterId: string;
+        storyChapterId?: string;
         /**
          * Name of the tourist spot
          */

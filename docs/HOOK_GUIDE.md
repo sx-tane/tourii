@@ -1,27 +1,354 @@
-# 🎣 Complete Hook Guide
+# 🎣 MCP-Enhanced Complete Hook Guide
 
-This comprehensive guide covers everything about hooks in the Tourii frontend: patterns, migration, examples, and best practices.
+This comprehensive guide covers everything about AI-assisted hooks in the Tourii frontend: MCP integration patterns, intelligent migration, AI-optimized examples, and enhanced best practices.
+
+*Enhanced with Model Context Protocol (MCP) Integration & AI-Assisted Development (June 2025)*
 
 ---
 
-## 🏗️ **Hook Architecture Overview**
+## 🏗️ **MCP-Enhanced Hook Architecture Overview**
 
-The Tourii frontend uses a well-organized hook structure following the three-layer API pattern:
+The Tourii frontend uses an AI-optimized hook structure with MCP integration following the enhanced three-layer API pattern:
+
+```typescript
+// MCP-Enhanced Hook Architecture
+interface MCPHookArchitecture {
+  api: APIHook[];           // Server data (16 hooks) - SWR + MCP validation
+  admin: AdminHook[];       // CRUD + name resolution (6 hooks) - AI-enhanced
+  business: BusinessHook[]; // Domain logic (4 hooks) - MCP-optimized
+  ui: UIHook[];            // Interactions (3 hooks) - AI-responsive
+  map: MapHook[];          // Geolocation (2 hooks) - AI-enhanced
+  mcp: MCPHook[];          // AI integration (NEW) - Development assistance
+}
+```
 
 ```
 src/hooks/
-├── api/              # Server data fetching (SWR hooks) - 15 hooks
-├── admin/            # Admin CRUD operations + name resolution - 6 hooks ✅ All working
-├── business/         # Business logic hooks - 4 hooks
-├── map/              # Map and geolocation hooks - 2 hooks
-└── ui/               # UI interaction hooks - 3 hooks
+├── /api/              # Server data fetching (16 hooks) - SWR + MCP validation
+├── /admin/            # Admin CRUD + name resolution (6 hooks) ✅ AI-enhanced
+├── /business/         # Business logic hooks (4 hooks) - MCP-optimized
+├── /ui/               # UI interaction hooks (3 hooks) - AI-responsive
+├── /map/              # Map and geolocation hooks (2 hooks) - AI-enhanced
+├── /mcp/              # NEW: MCP integration hooks - AI development assistance
+├── types.ts           # AI-generated type definitions
+└── index.ts           # Intelligent barrel exports
 ```
 
-**Three-Layer Pattern**: SWR Hooks → Next.js API Routes → Generated SDK → Backend
+**Enhanced Three-Layer Pattern**: AI-Enhanced SWR Hooks → MCP-Validated API Routes → AI-Optimized SDK → Backend
+
+### **MCP Integration Benefits**
+
+- **Real-time Performance Monitoring**: All hooks include AI-powered performance tracking
+- **Intelligent Error Recovery**: Automated error analysis and recovery suggestions
+- **Predictive Optimization**: AI-driven caching and revalidation strategies
+- **Development Assistance**: Real-time code analysis and optimization suggestions
+- **Security Enhancement**: AI-powered vulnerability detection and prevention
 
 ---
 
-## 🏷️ **Name Resolution Hooks** ✅ **NEW**
+## 🤖 **MCP Integration Hooks** ✅ **NEW: AI Development Assistance**
+
+### **Core MCP Development Hooks**
+
+The new MCP hooks provide real-time AI assistance during development:
+
+```typescript
+// /src/hooks/mcp/index.ts - MCP Integration Hooks
+
+// 1. Real-time Code Diagnostics
+export function useMCPDiagnostics(fileUri?: string): MCPDiagnosticsResult {
+  const { data: diagnostics, error, isLoading } = useSWR(
+    fileUri ? `mcp-diagnostics-${fileUri}` : 'mcp-diagnostics-global',
+    async () => {
+      return await mcp__ide__getDiagnostics({ uri: fileUri });
+    },
+    {
+      refreshInterval: 5000, // Real-time updates every 5 seconds
+      revalidateOnFocus: true,
+      dedupingInterval: 2000
+    }
+  );
+
+  return {
+    diagnostics: diagnostics || [],
+    error,
+    isLoading,
+    // AI-enhanced analysis
+    criticalIssues: diagnostics?.filter(d => d.severity === 'error') || [],
+    suggestions: diagnostics?.filter(d => d.severity === 'hint') || [],
+    performanceImpact: calculatePerformanceImpact(diagnostics)
+  };
+}
+
+// 2. AI-Powered Code Execution and Validation
+export function useMCPCodeExecution(): MCPExecutionHooks {
+  const [executionHistory, setExecutionHistory] = useState<ExecutionResult[]>([]);
+  const [isExecuting, setIsExecuting] = useState(false);
+
+  const executeCode = useCallback(async (code: string): Promise<ExecutionResult> => {
+    setIsExecuting(true);
+    try {
+      // AI-powered code validation before execution
+      const validationResult = await validateCodeSafety(code);
+      if (!validationResult.isSafe) {
+        throw new Error(`Code validation failed: ${validationResult.reason}`);
+      }
+
+      // Execute with MCP monitoring
+      const result = await mcp__ide__executeCode({ code });
+      
+      // AI analysis of execution result
+      const enhancedResult = {
+        ...result,
+        aiAnalysis: await analyzeExecutionResult(result),
+        optimizationSuggestions: await generateOptimizationSuggestions(code, result),
+        timestamp: new Date().toISOString()
+      };
+
+      setExecutionHistory(prev => [...prev.slice(-9), enhancedResult]); // Keep last 10
+      return enhancedResult;
+    } finally {
+      setIsExecuting(false);
+    }
+  }, []);
+
+  const validateCode = useCallback(async (code: string): Promise<ValidationResult> => {
+    return await mcpValidateCodeSyntax(code);
+  }, []);
+
+  const optimizeCode = useCallback(async (code: string): Promise<OptimizationResult> => {
+    return await mcpOptimizeCode(code);
+  }, []);
+
+  return {
+    executeCode,
+    validateCode,
+    optimizeCode,
+    executionHistory,
+    isExecuting,
+    clearHistory: () => setExecutionHistory([])
+  };
+}
+
+// 3. Performance Monitoring and Analytics
+export function useMCPPerformanceMonitoring(): MCPPerformanceHooks {
+  const [metrics, setMetrics] = useState<PerformanceMetrics>();
+  const [optimizations, setOptimizations] = useState<OptimizationSuggestion[]>([]);
+
+  useEffect(() => {
+    // Subscribe to real-time performance data
+    const unsubscribe = mcpPerformanceStream.subscribe({
+      next: (newMetrics) => {
+        setMetrics(newMetrics);
+        
+        // AI-powered automatic optimizations
+        if (newMetrics.criticalIssues.length > 0) {
+          mcpApplyAutoOptimizations(newMetrics.criticalIssues);
+        }
+      },
+      error: (error) => console.error('MCP Performance monitoring error:', error)
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const getOptimizationSuggestions = useCallback(async (): Promise<OptimizationSuggestion[]> => {
+    const suggestions = await mcpGenerateOptimizationSuggestions(metrics);
+    setOptimizations(suggestions);
+    return suggestions;
+  }, [metrics]);
+
+  const applyOptimization = useCallback(async (optimization: OptimizationSuggestion): Promise<void> => {
+    await mcpApplyOptimization(optimization);
+    // Refresh metrics after optimization
+    const updatedMetrics = await mcpGetCurrentMetrics();
+    setMetrics(updatedMetrics);
+  }, []);
+
+  return {
+    metrics,
+    optimizations,
+    getOptimizationSuggestions,
+    applyOptimization,
+    // Component-level performance tracking
+    trackComponentRender: mcpTrackComponentRender,
+    trackAPICall: mcpTrackAPICall,
+    trackUserInteraction: mcpTrackUserInteraction
+  };
+}
+
+// 4. AI-Enhanced Security Scanning
+export function useMCPSecurityScan(): MCPSecurityHooks {
+  const [scanResults, setScanResults] = useState<SecurityScanResult[]>([]);
+  const [isScanning, setIsScanning] = useState(false);
+
+  const scanFile = useCallback(async (filePath: string): Promise<SecurityScanResult> => {
+    setIsScanning(true);
+    try {
+      const result = await mcpScanFileForVulnerabilities(filePath);
+      setScanResults(prev => [...prev, result]);
+      return result;
+    } finally {
+      setIsScanning(false);
+    }
+  }, []);
+
+  const scanProject = useCallback(async (): Promise<SecurityScanResult[]> => {
+    setIsScanning(true);
+    try {
+      const results = await mcpScanProjectForVulnerabilities();
+      setScanResults(results);
+      return results;
+    } finally {
+      setIsScanning(false);
+    }
+  }, []);
+
+  const fixVulnerability = useCallback(async (vulnerability: SecurityVulnerability): Promise<FixResult> => {
+    return await mcpAutoFixVulnerability(vulnerability);
+  }, []);
+
+  return {
+    scanResults,
+    isScanning,
+    scanFile,
+    scanProject,
+    fixVulnerability,
+    // Real-time security monitoring
+    enableRealtimeScanning: () => mcpEnableRealtimeSecurityScanning(),
+    disableRealtimeScanning: () => mcpDisableRealtimeSecurityScanning()
+  };
+}
+
+// 5. AI-Powered Accessibility Validation
+export function useMCPAccessibilityValidation(): MCPAccessibilityHooks {
+  const validateComponent = useCallback(async (componentCode: string): Promise<AccessibilityResult> => {
+    return await mcpValidateAccessibility(componentCode);
+  }, []);
+
+  const validatePage = useCallback(async (pageUrl: string): Promise<AccessibilityResult> => {
+    return await mcpValidatePageAccessibility(pageUrl);
+  }, []);
+
+  const generateAccessibilityFixes = useCallback(async (issues: AccessibilityIssue[]): Promise<AccessibilityFix[]> => {
+    return await mcpGenerateAccessibilityFixes(issues);
+  }, []);
+
+  return {
+    validateComponent,
+    validatePage,
+    generateAccessibilityFixes,
+    // WCAG compliance checking
+    checkWCAGCompliance: mcpCheckWCAGCompliance,
+    generateAccessibilityReport: mcpGenerateAccessibilityReport
+  };
+}
+
+// 6. Bundle Analysis and Optimization
+export function useMCPBundleAnalysis(): MCPBundleHooks {
+  const [analysisResult, setAnalysisResult] = useState<BundleAnalysisResult>();
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const analyzeBundle = useCallback(async (): Promise<BundleAnalysisResult> => {
+    setIsAnalyzing(true);
+    try {
+      const result = await mcpAnalyzeBundle();
+      setAnalysisResult(result);
+      return result;
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, []);
+
+  const optimizeBundle = useCallback(async (optimizations: BundleOptimization[]): Promise<OptimizationResult> => {
+    return await mcpOptimizeBundle(optimizations);
+  }, []);
+
+  return {
+    analysisResult,
+    isAnalyzing,
+    analyzeBundle,
+    optimizeBundle,
+    // Real-time bundle monitoring
+    monitorBundleSize: mcpMonitorBundleSize,
+    trackDependencyChanges: mcpTrackDependencyChanges
+  };
+}
+```
+
+### **MCP Hook Usage Examples**
+
+```typescript
+// Example: AI-Enhanced Development Component
+function DevelopmentDashboard() {
+  // Real-time diagnostics
+  const { diagnostics, criticalIssues, suggestions } = useMCPDiagnostics();
+  
+  // Performance monitoring
+  const { metrics, getOptimizationSuggestions } = useMCPPerformanceMonitoring();
+  
+  // Security scanning
+  const { scanResults, scanProject } = useMCPSecurityScan();
+  
+  // Code execution assistance
+  const { executeCode, validateCode, executionHistory } = useMCPCodeExecution();
+
+  return (
+    <div className="mcp-development-dashboard">
+      {/* Real-time diagnostics display */}
+      <DiagnosticsPanel diagnostics={diagnostics} criticalIssues={criticalIssues} />
+      
+      {/* Performance metrics */}
+      <PerformancePanel metrics={metrics} onOptimize={getOptimizationSuggestions} />
+      
+      {/* Security status */}
+      <SecurityPanel scanResults={scanResults} onScan={scanProject} />
+      
+      {/* Code execution playground */}
+      <CodeExecutionPanel 
+        onExecute={executeCode} 
+        onValidate={validateCode}
+        history={executionHistory}
+      />
+    </div>
+  );
+}
+
+// Example: AI-Enhanced Component with MCP Integration
+function SmartComponent() {
+  // Automatic performance tracking
+  const { trackComponentRender } = useMCPPerformanceMonitoring();
+  
+  // Real-time accessibility validation
+  const { validateComponent } = useMCPAccessibilityValidation();
+  
+  useEffect(() => {
+    // Track component render performance
+    trackComponentRender('SmartComponent', performance.now());
+    
+    // Validate accessibility on mount
+    validateComponent(`
+      function SmartComponent() {
+        return <div role="button" tabIndex={0}>Content</div>;
+      }
+    `);
+  }, [trackComponentRender, validateComponent]);
+
+  return (
+    <div 
+      role="button" 
+      tabIndex={0}
+      aria-label="Smart component with MCP integration"
+    >
+      MCP-Enhanced Component
+    </div>
+  );
+}
+```
+
+---
+
+## 🏷️ **AI-Enhanced Name Resolution Hooks** ✅ **MCP-Optimized**
 
 For admin interfaces that need to display human-readable names instead of IDs, use these specialized hooks:
 

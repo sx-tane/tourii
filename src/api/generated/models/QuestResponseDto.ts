@@ -123,7 +123,7 @@ export type QuestResponseDto = {
         /**
          * Unique identifier for the story chapter
          */
-        storyChapterId: string;
+        storyChapterId?: string;
         /**
          * Name of the tourist spot
          */

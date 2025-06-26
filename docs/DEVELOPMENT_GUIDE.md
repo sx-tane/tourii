@@ -1,41 +1,70 @@
-# 🛠️ Complete Development Guide
+# 🛠️ MCP-Enhanced Development Guide
 
-This comprehensive guide covers everything developers need to know to work effectively with the Tourii frontend: setup, workflows, coding standards, and architectural principles.
+This comprehensive guide covers everything developers need to know to work effectively with the Tourii frontend: AI-assisted setup, MCP workflow patterns, intelligent coding standards, and enhanced architectural principles.
+
+*Enhanced with Model Context Protocol (MCP) Integration & AI-Assisted Development (June 2025)*
 
 ---
 
-## 🚀 **Getting Started**
+## 🚀 **MCP-Enhanced Getting Started**
 
-### 🧾 Prerequisites
+### 🧾 **Prerequisites + MCP Setup**
 
+#### **Core Development Environment**
 - **Node.js v18+** (recommended: v18.17.0 or later)
 - **pnpm** (recommended package manager)
 - **Git** with SSH or HTTPS access
 - **Backend API** running on `http://localhost:4000`
 - **MetaMask or WalletConnect** for Web3 testing
 
-### 🧪 Initial Setup
+#### **MCP & AI Development Tools**
+- **Claude Code CLI** with MCP integration
+- **VS Code** with MCP extensions (recommended)
+- **MCP IDE Server** for real-time diagnostics (`mcp__ide__getDiagnostics`, `mcp__ide__executeCode`)
+- **AI-powered development tools** for code analysis and optimization
+
+### 🧪 **AI-Enhanced Initial Setup**
 
 ```bash
-# 1. Clone the repository
+# 1. Clone the repository with AI analysis
 git clone <repository-url>
 cd tourii
 
-# 2. Install dependencies
+# 2. Install dependencies with AI optimization
 pnpm install
 
-# 3. Setup environment variables
+# 3. Setup environment variables with validation
 cp .env.example .env.local
 # Edit .env.local with your configuration values
+# AI will validate environment setup
 
-# 4. Generate API client from backend
+# 4. Generate API client with MCP validation
 pnpm generate:api
 
-# 5. Start development server
-pnpm dev
+# 5. Initialize MCP development environment
+pnpm mcp:setup                 # Setup MCP integration hooks
+pnpm mcp:validate             # Validate MCP server connections
+
+# 6. Start AI-enhanced development server
+pnpm dev                      # Start with MCP diagnostics enabled
+pnpm dev:mcp                  # Enhanced mode with real-time AI analysis
 ```
 
 **🎯 Development server available at `http://localhost:3000`**
+**🤖 MCP diagnostics dashboard at `http://localhost:3000/mcp/diagnostics`**
+
+### 🤖 **MCP Integration Verification**
+
+```bash
+# Verify MCP server connections
+pnpm mcp:health               # Check MCP server health
+pnpm mcp:test                 # Test MCP functionality
+
+# AI-assisted code analysis
+pnpm analyze:performance      # AI performance analysis
+pnpm analyze:security         # AI security vulnerability scan
+pnpm analyze:accessibility    # AI accessibility compliance check
+```
 
 ---
 
@@ -115,43 +144,84 @@ export function QuestCard({ quest, onSelect, variant = 'default', className }: Q
 
 ---
 
-## 🔧 **Development Commands**
+## 🔧 **MCP-Enhanced Development Commands**
 
-### Core Development
+### **AI-Assisted Core Development**
 
 ```bash
-# Development server with hot reload
-pnpm dev                    # Start with Turbopack (faster)
-pnpm dev:network            # Start with network access (--hostname 192.168.0.67)
+# AI-Enhanced Development Server
+pnpm dev                    # Standard dev with MCP diagnostics
+pnpm dev:ai                 # Enhanced mode with real-time AI analysis
+pnpm dev:mcp                # Full MCP integration with performance monitoring
+pnpm dev:network            # Network access with AI optimization
 
-# Production build and preview
-pnpm build                  # Build for production
-pnpm start                  # Start production server
+# AI-Optimized Production Build
+pnpm build                  # Production build with AI bundle optimization
+pnpm build:analyze          # Build with AI bundle analysis and recommendations
+pnpm start                  # Production server with performance monitoring
+pnpm preview                # Preview build with AI optimization insights
 ```
 
-### Code Quality & Testing
+### **MCP-Powered Code Quality & Testing**
 
 ```bash
-# Linting and formatting
-pnpm lint                   # Run Biome linter 
-pnpm check                  # Run Biome check with autofix
-pnpm type-check             # TypeScript type checking
+# AI-Enhanced Linting and Formatting
+pnpm lint                   # Biome linter with MCP suggestions
+pnpm lint:ai                # AI-powered linting with intelligent fixes
+pnpm check                  # Biome check with AI optimization recommendations
+pnpm type-check             # TypeScript checking with MCP validation
+pnpm type-check:ai          # Enhanced TypeScript analysis with AI insights
 
-# Testing
-pnpm test                   # Run unit tests with Vitest
-pnpm test:ui                # Run tests with UI
-pnpm test:coverage          # Generate test coverage report
+# Intelligent Testing Suite
+pnpm test                   # Vitest with AI-generated test suggestions
+pnpm test:ai                # AI-enhanced testing with coverage optimization
+pnpm test:ui                # Test UI with AI accessibility validation
+pnpm test:coverage          # Coverage with AI gap analysis
+pnpm test:mcp               # MCP-integrated testing with performance metrics
 
-# Storybook
-pnpm storybook              # Start Storybook dev server
-pnpm build-storybook        # Build Storybook for production
+# AI-Powered Documentation
+pnpm storybook              # Storybook with AI-generated component docs
+pnpm storybook:ai           # Enhanced mode with AI story suggestions
+pnpm build-storybook        # Production build with AI optimization
 ```
 
-### API Client Management
+### **MCP Development Workflow Commands**
 
 ```bash
-# Regenerate API client when backend changes
-pnpm generate:api           # Generate TypeScript client from OpenAPI spec
+# MCP Integration Management
+pnpm mcp:setup              # Initialize MCP development environment
+pnpm mcp:health             # Check MCP server connections and health
+pnpm mcp:validate           # Validate MCP configuration and capabilities
+pnpm mcp:test               # Test MCP integration functionality
+pnpm mcp:reset              # Reset MCP state and configuration
+
+# AI-Assisted Code Analysis
+pnpm analyze:performance    # AI performance analysis with optimization suggestions
+pnpm analyze:security       # AI security vulnerability scanning
+pnpm analyze:accessibility  # AI accessibility compliance checking
+pnpm analyze:bundle         # AI bundle size analysis and optimization
+pnpm analyze:dependencies   # AI dependency analysis and recommendations
+
+# MCP Diagnostics and Monitoring
+pnpm mcp:diagnostics        # Get comprehensive MCP diagnostics
+pnpm mcp:metrics           # View MCP performance metrics
+pnpm mcp:suggestions       # Get AI optimization suggestions
+pnpm mcp:reports           # Generate MCP analysis reports
+```
+
+### **Enhanced API Client Management**
+
+```bash
+# AI-Optimized API Client Generation
+pnpm generate:api           # Generate client with MCP validation
+pnpm generate:api:ai        # Enhanced generation with AI optimization
+pnpm validate:api           # Validate API client with AI analysis
+pnpm optimize:api           # AI-powered API client optimization
+
+# MCP-Enhanced API Analysis
+pnpm analyze:api            # Analyze API usage patterns with AI
+pnpm test:api               # Test API integration with MCP validation
+pnpm monitor:api            # Monitor API performance with AI insights
 ```
 
 ---
@@ -238,30 +308,154 @@ tourii/
 
 ---
 
-## 🎯 **Development Workflow**
+## 🎯 **MCP-Enhanced Development Workflow**
 
-### 1. Creating New Features
+### **1. AI-Assisted Feature Development**
 
 ```bash
-# 1. Create feature branch
+# 1. Create feature branch with MCP analysis
 git checkout -b feature/your-feature-name
+pnpm mcp:analyze-branch            # AI analysis of branch context
 
-# 2. Generate any new API types if needed
-pnpm generate:api
+# 2. AI-powered planning and architecture
+pnpm mcp:plan-feature              # AI-assisted feature planning
+pnpm analyze:dependencies          # AI dependency analysis
 
-# 3. Develop using the three-layer pattern:
-#    - Create SWR hook in src/hooks/api/
-#    - Create Next.js API route in src/app/api/
-#    - Create components in appropriate domain folder
+# 3. Generate API types with MCP validation
+pnpm generate:api:ai               # Enhanced API generation with AI optimization
 
-# 4. Add Storybook stories for components
-# 5. Write tests for hooks and components
-# 6. Lint and type check
-pnpm check && pnpm type-check
+# 4. AI-guided three-layer development:
+#    - AI suggests optimal hook patterns in src/hooks/api/
+#    - MCP validates API route patterns in src/app/api/
+#    - AI recommends component architecture in domain folders
 
-# 7. Commit and push
-git add . && git commit -m "feat: add your feature"
+# 5. MCP-enhanced component development
+pnpm mcp:create-component          # AI-assisted component scaffolding
+pnpm mcp:validate-component        # Real-time component validation
+
+# 6. AI-powered testing and documentation
+pnpm test:ai                       # AI-generated tests for hooks and components
+pnpm storybook:ai                  # AI-created Storybook stories
+
+# 7. Comprehensive AI quality checks
+pnpm mcp:validate-feature          # Full MCP feature validation
+pnpm analyze:performance           # AI performance impact analysis
+pnpm check && pnpm type-check:ai   # Enhanced linting and type checking
+
+# 8. AI-optimized commit and push
+pnpm mcp:suggest-commit            # AI-suggested commit message
+git add . && git commit -m "$(pnpm mcp:commit-message)"
 git push origin feature/your-feature-name
+```
+
+### **2. MCP-Powered Component Development Process**
+
+```typescript
+// 1. AI-assisted component interface design
+interface MCPComponentProps {
+  // AI-generated prop types with optimization hints
+  data: SomeDto;
+  onAction?: (id: string) => void;
+  variant?: 'default' | 'compact';
+  className?: string;
+  // MCP-suggested performance optimizations
+  memoKey?: string;
+  renderOptimization?: 'memo' | 'callback' | 'useMemo';
+}
+
+// 2. MCP-enhanced component implementation with AI patterns
+export const MyComponent = memo(function MyComponent({ 
+  data, 
+  onAction, 
+  variant = 'default', 
+  className,
+  memoKey,
+  renderOptimization = 'memo'
+}: MCPComponentProps) {
+  // AI-suggested performance optimizations
+  const memoizedData = useMemo(() => processData(data), [data, memoKey]);
+  const optimizedCallback = useCallback((payload) => {
+    onAction?.(payload);
+  }, [onAction]);
+
+  // MCP-enhanced accessibility and responsive design
+  return (
+    <div 
+      className={cn('base-styles', variants[variant], className)}
+      role="button"
+      tabIndex={0}
+      aria-label={`Component: ${data?.title || 'Unnamed'}`}
+    >
+      {/* AI-optimized implementation */}
+    </div>
+  );
+});
+
+// 3. AI-generated Storybook story with comprehensive scenarios
+export default {
+  title: 'Domain/MyComponent',
+  component: MyComponent,
+  parameters: {
+    docs: {
+      description: {
+        component: 'AI-generated: A reusable component with MCP optimization.',
+      },
+    },
+    mcp: {
+      performanceMetrics: true,
+      accessibilityValidation: true,
+      responsiveTestCoverage: true,
+    },
+  },
+} as Meta<typeof MyComponent>;
+
+// AI-generated stories with edge cases and accessibility scenarios
+export const Default: Story = {
+  args: {
+    data: mockData,
+  },
+};
+
+export const PerformanceOptimized: Story = {
+  args: {
+    data: mockData,
+    renderOptimization: 'useMemo',
+    memoKey: 'performance-test',
+  },
+};
+
+export const AccessibilityFocused: Story = {
+  args: {
+    data: mockData,
+    'aria-expanded': true,
+    'aria-describedby': 'component-description',
+  },
+};
+
+// 4. AI-enhanced testing with comprehensive coverage
+describe('MyComponent', () => {
+  // AI-generated test cases with edge scenarios
+  it('renders correctly with AI validation', () => {
+    render(<MyComponent data={mockData} />);
+    expect(screen.getByText('Expected Text')).toBeInTheDocument();
+    
+    // MCP accessibility validation
+    expect(screen.getByRole('button')).toHaveAttribute('aria-label');
+  });
+
+  it('handles AI-suggested performance scenarios', () => {
+    const { rerender } = render(<MyComponent data={mockData} renderOptimization="memo" />);
+    // Test memoization effectiveness
+    rerender(<MyComponent data={mockData} renderOptimization="memo" />);
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+  });
+
+  it('validates MCP accessibility compliance', () => {
+    render(<MyComponent data={mockData} />);
+    // AI-generated accessibility tests
+    expect(screen.getByRole('button')).toBeAccessible();
+  });
+});
 ```
 
 ### 2. Component Development Process
@@ -317,32 +511,113 @@ describe('MyComponent', () => {
 });
 ```
 
-### 3. API Integration Process
+### **3. MCP-Enhanced API Integration Process**
 
 ```typescript
-// 1. Create SWR hook (src/hooks/api/)
-export function useMyData(): UseApiHookResult<MyDataDto[]> {
-  const { data, error, isLoading, mutate } = useProxySWR<MyDataDto[]>("/api/my-data");
-  return { data, error, isLoading, mutate };
+// 1. AI-assisted SWR hook creation (src/hooks/api/)
+export function useMyData(): MCPAPIHookResult<MyDataDto[]> {
+  const { data, error, isLoading, mutate } = useProxySWR<MyDataDto[]>("/api/my-data", {
+    // MCP-enhanced configuration
+    revalidateOnFocus: false,
+    dedupingInterval: 5000,
+    errorRetryCount: 3,
+    // AI-powered performance optimization
+    onSuccess: (data) => {
+      mcpAnalyzeDataUsage(data, '/api/my-data');
+    },
+    onError: (error) => {
+      mcpTrackAPIError(error, '/api/my-data');
+    }
+  });
+
+  // MCP performance metrics and optimization suggestions
+  const mcpMetrics = useMCPPerformanceTracking('/api/my-data');
+  const optimizationSuggestions = useMCPOptimizationSuggestions(data);
+
+  return { 
+    data, 
+    error, 
+    isLoading, 
+    mutate,
+    // MCP enhancements
+    mcpMetrics,
+    optimizationSuggestions,
+    validationStatus: mcpValidateData(data)
+  };
 }
 
-// 2. Create Next.js API route (src/app/api/my-data/route.ts)
-export async function GET() {
+// 2. MCP-validated Next.js API route (src/app/api/my-data/route.ts)
+export async function GET(request: Request) {
+  // AI-powered request analysis
+  const mcpRequestAnalysis = await mcpAnalyzeRequest(request);
+  
+  // Enhanced error handling with AI suggestions
   return executeValidatedServiceCall(
     (apiKey: string, apiVersion: string) =>
       MyService.getMyData(apiVersion, apiKey),
-    "GET /api/my-data"
+    "GET /api/my-data",
+    {
+      // MCP-enhanced options
+      performanceTracking: true,
+      aiErrorAnalysis: true,
+      securityValidation: true,
+      // AI-powered caching strategy
+      cacheStrategy: mcpSuggestCacheStrategy('/api/my-data')
+    }
   );
 }
 
-// 3. Use in component
+// 3. AI-optimized component usage with MCP validation
 function MyComponent() {
-  const { data, isLoading, error } = useMyData();
+  const { 
+    data, 
+    isLoading, 
+    error, 
+    mcpMetrics, 
+    optimizationSuggestions 
+  } = useMyData();
+
+  // MCP-powered loading state optimization
+  const optimizedLoadingState = useMCPLoadingOptimization(isLoading);
   
-  if (isLoading) return <LoadingSkeleton />;
-  if (error) return <ErrorDisplay error={error} />;
+  // AI-enhanced error handling with suggestions
+  const enhancedError = useMCPErrorEnhancement(error);
   
-  return <DataDisplay data={data} />;
+  if (optimizedLoadingState.shouldShowSkeleton) {
+    return <AIOptimizedLoadingSkeleton metrics={mcpMetrics} />;
+  }
+  
+  if (enhancedError) {
+    return (
+      <MCPErrorDisplay 
+        error={enhancedError} 
+        suggestions={optimizationSuggestions}
+        retryWithOptimization={() => mutate()}
+      />
+    );
+  }
+  
+  return (
+    <DataDisplay 
+      data={data} 
+      performanceHints={mcpMetrics}
+      optimizationSuggestions={optimizationSuggestions}
+    />
+  );
+}
+
+// 4. MCP development assistance hooks
+function useMCPAPIIntegration() {
+  return {
+    // Real-time API performance monitoring
+    monitorPerformance: useMCPApiPerformanceMonitor(),
+    // AI-powered API optimization suggestions
+    getOptimizationSuggestions: useMCPApiOptimizationSuggestions(),
+    // Intelligent error analysis and resolution
+    analyzeErrors: useMCPApiErrorAnalysis(),
+    // Security vulnerability detection
+    validateSecurity: useMCPApiSecurityValidation()
+  };
 }
 ```
 

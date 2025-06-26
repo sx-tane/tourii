@@ -269,7 +269,7 @@ const SpotImage: React.FC<{
 						className="mx-auto h-[20vh] sm:h-[20vh] w-8/12 sm:w-6/12 rounded-full object-cover brightness-90 xl:w-full"
 					/>
 				) : null}
-				{storyChapterLink && storyChapterId !== "No" && (
+				{storyChapterLink && storyChapterId && (
 					<Link
 						className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-charcoal px-3 py-2 text-xs font-normal tracking-widest text-warmGrey transition-all duration-300 hover:bg-red"
 						href={storyChapterLink}
