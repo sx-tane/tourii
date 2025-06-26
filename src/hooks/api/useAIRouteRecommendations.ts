@@ -1,4 +1,4 @@
-import { useSWRMutation } from "swr";
+import useSWRMutation from "swr/mutation";
 import type { UseApiHookResult } from "../types";
 
 // Types for AI Route Recommendations API
@@ -44,7 +44,9 @@ export interface RouteRecommendationResponse {
 }
 
 export interface UseAIRouteRecommendationsResult {
-	trigger: (searchRequest: RouteSearchRequest) => Promise<RouteRecommendationResponse>;
+	trigger: (
+		searchRequest: RouteSearchRequest,
+	) => Promise<RouteRecommendationResponse>;
 	data: RouteRecommendationResponse | undefined;
 	error: Error | null;
 	isMutating: boolean;
@@ -54,7 +56,7 @@ export interface UseAIRouteRecommendationsResult {
 /**
  * Hook for AI-powered route recommendations
  * Uses mutation pattern since this is a search operation with user input
- * 
+ *
  * @param options Configuration options for the hook
  * @returns AI route recommendations result with trigger function
  */
@@ -66,9 +68,10 @@ export function useAIRouteRecommendations(options?: {
 		"/api/ai/routes/recommendations",
 		async (url: string, { arg }: { arg: RouteSearchRequest }) => {
 			// Get user ID from localStorage if available
-			const userId = typeof window !== "undefined" 
-				? localStorage.getItem("userId") || undefined 
-				: undefined;
+			const userId =
+				typeof window !== "undefined"
+					? localStorage.getItem("userId") || undefined
+					: undefined;
 
 			const headers: Record<string, string> = {
 				"Content-Type": "application/json",
@@ -88,10 +91,15 @@ export function useAIRouteRecommendations(options?: {
 
 			if (!response.ok) {
 				const errorData = await response.json().catch(() => ({}));
-				const error = new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
-				(error as any).status = response.status;
-				(error as any).code = errorData.code || `AIRouteError_${response.status}`;
-				(error as any).details = errorData.details;
+				const error = new Error(
+					errorData.message ||
+						`HTTP ${response.status}: ${response.statusText}`,
+				);
+				Object.assign(error, {
+					status: response.status,
+					code: errorData.code || `AIRouteError_${response.status}`,
+					details: errorData.details,
+				});
 				throw error;
 			}
 
@@ -103,7 +111,7 @@ export function useAIRouteRecommendations(options?: {
 				console.error("AI Route Recommendations Error:", error);
 				options?.onError?.(error);
 			},
-		}
+		},
 	);
 
 	return {
@@ -123,10 +131,19 @@ export function usePopularKeywords(): UseApiHookResult<string[]> {
 	// This would typically fetch from a dedicated endpoint
 	// For now, return hardcoded popular terms based on the issue requirements
 	const popularKeywords = [
-		"animation", "traditional culture", "food & nightlife", 
-		"nature", "adventure", "temples", "festivals", 
-		"cherry blossoms", "hot springs", "mountain views",
-		"coastal scenery", "historical sites", "modern architecture"
+		"animation",
+		"traditional culture",
+		"food & nightlife",
+		"nature",
+		"adventure",
+		"temples",
+		"festivals",
+		"cherry blossoms",
+		"hot springs",
+		"mountain views",
+		"coastal scenery",
+		"historical sites",
+		"modern architecture",
 	];
 
 	return {

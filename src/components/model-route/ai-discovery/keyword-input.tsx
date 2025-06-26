@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
+import type { KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Plus, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -22,30 +23,37 @@ export function KeywordInput({
 
 	// Filter suggestions based on input and exclude already selected keywords
 	const filteredSuggestions = popularKeywords
-		.filter((keyword) => 
-			keyword.toLowerCase().includes(inputValue.toLowerCase()) &&
-			!keywords.includes(keyword)
+		.filter(
+			(keyword) =>
+				keyword.toLowerCase().includes(inputValue.toLowerCase()) &&
+				!keywords.includes(keyword),
 		)
 		.slice(0, 6); // Limit suggestions
 
-	const addKeyword = useCallback((keyword: string) => {
-		const trimmed = keyword.trim();
-		if (
-			trimmed.length >= MIN_KEYWORD_LENGTH &&
-			trimmed.length <= MAX_KEYWORD_LENGTH &&
-			!keywords.includes(trimmed) &&
-			keywords.length < maxKeywords
-		) {
-			onKeywordsChange([...keywords, trimmed]);
-			setInputValue("");
-			setShowSuggestions(false);
-			inputRef.current?.focus();
-		}
-	}, [keywords, onKeywordsChange, maxKeywords]);
+	const addKeyword = useCallback(
+		(keyword: string) => {
+			const trimmed = keyword.trim();
+			if (
+				trimmed.length >= MIN_KEYWORD_LENGTH &&
+				trimmed.length <= MAX_KEYWORD_LENGTH &&
+				!keywords.includes(trimmed) &&
+				keywords.length < maxKeywords
+			) {
+				onKeywordsChange([...keywords, trimmed]);
+				setInputValue("");
+				setShowSuggestions(false);
+				inputRef.current?.focus();
+			}
+		},
+		[keywords, onKeywordsChange, maxKeywords],
+	);
 
-	const removeKeyword = useCallback((keywordToRemove: string) => {
-		onKeywordsChange(keywords.filter((k) => k !== keywordToRemove));
-	}, [keywords, onKeywordsChange]);
+	const removeKeyword = useCallback(
+		(keywordToRemove: string) => {
+			onKeywordsChange(keywords.filter((k) => k !== keywordToRemove));
+		},
+		[keywords, onKeywordsChange],
+	);
 
 	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter" && inputValue.trim()) {
@@ -53,7 +61,10 @@ export function KeywordInput({
 			addKeyword(inputValue);
 		} else if (e.key === "Backspace" && !inputValue && keywords.length > 0) {
 			e.preventDefault();
-			removeKeyword(keywords[keywords.length - 1]);
+			const lastKeyword = keywords[keywords.length - 1];
+			if (lastKeyword) {
+				removeKeyword(lastKeyword);
+			}
 		}
 	};
 
@@ -72,7 +83,7 @@ export function KeywordInput({
 						"flex flex-wrap items-center gap-2 transition-all duration-200",
 						"focus-within:border-red focus-within:ring-2 focus-within:ring-red/20",
 						disabled && "opacity-50 cursor-not-allowed",
-						keywords.length >= maxKeywords && "border-mustard"
+						keywords.length >= maxKeywords && "border-mustard",
 					)}
 				>
 					{/* Search icon */}
@@ -90,7 +101,7 @@ export function KeywordInput({
 								className={cn(
 									"inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-medium",
 									"bg-red text-warmGrey-50 border border-red",
-									"hover:bg-red/90 transition-colors duration-200"
+									"hover:bg-red/90 transition-colors duration-200",
 								)}
 							>
 								<span className="uppercase tracking-wide">{keyword}</span>
@@ -116,12 +127,14 @@ export function KeywordInput({
 						onKeyDown={handleKeyDown}
 						onFocus={() => setShowSuggestions(inputValue.length > 0)}
 						onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-						placeholder={keywords.length === 0 ? placeholder : "Add another keyword..."}
+						placeholder={
+							keywords.length === 0 ? placeholder : "Add another keyword..."
+						}
 						disabled={disabled || keywords.length >= maxKeywords}
 						className={cn(
 							"flex-1 min-w-[200px] bg-transparent border-none outline-none text-charcoal",
 							"placeholder:text-charcoal-400 text-base",
-							disabled && "cursor-not-allowed"
+							disabled && "cursor-not-allowed",
 						)}
 					/>
 
@@ -152,7 +165,7 @@ export function KeywordInput({
 						className={cn(
 							"absolute top-full left-0 right-0 mt-2 z-50",
 							"bg-warmGrey-50 border border-charcoal-200 rounded-xl shadow-lg",
-							"max-h-48 overflow-y-auto"
+							"max-h-48 overflow-y-auto",
 						)}
 					>
 						<div className="p-2">
@@ -166,7 +179,7 @@ export function KeywordInput({
 									className={cn(
 										"w-full text-left px-3 py-2 rounded-lg text-sm",
 										"hover:bg-warmGrey-100 transition-colors duration-150",
-										"flex items-center gap-2 text-charcoal"
+										"flex items-center gap-2 text-charcoal",
 									)}
 									type="button"
 								>
@@ -212,7 +225,7 @@ export function KeywordInput({
 									"bg-warmGrey-50 text-charcoal hover:bg-warmGrey-100",
 									"transition-colors duration-200 uppercase tracking-wide",
 									"hover:border-red hover:text-red",
-									disabled && "opacity-50 cursor-not-allowed"
+									disabled && "opacity-50 cursor-not-allowed",
 								)}
 								type="button"
 							>

@@ -51,7 +51,11 @@
       "Bash(git show:*)",
       "Bash(-exec npx tsc --noEmit --skipLibCheck --jsx react {})",
       "Bash(mv:*)",
-      "Bash(pnpm exec:*)"
+      "Bash(pnpm exec:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh issue view:*)",
+      "Bash(pnpm generate:api:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
