@@ -36,6 +36,10 @@ const config = {
 				protocol: "https",
 				hostname: "cdn.tourii.app",
 			},
+			{
+				protocol: "https",
+				hostname: "example.com",
+			},
 		],
 		formats: ["image/webp", "image/avif"],
 	},

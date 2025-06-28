@@ -3,7 +3,6 @@ export { useModelRoutes } from "./useModelRoutes";
 export { useModelRouteById } from "./useModelRouteById";
 export { useLocationInfo } from "./useLocationInfo";
 export { useTouristSpotsByChapter } from "./useTouristSpotsByChapter";
-export { useAIRouteRecommendations, usePopularKeywords } from "./useAIRouteRecommendations";
 
 // Story hooks
 export { useSagas } from "./useSagas";

@@ -14094,6 +14094,346 @@
           "Security Tests"
         ]
       }
+    },
+    "/ai/routes/recommendations": {
+      "post": {
+        "description": "\n            Generates intelligent travel route recommendations using AI by:\n            1. Finding tourist spots matching your keywords/hashtags\n            2. Clustering nearby spots geographically \n            3. Using AI (GPT) to generate route names, descriptions, and themes\n            4. Creating new model routes with AI-generated content\n            \n            Perfect for discovering themed travel experiences like \"animation & scenery\" routes.\n        ",
+        "operationId": "AiRouteRecommendationController_generateRouteRecommendations",
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-user-id",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Route recommendation request with keywords and preferences",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keywords": {
+                    "description": "Keywords to search for in tourist spot hashtags",
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 10,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 50
+                    }
+                  },
+                  "mode": {
+                    "description": "Matching mode: \"all\" requires all keywords, \"any\" requires any keyword",
+                    "type": "string",
+                    "enum": [
+                      "all",
+                      "any"
+                    ],
+                    "default": "any"
+                  },
+                  "region": {
+                    "description": "Optional region filter",
+                    "type": "string"
+                  },
+                  "proximityRadiusKm": {
+                    "description": "Proximity radius in kilometers for clustering spots",
+                    "type": "number",
+                    "minimum": 1,
+                    "exclusiveMinimum": false,
+                    "maximum": 200,
+                    "exclusiveMaximum": false,
+                    "default": 50
+                  },
+                  "minSpotsPerCluster": {
+                    "description": "Minimum number of spots required to form a cluster",
+                    "type": "number",
+                    "minimum": 1,
+                    "exclusiveMinimum": false,
+                    "maximum": 10,
+                    "exclusiveMaximum": false,
+                    "default": 2
+                  },
+                  "maxSpotsPerCluster": {
+                    "description": "Maximum number of spots allowed in a cluster",
+                    "type": "number",
+                    "minimum": 2,
+                    "exclusiveMinimum": false,
+                    "maximum": 15,
+                    "exclusiveMaximum": false,
+                    "default": 8
+                  },
+                  "maxRoutes": {
+                    "description": "Maximum number of routes to generate",
+                    "type": "number",
+                    "minimum": 1,
+                    "exclusiveMinimum": false,
+                    "maximum": 20,
+                    "exclusiveMaximum": false,
+                    "default": 5
+                  }
+                },
+                "required": [
+                  "keywords"
+                ],
+                "$ref": "#/components/schemas/AiRouteRecommendationRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "AI route recommendations generated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "generatedRoutes": {
+                  "description": "AI-generated routes based on keyword search",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "modelRouteId": {
+                        "description": "Generated model route ID",
+                        "type": "string"
+                      },
+                      "routeName": {
+                        "description": "AI-generated route name",
+                        "type": "string"
+                      },
+                      "regionDesc": {
+                        "description": "AI-generated region description",
+                        "type": "string"
+                      },
+                      "recommendations": {
+                        "description": "AI-generated recommendation hashtags",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "region": {
+                        "description": "Route region",
+                        "type": "string"
+                      },
+                      "regionLatitude": {
+                        "description": "Center latitude of the route",
+                        "type": "number"
+                      },
+                      "regionLongitude": {
+                        "description": "Center longitude of the route",
+                        "type": "number"
+                      },
+                      "estimatedDuration": {
+                        "description": "AI-estimated duration for the route",
+                        "type": "string"
+                      },
+                      "confidenceScore": {
+                        "description": "AI confidence score (0-1)",
+                        "type": "number",
+                        "minimum": 0,
+                        "exclusiveMinimum": false,
+                        "maximum": 1,
+                        "exclusiveMaximum": false
+                      },
+                      "spotCount": {
+                        "description": "Number of tourist spots in this route",
+                        "type": "number"
+                      },
+                      "averageDistance": {
+                        "description": "Average distance from center in kilometers",
+                        "type": "number"
+                      },
+                      "touristSpots": {
+                        "description": "Tourist spots included in this route",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "touristSpotId": {
+                              "description": "Tourist spot ID",
+                              "type": "string"
+                            },
+                            "touristSpotName": {
+                              "description": "Tourist spot name",
+                              "type": "string"
+                            },
+                            "touristSpotDesc": {
+                              "description": "Tourist spot description",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "description": "Latitude coordinate",
+                              "type": "number"
+                            },
+                            "longitude": {
+                              "description": "Longitude coordinate",
+                              "type": "number"
+                            },
+                            "touristSpotHashtag": {
+                              "description": "Hashtags for this tourist spot",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "matchedKeywords": {
+                              "description": "Keywords that matched for this spot",
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "required": [
+                            "touristSpotId",
+                            "touristSpotName",
+                            "latitude",
+                            "longitude",
+                            "touristSpotHashtag",
+                            "matchedKeywords"
+                          ]
+                        }
+                      },
+                      "metadata": {
+                        "description": "Route generation metadata",
+                        "type": "object",
+                        "properties": {
+                          "sourceKeywords": {
+                            "description": "Original search keywords",
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "generatedAt": {
+                            "description": "When the route was generated",
+                            "type": "string"
+                          },
+                          "algorithm": {
+                            "description": "Algorithm version used",
+                            "type": "string"
+                          },
+                          "aiGenerated": {
+                            "description": "Indicates this was AI-generated",
+                            "type": "boolean",
+                            "default": true
+                          }
+                        },
+                        "required": [
+                          "sourceKeywords",
+                          "generatedAt",
+                          "algorithm"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "modelRouteId",
+                      "routeName",
+                      "regionDesc",
+                      "recommendations",
+                      "region",
+                      "regionLatitude",
+                      "regionLongitude",
+                      "estimatedDuration",
+                      "confidenceScore",
+                      "spotCount",
+                      "averageDistance",
+                      "touristSpots",
+                      "metadata"
+                    ]
+                  }
+                },
+                "summary": {
+                  "description": "Processing summary and statistics",
+                  "type": "object",
+                  "properties": {
+                    "totalSpotsFound": {
+                      "description": "Total tourist spots found matching keywords",
+                      "type": "number"
+                    },
+                    "clustersFormed": {
+                      "description": "Number of geographic clusters formed",
+                      "type": "number"
+                    },
+                    "routesGenerated": {
+                      "description": "Number of AI routes successfully generated",
+                      "type": "number"
+                    },
+                    "processingTimeMs": {
+                      "description": "Total processing time in milliseconds",
+                      "type": "number"
+                    },
+                    "aiAvailable": {
+                      "description": "Whether AI content generation was available",
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "totalSpotsFound",
+                    "clustersFormed",
+                    "routesGenerated",
+                    "processingTimeMs",
+                    "aiAvailable"
+                  ]
+                },
+                "message": {
+                  "description": "Success message",
+                  "type": "string",
+                  "default": "AI route recommendations generated successfully"
+                }
+              },
+              "required": [
+                "generatedRoutes",
+                "summary"
+              ]
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiRouteRecommendationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters"
+          },
+          "429": {
+            "description": "Rate limit exceeded for AI route generation"
+          },
+          "503": {
+            "description": "AI service temporarily unavailable"
+          }
+        },
+        "summary": "Generate AI-powered route recommendations",
+        "tags": [
+          "AI Route Recommendations"
+        ]
+      }
     }
   },
   "info": {
@@ -20713,6 +21053,278 @@
         "required": [
           "longitude",
           "latitude"
+        ]
+      },
+      "AiRouteRecommendationRequestDto": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "description": "Keywords to search for in tourist spot hashtags",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 50
+            }
+          },
+          "mode": {
+            "description": "Matching mode: \"all\" requires all keywords, \"any\" requires any keyword",
+            "type": "string",
+            "enum": [
+              "all",
+              "any"
+            ],
+            "default": "any"
+          },
+          "region": {
+            "description": "Optional region filter",
+            "type": "string"
+          },
+          "proximityRadiusKm": {
+            "description": "Proximity radius in kilometers for clustering spots",
+            "type": "number",
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "maximum": 200,
+            "exclusiveMaximum": false,
+            "default": 50
+          },
+          "minSpotsPerCluster": {
+            "description": "Minimum number of spots required to form a cluster",
+            "type": "number",
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "maximum": 10,
+            "exclusiveMaximum": false,
+            "default": 2
+          },
+          "maxSpotsPerCluster": {
+            "description": "Maximum number of spots allowed in a cluster",
+            "type": "number",
+            "minimum": 2,
+            "exclusiveMinimum": false,
+            "maximum": 15,
+            "exclusiveMaximum": false,
+            "default": 8
+          },
+          "maxRoutes": {
+            "description": "Maximum number of routes to generate",
+            "type": "number",
+            "minimum": 1,
+            "exclusiveMinimum": false,
+            "maximum": 20,
+            "exclusiveMaximum": false,
+            "default": 5
+          }
+        },
+        "required": [
+          "keywords"
+        ]
+      },
+      "AiRouteRecommendationResponseDto": {
+        "type": "object",
+        "properties": {
+          "generatedRoutes": {
+            "description": "AI-generated routes based on keyword search",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "modelRouteId": {
+                  "description": "Generated model route ID",
+                  "type": "string"
+                },
+                "routeName": {
+                  "description": "AI-generated route name",
+                  "type": "string"
+                },
+                "regionDesc": {
+                  "description": "AI-generated region description",
+                  "type": "string"
+                },
+                "recommendations": {
+                  "description": "AI-generated recommendation hashtags",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "region": {
+                  "description": "Route region",
+                  "type": "string"
+                },
+                "regionLatitude": {
+                  "description": "Center latitude of the route",
+                  "type": "number"
+                },
+                "regionLongitude": {
+                  "description": "Center longitude of the route",
+                  "type": "number"
+                },
+                "estimatedDuration": {
+                  "description": "AI-estimated duration for the route",
+                  "type": "string"
+                },
+                "confidenceScore": {
+                  "description": "AI confidence score (0-1)",
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMinimum": false,
+                  "maximum": 1,
+                  "exclusiveMaximum": false
+                },
+                "spotCount": {
+                  "description": "Number of tourist spots in this route",
+                  "type": "number"
+                },
+                "averageDistance": {
+                  "description": "Average distance from center in kilometers",
+                  "type": "number"
+                },
+                "touristSpots": {
+                  "description": "Tourist spots included in this route",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "touristSpotId": {
+                        "description": "Tourist spot ID",
+                        "type": "string"
+                      },
+                      "touristSpotName": {
+                        "description": "Tourist spot name",
+                        "type": "string"
+                      },
+                      "touristSpotDesc": {
+                        "description": "Tourist spot description",
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "description": "Latitude coordinate",
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "description": "Longitude coordinate",
+                        "type": "number"
+                      },
+                      "touristSpotHashtag": {
+                        "description": "Hashtags for this tourist spot",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "matchedKeywords": {
+                        "description": "Keywords that matched for this spot",
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "touristSpotId",
+                      "touristSpotName",
+                      "latitude",
+                      "longitude",
+                      "touristSpotHashtag",
+                      "matchedKeywords"
+                    ]
+                  }
+                },
+                "metadata": {
+                  "description": "Route generation metadata",
+                  "type": "object",
+                  "properties": {
+                    "sourceKeywords": {
+                      "description": "Original search keywords",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "generatedAt": {
+                      "description": "When the route was generated",
+                      "type": "string"
+                    },
+                    "algorithm": {
+                      "description": "Algorithm version used",
+                      "type": "string"
+                    },
+                    "aiGenerated": {
+                      "description": "Indicates this was AI-generated",
+                      "type": "boolean",
+                      "default": true
+                    }
+                  },
+                  "required": [
+                    "sourceKeywords",
+                    "generatedAt",
+                    "algorithm"
+                  ]
+                }
+              },
+              "required": [
+                "modelRouteId",
+                "routeName",
+                "regionDesc",
+                "recommendations",
+                "region",
+                "regionLatitude",
+                "regionLongitude",
+                "estimatedDuration",
+                "confidenceScore",
+                "spotCount",
+                "averageDistance",
+                "touristSpots",
+                "metadata"
+              ]
+            }
+          },
+          "summary": {
+            "description": "Processing summary and statistics",
+            "type": "object",
+            "properties": {
+              "totalSpotsFound": {
+                "description": "Total tourist spots found matching keywords",
+                "type": "number"
+              },
+              "clustersFormed": {
+                "description": "Number of geographic clusters formed",
+                "type": "number"
+              },
+              "routesGenerated": {
+                "description": "Number of AI routes successfully generated",
+                "type": "number"
+              },
+              "processingTimeMs": {
+                "description": "Total processing time in milliseconds",
+                "type": "number"
+              },
+              "aiAvailable": {
+                "description": "Whether AI content generation was available",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "totalSpotsFound",
+              "clustersFormed",
+              "routesGenerated",
+              "processingTimeMs",
+              "aiAvailable"
+            ]
+          },
+          "message": {
+            "description": "Success message",
+            "type": "string",
+            "default": "AI route recommendations generated successfully"
+          }
+        },
+        "required": [
+          "generatedRoutes",
+          "summary"
         ]
       }
     }
