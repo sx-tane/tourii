@@ -2,7 +2,7 @@
 
 import { RegionSelector, InterestSelector, RouteDiscovery } from "@/components/ai-route-discovery";
 import { useModelRoutes, useAvailableHashtags, useAiRouteRecommendations } from "@/hooks";
-import type { AiRouteRecommendationRequestDto } from "@/api/generated/models/AiRouteRecommendationRequestDto";
+import { AiRouteRecommendationRequestDto } from "@/api/generated/models/AiRouteRecommendationRequestDto";
 import { motion, AnimatePresence } from "framer-motion";
 import type { NextPage } from "next";
 import { useState, useCallback, useMemo } from "react";
