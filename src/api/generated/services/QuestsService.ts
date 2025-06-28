@@ -10,7 +10,7 @@ import type { TaskResponseDto } from '../models/TaskResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class QuestService {
+export class QuestsService {
     /**
      * Get quest with pagination
      * Get quest with pagination

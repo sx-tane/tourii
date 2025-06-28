@@ -2,37 +2,29 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { MomentListResponseDto } from '../models/MomentListResponseDto';
+import type { HomepageHighlightsResponseDto } from '../models/HomepageHighlightsResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class MomentService {
+export class HomepageDataService {
     /**
-     * Get latest moments
-     * Retrieve latest traveler moments and activities.
+     * Get homepage highlights
+     * Latest chapter and popular quest
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @param limit Items per page
-     * @param page Page number
-     * @returns MomentListResponseDto Fetch moments successfully
+     * @returns HomepageHighlightsResponseDto Homepage highlights
      * @throws ApiError
      */
-    public static touriiBackendControllerGetMoments(
+    public static touriiBackendControllerGetHomepageHighlights(
         acceptVersion: string,
         xApiKey: string,
-        limit?: number,
-        page?: number,
-    ): CancelablePromise<MomentListResponseDto> {
+    ): CancelablePromise<HomepageHighlightsResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/moments',
+            url: '/v2/homepage/highlights',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
-            },
-            query: {
-                'limit': limit,
-                'page': page,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,

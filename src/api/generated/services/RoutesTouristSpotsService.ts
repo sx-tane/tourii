@@ -8,7 +8,7 @@ import type { TouristSpotResponseDto } from '../models/TouristSpotResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class RoutesService {
+export class RoutesTouristSpotsService {
     /**
      * Create Model Route
      * Create a new model route.

@@ -2,28 +2,37 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { MomentListResponseDto } from '../models/MomentListResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class HealthCheckService {
+export class MomentsService {
     /**
-     * Health Check
-     * Check if the API is running and accessible.
+     * Get latest moments
+     * Retrieve latest traveler moments and activities.
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @returns string API is healthy
+     * @param limit Items per page
+     * @param page Page number
+     * @returns MomentListResponseDto Fetch moments successfully
      * @throws ApiError
      */
-    public static touriiBackendControllerCheckHealth(
+    public static touriiBackendControllerGetMoments(
         acceptVersion: string,
         xApiKey: string,
-    ): CancelablePromise<string> {
+        limit?: number,
+        page?: number,
+    ): CancelablePromise<MomentListResponseDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/health-check',
+            url: '/moments',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
+            },
+            query: {
+                'limit': limit,
+                'page': page,
             },
             errors: {
                 400: `Bad Request - Invalid version format`,

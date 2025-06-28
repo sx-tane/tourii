@@ -27,3 +27,7 @@ export { usePassport } from "./usePassport";
 
 // Task hooks
 export { useTaskSubmissions } from "./useTaskSubmissions";
+
+// AI Route hooks
+export { useAvailableHashtags } from "./useAvailableHashtags";
+export { useAiRouteRecommendations } from "./useAiRouteRecommendations";

@@ -13,7 +13,7 @@ import type { SubmitTaskResponseDto } from '../models/SubmitTaskResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class TaskService {
+export class TasksService {
     /**
      * Upload task photo
      * Upload photo for photo submission task completion.

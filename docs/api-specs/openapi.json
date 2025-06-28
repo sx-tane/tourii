@@ -67,7 +67,7 @@
         },
         "summary": "Health Check",
         "tags": [
-          "Health Check"
+          "System Health"
         ]
       }
     },
@@ -5833,6 +5833,10 @@
                   "description": "URL to the region's cover media",
                   "type": "string"
                 },
+                "isAiGenerated": {
+                  "description": "Whether the model route was AI-generated",
+                  "type": "boolean"
+                },
                 "touristSpotList": {
                   "description": "List of tourist spots in the model route",
                   "type": "array",
@@ -6017,6 +6021,7 @@
                 "regionLatitude",
                 "regionLongitude",
                 "regionBackgroundMedia",
+                "isAiGenerated",
                 "touristSpotList",
                 "regionWeatherInfo"
               ]
@@ -6059,7 +6064,7 @@
         },
         "summary": "Create Model Route",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       },
       "get": {
@@ -6131,6 +6136,10 @@
                   "regionBackgroundMedia": {
                     "description": "URL to the region's cover media",
                     "type": "string"
+                  },
+                  "isAiGenerated": {
+                    "description": "Whether the model route was AI-generated",
+                    "type": "boolean"
                   },
                   "touristSpotList": {
                     "description": "List of tourist spots in the model route",
@@ -6316,6 +6325,7 @@
                   "regionLatitude",
                   "regionLongitude",
                   "regionBackgroundMedia",
+                  "isAiGenerated",
                   "touristSpotList",
                   "regionWeatherInfo"
                 ]
@@ -6362,7 +6372,7 @@
         },
         "summary": "Get All Model Routes",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -6628,7 +6638,7 @@
         },
         "summary": "Create Tourist Spot",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -6842,6 +6852,10 @@
                   "description": "URL to the region's cover media",
                   "type": "string"
                 },
+                "isAiGenerated": {
+                  "description": "Whether the model route was AI-generated",
+                  "type": "boolean"
+                },
                 "touristSpotList": {
                   "description": "List of tourist spots in the model route",
                   "type": "array",
@@ -7026,6 +7040,7 @@
                 "regionLatitude",
                 "regionLongitude",
                 "regionBackgroundMedia",
+                "isAiGenerated",
                 "touristSpotList",
                 "regionWeatherInfo"
               ]
@@ -7068,7 +7083,7 @@
         },
         "summary": "Update Model Route",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -7341,7 +7356,7 @@
         },
         "summary": "Update Tourist Spot",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -7411,7 +7426,7 @@
         },
         "summary": "Delete Model Route",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -7481,7 +7496,7 @@
         },
         "summary": "Delete Tourist Spot",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -7686,7 +7701,7 @@
         },
         "summary": "Get Tourist Spots by Story Chapter",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -7766,6 +7781,10 @@
                 "regionBackgroundMedia": {
                   "description": "URL to the region's cover media",
                   "type": "string"
+                },
+                "isAiGenerated": {
+                  "description": "Whether the model route was AI-generated",
+                  "type": "boolean"
                 },
                 "touristSpotList": {
                   "description": "List of tourist spots in the model route",
@@ -7951,6 +7970,7 @@
                 "regionLatitude",
                 "regionLongitude",
                 "regionBackgroundMedia",
+                "isAiGenerated",
                 "touristSpotList",
                 "regionWeatherInfo"
               ]
@@ -7993,7 +8013,7 @@
         },
         "summary": "Get Model Route by ID",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -8168,7 +8188,7 @@
         },
         "summary": "Get Location Info",
         "tags": [
-          "Routes"
+          "Routes & Tourist Spots"
         ]
       }
     },
@@ -8660,7 +8680,7 @@
         },
         "summary": "Get quest with pagination",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       },
       "post": {
@@ -9172,7 +9192,7 @@
         },
         "summary": "Create Quest",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -9589,7 +9609,7 @@
         },
         "summary": "Get quest by ID",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       },
       "delete": {
@@ -9657,7 +9677,7 @@
         },
         "summary": "Delete Quest",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -10098,7 +10118,7 @@
         },
         "summary": "Get Quests by Tourist Spot",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -10401,7 +10421,7 @@
         },
         "summary": "Create Quest Task",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11038,7 +11058,7 @@
         },
         "summary": "Update Quest",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11348,7 +11368,7 @@
         },
         "summary": "Update Quest Task",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11418,7 +11438,7 @@
         },
         "summary": "Delete Quest Task",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11534,7 +11554,7 @@
         },
         "summary": "Get Group Members",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11651,7 +11671,7 @@
         },
         "summary": "Start Group Quest",
         "tags": [
-          "Quest"
+          "Quests"
         ]
       }
     },
@@ -11777,7 +11797,7 @@
         },
         "summary": "Upload task photo",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -11909,7 +11929,7 @@
         },
         "summary": "Complete social sharing task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12055,7 +12075,7 @@
         },
         "summary": "Complete QR scan task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12183,7 +12203,7 @@
         },
         "summary": "Submit answer text task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12314,7 +12334,7 @@
         },
         "summary": "Submit select option task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12447,7 +12467,7 @@
         },
         "summary": "Submit checkin task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12713,7 +12733,7 @@
         },
         "summary": "Submit local interaction task",
         "tags": [
-          "Task"
+          "Tasks"
         ]
       }
     },
@@ -12867,7 +12887,7 @@
         },
         "summary": "Get latest moments",
         "tags": [
-          "Moment"
+          "Moments"
         ]
       }
     },
@@ -13024,7 +13044,7 @@
         },
         "summary": "Get homepage highlights",
         "tags": [
-          "Homepage"
+          "Homepage Data"
         ]
       }
     },
@@ -13086,7 +13106,10 @@
             "description": "Passport not found"
           }
         },
-        "summary": "Generate Digital Passport PDF"
+        "summary": "Generate Digital Passport PDF",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/refresh/{tokenId}": {
@@ -13110,7 +13133,10 @@
             "description": "Passport refreshed successfully"
           }
         },
-        "summary": "Refresh Passport with New Achievements"
+        "summary": "Refresh Passport with New Achievements",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/preview/{tokenId}": {
@@ -13142,7 +13168,10 @@
             }
           }
         },
-        "summary": "Generate Passport Preview"
+        "summary": "Generate Passport Preview",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/download/{tokenId}": {
@@ -13174,7 +13203,10 @@
             }
           }
         },
-        "summary": "Download Passport PDF"
+        "summary": "Download Passport PDF",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/verify/{verificationCode}": {
@@ -13232,7 +13264,10 @@
             "description": ""
           }
         },
-        "summary": "Verify Passport Token"
+        "summary": "Verify Passport Token",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/verify/batch": {
@@ -13289,7 +13324,10 @@
             "description": ""
           }
         },
-        "summary": "Batch Verify Multiple Passports"
+        "summary": "Batch Verify Multiple Passports",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/verify/qr/{qrCode}": {
@@ -13347,7 +13385,10 @@
             "description": ""
           }
         },
-        "summary": "Verify QR Code"
+        "summary": "Verify QR Code",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/verify/stats/{tokenId}": {
@@ -13405,7 +13446,10 @@
             "description": ""
           }
         },
-        "summary": "Get Verification Statistics"
+        "summary": "Get Verification Statistics",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/{tokenId}/wallet/apple": {
@@ -13466,7 +13510,10 @@
             "description": "Passport not found"
           }
         },
-        "summary": "Generate Apple Wallet Pass"
+        "summary": "Generate Apple Wallet Pass",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/{tokenId}/wallet/google": {
@@ -13527,7 +13574,10 @@
             "description": "Passport not found"
           }
         },
-        "summary": "Generate Google Pay Pass"
+        "summary": "Generate Google Pay Pass",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/{tokenId}/wallet/both": {
@@ -13588,7 +13638,10 @@
             "description": "Passport not found"
           }
         },
-        "summary": "Generate Both Wallet Passes"
+        "summary": "Generate Both Wallet Passes",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/{tokenId}/wallet/update": {
@@ -13659,7 +13712,10 @@
             "description": "Passport not found"
           }
         },
-        "summary": "Update Wallet Pass"
+        "summary": "Update Wallet Pass",
+        "tags": [
+          "Passport"
+        ]
       }
     },
     "/api/passport/validate/{tokenId}": {
@@ -13717,394 +13773,21 @@
             "description": ""
           }
         },
-        "summary": "Validate Token ID"
-      }
-    },
-    "/test/headers": {
-      "get": {
-        "description": "Tests the security headers set by SecurityMiddleware. Returns all configured security headers in the response.",
-        "operationId": "TestController_testHeaders",
-        "parameters": [
-          {
-            "name": "accept-version",
-            "in": "header",
-            "description": "API version (e.g., 1.0.0)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Security headers test successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Check response headers"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Invalid version format",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_021"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid version format"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "BAD_REQUEST"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Test Security Headers",
+        "summary": "Validate Token ID",
         "tags": [
-          "Security Tests"
-        ]
-      }
-    },
-    "/test/rate-limit": {
-      "get": {
-        "description": "Tests the rate limiting middleware. Limited to 3 requests per second.",
-        "operationId": "TestController_testRateLimit",
-        "parameters": [
-          {
-            "name": "accept-version",
-            "in": "header",
-            "description": "API version (e.g., 1.0.0)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Rate limit test successful",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Maximum number of requests allowed",
-                "schema": {
-                  "type": "number"
-                },
-                "example": 3
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests remaining",
-                "schema": {
-                  "type": "number"
-                },
-                "example": 2
-              },
-              "X-RateLimit-Reset": {
-                "description": "Time until rate limit resets (in seconds)",
-                "schema": {
-                  "type": "number"
-                },
-                "example": 1
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Rate limit test endpoint"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "ThrottlerException: Too Many Requests"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Test Rate Limiting",
-        "tags": [
-          "Security Tests"
-        ]
-      }
-    },
-    "/test/api-key": {
-      "get": {
-        "description": "Tests the API key validation middleware.",
-        "operationId": "TestController_testApiKey",
-        "parameters": [
-          {
-            "name": "accept-version",
-            "in": "header",
-            "description": "API version (e.g., 1.0.0)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "API key validation successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "API key is valid"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Test API Key Validation",
-        "tags": [
-          "Security Tests"
-        ]
-      }
-    },
-    "/test/version": {
-      "get": {
-        "description": "Tests the API version validation middleware.",
-        "operationId": "TestController_testVersion",
-        "parameters": [
-          {
-            "name": "accept-version",
-            "in": "header",
-            "description": "API version (e.g., 1.0.0)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Version validation successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "API version is supported"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request - Missing version header",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_020"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Version header is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "BAD_REQUEST"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - Invalid or missing API key",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "code": {
-                      "type": "string",
-                      "example": "E_TB_010"
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "API key is required"
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "UNAUTHORIZED"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Test Version Validation",
-        "tags": [
-          "Security Tests"
+          "Passport"
         ]
       }
     },
     "/ai/routes/recommendations": {
       "post": {
-        "description": "\n            Generates intelligent travel route recommendations using AI by:\n            1. Finding tourist spots matching your keywords/hashtags\n            2. Clustering nearby spots geographically \n            3. Using AI (GPT) to generate route names, descriptions, and themes\n            4. Creating new model routes with AI-generated content\n            \n            Perfect for discovering themed travel experiences like \"animation & scenery\" routes.\n        ",
-        "operationId": "AiRouteRecommendationController_generateRouteRecommendations",
+        "description": "\n            **Create personalized travel routes using AI!**\n            \n            📍 **How it works:**\n            1. Enter keywords (e.g., \"anime\", \"food\", \"nature\", \"temple\")\n            2. AI finds matching tourist spots and groups them by location\n            3. Generates themed routes with names, descriptions, and recommendations\n            \n            💡 **Examples:**\n            - Keywords: [\"anime\", \"tokyo\"] → \"Otaku Paradise Route in Tokyo\"\n            - Keywords: [\"food\", \"osaka\"] → \"Culinary Adventure in Osaka\"\n            - Keywords: [\"temple\", \"kyoto\"] → \"Sacred Journey Through Kyoto\"\n            \n            ⚡ **Perfect for:** Discovering new travel experiences based on your interests!\n        ",
+        "operationId": "TouriiBackendController_generateAiRouteRecommendations",
         "parameters": [
           {
-            "name": "x-api-key",
-            "in": "header",
-            "description": "API key for authentication",
+            "name": "x-user-id",
             "required": true,
+            "in": "header",
             "schema": {
               "type": "string"
             }
@@ -14112,16 +13795,17 @@
           {
             "name": "accept-version",
             "in": "header",
-            "description": "API version",
+            "description": "API version (e.g., 1.0.0)",
             "required": true,
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "x-user-id",
-            "required": true,
+            "name": "x-api-key",
             "in": "header",
+            "description": "API key for authentication",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -14429,9 +14113,443 @@
             "description": "AI service temporarily unavailable"
           }
         },
-        "summary": "Generate AI-powered route recommendations",
+        "summary": "🤖 Get AI Travel Route Recommendations",
         "tags": [
-          "AI Route Recommendations"
+          "AI Routes"
+        ]
+      }
+    },
+    "/ai/routes/hashtags/available": {
+      "post": {
+        "description": "\n            **Discover what keywords you can use for AI route recommendations!**\n            \n            🔍 **This endpoint helps you:**\n            - See all available hashtags in the system\n            - Find popular keywords for better route matching\n            - Understand what themes and interests are covered\n            \n            📊 **Returns:**\n            - Complete list of hashtags (e.g., \"anime\", \"food\", \"temple\", \"nature\")\n            - Total count of available hashtags\n            - Top 20 most popular hashtags\n            \n            💡 **Pro tip:** Use these hashtags as keywords in the route recommendation endpoint!\n        ",
+        "operationId": "TouriiBackendController_getAvailableHashtags",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available hashtags retrieved successfully"
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "🏷️ Browse Available Keywords & Hashtags",
+        "tags": [
+          "AI Routes"
+        ]
+      }
+    },
+    "/test/headers": {
+      "get": {
+        "description": "Tests the security headers set by SecurityMiddleware. Returns all configured security headers in the response.",
+        "operationId": "TestController_testHeaders",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Security headers test successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Check response headers"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid version format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_021"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid version format"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_010"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "API key is required"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "UNAUTHORIZED"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Test Security Headers",
+        "tags": [
+          "Testing"
+        ]
+      }
+    },
+    "/test/rate-limit": {
+      "get": {
+        "description": "Tests the rate limiting middleware. Limited to 3 requests per second.",
+        "operationId": "TestController_testRateLimit",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rate limit test successful",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Maximum number of requests allowed",
+                "schema": {
+                  "type": "number"
+                },
+                "example": 3
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests remaining",
+                "schema": {
+                  "type": "number"
+                },
+                "example": 2
+              },
+              "X-RateLimit-Reset": {
+                "description": "Time until rate limit resets (in seconds)",
+                "schema": {
+                  "type": "number"
+                },
+                "example": 1
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Rate limit test endpoint"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_010"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "API key is required"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "UNAUTHORIZED"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "ThrottlerException: Too Many Requests"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Test Rate Limiting",
+        "tags": [
+          "Testing"
+        ]
+      }
+    },
+    "/test/api-key": {
+      "get": {
+        "description": "Tests the API key validation middleware.",
+        "operationId": "TestController_testApiKey",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key validation successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "API key is valid"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_010"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "API key is required"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "UNAUTHORIZED"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Test API Key Validation",
+        "tags": [
+          "Testing"
+        ]
+      }
+    },
+    "/test/version": {
+      "get": {
+        "description": "Tests the API version validation middleware.",
+        "operationId": "TestController_testVersion",
+        "parameters": [
+          {
+            "name": "accept-version",
+            "in": "header",
+            "description": "API version (e.g., 1.0.0)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "description": "API key for authentication",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Version validation successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "API version is supported"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing version header",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_020"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Version header is required"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "example": "E_TB_010"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "API key is required"
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "UNAUTHORIZED"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Test Version Validation",
+        "tags": [
+          "Testing"
         ]
       }
     }
@@ -15739,6 +15857,10 @@
             "description": "URL to the region's cover media",
             "type": "string"
           },
+          "isAiGenerated": {
+            "description": "Whether the model route was AI-generated",
+            "type": "boolean"
+          },
           "touristSpotList": {
             "description": "List of tourist spots in the model route",
             "type": "array",
@@ -15923,6 +16045,7 @@
           "regionLatitude",
           "regionLongitude",
           "regionBackgroundMedia",
+          "isAiGenerated",
           "touristSpotList",
           "regionWeatherInfo"
         ]
@@ -20941,120 +21064,6 @@
           "tokenId"
         ]
       },
-      "UserSensitiveInfoResponseDto": {
-        "type": "object",
-        "properties": {
-          "password": {
-            "description": "Password",
-            "type": "string"
-          },
-          "refreshToken": {
-            "description": "Refresh token",
-            "type": "string"
-          },
-          "encryptedPrivateKey": {
-            "description": "Encrypted private key",
-            "type": "string"
-          },
-          "passportWalletAddress": {
-            "description": "Passport wallet address",
-            "type": "string"
-          },
-          "perksWalletAddress": {
-            "description": "Perks wallet address",
-            "type": "string"
-          },
-          "latestIpAddress": {
-            "description": "Latest IP address",
-            "type": "string"
-          }
-        },
-        "required": [
-          "password"
-        ]
-      },
-      "QuestTaskSocialShareResponseDto": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "description": "Result message for social share completion",
-            "type": "string"
-          },
-          "estimatedReviewTime": {
-            "description": "Estimated time for admin review of the submission",
-            "type": "string"
-          }
-        },
-        "required": [
-          "message",
-          "estimatedReviewTime"
-        ]
-      },
-      "SubmitAnswerTextRequestTaskDto": {
-        "type": "object",
-        "properties": {
-          "answer": {
-            "description": "Answer to the task",
-            "type": "string"
-          }
-        },
-        "required": [
-          "answer"
-        ]
-      },
-      "SubmitTaskResponseDto": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "description": "Whether the answer is correct",
-            "type": "boolean"
-          },
-          "message": {
-            "description": "Message to the user",
-            "type": "string"
-          },
-          "estimatedReviewTime": {
-            "description": "Estimated time for admin review (only for manual verification tasks)",
-            "type": "string"
-          }
-        },
-        "required": [
-          "success",
-          "message"
-        ]
-      },
-      "SubmitSelectOptionsTaskRequestDto": {
-        "type": "object",
-        "properties": {
-          "selectedOptionIds": {
-            "description": "IDs of the selected options",
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "selectedOptionIds"
-        ]
-      },
-      "SubmitCheckInTaskRequestDto": {
-        "type": "object",
-        "properties": {
-          "longitude": {
-            "description": "Longitude of the user",
-            "type": "number"
-          },
-          "latitude": {
-            "description": "Latitude of the user",
-            "type": "number"
-          }
-        },
-        "required": [
-          "longitude",
-          "latitude"
-        ]
-      },
       "AiRouteRecommendationRequestDto": {
         "type": "object",
         "properties": {
@@ -21325,6 +21334,120 @@
         "required": [
           "generatedRoutes",
           "summary"
+        ]
+      },
+      "UserSensitiveInfoResponseDto": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "description": "Password",
+            "type": "string"
+          },
+          "refreshToken": {
+            "description": "Refresh token",
+            "type": "string"
+          },
+          "encryptedPrivateKey": {
+            "description": "Encrypted private key",
+            "type": "string"
+          },
+          "passportWalletAddress": {
+            "description": "Passport wallet address",
+            "type": "string"
+          },
+          "perksWalletAddress": {
+            "description": "Perks wallet address",
+            "type": "string"
+          },
+          "latestIpAddress": {
+            "description": "Latest IP address",
+            "type": "string"
+          }
+        },
+        "required": [
+          "password"
+        ]
+      },
+      "QuestTaskSocialShareResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "description": "Result message for social share completion",
+            "type": "string"
+          },
+          "estimatedReviewTime": {
+            "description": "Estimated time for admin review of the submission",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "estimatedReviewTime"
+        ]
+      },
+      "SubmitAnswerTextRequestTaskDto": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "description": "Answer to the task",
+            "type": "string"
+          }
+        },
+        "required": [
+          "answer"
+        ]
+      },
+      "SubmitTaskResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "description": "Whether the answer is correct",
+            "type": "boolean"
+          },
+          "message": {
+            "description": "Message to the user",
+            "type": "string"
+          },
+          "estimatedReviewTime": {
+            "description": "Estimated time for admin review (only for manual verification tasks)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "success",
+          "message"
+        ]
+      },
+      "SubmitSelectOptionsTaskRequestDto": {
+        "type": "object",
+        "properties": {
+          "selectedOptionIds": {
+            "description": "IDs of the selected options",
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "selectedOptionIds"
+        ]
+      },
+      "SubmitCheckInTaskRequestDto": {
+        "type": "object",
+        "properties": {
+          "longitude": {
+            "description": "Longitude of the user",
+            "type": "number"
+          },
+          "latitude": {
+            "description": "Latitude of the user",
+            "type": "number"
+          }
+        },
+        "required": [
+          "longitude",
+          "latitude"
         ]
       }
     }

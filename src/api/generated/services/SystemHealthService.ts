@@ -2,26 +2,25 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { HomepageHighlightsResponseDto } from '../models/HomepageHighlightsResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class HomepageService {
+export class SystemHealthService {
     /**
-     * Get homepage highlights
-     * Latest chapter and popular quest
+     * Health Check
+     * Check if the API is running and accessible.
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @returns HomepageHighlightsResponseDto Homepage highlights
+     * @returns string API is healthy
      * @throws ApiError
      */
-    public static touriiBackendControllerGetHomepageHighlights(
+    public static touriiBackendControllerCheckHealth(
         acceptVersion: string,
         xApiKey: string,
-    ): CancelablePromise<HomepageHighlightsResponseDto> {
+    ): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/v2/homepage/highlights',
+            url: '/health-check',
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,

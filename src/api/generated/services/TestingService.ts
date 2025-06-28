@@ -5,7 +5,7 @@
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
-export class SecurityTestsService {
+export class TestingService {
     /**
      * Test Security Headers
      * Tests the security headers set by SecurityMiddleware. Returns all configured security headers in the response.
