@@ -7,7 +7,7 @@ import useSWRMutation from "swr/mutation";
 // Model Route Mutations
 export function useCreateModelRoute(onSuccess?: () => void) {
 	return useSWRMutation(
-		"/api/routes/create-model-route",
+		"/api/routes",
 		async (url: string, { arg }: { arg: ModelRouteCreateRequestDto }) => {
 			const response = await fetch(url, {
 				method: "POST",
@@ -31,7 +31,7 @@ export function useCreateModelRoute(onSuccess?: () => void) {
 
 export function useUpdateModelRoute(onSuccess?: () => void) {
 	return useSWRMutation(
-		"/api/routes/update-model-route",
+		"/api/routes",
 		async (
 			url: string,
 			{
@@ -44,8 +44,8 @@ export function useUpdateModelRoute(onSuccess?: () => void) {
 				};
 			},
 		) => {
-			const response = await fetch(url, {
-				method: "POST",
+			const response = await fetch(`${url}/${arg.modelRouteId}`, {
+				method: "PUT",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(arg),
 			});
@@ -91,16 +91,15 @@ export function useDeleteModelRoute(onSuccess?: () => void) {
 // Tourist Spot Mutations
 export function useCreateTouristSpot(onSuccess?: () => void) {
 	return useSWRMutation(
-		"/api/routes/create-tourist-spot",
+		"/api/tourist-spots",
 		async (
 			url: string,
 			{ arg }: { arg: TouristSpotCreateRequestDto & { modelRouteId: string } },
 		) => {
-			const { modelRouteId, ...touristSpotData } = arg;
-			const response = await fetch(`${url}/${modelRouteId}`, {
+			const response = await fetch(url, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(touristSpotData),
+				body: JSON.stringify(arg),
 			});
 			if (!response.ok) throw new Error("Failed to create tourist spot");
 			return response.json();
@@ -119,7 +118,7 @@ export function useCreateTouristSpot(onSuccess?: () => void) {
 
 export function useUpdateTouristSpot(onSuccess?: () => void) {
 	return useSWRMutation(
-		"/api/routes/update-tourist-spot",
+		"/api/tourist-spots",
 		async (
 			url: string,
 			{
@@ -132,7 +131,7 @@ export function useUpdateTouristSpot(onSuccess?: () => void) {
 				};
 			},
 		) => {
-			const response = await fetch(url, {
+			const response = await fetch(`${url}/${arg.touristSpotId}`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(arg),
@@ -154,7 +153,7 @@ export function useUpdateTouristSpot(onSuccess?: () => void) {
 
 export function useDeleteTouristSpot(onSuccess?: () => void) {
 	return useSWRMutation(
-		"/api/routes/delete-tourist-spot",
+		"/api/tourist-spots",
 		async (url: string, { arg }: { arg: { spotId: string } }) => {
 			const response = await fetch(`${url}/${arg.spotId}`, {
 				method: "DELETE",

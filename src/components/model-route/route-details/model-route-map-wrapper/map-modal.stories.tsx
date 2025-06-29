@@ -80,6 +80,7 @@ const MapModalDemo = () => {
 		insDateTime: "2024-01-01T00:00:00Z",
 		updUserId: "admin",
 		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	};
 
 	return (

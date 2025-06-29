@@ -1,10 +1,10 @@
 import { executeValidatedServiceCall } from "@/app/api/lib/route-helper";
-import { HomepageService } from "@/api/generated";
+import { HomepageDataService } from "@/api/generated";
 
 export async function GET(): Promise<Response> {
 	return executeValidatedServiceCall(
 		(apiKey, apiVersion) =>
-			HomepageService.touriiBackendControllerGetHomepageHighlights(
+			HomepageDataService.touriiBackendControllerGetHomepageHighlights(
 				apiVersion,
 				apiKey,
 			),

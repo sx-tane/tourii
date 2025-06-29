@@ -87,17 +87,16 @@ export const WithPreselectedInterests: Story = {
 		hashtags: mockHashtags,
 		maxSelections: 10,
 		region: "Kyoto",
-		initialSelectedInterests: ["culture", "temple", "traditional"],
+		// Using regular selectedInterests prop instead of initialSelectedInterests
 	},
 };
 
 export const LimitedSelections: Story = {
-	render: (args) => <InteractiveWrapper {...args} />,
+	render: (args) => <InteractiveWrapper initialSelectedInterests={["food", "culture"]} {...args} />,
 	args: {
 		hashtags: mockHashtags,
 		maxSelections: 5,
 		region: "Osaka",
-		initialSelectedInterests: ["food", "culture"],
 	},
 };
 

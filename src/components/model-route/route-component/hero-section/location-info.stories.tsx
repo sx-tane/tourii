@@ -30,6 +30,7 @@ const mockRoute: ModelRouteResponseDto = {
 	insDateTime: "2023-01-15T10:00:00Z",
 	updUserId: "mockUser",
 	updDateTime: "2023-01-16T14:30:00Z",
+	isAiGenerated: false,
 };
 
 const meta = {

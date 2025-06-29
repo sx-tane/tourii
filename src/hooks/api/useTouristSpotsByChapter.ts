@@ -13,7 +13,7 @@ export function useTouristSpotsByChapter(
 	const { data, error, isLoading, mutate } = useProxySWR<
 		TouristSpotResponseDto[]
 	>(
-		storyChapterId ? `/api/routes/tourist-spots/${storyChapterId}` : null,
+		storyChapterId ? `/api/tourist-spots/by-chapter/${storyChapterId}` : null,
 		storyChapterId
 			? {
 					shouldRetryOnError: false,

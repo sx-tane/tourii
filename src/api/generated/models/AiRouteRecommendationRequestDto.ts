@@ -12,9 +12,9 @@ export type AiRouteRecommendationRequestDto = {
      */
     mode?: AiRouteRecommendationRequestDto.mode;
     /**
-     * Optional region filter
+     * Region filter
      */
-    region?: string;
+    region: string;
     /**
      * Proximity radius in kilometers for clustering spots
      */

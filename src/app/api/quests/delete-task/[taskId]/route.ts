@@ -1,4 +1,4 @@
-import { QuestService } from "@/api/generated";
+import { QuestsService } from "@/api/generated";
 import { NextRequest } from "next/server";
 import {
 	executeValidatedServiceCall,
@@ -14,7 +14,7 @@ export async function DELETE(
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			QuestService.touriiBackendControllerDeleteQuestTask(
+			QuestsService.touriiBackendControllerDeleteQuestTask(
 				taskId,
 				apiVersion,
 				apiKey,

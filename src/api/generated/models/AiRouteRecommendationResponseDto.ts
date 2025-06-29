@@ -107,6 +107,84 @@ export type AiRouteRecommendationResponseDto = {
         };
     }>;
     /**
+     * Existing routes that match the search keywords
+     */
+    existingRoutes?: Array<{
+        /**
+         * Existing model route ID
+         */
+        modelRouteId: string;
+        /**
+         * Route name
+         */
+        routeName: string;
+        /**
+         * Region description
+         */
+        regionDesc?: string;
+        /**
+         * Route recommendation hashtags
+         */
+        recommendations: Array<string>;
+        /**
+         * Route region
+         */
+        region: string;
+        /**
+         * Center latitude of the route
+         */
+        regionLatitude?: number;
+        /**
+         * Center longitude of the route
+         */
+        regionLongitude?: number;
+        /**
+         * Number of tourist spots in this route
+         */
+        spotCount: number;
+        /**
+         * Whether this route was AI-generated
+         */
+        isAiGenerated: boolean;
+        /**
+         * Keywords that matched this route
+         */
+        matchedKeywords: Array<string>;
+        /**
+         * Tourist spots included in this route
+         */
+        touristSpots: Array<{
+            /**
+             * Tourist spot ID
+             */
+            touristSpotId: string;
+            /**
+             * Tourist spot name
+             */
+            touristSpotName: string;
+            /**
+             * Tourist spot description
+             */
+            touristSpotDesc?: string;
+            /**
+             * Latitude coordinate
+             */
+            latitude: number;
+            /**
+             * Longitude coordinate
+             */
+            longitude: number;
+            /**
+             * Hashtags for this tourist spot
+             */
+            touristSpotHashtag: Array<string>;
+            /**
+             * Keywords that matched for this spot
+             */
+            matchedKeywords: Array<string>;
+        }>;
+    }>;
+    /**
      * Processing summary and statistics
      */
     summary: {
@@ -122,6 +200,14 @@ export type AiRouteRecommendationResponseDto = {
          * Number of AI routes successfully generated
          */
         routesGenerated: number;
+        /**
+         * Number of existing routes found
+         */
+        existingRoutesFound?: number;
+        /**
+         * Total routes returned (existing + AI)
+         */
+        totalRoutesReturned?: number;
         /**
          * Total processing time in milliseconds
          */

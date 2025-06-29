@@ -27,6 +27,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Clear sky with light breeze",
 			regionName: "Osaka",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 	kyoto: {
 		modelRouteId: "kyoto-route-1",
@@ -51,6 +54,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Partly cloudy with occasional sunshine",
 			regionName: "Kyoto",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 	tokyo: {
 		modelRouteId: "tokyo-route-1",
@@ -75,6 +81,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Light rain with overcast skies",
 			regionName: "Tokyo",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 };
 

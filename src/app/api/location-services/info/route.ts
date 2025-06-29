@@ -1,4 +1,4 @@
-import { LocationQueryDto, RoutesService } from "@/api/generated";
+import { LocationQueryDto, RoutesTouristSpotsService } from "@/api/generated";
 import {
 	executeValidatedServiceCall,
 	touriiErrorResponse,
@@ -59,7 +59,7 @@ export async function GET(request: Request) {
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			RoutesService.touriiBackendControllerGetLocationInfo(
+			RoutesTouristSpotsService.touriiBackendControllerGetLocationInfo(
 				safeQuery,
 				apiVersion,
 				apiKey,

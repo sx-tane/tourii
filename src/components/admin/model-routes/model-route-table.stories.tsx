@@ -56,6 +56,9 @@ const mockRoutes: ModelRouteResponseDto[] = [
 			weatherDesc: "Clear skies with mild temperature",
 			regionName: "Kyoto",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 	{
 		modelRouteId: "ROUTE-002",
@@ -75,6 +78,9 @@ const mockRoutes: ModelRouteResponseDto[] = [
 			weatherDesc: "Partly cloudy with warm temperature",
 			regionName: "Osaka",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 ];
 

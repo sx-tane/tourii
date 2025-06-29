@@ -1,4 +1,4 @@
-import { RoutesService } from "@/api/generated";
+import { RoutesTouristSpotsService } from "@/api/generated";
 import { type NextRequest } from "next/server";
 import { executeValidatedServiceCall, touriiErrorResponse } from "../../../lib/route-helper";
 
@@ -14,7 +14,7 @@ export async function GET(
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			RoutesService.touriiBackendControllerGetTouristSpotsByChapterId(
+			RoutesTouristSpotsService.touriiBackendControllerGetTouristSpotsByChapterId(
 				storyChapterId,
 				apiVersion,
 				apiKey,

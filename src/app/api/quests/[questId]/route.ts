@@ -1,4 +1,4 @@
-import { QuestService } from "@/api/generated/services/QuestService";
+import { QuestsService } from "@/api/generated";
 import { type NextRequest, NextResponse } from "next/server";
 import { executeValidatedServiceCall } from "../../lib/route-helper";
 
@@ -14,7 +14,7 @@ export async function GET(
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			QuestService.touriiBackendControllerGetQuestById(
+			QuestsService.touriiBackendControllerGetQuestById(
 				questId,
 				apiVersion,
 				apiKey,
@@ -35,7 +35,7 @@ export async function DELETE(
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			QuestService.touriiBackendControllerDeleteQuest(
+			QuestsService.touriiBackendControllerDeleteQuest(
 				questId,
 				apiVersion,
 				apiKey,

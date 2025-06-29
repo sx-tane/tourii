@@ -1,4 +1,4 @@
-import { AdminService, QuestService } from "@/api/generated";
+import { AdminService, QuestsService } from "@/api/generated";
 import type { NextRequest } from "next/server";
 import { executeValidatedServiceCall } from "../../lib/route-helper";
 
@@ -58,13 +58,13 @@ export async function GET(request: NextRequest) {
 			try {
 				const questResponse = await executeValidatedServiceCall(
 					(apiKey: string, apiVersion: string) =>
-						QuestService.touriiBackendControllerGetQuestById(
+						QuestsService.touriiBackendControllerGetQuestById(
 							String(questId),
 							apiVersion,
 							apiKey,
 							userId,
 						),
-					"QuestService.getQuestById",
+					"QuestsService.getQuestById",
 				);
 				// Extract JSON data from NextResponse
 				const questDetails = await questResponse.json();

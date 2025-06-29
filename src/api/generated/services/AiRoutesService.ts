@@ -57,24 +57,10 @@ export class AiRoutesService {
     }
     /**
      * 🏷️ Browse Available Keywords & Hashtags
-     *
-     * **Discover what keywords you can use for AI route recommendations!**
-     *
-     * 🔍 **This endpoint helps you:**
-     * - See all available hashtags in the system
-     * - Find popular keywords for better route matching
-     * - Understand what themes and interests are covered
-     *
-     * 📊 **Returns:**
-     * - Complete list of hashtags (e.g., "anime", "food", "temple", "nature")
-     * - Total count of available hashtags
-     * - Top 20 most popular hashtags
-     *
-     * 💡 **Pro tip:** Use these hashtags as keywords in the route recommendation endpoint!
-     *
+     * Discover what keywords you can use for AI route recommendations
      * @param acceptVersion API version (e.g., 1.0.0)
      * @param xApiKey API key for authentication
-     * @returns any Available hashtags retrieved successfully
+     * @returns any
      * @throws ApiError
      */
     public static touriiBackendControllerGetAvailableHashtags(
@@ -87,9 +73,6 @@ export class AiRoutesService {
             headers: {
                 'accept-version': acceptVersion,
                 'x-api-key': xApiKey,
-            },
-            errors: {
-                400: `Bad Request - Invalid version format`,
             },
         });
     }

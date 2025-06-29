@@ -145,7 +145,7 @@ export function useTouristSpotName(spotId: string | null): {
 				touristSpotName: string;
 			}>;
 		}>
-	>(`/api/routes/model-routes`);
+	>(`/api/routes`);
 
 	const spotName = useMemo(() => {
 		if (!spotId || !routesData) {

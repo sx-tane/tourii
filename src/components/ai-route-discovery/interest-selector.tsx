@@ -78,10 +78,10 @@ const InterestSelector: React.FC<InterestSelectorProps> = memo(({
 			
 			// Try to assign to a category
 			for (const [categoryKey, category] of Object.entries(INTEREST_CATEGORIES)) {
-				if (category.keywords.some(keyword => 
+				if (category?.keywords?.some(keyword => 
 					hashtag.hashtag.toLowerCase().includes(keyword.toLowerCase())
 				)) {
-					categorized[categoryKey].push(hashtag);
+					categorized[categoryKey]?.push(hashtag);
 					assigned = true;
 					break;
 				}
@@ -166,7 +166,7 @@ const InterestSelector: React.FC<InterestSelectorProps> = memo(({
 				{Object.entries(INTEREST_CATEGORIES).map(([categoryKey, category]) => {
 					const categoryHashtags = categorizedHashtags.categorized[categoryKey];
 					
-					if (categoryHashtags.length === 0) return null;
+					if (!categoryHashtags || categoryHashtags.length === 0) return null;
 
 					return (
 						<motion.div
@@ -183,13 +183,13 @@ const InterestSelector: React.FC<InterestSelectorProps> = memo(({
 									{category.name}
 								</h3>
 								<span className="text-sm text-charcoal/60">
-									({categoryHashtags.length} available)
+									({categoryHashtags?.length || 0} available)
 								</span>
 							</div>
 
 							{/* Category Hashtags */}
 							<div className="flex flex-wrap gap-3">
-								{categoryHashtags.map((hashtag, index) => (
+								{categoryHashtags?.map((hashtag, index) => (
 									<motion.button
 										key={`${categoryKey}-${hashtag.hashtag}`}
 										initial={{ opacity: 0, scale: 0.8 }}

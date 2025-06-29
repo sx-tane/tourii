@@ -154,7 +154,7 @@ export const EmptyState: Story = {
 
 export const SingleRegion: Story = {
 	args: {
-		routes: [mockRoutes[0]],
+		routes: mockRoutes.slice(0, 1),
 		onRegionSelect: () => {},
 	},
 };

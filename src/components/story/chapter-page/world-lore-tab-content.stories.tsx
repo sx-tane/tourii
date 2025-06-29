@@ -41,7 +41,7 @@ export const WithMockData: Story = {
 			handlers: [
 				{
 					method: "GET",
-					path: "/api/routes/tourist-spots/:storyChapterId",
+					path: "/api/tourist-spots/by-chapter/:storyChapterId",
 					resolver: () => {
 						return new Response(
 							JSON.stringify([
@@ -112,7 +112,7 @@ export const Empty: Story = {
 			handlers: [
 				{
 					method: "GET",
-					path: "/api/routes/tourist-spots/:storyChapterId",
+					path: "/api/tourist-spots/by-chapter/:storyChapterId",
 					resolver: () => {
 						return new Response(JSON.stringify([]), {
 							status: 200,
@@ -136,7 +136,7 @@ export const ChapterError: Story = {
 			handlers: [
 				{
 					method: "GET",
-					path: "/api/routes/tourist-spots/:storyChapterId",
+					path: "/api/tourist-spots/by-chapter/:storyChapterId",
 					resolver: () => {
 						return new Response(
 							JSON.stringify({ error: "Failed to load tourist spots" }),
