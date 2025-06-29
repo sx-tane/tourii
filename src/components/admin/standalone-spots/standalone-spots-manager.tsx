@@ -32,6 +32,7 @@ export default function StandaloneSpotsManager() {
 	const { data: allSpots, isLoading, mutate } = useAllTouristSpots();
 	const { data: modelRoutes } = useModelRoutes();
 	const { data: spotRoutes } = useTouristSpotRoutes(selectedSpotId || undefined);
+	
 
 	// Create mutation with improved error handling
 	const createSpot = useCreateStandaloneTouristSpot(
@@ -39,7 +40,9 @@ export default function StandaloneSpotsManager() {
 			// Success callback
 			setIsCreateModalOpen(false);
 			resetForm();
-			mutate(); // Refresh the list
+			
+			// Force refresh the list by revalidating the SWR cache
+			mutate();
 			
 			// Show success message
 			alert(`Successfully created tourist spot: ${data.touristSpotName}`);
@@ -124,6 +127,7 @@ export default function StandaloneSpotsManager() {
 					</p>
 				</div>
 				<button
+					type="button"
 					onClick={() => setIsCreateModalOpen(true)}
 					className="rounded-lg bg-red px-4 py-2 text-white hover:bg-opacity-90"
 				>
@@ -214,8 +218,8 @@ export default function StandaloneSpotsManager() {
 											</td>
 											<td className="px-4 py-3">
 												<div className="flex flex-wrap gap-1">
-													{spot.touristSpotHashtag?.slice(0, 3).map((tag, index) => (
-														<span key={index} className="inline-flex items-center px-2 py-1 rounded text-xs bg-warmGrey2 text-charcoal">
+													{spot.touristSpotHashtag?.slice(0, 3).map((tag) => (
+														<span key={tag} className="inline-flex items-center px-2 py-1 rounded text-xs bg-warmGrey2 text-charcoal">
 															{tag}
 														</span>
 													))}
@@ -237,6 +241,7 @@ export default function StandaloneSpotsManager() {
 											</td>
 											<td className="px-4 py-3">
 												<button
+													type="button"
 													onClick={() => setSelectedSpotId(
 														selectedSpotId === spot.touristSpotId ? null : spot.touristSpotId
 													)}

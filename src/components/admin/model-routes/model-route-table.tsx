@@ -134,7 +134,7 @@ export default function ModelRouteTable({
 												<Eye size={16} />
 											</a>
 											<a
-												href={`/v2/routes/${route.modelRouteId}`}
+												href={`/v2/region/${route.region}/${route.modelRouteId}`}
 												className={`rounded-lg bg-green-100 p-2 text-green-700 hover:bg-green-200 transition-all ${
 													deletingRouteId !== null
 														? "pointer-events-none opacity-50"

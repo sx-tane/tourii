@@ -1,4 +1,5 @@
 import { useProxySWR } from "@/lib/swr/useProxySWR";
+import { proxyMutationFetcher, type StructuredError } from "@/lib/swr/fetcher";
 import type { 
 	TouristSpotResponseDto, 
 	TouristSpotCreateRequestDto,
@@ -76,29 +77,17 @@ export function useTouristSpotRoutes(spotId: string | undefined): UseApiHookResu
  */
 export function useCreateStandaloneTouristSpot(
 	onSuccess?: (data: TouristSpotResponseDto) => void,
-	onError?: (error: Error) => void
+	onError?: (error: StructuredError) => void
 ) {
 	return useSWRMutation(
 		"/api/tourist-spots",
-		async (url: string, { arg }: { arg: TouristSpotCreateRequestDto }) => {
-			const response = await fetch(url, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(arg),
-			});
-			
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new Error(`Failed to create standalone tourist spot: ${errorText}`);
-			}
-			
-			return response.json();
-		},
+		(url: string, { arg }: { arg: TouristSpotCreateRequestDto }) =>
+			proxyMutationFetcher<TouristSpotResponseDto, TouristSpotCreateRequestDto>(url, { arg, method: "POST" }),
 		{
 			onSuccess: (data) => {
 				onSuccess?.(data);
 			},
-			onError: (error) => {
+			onError: (error: StructuredError) => {
 				console.error("Failed to create standalone tourist spot:", error);
 				onError?.(error);
 			},

@@ -367,7 +367,7 @@ const RouteCard: React.FC<RouteCardProps> = memo(
 
 					{/* Action Button */}
 					<Link
-						href={`/v2/model-route/${route.region}/${route.modelRouteId}`}
+						href={`/v2/region/${route.region}/${route.modelRouteId}`}
 						className="block w-full text-center py-3 bg-red text-white rounded-lg hover:bg-red/90 transition-colors font-medium"
 					>
 						Explore Route
