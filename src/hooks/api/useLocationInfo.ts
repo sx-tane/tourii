@@ -55,7 +55,7 @@ export function useLocationInfo(
 		if (latitude) params.set("latitude", latitude);
 		if (longitude) params.set("longitude", longitude);
 		if (address) params.set("address", address);
-		return `/api/routes/location-info-panel?${params.toString()}`;
+		return `/api/location-services/info?${params.toString()}`;
 	}, [query, latitude, longitude, address, enabled]);
 
 	const { data, error, isLoading, mutate } =

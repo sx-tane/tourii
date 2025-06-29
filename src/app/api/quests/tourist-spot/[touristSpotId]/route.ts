@@ -1,4 +1,4 @@
-import { QuestService } from "@/api/generated/services/QuestService";
+import { QuestsService } from "@/api/generated";
 import { type NextRequest, NextResponse } from "next/server";
 import { executeValidatedServiceCall } from "../../../lib/route-helper";
 
@@ -25,7 +25,7 @@ export async function GET(
 
 	return executeValidatedServiceCall(
 		(apiKey: string, apiVersion: string) =>
-			QuestService.touriiBackendControllerGetQuestByTouristSpotId(
+			QuestsService.touriiBackendControllerGetQuestByTouristSpotId(
 				touristSpotId,
 				apiVersion,
 				apiKey,

@@ -2,6 +2,28 @@
 /* Leaflet CSS for maps */
 @import 'leaflet/dist/leaflet.css';
 
+/* Custom slider styles for AI configuration */
+.slider::-webkit-slider-thumb {
+	appearance: none;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: #dc2626;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+.slider::-moz-range-thumb {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	background: #dc2626;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+
 /* Fix for Leaflet tile gaps */
 .leaflet-tile-container img {
 	margin: 0 !important;

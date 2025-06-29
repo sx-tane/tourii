@@ -58,3 +58,68 @@ export async function proxyFetcher<T>(url: string): Promise<T> {
 		} as StructuredError;
 	}
 }
+
+// Generic mutation fetcher for useSWRMutation, designed to call Next.js API proxy routes
+export async function proxyMutationFetcher<T, TArg = unknown>(
+	url: string,
+	options: {
+		arg: TArg;
+		method?: 'POST' | 'PUT' | 'DELETE';
+		headers?: Record<string, string>;
+	}
+): Promise<T> {
+	const { arg, method = 'POST', headers = {} } = options;
+	
+	const res = await fetch(url, {
+		method,
+		headers: {
+			'Content-Type': 'application/json',
+			...headers,
+		},
+		body: method !== 'DELETE' ? JSON.stringify(arg) : undefined,
+	});
+
+	if (!res.ok) {
+		let errorPayload: StructuredError = {
+			message: `An error occurred while mutating via proxy: ${res.statusText}`,
+			status: res.status,
+			code: "ProxyMutationError",
+		};
+		try {
+			// Attempt to parse the JSON error response from the Next.js API proxy route
+			const errorData = await res.json();
+			errorPayload = {
+				message:
+					errorData?.error?.message || errorData?.message || res.statusText,
+				status: res.status,
+				code:
+					errorData?.error?.code ||
+					errorData?.code ||
+					`ProxyMutationError_${res.status}`,
+				details: errorData?.error?.details || errorData?.details || errorData,
+			};
+		} catch (e) {
+			console.error(
+				`Failed to parse error JSON from proxy mutation endpoint ${url}:`,
+				e,
+			);
+		}
+		throw errorPayload;
+	}
+
+	// If response is OK, parse and return data
+	try {
+		return (await res.json()) as T;
+	} catch (e) {
+		console.error(
+			`Failed to parse success JSON from proxy mutation endpoint ${url}:`,
+			e,
+		);
+		throw {
+			message: "Invalid JSON response from a successful proxy mutation request.",
+			status: res.status,
+			code: "ProxyMutationSuccessInvalidJSON",
+			details: await res.text().catch(() => "Could not read response text."),
+		} as StructuredError;
+	}
+}

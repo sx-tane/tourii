@@ -1,5 +1,5 @@
 import type { SubmitAnswerTextRequestTaskDto } from "@/api/generated/models/SubmitAnswerTextRequestTaskDto";
-import { TaskService } from "@/api/generated/services/TaskService";
+import { TasksService } from "@/api/generated";
 import { executeValidatedServiceCall } from "@/app/api/lib/route-helper";
 import { type NextRequest } from "next/server";
 
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     
     return executeValidatedServiceCall(
       (apiKey: string, apiVersion: string) => {
-        return TaskService.touriiBackendControllerSubmitAnswerTextTask(
+        return TasksService.touriiBackendControllerSubmitAnswerTextTask(
           taskId,
           userId,
           apiVersion,

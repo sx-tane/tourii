@@ -21,6 +21,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Clear sky",
 			regionName: "Osaka",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 	kyoto: {
 		modelRouteId: "kyoto-route-1",
@@ -39,6 +42,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Partly cloudy",
 			regionName: "Kyoto",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 	tokyo: {
 		modelRouteId: "tokyo-route-1",
@@ -57,6 +63,9 @@ const mockRegions: { [key: string]: ModelRouteResponseDto } = {
 			weatherDesc: "Light rain",
 			regionName: "Tokyo",
 		},
+		insDateTime: "2024-01-01T00:00:00Z",
+		updDateTime: "2024-01-01T00:00:00Z",
+		isAiGenerated: false,
 	},
 };
 
@@ -143,6 +152,9 @@ export const LongRegionName: Story = {
 				weatherDesc: "Clear sky",
 				regionName: "Kanagawa Prefecture",
 			},
+			insDateTime: "2024-01-01T00:00:00Z",
+			updDateTime: "2024-01-01T00:00:00Z",
+			isAiGenerated: false,
 		},
 	},
 };
@@ -166,6 +178,9 @@ export const SpecialCharacters: Story = {
 				weatherDesc: "Partly cloudy",
 				regionName: "Tōkyō-to",
 			},
+			insDateTime: "2024-01-01T00:00:00Z",
+			updDateTime: "2024-01-01T00:00:00Z",
+			isAiGenerated: false,
 		},
 	},
 };

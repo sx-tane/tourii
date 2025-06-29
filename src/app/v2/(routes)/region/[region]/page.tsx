@@ -15,24 +15,20 @@ const RegionModelRoutesPage: NextPage = () => {
 	const params = useParams();
 	const regionName = params.region as string;
 
+	// Fetch only manual routes for the specific region
 	const {
 		data: modelRoutes,
 		isLoading,
 		isError,
 		error,
 		mutate,
-	} = useModelRoutes();
+	} = useModelRoutes({
+		source: 'manual',  // Only get manual (non-AI) routes
+		region: regionName ? decodeURIComponent(regionName) : undefined,
+	});
 
-	// Filter model routes for the specific region
-	const regionModelRoutes = useMemo(() => {
-		if (!modelRoutes || !regionName) return [];
-
-		return modelRoutes.filter(
-			(route) =>
-				route.region?.toLowerCase() ===
-				decodeURIComponent(regionName).toLowerCase(),
-		);
-	}, [modelRoutes, regionName]);
+	// No additional filtering needed since we're getting filtered data from API
+	const regionModelRoutes = modelRoutes || [];
 
 	if (isLoading) {
 		return <Loading />;
@@ -41,7 +37,7 @@ const RegionModelRoutesPage: NextPage = () => {
 	if (isError) {
 		let errorMessage =
 			"An unexpected error occurred while loading model routes.";
-		let errorStatus: number | undefined ;
+		let errorStatus: number | undefined;
 
 		if (error instanceof ApiError) {
 			errorMessage = error.message;

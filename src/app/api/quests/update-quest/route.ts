@@ -1,4 +1,4 @@
-import { QuestService } from "@/api/generated";
+import { QuestsService } from "@/api/generated";
 import {
 	executeValidatedServiceCall,
 	touriiErrorResponse,
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
 		const body = await request.json();
 		return executeValidatedServiceCall(
 			(apiKey: string, apiVersion: string) =>
-				QuestService.touriiBackendControllerUpdateQuest(
+				QuestsService.touriiBackendControllerUpdateQuest(
 					apiVersion,
 					apiKey,
 					body,

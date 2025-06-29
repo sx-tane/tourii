@@ -39,6 +39,9 @@ const mockModelRoute: ModelRouteResponseDto = {
 	region: "Bungo Ono",
 	routeName: "Historical Journey Through Time",
 	recommendation: ["History Lovers", "Nature Enthusiasts"],
+	insDateTime: "2024-01-01T00:00:00Z",
+	updDateTime: "2024-01-01T00:00:00Z",
+	isAiGenerated: false,
 };
 
 export const Default: Story = {

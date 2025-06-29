@@ -1,4 +1,4 @@
-import { QuestService } from "@/api/generated";
+import { QuestsService } from "@/api/generated";
 import { NextRequest } from "next/server";
 import {
 	executeValidatedServiceCall,
@@ -16,7 +16,7 @@ export async function POST(
 		const body = await request.json();
 		return executeValidatedServiceCall(
 			(apiKey: string, apiVersion: string) =>
-				QuestService.touriiBackendControllerCreateQuestTask(
+				QuestsService.touriiBackendControllerCreateQuestTask(
 					questId,
 					apiVersion,
 					apiKey,

@@ -92,6 +92,7 @@ const mockRoute: ModelRouteResponseDto = {
 	insDateTime: "2024-01-01T00:00:00Z",
 	updUserId: "user-1",
 	updDateTime: "2024-01-01T00:00:00Z",
+	isAiGenerated: false,
 };
 
 const mockRouteWithVideo: ModelRouteResponseDto = {

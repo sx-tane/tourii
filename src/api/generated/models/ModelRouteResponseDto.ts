@@ -40,6 +40,10 @@ export type ModelRouteResponseDto = {
      */
     regionBackgroundMedia: string;
     /**
+     * Whether the model route was AI-generated
+     */
+    isAiGenerated: boolean;
+    /**
      * List of tourist spots in the model route
      */
     touristSpotList: Array<{

@@ -4,6 +4,20 @@ export { useModelRouteById } from "./useModelRouteById";
 export { useLocationInfo } from "./useLocationInfo";
 export { useTouristSpotsByChapter } from "./useTouristSpotsByChapter";
 
+// Standalone Tourist Spot hooks
+export { 
+	useAllTouristSpots,
+	useTouristSpotById,
+	useTouristSpotRoutes,
+	useCreateStandaloneTouristSpot,
+	useUpdateStandaloneTouristSpot,
+	useDeleteStandaloneTouristSpot,
+	useSearchTouristSpots,
+	useAddSpotToRoute,
+	useRemoveSpotFromRoute,
+	useCreateUserTouristRoute
+} from "./useStandaloneTouristSpots";
+
 // Story hooks
 export { useSagas } from "./useSagas";
 export { useSagaById } from "./useSagaById";
@@ -27,3 +41,7 @@ export { usePassport } from "./usePassport";
 
 // Task hooks
 export { useTaskSubmissions } from "./useTaskSubmissions";
+
+// AI Route hooks
+export { useAvailableHashtags } from "./useAvailableHashtags";
+export { useAiRouteRecommendations } from "./useAiRouteRecommendations";

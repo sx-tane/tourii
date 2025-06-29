@@ -15,6 +15,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 		{ name: "📋 Submissions", href: "/v2/admin/submissions" },
 		{ name: "📚 Stories", href: "/v2/admin/stories" },
 		{ name: "🗺️ Model Routes", href: "/v2/admin/model-routes" },
+		{ name: "📍 Standalone Spots", href: "/v2/admin/standalone-spots" },
 		{ name: "🏆 Quests", href: "/v2/admin/quests" },
 	];
 
